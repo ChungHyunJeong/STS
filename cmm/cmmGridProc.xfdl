@@ -1,0 +1,566 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="cmmGridProc" width="678" height="29" titletext="그리드설정관련화면">
+    <Layouts>
+      <Layout height="29" width="678">
+        <CheckBox id="chk_PivotYn" taborder="0" text="Pivot" left="5" top="2" width="60" height="24" font="normal bold 10pt/normal &quot;Arial&quot;" onclick="chk_PivotYn_onclick"/>
+        <Static id="sta_Group" taborder="1" text="그룹" left="65" top="2" width="40" height="24" cssclass="sta_WF_SLabel"/>
+        <Edit id="edt_Group" taborder="2" left="105" top="2" width="280" height="24" readonly="true" border="1px solid darkgray"/>
+        <Button id="btn_Group" taborder="3" text="▼" left="361" top="2" width="24" height="24"/>
+        <Static id="sta_Summary" taborder="4" text="집계" left="400" top="2" width="40" height="24" cssclass="sta_WF_SLabel"/>
+        <Edit id="edt_Summary" taborder="5" left="443" top="2" width="230" height="24" readonly="true" border="1px solid darkgray"/>
+        <Button id="btn_Summary" taborder="6" text="▼" left="649" top="2" width="24" height="24"/>
+        <Grid id="grd00" taborder="7" left="561" top="36" width="110" height="34" visible="false"/>
+        <Static id="sta00" taborder="8" text="지우말것(컨텐츠저장용)" left="541" top="42" width="126" height="22" visible="false"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[var objForm;//부모화면
+var objTab;//부모창 Tab Object 설정
+
+//그리드설정관련 화면 세팅
+this.fn_SetCmmGridProc = function(obj, pObjTab) {
+	objForm = obj;//부모화면
+	objTab = pObjTab;
+	this.ds_GridCss.clearData();
+}
+
+//검색
+this.btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var objGrd = this.gfn_FindGridObject(objTab.tabpages[objTab.tabindex].form);
+	var sFindData = this.edt_SearchText.value;	
+	var bToggle = true;
+	var bGrid = false;
+	var sGridName = objGrd.name;
+	var iAddRow = 0;
+	var sCss = "";
+	
+	if (this.ds_GridCss.findRow("grdName", sGridName) > -1) {
+		bGrid = true;
+	}
+	
+	/*
+	if (this.chk_Search.value) {
+		bToggle = true;
+	} else {
+		bToggle = false;
+	}
+	*/
+	if (!bGrid) {
+		for(var iLoop = 0 ; iLoop< objGrd.getCellCount("body"); iLoop++) {
+			iAddRow = this.ds_GridCss.addRow();
+			this.ds_GridCss.setColumn(iAddRow, "grdName", sGridName);
+			this.ds_GridCss.setColumn(iAddRow, "colIndex", iLoop);
+			this.ds_GridCss.setColumn(iAddRow, "cssValue", this.gfn_Nvl(objGrd.getCellProperty("body",iLoop,"cssclass")));
+		}	
+	}
+	
+	if(!bToggle) {
+		this.ds_GridCss.filter("grdName=='" + sGridName + "'");
+		this.ds_GridCssFilter.clearData();
+		this.ds_GridCssFilter.copyData(this.ds_GridCss, true);
+	}
+	
+	for(var iLoop = 0 ; iLoop< objGrd.getCellCount("body"); iLoop++) {
+		if(bToggle) {
+			//objGrd.setCellProperty("body",i,"cssclass","expr:String(comp.getCellValue(currow, " + i + ")).indexOf('" + sFindData + "')>-1?'cell_SchText':''");
+			objGrd.setCellProperty("body",iLoop,"cssclass","expr:String(comp.getCellText(currow, " + iLoop + ")).indexOf('" + sFindData + "')>-1?'cell_SchText':''");
+		} else {
+			sCss = this.ds_GridCssFilter.getColumn(iLoop, "cssValue");
+			if (!this.gfn_IsNull(sCss)) {
+				objGrd.setCellProperty("body",iLoop,"cssclass",sCss);
+			} else {
+				objGrd.setCellProperty("body",iLoop,"cssclass","");
+			}
+		}
+	}	
+};
+
+//검색버튼 사용여부
+this.chk_Search_onclick = function(obj:nexacro.CheckBox,e:nexacro.ClickEventInfo)
+{
+
+	var objGrd = this.gfn_FindGridObject(objTab.tabpages[objTab.tabindex].form);
+	var sGridName = objGrd.name;
+		
+	if (this.chk_Search.value) {
+		this.edt_SearchText.set_readonly(false);
+		this.btn_Search.set_enable(true);
+		
+		var iAddRow = 0;
+		var bGrid = false;
+		
+		if (this.ds_GridCss.findRow("grdName", sGridName) > -1) {
+			bGrid = true;
+		}
+	
+		if (!bGrid) {
+			for(var iLoop = 0 ; iLoop< objGrd.getCellCount("body"); iLoop++) {
+				iAddRow = this.ds_GridCss.addRow();
+				this.ds_GridCss.setColumn(iAddRow, "grdName", sGridName);
+				this.ds_GridCss.setColumn(iAddRow, "colIndex", iLoop);
+				this.ds_GridCss.setColumn(iAddRow, "cssValue", this.gfn_Nvl(objGrd.getCellProperty("body",iLoop,"cssclass")));
+			}	
+		}		
+	} else {
+		this.edt_SearchText.set_readonly(true);
+		this.btn_Search.set_enable(false);	
+		this.edt_SearchText.set_value("");
+	
+		var sCss = "";		
+		
+		this.ds_GridCss.filter("grdName=='" + sGridName + "'");
+		this.ds_GridCssFilter.clearData();
+		this.ds_GridCssFilter.copyData(this.ds_GridCss, true);
+		
+		for(var iLoop = 0 ; iLoop< objGrd.getCellCount("body"); iLoop++) {
+			sCss = this.ds_GridCssFilter.getColumn(iLoop, "cssValue");
+			if (!this.gfn_IsNull(sCss)) {
+				objGrd.setCellProperty("body",iLoop,"cssclass",sCss);
+			} else {
+				objGrd.setCellProperty("body",iLoop,"cssclass","");
+			}
+		}			
+	}
+};
+
+this.fn_GetHeadText = function ()
+{
+
+	var colId = "";//컬럼ID
+	var colType = "";//컬럼타입
+	var objGrd = this.gfn_FindGridObject(objTab.tabpages[objTab.tabindex].form);
+	var objDs = objGrd.getBindDataset();
+	this.ds_Filter.clearData();
+	
+	for( var iLoop=0; iLoop<objGrd.getFormatColCount(); iLoop++) {
+		var columnText = "";//i + "번째 컬럼 ";
+		
+		for (var jLoop=0, len=objGrd.getCellCount("head"); jLoop<len; jLoop++) {
+			var maxHeadRow = 0;
+			var row = objGrd.getCellProperty("head", jLoop, "row");
+			if (maxHeadRow < row) {
+				maxHeadRow = row;
+			}
+			var nRow = parseInt(objGrd.getCellProperty("head", jLoop, "row"));
+			var nCol = parseInt(objGrd.getCellProperty("head",jLoop, "col"));
+			var headText = this.gfn_Nvl(objGrd.getCellProperty("head", jLoop, "text"), "");
+			if( nRow == maxHeadRow && nCol == iLoop ) columnText += "[" + headText + "]";
+		}
+		
+		var nchk = 1;
+		var columnIndex = iLoop;
+		if( objGrd.getRealColSize(columnIndex) == 0 ) nchk = 0;
+	
+		if( columnText == "[0]" && objGrd.getCellProperty("Body", iLoop, "text") == "bind:gridcmmcheck" ) continue;
+		
+		colId = objGrd.getCellProperty("Body", iLoop, "text")//컬럼ID
+
+		if (!this.gfn_IsNull(colId)) {
+			colId = nexacro.replaceAll(colId, "bind:", "");
+			if (!this.gfn_IsNull(colId)) {
+				if (!this.gfn_IsNull(objDs.getColumnInfo(colId))) {
+					colType = objDs.getColumnInfo(colId).type.toUpperCase();//컬럼타입
+				} else {
+					colType = "";//컬럼타입
+				}
+			} else {
+				colType = "";//컬럼타입
+			}
+		} else {
+			colType = "";//컬럼타입
+		}
+		
+		var nRow = this.ds_Filter.addRow();
+		this.ds_Filter.setColumn(nRow, "columnText",  columnText);
+		this.ds_Filter.setColumn(nRow, "chk",  		 nchk);
+		this.ds_Filter.setColumn(nRow, "columnIndex", columnIndex);
+		this.ds_Filter.setColumn(nRow, "colId", colId);
+		this.ds_Filter.setColumn(nRow, "colType", colType);
+	}
+	
+	this.ds_FilterCol.clearData();
+	this.ds_FilterVal.clearData();
+	var iAddRow = 0;
+	
+	var sColType = "";//컬럼타입
+	for (var iLoop=0; iLoop < this.ds_Filter.getRowCount(); iLoop++) {
+		sColType = this.ds_Filter.getColumn(iLoop, "colType");//컬럼타입
+	
+		if (sColType == "INT" || sColType == "FLOAT" || sColType == "BIGDECIMAL") {
+			iAddRow = this.ds_FilterVal.addRow();
+			this.ds_FilterVal.copyRow(iAddRow, this.ds_Filter, iLoop);
+		} else {
+			iAddRow = this.ds_FilterCol.addRow();
+			this.ds_FilterCol.copyRow(iAddRow, this.ds_Filter, iLoop);
+		}
+	}
+		
+	for (var iLoop=0; iLoop<this.ds_FilterCol.getRowCount(); iLoop++) {
+		this.ds_FilterCol.setColumn(iLoop, "chk", "0");
+	}
+	
+	//trace(this.ds_FilterCol.saveXML());
+	//trace(this.ds_FilterVal.saveXML());
+	
+	this.ds_FilterCol.insertRow(0);
+	this.ds_FilterCol.setColumn(0, "chk","0");
+	this.ds_FilterCol.setColumn(0, "colId", "");
+	this.ds_FilterCol.setColumn(0, "columnText", "전체");
+	this.ds_FilterVal.insertRow(0);
+	this.ds_FilterVal.setColumn(0, "chk", "1");
+	this.ds_FilterVal.setColumn(0, "colId", "");
+	this.ds_FilterVal.setColumn(0, "columnText", "전체");
+	
+	this.btn_Group.set_enable(true);
+	this.btn_Summary.set_enable(true);
+	
+	//체크 콤보 설정값 만들기
+	var objConfig = {
+						dropbutton	 : this.btn_Group, //Button 컴포너트ID
+						innerdataset : this.ds_FilterCol, //데이터셋
+						codecolumn	 : "colId",   //코드컬럼
+						datacolumn	 : "columnText", //코드값컬럼
+						displayRowCount : 30 //화면표시건수
+				    };
+
+	//체크 콤보 초기화 함수 호출
+	this.gfn_InitMultiCombo(this.edt_Group, objConfig);	
+	//체크 콤보의 Code 값을 입력하는 함수 실행
+	//this.gfn_SetMultiComboCode(this.div_Search.form.edt_WorkGrpCdSch, "SHOP,ORDR");
+	//this.gfn_SetMultiComboCode(this.edt_Group, "ALL");//전체		
+	
+	//체크 콤보 설정값 만들기
+	objConfig = {
+						dropbutton	 : this.btn_Summary, //Button 컴포너트ID
+						innerdataset : this.ds_FilterVal, //데이터셋
+						codecolumn	 : "colId",   //코드컬럼
+						datacolumn	 : "columnText", //코드값컬럼
+						displayRowCount : 30 //화면표시건수
+				    };
+
+	//체크 콤보 초기화 함수 호출
+	this.gfn_InitMultiCombo(this.edt_Summary, objConfig);	
+	//체크 콤보의 Code 값을 입력하는 함수 실행
+	//this.gfn_SetMultiComboCode(this.div_Search.form.edt_WorkGrpCdSch, "SHOP,ORDR");
+	this.gfn_SetMultiComboCode(this.edt_Summary, "ALL");//전체	
+
+};
+
+this.fn_SetGrd = function()
+{
+	var objGrd = this.gfn_FindGridObject(objTab.tabpages[objTab.tabindex].form);
+	this.grd00.set_enableredraw(false);
+	this.grd00.set_formats(objGrd.orgformat2);
+	this.grd00.set_enableredraw(true);
+};
+
+this.fn_SetGridPivot = function()
+{ 
+	var objGrd = this.gfn_FindGridObject(objTab.tabpages[objTab.tabindex].form);
+	var objTabPage = objTab.tabpages[objTab.tabindex].form;
+	var objDs = objGrd.getBindDataset();
+	var nTarget =0;
+	var arr = objGrd.arrprop;
+	var objDsTemp;
+	var objDsSum;	
+	var objGrdTemp;
+	var dsId = objDs.id+"PvTemp";//임시데이터셋명
+	var dsIdSum = objDs.id+"PvSum";//임시데이터셋명-집계	
+	var grdId = objGrd.id+"PvTemp";//집계그리드명 
+	objDs.filter("");
+
+	//임시 데이터셋이 존재하지 않으면 - 생성
+	if (this.gfn_IsNull(objForm.all[dsIdSum])) {
+		objDsSum = new Dataset;
+		objDsSum.set_name(dsIdSum);//데이터셋명 설정
+		objForm.addChild(objDsSum.name, objDsSum);//해당 화면에 데이터셋 등록	
+		//그리드 셀 클릭 이벤트 생성
+		objDsSum.addEventHandler("onrowposchanged", this.fn_DsPvTemp_onrowposchanged, this);	
+		objDsSum.set_enableevent(false);
+		objDsSum.clear();		
+		objDsSum.set_enableevent(true);
+		
+		objDsTemp = new Dataset;
+		objDsTemp.set_name(dsId);//데이터셋명 설정
+		objForm.addChild(objDsTemp.name, objDsTemp);//해당 화면에 데이터셋 등록			
+	} else {
+		objDsSum = objForm.all[dsIdSum];//임시 데이터셋-집계
+		objDsTemp = objForm.all[dsId];//임시 데이터셋
+	}
+	
+	objDsSum.copyData(objDs);
+	
+	//임시 데이터셋이 존재하지 않으면 - 생성
+	if (this.gfn_IsNull(objTabPage.all[grdId])) {
+		objGrdTemp = new Grid(grdId, 0, 2, 440, null, 0, 0);		
+		//objGrdTemp.set_name(grdId);//집계그리드명 설정
+		objTabPage.addChild(objGrdTemp.name, objGrdTemp);//해당 화면에 데이터셋 등록			
+		objGrdTemp.show();		
+	} else {
+		objGrdTemp = objTabPage.all[grdId];//집계그리드명
+	}	
+	objGrdTemp.set_enableredraw(false);
+	objGrdTemp.set_formats(objGrd.orgformat2);
+	objGrdTemp.set_scrolltype("both");
+	//trace(dsObj.saveXML());
+
+	if (!this.gfn_IsNull(arr)) {
+
+		for(var n=0; n< arr.length; n++){
+
+			var tmp = objGrd.arrprop[n];
+			if( tmp == "checkbox" || tmp == "status" || tmp == "no" ){
+				nTarget += 1;
+			}
+		}
+	}
+
+	//objGrd.set_enableredraw(false);
+
+	this.fn_SetGridColSize(objGrdTemp, this.ds_FilterCol, nTarget);
+	this.fn_SetGridColSize(objGrdTemp, this.ds_FilterVal, nTarget);
+
+	var sKeystring = "G:";
+	var nChk = 0;
+	var sCol = "";
+	
+	for (var iLoop=0; iLoop<this.ds_FilterCol.getRowCount(); iLoop++) {
+		nChk = this.ds_FilterCol.getColumn(iLoop, "chk");
+		sCol = this.ds_FilterCol.getColumn(iLoop, "colId");
+		if(nChk == 1) {
+			if (!this.gfn_IsNull(sCol) && sCol != "s_chk") {
+				if (sKeystring == "G:") {
+					sKeystring = sKeystring + sCol;
+				} else {
+					sKeystring = sKeystring + "+" + sCol;
+					//sKeystring = sKeystring + "," + sCol;
+				}
+			}
+		}
+	}
+
+	objDsTemp.set_enableevent(false);
+	objDsSum.set_enableevent(false);
+	objDsTemp.clear();
+	objDsTemp.copyData(objDs);
+	objDsTemp.set_keystring(sKeystring);
+	var iAddRow =0;
+	objDsSum.clearData();
+
+	//trace(objDsTemp.saveXML());
+	for (var iLoop=0; iLoop<objDsTemp.getRowCount(); iLoop++) {
+		
+		if (objDsTemp.getRowLevel(iLoop) > 0) {
+			iAddRow = objDsSum.addRow();
+			objDsSum.copyRow(iAddRow, objDsTemp, iLoop);
+		}
+	}	
+	
+	objDsTemp.set_enableevent(true);
+	objDsSum.set_enableevent(true);
+	//objGrd.TempDataSetInfo = "Y";
+	
+	objGrdTemp.set_binddataset(objDsSum.id);
+	objGrdTemp.appendContentsRow("summary");
+	
+	var iFindRow = this.ds_FilterCol.findRow("chk", "1", 1);
+
+	objGrdTemp.setCellProperty("summary", iFindRow-1, "text", "합계");
+	
+	var sChk = "";
+	var columnIndex = "";
+	var colId = "";
+	
+	for (var iLoop=0; iLoop<this.ds_FilterVal.getRowCount(); iLoop++) {
+		sChk = this.ds_FilterVal.getColumn(iLoop, "chk");
+		columnIndex = this.ds_FilterVal.getColumn(iLoop, "columnIndex");
+		colId = this.ds_FilterVal.getColumn(iLoop, "colId");
+		
+		if (sChk == "1") {
+			objGrdTemp.setCellProperty("summary", columnIndex, "text", "expr:dataset.getSum('nexacro.toNumber(" + colId + ")')");
+			objGrdTemp.setCellProperty("summary", columnIndex, "displaytype", "number");
+		}
+	}
+	objGrdTemp.set_cellsizingtype("col");
+	objGrdTemp.set_enableredraw(true);
+	//objDsSum.set_rowposition(-1);
+	objDsSum.set_rowposition(0);
+
+};
+
+//그리드 컬럼 설정
+this.fn_SetGridColSize = function(objGrdTemp, objDs, nTarget) {
+	var nRowCnt = objDs.rowcount;
+
+	for( var iLoop=0; iLoop<nRowCnt; iLoop++)
+	{
+		var nChk    = objDs.getColumn(iLoop, "chk");
+		var colidx  = nexacro.toNumber(objDs.getColumn(iLoop, "columnIndex"));
+		var nSize= 0;
+		if(nChk == 1){
+			var orgCol = colidx - nTarget;
+			nSize = this.grd00.getFormatColSize(orgCol);
+		}
+			
+		objGrdTemp.setFormatColProperty(colidx, "size", nSize );
+	}
+}
+
+this.chk_PivotYn_onclick = function(obj:nexacro.CheckBox,e:nexacro.ClickEventInfo)
+{	
+	var objGrd = this.gfn_FindGridObject(objTab.tabpages[objTab.tabindex].form);
+	
+	if (this.chk_PivotYn.value) {
+		this.edt_Group.set_value("");
+		this.edt_Summary.set_value("");	
+		this.fn_SetGrd();
+		this.fn_GetHeadText();
+		this.fn_SetGridPivot();		
+		objGrd.setOffsetLeft(450);
+		//trace(this.ds_FilterCol.saveXML());
+	} else {
+		this.ds_FilterCol.clearData();
+		this.ds_FilterVal.clearData();
+		this.btn_Group.set_enable(true);
+		this.btn_Summary.set_enable(true);
+		this.edt_Group.set_value("");
+		this.edt_Summary.set_value("");
+		objGrd.setOffsetLeft(0);
+		
+		var objDs = objGrd.getBindDataset();
+		objDs.filter("");
+		var grdId = objGrd.id+"PvTemp";//집계그리드명 		
+		var objParent = objTab.tabpages[objTab.tabindex].form;
+		objGrdTemp = objParent.all[grdId];//집계그리드명
+				
+		if (!this.gfn_IsNull(objParent.all[grdId])) {
+			var strObj = objParent.removeChild(grdId);
+			if (strObj != null)  {
+				strObj.destroy();
+			}
+		}
+	}
+};
+
+this.fn_DsPvTemp_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	//trace("=============================fn_DsPvTemp_onrowposchanged=======================================" + e.newrow);
+	var objGrd = this.gfn_FindGridObject(objTab.tabpages[objTab.tabindex].form);
+	var objDs = objGrd.getBindDataset();
+	objDs.filter("");
+	
+	objGrd.set_enableevent(false);
+	objGrd.set_enableredraw(false);
+	//trace(this.ds_FilterCol.saveXML());
+	var sChk = "";
+	var sColId = "";
+	var sFilter = "";
+	for (var iLoop=0; iLoop < this.ds_FilterCol.getRowCount(); iLoop++) {
+		sChk = this.ds_FilterCol.getColumn(iLoop, "chk");
+		sColId = this.ds_FilterCol.getColumn(iLoop, "colId");
+		
+		if (sChk == "1") {
+			if (this.gfn_IsNull(sFilter)) {
+				if (this.gfn_IsNull(obj.getColumn(e.newrow, sColId))) {
+					sFilter = sColId + " == " + this.gfn_Nvl(obj.getColumn(e.newrow, sColId), "null");
+				} else {
+					sFilter = sColId + " == '" + obj.getColumn(e.newrow, sColId) + "'";
+				}
+			} else {
+				if (this.gfn_IsNull(obj.getColumn(e.newrow, sColId))) {
+					sFilter = sFilter + " && " + sColId + " == " + this.gfn_Nvl(obj.getColumn(e.newrow, sColId), "null");
+				} else {
+					sFilter = sFilter + " && " + sColId + " == '" + obj.getColumn(e.newrow, sColId) + "'";
+				}
+			}
+		}
+	}
+
+	//trace(objDs.saveXML());
+	objDs.filter(sFilter);
+	objGrd.set_enableredraw(true);
+	objGrd.set_enableevent(true);
+};
+
+this.edt_SearchText_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if (e.keycode == 13) {
+	
+		if (this.gfn_IsNull(this.edt_SearchText.value)) {
+			var objGrd = this.gfn_FindGridObject(objTab.tabpages[objTab.tabindex].form);
+			var sGridName = objGrd.name;		
+			var sCss = "";		
+			
+			this.ds_GridCss.filter("grdName=='" + sGridName + "'");
+			this.ds_GridCssFilter.clearData();
+			this.ds_GridCssFilter.copyData(this.ds_GridCss, true);
+			
+			for(var iLoop = 0 ; iLoop< objGrd.getCellCount("body"); iLoop++) {
+				sCss = this.ds_GridCssFilter.getColumn(iLoop, "cssValue");
+				if (!this.gfn_IsNull(sCss)) {
+					objGrd.setCellProperty("body",iLoop,"cssclass",sCss);
+				} else {
+					objGrd.setCellProperty("body",iLoop,"cssclass","");
+				}
+			}	
+		} else {
+			this.btn_Search_onclick();
+		}
+	}
+};
+
+this.fn_clearPivot = function() {
+}
+]]></Script>
+    <Objects>
+      <Dataset id="ds_GridCss">
+        <ColumnInfo>
+          <Column id="grdName" type="STRING" size="256"/>
+          <Column id="colIndex" type="STRING" size="256"/>
+          <Column id="cssValue" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_GridCssFilter">
+        <ColumnInfo>
+          <Column id="grdName" type="STRING" size="256"/>
+          <Column id="colIndex" type="STRING" size="256"/>
+          <Column id="cssValue" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Filter">
+        <ColumnInfo>
+          <Column id="columnText" type="STRING" size="256"/>
+          <Column id="chk" type="STRING" size="256"/>
+          <Column id="columnIndex" type="STRING" size="256"/>
+          <Column id="body" type="STRING" size="256"/>
+          <Column id="orgSize" type="STRING" size="256"/>
+          <Column id="colId" type="STRING" size="256"/>
+          <Column id="colType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_FilterCol" onrowposchanged="ds_FilterCol_onrowposchanged">
+        <ColumnInfo>
+          <Column id="columnText" type="STRING" size="256"/>
+          <Column id="chk" type="STRING" size="256"/>
+          <Column id="columnIndex" type="STRING" size="256"/>
+          <Column id="body" type="STRING" size="256"/>
+          <Column id="orgSize" type="STRING" size="256"/>
+          <Column id="colId" type="STRING" size="256"/>
+          <Column id="colType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_FilterVal">
+        <ColumnInfo>
+          <Column id="columnText" type="STRING" size="256"/>
+          <Column id="chk" type="STRING" size="256"/>
+          <Column id="columnIndex" type="STRING" size="256"/>
+          <Column id="body" type="STRING" size="256"/>
+          <Column id="orgSize" type="STRING" size="256"/>
+          <Column id="colId" type="STRING" size="256"/>
+          <Column id="colType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

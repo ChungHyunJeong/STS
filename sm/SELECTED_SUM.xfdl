@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="SELECTED_SUM" width="218" height="38" titletext="그리드 선택 합계" scrollbartype="none" onload="fn_FormOnload" onsize="fn_FormOnsize" onclose="SELECTED_SUM_onclose">
+    <Layouts>
+      <Layout height="38" width="218">
+        <Div id="div_Search" taborder="0" left="0" top="0" height="38" cssclass="div_WF_Search" formscrollbartype="none none" width="218">
+          <Layouts>
+            <Layout>
+              <Static id="sta_SecmNm" taborder="1" text="선택합계" left="16" top="6" width="80" height="24" cssclass="sta_WF_SLabel" DomainID="S00002"/>
+              <MaskEdit id="MaskEdit00" taborder="1" left="83" top="7" width="124" height="23" format="#,##0.0%" textAlign="right" readonly="true" onkillfocus="div_Search_MaskEdit00_onkillfocus"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="SECM_NM" type="BIGDECIMAL" size="256" description="조회시작일자"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10">
+        <ColumnInfo>
+          <Column id="COL_CHECK" type="STRING" size="256"/>
+          <Column id="COL_VALUE" type="STRING" size="256"/>
+          <Column id="GRID_COL_VALUE" type="STRING" size="256"/>
+          <Column id="COL_NUMBER_VALUE" type="BIGDECIMAL" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : 
+*  @화면설명 : 유가증권정보
+*  @시스템명 : (FA) 재무회계
+*  @작성자   : 박혜림
+*  @작성일   : 2021.08.25
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.08.25     	    박혜림 	           최초 생성 
+*************************************************************************************************
+*/
+
+/***********************************************************************************************
+ * 0. 폼로드
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.01. Form Include 선언
+ ***********************************************************************************************/
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+this.fvSecmNm = "";//[부모창파라메타] 유가증권명
+
+var p_grd = "";
+
+/***********************************************************************************************
+ * 00.02. Form 변수 선언
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.03. Form Onload 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	//부모창 파라메타 처리
+	this.fvSecmNm = this.getOwnerFrame().SecmNm;//[부모창파라메타] 유가증권명
+
+ 	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+ 	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수
+	
+	
+}
+
+/***********************************************************************************************
+ * 00.04. Form [공통] 초기설정 함수 - 필수
+ ***********************************************************************************************/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+}
+
+/***********************************************************************************************
+ * 00.05. Form [업무] 초기설정 함수
+ ***********************************************************************************************/
+this.fn_FormBizInit = function() 
+{
+	this.div_Search.form.MaskEdit00.set_value(this.parent.parent.targetSelSum);
+}
+this.SELECTED_SUM_onclose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	trace('here');
+};
+
+this.div_Search_MaskEdit00_onkillfocus = function(obj:nexacro.MaskEdit,e:nexacro.KillFocusEventInfo)
+{
+	trace('here1');
+};
+]]></Script>
+  </Form>
+</FDL>

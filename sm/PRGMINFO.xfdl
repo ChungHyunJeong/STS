@@ -1,0 +1,500 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="PRGMINFO" width="1000" height="463" titletext="프로그램정보" scrollbartype="none" onclose="fn_FormClose" onload="fn_FormOnload">
+    <Layouts>
+      <Layout height="463" width="1000">
+        <Div id="div_Search" taborder="0" left="14" top="50" height="38" cssclass="div_WF_Search" right="14" formscrollbartype="none none">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="모듈구분" left="16" top="6" width="80" height="26" cssclass="sta_WF_SLabel"/>
+              <Edit id="edt_ModmNm" taborder="1" left="96" top="6" width="171" height="24" onchanged="div_Search_edt_SechVl_onchanged" visible="true" readonly="true"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="grd_Master" taborder="1" top="98" left="14" autofittype="col" oncellclick="grd_Master_oncellclick" bottom="14" right="14" binddataset="ds_Master" oncelldblclick="grd_Master_oncelldblclick" onkeydown="grd_Master_onkeydown" selecttype="multiarea">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="300"/>
+                <Column size="100"/>
+                <Column size="572"/>
+              </Columns>
+              <Rows>
+                <Row size="26" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="프로그램명"/>
+                <Cell col="1" text="보안등급"/>
+                <Cell col="2" text="프로그램설명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:TREE_NM" displaytype="treeitemcontrol" treelevel="bind:TREE_LV" treestartlevel="1" edittype="tree"/>
+                <Cell col="1" text="bind:SECU_CD" displaytype="combotext" combodataset="ds_Sm105" combodatacol="CODM_NM" combocodecol="CODM_CD"/>
+                <Cell col="2" text="bind:REMK_NM"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Div id="div_PopupTitle" taborder="2" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Close" taborder="0" text="닫기" top="9" width="70" height="26" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+              <Static id="sta_PopupTitle" taborder="1" text="프로그램정보" left="20" top="10" height="24" cssclass="sta_WF_PopupTitle" width="300"/>
+              <Button id="btn_Search" taborder="2" text="조회" top="8" width="65" right="161" visible="true" cssclass="bt_WF_PopupSearch" height="28" onclick="div_PopupTitle_btn_Search_onclick"/>
+              <Button id="btn_Choice" taborder="3" text="선택" top="8" width="65" right="90" visible="true" cssclass="bt_WF_PopupSelect" height="28" onclick="div_PopupTitle_btn_Choice_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="MODM_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_SechCn">
+        <ColumnInfo>
+          <Column id="CODE" type="STRING" size="256"/>
+          <Column id="VALUE" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="CODE">EMPM_NM</Col>
+            <Col id="VALUE">성명</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">EMPM_CD</Col>
+            <Col id="VALUE">사원코드</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">EMAL_NM</Col>
+            <Col id="VALUE">이메일</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">DEPM_CD</Col>
+            <Col id="VALUE">조직코드</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">POSI_CD</Col>
+            <Col id="VALUE">직위코드</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">DUTY_CD</Col>
+            <Col id="VALUE">직책코드</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">RANK_CD</Col>
+            <Col id="VALUE">직급코드</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">OTEL_NO</Col>
+            <Col id="VALUE">사내번호</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">EMPM_NM</Col>
+            <Col id="VALUE">핸드폰</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_Master">
+        <ColumnInfo>
+          <Column id="DEPTH_SORT" type="STRING" size="256"/>
+          <Column id="TCLS_CD" type="STRING" size="256"/>
+          <Column id="TREE_CD" type="STRING" size="256"/>
+          <Column id="TREE_NM" type="STRING" size="256"/>
+          <Column id="TREE_LV" type="STRING" size="256"/>
+          <Column id="MODM_CD" type="STRING" size="256"/>
+          <Column id="CLSM_YN" type="STRING" size="256"/>
+          <Column id="CLSS_GU" type="STRING" size="256"/>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+          <Column id="DISP_ID" type="STRING" size="256"/>
+          <Column id="PRGL_NM" type="STRING" size="256"/>
+          <Column id="CLSM_CD" type="STRING" size="256"/>
+          <Column id="CLLM_NM" type="STRING" size="256"/>
+          <Column id="CALL_PA" type="STRING" size="256"/>
+          <Column id="SEAR_NM" type="STRING" size="256"/>
+          <Column id="PRGM_VE" type="STRING" size="256"/>
+          <Column id="SECU_CD" type="STRING" size="256"/>
+          <Column id="PRGM_YN" type="STRING" size="256"/>
+          <Column id="MENU_YN" type="STRING" size="256"/>
+          <Column id="DEVE_YN" type="STRING" size="256"/>
+          <Column id="CERT_YN" type="STRING" size="256"/>
+          <Column id="OUTS_YN" type="STRING" size="256"/>
+          <Column id="SELE_YN" type="STRING" size="256"/>
+          <Column id="COPY_YN" type="STRING" size="256"/>
+          <Column id="INSE_YN" type="STRING" size="256"/>
+          <Column id="CANC_YN" type="STRING" size="256"/>
+          <Column id="SAVE_YN" type="STRING" size="256"/>
+          <Column id="DELE_YN" type="STRING" size="256"/>
+          <Column id="EXCE_YN" type="STRING" size="256"/>
+          <Column id="PRIN_YN" type="STRING" size="256"/>
+          <Column id="WFRQ_YN" type="STRING" size="256"/>
+          <Column id="WFSE_YN" type="STRING" size="256"/>
+          <Column id="WFRE_YN" type="STRING" size="256"/>
+          <Column id="IDEN_GU" type="STRING" size="256"/>
+          <Column id="RULE_CD" type="STRING" size="256"/>
+          <Column id="SERI_NU" type="STRING" size="256"/>
+          <Column id="SEQU_NU" type="STRING" size="256"/>
+          <Column id="FRDD_CD" type="STRING" size="256"/>
+          <Column id="TODD_CD" type="STRING" size="256"/>
+          <Column id="SELE_CT" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Sm105">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : 
+*  @화면설명 : 프로그램정보
+*  @시스템명 : (SM) 시스템
+*  @작성자   : 안병호
+*  @작성일   : 2021.03.25
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.03.25     	    안병호 	           최초 생성 
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * 1. Form Include 선언 영역
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+this.fvModmCd = "";//[부모창파라메타] 모듈코드
+this.fvModmNm = "";//[부모창파라메타] 모듈명
+
+
+/***********************************************************************************************
+ * 3. Form 이벤트 영역
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 3.1. Form Onload 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	//부모창 파라메타 처리
+	this.fvModmCd = this.getOwnerFrame().ModmCd;//[부모창파라메타] 모듈코드
+	this.fvModmNm = this.getOwnerFrame().ModmNm;//[부모창파라메타] 모듈코드
+	this.fvComPrgmId = this.getOwnerFrame().PrgmId;//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+	
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.2. Form [공통] 초기설정 함수 - 필수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.gfn_SetGrid(this.grd_Master);//[공통]그리드 이벤트 설정
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.3. Form [업무] 초기설정 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormBizInit = function() 
+{
+	
+	//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+	var objCondList = ["SM105|ds_Sm105"];
+	//공통코드 설정함수 호출				   
+	this.gfn_GetCommCode(this, objCondList, "");
+	
+	//부모창에서 전달 받은 파라메터 세팅
+	if (!this.gfn_IsNull(this.fvModmNm)) {
+		this.div_Search.form.edt_ModmNm.set_value(this.fvModmNm);
+	}	
+	
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "MODM_CD", this.fvModmCd);	
+	
+	//조회
+	this.fn_Search();
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.4. Form OnClose 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/***********************************************************************************************
+ * 4. [화면] 버튼 이벤트 영역
+ -----------------------------------------------------------------------------------------------
+   4.1.조회 : btn_Search_onclick
+   4.2.선택 : btn_Choice_onclick
+   4.3.닫기 : fn_Close
+ ***********************************************************************************************/
+
+/*---------------------------------------------------------------------------------------------
+ * 4.1. 조회 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//조회
+	this.fn_Search();	
+};
+/*---------------------------------------------------------------------------------------------
+ *  4.2. 선택 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Choice_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_SelectRow(this.ds_Master.rowposition);//선택한 행 리턴
+};
+
+/*---------------------------------------------------------------------------------------------
+ *  4.3. 닫기 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_PopClose();
+};
+
+
+/***********************************************************************************************
+ * 5. [조회영역] 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 5.1. [조회영역-공통] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.1.1. [조회영역-팝업버튼] 
+  ---------------------------------------------------------------------------------------------*/
+this.fn_SbpBtn_Do01 = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 5.2. [조회영역-업무] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.2.1. [조회영역-Edit] 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_SechVl_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	
+};
+
+/***********************************************************************************************
+ * 6. [컴포넌트] 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 6.1. [상세-그리드] 더블 클릭 이벤트
+ ***********************************************************************************************/ 
+this.grd_Master_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.fn_SelectRow(e.row);//선택한 행 리턴
+};
+
+
+ 
+
+/***********************************************************************************************
+ * 6.1. [상세-그리드enter key] 줄선택 이벤트
+ ***********************************************************************************************/ 
+this.grd_Master_onkeydown = function(obj:nexacro.Grid,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == "13"){
+		this.fn_SelectRow(e.row);//선택한 행 리턴
+	}
+};
+
+
+
+/***********************************************************************************************
+ * 6.2. [Tree-그리드] 클릭 이벤트
+ ***********************************************************************************************/ 
+this.grd_Master_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	
+};
+
+/***********************************************************************************************
+ * 7. [서비스] CallBack 함수 처리부분
+ ***********************************************************************************************/
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST_SEARCH": //조회		
+			if (this.ds_Master.getRowCount() > 0) {
+				this.grd_Master.setTreeStatus(0,true);
+			}
+			
+			//부모창에서 전달 받은 데이터가 있으면 상세조회
+			if (!this.gfn_IsNull(this.fvEmpmNm)) {
+				this.btn_Search_onclick();
+			}			
+			break;						
+	}
+};
+
+/***********************************************************************************************
+ * 8. [팝업] CallBack 함수 처리부분
+      strId : 팝업호출시 지정한 팝업ID
+	  rtnValue : 팝업창에서 close시 지정한 반환값
+      주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+};
+
+/***********************************************************************************************
+ * 9. [메세지] CallBack 함수 처리부분
+ ***********************************************************************************************/
+/**
+ * @description 메세지 CallBack 함수
+*/
+this.fn_MsgCallback = function (strId, strVal)
+{
+
+};
+
+/***********************************************************************************************
+ * 10. [사용자함수]
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.1. [사용자함수] 부서 Tree 조회
+ ***********************************************************************************************/ 
+this.fn_Search = function()
+{ 
+
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sm:M_SM_PRGM_SL00";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "MST_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= this.G_SV_HR;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "ds_Master=ds_Master";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+} 
+
+
+/***********************************************************************************************
+ * 10.2. [사용자함수] 선택한 행 리턴
+ ***********************************************************************************************/ 
+this.fn_SelectRow = function(iRow)
+{
+	//프로그램명이 없을경우 선택불가
+	if(this.ds_Master.getColumn(iRow, "PRGM_ID") =="*") return;
+	
+	if (iRow > -1) {	
+		/*
+		부모창으로 리턴값은 문자열로만 가능
+		(문자열) 리턴값을 "JSONText" 사용해서 리턴 : 부모창에서 
+		var arrRtnVal = eval(rtnValue);		
+		arrRtnVal.SYST_ID
+		*/
+		
+		 rtnValue = "({" +
+                        ' DEPTH_SORT:"' + this.ds_Master.getColumn(iRow, "DEPTH_SORT") + '"'+  //0.DEPTH_SORT
+                        ',TCLS_CD:"' + this.ds_Master.getColumn(iRow, "TCLS_CD") + '"'+  //1.상위분류코드
+                        ',TREE_CD:"' + this.ds_Master.getColumn(iRow, "TREE_CD") + '"'+  //2.TREE_CD
+                        ',TREE_NM:"' + this.ds_Master.getColumn(iRow, "TREE_NM") + '"'+  //3.TREE_NM
+                        ',TREE_LV:"' + this.ds_Master.getColumn(iRow, "TREE_LV") + '"'+  //4.TREE_LV
+                        ',MODM_CD:"' + this.ds_Master.getColumn(iRow, "MODM_CD") + '"'+  //5.모듈코드
+                        ',CLSM_YN:"' + this.ds_Master.getColumn(iRow, "CLSM_YN") + '"'+  //6.CLSM_YN
+                        ',PRGM_ID:"' + this.ds_Master.getColumn(iRow, "PRGM_ID") + '"'+  //7.프로그램ID
+                        ',DISP_ID:"' + this.ds_Master.getColumn(iRow, "DISP_ID") + '"'+  //8.화면ID
+                        ',PRGL_NM:"' + this.ds_Master.getColumn(iRow, "PRGL_NM") + '"'+  //9.프로그램언어명
+                        ',CLSM_CD:"' + this.ds_Master.getColumn(iRow, "CLSM_CD") + '"'+  //10.업무분류코드
+                        ',CLLM_NM:"' + this.ds_Master.getColumn(iRow, "CLLM_NM") + '"'+  //11.업무분류언어명
+                        ',CALL_PA:"' + this.ds_Master.getColumn(iRow, "CALL_PA") + '"'+  //12.호출파라미터
+                        ',SEAR_NM:"' + this.ds_Master.getColumn(iRow, "SEAR_NM") + '"'+  //13.검색명
+                        ',PRGM_VE:"' + this.ds_Master.getColumn(iRow, "PRGM_VE") + '"'+  //14.프로그램버전
+                        ',SECU_CD:"' + this.ds_Master.getColumn(iRow, "SECU_CD") + '"'+  //15.보안등급(SM105)
+                        ',PRGM_YN:"' + this.ds_Master.getColumn(iRow, "PRGM_YN") + '"'+  //16.프로그램여부
+                        ',MENU_YN:"' + this.ds_Master.getColumn(iRow, "MENU_YN") + '"'+  //17.메뉴표기여부
+                        ',DEVE_YN:"' + this.ds_Master.getColumn(iRow, "DEVE_YN") + '"'+  //18.개발중여부
+                        ',CERT_YN:"' + this.ds_Master.getColumn(iRow, "CERT_YN") + '"'+  //19.인증여부
+                        ',OUTS_YN:"' + this.ds_Master.getColumn(iRow, "OUTS_YN") + '"'+  //20.외부사용여부
+                        ',SELE_YN:"' + this.ds_Master.getColumn(iRow, "SELE_YN") + '"'+  //21.조회
+                        ',COPY_YN:"' + this.ds_Master.getColumn(iRow, "COPY_YN") + '"'+  //22.복사
+                        ',INSE_YN:"' + this.ds_Master.getColumn(iRow, "INSE_YN") + '"'+  //23.입력
+                        ',CANC_YN:"' + this.ds_Master.getColumn(iRow, "CANC_YN") + '"'+  //24.취소
+                        ',SAVE_YN:"' + this.ds_Master.getColumn(iRow, "SAVE_YN") + '"'+  //25.저장
+                        ',DELE_YN:"' + this.ds_Master.getColumn(iRow, "DELE_YN") + '"'+  //26.삭제
+                        ',EXCE_YN:"' + this.ds_Master.getColumn(iRow, "EXCE_YN") + '"'+  //27.엑셀
+                        ',PRIN_YN:"' + this.ds_Master.getColumn(iRow, "PRIN_YN") + '"'+  //28.인쇄
+                        ',WFRQ_YN:"' + this.ds_Master.getColumn(iRow, "WFRQ_YN") + '"'+  //29.결재요청
+                        ',WFSE_YN:"' + this.ds_Master.getColumn(iRow, "WFSE_YN") + '"'+  //30.결재현황
+                        ',WFRE_YN:"' + this.ds_Master.getColumn(iRow, "WFRE_YN") + '"'+  //31.재기안
+                        ',IDEN_GU:"' + this.ds_Master.getColumn(iRow, "IDEN_GU") + '"'+  //32.채번식별기호
+                        ',RULE_CD:"' + this.ds_Master.getColumn(iRow, "RULE_CD") + '"'+  //33.채번규칙코드(SM110)
+                        ',SERI_NU:"' + this.ds_Master.getColumn(iRow, "SERI_NU") + '"'+  //34.일련번호자리수(관리번호채번)
+                        ',SEQU_NU:"' + this.ds_Master.getColumn(iRow, "SEQU_NU") + '"'+  //35.디테일채번자리수
+                        ',FRDD_CD:"' + this.ds_Master.getColumn(iRow, "FRDD_CD") + '"'+  //36.디폴트시작일자(SM038)
+                        ',TODD_CD:"' + this.ds_Master.getColumn(iRow, "TODD_CD") + '"'+  //37.디폴트종료일자(SM038)
+                        ',SELE_CT:"' + this.ds_Master.getColumn(iRow, "SELE_CT") + '"'+  //38.조회기한일수
+                        ',SORT_NO:"' + this.ds_Master.getColumn(iRow, "SORT_NO") + '"'+  //39.정렬순서
+                        ',USED_YN:"' + this.ds_Master.getColumn(iRow, "USED_YN") + '"'+  //40.사용여부
+                        ',REMK_NM:"' + this.ds_Master.getColumn(iRow, "REMK_NM") + '"'+  //41.비고
+                "})";
+		
+					
+		//trace(rtnValue);
+		this.gfn_PopClose(rtnValue);
+	} else {
+		this.gfn_Alert("SM046");//선택된 내용이 없습니다.
+		return;		
+	}
+}
+
+]]></Script>
+  </Form>
+</FDL>

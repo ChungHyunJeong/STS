@@ -1,0 +1,755 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="cmmBizFileList" width="900" height="300" titletext="업무파일정보" onload="fn_FormOnload" onclose="fn_FormClose">
+    <Layouts>
+      <Layout height="300" width="900">
+        <Button id="btn_AddFile" taborder="1" text="파일추가" top="5" width="80" height="24" visible="true" right="83" onclick="btn_AddFile_onclick" cssclass="bt_WF_InputArea_White_Plus" enable="false"/>
+        <Button id="btn_DelFile" taborder="0" text="파일삭제" top="5" width="80" height="24" visible="true" right="0" onclick="btn_DelFile_onclick" cssclass="bt_WF_InputArea_White_Minus" enable="false"/>
+        <Grid id="grd_CmmFileList" taborder="2" left="0" top="0" bottom="0" right="0" binddataset="ds_Detail20" autosizingtype="none" autofittype="col" oncellclick="grd_CmmFileList_oncellclick" autoenter="select" cellsizingtype="col" selecttype="cell" ondrop="grd_CmmFileList_ondrop" onheadclick="grd_CmmFileList_onheadclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="20"/>
+                <Column size="25"/>
+                <Column size="27"/>
+                <Column size="743"/>
+                <Column size="84"/>
+              </Columns>
+              <Rows>
+                <Row size="26" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell/>
+                <Cell col="1" text="No."/>
+                <Cell col="2" text="선택"/>
+                <Cell col="3" text="파일명"/>
+                <Cell col="4" text="파일보기"/>
+              </Band>
+              <Band id="body">
+                <Cell cssclass="expr:comp.parent.gfn_Decode(crudType, &quot;I&quot;,&quot;cell_WF_Insert&quot;, &quot;U&quot;,&quot;cell_WF_Modify&quot;, &quot;D&quot;,&quot;cell_WF_Delete01&quot;, &quot;&quot;)"/>
+                <Cell col="1" text="bind:FILB_SE" textAlign="center"/>
+                <Cell col="2" text="bind:S_CHK" displaytype="checkboxcontrol" edittype="checkbox" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                <Cell col="3" text="bind:FILE_NM"/>
+                <Cell col="4" displaytype="buttoncontrol" edittype="button" text="Down"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : cmmBizFileList
+*  @화면설명 : 업무 파일정보
+*  @시스템명 : (SM) 시스템
+*  @작성자   : 최석목
+*  @작성일   : 2022.07.27
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2022.07.27     	    최석목 	           최초 생성 
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * 1. Form Include 선언 영역
+ ************************************************************************************************/
+ 
+ /************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvFilePath = "SM";//파일경로(업무별)
+this.oCallFormId;//호출한 화면ID
+this.fvCallBackFunc = "";//호출할 콜백함수
+this.fvMalhNo = "";//관리번호
+
+/***********************************************************************************************
+ * 3. Form 이벤트 영역
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 3.1. Form Onload 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.2. Form [공통] 초기설정 함수 - 필수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	//this.gfn_SetGrid(this.grd_CmmFileList);//[공통]그리드 이벤트 설정
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.3. Form [업무] 초기설정 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormBizInit = function() 
+{
+	//[업무] 일반콤보조회
+	//this.fn_ComboSearch();
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.4. Form OnClose 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/*---------------------------------------------------------------------------------------------
+ * 3.5. Form [업무] 일반콤보 조회 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_ComboSearch = function(sFILM_GU) 
+{
+
+}
+
+/************************************************************************************************
+* TRANSACTION 서비스 호출 처리
+************************************************************************************************/
+
+
+/************************************************************************************************
+ * CALLBACK 처리부분(Transaction)
+ ************************************************************************************************/
+/**
+ * @description Transaction CallBack 함수
+*/
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "FILE_SEARCH": //조회		
+			this.ds_Detail20.addColumn("S_CHK", "string");
+			this.ds_Detail20.addColumn("crudType", "string");
+			
+			//콜백함수가 있으면
+			if (!this.gfn_IsNull(this.fvCallBackFunc)) {
+				this.lookupFunc(this.fvCallBackFunc).call();
+			}
+			
+			break;
+			
+		case "COMBO_SEARCH": //조회		
+
+			break;			
+
+		case "FILE_SAVE":   //저장		
+			this.fn_FileSearch();//조회
+			break;	
+			
+		case "COM_FILE_SEARCH": //파일조회		
+			this.ds_Detail20.addColumn("S_CHK", "string");	
+			this.ds_Detail20.addColumn("crudType", "string");				
+			
+			if (this.ds_Detail20.getRowCount() > 0) {
+				this.grd_CmmFileList.setCellProperty("head", 4, "text", "▼ 일괄저장")
+			} else {
+				this.grd_CmmFileList.setCellProperty("head", 4, "text", "파일보기")
+			}
+			
+			break;			
+			
+		case "FILE_DELETE": //삭제		
+			this.fn_FileSearch();//조회
+			break;				
+			
+		case "DOWN_FILE": //일괄 다운로드		
+
+			if (nApp.gds_ItedResult.getRowCount() > 0) {
+				if (nApp.gds_ItedResult.getColumn(0, "RSLT_CD") == "S") {
+					try {		 			
+						var sPathNm = nApp.gds_ItedResult.getColumn(0, "PATH_NM");
+						var sFileNm = nApp.gds_ItedResult.getColumn(0, "FILE_NM");
+						var sFileId = nApp.gds_ItedResult.getColumn(0, "FILE_NM");
+	
+						var sUrl = nEnv.services["svcUrl"].url+"fileDownloader?filePath=" + sPathNm;			
+							sUrl += "&fileName="+encodeURI(sFileId.replace(/\+/,"%2B"));					
+							sUrl += "&orgFileName="+encodeURI(sFileNm.replace(/\+/,"%2B"));	
+							sUrl += "&drmYn=N";//DRM적용여부-Zip 파일은 미적용
+				
+						this.fdt_File.set_downloadfilename(sFileNm);
+						this.fdt_File.set_url(sUrl);
+
+						this.fdt_File.download();
+					} catch (e) {
+						var arrMsgArg = [e];
+						this.gfn_Alert("SM095",arrMsgArg);//일괄파일 다운로드 처리중 오류가 발생하였습니다.\n&ITM0
+					}
+				} else {
+					var sRSLT_CT = nApp.gds_ItedResult.getColumn(0, "RSLT_CT");
+					var arrMsgArg = [sRSLT_CT];
+					this.gfn_Alert("SM095",arrMsgArg);//일괄파일 다운로드 처리중 오류가 발생하였습니다.\n&ITM0				
+				}
+			} else {
+				var arrMsgArg = [];
+				this.gfn_Alert("SM095",arrMsgArg);//일괄파일 다운로드 처리중 오류가 발생하였습니다.\n&ITM0
+			}
+
+			break;				
+	}
+};
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+
+/************************************************************************************************************
+ * 파일 추가여부 체크 함수
+ ************************************************************************************************************/ 
+this.fn_CheckFileAddYn = function()
+{
+
+	if (this.ds_Detail20.getCaseCount("FILB_SE == '' || FILB_SE == null") > 0)
+	{
+		if(this.ds_Detail20.getCaseCount("FILB_SE == 0") < 1) {
+
+			return true;
+		}
+	}
+	
+	if (this.gfn_DsIsUpdated(this.ds_Detail20)) {
+		return true;
+	}
+	
+	return false;
+} 
+
+/************************************************************************************************************
+ * 파일건수 체크 함수
+ ************************************************************************************************************/ 
+this.fn_GetFileCount = function()
+{
+
+	return this.ds_Detail20.getRowCount();
+
+}
+
+/************************************************************************************************************
+ * 화면권한 설정
+ ************************************************************************************************************/ 
+this.fn_SetCommFileScrnAuth = function(oScrnAuth)
+{
+	if (!this.gfn_IsNull(oScrnAuth)) {
+		//팝업유무
+		if (!this.gfn_IsNull(oScrnAuth.POPUP_YN) && oScrnAuth.POPUP_YN == "Y") {
+			if (!this.gfn_IsNull(oScrnAuth.AUTH_YN) && oScrnAuth.AUTH_YN == "Y") {
+				//this.btn_Save.set_visible(true);
+				this.btn_AddFile.set_enable(true);
+				this.btn_DelFile.set_enable(true);				
+				this.grd_CmmFileList.setOffsetTop(34);
+			}
+		} else {
+			if (!this.gfn_IsNull(oScrnAuth.AUTH_YN) && oScrnAuth.AUTH_YN == "Y") {
+				//this.grd_CmmFileList.setOffsetTop(34);
+			}		
+		}
+
+		var sPrgmId = oScrnAuth.PRGM_ID;//프로그램ID
+		this.fvPRGM_ID = sPrgmId;//프로그램ID
+		
+		//읽기전용 권한인 경우
+		if (!this.gfn_IsNull(oScrnAuth.READ_YN) && oScrnAuth.READ_YN == "Y") {
+			this.grd_CmmFileList.set_readonly(true);
+		}
+
+	}
+}
+
+/************************************************************************************************************
+ * 그리드 권한 설정
+ ************************************************************************************************************/ 
+this.fn_SetCopmGridAuth = function(bAuth)
+{
+	if (bAuth) {
+		this.grd_CmmFileList.set_readonly(false);
+	} else {
+		this.grd_CmmFileList.set_readonly(true);
+	}
+}
+
+/************************************************************************************************************
+ * 버튼권한 설정
+ ************************************************************************************************************/ 
+this.fn_SetCommFileBtnAuth = function(oScrnBtnAuth)
+{
+	if (!this.gfn_IsNull(oScrnBtnAuth)) {
+		if (!this.gfn_IsNull(oScrnBtnAuth.BTN_ENABLE) && oScrnBtnAuth.BTN_ENABLE) {
+			this.btn_AddFile.set_enable(true);
+			this.btn_DelFile.set_enable(true);
+		} else {	
+			this.btn_AddFile.set_enable(false);
+			this.btn_DelFile.set_enable(false);		
+		}
+	}
+}
+
+/************************************************************************************************************
+ * 첨부파일 정보 초기화
+ ************************************************************************************************************/ 
+this.fn_ClearAtchFile = function()
+{
+	this.ds_Detail20.clearData();
+
+}
+
+
+/************************************************************************************************************
+ * 조회
+ ************************************************************************************************************/ 
+this.fn_AtchFileSearch = function(oFileInfo) 
+{
+	//첨부파일 조회조건 체크
+	if (this.gfn_IsNull(oFileInfo)) {		
+		var arrMsgArg = ["파라메터"];
+		this.gfn_Alert("SM033", arrMsgArg);//첨부파일 조회 정보가 유효하지 않습니다.
+		return;
+	}
+	
+	//첨부파일 조회조건 체크-관리번호
+	if (this.gfn_IsNull(oFileInfo.MALH_NO)) {		
+		var arrMsgArg = ["관리번호"];
+		this.gfn_Alert("SM033", arrMsgArg);//첨부파일 조회 정보가 유효하지 않습니다.
+		return;
+	}	
+
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Detail20.clearData();
+	this.ds_Input.clearData();
+	this.ds_Input.addRow();
+	
+	this.ds_Input.setColumn(0, "MALH_NO", oFileInfo.MALH_NO);//관리번호
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sm:M_SM_4000_D_SL20";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "COM_FILE_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = "";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Detail20=ds_Detail20";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+}
+
+/**
+* 첨부파일  조회
+*/
+this.fn_FileSearch = function() 
+{
+	
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Detail20.clearData();
+	this.ds_Input.clearData();
+	this.ds_Input.addRow();
+	
+	this.ds_Input.setColumn(0, "MALH_NO", this.fvMalhNo);//관리번호
+
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sm:M_SM_4000_D_SL20";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "FILE_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = "";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Detail20=ds_Detail20";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+}
+
+/************************************************************************************************************
+ * 저장
+ ************************************************************************************************************/ 
+this.fn_AtchFileSave = function(oFormId, oFileInfo) 
+{
+	this.oCallFormId = oFormId;//호출한 화면ID	
+	
+	//첨부파일 조회조건 체크
+	if (this.gfn_IsNull(oFileInfo)) {	
+		var arrMsgArg = ["파라메터"];
+		this.gfn_Alert("SM034", arrMsgArg);//첨부파일 저장 정보가 유효하지 않습니다.
+		return;
+	}
+
+	//첨부파일 조회조건 체크-관리번호
+	if (this.gfn_IsNull(oFileInfo.MALH_NO)) {	
+		var arrMsgArg = ["관리번호"];
+		this.gfn_Alert("SM034", arrMsgArg);//첨부파일 저장 정보가 유효하지 않습니다.
+		return;
+	}	
+	
+	if (!this.gfn_IsNull(oFileInfo.CALLBACK_FUNC)) {		
+		this.fvCallBackFunc = oFileInfo.CALLBACK_FUNC;//호출할 콜백함수
+	} else {
+		this.fvCallBackFunc = "";//호출할 콜백함수
+	}
+	
+	this.fvMalhNo = oFileInfo.MALH_NO;//관리번호
+
+	//저장시 유효성 체크
+	if (!this.fn_VaildMasterSave()) return;
+	
+	var sCrudType = "";
+	
+	for (var iLoop=0; iLoop<this.ds_Detail20.getRowCount(); iLoop++) {
+		sCrudType = this.ds_Detail20.getColumn(iLoop, "crudType");
+		if (sCrudType == "I") {
+			this.ds_Detail20.setColumn(iLoop, "MALH_NO", this.fvMalhNo);
+		}
+	}
+	
+	//파일업로드
+	//Master 변경건이 있으면
+	if (this.gfn_DsIsUpdated(this.ds_Detail20)) {
+		this.fn_SetFileData();//첨부파일 정보 저장
+	} else {
+		this.gfn_Alert("SM035");//파일을 선택하세요.
+	}	
+
+}
+
+/**
+* 파일정보 데이터생성
+*/
+this.fn_SetFileData = function()
+{
+
+	//[공통]서비스 정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	
+	//[공통]서비스 호출 변수
+	var sInputDaset = "" //입력 데이터셋
+	var sOutDatset = "";//출력 데이터셋
+	var sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+
+
+	//[공통]서비스 정보 추가
+	svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object	
+	svcAddObj.sInsertSql = "sm:M_SM_4000_D_IN20";//저장Sql
+	svcAddObj.sUpdateSql = "";//수정Sql
+	svcAddObj.sDeleteSql = "";//삭제Sql
+	svcAddObj.sSaveFlagColumn = "crudType";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+							 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+	
+	this.gfn_AddComSaveService(this, svcAddObj);
+
+	sInputDaset = "ds_Detail20=ds_Detail20:U" //입력 데이터셋
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "FILE_SAVE";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = "";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = sInputDaset //입력 데이터셋
+	svcCallObj.sOutDatset = sOutDatset;//출력 데이터셋
+	svcCallObj.sOtherArg = sOtherArg;//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명		
+	
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);		
+}
+
+ 
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/
+/**
+* 파일추가 버튼 이벤트
+*/
+this.btn_AddFile_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_ComFileAdd();//파일추가
+};
+
+/**
+* 파일삭제 버튼 이벤트
+*/
+this.btn_DelFile_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_ComFileDelete();//파일삭제	
+}
+
+/***********************************************************************************************
+ * 10. [메세지] CallBack 함수 처리부분
+ ***********************************************************************************************/
+/**
+ * @description 메세지 CallBack 함수
+*/
+this.fn_MsgCallback = function (strId, strVal)
+{
+
+	if(strId == "CONF.DELETE"){
+
+		if(strVal)
+		{
+			this.fn_SvcDelete();//삭제 서비스 호출
+		}
+	} else if(strId == "CONF.FILEALLSAVE"){
+		if(strVal)
+		{
+			this.fn_ComFileAllSave();//파일 일괄저장
+		}	
+	}
+};
+
+/**
+* 저장 서비스 호출
+*/
+//this.btn_Save_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+this.fn_FileSave = function()
+{
+	//첨부파일정보 저장
+	var oFileInfo = new Object();//[공통] 첨부파일정보
+	oFileInfo.PRGM_ID = this.fvPRGM_ID;//프로그램ID
+	oFileInfo.FILH_GU = this.fvFILH_GU;//첨부파일위치구분 : H-Head, D-상세(그리드Row), E-기타
+	oFileInfo.PATH_NM = this.fvPATH_NM;//업무파일경로
+	oFileInfo.PK01_NO = this.fvPK01_NO;//PK번호1
+	oFileInfo.PK02_NO = this.fvPK02_NO;//PK번호2
+	oFileInfo.PK03_NO = this.fvPK03_NO;//PK번호3
+	oFileInfo.PK04_NO = this.fvPK04_NO;//PK번호4
+	oFileInfo.PK05_NO = this.fvPK05_NO;//PK번호5
+	oFileInfo.PK06_NO = this.fvPK06_NO;//PK번호6
+	oFileInfo.PK07_NO = this.fvPK07_NO;//PK번호7
+	oFileInfo.PK08_NO = this.fvPK08_NO;//PK번호8
+	oFileInfo.PK09_NO = this.fvPK09_NO;//PK번호9	
+	oFileInfo.PK10_NO = this.fvPK10_NO;//PK번호10	
+	
+	this.fn_AtchFileSave(this, oFileInfo);	
+
+};
+
+/**
+* 삭제 서비스 호출
+*/
+this.fn_SvcDelete = function()
+{
+	for (var iLoop=this.ds_Detail20.getRowCount() -1; iLoop >=0; iLoop--) {
+
+		if (this.ds_Detail20.getColumn(iLoop, "S_CHK") == "1") {
+			this.ds_Detail20.deleteRow(iLoop);
+		}
+	}
+		
+	
+}
+
+this.grd_CmmFileList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//그리드 콤보 클릭시 펼치기
+	obj.dropdownCombo();
+	
+	if (e.col == 4) {
+		try {
+
+			var sPathNm = this.ds_Detail20.getColumn(e.row, "PATH_NM");
+			var sFileNm = this.ds_Detail20.getColumn(e.row, "FILE_NM");
+			var sFileId = this.ds_Detail20.getColumn(e.row, "FILE_ID");
+			
+			sFileNm = nexacro.replaceAll(nexacro.replaceAll(sFileNm, "+", "xtP1a"), "&","xtP2a");
+			sFileId = nexacro.replaceAll(nexacro.replaceAll(sFileId, "+", "xtP1a"), "&","xtP2a");
+			var sDownFileNm = nexacro.replaceAll(nexacro.replaceAll(sFileNm, "+", ""), "&","");			
+			
+			/*
+			var sUrl = nEnv.services["svcUrl"].url+"FileUploader?mode=downloadWeb&subDir=" + sPathNm;			
+				sUrl += "&fileName="+encodeURI(sFileId.replace(/\+/,"%2B"));	
+				sUrl += "&downloadFileNm="+encodeURI(sFileNm.replace(/\+/,"%2B"));	
+			 */
+			 
+
+			var sUrl = nEnv.services["svcUrl"].url+"fileDownloader?filePath=" + sPathNm;			
+				//sUrl += "&fileName="+encodeURI(sFileId.replace(/\+/,"%2B"));					
+				//sUrl += "&orgFileName="+encodeURI(sFileNm.replace(/\+/,"%2B"));	
+				sUrl += "&fileName="+encodeURIComponent(sFileId.replace(/\+/,"%2B"));					
+				sUrl += "&orgFileName="+encodeURIComponent(sFileNm.replace(/\+/,"%2B"));					
+				sUrl += "&drmYn=" + this.gfn_CheckDrmYn();//DRM적용여부
+
+				
+			//trace("===sPathNm===" + sPathNm);
+			//trace("===sUrl===" + sUrl);
+			
+			this.fdt_File.set_downloadfilename(sDownFileNm);
+			this.fdt_File.set_url(sUrl);
+
+			this.fdt_File.download();
+
+		} catch (e) {
+			trace(e);
+		}
+	}
+};
+
+/*---------------------------------------------------------------------------------------------
+ * 12.1.3. [사용자함수 - Vaildation] 저장 필수값 체크 - 입력항목
+  ---------------------------------------------------------------------------------------------*/
+this.fn_VaildMasterSave = function()
+{
+	//[저장] Validation 설정
+	var arrArgs = ["FILE_NM^NULL"
+			      ]; 
+				  
+	//Grid Vaild 체크
+	if (!this.gfn_CheckGridValid(this.grd_CmmFileList, arrArgs) ) {
+		return false;
+	}
+	
+	var sCrudType = "";
+	var sFILE_NM = "";
+	for (var iLoop=0; iLoop<this.ds_Detail20.getRowCount(); iLoop++) {
+		sCrudType = this.ds_Detail20.getColumn(iLoop, "crudType");
+		sFILE_NM = this.ds_Detail20.getColumn(iLoop, "FILE_NM");
+		
+		if (sCrudType == "I") {
+			if (sFILE_NM.indexOf("=") > -1) {
+				var arrMsg = ["="];
+				this.gfn_Alert("SM120", arrMsg);//첨부파일명에 특수문자 [ &ITM0 ] 을 사용하실 수 없습니다.
+				return false;
+			}
+		}
+	}
+	
+	return true;
+}
+
+this.ds_Detail20_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	this.gfn_GridUpdateProcess(this, obj, e);//crudType 변경-수정(U)		
+};
+
+/*---------------------------------------------------------------------------------------------
+ * 12.1.3. [사용자함수 - 파일처리] 추가
+  ---------------------------------------------------------------------------------------------*/
+this.fn_ComFileAdd = function()
+{
+
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 12.1.3. [사용자함수 - 파일처리] 삭제
+  ---------------------------------------------------------------------------------------------*/
+this.fn_ComFileDelete = function()
+{
+	if (this.ds_Detail20.getCaseCount("S_CHK == '1'") > 0) {
+		this.gfn_Confirm("SM004","", "CONF.DELETE", "fn_MsgCallback");//삭제 하시겠습니까?
+	} else {
+		this.gfn_Alert("SM006");//삭제할 대상을 선택하세요.
+	}
+}
+
+
+/***********************************************************************************************
+ * 15.06. 첨부파일 일괄저장
+ ***********************************************************************************************/ 
+this.fn_ComFileAllSave = function()
+{
+
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	nApp.gds_ItedResult.clearData(); //일괄다운로드 정보
+	this.ds_DownFile.clearData();
+	var iAddRow = 0;
+	var sDRM_YN = this.gfn_CheckDrmYn();//DRM적용여부
+	var sUploadYn = "";//업로드여부
+
+	for (var iLoop=0; iLoop<this.ds_Detail20.getRowCount(); iLoop++) {
+		sUploadYn = this.ds_Detail20.getColumn(iLoop, "uploadYn");//업로드여부
+		
+		if (sUploadYn != "N") {
+			iAddRow = this.ds_DownFile.addRow();
+			this.ds_DownFile.setColumn(iAddRow, "PATH_NM", this.ds_Detail20.getColumn(iLoop, "PATH_NM"));
+			this.ds_DownFile.setColumn(iAddRow, "FILE_NM", this.ds_Detail20.getColumn(iLoop, "FILE_ID"));
+			this.ds_DownFile.setColumn(iAddRow, "DRM_YN", sDRM_YN);//DRM적용여부
+		}
+	}
+		
+	if (this.ds_DownFile.getRowCount() > 0) {
+		//[공통]서비스정보 초기화
+		this.gfn_InitComService(this);
+		
+		//[공통]서비스 호출 변수
+		var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		svcCallObj.sTrid = "DOWN_FILE";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+		svcCallObj.sActionName = "SmItedAction"//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+		svcCallObj.sMethodName = "makeAtchZipFile";// Action 안에서 호출해야 하는 메소드 명, 기본은 execute를 호출하도록 되어있음	
+		svcCallObj.sInputDaset = "ds_DownFile=ds_DownFile" //입력 데이터셋
+		svcCallObj.sOutDatset = "gds_ItedResult=gds_ItedResult";//출력 데이터셋
+		svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+		svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+		//[공통]서비스 호출
+		this.gfn_CallComService(this, svcCallObj);		
+	} else {
+		this.gfn_Alert("SM112");//다운로드 할 파일정보가 없습니다.
+	}
+
+}
+
+this.grd_CmmFileList_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if (e.col == 4) {
+		this.gfn_Confirm("SM113", "", "CONF.FILEALLSAVE", "fn_MsgCallback");//첨부파일을 일괄저장 하시겠습니까?
+	}
+};
+]]></Script>
+    <Objects>
+      <FileDialog id="fdl_File" onclose="fdl_File_onclose"/>
+      <FileDownTransfer id="fdt_File"/>
+      <FileUpTransfer id="fut_File" onerror="fut_File_onerror" onprogress="fut_File_onprogress" onsuccess="fut_File_onsuccess"/>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+          <Column id="MALH_NO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_DownFile">
+        <ColumnInfo>
+          <Column id="PATH_NM" type="STRING" size="256"/>
+          <Column id="FILE_NM" type="STRING" size="256"/>
+          <Column id="DRM_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail20" oncolumnchanged="ds_Detail20_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="MALH_NO" type="STRING" size="256"/>
+          <Column id="FILB_SE" type="STRING" size="256"/>
+          <Column id="PATH_NM" type="STRING" size="256"/>
+          <Column id="FILE_ID" type="STRING" size="256"/>
+          <Column id="FILE_NM" type="STRING" size="256"/>
+          <Column id="ECMP_NM" type="STRING" size="256"/>
+          <Column id="S_CHK" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

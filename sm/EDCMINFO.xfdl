@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="EDCMINFO" width="450" height="500" titletext="자산분류" scrollbartype="none" onclose="fn_FormClose" onload="fn_FormOnload">
+    <Layouts>
+      <Layout height="500" width="450">
+        <Div id="div_Search" taborder="0" left="14" top="50" height="38" cssclass="div_WF_Search" right="14" formscrollbartype="none none">
+          <Layouts>
+            <Layout>
+              <Static id="sta_UsedYn" taborder="0" text="사용여부" left="16" top="6" width="80" height="26" cssclass="sta_WF_SLabel" visible="true"/>
+              <Combo id="cbo_UsedYn" taborder="1" left="96" top="6" width="110" height="24" innerdataset="ds_UsedYn" codecolumn="USED_CD" datacolumn="USED_NM" index="0" text="사용" value="1"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="grd_Master" taborder="1" left="14" top="98" binddataset="ds_Master" autofittype="col" right="14" bottom="14" treeuseexpandkey="true" oncelldblclick="grd_Master_oncelldblclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="370"/>
+              </Columns>
+              <Rows>
+                <Row size="24"/>
+              </Rows>
+              <Band id="body">
+                <Cell text="bind:EDCM_NM" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:EDC_LV" treestartlevel="1"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Div id="div_PopupTitle" taborder="2" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Close" taborder="0" text="닫기" top="9" width="70" height="26" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+              <Static id="sta_PopupTitle" taborder="1" text="자산분류" left="20" top="10" width="300" height="24" cssclass="sta_WF_PopupTitle"/>
+              <Button id="btn_Search" taborder="2" text="조회" top="8" width="65" right="161" visible="true" cssclass="bt_WF_PopupSearch" height="28" onclick="div_PopupTitle_btn_Search_onclick"/>
+              <Button id="btn_Choice" taborder="3" text="선택" top="8" width="65" right="90" visible="true" cssclass="bt_WF_PopupSelect" height="28" onclick="div_PopupTitle_btn_Choice_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_UsedYn">
+        <ColumnInfo>
+          <Column id="USED_CD" type="STRING" size="256"/>
+          <Column id="USED_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="USED_CD">1</Col>
+            <Col id="USED_NM">사용</Col>
+          </Row>
+          <Row>
+            <Col id="USED_CD">0</Col>
+            <Col id="USED_NM">미사용</Col>
+          </Row>
+          <Row>
+            <Col id="USED_NM">ALL</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="EDCM_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master">
+        <ColumnInfo>
+          <Column id="EDCM_CD" type="STRING" size="256"/>
+          <Column id="EDCM_NM" type="STRING" size="256"/>
+          <Column id="TEDC_CD" type="STRING" size="256"/>
+          <Column id="EDC_LV" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : 
+*  @화면설명 : 자산분류
+*  @시스템명 : (SM) 시스템
+*  @작성자   : 홍윤기
+*  @작성일   : 2021.03.22
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.03.22     	    홍윤기 	           최초 생성 
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * 1. Form Include 선언 영역
+ ************************************************************************************************/
+include "comLib::CommonUtil.xjs";//공통함수
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvFormId = "M_SM_EDCM";//화면ID
+this.fvUsedYn = "";//사용여부
+this.fvEdcmCd = "";//[부모창파라메타] 자산분류코드
+this.fvEdcmNm = "";//[부모창파라메타] 자산분류명
+
+/***********************************************************************************************
+ * 3. Form 이벤트 영역
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 3.1. Form Onload 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	//부모창 파라메타 처리
+	this.fvEdcmCd = this.getOwnerFrame().paramEdcmCd;//[부모창파라메타] 자산분류코드
+	this.fvEdcmNm = this.getOwnerFrame().paramEdcmNm;//[부모창파라메타] 자산분류명
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.2. Form [공통] 초기설정 함수 - 필수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.3. Form [업무] 초기설정 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormBizInit = function() 
+{
+
+	//자산분류조회
+	this.fn_Search();
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.4. Form OnClose 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/***********************************************************************************************
+ * 4. [화면] 버튼 이벤트 영역
+ -----------------------------------------------------------------------------------------------
+   4.1.조회 : btn_Search_onclick
+   4.2.선택 : btn_Choice_onclick
+   4.3.닫기 : fn_Close
+ ***********************************************************************************************/
+
+/*---------------------------------------------------------------------------------------------
+ * 4.1. 조회 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_Search();
+};
+
+/*---------------------------------------------------------------------------------------------
+ *  4.2. 선택 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Choice_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_SelectRow(this.ds_Master.rowposition);//선택한 행 리턴
+};
+
+/*---------------------------------------------------------------------------------------------
+ *  4.3. 닫기 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_PopClose();
+};
+
+
+/***********************************************************************************************
+ * 5. [조회영역] 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 5.1. [조회영역-공통] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.1.1. [조회영역-팝업버튼] 
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ * 5.2. [조회영역-업무] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.2.1. [조회영역-Edit] 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/***********************************************************************************************
+ * 6. [컴포넌트] 이벤트
+ ***********************************************************************************************/  
+/***********************************************************************************************
+ * 6.1. [Tree-그리드] 클릭 이벤트
+ ***********************************************************************************************/ 
+this.grd_Master_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.fn_SelectRow(e.row);//선택한 행 리턴
+};
+
+/***********************************************************************************************
+ * 7. [서비스] CallBack 함수 처리부분
+ ***********************************************************************************************/
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST_SEARCH": //조회		
+			if (this.ds_Master.getRowCount() > 0) {
+				this.grd_Master.setTreeStatus(0,true);
+			}
+				
+	}
+};
+
+/***********************************************************************************************
+ * 8. [팝업] CallBack 함수 처리부분
+      strId : 팝업호출시 지정한 팝업ID
+	  rtnValue : 팝업창에서 close시 지정한 반환값
+      주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+};
+
+/***********************************************************************************************
+ * 9. [메세지] CallBack 함수 처리부분
+ ***********************************************************************************************/
+/**
+ * @description 메세지 CallBack 함수
+*/
+this.fn_MsgCallback = function (strId, strVal)
+{
+
+};
+
+/***********************************************************************************************
+ * 10. [사용자함수]
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.1. [사용자함수] 자산분류 조회
+ ***********************************************************************************************/ 
+this.fn_Search = function()
+{ 
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+	this.ds_Master.clearData();	
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "USED_YN", this.div_Search.form.cbo_UsedYn.value);	
+	this.ds_Input.setColumn(0, "EDCM_CD", this.fvEdcmCd);	
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sm:" + this.fvFormId + "_SL00";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "MST_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= this.G_SV_HR;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "ds_Master=ds_Master";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+} 
+
+/***********************************************************************************************
+ * 10.2. [사용자함수] 선택한 행 리턴
+ ***********************************************************************************************/ 
+this.fn_SelectRow = function(iRow)
+{
+	if (iRow > -1) {	
+
+		var sEDCM_CD = this.ds_Master.getColumn(iRow, "EDCM_CD"); //1. 자산분류코드
+	    var sEDCM_NM = this.ds_Master.getColumn(iRow, "EDCM_NM"); //2. 자산분류명
+		
+		/*
+		부모창으로 리턴값은 문자열로만 가능
+		(문자열) 리턴값을 "JSONText" 사용해서 리턴 : 부모창에서 
+		var arrRtnVal = eval(rtnValue);		
+		arrRtnVal.SYST_ID
+		*/
+		rtnValue = "({" +
+						" EDCM_CD:'" + sEDCM_CD + "'" +
+						",EDCM_NM:'" + sEDCM_NM + "'" +
+					"})"; 
+					
+		//trace(rtnValue);
+		this.gfn_PopClose(rtnValue);
+	} else {
+		this.gfn_Alert("SM046");//선택된 내용이 없습니다.
+		return;		
+	}
+}
+
+]]></Script>
+  </Form>
+</FDL>

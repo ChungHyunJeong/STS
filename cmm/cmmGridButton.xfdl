@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="cmmGridButton" width="312" height="20" titletext="그리드 버튼" onload="cmmGridButton_onload" onclose="cmmGridButton_onclose">
+    <Layouts>
+      <Layout height="20" width="312">
+        <Button id="btn_DeleteRow" taborder="0" text="행삭제" top="0" width="60" height="20" right="63" onclick="btn_DeleteRow_onclick" visible="false" cssclass="bt_WF_LineDel"/>
+        <Button id="btn_Cancel" taborder="1" text="취소" top="0" width="60" height="20" right="0" onclick="btn_Cancel_onclick" visible="false" cssclass="bt_WF_Undo"/>
+        <Button id="btn_InsertRow" taborder="2" text="행삽입" top="0" width="60" height="20" right="126" onclick="btn_InsertRow_onclick" visible="false" cssclass="bt_WF_LineInsert"/>
+        <Button id="btn_AddRow" taborder="3" text="행추가" top="0" width="60" height="20" right="189" onclick="btn_AddRow_onclick" visible="false" cssclass="bt_WF_LineAdd"/>
+        <Button id="btn_Copy" taborder="4" text="행복사" top="0" width="60" height="20" onclick="btn_Copy_onclick" right="252" visible="false" cssclass="bt_WF_LineCopy"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[this.oCallFormId;//호출한 화면ID
+this.fvCallFuncCopy="";//복사버튼 호출함수
+this.fvCallFuncAddRow="";//행추가버튼 호출함수
+this.fvCallFuncInsertRow="";//행삽입버튼 호출함수
+this.fvCallFuncDeleteRow="";//행삭제버튼 호출함수
+this.fvCallFuncCancel="";//취소버튼 호출함수
+
+this.cmmGridButton_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+
+};
+
+this.fn_SetGrdButtonFunc = function(oFormId, objBtnInfoList) 
+{
+	this.oCallFormId = oFormId;//호출한 화면ID
+	if (this.gfn_IsNull(objBtnInfoList)) return;	
+	var arrBtnInfo;//버튼정보
+	var bCopy = false;//복사
+	var bAdd = false;//행추가
+	var bInsert = false;//행삽입
+	var bDelete = false;//행삭제
+	var bCancel = false;//취소	
+	
+	for (var iLoop=0; iLoop<objBtnInfoList.length; iLoop++ )
+	{
+		arrBtnInfo = objBtnInfoList[iLoop].split("|");
+		
+		//복사
+		if (arrBtnInfo[0] == "COPY") {
+			if (arrBtnInfo[1] == "Y") {
+				this.fvCallFuncCopy=arrBtnInfo[2];//복사버튼 호출함수
+				bCopy = true;//복사
+			}
+		} else if (arrBtnInfo[0] == "ADD") {
+			if (arrBtnInfo[1] == "Y") {
+				this.fvCallFuncAddRow=arrBtnInfo[2];//행추가버튼 호출함수
+				bAdd = true;//행추가
+			}
+		} else if (arrBtnInfo[0] == "INSERT") {
+			if (arrBtnInfo[1] == "Y") {
+				this.fvCallFuncInsertRow=arrBtnInfo[2];//행삽입버튼 호출함수
+				bInsert = true;//행삽입
+			}
+		} else if (arrBtnInfo[0] == "DELETE") {
+			if (arrBtnInfo[1] == "Y") {
+				this.fvCallFuncDeleteRow=arrBtnInfo[2];//행삭제버튼 호출함수
+				bDelete = true;//행삭제
+			}	
+		} else if (arrBtnInfo[0] == "CANCEL") {		
+			if (arrBtnInfo[1] == "Y") {
+				this.fvCallFuncCancel=arrBtnInfo[2];//취소버튼 호출함수
+				bCancel = true;//취소
+			}	
+		}
+	}
+	
+	var arrBtn = [];//보여줄버튼	
+	
+	//취소버튼-5
+	if (bCancel) {
+		arrBtn.push("this.btn_Cancel");
+	}
+	//행삭제버튼-4
+	if (bDelete) {
+		arrBtn.push("this.btn_DeleteRow");
+	}	
+	//행삽입버튼-3
+	if (bInsert) {
+		arrBtn.push("this.btn_InsertRow");
+	}	
+	//행추가버튼-2
+	if (bAdd) {
+		arrBtn.push("this.btn_AddRow");
+	}	
+	//복사버튼-1
+	if (bCopy) {
+		arrBtn.push("this.btn_Copy");
+	}		
+
+	for (var iLoop=0; iLoop < arrBtn.length; iLoop++) {
+
+		if (iLoop==0) {
+			eval(arrBtn[iLoop]).move(null,0,60,20,0,null);
+		} else if (iLoop==1) {
+			eval(arrBtn[iLoop]).move(null,0,60,20,63,null);
+		} else if (iLoop==2) {
+			eval(arrBtn[iLoop]).move(null,0,60,20,126,null);
+		} else if (iLoop==3) {
+			eval(arrBtn[iLoop]).move(null,0,60,20,189,null);
+		} else if (iLoop==4) {		
+			eval(arrBtn[iLoop]).move(null,0,60,20,252,null);
+		}
+
+		eval(arrBtn[iLoop]).set_visible(true);
+	}
+}
+
+this.btn_Copy_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (!this.gfn_IsNull(this.fvCallFuncCopy)) {
+		this.lookupFunc(this.fvCallFuncCopy).call();
+	}
+};
+
+this.btn_AddRow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (!this.gfn_IsNull(this.fvCallFuncAddRow)) {
+		this.lookupFunc(this.fvCallFuncAddRow).call();
+	}
+};
+
+this.btn_InsertRow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (!this.gfn_IsNull(this.fvCallFuncInsertRow)) {
+		this.lookupFunc(this.fvCallFuncInsertRow).call();
+	}
+};
+
+this.btn_DeleteRow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (!this.gfn_IsNull(this.fvCallFuncDeleteRow)) {
+		this.lookupFunc(this.fvCallFuncDeleteRow).call();
+	}
+};
+
+this.btn_Cancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (!this.gfn_IsNull(this.fvCallFuncCancel)) {
+		this.lookupFunc(this.fvCallFuncCancel).call();
+	}
+};
+
+
+this.cmmGridButton_onclose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	e.stopPropagation(); 
+};
+
+this.fn_SetGrdButtonEnable = function(objBtnInfoList) 
+{
+	if (this.gfn_IsNull(objBtnInfoList)) return;	
+	var arrBtnInfo;//버튼정보
+	
+	for (var iLoop=0; iLoop<objBtnInfoList.length; iLoop++ )
+	{
+		arrBtnInfo = objBtnInfoList[iLoop].split("|");
+		
+		//복사
+		if (arrBtnInfo[0] == "COPY") {
+			if (arrBtnInfo[1] == "Y") {
+				this.btn_Copy.set_enable(true);
+			} else {
+				this.btn_Copy.set_enable(false);
+			}
+		} else if (arrBtnInfo[0] == "ADD") {
+			if (arrBtnInfo[1] == "Y") {
+				this.btn_AddRow.set_enable(true);
+			} else {
+				this.btn_AddRow.set_enable(false);
+			}
+		} else if (arrBtnInfo[0] == "INSERT") {
+			if (arrBtnInfo[1] == "Y") {
+				this.btn_InsertRow.set_enable(true);
+			} else {
+				this.btn_InsertRow.set_enable(false);
+			}
+		} else if (arrBtnInfo[0] == "DELETE") {
+			if (arrBtnInfo[1] == "Y") {
+				this.btn_DeleteRow.set_enable(true);
+			} else {
+				this.btn_DeleteRow.set_enable(false);
+			}
+		} else if (arrBtnInfo[0] == "CANCEL") {		
+			if (arrBtnInfo[1] == "Y") {
+				this.btn_Cancel.set_enable(true);
+			} else {
+				this.btn_Cancel.set_enable(false);
+			}
+		}
+	}
+}]]></Script>
+  </Form>
+</FDL>

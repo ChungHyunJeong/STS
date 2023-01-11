@@ -1,0 +1,1866 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_FA_ACCH" width="400" height="600" titletext="관리항목" onload="fn_FormOnload" onclose="fn_FormClose">
+    <Layouts>
+      <Layout height="600" width="400">
+        <Div id="div_DetailInput" taborder="2" left="0" right="0" bottom="0" top="0" text="">
+          <Layouts>
+            <Layout>
+              <Div id="div_ComGrdBtn" taborder="0" top="16" height="20" right="398" width="435" async="false" enable="false" text=""/>
+              <Div id="div_detailRight" taborder="1" left="0" top="11" right="0" bottom="0">
+                <Layouts>
+                  <Layout>
+                    <Div id="div_Item" taborder="1" text="Div00" left="0" top="0" right="0" height="41">
+                      <Layouts>
+                        <Layout>
+                          <Static id="sta_DetailRightBottom" taborder="28" text="관리항목" left="0" top="0" width="220" height="22" cssclass="sta_WF_Title" verticalAlign="middle" textAlign="left"/>
+                        </Layout>
+                      </Layouts>
+                    </Div>
+                    <Div id="div_Budget" taborder="1" left="0" top="div_Item:0" height="180" right="0" visible="false">
+                      <Layouts>
+                        <Layout>
+                          <Static id="StaticBudget1F" taborder="0" top="210" height="30" cssclass="sta_WF_DBg" left="0" text="" right="0" visible="false"/>
+                          <Static id="StaticBudget2F" taborder="1" top="240" height="30" cssclass="sta_WF_DBg" right="0" left="0" visible="false"/>
+                          <Static id="StaticBudget3F" taborder="2" top="29" height="30" cssclass="sta_WF_DBg" right="0" left="0"/>
+                          <Static id="StaticBudget4F" taborder="3" top="58" height="30" cssclass="sta_WF_DBg" left="0" right="0"/>
+                          <Static id="StaticBudget5F" taborder="4" top="87" height="30" cssclass="sta_WF_DBg" right="0" left="0"/>
+                          <Static id="StaticBudget6F" taborder="5" top="116" height="30" cssclass="sta_WF_DBg" left="0" right="0"/>
+                          <Static id="Static01" taborder="6" text="편성년월" top="StaticBudget1F:-30" width="85" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00001" visible="false"/>
+                          <Static id="sta_DepmCd" taborder="7" text="예산부서" top="StaticBudget2F:-30" width="85" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00003" usedecorate="true" visible="false"/>
+                          <Static id="Static01_00_01" taborder="8" text="예산계정" top="StaticBudget3F:-30" width="85" height="30" cssclass="sta_WF_DLabel" left="0"/>
+                          <Static id="Static01_04" taborder="9" text="편성금액" top="StaticBudget4F:-30" width="85" height="30" cssclass="sta_WF_DLabel" left="0"/>
+                          <Static id="Static01_00_02" taborder="10" text="사용금액" top="StaticBudget5F:-30" width="85" height="30" cssclass="sta_WF_DLabel" left="0"/>
+                          <Static id="Static01_01_00" taborder="11" text="가용잔액" top="StaticBudget6F:-30" width="85" height="30" cssclass="sta_WF_DLabel" left="0"/>
+                          <Calendar id="cal_BudgetDd" taborder="12" left="88" top="StaticBudget1F:-27" height="24" dateformat="yyyy-MM" width="103" editformat="yyyy-MM" enable="false" visible="false"/>
+                          <Edit id="edt_BudgetDeptCd" taborder="13" left="88" top="StaticBudget2F:-27" height="24" enable="true" text="ssdsdewweew" width="103" onchanged="div_DetailInput_div_detailRight_div_Budget_edt_BudgetDeptCd_onchanged" visible="false"/>
+                          <Edit id="edt_BudgetDeptNm" taborder="14" left="edt_BudgetDeptCd:3" top="StaticBudget2F:-27" height="24" enable="false" text="ssdsdewweew" right="30" visible="false"/>
+                          <Edit id="edt_BudgetAcomCd" taborder="15" left="88" top="StaticBudget3F:-27" height="24" enable="false" text="ssdsdewweew" right="3"/>
+                          <Button id="btn_BudgetDept" taborder="16" top="StaticBudget2F:-27" height="24" right="3" width="24" cursor="pointer" cssclass="btn_WF_SmallSearch" onclick="div_DetailInput_div_detailRight_div_Budget_btn_BudgetDept_onclick" visible="false"/>
+                          <Static id="sta_Master10" taborder="17" text="예산" left="0" top="0" width="220" height="32" cssclass="sta_WF_Title"/>
+                          <MaskEdit id="mae_RecAm" taborder="18" left="88" top="StaticBudget4F:-27" height="24" format="#,##0" enable="false" right="3"/>
+                          <MaskEdit id="mae_AvailAm" taborder="19" left="88" top="StaticBudget6F:-27" height="24" format="#,##0" enable="false" right="3"/>
+                          <MaskEdit id="mae_RegAm" taborder="20" left="228" top="StaticBudget5F:-27" height="24" format="#,##0" enable="false" right="3"/>
+                          <MaskEdit id="mae_UsedAm" taborder="21" left="88" top="StaticBudget5F:-27" height="24" format="#,##0" enable="false" width="137"/>
+                          <CheckBox id="chk_BgcmYn" taborder="22" text="예산통제여부" top="6" width="96" height="20" right="0" enable="false" falsevalue="0" truevalue="1"/>
+                        </Layout>
+                      </Layouts>
+                    </Div>
+                  </Layout>
+                </Layouts>
+              </Div>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="DEPM_CD" type="STRING" size="256" description="부서코드(조직코드)"/>
+          <Column id="SESU_ID" type="STRING" size="256" description="시스템사용자ID"/>
+          <Column id="ACUM_CD" type="STRING" size="256"/>
+          <Column id="ACCH_NO" type="STRING" size="256"/>
+          <Column id="ACCH_NM" type="STRING" size="256"/>
+          <Column id="WOFH_YN" type="STRING" size="256"/>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+          <Column id="ACOM_CD" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+          <Column id="BUGS_YM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_AcomMa">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="ACOM_CD" type="STRING" size="256"/>
+          <Column id="ACOM_NM" type="STRING" size="256"/>
+          <Column id="DECR_GU" type="STRING" size="256"/>
+          <Column id="ACOM_GU" type="STRING" size="256"/>
+          <Column id="MA_CD" type="STRING" size="256"/>
+          <Column id="MA_NM" type="STRING" size="256"/>
+          <Column id="MA_YN" type="STRING" size="256"/>
+          <Column id="TYPE_CD" type="STRING" size="256"/>
+          <Column id="TYPE_NM" type="STRING" size="256"/>
+          <Column id="LENG_CT" type="STRING" size="256"/>
+          <Column id="ITEM_GU" type="STRING" size="256"/>
+          <Column id="ITEM_GU_NM" type="STRING" size="256"/>
+          <Column id="DETA_CD" type="STRING" size="256"/>
+          <Column id="MA_NUM" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CD01_NM" type="STRING" size="256"/>
+          <Column id="CD02_NM" type="STRING" size="256"/>
+          <Column id="FUNC_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_FaBanm">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="BANM_CD" type="STRING" size="256"/>
+          <Column id="BANM_NM" type="STRING" size="256"/>
+          <Column id="BANM_GU" type="STRING" size="256"/>
+          <Column id="BANS_NM" type="STRING" size="256"/>
+          <Column id="SAUM_NO" type="STRING" size="256"/>
+          <Column id="OTEL_NO" type="STRING" size="256"/>
+          <Column id="POST_NO" type="STRING" size="256"/>
+          <Column id="ADDR_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_CmMaInfo" oncolumnchanged="ds_CmMaInfo_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="ITEM_GU" type="STRING" size="256"/>
+          <Column id="COMP_CD" type="STRING" size="256"/>
+          <Column id="COMP_NM" type="STRING" size="256"/>
+          <Column id="DE01_CD" type="STRING" size="256"/>
+          <Column id="DE01_NM" type="STRING" size="256"/>
+          <Column id="DE02_CD" type="STRING" size="256"/>
+          <Column id="DE02_NM" type="STRING" size="256"/>
+          <Column id="DE03_CD" type="STRING" size="256"/>
+          <Column id="DE03_NM" type="STRING" size="256"/>
+          <Column id="DE04_CD" type="STRING" size="256"/>
+          <Column id="DE04_NM" type="STRING" size="256"/>
+          <Column id="DE05_CD" type="STRING" size="256"/>
+          <Column id="DE05_NM" type="STRING" size="256"/>
+          <Column id="DE06_CD" type="STRING" size="256"/>
+          <Column id="DE06_NM" type="STRING" size="256"/>
+          <Column id="DE07_CD" type="STRING" size="256"/>
+          <Column id="DE07_NM" type="STRING" size="256"/>
+          <Column id="DE08_CD" type="STRING" size="256"/>
+          <Column id="DE08_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail11">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="BUGS_YM" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="ACOM_CD" type="STRING" size="256"/>
+          <Column id="BGMM_AM" type="STRING" size="256"/>
+          <Column id="BGAD_AM" type="STRING" size="256"/>
+          <Column id="BGCH_AM" type="STRING" size="256"/>
+          <Column id="BGSU_AM" type="STRING" size="256"/>
+          <Column id="BGAC_AM" type="STRING" size="256"/>
+          <Column id="BGSL_AM" type="STRING" size="256"/>
+          <Column id="REAC_AM" type="STRING" size="256"/>
+          <Column id="RESL_AM" type="STRING" size="256"/>
+          <Column id="USED_AM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail12">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="BUGS_YM" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="ACOM_CD" type="STRING" size="256"/>
+          <Column id="ACOM_NM" type="STRING" size="256"/>
+          <Column id="USED_AM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail13">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="BUGS_YM" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="ACOM_CD" type="STRING" size="256"/>
+          <Column id="BGAC_AM" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : M_FA_ACCH
+*  @화면설명 : 전표관리항목설정
+*  @시스템명 : (FA) 재무회계
+*  @작성자   : 최석목
+*  @작성일   : 2021.09.23
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.09.23     	    최석목 	           최초 생성 
+*************************************************************************************************
+*/    
+
+/***********************************************************************************************
+ * 0. 폼로드
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.01. Form Include 선언
+ ***********************************************************************************************/
+//include "comLib::CommonUtil.xjs";//공통함수
+
+/***********************************************************************************************
+ * 00.02. Form 변수 선언
+ ***********************************************************************************************/
+this.fvFormId = "M_FA_ACCH";//[필수]프로그램ID-화면로드시 메뉴정보 기준으로 재설정됨.
+
+//관리항목 팝업 콜백관련 변수
+this.fvCmMaPopupId01 = "";//팝업호출ID-01
+this.fvCmMaRtnColCd01 = "";//팝업리턴 코드변수-01
+this.fvCmMaRtnColNm01 = "";//팝업리턴 코드명변수-01
+this.fvCmMaPopupId02 = "";//팝업호출ID-02
+this.fvCmMaRtnColCd02 = "";//팝업리턴 코드변수-02
+this.fvCmMaRtnColNm02 = "";//팝업리턴 코드명변수-02
+this.fvCmMaPopupId03 = "";//팝업호출ID-03
+this.fvCmMaRtnColCd03 = "";//팝업리턴 코드변수-03
+this.fvCmMaRtnColNm03 = "";//팝업리턴 코드명변수-03
+this.fvCmMaPopupId04 = "";//팝업호출ID-04
+this.fvCmMaRtnColCd04 = "";//팝업리턴 코드변수-04
+this.fvCmMaRtnColNm04 = "";//팝업리턴 코드명변수-04
+this.fvCmMaPopupId05 = "";//팝업호출ID-05
+this.fvCmMaRtnColCd05 = "";//팝업리턴 코드변수-05
+this.fvCmMaRtnColNm05 = "";//팝업리턴 코드명변수-05
+this.fvCmMaPopupId06 = "";//팝업호출ID-06
+this.fvCmMaRtnColCd06 = "";//팝업리턴 코드변수-06
+this.fvCmMaRtnColNm06 = "";//팝업리턴 코드명변수-06
+this.fvCmMaPopupId07 = "";//팝업호출ID-07
+this.fvCmMaRtnColCd07 = "";//팝업리턴 코드변수-07
+this.fvCmMaRtnColNm07 = "";//팝업리턴 코드명변수-07
+this.fvCmMaPopupId08 = "";//팝업호출ID-08
+this.fvCmMaRtnColCd08 = "";//팝업리턴 코드변수-08
+this.fvCmMaRtnColNm08 = "";//팝업리턴 코드명변수-08
+
+this.fvCmScrnCallFunc = "";//화면호출변수명
+this.fvCmScrnCallArgs;//화면전달파라메타
+
+this.popAcchNo = "";  // 발의번호
+this.popWofhSq = "";  //결재차수
+
+this.fvBCalAvailAmt = false;//가용금액계산여부
+
+this.pObjDs;//부모화면 Dataset
+
+/***********************************************************************************************
+ * 00.03. Form Onload 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{
+
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+
+}
+
+/***********************************************************************************************
+ * 00.04. Form [공통] 초기설정 함수 - 필수
+ ***********************************************************************************************/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+}
+
+/***********************************************************************************************
+ * 00.05. Form [업무] 초기설정 함수
+ ***********************************************************************************************/
+this.fn_FormBizInit = function() 
+{ 
+	//[업무] 일반콤보조회
+	this.fn_ComboSearch();
+}
+
+/***********************************************************************************************
+ * 00.06. Form [업무] 일반콤보 조회 함수
+ ***********************************************************************************************/
+this.fn_ComboSearch = function() 
+{
+	
+}
+
+/***********************************************************************************************
+ * 00.07. Form OnClose 이벤트
+ ***********************************************************************************************/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/***********************************************************************************************
+ * 1. 조회 영역
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 01.01. [공통버튼] 조회 버튼 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_ComBtnSearch = function(sWofhNo)
+{ 
+	
+}
+
+/***********************************************************************************************
+ * 01.02. [Vaildation] 조회 필수값 체크
+ ***********************************************************************************************/
+this.fn_VaildSearch = function()
+{
+	return true;
+}
+
+/***********************************************************************************************
+ * 01.03. [공통] 조회조건 클릭/변경 이벤트
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 2. 입력
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 02.01. [공통버튼] 입력 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnAdd = function()
+{
+	
+}
+
+/***********************************************************************************************
+ * 3. 복사
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 03.01. [공통버튼] 복사 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCopy = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 4. 취소
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 04.01. [공통버튼] 취소 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCancel = function()
+{ 
+
+}
+
+/***********************************************************************************************
+ * 5. 저장
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 05.01. [공통버튼] 저장 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnSave = function()
+{ 
+
+}
+
+/***********************************************************************************************
+ * 05.02. [Vaildation] Master 저장 필수값 체크 - 입력항목 
+ ***********************************************************************************************/ 
+this.fn_VaildMasterSave = function()
+{
+	return true;
+}
+
+/***********************************************************************************************
+ * 6. 삭제
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 06.01. [공통버튼] 삭제 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnDelete = function()
+{ 
+
+}
+
+/***********************************************************************************************
+ * 06.02. [서비스] 삭제처리
+ ***********************************************************************************************/  
+this.fn_SvcDelete = function() 
+{ 
+}
+
+/***********************************************************************************************
+ * 06.03. [Vaildation] 삭제항목 체크
+ ***********************************************************************************************/  
+this.fn_VaildMasterDelete = function()
+{
+
+	return true;
+}
+
+/***********************************************************************************************
+ * 7. 엑셀
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 07.01. [공통버튼] 엑셀저장 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnExcel = function()
+{ 
+
+}
+
+/***********************************************************************************************
+ * 8. 인쇄
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 08.01. [공통버튼] 인쇄 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnPrint = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 9. 결재요청
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 09.01. [공통버튼] 결재요청 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnDecide = function()
+{ 
+	
+}
+
+/***********************************************************************************************
+ * 10. 결재현황
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.01. [공통버튼] 결재현황 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnProcess = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 11. 재기안
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 11.01. [공통버튼] 재기안 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnRecide = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 12. 닫기
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 12.01. [공통버튼] 닫기 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnClose = function()
+{ 
+	return true;
+}
+
+/***********************************************************************************************
+ * 13. [CallBack] 함수
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 13.01. [서비스] CallBack 함수 처리
+ ***********************************************************************************************/ 
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{	
+		case "ACOM_MA_SET":
+			//계정별 관리항목 ds_AcomMa
+			
+			//관리항목 조회 후 ds_Detail에 MA_NM 값을 넣어준다.
+			this.fn_SetMaNm(this.pObjDs.rowposition);
+			
+			//관리항목 컴포넌트 동적생성
+			this.fn_MakeMaData();
+			
+			//가용금액 계산중이 아닐경우-계산
+			if (!this.fvBCalAvailAmt) {
+				this.fn_CalAvailAm();//가용금액 계산
+			}		
+			break;
+		case "ACOM_MA":
+			//관리항목 컴포넌트 동적생성
+			this.fn_MakeMaData();
+			
+			//가용금액 계산중이 아닐경우-계산
+			if (!this.fvBCalAvailAmt) {
+				this.fn_CalAvailAm();//가용금액 계산
+			}		
+			break;		
+			
+		case "GET_BUDG": //예산통제정보 조회
+
+			//가용금액 계산중이 아닐경우-계산
+			if (!this.fvBCalAvailAmt) {
+				this.fn_CalAvailAm();//가용금액 계산
+			}		
+			break;									
+	}
+};
+
+/***********************************************************************************************
+ * 13.02. [팝업] CallBack 함수 처리
+          strId : 팝업호출시 지정한 팝업ID
+	      rtnValue : 팝업창에서 close시 지정한 반환값
+          주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/ 
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+
+};
+ 
+/***********************************************************************************************
+ * 13.03. [메세지] CallBack 함수 처리
+ ***********************************************************************************************/  
+this.fn_MsgCallback = function (strId, strVal)
+{
+	
+};  
+
+/***********************************************************************************************
+ * 15. [사용자정의 함수]
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 15.01. [계정코드 변경시]  datastore ds_acomMa 조회
+ ***********************************************************************************************/ 
+this.fn_dsAcomMa = function(acomCd, fnGu, bCheckBgcm, pObjDs)
+{
+	//acomCd : 계정코드
+	//1. ds_acomMa 조회
+	this.ds_Input.clearData();
+	this.ds_Detail11.clearData();
+	
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "ACOM_CD", acomCd);
+	
+	this.pObjDs = pObjDs;
+
+	//예산편성계정이면
+	if (bCheckBgcm) {
+		var sDEPM_CD = this.pObjDs.getColumn(this.pObjDs.rowposition, "BUDP_CD");//부서코드
+		var sBUDG_MM = this.gfn_Nvl(this.pObjDs.getColumn(this.pObjDs.rowposition, "BUDG_MM"), "");//편성년월
+		
+		if (!this.gfn_IsNull(sBUDG_MM)) {
+			sBUDG_MM = sBUDG_MM.substr(0,6);
+		}
+		
+		this.ds_Input.setColumn(0, "BUGS_YM", sBUDG_MM);
+		this.ds_Input.setColumn(0, "DEPM_CD", sDEPM_CD);
+	}
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+		
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "fa:M_FA_1000_D_SL11";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	var sOutDatset = "";//출력 데이터셋
+	
+	//예산편성계정이면
+	if (bCheckBgcm) {	
+		//[공통]서비스정보 추가 - 예산통제 정보 조회
+		svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sSelectSql = "fa:M_FA_1000_D_SL12";
+		this.gfn_AddComSearchService(this, svcAddObj);			
+		
+		sOutDatset = "ds_AcomMa=ds_AcomMa ds_Detail11=ds_Detail11";//출력 데이터셋
+		
+	} else {
+		sOutDatset = "ds_AcomMa=ds_AcomMa";//출력 데이터셋
+	}
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		
+	if (fnGu =="SET"){
+		//계정코드 입력
+		svcCallObj.sTrid = "ACOM_MA_SET";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	}else{
+		//rowsfocuschange
+		svcCallObj.sTrid = "ACOM_MA";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	}
+	svcCallObj.sActionName = this.G_SV_FA;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = sOutDatset;//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+	
+	
+	/*
+	//1. callback  에서 관리항목변경 및 입력된 데이타 입력
+	*/
+	
+}
+
+
+/***********************************************************************************************
+ * 15.02. [계정코드 변경시]  datastore ds_acomMa 조회 후 MA_CD, 
+ ***********************************************************************************************/ 
+this.fn_SetMaNm = function(aRow)
+{
+	/*
+	1. aRow = ds_Detail row 
+	*/
+	
+	//this.pObjDs.setColumn(aRow, )
+	var maNum;  //관리항목번호
+	var maNm;   //관리항목명
+	var maCd;   //관리항목코드
+	var maYn;   // 관리항목 필수체크
+	
+	for (var iLoop=0; iLoop < this.ds_AcomMa.getRowCount(); iLoop++) {
+		//관리항목 컬럼 위치
+		maNum =  this.ds_AcomMa.getColumn(iLoop, "MA_NUM")
+		//관리항목명
+		maNm = this.ds_AcomMa.getColumn(iLoop, "MA_NM")
+		maCd = this.ds_AcomMa.getColumn(iLoop, "MA_CD")
+		this.pObjDs.setColumn(aRow, "MA"+maNum+"_NM", maNm);
+		this.pObjDs.setColumn(aRow, "MA"+maNum+"_CD", maCd);
+		
+		//관리항목필수체크
+		maYn = this.ds_AcomMa.getColumn(iLoop, "MA_YN")
+		this.pObjDs.setColumn(aRow, "MA"+maNum+"_YN", maYn);
+	}	
+			
+}
+
+/***********************************************************************************************
+ * 15.09 [fn_MakeMaData ] 관리항목 컴포넌트 동적 생성
+ ***********************************************************************************************/ 
+this.fn_MakeMaData = function() {
+		//생성된 컴포넌트 삭제
+	var arrComList = this.div_DetailInput.form.div_detailRight.form.div_Item.form.components;//Div 생성된 전체 컴폰넌트
+
+	if (!this.gfn_IsNull(arrComList)) {
+
+		for (var iLoop = arrComList.length-1; iLoop >= 0; iLoop--) {
+			if (arrComList[iLoop].id != "sta_DetailRightBottom") {
+				var rObj = this.div_DetailInput.form.div_detailRight.form.div_Item.removeChild(arrComList[iLoop].id);
+				rObj.destroy();
+				rObj = null;
+			}
+		}
+
+	}
+
+	if (this.ds_AcomMa.getRowCount() > 0) {
+	
+		// div height 관리항목 개수에 맞게 조정 
+		this.div_DetailInput.form.div_detailRight.form.div_Item.set_height(this.ds_AcomMa.getRowCount() * 30 + 30);
+		// div 예산 top은 관리항목 div 밑으로 
+		this.div_DetailInput.form.div_detailRight.form.div_Budget.set_top("div_Item:0");
+		
+	
+		var iCompTop = 30;//컴포넌트Top
+		var staBack;//Back Static
+		var staLabel;//Label Static
+		var sItemGu = "";//컴포넌트구분
+		var edtCd;//Edit Code입력
+		var edtNm;//Edit CodeName입력
+		var btnPopup;//Popup 버튼
+		var calCd;//Calendar 입력
+		var calCd1;//Calendar 입력
+		var calNm;//Calendar 입력
+		var calText;//Calendar calText
+		var maeCd;//MaskEdit 입력
+		var cboCd;//Combo 입력
+		var sMaYn = "";//필수입력여부
+		var sLengCt = 0;//자릿수
+		var sGRCM_CD = "";//그룹코드
+		var sDETA_CD = "";//함수명
+		var sCD01_NM = "";//코드컬럼명
+		var sCD02_NM = "";//코드명컬럼명
+		var sFUNC_NM = "";//코드명함수명
+		var sMA_NUM  = "";//관리항목순서
+		var sACOM_CD = "";//계정코드
+		var sDecrGu  = "";//차대구분
+		var sAcchDecrGu  = "";//계정차대구분
+		var sMaCd    = ""; //관리항목코드
+		var iFvFindRow;
+		var sBilmGu  = "";
+		
+		//관리항목 컴포넌트정보 데이터셋 초기화
+		this.ds_CmMaInfo.clearData();
+		this.ds_CmMaInfo.addRow();
+		
+		//바인딩
+		var objBindItem = new BindItem();
+		
+		for (var iLoop=1; iLoop < 9; iLoop++) {
+		
+		
+			
+			//관리항목번호를 가져온다.
+			sMA_NUM = this.fn_GetMakeMaData(iLoop, "MA_NUM");//관리항목순서
+			//trace("sMA_NUM = " +sMA_NUM);
+			if (sMA_NUM ==""){
+				break;
+			}
+			//Back Static - 생성
+			staBack = new Static("sta_Back" + iLoop, 0, iCompTop , null, 30, 0, null);
+			staBack.set_cssclass("sta_WF_DBg");		
+			this.div_DetailInput.form.div_detailRight.form.div_Item.addChild(staBack.name, staBack);		
+			staBack.show();
+			
+			//Label Static - 생성
+			staLabel = new Static("sta_Ma" + sMA_NUM, 0, iCompTop, 93, 30, null, null);
+			staLabel.set_cssclass("sta_WF_DLabel");		
+			staLabel.set_text(this.fn_GetMakeMaData(iLoop, "MA_NM"));//라벨명
+			this.div_DetailInput.form.div_detailRight.form.div_Item.addChild(staLabel.name, staLabel);		
+			staLabel.show();
+			
+			//입력컴포넌트 생성
+			sItemGu = this.fn_GetMakeMaData(iLoop, "ITEM_GU");//컴포넌트구분
+			sMaYn = this.fn_GetMakeMaData(iLoop, "MA_YN");//필수입력여부
+			sLengCt = this.fn_GetMakeMaData(iLoop, "LENG_CT");//자릿수
+			sGRCM_CD = this.fn_GetMakeMaData(iLoop, "CODM_CD");//그룹코드
+			sDETA_CD = this.fn_GetMakeMaData(iLoop, "DETA_CD");//함수명
+			sCD01_NM = this.fn_GetMakeMaData(iLoop, "CD01_NM");//코드컬럼명
+			sCD02_NM = this.fn_GetMakeMaData(iLoop, "CD02_NM");//코드명컬럼명
+			sFUNC_NM = this.fn_GetMakeMaData(iLoop, "FUNC_NM");//코드명함수명
+			sACOM_CD = this.fn_GetMakeMaData(iLoop, "ACOM_CD");//계정코드
+			sACOM_GU = this.fn_GetMakeMaData(iLoop, "ACOM_GU");//계정코드
+			sDecrGu  = this.fn_GetMakeMaData(iLoop, "DECR_GU");//계정차대구분
+			sMaCd    = this.fn_GetMakeMaData(iLoop, "MA_CD");//관리항목코드
+			//sAcchDecrGu = this.pObjDs.getColumn(this.pObjDs.rowposition, "DECR_GU");
+			
+			
+			/*
+				1. 받을어음, 지급어음의 계정차대구분과 전표등록 차대구분이 같을경우 TEXT로 변경한다.
+			*/
+			if((sACOM_GU =="0020" || sACOM_GU =="0030") && sItemGu == "0020" && sMaCd == "6"){
+				//받을어음, 지급어음의 계정차대구분과 전표등록 차대구분이 같을경우 TEXT로 변경한다.
+				if(sDecrGu == sAcchDecrGu){
+					sItemGu = "0010";
+					// 코드값은 삭제한다.
+					this.ds_CmMaInfo.setColumn(0, "DE"+sMA_NUM+"_CD", "");
+				}
+			}
+							
+			
+			//컴포넌트 바인딩 정보 삭제
+			if (this.fn_FindBindItem("this.itemMa" + sMA_NUM + "Cd")) {
+				var rtnobj = this.removeChild("this.itemMa" + sMA_NUM + "Cd");
+				rtnobj.destroy();
+			}
+			if (this.fn_FindBindItem("this.itemMa" + sMA_NUM + "Nm")) {
+				var rtnobj = this.removeChild("this.itemMa" + sMA_NUM + "Nm");
+				rtnobj.destroy();
+			}			
+						
+			//TEXT
+			if (sItemGu == "0010") {
+				//Edit Code - 생성
+				edtCd = new Edit("edt_De" + sMA_NUM + "Cd", 96, iCompTop+3, null, 24, 3, null);
+	
+				//필수입력일때 - CSS변경
+				if (sMaYn == "1") {
+					edtCd.set_cssclass("essential");	
+				}							
+				
+				//Max Length 설정
+				edtCd.set_maxlength(sLengCt);
+				this.div_DetailInput.form.div_detailRight.form.div_Item.addChild(edtCd.name, edtCd);		
+				edtCd.show();		
+				
+				//바인딩설정
+				objBindItem = new BindItem();
+				objBindItem.init("this.itemMa" + sMA_NUM + "Cd", "div_DetailInput.form.div_detailRight.form.div_Item.form." + "edt_De" + sMA_NUM + "Cd", "value", "ds_CmMaInfo", "DE" + sMA_NUM + "_NM");
+				this.addChild("this.itemMa" + sMA_NUM + "Cd", objBindItem); 
+				objBindItem.bind();
+		
+			//POPUP
+			} else if (sItemGu == "0020") {
+				
+				//Edit Code - 생성
+				edtCd = new Edit("edt_De" + sMA_NUM + "Cd", 96, iCompTop+3, 103, 24, null, null);
+	
+				//필수입력일때 - CSS변경
+				if (sMaYn == "1") {
+					edtCd.set_cssclass("essential");	
+				}
+				
+				//Max Length 설정
+				edtCd.set_maxlength(sLengCt);
+				this.div_DetailInput.form.div_detailRight.form.div_Item.addChild(edtCd.name, edtCd);		
+				edtCd.FUNC_NM = sFUNC_NM;
+				edtCd.ColCd = "this.div_DetailInput.form.div_detailRight.form.div_Item.form." + "edt_De" + sMA_NUM + "Cd";//관리항목-코드컴포넌트
+				edtCd.ColNm = "this.div_DetailInput.form.div_detailRight.form.div_Item.form." + "edt_De" + sMA_NUM + "Nm";//관리항목-코드명컴포넌트				
+				edtCd.GRCM_CD = sGRCM_CD;  // 공통그룹코드
+				edtCd.sCD01_NM = sCD01_NM;//관리항목-코드컬럼명
+				edtCd.sCD02_NM = sCD02_NM;//관리항목-코드명컬럼명
+				
+				
+				edtCd.ACOM_GU = sACOM_GU;  // 계정자료구분
+				edtCd.MaSeq = sMA_NUM;//관리항목-순번
+				edtCd.DETA_CD = sDETA_CD;//관리항목-함수명
+				edtCd.DecrGu = sDecrGu;   //차대구분
+				
+				edtCd.addEventHandler("onchanged", this.fn_ComMaEditChangedEvent, this);//Edit 변경이벤트
+				edtCd.show();		
+				
+				//Edit CodeName - 생성
+				edtNm = new Edit("edt_De" + sMA_NUM + "Nm", 202, iCompTop+3, null, 24, 30, null);
+				this.div_DetailInput.form.div_detailRight.form.div_Item.addChild(edtNm.name, edtNm);		
+				edtNm.set_enable(false);
+				edtNm.show();				
+				
+				btnPopup;//Popup 버튼
+				btnPopup = new Button("btn_Ma" + sMA_NUM, null, iCompTop+3, 24, 24, 3, null);
+				btnPopup.set_cssclass("btn_WF_SmallSearch");
+				btnPopup.set_cursor("pointer");
+				this.div_DetailInput.form.div_detailRight.form.div_Item.addChild(btnPopup.name, btnPopup);			
+				btnPopup.addEventHandler("onclick", this.fn_ComMaPopupBtnEvent, this);
+				btnPopup.MaSeq = sMA_NUM;//관리항목-순번
+				btnPopup.DETA_CD = sDETA_CD;//관리항목-함수명
+				btnPopup.ColCd = sCD01_NM;//관리항목-코드컬럼명
+				btnPopup.ColNm = sCD02_NM;//관리항목-코드명컬럼명
+				btnPopup.GrcmCd = sGRCM_CD;  //그룹코드
+				btnPopup.AcomCd = sACOM_CD;  //계정코드
+				btnPopup.AcomGu = sACOM_GU;  //계정구분
+				btnPopup.DecrGu = sDecrGu;   //차대구분
+				btnPopup.show();	
+				
+				//바인딩설정
+				objBindItem = new BindItem();
+				objBindItem.init("this.itemMa" + sMA_NUM + "Cd", "div_DetailInput.form.div_detailRight.form.div_Item.form." + "edt_De" + sMA_NUM + "Cd", "value", "ds_CmMaInfo", "DE" + sMA_NUM + "_CD");
+				this.addChild("this.itemMa" + sMA_NUM + "Cd", objBindItem); 
+				objBindItem.bind();
+				
+				//바인딩설정
+				objBindItem = new BindItem();
+				objBindItem.init("this.itemMa" + sMA_NUM + "Nm", "div_DetailInput.form.div_detailRight.form.div_Item.form." + "edt_De" + sMA_NUM + "Nm", "value", "ds_CmMaInfo", "DE" + sMA_NUM + "_NM");
+				this.addChild("this.itemMa" + sMA_NUM + "Nm", objBindItem); 
+				objBindItem.bind();
+
+			//Number(형식없음)
+			} else if (sItemGu == "0030") {
+				//Edit Code - 생성
+				maeCd = new MaskEdit("mae_De" + sMA_NUM + "Cd", 96, iCompTop+3, null, 24, 3, null);
+	
+				//필수입력일때 - CSS변경
+				if (sMaYn == "1") {
+					maeCd.set_cssclass("essential");	
+				}
+				
+				//Mask 설정
+				maeCd.set_format("##0");
+				maeCd.set_type("number");
+				this.div_DetailInput.form.div_detailRight.form.div_Item.addChild(maeCd.name, maeCd);		
+				maeCd.show();	
+				
+				//바인딩설정
+				objBindItem = new BindItem();
+				objBindItem.init("this.itemMa" + sMA_NUM + "Cd", "div_DetailInput.form.div_detailRight.form.div_Item.form." + "mae_De" + sMA_NUM + "Cd", "value", "ds_CmMaInfo", "DE" + sMA_NUM + "_NM");
+				this.addChild("this.itemMa" + sMA_NUM + "Cd", objBindItem); 
+				objBindItem.bind();
+
+			//Number(천단위)
+			} else if (sItemGu == "0040") {
+				//Edit Code - 생성
+				maeCd = new MaskEdit("mae_De" + sMA_NUM + "Cd", 96, iCompTop+3, null, 24, 3, null);
+	
+				//필수입력일때 - CSS변경
+				if (sMaYn == "1") {
+					maeCd.set_cssclass("essential");	
+				}
+				
+				//Mask 설정
+				maeCd.set_format("###,###,###,##0");
+				maeCd.set_type("number");
+				this.div_DetailInput.form.div_detailRight.form.div_Item.addChild(maeCd.name, maeCd);		
+				maeCd.show();		
+				
+				//바인딩설정
+				objBindItem = new BindItem();
+				objBindItem.init("this.itemMa" + sMA_NUM + "Cd", "div_DetailInput.form.div_detailRight.form.div_Item.form." + "mae_De" + sMA_NUM + "Cd", "value", "ds_CmMaInfo", "DE" + sMA_NUM + "_NM");
+				this.addChild("this.itemMa" + sMA_NUM + "Cd", objBindItem); 
+				objBindItem.bind();				
+
+			//Number(소숫점2자리)
+			} else if (sItemGu == "0050") {
+				//Edit Code - 생성
+				maeCd = new MaskEdit("mae_De0" + iLoop + "Cd", 96, iCompTop+3, null, 24, 3, null);
+	
+				//필수입력일때 - CSS변경
+				if (sMaYn == "1") {
+					maeCd.set_cssclass("essential");	
+				}
+				
+				//Mask 설정
+				maeCd.set_format("###,###,###,###.##");
+				maeCd.set_type("number");
+				maeCd.set_limitbymask("both");
+				this.div_DetailInput.form.div_detailRight.form.div_Item.addChild(maeCd.name, maeCd);		
+				maeCd.show();		
+				
+				//바인딩설정
+				objBindItem = new BindItem();
+				objBindItem.init("this.itemMa" + sMA_NUM + "Cd", "div_DetailInput.form.div_detailRight.form.div_Item.form." + "mae_De" + sMA_NUM + "Cd", "value", "ds_CmMaInfo", "DE0" + iLoop + "_NM");
+				this.addChild("this.itemMa" + sMA_NUM + "Cd", objBindItem); 
+				objBindItem.bind();
+
+			//Number(소숫점4자리)
+			} else if (sItemGu == "0055") {
+				//Edit Code - 생성
+				maeCd = new MaskEdit("mae_De" + sMA_NUM + "Cd", 96, iCompTop+3, null, 24, 3, null);
+	
+				//필수입력일때 - CSS변경
+				if (sMaYn == "1") {
+					maeCd.set_cssclass("essential");	
+				}
+				
+				//Mask 설정
+				maeCd.set_format("###,###,###,###.####");
+				maeCd.set_type("number");
+				maeCd.set_limitbymask("both");
+				this.div_DetailInput.form.div_detailRight.form.div_Item.addChild(maeCd.name, maeCd);		
+				maeCd.show();			
+				
+				//바인딩설정
+				objBindItem = new BindItem();
+				objBindItem.init("this.itemMa" + sMA_NUM + "Cd", "div_DetailInput.form.div_detailRight.form.div_Item.form." + "mae_De" + sMA_NUM + "Cd", "value", "ds_CmMaInfo", "DE" + sMA_NUM + "_NM");
+				this.addChild("this.itemMa" + sMA_NUM + "Cd", objBindItem); 
+				objBindItem.bind();
+
+			//DATE(YYYY/MM/DD)	
+			} else if (sItemGu == "0060") {
+				//Edit Code - 생성
+				calCd = new Calendar("cal_De" + sMA_NUM + "Cd", 96, iCompTop+3, 113, 24, null, null);
+	
+				//필수입력일때 - CSS변경
+				if (sMaYn == "1") {
+					calCd.set_cssclass("essential");	
+				}
+				calCd.set_dateformat("yyyy-MM-dd");
+				this.div_DetailInput.form.div_detailRight.form.div_Item.addChild(calCd.name, calCd);		
+				calCd.show();			
+				
+				//바인딩설정
+				objBindItem = new BindItem();
+				objBindItem.init("this.itemMa" + sMA_NUM + "Cd", "div_DetailInput.form.div_detailRight.form.div_Item.form." + "cal_De" + sMA_NUM + "Cd", "value", "ds_CmMaInfo", "DE" + sMA_NUM + "_NM");
+				this.addChild("this.itemMa" + sMA_NUM + "Cd", objBindItem); 
+				objBindItem.bind();				
+
+			//DATE(YYYY/MM/DD) ~ DATE(YYYY/MM/DD)
+			} else if (sItemGu == "0065") {
+				//Edit Code - 생성
+				calCd = new Calendar("cal_De" + sMA_NUM + "Cd", 96, iCompTop+3, 113, 24, null, null);
+				calText = new Static("sta_Ca" + sMA_NUM, 213, iCompTop , 22, 30, null, null);
+				calNm = new Calendar("cal_De" + sMA_NUM + "Nm", 238, iCompTop+3, 113, 24, null, null);
+	
+				//필수입력일때 - CSS변경
+				if (sMaYn == "1") {
+					calCd.set_cssclass("essential");	
+					calNm.set_cssclass("essential");	
+				}
+				calCd.set_dateformat("yyyy-MM-dd");
+				this.div_DetailInput.form.div_detailRight.form.div_Item.addChild(calCd.name, calCd);		
+				calCd.show();			
+
+
+				calText.set_cssclass("sta_WF_DLabel");		
+				calText.set_text("~");//~
+				this.div_DetailInput.form.div_detailRight.form.div_Item.addChild(calText.name, calText);
+				calText.show();
+				
+				
+				calNm.set_dateformat("yyyy-MM-dd");
+				this.div_DetailInput.form.div_detailRight.form.div_Item.addChild(calNm.name, calNm);		
+				calNm.show();			
+
+
+				//바인딩설정
+				objBindItem = new BindItem();
+				objBindItem.init("this.itemMa" + sMA_NUM + "Cd", "div_DetailInput.form.div_detailRight.form.div_Item.form." + "cal_De" + sMA_NUM + "Cd", "value", "ds_CmMaInfo", "DE" + sMA_NUM + "_CD");
+				this.addChild("this.itemMa" + sMA_NUM + "Cd", objBindItem); 
+				objBindItem.bind();	
+				
+				objBindItem = new BindItem();
+				objBindItem.init("this.itemMa" + sMA_NUM + "Nm", "div_DetailInput.form.div_detailRight.form.div_Item.form." + "cal_De" + sMA_NUM + "Nm", "value", "ds_CmMaInfo", "DE" + sMA_NUM + "_NM");
+				this.addChild("this.itemMa" + sMA_NUM + "Nm", objBindItem); 
+				objBindItem.bind();	
+				
+
+			//콤보입력
+			} else if (sItemGu == "0090") {
+				//콤보관련 데이터셋 생성
+				this.fn_MakeMaDataSet(sGRCM_CD);
+				
+				//Edit Code - 생성
+				cboCd = new Combo("cbo_De" + sMA_NUM + "Cd", 96, iCompTop+3, null, 24, 3, null);
+	
+				//필수입력일때 - CSS변경
+				if (sMaYn == "1") {
+					cboCd.set_cssclass("essential");	
+				}
+				
+				//콤보 설정
+				cboCd.set_codecolumn("CODM_CD");
+				cboCd.set_datacolumn("CODM_NM");
+				cboCd.set_innerdataset("ds_ComMa" + sGRCM_CD);
+				this.div_DetailInput.form.div_detailRight.form.div_Item.addChild(cboCd.name, cboCd);		
+				cboCd.show();
+				
+				//바인딩설정
+				objBindItem = new BindItem();
+				objBindItem.init("this.itemMa" +sMA_NUM + "Cd", "div_DetailInput.form.div_detailRight.form.div_Item.form." + "cbo_De" + sMA_NUM + "Cd", "value", "ds_CmMaInfo", "DE" + sMA_NUM + "_CD");
+				this.addChild("this.itemMa" + sMA_NUM + "Cd", objBindItem); 
+				objBindItem.bind();						
+
+			}
+			
+			iCompTop = iCompTop + 29;		
+		}
+		
+		//ds_Detail40 데이터를 관리항목 데이터셋에 복사
+		var iPos = this.pObjDs.rowposition;
+		
+		var fromDd;
+		var toDd;
+		for (var iLoop=1; iLoop < 9; iLoop++) {
+			
+			if(this.pObjDs.getColumn(iPos, "MA0" + iLoop + "_CD") == "f"){
+				//기간인경우 DEXX_NM을 '-' 잘라서 넣는다.
+				
+				if(!this.gfn_IsNull(this.pObjDs.getColumn(iPos, "DE0" + iLoop + "_NM"))){
+					fromDd = this.pObjDs.getColumn(iPos, "DE0" + iLoop + "_NM").substring(0,8);
+					this.ds_CmMaInfo.setColumn(0, "DE0" + iLoop + "_CD", fromDd);
+				}
+				
+				if(!this.gfn_IsNull(this.pObjDs.getColumn(iPos, "DE0" + iLoop + "_NM"))){
+					toDd   = this.pObjDs.getColumn(iPos, "DE0" + iLoop + "_NM").substring(9,17);
+					this.ds_CmMaInfo.setColumn(0, "DE0" + iLoop + "_NM", toDd);
+				}
+	
+			}else{
+			
+				
+			
+				this.ds_CmMaInfo.setColumn(0, "DE0" + iLoop + "_CD", this.pObjDs.getColumn(iPos, "DE0" + iLoop + "_CD"));
+				this.ds_CmMaInfo.setColumn(0, "DE0" + iLoop + "_NM", this.pObjDs.getColumn(iPos, "DE0" + iLoop + "_NM"));
+			}
+		
+		}
+	}else{
+	
+	
+		this.div_DetailInput.form.div_detailRight.form.div_Item.set_height(60);
+		this.div_DetailInput.form.div_detailRight.form.div_Budget.set_top("div_Item:0");
+	}
+	
+}
+ 
+/***********************************************************************************************
+ * 15.10 [fn_GetMakeMaData ] 관리항목 컴포넌트 정보찾기
+ ***********************************************************************************************/ 
+this.fn_GetMakeMaData = function(iRow, sCol) {
+	var rtnValue = "";
+	if (this.ds_AcomMa.getRowCount() > 0) {
+		if (iRow <= this.ds_AcomMa.getRowCount()) {
+			rtnValue = this.ds_AcomMa.getColumn(iRow-1, sCol);
+		}
+	}
+	
+	return rtnValue;
+}
+
+/***********************************************************************************************
+ * 15.11 [fn_MakeMaDataSet ] 관리항목 컴포넌트 데이터셋 생성 및 데이터조회
+ ***********************************************************************************************/ 
+this.fn_MakeMaDataSet = function(sGRCM_CD) {
+	
+	var dsCodm = "ds_ComMa" + sGRCM_CD;
+	
+	//관리항목 관련 데이터셋 정보가 없으면 - 생성
+	if (this.gfn_IsNull(this.objects[dsCodm])) {
+		var dsObj = new Dataset;
+		dsObj.set_name(dsCodm);//데이터셋명 설정
+		this.addChild(dsObj.name, dsObj);//해당 화면에 데이터셋 등록
+		
+		//컬럼정보 생성
+		dsObj.addColumn("CODM_CD", "string");
+		dsObj.addColumn("CODM_NM", "string");
+	} else {
+		eval("this." + dsCodm).clearData();
+	}
+	
+	//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+	var objCondList = [sGRCM_CD + "|" + dsCodm];
+	//공통코드 설정함수 호출				   
+	this.gfn_GetCommCode(this, objCondList, "");	
+	
+}
+
+/***********************************************************************************************
+ * 15.12 [fn_ComMaPopupBtnEvent ] 관리항목 팝업관련 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComMaPopupBtnEvent = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{ 
+	//관리항목 순번정보가 있으면
+	if (!this.gfn_IsNull(obj.MaSeq)) {		
+		
+		var sMaSeq = obj.MaSeq;//관리항목-순번
+		var sDETA_CD = obj.DETA_CD;//관리항목-팝업함수
+		var sColCd = obj.ColCd;//관리항목-코드컬럼
+		var sColNm = obj.ColNm;//관리항목-코드명컬럼
+		var sCodmCd = obj.GrcmCd;  //공통코드
+		var sPopuCd = obj.PopuCd; //팝업사용구분(FA033) 양쪽사용(0010), 차변만(0020), 대변만(0030)
+		var sAcomCd = obj.AcomCd; // 계정코드
+		var sAcomGu = obj.AcomGu; // 계정구분
+		var sDecrGu = obj.DecrGu; //  차대구분
+		
+		var sColCdValue ="" ; // 관리항목 코드 데이타
+		var sColNmValue = "" ; // 관리항목 명 데이타
+		var sAcchDecrGu = "";  // 차대구분		
+		//var sAcchDecrGu = this.pObjDs.getColumn(this.pObjDs.rowposition, "DECR_GU");  // 차대구분		
+		
+		//관리항목 순번
+		if (sMaSeq == "01") {
+			this.fvCmMaPopupId01 = "MA01_" + sDETA_CD;//팝업ID
+			this.fvCmMaRtnColCd01 = sColCd;
+			this.fvCmMaRtnColNm01 = sColNm;
+			sColCdValue = this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De01Cd.value;
+			sColNmValue = this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De01Nm.value;
+		} else if (sMaSeq == "02") {
+			//trace("sDETA_CD = " + sDETA_CD+ "-======= sMaSeq=" + sMaSeq);
+			this.fvCmMaPopupId02 = "MA02_" + sDETA_CD;//팝업ID
+			this.fvCmMaRtnColCd02 = sColCd;
+			this.fvCmMaRtnColNm02 = sColNm;
+			sColCdValue = this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De02Cd.value;
+			sColNmValue = this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De02Nm.value;
+		} else if (sMaSeq == "03") {
+			this.fvCmMaPopupId03 = "MA03_" + sDETA_CD;//팝업ID
+			this.fvCmMaRtnColCd03 = sColCd;
+			this.fvCmMaRtnColNm03 = sColNm;
+			sColCdValue = this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De03Cd.value;
+			sColNmValue = this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De03Nm.value;
+		} else if (sMaSeq == "04") {
+			this.fvCmMaPopupId04 = "MA04_" + sDETA_CD;//팝업ID
+			this.fvCmMaRtnColCd04 = sColCd;
+			this.fvCmMaRtnColNm04 = sColNm;
+			sColCdValue = this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De04Cd.value;
+			sColNmValue = this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De04Nm.value;
+		} else if (sMaSeq == "05") {
+			this.fvCmMaPopupId05 = "MA05_" + sDETA_CD;//팝업ID
+			this.fvCmMaRtnColCd05 = sColCd;
+			this.fvCmMaRtnColNm05 = sColNm;
+			sColCdValue = this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De05Cd.value;
+			sColNmValue = this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De05Nm.value;
+		} else if (sMaSeq == "06") {
+			this.fvCmMaPopupId06 = "MA06_" + sDETA_CD;//팝업ID
+			this.fvCmMaRtnColCd06 = sColCd;
+			this.fvCmMaRtnColNm06 = sColNm;
+			sColCdValue = this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De06Cd.value;
+			sColNmValue = this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De06Nm.value;
+		} else if (sMaSeq == "07") {
+			this.fvCmMaPopupId07 = "MA07_" + sDETA_CD;//팝업ID
+			this.fvCmMaRtnColCd07 = sColCd;
+			this.fvCmMaRtnColNm07 = sColNm;
+			sColCdValue = this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De07Cd.value;
+			sColNmValue = this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De07Nm.value;
+		} else if (sMaSeq == "08") {
+			this.fvCmMaPopupId08 = "MA08_" + sDETA_CD;//팝업ID
+			this.fvCmMaRtnColCd08 = sColCd;
+			this.fvCmMaRtnColNm08 = sColNm;		
+			sColCdValue = this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De08Cd.value;
+			sColNmValue = this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De08Nm.value;	
+		}
+		
+
+		//var sPopuCd = obj.PopuCd; //팝업사용구분(FA033) 양쪽사용(0010), 차변만(0020), 대변만(0030)
+		var sPopupId = "MA" + sMaSeq + "_" + sDETA_CD;//팝업ID
+			
+		//팝업함수명-계약번호
+		if (sDETA_CD == "gfn_ContPop") {
+			var oArg = { CnthNo:sColCdValue, PrgmId:this.fvFormId};//Argument처리
+			this.gfn_ContPop(sPopupId, oArg, "fn_ComMaPopupCallback");	
+		//팝업함수명-거래처
+		} else if (sDETA_CD == "gfn_CusmPop") {
+			var oArg = { CusmNm:sColNmValue};//Argument처리
+			this.gfn_CusmPop(sPopupId, oArg, "fn_ComMaPopupCallback");	
+		//팝업함수명-사원
+		} else if (sDETA_CD == "gfn_UserPop") {
+			var oArg = { EmpmNm:sColNmValue};//Argument처리
+			this.gfn_UserPop(sPopupId, oArg, "fn_ComMaPopupCallback");	
+		//팝업함수명-부서
+		} else if (sDETA_CD == "gfn_DeptPop") {
+			//var oArg = { DepmNm:this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De01Nm.value};//Argument처리
+			var oArg = { DepmNm:sColNmValue};//Argument처리
+			this.gfn_DeptPop(sPopupId, oArg, "fn_ComMaPopupCallback");		
+		//팝업함수명-은행
+		} else if (sDETA_CD == "gfn_BanmPop") {
+			var oArg = { BanmNm:sColCdValue};//Argument처리
+			this.gfn_BanmPop(sPopupId, oArg, "fn_ComMaPopupCallback");			
+		//팝업함수명-품목코드
+		} else if (sDETA_CD == "gfn_ItemPop") {
+			var oArg = { ItemCd:sColCdValue};//Argument처리
+			this.gfn_ItemPop(sPopupId, oArg, "fn_ComMaPopupCallback");					
+		//팝업함수명-공통코드
+		} else if (sDETA_CD == "gfn_CodmPop") {
+			var oArg = { GrcmCd:sCodmCd, CodmCd:sColCdValue};//Argument처리
+			this.gfn_CodmPop(sPopupId, oArg, "fn_ComMaPopupCallback");					
+		//팝업함수명-사업장
+		} else if (sDETA_CD == "gfn_SaumPop") {
+			var oArg = { SaumNm:sColCdValue};//Argument처리
+			this.gfn_SaumPop(sPopupId, oArg, "fn_ComMaPopupCallback");					
+		} else if (sDETA_CD == "gfn_DebmPop") {				
+		//팝업함수명-차입금
+			var oArg = { DebmNm:sColCdValue};//Argument처리
+			this.gfn_DebmPop(sPopupId, oArg, "fn_ComMaPopupCallback");					
+		} else if (sDETA_CD == "gfn_BilmPop") {				
+		//팝업함수명-어음
+			var oArg = { BilmNo:sColCdValue , BilmGu:sAcomGu};//Argument처리
+			this.gfn_BilmPop(sPopupId, oArg, "fn_ComMaPopupCallback");					
+		} else if (sDETA_CD == "gfn_BilpPop") {				
+		//팝업함수명-지급어음
+			var oArg = { BilmNo:sColCdValue};//Argument처리
+			this.gfn_BilpPop(sPopupId, oArg, "fn_ComMaPopupCallback");					
+		} else if (sDETA_CD == "gfn_BilrPop") {				
+		//팝업함수명-받을어음
+			//var oArg = { ItemCd:this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De01Cd.value};//Argument처리
+			//trace("sCodmCd = "+sCodmCd)
+			var oArg = { BilmNo:sColCdValue};//Argument처리
+			this.gfn_BilrPop(sPopupId, oArg, "fn_ComMaPopupCallback");					
+		} else if (sDETA_CD == "gfn_AcnmPop") {				
+		//팝업함수명-계좌번호
+			var oArg = { AcnmNo:sColCdValue};//Argument처리
+			this.gfn_AcnmPop(sPopupId, oArg, "fn_ComMaPopupCallback");					
+		} else if (sDETA_CD == "gfn_LoamPop") {				
+		//팝업함수명-대여금
+			var oArg = { LoamNm:sColCdValue};//Argument처리
+			this.gfn_LoamPop(sPopupId, oArg, "fn_ComMaPopupCallback");					
+		} else if (sDETA_CD == "gfn_CremPop") {				
+		//팝업함수명-법인카드번호
+			var oArg = { CremNo:sColCdValue};//Argument처리
+			this.gfn_CremPop(sPopupId, oArg, "fn_ComMaPopupCallback");					
+		} else if (sDETA_CD == "gfn_SecmPop") {				
+		//팝업함수명-유가증권번호
+			var oArg = { SecmNm:sColCdValue};//Argument처리
+			this.gfn_SecmPop(sPopupId, oArg, "fn_ComMaPopupCallback");					
+		} else if (sDETA_CD == "gfn_FiamPop") {				
+		//팝업함수명-고정자산번호
+			var oArg = { FiamNm:sColCdValue};//Argument처리
+			this.gfn_FiamPop(sPopupId, oArg, "fn_ComMaPopupCallback");					
+		} else if (sDETA_CD == "gfn_SerhPop") {				
+		//팝업함수명-CS접수번호
+			var oArg = { SerhNo:sColCdValue};//Argument처리
+			this.gfn_SerhPop(sPopupId, oArg, "fn_ComMaPopupCallback");					
+		} else if (sDETA_CD == "gfn_VatmPop") {				
+		//팝업함수명-부가세코드
+
+			var sVatmGu="";
+			if(sAcomGu == "0010" && sDecrGu=="D"){
+				//부가가치대급금
+				sVatmGu = "0";  // 매입
+			}else{
+				sVatmGu = "1"; // 매출
+			}
+			
+			var oArg = {VatmGu:sVatmGu, VatmNm:sColCdValue};//Argument처리
+			this.gfn_VatmPop(sPopupId, oArg, "fn_ComMaPopupCallback");					
+		}
+		
+	}
+}
+
+/***********************************************************************************************
+ * 15.13 [fn_ComMaPopupCallback ] 관리항목 팝업관련 콜백함수
+ ***********************************************************************************************/ 
+this.fn_ComMaPopupCallback = function(strId, rtnValue)
+{
+	// pop창 콜백 id
+	if (strId == this.fvCmMaPopupId01) {
+	
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);
+			
+			if (!this.gfn_IsNull(eval("arrRtnVal." + this.fvCmMaRtnColCd01))) {
+				this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De01Cd.set_value(eval("arrRtnVal." + this.fvCmMaRtnColCd01));
+				this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De01Nm.set_value(eval("arrRtnVal." + this.fvCmMaRtnColNm01));
+			}
+		}	
+	} else if (strId == this.fvCmMaPopupId02) {
+		trace("strId = " + strId + "  arrRtnVal. = " + this.fvCmMaRtnColCd02);
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);
+			
+			trace("strId = " + strId + " arrRtnVal. = " + this.fvCmMaRtnColCd02);
+			trace("strId = " + strId + " arrRtnVal. = " + this.fvCmMaRtnColNm02);
+			if (!this.gfn_IsNull(eval("arrRtnVal." + this.fvCmMaRtnColCd02))) {
+				this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De02Cd.set_value(eval("arrRtnVal." + this.fvCmMaRtnColCd02));
+				this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De02Nm.set_value(eval("arrRtnVal." + this.fvCmMaRtnColNm02));
+			}
+		}	
+	} else if (strId == this.fvCmMaPopupId03) {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);
+			
+			if (!this.gfn_IsNull(eval("arrRtnVal." + this.fvCmMaRtnColCd03))) {
+				this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De03Cd.set_value(eval("arrRtnVal." + this.fvCmMaRtnColCd03));
+				this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De03Nm.set_value(eval("arrRtnVal." + this.fvCmMaRtnColNm03));
+			}
+		}
+	} else if (strId == this.fvCmMaPopupId04) {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);
+			
+			if (!this.gfn_IsNull(eval("arrRtnVal." + this.fvCmMaRtnColCd04))) {
+				this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De04Cd.set_value(eval("arrRtnVal." + this.fvCmMaRtnColCd04));
+				this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De04Nm.set_value(eval("arrRtnVal." + this.fvCmMaRtnColNm04));
+			}
+		}		
+	} else if (strId == this.fvCmMaPopupId05) {
+		
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);
+			if (!this.gfn_IsNull(eval("arrRtnVal." + this.fvCmMaRtnColCd05))) {
+				this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De05Cd.set_value(eval("arrRtnVal." + this.fvCmMaRtnColCd05));
+				this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De05Nm.set_value(eval("arrRtnVal." + this.fvCmMaRtnColNm05));
+			}
+		}
+	} else if (strId == this.fvCmMaPopupId06) {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);
+			
+			if (!this.gfn_IsNull(eval("arrRtnVal." + this.fvCmMaRtnColCd06))) {
+				this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De06Cd.set_value(eval("arrRtnVal." + this.fvCmMaRtnColCd06));
+				this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De06Nm.set_value(eval("arrRtnVal." + this.fvCmMaRtnColNm06));
+			}
+		}
+	} else if (strId == this.fvCmMaPopupId07) {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);
+			
+			if (!this.gfn_IsNull(eval("arrRtnVal." + this.fvCmMaRtnColCd07))) {
+				this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De07Cd.set_value(eval("arrRtnVal." + this.fvCmMaRtnColCd07));
+				this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De07Nm.set_value(eval("arrRtnVal." + this.fvCmMaRtnColNm07));
+			}
+		}
+	} else if (strId == this.fvCmMaPopupId08) {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);
+			
+			if (!this.gfn_IsNull(eval("arrRtnVal." + this.fvCmMaRtnColCd08))) {
+				this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De08Cd.set_value(eval("arrRtnVal." + this.fvCmMaRtnColCd08));
+				this.div_DetailInput.form.div_detailRight.form.div_Item.form.edt_De08Nm.set_value(eval("arrRtnVal." + this.fvCmMaRtnColNm08));
+			}
+		}		
+	}
+	
+	//다른정보 입력
+	
+	var iFvFindRow;
+	var iFvFindRowMaNum;
+	if(strId.substring(5, strId.length)=="gfn_BilmPop" && !this.gfn_IsNull(rtnValue)){
+		//받을어음, 지급어음
+		
+		//1.계약번호(0)
+		iFvFindRow = this.ds_AcomMa.findRowExpr("MA_CD=='0'");
+		if(iFvFindRow > -1){
+			iFvFindRowMaNum = this.ds_AcomMa.getColumn(iFvFindRow, "MA_NUM");
+			this.ds_CmMaInfo.setColumn(0, "DE"+iFvFindRowMaNum+"_CD", arrRtnVal.CNTH_NO);
+			this.ds_CmMaInfo.setColumn(0, "DE"+iFvFindRowMaNum+"_NM", arrRtnVal.CNTH_NM);
+		}
+		//2.거래처(2)
+		iFvFindRow = this.ds_AcomMa.findRowExpr("MA_CD=='2'");
+		if(iFvFindRow > -1){
+			iFvFindRowMaNum = this.ds_AcomMa.getColumn(iFvFindRow, "MA_NUM"); 
+			this.ds_CmMaInfo.setColumn(0, "DE"+iFvFindRowMaNum+"_CD", arrRtnVal.CUSM_CD);
+			this.ds_CmMaInfo.setColumn(0, "DE"+iFvFindRowMaNum+"_NM", arrRtnVal.CUSM_NM);
+		}
+		//3. 발행일자(T)
+		iFvFindRow = this.ds_AcomMa.findRowExpr("MA_CD=='T'");
+		if(iFvFindRow > -1){
+			iFvFindRowMaNum = this.ds_AcomMa.getColumn(iFvFindRow, "MA_NUM"); 
+			this.ds_CmMaInfo.setColumn(0, "DE"+iFvFindRowMaNum+"_NM", arrRtnVal.FROM_DD);
+		}
+		//4. 만기일자(U)
+		iFvFindRow = this.ds_AcomMa.findRowExpr("MA_CD=='U'");
+		if(iFvFindRow > -1){
+			iFvFindRowMaNum = this.ds_AcomMa.getColumn(iFvFindRow, "MA_NUM"); 
+			this.ds_CmMaInfo.setColumn(0, "DE"+iFvFindRowMaNum+"_NM", arrRtnVal.EXPI_DD);
+		}
+		//5. 은행(지점)(8)
+		iFvFindRow = this.ds_AcomMa.findRowExpr("MA_CD=='8'");
+		if(iFvFindRow > -1){
+			iFvFindRowMaNum = this.ds_AcomMa.getColumn(iFvFindRow, "MA_NUM"); 
+			this.ds_CmMaInfo.setColumn(0, "DE"+iFvFindRowMaNum+"_CD", arrRtnVal.ISBK_CD);
+			this.ds_CmMaInfo.setColumn(0, "DE"+iFvFindRowMaNum+"_NM", arrRtnVal.BANM_NM);
+		}
+		//6. 지출증빙서류
+	}else if(strId.substring(5, strId.length)=="gfn_SerhPop"){
+		//CS접수번호
+		
+		
+	}
+	
+	
+	
+}
+
+/***********************************************************************************************
+ * 15.14 [fn_FindBindItem ] 바인딩 Item 찾기 함수
+ ***********************************************************************************************/ 
+this.fn_FindBindItem  = function(id)
+{
+	var rtn;
+	for(var iLoop=0; iLoop<this.binds.length ; iLoop++)
+	{
+		if( this.binds[iLoop].name == id ){
+			rtn = true;
+			return rtn;
+		} else {
+			rtn = false;
+		}	
+	}	
+	return rtn;
+}
+
+/***********************************************************************************************
+ * 15.15 [ds_CmMaInfo_oncolumnchanged ] 관리항목 데이터셋 데이터 변경 이벤트
+ ***********************************************************************************************/ 
+this.ds_CmMaInfo_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	var iRow = this.pObjDs.rowposition;
+	var code;
+	var name;
+	
+	if(this.pObjDs.getColumn(iRow, "MA" + e.columnid.substr(2, 2) + "_CD") =="f"){
+		//기간인경우 상세명에 만 입력한다.
+		code = this.ds_CmMaInfo.getColumn(0, "DE"+e.columnid.substr(2, 2)+"_CD");
+		name = this.ds_CmMaInfo.getColumn(0, "DE"+e.columnid.substr(2, 2)+"_NM");
+		
+		if(this.gfn_IsNull(code)){
+			code = "";
+		}else{
+		
+			if(this.gfn_IsNull(name)){
+				name = "";
+			}else{
+				name = "-" + name;
+				this.pObjDs.setColumn(iRow, "DE"+e.columnid.substr(2, 2)+"_NM", code + name);
+			}
+		}
+	}else{
+		this.pObjDs.setColumn(iRow, e.columnid, this.ds_CmMaInfo.getColumn(0, e.columnid));
+	}
+	
+	
+};
+
+/***********************************************************************************************
+ * 15.16 [fn_ComMaEditChangedEvent ] 관리항목 Edit변경 관련 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComMaEditChangedEvent = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{ 
+
+
+	//관리항목코드명함수 정보가 있으면
+	if (!this.gfn_IsNull(obj.FUNC_NM)) {		
+
+		var sFUNC_NM = obj.FUNC_NM;     //관리항목-코드명함수
+		var oColCd = eval(obj.ColCd);   //관리항목-코드컬럼
+		var oColNm = eval(obj.ColNm);   //관리항목-코드명컬럼
+		var oGrcmCd = obj.GRCM_CD;      //관리항목-그룹코드명컬럼
+		var oAcomGu = obj.ACOM_GU;      //계정구분
+		var sMaSeq = obj.MaSeq;         //관리항목-순번
+		var sDETA_CD = obj.DETA_CD;     //관리항목-팝업함수
+		var sDecrGu = obj.DecrGu;       //  차대구분
+		
+		
+		
+		var sPopupId = "MA" + sMaSeq + "_" + sDETA_CD;//팝업ID
+		
+		if(sMaSeq=="01"){
+			this.fvCmMaRtnColCd01 = obj.sCD01_NM;
+			this.fvCmMaRtnColNm01 = obj.sCD02_NM;
+			this.fvCmMaPopupId01 = "MA"+sMaSeq+"_" + sDETA_CD;//팝업ID
+		}else if(sMaSeq=="02"){
+			this.fvCmMaRtnColCd02 = obj.sCD01_NM;
+			this.fvCmMaRtnColNm02 = obj.sCD02_NM;
+			this.fvCmMaPopupId02 = "MA"+sMaSeq+"_" + sDETA_CD;//팝업ID
+		}else if(sMaSeq=="03"){
+			this.fvCmMaRtnColCd03 = obj.sCD01_NM;
+			this.fvCmMaRtnColNm03 = obj.sCD02_NM;
+			this.fvCmMaPopupId03 = "MA"+sMaSeq+"_" + sDETA_CD;//팝업ID
+		}else if(sMaSeq=="04"){
+			this.fvCmMaRtnColCd04 = obj.sCD01_NM;
+			this.fvCmMaRtnColNm04 = obj.sCD02_NM;
+			this.fvCmMaPopupId04 = "MA"+sMaSeq+"_" + sDETA_CD;//팝업ID
+		}else if(sMaSeq=="05"){
+			this.fvCmMaRtnColCd05 = obj.sCD01_NM;
+			this.fvCmMaRtnColNm05 = obj.sCD02_NM;
+			this.fvCmMaPopupId05 = "MA"+sMaSeq+"_" + sDETA_CD;//팝업ID
+		}else if(sMaSeq=="06"){
+			this.fvCmMaRtnColCd06 = obj.sCD01_NM;
+			this.fvCmMaRtnColNm06 = obj.sCD02_NM;
+			this.fvCmMaPopupId06 = "MA"+sMaSeq+"_" + sDETA_CD;//팝업ID
+		}else if(sMaSeq=="07"){
+			this.fvCmMaRtnColCd07 = obj.sCD01_NM;
+			this.fvCmMaRtnColNm07 = obj.sCD02_NM;
+			this.fvCmMaPopupId07 = "MA"+sMaSeq+"_" + sDETA_CD;//팝업ID
+		}else if(sMaSeq=="08"){
+			this.fvCmMaRtnColCd08 = obj.sCD01_NM;
+			this.fvCmMaRtnColNm08 = obj.sCD02_NM;
+			this.fvCmMaPopupId08 = "MA"+sMaSeq+"_" + sDETA_CD;//팝업ID
+		}
+		
+	
+		
+		
+		if (sFUNC_NM == "gfn_GetCommAcnm") {
+			//계좌번호-완료
+			this.gfn_GetCommAcnm(oColCd, oColNm, "", sPopupId, "fn_ComMaPopupCallback");//코드로 검색
+		} else if (sFUNC_NM == "gfn_GetCommBanm") {
+			//은행(지점)-완료
+			this.gfn_GetCommBanm(oColCd, oColNm, sPopupId, "fn_ComMaPopupCallback");//코드로 검색
+		} else if (sFUNC_NM == "gfn_GetCommBilm") {
+			//어음번호-완료
+			this.gfn_GetCommBilm(oAcomGu, oColCd, oColNm, "", sPopupId, "fn_ComMaPopupCallback");//코드로 검색
+		} else if (sFUNC_NM == "gfn_GetCommCnth") {
+			//계약번호-완료
+			this.gfn_GetCommCnth(oColCd, oColNm, this.fvFormId, sPopupId, "fn_ComMaPopupCallback");//코드로 검색	
+		} else if (sFUNC_NM == "gfn_GetCommCodm") {
+			//공통코드-완료
+			this.gfn_GetCommCodm(oGrcmCd, oColCd, oColNm, sPopupId, "fn_ComMaPopupCallback");//코드로 검색	
+		} else if (sFUNC_NM == "gfn_GetCommCrem") {
+			//법인카드번호-완료
+			this.gfn_GetCommCrem(oColCd, oColNm, "", sPopupId, "fn_ComMaPopupCallback");//코드로 검색
+		} else if (sFUNC_NM == "gfn_GetCommCusm") {
+			//거래처-완료
+			//this.gfn_GetCommCusm("C", oColCd, oColNm, sPopupId, "fn_ComMaPopupCallback");//코드로 검색
+			this.gfn_GetCommCusm("C", oColCd, oColNm, sPopupId, "fn_ComMaPopupCallback");//코드로 검색
+		} else if (sFUNC_NM == "gfn_GetCommDebm") {
+			//차입금코드-완료
+			this.gfn_GetCommDebm(oColCd, oColNm, "", sPopupId, "fn_ComMaPopupCallback");//코드로 검색
+		} else if (sFUNC_NM == "gfn_GetCommDepm") {
+			//부서-완료
+			this.gfn_GetCommDepm("C", oColCd, oColNm, sPopupId, "fn_ComMaPopupCallback");//코드로 검색	
+		}  else if (sFUNC_NM == "gfn_GetCommEmpm") {
+			//사원-완료
+			this.gfn_GetCommEmpm("C", oColCd, oColNm, this.div_Search.form.edt_SystId, "Empm", sPopupId, "fn_ComMaPopupCallback");//코드로 검색
+		} else if (sFUNC_NM == "gfn_GetCommFiam") {
+			//고정자산번호-완료
+			this.gfn_GetCommFiam(oColCd, oColNm, "", sPopupId, "fn_ComMaPopupCallback");//코드로 검색
+		} else if (sFUNC_NM == "gfn_GetCommItem") {
+			//품목-완료
+			this.gfn_GetCommItem(oColCd, oColNm, "", sPopupId, "fn_ComMaPopupCallback");//코드로 검색		
+		} else if (sFUNC_NM == "gfn_GetCommLoam") {
+			//대여금코드-완료
+			this.gfn_GetCommLoam(oColCd, oColNm, "", sPopupId, "fn_ComMaPopupCallback");//코드로 검색
+		} else if (sFUNC_NM == "gfn_GetCommSaum") {
+			//사업장--완료
+			this.gfn_GetCommSaum(oColCd, oColNm, sPopupId, "fn_ComMaPopupCallback");//코드로 검색		
+		} else if (sFUNC_NM == "gfn_GetCommSecm") {
+			//유가증권번호-완료
+			this.gfn_GetCommSecm(oColCd, oColNm, "", sPopupId, "fn_ComMaPopupCallback");//코드로 검색
+		} else if (sFUNC_NM == "gfn_GetCommSerh") {
+			//CS접수번호
+			this.gfn_GetCommSerh(oColCd, oColNm, "", sPopupId, "fn_ComMaPopupCallback");//코드로 검색
+		} else if (sFUNC_NM == "gfn_GetCommVatm") {
+			//부가세코드
+			
+			var sVatmGu="";
+			if(oAcomGu == "0010" && sDecrGu=="D"){
+				//부가가치대급금
+				sVatmGu = "0";  // 매입
+			}else{
+				sVatmGu = "1"; // 매출
+			}
+			this.gfn_GetCommVatm(oColCd, oColNm, "", sVatmGu, sPopupId, "fn_ComMaPopupCallback");//코드로 검색
+		} 
+
+
+
+	}
+}
+
+/***********************************************************************************************
+ * 15.18 [사용금액 및 가용금액 계산] 
+ ***********************************************************************************************/ 
+this.fn_CalAvailAm = function()
+{ 
+
+	//예산통제하는 계정인경우
+	if (this.div_DetailInput.form.div_detailRight.form.div_Budget.form.chk_BgcmYn.value == "1") {
+		this.fvBCalAvailAmt = true;//가용금액계산여부
+		this.pObjDs.set_enableevent(false);
+
+		var iRow = this.pObjDs.rowposition;
+		var sDECR_GU = this.pObjDs.getColumn(iRow, "DECR_GU");//차대구분
+		var sACOM_CD = this.pObjDs.getColumn(iRow, "ACOM_CD");//계정코드
+		var sBUDG_MM = this.pObjDs.getColumn(iRow, "BUDG_MM");//편성년월	
+		var sBUDP_CD = this.pObjDs.getColumn(iRow, "BUDP_CD");//예산부서
+		
+		if (this.gfn_IsNull(sBUDG_MM)) {
+			sBUDG_MM = "";
+		} else {
+			sBUDG_MM = sBUDG_MM.substr(0,6);
+		}
+
+		var dRecAm = nexacro.toNumber(this.div_DetailInput.form.div_detailRight.form.div_Budget.form.mae_RecAm.value);//편성금액
+		var dUseAm2 = nexacro.toNumber(this.div_DetailInput.form.div_detailRight.form.div_Budget.form.mae_RegAm.value);//사용금액2
+		var dUseAm = 0;//사용금액
+		var sSumCol = "";//합계할 컬럼명
+		
+		//차대구분-대변
+		if (sDECR_GU == "C") {
+			dUseAm = this.pObjDs.getColumn(iRow, "CRED_AM");//사용금액
+			sSumCol = "CRED_AM";//합계할 컬럼명
+		} else {
+			dUseAm = this.pObjDs.getColumn(iRow, "DEBI_AM");//사용금액
+			sSumCol = "DEBI_AM";//합계할 컬럼명
+		}
+
+		this.div_DetailInput.form.div_detailRight.form.div_Budget.form.mae_UsedAm.set_value(dUseAm);
+		var dUseAmSum = this.pObjDs.getCaseSum("DECR_GU == '" + sDECR_GU + "' && ACOM_CD == '" + sACOM_CD + "' && BUDG_MM == '" + sBUDG_MM + "' && BUDP_CD == '" + sBUDP_CD + "'", sSumCol);//사용금액합
+		var dAvailAm = dRecAm - (dUseAmSum + dUseAm2);//가용잔액 = 편성금액 - ( 사용금액1합 + 사용금액2)
+
+		if (isNaN(dAvailAm)) {
+			this.div_DetailInput.form.div_detailRight.form.div_Budget.form.mae_AvailAm.set_value(0);//가용잔액
+		} else {
+			if (dAvailAm < 0) {
+				this.gfn_Alert("CA012");//가용잔액이 부족합니다.
+				
+				if (sDECR_GU == "C") {
+					this.pObjDs.setColumn(iRow, "CRED_AM", 0);
+					this.div_DetailInput.form.tab_Detail.tpg_01.form.grd_Detail10.setCellPos(10);
+				} else {
+					this.pObjDs.setColumn(iRow, "DEBI_AM", 0);
+					this.div_DetailInput.form.tab_Detail.tpg_01.form.grd_Detail10.setCellPos(9);
+				}
+				this.div_DetailInput.form.tab_Detail.tpg_01.form.grd_Detail10.showEditor(true);
+				this.div_DetailInput.form.tab_Detail.tpg_01.form.grd_Detail10.setFocus();
+				this.div_DetailInput.form.div_detailRight.form.div_Budget.form.mae_UsedAm.set_value(0);
+
+				dUseAmSum = this.pObjDs.getCaseSum("DECR_GU == '" + sDECR_GU + "' && ACOM_CD == '" + sACOM_CD + "' && BUDG_MM == '" + sBUDG_MM + "'", sSumCol);//사용금액합
+				dAvailAm = dRecAm - (dUseAmSum + dUseAm2);//가용잔액 = 편성금액 - ( 사용금액1합 + 사용금액2)
+				this.div_DetailInput.form.div_detailRight.form.div_Budget.form.mae_AvailAm.set_value(dAvailAm);//가용잔액
+				this.fvBCalAvailAmt = false;//가용금액계산여부
+				return;
+			} else {		
+				this.div_DetailInput.form.div_detailRight.form.div_Budget.form.mae_AvailAm.set_value(dAvailAm);//가용잔액
+			}
+		}
+
+		if (!this.gfn_IsNull(sACOM_CD) && !this.gfn_IsNull(sBUDG_MM)) {
+		
+			if (this.div_DetailInput.form.div_detailRight.form.div_Budget.form.chk_BgcmYn.value) {
+				//예산편성금액 설정
+				//편성금액체크
+				if (isNaN(dRecAm) || (dRecAm == 0)) {
+
+					if (this.pObjDs.getColumn(iRow, "crudType") == "I" || this.pObjDs.getColumn(iRow, "crudType") == "U") {
+						this.gfn_Alert("CA011");//해당월의 예산편성금액이 없습니다.
+					}
+				}		
+				
+				if (isNaN(dRecAm)) {
+					this.pObjDs.setColumn(iRow, "BGCM_AM", "0");//예산편성금액
+				} else {
+					this.pObjDs.setColumn(iRow, "BGCM_AM", dRecAm);//예산편성금액
+				}			
+		
+			}
+		}
+
+		this.fvBCalAvailAmt = false;//가용금액계산여부
+		this.pObjDs.set_enableevent(true);
+	} else {	
+		this.div_DetailInput.form.div_detailRight.form.div_Budget.form.mae_AvailAm.set_value(0);//가용잔액
+	}
+}
+
+/***********************************************************************************************
+ * 15.19. [예산통제정보 조회] - 예산부서, 편성년월 변경시
+ ***********************************************************************************************/ 
+this.fn_GetBudg = function()
+{
+	this.ds_Input.clearData();
+	this.ds_Detail11.clearData();
+	
+	this.ds_Input.addRow();
+	
+	var sDEPM_CD = this.pObjDs.getColumn(this.pObjDs.rowposition, "BUDP_CD");//부서코드
+	var sBUDG_MM = this.gfn_Nvl(this.pObjDs.getColumn(this.pObjDs.rowposition, "BUDG_MM"), "");//편성년월
+	var sACOM_CD = this.pObjDs.getColumn(this.pObjDs.rowposition, "ACOM_CD");//계정코드
+	
+	if (this.gfn_IsNull(sDEPM_CD) || this.gfn_IsNull(sBUDG_MM) || this.gfn_IsNull(sACOM_CD)) {
+		return;
+	}
+	
+	if (!this.gfn_IsNull(sBUDG_MM)) {
+		sBUDG_MM = sBUDG_MM.substr(0,6);
+	}
+	
+	this.ds_Input.setColumn(0, "BUGS_YM", sBUDG_MM);
+	this.ds_Input.setColumn(0, "DEPM_CD", sDEPM_CD);
+	this.ds_Input.setColumn(0, "ACOM_CD", sACOM_CD);
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+		
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "fa:M_FA_1000_D_SL12";
+	this.gfn_AddComSearchService(this, svcAddObj);			
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		
+	svcCallObj.sTrid = "GET_BUDG";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+
+	svcCallObj.sActionName = this.G_SV_FA;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Detail11=ds_Detail11";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+
+}
+
+/***********************************************************************************************
+ * 15.20. [계정명조회 그리드] - 콜백함수
+ ***********************************************************************************************/ 
+this.fn_CommAcomCallbackFunc = function()
+{  
+	var iRow = this.pObjDs.rowposition;
+	var sACOM_CD = this.pObjDs.getColumn(iRow, "ACOM_CD");//계정코드
+	var sBUDG_MM = this.gfn_Nvl(this.pObjDs.getColumn(iRow, "BUDG_MM"), "");//편성년월
+
+	if (!this.gfn_IsNull(sACOM_CD) && !this.gfn_IsNull(sBUDG_MM)) {
+		//[예산통제 계정] 체크
+		var paramObj= new Object();//[공통] 예산통제체크 파라메타 정보 Object
+		paramObj.BGCM_YY = sBUDG_MM.substr(0, 4);//편성년도
+		paramObj.ACOM_CD = sACOM_CD;//계정코드
+		bCheckBgcm = this.gfn_CheckBgcm(paramObj);//예산편성계정여부 체크
+
+		//예산통제계정
+		if (bCheckBgcm) {
+			var sDECR_GU = this.pObjDs.getColumn(iRow, "DECR_GU");//차대구분
+			var sDECR_GU_CHK = this.pObjDs.getColumn(iRow, "DECR_GU_CHK");//차대구분-계정
+
+			//선택한것과 계정코드의 차대구분이 같을 경우
+			if ((sDECR_GU == "D" && sDECR_GU_CHK == "D") || (sDECR_GU == "C" && sDECR_GU_CHK == "C")) {
+				this.div_DetailInput.form.div_detailRight.form.div_Budget.form.chk_BgcmYn.set_value("1");
+				this.pObjDs.setColumn(iRow, "BGCM_YN", "Y");//예산통제여부
+			} else {
+				this.div_DetailInput.form.div_detailRight.form.div_Budget.form.chk_BgcmYn.set_value("0");
+				this.pObjDs.setColumn(iRow, "BGCM_YN", "N");//예산통제여부
+				bCheckBgcm = false;
+			}
+			
+		} else {
+			this.div_DetailInput.form.div_detailRight.form.div_Budget.form.chk_BgcmYn.set_value("0");
+			this.pObjDs.setColumn(iRow, "BGCM_YN", "N");//예산통제여부
+		}
+	}
+
+	//관리항목 조회
+	this.fn_dsAcomMa(this.pObjDs.getColumn(iRow, "ACOM_CD"), "SET", bCheckBgcm);		
+}
+
+/***********************************************************************************************
+ * 15.21. [전표상세 저장시] - 집행금액 발의 계산
+ ***********************************************************************************************/ 
+this.fn_CalBgacAm = function()
+{
+	var sBUGS_YM = "";//편성년월
+	var sDEPM_CD = "";//부서코드
+	var sACOM_CD = "";//계정코드
+	var sDECR_GU = "";//차대구분
+	var sBGCM_YN = "";//예산통제여부
+	var arrTarget = new Array();//집행금액 발의 계산 대상
+	var arrTargetList = new Array();//집행금액 발의 계산 대상 리스트
+	var sCrudType = "";//CRUD Type
+	var sChkStr = "";
+	var sCol = "";//컬럼명
+	var dBGAC_AM = 0;//집행금액_발의
+	var dBGAC_AM_I = 0;//집행금액_발의(신규)
+	var dBGAC_AM_U = 0;//집행금액_발의(수정)
+	var dBGAC_AM_U_ORG = 0;//집행금액_발의(수정)_원본
+	var dBGAC_AM_D = 0;//집행금액_발의(삭제)
+	var iFindRow = 0;
+	var iAddRow = 0;
+		
+	for (var iLoop=0; iLoop<this.pObjDs.getRowCount(); iLoop++) {
+	
+		sBGCM_YN = this.pObjDs.getColumn(iLoop, "BGCM_YN");//예산통제여부
+		
+		if (sBGCM_YN == "Y") {
+			sCrudType = this.pObjDs.getColumn(iLoop, "crudType");//CRUD Type
+			
+			if (sCrudType == "I" || sCrudType == "U" || sCrudType == "D") {
+				sBUGS_YM = this.pObjDs.getColumn(iLoop, "BUDG_MM");//편성년월
+				sDEPM_CD = this.pObjDs.getColumn(iLoop, "BUDP_CD");//부서코드
+				sACOM_CD = this.pObjDs.getColumn(iLoop, "ACOM_CD");//계정코드
+				sDECR_GU = this.pObjDs.getColumn(iLoop, "DECR_GU");//차대구분
+				sChkStr = sBUGS_YM + ";" + sDEPM_CD + ";" + sACOM_CD + ";" + sDECR_GU;
+				
+				if (arrTargetList.indexOf(sChkStr) < 0) {
+					arrTargetList.push(sChkStr);
+				}
+			}
+		}
+	}
+	
+	this.ds_Detail13.clearData();
+	
+	if (arrTargetList.length > 0) {
+		for (var iLoop=0; iLoop<arrTargetList.length; iLoop++) {
+			arrTarget = arrTargetList[iLoop].split(";");
+			sBUGS_YM = arrTarget[0];//편성년월
+			sDEPM_CD = arrTarget[1];//부서코드
+			sACOM_CD = arrTarget[2];//계정코드
+			sDECR_GU = arrTarget[3];//차대구분
+			//차변
+			if (sDECR_GU == "D") {
+				sCol = "DEBI_AM";//컬럼명
+			} else {
+				sCol = "CRED_AM";//컬럼명
+			}
+			
+			sChkStr = "BUDG_MM == '" + sBUGS_YM + "' && BUDP_CD == '" + sDEPM_CD + "' && ACOM_CD == '" + sACOM_CD + "' && DECR_GU == '" + sDECR_GU + "'";
+
+			dBGAC_AM_I = this.pObjDs.getCaseSum(sChkStr + " && crudType == 'I'", sCol);//집행금액_발의(신규)
+			dBGAC_AM_U = this.pObjDs.getCaseSum(sChkStr + " && crudType == 'U'", sCol);//집행금액_발의(수정)
+			dBGAC_AM_D = this.pObjDs.getCaseSum(sChkStr + " && crudType == 'D'", sCol);//집행금액_발의(삭제)
+			
+			
+			iFindRow = this.pObjDs.findRowExpr(sChkStr + " && crudType == 'U'");
+			if (iFindRow > -1) {
+				dBGAC_AM_U_ORG = this.pObjDs.getOrgColumn(iFindRow, sCol);//집행금액_발의(수정)_원본
+			} else {
+				dBGAC_AM_U_ORG = 0;
+			}
+			dBGAC_AM = dBGAC_AM_I + (dBGAC_AM_U-dBGAC_AM_U_ORG) - dBGAC_AM_D;//집행금액_발의
+
+			iAddRow = this.ds_Detail13.addRow();
+			this.ds_Detail13.setColumn(iAddRow, "BUGS_YM", sBUGS_YM);//편성년월
+			this.ds_Detail13.setColumn(iAddRow, "DEPM_CD", sDEPM_CD);//부서코드
+			this.ds_Detail13.setColumn(iAddRow, "ACOM_CD", sACOM_CD);//계정코드
+			this.ds_Detail13.setColumn(iAddRow, "BGAC_AM", dBGAC_AM);//집행금액_발의
+			this.ds_Detail13.setColumn(iAddRow, "crudType", "U");
+			
+		}
+	}
+	
+}
+]]></Script>
+    <Bind>
+      <BindItem id="item26" compid="div_DetailInput.form.div_detailRight.form.edt_TemhNo00_00" propid="value" datasetid="ds_Master10" columnid="TEMH_NO"/>
+      <BindItem id="item27" compid="div_DetailInput.form.div_detailRight.form.edt_TemhNo00_01" propid="value" datasetid="ds_Master10" columnid="TEMH_NO"/>
+      <BindItem id="item28" compid="div_DetailInput.form.div_detailRight.form.edt_TemhNo00_01_00" propid="value" datasetid="ds_Master10" columnid="TEMH_NO"/>
+      <BindItem id="item29" compid="div_DetailInput.form.div_detailRight.form.edt_TemhNo00_01_01" propid="value" datasetid="ds_Master10" columnid="TEMH_NO"/>
+      <BindItem id="item31" compid="div_DetailInput.form.div_detailRight.form.edt_TemhNo00_01_02" propid="value" datasetid="ds_Master10" columnid="TEMH_NO"/>
+      <BindItem id="item32" compid="div_DetailInput.form.div_detailRight.form.edt_TemhNo00_01_03" propid="value" datasetid="ds_Master10" columnid="TEMH_NO"/>
+      <BindItem id="item12" compid="div_DetailInput.form.div_detailRight.form.div_Budget.form.edt_BudgetDeptCd" propid="value" datasetid="ds_Detail10" columnid="BUDP_CD"/>
+      <BindItem id="item14" compid="div_DetailInput.form.div_detailRight.form.div_Budget.form.edt_BudgetDeptNm" propid="value" datasetid="ds_Detail10" columnid="BUDP_NM"/>
+      <BindItem id="item20" compid="div_DetailInput.form.div_detailRight.form.div_Budget.form.edt_BudgetAcomCd" propid="value" datasetid="ds_Detail10" columnid="ACOM_NM"/>
+      <BindItem id="item24" compid="div_DetailInput.form.div_detailRight.form.div_Budget.form.mae_RecAm" propid="value" datasetid="ds_Detail11" columnid="BGSU_AM"/>
+      <BindItem id="item25" compid="div_DetailInput.form.div_detailRight.form.div_Budget.form.mae_AvailAm" propid="value" datasetid="ds_Master10" columnid=""/>
+      <BindItem id="item30" compid="div_DetailInput.form.div_detailRight.form.div_Budget.form.mae_RegAm" propid="value" datasetid="ds_Detail11" columnid="USED_AM"/>
+      <BindItem id="item33" compid="div_DetailInput.form.div_detailRight.form.div_Budget.form.mae_UsedAm" propid="value" datasetid="ds_Master10" columnid=""/>
+      <BindItem id="item34" compid="div_DetailInput.form.div_detailRight.form.div_Budget.form.cal_BudgetDd" propid="value" datasetid="ds_Detail10" columnid="BUDG_MM"/>
+    </Bind>
+  </Form>
+</FDL>

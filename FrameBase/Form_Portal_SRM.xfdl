@@ -1,0 +1,634 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <TypeDefinition url="..\default_typedef.xml"/>
+  <Form id="mainPotal" classname="mainPotal" inheritanceid="" left="0" top="0" width="1242" height="695" titletext="Main" ontimer="mainPotal_ontimer" style="background:white;" onload="fn_FormOnload" onbeforeclose="mainPotal_onbeforeclose" onsize="mainPotal_onsize" onclose="fn_FormClose">
+    <Layouts>
+      <Layout>
+        <Div id="div_TopL" taborder="0" left="20" top="25" width="600" height="300" cssclass="div_WF_MainBox" text="" cursor="pointer">
+          <Layouts>
+            <Layout>
+              <Static id="sta_ContNmCn" taborder="1" text="시너스텍 공지" top="8" height="30" cssclass="sta_WF_Title" left="20" textAlign="center" width="116"/>
+              <Grid id="grd_Master10" taborder="1" left="10" top="42" binddataset="ds_Master13" autofittype="col" right="10" bottom="10" selecttype="multiarea" cellsizingtype="col" oncellclick="div_TopL_grd_Master10_oncellclick">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="35"/>
+                      <Column size="330"/>
+                      <Column size="90"/>
+                      <Column size="90"/>
+                      <Column size="60"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="26" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="No."/>
+                      <Cell col="1" text="공지제목"/>
+                      <Cell col="2" colspan="2" text="공지기간" accessibilitydescription="S00002"/>
+                      <Cell col="4" text="상세보기"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="" expr="currow+1" displaytype="text" textAlign="center"/>
+                      <Cell col="1" text="bind:NOTH_NM" textAlign="left"/>
+                      <Cell col="2" text="bind:FROM_DD" displaytype="date" calendardateformat="yyyy-MM-dd" textAlign="center" calendardisplaynulltype="none"/>
+                      <Cell col="3" text="bind:CLOS_DD" displaytype="date" calendardateformat="yyyy-MM-dd" textAlign="center" calendardisplaynulltype="none"/>
+                      <Cell col="4" displaytype="buttoncontrol" text="상세보기"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Button id="btn_CallScrn" taborder="2" top="11" height="22" cssclass="bt_WF_More" cursor="pointer" width="60" right="10" onclick="div_TopL_btn_CallScrn_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_TopR" taborder="1" left="630" top="25" width="600" height="300" text="" cssclass="div_WF_MainBox">
+          <Layouts>
+            <Layout>
+              <Static id="sta_ContNmCn" taborder="0" text="시너스텍 담당" top="8" height="30" cssclass="sta_WF_Title" left="10" textAlign="center" width="114"/>
+              <Grid id="grd_Master10" taborder="1" left="10" top="42" autofittype="col" right="10" bottom="10" oncellclick="div_MasterView_grd_Master_oncellclick" selecttype="multiarea" autoenter="select" cellsizingtype="col" binddataset="ds_Master10">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="35" band="left"/>
+                      <Column size="120"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="100"/>
+                      <Column size="150"/>
+                      <Column size="210"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="26" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="No."/>
+                      <Cell col="1" text="부서"/>
+                      <Cell col="2" text="성명"/>
+                      <Cell col="3" text="직위"/>
+                      <Cell col="4" text="휴대전화"/>
+                      <Cell col="5" text="E-Mail"/>
+                      <Cell col="6" text="담당업무"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell expr="currow+1" displaytype="text" textAlign="center"/>
+                      <Cell col="1" text="bind:OP01_NM" displaytype="normal" textAlign="left" suppress="1" suppressalign="first"/>
+                      <Cell col="2" text="bind:OP02_NM" displaytype="normal" textAlign="center"/>
+                      <Cell col="3" text="bind:OP04_NM" textAlign="center"/>
+                      <Cell col="4" text="bind:OP06_NM" textAlign="center"/>
+                      <Cell col="5" text="bind:OP07_NM" textAlign="left"/>
+                      <Cell col="6" text="bind:OP08_NM"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_BottomL" taborder="2" left="20" top="335" width="600" height="300" cssclass="div_WF_MainBox">
+          <Layouts>
+            <Layout>
+              <Div id="div_TitleCn" taborder="0" left="0" top="0" height="50" width="220">
+                <Layouts>
+                  <Layout/>
+                </Layouts>
+              </Div>
+              <Static id="sta_ContNmCn" taborder="1" text="최근 견적의뢰 내역" top="8" height="30" cssclass="sta_WF_Title" left="10" textAlign="center" width="152"/>
+              <Button id="btn_CallScrn" taborder="2" top="11" height="22" cssclass="bt_WF_More" cursor="pointer" onclick="div_TopR_btn_CallScrn_onclick" width="60" right="10"/>
+              <Grid id="grd_Master10" taborder="3" left="10" top="41" binddataset="ds_Master11" right="10" bottom="10" autoenter="select" cellsizingtype="col" selecttype="multiarea" oncellclick="div_BottomL_grd_Master10_oncellclick">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="35" band="left"/>
+                      <Column size="85" band="left"/>
+                      <Column size="55"/>
+                      <Column size="200"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="300"/>
+                      <Column size="24"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="26" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="No."/>
+                      <Cell col="1" text="의뢰번호"/>
+                      <Cell col="2" text="견적상태"/>
+                      <Cell col="3" text="의뢰명"/>
+                      <Cell col="4" text="의뢰일자"/>
+                      <Cell col="5" text="요청기한"/>
+                      <Cell col="6" text="의뢰구분"/>
+                      <Cell col="7" text="평가기준"/>
+                      <Cell col="8" text="비고"/>
+                      <Cell col="9"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell expr="currow+1" text="bind:Column0" displaytype="text"/>
+                      <Cell col="1" text="bind:QUTH_NO" displaytype="mask" maskeditformat="expr:(QUTH_NO.length &gt; 8)?'@@@@@@-@@@@':'@@@@@@-@@'" maskedittype="string" textAlign="center"/>
+                      <Cell col="2" text="bind:QUSH_CD" displaytype="combotext" textAlign="center" combodataset="ds_Mm220" combodatacol="CODM_NM" combocodecol="CODM_CD" cssclass="expr:comp.parent.gfn_Decode(QUSH_CD, &quot;0010&quot;,&quot;cell_WF_WfReq&quot;, &quot;0020&quot;,&quot;cell_WF_WfAppr&quot;, &quot;&quot;)"/>
+                      <Cell col="3" text="bind:QUTH_NM" displaytype="normal" textAlign="left"/>
+                      <Cell col="4" text="bind:QUTH_DD" displaytype="date" textAlign="center" calendardateformat="yyyy-MM-dd" calendardisplaynulltype="none"/>
+                      <Cell col="5" text="bind:REQU_DD" displaytype="date" textAlign="center" calendardateformat="yyyy-MM-dd" calendardisplaynulltype="none"/>
+                      <Cell col="6" text="bind:QUTH_GU" displaytype="combotext" textAlign="center" combodataset="ds_Mm210" combodatacol="CODM_NM" combocodecol="CODM_CD"/>
+                      <Cell col="7" text="bind:EVAL_CD" displaytype="combotext" textAlign="center" combodataset="ds_Mm215" combodatacol="CODM_NM" combocodecol="CODM_CD"/>
+                      <Cell col="8" text="bind:REMK_NM" displaytype="normal" textAlign="left"/>
+                      <Cell col="9" expandsize="24" expandshow="show"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_BottomR" taborder="3" left="630" top="335" width="600" height="300" cssclass="div_WF_MainBox" text="">
+          <Layouts>
+            <Layout>
+              <Static id="sta_ContNmCn" taborder="0" text="최근 구매발주 내역" top="8" height="30" cssclass="sta_WF_Title" left="10" textAlign="center" width="152"/>
+              <Button id="btn_CallScrn" taborder="1" top="11" width="60" height="22" cssclass="bt_WF_More" cursor="pointer" onclick="div_BottomR_btn_CallScrn_onclick" right="10"/>
+              <Grid id="grd_Master10" taborder="2" left="10" top="41" binddataset="ds_Master12" autofittype="none" cellsizingtype="col" right="10" bottom="10" selecttype="multiarea" oncellclick="div_BottomR_grd_Master10_oncellclick">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="35" band="left"/>
+                      <Column size="90" band="left"/>
+                      <Column size="60"/>
+                      <Column size="200"/>
+                      <Column size="80"/>
+                      <Column size="100"/>
+                      <Column size="80"/>
+                      <Column size="250"/>
+                      <Column size="24"/>
+                      <Column size="250"/>
+                      <Column size="24"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="26" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="No."/>
+                      <Cell col="1" text="발주번호"/>
+                      <Cell col="2" text="확인상태"/>
+                      <Cell col="3" text="발주명"/>
+                      <Cell col="4" text="발주일자"/>
+                      <Cell col="5" text="발주금액"/>
+                      <Cell col="6" text="발주자"/>
+                      <Cell col="7" text="비고(내부)"/>
+                      <Cell col="8"/>
+                      <Cell col="9" text="비고(파트너사)"/>
+                      <Cell col="10"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell expr="currow+1" textAlign="center"/>
+                      <Cell col="1" text="bind:PCOH_NO" displaytype="mask" textAlign="center" maskeditformat="@######-####" maskedittype="string"/>
+                      <Cell col="2" text="expr:(PTMO_NM != null)?'확인':''" textAlign="center"/>
+                      <Cell col="3" text="bind:PCOH_NM" displaytype="normal" textAlign="left"/>
+                      <Cell col="4" text="bind:PCOH_DD" displaytype="date" textAlign="center" calendardateformat="yyyy-MM-dd" calendardisplaynulltype="none"/>
+                      <Cell col="5" text="bind:WONE_AM" displaytype="mask" textAlign="right" maskeditformat="#,##0"/>
+                      <Cell col="6" text="bind:REGI_NM" displaytype="normal" textAlign="center"/>
+                      <Cell col="7" text="bind:REMK_NM" displaytype="normal" textAlign="left"/>
+                      <Cell col="8" expandshow="show" expandsize="24"/>
+                      <Cell col="9" text="bind:PTRE_NM" displaytype="normal" textAlign="left"/>
+                      <Cell col="10" expandshow="show" expandsize="24"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btn_Refresh" taborder="4" top="3" width="17" height="17" cssclass="bt_WF_wgRefresh" onclick="btn_Refresh_onclick" right="17" cursor="pointer" tooltiptext="새로고침"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Mm210">
+        <ColumnInfo>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Mm215">
+        <ColumnInfo>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Mm220">
+        <ColumnInfo>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="CUSM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master11">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="QUSH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="WOFH_YN" type="STRING" size="256"/>
+          <Column id="QUSH_DD" type="STRING" size="256"/>
+          <Column id="QUTH_NO" type="STRING" size="256"/>
+          <Column id="QUTH_SQ" type="STRING" size="256"/>
+          <Column id="QUTH_NM" type="STRING" size="256"/>
+          <Column id="QUTH_DD" type="STRING" size="256"/>
+          <Column id="REQU_DD" type="STRING" size="256"/>
+          <Column id="QUTH_GU" type="STRING" size="256"/>
+          <Column id="EVAL_CD" type="STRING" size="256"/>
+          <Column id="DOIM_GU" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="QUSH_CD" type="STRING" size="256"/>
+          <Column id="DELE_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="CURR_CD" type="STRING" size="256"/>
+          <Column id="EXCH_RT" type="STRING" size="256"/>
+          <Column id="CUSM_CD" type="STRING" size="256"/>
+          <Column id="SELE_YN" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master12">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="PCOH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="WOFH_YN" type="STRING" size="256"/>
+          <Column id="PCOH_DD" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="PCOH_NM" type="STRING" size="256"/>
+          <Column id="DOIM_GU" type="STRING" size="256"/>
+          <Column id="PCOH_GU" type="STRING" size="256"/>
+          <Column id="CUSM_CD" type="STRING" size="256"/>
+          <Column id="CUSM_NM" type="STRING" size="256"/>
+          <Column id="CSPM_CD" type="STRING" size="256"/>
+          <Column id="CSPM_NM" type="STRING" size="256"/>
+          <Column id="VATM_CD" type="STRING" size="256"/>
+          <Column id="VATM_NM" type="STRING" size="256"/>
+          <Column id="VATM_RT" type="STRING" size="256"/>
+          <Column id="CURR_CD" type="STRING" size="256"/>
+          <Column id="EXCH_RT" type="STRING" size="256"/>
+          <Column id="WONE_AM" type="STRING" size="256"/>
+          <Column id="VTAX_AM" type="STRING" size="256"/>
+          <Column id="FORE_AM" type="STRING" size="256"/>
+          <Column id="TOTL_AM" type="STRING" size="256"/>
+          <Column id="PAYM_CD" type="STRING" size="256"/>
+          <Column id="PACK_GU" type="STRING" size="256"/>
+          <Column id="TERM_CD" type="STRING" size="256"/>
+          <Column id="INSP_CD" type="STRING" size="256"/>
+          <Column id="IMPA_CD" type="STRING" size="256"/>
+          <Column id="PRIC_CD" type="STRING" size="256"/>
+          <Column id="NATM_CD" type="STRING" size="256"/>
+          <Column id="SHIP_DD" type="STRING" size="256"/>
+          <Column id="EXPI_DD" type="STRING" size="256"/>
+          <Column id="SHIP_CD" type="STRING" size="256"/>
+          <Column id="ARRI_CD" type="STRING" size="256"/>
+          <Column id="EXCH_CD" type="STRING" size="256"/>
+          <Column id="EXCH_DD" type="STRING" size="256"/>
+          <Column id="TRAN_CD" type="STRING" size="256"/>
+          <Column id="PATY_CD" type="STRING" size="256"/>
+          <Column id="PTCO_DD" type="STRING" size="256"/>
+          <Column id="PTCP_CD" type="STRING" size="256"/>
+          <Column id="PTRE_NM" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_ST" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="PARE_NM" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_NM" type="STRING" size="256"/>
+          <Column id="CLSM_CD" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="COMM_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="FLDU_YN" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DELE_ID" type="STRING" size="256"/>
+          <Column id="DELE_DT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master13">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="NOTH_NO" type="STRING" size="256"/>
+          <Column id="NOTH_DD" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="NOTH_NM" type="STRING" size="256"/>
+          <Column id="FROM_DD" type="STRING" size="256"/>
+          <Column id="CLOS_DD" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DELE_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : Form_Portal_SRM
+*  @화면설명 : SRM포털 메인
+*  @시스템명 : (SM) 시스템
+*  @작성자   : 최석목
+*  @작성일   : 2022.03.22
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2022.03.22     	    최석목 	           최초 생성 
+*************************************************************************************************
+*/
+
+/***********************************************************************************************
+ * 0. 폼로드
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.01. Form Include 선언
+ ***********************************************************************************************/
+//include "comLib::CommonUtil.xjs";//공통함수
+
+/***********************************************************************************************
+ * 00.02. Form 변수 선언
+ ***********************************************************************************************/
+this.fvFormId = "Portal_SRM";//[필수]프로그램ID-화면로드시 메뉴정보 기준으로 재설정됨.
+
+/***********************************************************************************************
+ * 00.03. Form Onload 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+
+}
+
+/***********************************************************************************************
+ * 00.04. Form [공통] 초기설정 함수 - 필수
+ ***********************************************************************************************/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.gfn_SetGrid(this.div_TopR.form.grd_Master10);//[공통]그리드 이벤트 설정
+	this.gfn_SetGrid(this.div_BottomL.form.grd_Master10);//[공통]그리드 이벤트 설정
+	this.gfn_SetGrid(this.div_BottomR.form.grd_Master10);//[공통]그리드 이벤트 설정
+}
+
+/***********************************************************************************************
+ * 00.05. Form [업무] 초기설정 함수
+ ***********************************************************************************************/
+this.fn_FormBizInit = function() 
+{ 
+	this.mainPotal_onsize(this);
+		
+	//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+	var objCondList = ["MM210|ds_Mm210","MM215|ds_Mm215","MM220|ds_Mm220"];
+	//공통코드 설정함수 호출				   
+	this.gfn_GetCommCode(this, objCondList, "");
+	
+	//조회
+	this.fn_ComBtnSearch();
+}
+
+/***********************************************************************************************
+ * 00.07. Form OnClose 이벤트
+ ***********************************************************************************************/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/***********************************************************************************************
+ * 1. 조회 영역
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 01.01. [공통버튼] 조회 버튼 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_ComBtnSearch = function()
+{ 
+
+	//조회전 유효성 체크
+	if (!this.fn_VaildSearch()) return;	
+
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Master10.clearData();
+	this.ds_Master11.clearData();
+	this.ds_Master12.clearData();
+	this.ds_Input.clearData();
+	
+	//[업무] 조회조건 입력 : 견적의뢰관리 대상 필수값
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "CUSM_CD", this.gfn_GetSessionValue("CUSM_CD"));//거래처
+	this.ds_Input.setColumn(0, "GRCM_CD", "SM990");//그룹코드 = IT Manager
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sm:M_SM_0600_M_SL10";
+	this.gfn_AddComSearchService(this, svcAddObj);	
+	
+	//[공통]서비스정보 추가 - 최근견적 의뢰내역
+	svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "mm:M_MM_2110_M_SL12";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스정보 추가 - 구매발주내역
+	svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sr:M_SR_2100_M_SL11";
+	this.gfn_AddComSearchService(this, svcAddObj);	
+	
+	//[공통]서비스정보 추가 - 공지사항
+	svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sr:M_SR_0200_M_SL11";
+	this.gfn_AddComSearchService(this, svcAddObj);		
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "MST10_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_MM;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Master10=ds_Master10 ds_Master11=ds_Master11 ds_Master12=ds_Master12 ds_Master13=ds_Master13";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+}
+
+/***********************************************************************************************
+ * 01.02. [Vaildation] 조회 필수값 체크
+ ***********************************************************************************************/
+this.fn_VaildSearch = function()
+{
+	return true;
+}
+
+/***********************************************************************************************
+ * 13. [CallBack] 함수
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 13.01. [서비스] CallBack 함수 처리
+ ***********************************************************************************************/ 
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST_SEARCH": //조회		
+	
+			break;			
+			
+	}
+};
+
+this.mainPotal_onsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{
+	var iWidth = parseInt((obj.getOffsetWidth() - 50) / 2);
+	var iHeight = parseInt((obj.getOffsetHeight() - 60) / 2);	
+	
+	this.div_TopL.setOffsetWidth(iWidth);
+	this.div_BottomL.setOffsetWidth(iWidth);
+	this.div_TopL.setOffsetHeight(iHeight);
+	this.div_BottomL.setOffsetHeight(iHeight);	
+	this.div_BottomL.setOffsetTop(iHeight+ 35);	
+	
+	this.div_TopR.setOffsetWidth(iWidth);
+	this.div_BottomR.setOffsetWidth(iWidth);
+	this.div_TopR.setOffsetLeft(iWidth + 30);
+	this.div_BottomR.setOffsetLeft(iWidth + 30);	
+	this.div_TopR.setOffsetHeight(iHeight);
+	this.div_BottomR.setOffsetHeight(iHeight);		
+	this.div_BottomR.setOffsetTop(iHeight+ 35);		
+	
+	this.resetScroll();
+
+};
+
+//새로고침
+this.btn_Refresh_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_ComBtnSearch();
+};
+
+this.div_BottomL_grd_Master10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//비고상세
+	if (e.col == 10) {		
+		if (!this.gfn_IsNull(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "REMK_NM"))) {
+			var sPopupId = "M_REMK_01";//팝업ID - 비고상세
+			var sTitle = "견적의뢰관리 비고";//팝업 타이틀
+			var oArg = {  Remk:this.ds_Master10.getColumn(this.ds_Master10.rowposition, "REMK_NM")};//Argument처리
+			this.gfn_RemkPop(sPopupId, sTitle, oArg);		
+		}
+	}	
+};
+
+this.div_BottomR_grd_Master10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	 if (e.col == 9) {		
+
+		if (!this.gfn_IsNull(this.ds_Master11.getColumn(e.row, "REMK_NM"))) {
+			var sPopupId = "M_REMK_03";//팝업ID - 대금지급
+			var sTitle = "비고(내부)";//팝업 타이틀
+			var oArg = {  Remk:this.ds_Master11.getColumn(e.row, "REMK_NM")};//Argument처리
+			this.gfn_RemkPop(sPopupId, sTitle, oArg);		
+		}	
+	} else if (e.col == 11) {		
+		if (!this.gfn_IsNull(this.ds_Master11.getColumn(e.row, "PTRE_NM"))) {
+			var sPopupId = "M_REMK_02";//팝업ID - 대금지급
+			var sTitle = "비고(파트너사)";//팝업 타이틀
+			var oArg = {  Remk:this.ds_Master11.getColumn(e.row, "PTRE_NM")};//Argument처리
+			this.gfn_RemkPop(sPopupId, sTitle, oArg);		
+		}
+	
+	}	
+};
+
+//최근견적의뢰 내역
+this.div_TopR_btn_CallScrn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_CallScrn("M_MM_2110");	
+};
+//최근구매발주내역
+this.div_BottomR_btn_CallScrn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_CallScrn("M_SR_2100");	
+};
+
+//공지사항
+this.div_TopL_btn_CallScrn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_CallScrn("M_SR_0200");	
+};
+
+//공지사항 셀클릭
+this.div_TopL_grd_Master10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{   //상세보기
+	if (e.col == 4) {
+		var sPopupId = "CM_M_SR_0200";
+		var sPopupTitle = "공지사항"; //Popup화면 타이틀
+		var sPopupFormUrl  = "sr::M_SR_0200.xfdl"; //Popup화면 URL
+		var oArg = {paramTitle:sPopupTitle, paramNothNo:this.ds_Master13.getColumn(e.row, "NOTH_NO"), PrgmId:"M_SR_0200"}; //Popup화면 전달 파라메터
+		var oOption = {title:sPopupTitle, width:"1400", height:"800", popuptype:"TitlePopup"}; //Popup화면 옵션
+		var sPopupCallBack = "fn_PopupCallback"; //Popup화면 호출후 Callback 처리 함수
+
+		this.gfn_OpenPopup(sPopupId, sPopupFormUrl, oArg, sPopupCallBack, oOption); //Popup화면 호출 함수	
+
+	}
+};
+]]></Script>
+  </Form>
+</FDL>

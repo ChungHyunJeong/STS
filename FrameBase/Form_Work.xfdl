@@ -1,0 +1,808 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Form_Work" width="1680" height="830" titletext="Form_Work" onload="fn_FormOnload" onclose="form_onclose" onsize="form_onsize" onkeydown="form_onkeydown">
+    <Layouts>
+      <Layout width="1680" height="830" screenid="ScreenDeskTop">
+        <Div id="div_Work" taborder="0" left="0" top="45" right="0" bottom="0"/>
+        <Div id="div_ComBtn" taborder="1" left="0" top="0" right="0" height="45">
+          <Layouts>
+            <Layout>
+              <Static id="sta_Title" taborder="0" left="14" top="0" width="500" height="45" usedecorate="true" font="20px/normal &quot;Malgun Gothic&quot;,&quot;맑은 고딕&quot;" color="#018ebe" onclick="div_ComBtn_sta_Title_onclick"/>
+              <Div id="div_Btn" taborder="1" left="285" top="0" height="45" right="0" text="" async="false"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="sta_LineButton" taborder="2" left="0" top="45" height="1" right="0" background="darkgray"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  공통 WorkFrame 처리
+*  @Creator 	csm
+*  @CreateDate 	2020.10.05
+*  @Desction    
+******************* 소스 수정 이력 *************************************************************
+*  date          		Modifier                Description
+*************************************************************************************************
+*  2020.10.05     	    csm 	           	    최초 생성 
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * Form 변수 선언 영역
+ ************************************************************************************************/
+
+this.comMenuRow = -1; //열린화면의 MENU Row
+this.fvWfComMenuId = "";//열린메뉴ID
+this.fvWfComPrgmId = "";//열린프로그램ID
+
+/***********************************************************************************************
+* Form 버튼 이벤트 영역
+ ***********************************************************************************************/
+/**
+ * form onload 함수
+ * @return 
+ * @example
+ * @memberOf 
+ */
+this.fn_FormOnload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.form_onsize();	
+	//this.divTitle.form.set_scrollbartype("none");
+	// form로딩시 화면에 표시할 page URL 설정
+	this.div_Work.set_url(this.getOwnerFrame().arguments["pageUrl"]);
+
+	if (!this.gfn_IsNull(this.getOwnerFrame().arguments["menuNm"])) {
+		//var sMenuNm = this.getOwnerFrame().arguments["menuNm"];
+		var sMenuNm = this.getOwnerFrame().arguments["menuPath"];
+		this.fvWfComPrgmId = this.getOwnerFrame().arguments["prgmId"];//열린프로그램ID
+		var sMenuNmView = "";//보여지는 메뉴명
+		
+		this.fvWfComMenuId = this.getOwnerFrame().arguments["menuId"];//열린메뉴ID
+		
+		//trace("Work_fn_FormOnload(this.fvWfComMenuId)==" + this.fvWfComMenuId);
+		//trace("Work_fn_FormOnload(this.fvWfComPrgmId)==" + this.fvWfComPrgmId);
+		//this.div_ComBtn.form.sta_Title.set_text("<b v='true'>" + sMenuNm + " </b><fc v='#7e7e7e'>[ " + this.fvWfComPrgmId + " ]</fc>");
+		//this.div_ComBtn.form.sta_Title.set_text("<b v='true'>" + sMenuNm + " </b>");
+		
+		if (!this.gfn_IsNull(sMenuNm)) {
+			if (sMenuNm.indexOf(">") > 0) {
+				var iLength = sMenuNm.lastIndexOf(">");
+				var iTotLength = sMenuNm.length;
+				var sPreMenuNm = sMenuNm.substring((iLength + 1), iTotLength);
+				var sTailMenuNm = sMenuNm.substring(0, iLength);
+				sMenuNmView = "<b v='true'><fs v='14'>" + sPreMenuNm + "</fs></b><fs v='12'> (" + sTailMenuNm + ")</fs>";//보여지는 메뉴명
+			} else {
+				sMenuNmView = "<b v='true'><fs v='14'>" + sMenuNm + "</fs></b>";//보여지는 메뉴명
+			}
+		}
+		this.div_ComBtn.form.sta_Title.set_text(sMenuNmView);
+		this.div_ComBtn.form.sta_Title.set_tooltiptext(sMenuNm + "[ " + this.fvWfComPrgmId + " ]");
+	}
+	//menuId
+	var sMenuId = this.getOwnerFrame().arguments["menuId"];//메뉴ID
+	var iFindRow = nApp.gds_Menu.findRow("MENU_ID", sMenuId);
+	
+	if (iFindRow > -1) {
+	
+		//결재함일경우 공통버튼URL변경
+		if (this.fvWfComPrgmId == "M_WF_1100") {
+			this.div_ComBtn.form.div_Btn.set_url("FrameBase::Form_ComBtnWf.xfdl");
+		} else {
+			this.div_ComBtn.form.div_Btn.set_url("FrameBase::Form_ComBtn.xfdl");
+		}
+
+		var sSELE_YN = nApp.gds_Menu.getColumn(iFindRow, "SELE_YN");//조회
+		var sCOPY_YN = nApp.gds_Menu.getColumn(iFindRow, "COPY_YN");//복사
+		var sINSE_YN = nApp.gds_Menu.getColumn(iFindRow, "INSE_YN");//입력
+		var sCANC_YN = nApp.gds_Menu.getColumn(iFindRow, "CANC_YN");//취소
+		var sSAVE_YN = nApp.gds_Menu.getColumn(iFindRow, "SAVE_YN");//저장
+		var sDELE_YN = nApp.gds_Menu.getColumn(iFindRow, "DELE_YN");//삭제
+		var sEXCE_YN = nApp.gds_Menu.getColumn(iFindRow, "EXCE_YN");//엑셀
+		var sPRIN_YN = nApp.gds_Menu.getColumn(iFindRow, "PRIN_YN");//인쇄
+		var sWFRQ_YN = nApp.gds_Menu.getColumn(iFindRow, "WFRQ_YN");//결재요청
+		var sWFSE_YN = nApp.gds_Menu.getColumn(iFindRow, "WFSE_YN");//결재현황
+		var sWFRE_YN = nApp.gds_Menu.getColumn(iFindRow, "WFRE_YN");//재기안
+		
+		//[공통버튼] 버튼 설정 : 메뉴에 표출되는 메인 화면에 설정
+		var objComButton = new Object();
+		
+		//조회
+		if (sSELE_YN == "1") {
+			objComButton.SELE_YN = true;
+		} else {
+			objComButton.SELE_YN = false;
+		}
+		//복사
+		if (sCOPY_YN == "1") {
+			objComButton.COPY_YN = true;
+		} else {
+			objComButton.COPY_YN = false;
+		}
+		//입력
+		if (sINSE_YN == "1") {
+			objComButton.INSE_YN = true;
+		} else {
+			objComButton.INSE_YN = false;
+		}		
+		//취소
+		if (sCANC_YN == "1") {
+			objComButton.CANC_YN = true;
+		} else {
+			objComButton.CANC_YN = false;
+		}
+		//저장
+		if (sSAVE_YN == "1") {
+			objComButton.SAVE_YN = true;
+		} else {
+			objComButton.SAVE_YN = false;
+		}
+		//삭제
+		if (sDELE_YN == "1") {
+			objComButton.DELE_YN = true;
+		} else {
+			objComButton.DELE_YN = false;
+		}	
+		//엑셀
+		if (sEXCE_YN == "1") {
+			objComButton.EXCE_YN = true;
+		} else {
+			objComButton.EXCE_YN = false;
+		}
+		//인쇄
+		if (sPRIN_YN == "1") {
+			objComButton.PRIN_YN = true;
+		} else {
+			objComButton.PRIN_YN = false;
+		}
+		//결재요청
+		if (sWFRQ_YN == "1") {
+			objComButton.WFRQ_YN = true;
+		} else {
+			objComButton.WFRQ_YN = false;
+		}	
+		//결재현황
+		if (sWFSE_YN == "1") {
+			objComButton.WFSE_YN = true;
+		} else {
+			objComButton.WFSE_YN = false;
+		}
+		//재기안
+		if (sWFRE_YN == "1") {
+			objComButton.WFRE_YN = true;
+		} else {
+			objComButton.WFRE_YN = false;
+		}		
+		
+		//[공통버튼]버튼 설정 공통함수 호출
+		//결재함일경우 공통버튼URL변경
+		if (this.fvWfComPrgmId != "M_WF_1100") {
+			this.fn_WfComBtnInit(objComButton);			
+		}
+		
+	}
+	
+/*
+	//[공통버튼] 버튼 설정 : 메뉴에 표출되는 메인 화면에 설정
+	var objComButton = new Object();
+	
+	if (this.getOwnerFrame().arguments["btnInit"] == "1") {
+		objComButton.REFRESH_Visible = true;//[새로고침]버튼 Visible 설정
+	} else {
+		objComButton.REFRESH_Visible = false;//[새로고침]버튼 Visible 설정
+	}
+	
+	if (this.getOwnerFrame().arguments["btnNew"] == "1") {
+		objComButton.NEW_Visible = true;//[신규]버튼 Visible 설정
+	} else {
+		objComButton.NEW_Visible = false;//[신규]버튼 Visible 설정
+	}
+	
+	if (this.getOwnerFrame().arguments["bnDelete"] == "1") {
+		objComButton.DELETE_Visible = true;//[삭제]버튼 Visible 설정
+	} else {
+		objComButton.DELETE_Visible = false;//[삭제]버튼 Visible 설정
+	}
+	
+	if (this.getOwnerFrame().arguments["btnSave"] == "1") {
+		objComButton.SAVE_Visible = true;//[저장]버튼 Visible 설정
+	} else {
+		objComButton.SAVE_Visible = false;//[저장]버튼 Visible 설정
+	}
+	
+	if (this.getOwnerFrame().arguments["btnSearch"] == "1") {
+		objComButton.SEARCH_Visible = true;//[조회]버튼 Visible 설정	
+	} else {
+		objComButton.SEARCH_Visible = false;//[조회]버튼 Visible 설정	
+	}	
+	
+	//[공통버튼]버튼 설정 공통함수 호출
+	this.fn_WfComBtnInit(objComButton);
+	*/
+	/*
+	
+	//즐겨찾기 표시
+	this.comMenuRow = nexacro.getApplication().gds_FavoriteMenu.findRow("MENU_ID",this.getOwnerFrame().arguments["menuId"]);
+	
+	if(this.comMenuRow > -1)
+	{
+		this.div_ComBtn.form.btn_Favorite.set_cssclass("btn_WF_BtitleOn");
+	}
+	else
+	{
+		this.div_ComBtn.form.btn_Favorite.set_cssclass("btn_WF_Btitle");
+	}	
+	*/
+	
+	//objNewWin.arguments["menuId"] = sMenuId;
+	//objNewWin.arguments["menuNm"] = sMenuNm;
+	//objNewWin.arguments["pageUrl"] = sPageUrl;
+	//objNewWin.arguments["aArgs"] = aArgs;
+	
+	//그룹웨어에서 SMS전송메뉴를 호출한경우
+	if (nApp.gvMenuId == "M_SM_4300") {
+		this.div_Work.move(0,0,null,null,0,0);
+		this.div_ComBtn.set_visible(false);
+		this.sta_LineButton.set_visible(false);
+	}
+	
+};
+
+/**
+ * workFrame_onclose event
+ * @return 
+ * @example
+ *
+ * @memberOf 
+ */
+this.form_onclose = function(obj:Form, e:nexacro.CloseEventInfo)
+{  
+	try
+	{
+		if (e.fromobject == "[object Form]")
+		{ 
+			var winId = this.getOwnerFrame().name;
+			 //alert("winId==" + winId);
+			 
+			 //alert(nApp.gvTabFrame.form.bTabCloseMode);
+			 if (!nApp.gvTabFrame.form.bTabCloseMode) {
+			 //업무화면 닫기 함수 호출
+				nApp.gvTabFrame.form.gfn_TabOnClose(winId);
+			}
+			//trace("winId : " + winId);
+			/*
+			if (nApp.gvMdiFrame.form.bClose) 
+			{
+				nApp.gvMdiFrame.form.bClose = false;
+				nApp.gvMdiFrame.form.fnTabOnClose(winId);
+			}
+			*/
+		}
+	}
+	catch(e)
+	{
+
+	}
+}
+
+/**
+ * onsize event
+ * @return 
+ * @example
+ *
+ * @memberOf this
+ */
+this.form_onsize = function(obj:Form, e:nexacro.SizeEventInfo)
+{	
+	this.resetScroll();
+}
+
+/**
+ * @description 각 화면에서 디버그창을 호출할 수 있도록 단축키 지정
+*/
+this.form_onkeydown = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{
+	// 공통 키다운 이벤트 호출
+	this.gfn_Onkeydown(obj, e);
+};
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/**
+ * @description 메세지 콜백
+*/
+this.fnMsgCallback = function (strId, strVal)
+{
+	//trace("strId >> " + strId + "   strVal >> " + strVal);
+	if(strId == "confirm.before.movepage"){
+		if(strVal == true)
+		{
+			this.close();
+		}
+	}
+};
+
+
+/************************************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+/**
+ * @description workFrame close 시 처리
+*/
+this.fn_WorkFrameClose = function()
+{
+	//this.gfn_formClose();
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_Close")))
+	{
+		trace("해당화면에 fnClose 함수가 없습니다. fnClose 함수가 없으면 데이타 변경여부 체크를 하지 않습니다.");
+	}else{
+		if(this.div_Work.form.fn_Close() == false)
+		{
+			var sMsgId = "confirm.before.movepage";							//메세지ID
+			var arrArg = "";												//메세지취환될값 배열[생략가능]
+			var sPopId = sMsgId;											//메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "fn_MsgCallback";								//메세지콜백[생략가능] 		* confirm성 메시지를 사용 시 반드시 필요
+			
+			// 변경된 데이터가 있습니다. 현재 화면을 닫겠습니까?
+			this.gfn_Alert(sMsgId, arrArg, sPopId, sMsgCallback);	
+			return false;
+		}
+	}	
+	this.close();
+}
+
+/***********************************************************************************************
+* Form 버튼 이벤트 영역
+ ***********************************************************************************************/
+/**
+ *  [공통버튼] 초기설정 처리
+*/
+this.fn_WfComBtnInit = function(obj)
+{
+	//[공통버튼] 버튼관리 화면의 버튼 설정 함수 호출
+	this.div_ComBtn.form.div_Btn.form.fn_SetComButtonInit(obj);
+}
+
+/**
+ *  [공통버튼] Enable 처리
+*/
+this.fn_SetComButtonEnable = function(obj)
+{
+	//[공통버튼] 버튼관리 화면의 버튼 Enable 설정 함수 호출
+	this.div_ComBtn.form.div_Btn.form.fn_SetComButtonEnable(obj);
+}
+
+/**
+ *  [공통버튼] Enable 처리 - 결재
+*/
+this.fn_WfComBtnEnable = function(obj)
+{
+	//[공통버튼] 버튼관리 화면의 버튼 Enable 설정 함수 호출
+	this.div_ComBtn.form.div_Btn.form.fn_SetComButtonEnable(obj);
+}
+
+/**
+ *  [공통버튼 처리]
+    조회     : fn_ComBtnSearch
+	입력     : fn_ComBtnAdd
+	복사     : fn_ComBtnCopy
+	취소     : fn_ComBtnCancel
+	저장     : fn_ComBtnSave
+	삭제     : fn_ComBtnDelete
+	엑셀저장 : fn_ComBtnExcel
+	인쇄     : fn_ComBtnPrint
+	결재요청 : fn_ComBtnDecide
+	결재현황 : fn_ComBtnProcess
+	재기안   : fn_ComBtnRecide
+	도움말   : fn_ComBtnHelp
+*/
+
+/**
+ *  [공통버튼] 조회 버튼 클릭시 처리
+*/
+this.fn_WfComBtnSearch = function()
+{ 
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnSearch")))
+	{
+		trace("[공통버튼] 해당 화면에 조회 버튼 클릭시 처리함수(this.fn_ComBtnSearch)가 없습니다.");
+	} else {
+		this.div_Work.form.fn_ComBtnSearch();
+		
+		/* 공통버튼 조회 클릭 후 그리드 설정 초기화 20221004 jch 추가 */
+		var callComp = ["Grid"];
+		for(var i=0;i<callComp.length;i++) {
+			var callFunc = "fn_callComponent";
+			this.fn_componentList(1, this.div_Work.form, callComp[i], callFunc);
+		}
+		
+		/* 피벗 초기화 20221004 jch */
+		if(!this.gfn_IsNull(this.div_Work.form.lookup("div_ComGridProc"))) { /* 피벗 실행 div(div_ComGridProc) 있을 경우에만 적용 */
+			if(!this.gfn_IsNull(this.div_Work.form.div_ComGridProc.form.lookup("fn_clearPivot"))) {
+				this.div_Work.form.div_ComGridProc.form.fn_clearPivot();
+			}
+		}
+	}
+}
+
+/**
+ *  [공통버튼] 입력 버튼 클릭시 처리
+*/
+this.fn_WfComBtnAdd = function()
+{ 
+
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnAdd")))
+	{
+		trace("[공통버튼] 해당 화면에 입력 버튼 클릭시 처리함수(this.fn_ComBtnAdd)가 없습니다.");
+	} else {
+		this.div_Work.form.fn_ComBtnAdd();
+	}
+}
+
+/**
+ *  [공통버튼] 복사 버튼 클릭시 처리
+*/
+this.fn_WfComBtnCopy = function()
+{
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnCopy")))
+	{
+		trace("[공통버튼] 해당 화면에 복사 버튼 클릭시 처리함수(this.fn_ComBtnCopy)가 없습니다.");
+	} else {
+		this.div_Work.form.fn_ComBtnCopy();
+	}
+}
+
+/**
+ *  [공통버튼] 취소 버튼 클릭시 처리
+*/
+this.fn_WfComBtnCancel = function()
+{
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnCancel")))
+	{
+		trace("[공통버튼] 해당 화면에 취소 버튼 클릭시 처리함수(this.fn_ComBtnCancel)가 없습니다.");
+	} else {
+		this.div_Work.form.fn_ComBtnCancel();
+	}
+}
+
+/**
+ *  [공통버튼] 저장 버튼 클릭시 처리
+*/
+this.fn_WfComBtnSave = function()
+{
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnSave")))
+	{
+		trace("[공통버튼] 해당 화면에 저장 버튼 클릭시 처리함수(this.fn_ComBtnSave)가 없습니다.");
+	} else {		
+		//this.gfn_SaveCommBtnLog("SAVE", this.fvWfComPrgmId);//버튼 로그저장
+		this.gfn_SaveCommBtnLog("SAVE", this.fvWfComMenuId);//버튼 로그저장
+		this.div_Work.form.fn_ComBtnSave();
+	}
+}
+
+/**
+ *  [공통버튼] 삭제 버튼 클릭시 처리
+*/
+this.fn_WfComBtnDelete = function()
+{ 
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnDelete")))
+	{
+		trace("[공통버튼] 해당 화면에 삭제 버튼 클릭시 처리함수(this.fn_ComBtnDelete)가 없습니다.");
+	} else {
+		//this.gfn_SaveCommBtnLog("DELETE", this.fvWfComPrgmId);//버튼 로그저장
+		this.gfn_SaveCommBtnLog("DELETE", this.fvWfComMenuId);//버튼 로그저장
+		this.div_Work.form.fn_ComBtnDelete();
+	}
+}
+
+/**
+ *  [공통버튼] 엑셀저장 버튼 클릭시 처리
+*/
+this.fn_WfComBtnExcel = function()
+{ 
+
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnExcel")))
+	{
+		trace("[공통버튼] 해당 화면에 엑셀저장 버튼 클릭시 처리함수(this.fn_ComBtnExcel)가 없습니다.");
+	} else {
+		//this.gfn_SaveCommBtnLog("EXCEL", this.fvWfComPrgmId);//버튼 로그저장
+		this.gfn_SaveCommBtnLog("EXCEL", this.fvWfComMenuId);//버튼 로그저장
+		this.div_Work.form.fn_ComBtnExcel();
+	}
+}
+
+/**
+ *  [공통버튼] 인쇄 버튼 클릭시 처리
+*/
+this.fn_WfComBtnPrint = function()
+{
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnPrint")))
+	{
+		trace("[공통버튼] 해당 화면에 인쇄 버튼 클릭시 처리함수(this.fn_ComBtnPrint)가 없습니다.");
+	} else {
+		//this.gfn_SaveCommBtnLog("PRINT", this.fvWfComPrgmId);//버튼 로그저장
+		this.gfn_SaveCommBtnLog("PRINT", this.fvWfComMenuId);//버튼 로그저장
+		this.div_Work.form.fn_ComBtnPrint();
+	}
+}
+
+/**
+ *  [공통버튼] 결재요청 클릭시 처리
+*/
+this.fn_WfComBtnDecide = function()
+{
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnDecide")))
+	{
+		trace("[공통버튼] 해당 화면에 결재요청 버튼 클릭시 처리함수(this.fn_ComBtnDecide)가 없습니다.");
+	} else {
+		//this.gfn_SaveCommBtnLog("DECIDE", this.fvWfComPrgmId);//버튼 로그저장
+		this.gfn_SaveCommBtnLog("DECIDE", this.fvWfComMenuId);//버튼 로그저장
+		this.div_Work.form.fn_ComBtnDecide();
+	}
+}
+
+/**
+ *  [공통버튼] 결재현황 버튼 클릭시 처리
+*/
+this.fn_WfComBtnProcess = function()
+{
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnProcess")))
+	{
+		trace("[공통버튼] 해당 화면에 결재현황 버튼 클릭시 처리함수(this.fn_ComBtnProcess)가 없습니다.");
+	} else {
+		this.div_Work.form.fn_ComBtnProcess();
+	}
+}
+
+/**
+ *  [공통버튼] 재기안 버튼 클릭시 처리
+*/
+this.fn_WfComBtnRecide = function()
+{
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnRecide")))
+	{
+		trace("[공통버튼] 해당 화면에 재기안 버튼 클릭시 처리함수(this.fn_ComBtnRecide)가 없습니다.");
+	} else {
+		//this.gfn_SaveCommBtnLog("RECIDE", this.fvWfComPrgmId);//버튼 로그저장
+		this.gfn_SaveCommBtnLog("RECIDE", this.fvWfComMenuId);//버튼 로그저장
+		this.div_Work.form.fn_ComBtnRecide();
+	}
+}
+
+/**
+ *  [공통버튼] 도움말 버튼 클릭시 처리
+*/
+this.fn_WfComBtnHelp = function()
+{
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnHelp")))
+	{
+		trace("[공통버튼] 해당 화면에 도움말 버튼 클릭시 처리함수(this.fn_ComBtnHelp)가 없습니다.");
+	} else {
+		this.div_Work.form.fn_ComBtnHelp();
+	}
+}
+
+/**
+ *  [공통버튼] 닫기 버튼 클릭시 처리
+*/
+this.fn_WfComBtnClose = function()
+{
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnClose")))
+	{
+		trace("[공통버튼] 해당 화면에 닫기 버튼 클릭시 처리함수(this.fn_ComBtnClose)가 없습니다.");
+	} else {
+		var rtnVal = this.div_Work.form.fn_ComBtnClose();
+		if (rtnVal) {
+			//trace('fn_WfComBtnClose');
+			
+			var cForm = this.div_Work.form;
+			
+			if(cForm.isValidObject("div_ComGridProc")) {
+				//trace('div_ComGridProc');
+				if(cForm.div_ComGridProc.form.isValidObject("fn_clearPivot")) {
+					//trace('fn_clearPivot');
+					cForm.div_ComGridProc.form.fn_clearPivot();
+				}
+			}
+			
+			this.close();
+			
+			
+			
+		}
+	}
+}
+
+/**
+ *  [공통버튼] 승인 버튼 클릭시 처리
+*/
+this.fn_WfComBtnAppr = function()
+{
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnAppr")))
+	{
+		trace("[공통버튼] 해당 화면에 승인 버튼 클릭시 처리함수(this.fn_ComBtnAppr)가 없습니다.");
+	} else {
+		this.div_Work.form.fn_ComBtnAppr();
+	}
+}
+
+/**
+ *  [공통버튼] 기각 버튼 클릭시 처리
+*/
+this.fn_WfComBtnReject = function()
+{
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnReject")))
+	{
+		trace("[공통버튼] 해당 화면에 기각 버튼 클릭시 처리함수(this.fn_ComBtnReject)가 없습니다.");
+	} else {
+		this.div_Work.form.fn_ComBtnReject();
+	}
+}
+
+/**
+ *  [공통버튼] 확인 버튼 클릭시 처리
+*/
+this.fn_WfComBtnConfirm = function()
+{
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnConfirm")))
+	{
+		trace("[공통버튼] 해당 화면에 확인 버튼 클릭시 처리함수(this.fn_ComBtnConfirm)가 없습니다.");
+	} else {
+		this.div_Work.form.fn_ComBtnConfirm();
+	}
+}
+
+/**
+ *  [공통버튼] 취소 버튼 클릭시 처리
+*/
+this.fn_WfComBtnCancel = function()
+{
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnCancel")))
+	{
+		trace("[공통버튼] 해당 화면에 취소 버튼 클릭시 처리함수(this.fn_ComBtnCancel)가 없습니다.");
+	} else {
+		this.div_Work.form.fn_ComBtnCancel();
+	}
+}
+
+/**
+ *  [공통버튼] 결재저장 버튼 클릭시 처리
+*/
+this.fn_WfComBtnSaveWf = function()
+{
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnSaveWf")))
+	{
+		trace("[공통버튼] 해당 화면에 결재저장저장 버튼 클릭시 처리함수(this.fn_ComBtnSaveWf)가 없습니다.");
+	} else {		
+		//this.gfn_SaveCommBtnLog("SAVE", this.fvWfComPrgmId);//버튼 로그저장
+		this.div_Work.form.fn_ComBtnSaveWf();
+	}
+}
+
+/**
+ *  [공통버튼] 결재선변경 버튼 클릭시 처리
+*/
+this.fn_WfComBtnWfLineChange = function()
+{
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnWfLineChange")))
+	{
+		trace("[공통버튼] 해당 화면에 결재선변경 버튼 클릭시 처리함수(this.fn_ComBtnWfLineChange)가 없습니다.");
+	} else {
+		this.div_Work.form.fn_ComBtnWfLineChange();
+	}
+}
+
+/**
+ *  [공통버튼] 결재자변경 버튼 클릭시 처리
+*/
+this.fn_WfComBtnWfSysIdChange = function()
+{
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnWfSysIdChange")))
+	{
+		trace("[공통버튼] 해당 화면에 결재자변경 버튼 클릭시 처리함수(this.fn_ComBtnWfSysIdChange)가 없습니다.");
+	} else {
+		this.div_Work.form.fn_ComBtnWfSysIdChange();
+	}
+}
+
+/**
+ *  [공통버튼] 내부결재 버튼 클릭시 처리
+*/
+this.fn_WfComBtnInnerWf = function()
+{
+	if(this.gfn_IsNull(this.div_Work.form.lookup("fn_ComBtnInnerWf")))
+	{
+		trace("[공통버튼] 해당 화면에 내부결재 버튼 클릭시 처리함수(this.fn_ComBtnInnerWf)가 없습니다.");
+	} else {
+		this.div_Work.form.fn_ComBtnInnerWf();
+	}
+}
+
+this.div_ComBtn_sta_Title_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "CM_M_SM_0700";
+	var sPopupTitle = "시스템매뉴얼"; //Popup화면 타이틀
+	var sPopupFormUrl  = "sm::M_SM_0700.xfdl"; //Popup화면 URL
+	var oArg = {paramTitle:sPopupTitle, PrgmId:this.fvWfComMenuId}; //Popup화면 전달 파라메터
+	var oOption = {title:sPopupTitle, width:"1400", height:"800", popuptype:"TitlePopup"}; //Popup화면 옵션
+	var sPopupCallBack = "fn_PopupCallback"; //Popup화면 호출후 Callback 처리 함수
+
+	this.gfn_OpenPopup(sPopupId, sPopupFormUrl, oArg, sPopupCallBack, oOption); //Popup화면 호출 함수			
+};
+
+/* 그리드 컬럼 size, 포맷 설정 - by jch */
+this.fn_componentList = function(idx, objF, callComp, callFunc) {
+
+	if (idx == 1) callComp = "[object " + nexacro.replaceAll(callComp, ",", "],[object ") + "]";
+
+	var arrComp     = objF.all;
+	for(var i=0; i<(arrComp.length); i++) {
+		if(callComp.indexOf(arrComp[i])>=0) {
+			this.lookupFunc(callFunc).call(arrComp[i], arrComp[i]);
+		}
+		if(arrComp[i] instanceof nexacro.Div) { 
+			this.fn_componentList(2, arrComp[i].form, callComp, callFunc);
+		} else if(arrComp[i] instanceof nexacro.Tab) { 
+			for(var idx=0; idx<arrComp[i].getTabpageCount(); idx++) {
+				this.fn_componentList(2, arrComp[i].tabpages[idx].form, callComp, callFunc);
+			}
+		} else {
+		}
+	}
+}
+
+this.fn_callComponent = function(gubn, objComp) {
+	
+	if(gubn instanceof nexacro.Grid) {
+		this.fn_GridCellDataInit(gubn);
+	}
+}
+
+this.fn_GridCellDataInit = function(objGrid)
+{
+	var objDs = objGrid.getBindDataset();
+	if(objDs != null) {
+		objDs.filter("");
+		objDs.set_keystring("");
+	}
+	
+	objGrid.sortKeyString = "";
+	var hText = "";
+	for(var i=1;i<objGrid.getCellCount("head");i++) {
+		objGrid.setCellProperty("head", i, "background", "");
+		
+		hText = objGrid.getCellProperty("head", i, "text");
+		
+		if(!this.gfn_IsNull(hText)) {
+		
+			hText = nexacro.replaceAll(hText, "▲", "");
+			hText = nexacro.replaceAll(hText, "▼", "");
+			
+			//trace("hText --> " + hText);
+			
+			objGrid.setCellProperty("head", i, "text", hText);
+		
+		}
+	}
+	objGrid.removeEventHandlerLookup('onheadclick', "gfn_Grid_New_onheadclick", this); // 새로운 이벤트 제거
+	objGrid.removeEventHandlerLookup('onheadclick', "gfn_Grid_onheadclick", this); // 새로운 이벤트 제거
+	//trace("Form_Wrok 새로운 이벤트 제거");
+	objGrid.addEventHandler('onheadclick', this.gfn_Grid_onheadclick, this); // 기존 이벤트 추가
+	
+	var returnObj = ""; 
+	
+	returnObj = this.removeChild("PopupDiv00");
+	if (returnObj != null)  {		returnObj.destroy();	}
+	returnObj = this.removeChild("ds_Filter_"+this.targetDs+"_"+this.gfn_CommLoadFormPrgmId(this));
+	if (returnObj != null)  {		returnObj.destroy();	}
+	returnObj = this.removeChild("ds_FilterSave_"+this.targetDs+"_"+this.gfn_CommLoadFormPrgmId(this));
+	if (returnObj != null)  {		returnObj.destroy();	}
+	
+};
+]]></Script>
+    <Objects/>
+  </Form>
+</FDL>

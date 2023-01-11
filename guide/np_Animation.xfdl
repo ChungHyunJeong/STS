@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="np_Edit" width="1280" height="720" onload="np_Edit_onload" titletext="Animation">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="1280">
+        <Div id="Div00" taborder="0" text="Div00" left="1" top="9" width="846" height="91" background="#f3f8fb">
+          <Layouts>
+            <Layout>
+              <Static id="Static23" taborder="3" text="Top" left="54" top="24" width="76" height="23" cssclass="sta_WF_Title"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div01" taborder="1" text="Div01" left="0" top="118" width="847" height="572" background="#eef9e6">
+          <Layouts>
+            <Layout>
+              <Static id="Static04" text="body" position="absolute" left="56" width="130" top="5" height="40" cssclass="sta_WF_Title" taborder="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btnPlay" taborder="2" text="▲" left="360" top="100" width="80" height="20" onclick="btnPlay_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="Dataset00" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">AA</Col>
+            <Col id="Column1">1</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">BB</Col>
+            <Col id="Column1">22</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">CC</Col>
+            <Col id="Column1">333</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+
+this.np_Edit_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+		var aniObj00 = new nexacro.Animation("Ani00", this);
+		this.addChild("Ani00", aniObj00);
+		this.Ani00.addTarget("AniItem00", this.btnPlay, "hright:1, top:0");
+		this.Ani00.addTarget("AniItem01", this.Div00, "hright:1, top:-90");
+		this.Ani00.addTarget("AniItem02", this.Div01, "hright:1, top:20");
+		this.Ani00.setEventHandler("oncomplete", this.Ani00_oncomplete, this);
+		this.Ani00.set_duration(400);
+		this.Ani00.set_easing("easeInSine");
+
+		var aniObj01 = new nexacro.Animation("Ani01", this);
+		this.addChild("Ani01", aniObj01);
+		this.Ani01.addTarget("AniItem00", this.btnPlay, "hright:1, top:100");
+		this.Ani01.addTarget("AniItem01", this.Div00, "hright:1, top:9");
+		this.Ani01.addTarget("AniItem02", this.Div01, "hright:1, top:118");
+		this.Ani01.setEventHandler("oncomplete", this.Ani01_oncomplete, this);
+		this.Ani01.set_duration(400);
+		this.Ani01.set_easing("easeInSine");
+};
+
+
+this.btnPlay_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if( obj.text == "▲")
+	{		
+		this.Ani00.play();
+	} else {
+		this.Ani01.play();
+	}
+};
+
+this.Ani00_oncomplete = function(obj:nexacro.Animation,e:nexacro.AnimationEventInfo)
+{  
+  this.btnPlay.set_text("▼");
+};
+
+this.Ani01_oncomplete = function(obj:nexacro.Animation,e:nexacro.AnimationEventInfo)
+{  
+  this.btnPlay.set_text("▲");
+};
+
+]]></Script>
+  </Form>
+</FDL>

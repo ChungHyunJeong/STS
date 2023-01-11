@@ -1,0 +1,523 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_HD_4100_01" width="800" height="463" titletext="부서정보" scrollbartype="none" onclose="fn_FormClose" onload="fn_FormOnload">
+    <Layouts>
+      <Layout height="463" width="800">
+        <Div id="div_Search" taborder="0" left="12" top="50" height="38" cssclass="div_WF_Search" right="12" formscrollbartype="none none">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="업무명" left="16" top="6" width="80" height="26" cssclass="sta_WF_SLabel"/>
+              <Edit id="edt_WkdmNm" taborder="1" left="96" top="6" width="200" height="24" onkeydown="div_Search_edt_WkdmNm_onkeydown" maxlength="50"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="grd_Master" taborder="1" top="98" left="12" autofittype="col" oncelldblclick="grd_Master10_oncelldblclick" oncellclick="grd_Master10_oncellclick" bottom="14" width="324" binddataset="ds_Master10" selecttype="multiarea">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="541"/>
+              </Columns>
+              <Rows>
+                <Row size="26" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="트리"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:WKDM_NM" displaytype="treeitemcontrol" treelevel="bind:LV" treestartlevel="1" edittype="tree"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Div id="div_PopupTitle" taborder="2" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Close" taborder="0" text="닫기" top="9" width="70" height="26" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+              <Static id="sta_PopupTitle" taborder="1" text="업무일지코드정보" left="20" top="10" width="300" height="24" cssclass="sta_WF_PopupTitle"/>
+              <Button id="btn_Search" taborder="2" text="조회" top="8" width="65" right="161" visible="true" cssclass="bt_WF_PopupSearch" height="28" onclick="div_PopupTitle_btn_Search_onclick"/>
+              <Button id="btn_Choice" taborder="3" text="선택" top="8" width="65" right="90" visible="true" cssclass="bt_WF_PopupSelect" height="28" onclick="div_PopupTitle_btn_Choice_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="grd_Detail10" taborder="3" left="340" top="98" binddataset="ds_Detail10" autofittype="col" right="12" bottom="14" autoenter="select" cellsizingtype="col" oncelldblclick="grd_Detail10_oncelldblclick" selecttype="multiarea">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="35" band="left"/>
+                <Column size="80"/>
+                <Column size="175"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="No."/>
+                <Cell col="1" text="업무코드"/>
+                <Cell col="2" text="업무명"/>
+                <Cell col="3" text="직군"/>
+                <Cell col="4" text="직렬"/>
+                <Cell col="5" text="직무"/>
+              </Band>
+              <Band id="body">
+                <Cell text="" expr="currow+1" displaytype="text" textAlign="center"/>
+                <Cell col="1" text="bind:WKDM_CD" edittype="none"/>
+                <Cell col="2" text="bind:WKDM_NM" edittype="none"/>
+                <Cell col="3" text="bind:JOGM_NM"/>
+                <Cell col="4" text="bind:SERM_NM" edittype="none" displaytype="combotext" combodataset="ds_HrSerm" combodatacol="SERM_NM" combocodecol="SERM_CD"/>
+                <Cell col="5" text="bind:JOBM_NM" edittype="none" displaytype="combotext" combodataset="ds_HrJobm" combodatacol="JOBM_NM" combocodecol="JOBM_CD"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Master10" onrowposchanged="ds_Master10_onrowposchanged">
+        <ColumnInfo>
+          <Column id="LV" type="STRING" size="256"/>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WKDM_CD" type="STRING" size="256"/>
+          <Column id="WKDM_NM" type="STRING" size="256"/>
+          <Column id="SORT" type="STRING" size="256"/>
+          <Column id="WKDP_CD" type="STRING" size="256"/>
+          <Column id="JOGM_CD" type="STRING" size="256"/>
+          <Column id="SERM_CD" type="STRING" size="256"/>
+          <Column id="JOBM_CD" type="STRING" size="256"/>
+          <Column id="WKDM_LV" type="STRING" size="256"/>
+          <Column id="INPU_YN" type="STRING" size="256"/>
+          <Column id="CNTH_NO" type="STRING" size="256"/>
+          <Column id="PJTH_NO" type="STRING" size="256"/>
+          <Column id="RPJH_NO" type="STRING" size="256"/>
+          <Column id="PBRH_NO" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DELE_ID" type="STRING" size="256"/>
+          <Column id="DELE_NM" type="STRING" size="256"/>
+          <Column id="DELE_DT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="WKDM_CD" type="STRING" size="256"/>
+          <Column id="WKDM_NM" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail10" oncolumnchanged="ds_Detail10_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WKDM_CD" type="STRING" size="256"/>
+          <Column id="WKDM_NM" type="STRING" size="256"/>
+          <Column id="WKDP_CD" type="STRING" size="256"/>
+          <Column id="JOGM_CD" type="STRING" size="256"/>
+          <Column id="JOGM_NM" type="STRING" size="256"/>
+          <Column id="SERM_CD" type="STRING" size="256"/>
+          <Column id="SERM_NM" type="STRING" size="256"/>
+          <Column id="JOBM_CD" type="STRING" size="256"/>
+          <Column id="JOBM_NM" type="STRING" size="256"/>
+          <Column id="WKDM_LV" type="STRING" size="256"/>
+          <Column id="INPU_YN" type="STRING" size="256"/>
+          <Column id="CNTH_NO" type="STRING" size="256"/>
+          <Column id="PJTH_NO" type="STRING" size="256"/>
+          <Column id="RPJH_NO" type="STRING" size="256"/>
+          <Column id="PBRH_NO" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DELE_ID" type="STRING" size="256"/>
+          <Column id="DELE_NM" type="STRING" size="256"/>
+          <Column id="DELE_DT" type="STRING" size="256"/>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : 
+*  @화면설명 : 업무일지코드정보
+*  @시스템명 : (HR) 시스템
+*  @작성자   : 고정현
+*  @작성일   : 2021.07.15
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.07.15     	    고정현 	           최초 생성 
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * 1. Form Include 선언 영역
+ ************************************************************************************************/
+include "comLib::CommonUtil.xjs";//공통함수
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvComPrgmId = "";//화면ID
+this.fvWkdmNm = "";//[부모창파라메타] 업무명
+this.fvRowEvent = false;
+/***********************************************************************************************
+ * 3. Form 이벤트 영역
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 3.1. Form Onload 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	//부모창 파라메타 처리
+	this.fvWkdmNm = this.getOwnerFrame().WkdmNm;//[부모창파라메타] 업무명	
+	this.fvComPrgmId = this.getOwnerFrame().PrgmId;//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.2. Form [공통] 초기설정 함수 - 필수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.3. Form [업무] 초기설정 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormBizInit = function() 
+{
+	//부모창에서 전달 받은 파라메터 세팅
+	if (!this.gfn_IsNull(this.fvWkdmNm)) {
+		this.div_Search.form.edt_WkdmNm.set_value(this.fvWkdmNm);
+	}
+	
+	//메뉴조회
+	this.fn_Search();
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.4. Form OnClose 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/***********************************************************************************************
+ * 4. [화면] 버튼 이벤트 영역
+ -----------------------------------------------------------------------------------------------
+   4.1.조회 : btn_Search_onclick
+   4.2.선택 : btn_Choice_onclick
+   4.3.닫기 : fn_Close
+ ***********************************************************************************************/
+
+/*---------------------------------------------------------------------------------------------
+ * 4.1. 조회 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+ {
+// 	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+// 	this.ds_Input.clearData();
+// 	this.ds_Detail10.clearData();
+// 	
+// 	//[업무] 조회조건 입력
+// 	this.ds_Input.addRow();
+// 	this.ds_Input.setColumn(0, "WKDM_NM", this.div_Search.form.edt_WkdmNm.value);
+// 	this.ds_Input.setColumn(0, "USED_YN", "1");	
+// 	
+// 	//[공통]서비스정보 초기화
+// 	this.gfn_InitComService(this);
+// 	
+// 	//[공통]서비스정보 추가
+// 	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+// 	svcAddObj.sSelectSql = "hr:M_HD_4000_D_SL10";
+// 	this.gfn_AddComSearchService(this, svcAddObj);
+// 	
+// 	//[공통]서비스 호출 변수
+// 	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+// 	svcCallObj.sTrid 		= "DTL_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+// 	svcCallObj.sActionName 	= this.G_SV_HR;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+// 	svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+// 	svcCallObj.sOutDatset 	= "ds_Detail10=ds_Detail10";//출력 데이터셋
+// 	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+// 	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+// 
+// 	//[공통]서비스 호출
+// 	this.gfn_CallComService(this, svcCallObj);		
+
+	//메뉴조회
+	this.fn_Search();
+};
+
+/*---------------------------------------------------------------------------------------------
+ *  4.2. 선택 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Choice_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (this.ds_Detail10.getRowCount() < 1) {
+		this.gfn_Alert("SM046");//선택된 내용이 없습니다.
+		return;
+	}
+	
+	var iRow = this.ds_Detail10.rowposition;
+	
+	if (iRow > -1) {			
+		this.gfn_PopClose(this.fn_GetRowToJson(iRow));
+	} else {
+		this.gfn_Alert("SM046");//선택된 내용이 없습니다.
+		return;	
+	}
+};
+
+/*---------------------------------------------------------------------------------------------
+ *  4.3. 닫기 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_PopClose();
+};
+
+/***********************************************************************************************
+ * 5. [조회영역] 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 5.1. [조회영역-공통] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.1.1. [조회영역-팝업버튼] 
+  ---------------------------------------------------------------------------------------------*/
+this.fn_SbpBtn_Do01 = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 5.2. [조회영역-업무] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.2.1. [조회영역-업무명] Key 다운 이벤트 
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_WkdmNm_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	//엔터키
+	if (e.keycode == 13) {
+		this.div_PopupTitle_btn_Search_onclick ();//조회
+	}
+
+};
+
+/***********************************************************************************************
+ * 6. [컴포넌트] 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 6.1. [Tree-그리드] 더블 클릭 이벤트
+ ***********************************************************************************************/ 
+this.grd_Master10_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if (e.row > -1) {	
+		this.gfn_PopClose(this.fn_GetRowToJson(0));
+	}
+};  
+
+/***********************************************************************************************
+ * 6.2. [상세-그리드] 더블 클릭 이벤트
+ ***********************************************************************************************/ 
+this.grd_Detail10_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if (e.row > -1) {	
+		this.gfn_PopClose(this.fn_GetRowToJson(e.row ));
+	}
+};
+
+/***********************************************************************************************
+ * 6.3. [Tree-그리드] 클릭 이벤트
+ ***********************************************************************************************/ 
+this.grd_Master10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+};
+
+/***********************************************************************************************
+ * 7. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    01. [데이터셋-ds_Master10] 데이터 Row 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.ds_Master10_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+		if (e.newrow > -1) {
+
+		//출고No정보가 있으면 - 상세조회
+		if (!this.gfn_IsNull(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WKDM_CD"))) {
+			//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+			this.ds_Detail10.clearData();
+			this.ds_Input.clearData();
+			
+			this.ds_Input.addRow();
+			this.ds_Input.setColumn(0, "WKDM_CD", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WKDM_CD"));
+					
+			//[공통]서비스정보 초기화
+			this.gfn_InitComService(this);
+			
+			//[공통]서비스정보 추가
+			var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+			svcAddObj.sSelectSql = "hr:M_HD_4000_D_SL10";
+			this.gfn_AddComSearchService(this, svcAddObj);
+			
+			//[공통]서비스 호출 변수
+			var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+			svcCallObj.sTrid = "DTL_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+			svcCallObj.sActionName = this.G_SV_HR;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+			svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+			svcCallObj.sOutDatset = "ds_Detail10=ds_Detail10";//출력 데이터셋
+			svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+			svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+			//[공통]서비스 호출
+			this.gfn_CallComService(this, svcCallObj);		
+		}
+	}
+};
+/***********************************************************************************************
+ * 7. [서비스] CallBack 함수 처리부분
+ ***********************************************************************************************/
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST_SEARCH": //조회		
+			if (this.ds_Master10.getRowCount() > 0) {
+				this.grd_Master.setTreeStatus(0,true);
+			}
+			
+			//부모창에서 전달 받은 데이터가 있으면 상세조회
+			if (!this.gfn_IsNull(this.fvWkdmNm)) {
+				this.div_PopupTitle_btn_Search_onclick();
+			}
+			break;
+		case "DTL_SEARCH": //상세조회
+		    break;
+	}
+};
+
+/***********************************************************************************************
+ * 8. [팝업] CallBack 함수 처리부분
+      strId : 팝업호출시 지정한 팝업ID
+	  rtnValue : 팝업창에서 close시 지정한 반환값
+      주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+};
+
+/***********************************************************************************************
+ * 9. [메세지] CallBack 함수 처리부분
+ ***********************************************************************************************/
+/**
+ * @description 메세지 CallBack 함수
+*/
+this.fn_MsgCallback = function (strId, strVal)
+{
+
+};
+
+/***********************************************************************************************
+ * 10. [사용자함수]
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.1. [사용자함수] Tree 조회
+ ***********************************************************************************************/ 
+this.fn_Search = function()
+{ 
+	this.ds_Input.clearData();
+	this.ds_Input.addRow();
+
+	//업무일지코드 트리 조회
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Master10.clearData();
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.setColumn(0, "USED_YN", "1");
+	this.ds_Input.setColumn(0, "WKDM_NM", this.div_Search.form.edt_WkdmNm.value);
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "hr:M_HD_4000_M_SL10"; 
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "MST_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_HR;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Master10=ds_Master10";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+} 
+
+/***********************************************************************************************
+ * 10.2. [사용자함수] return to JSON
+ ***********************************************************************************************/ 
+this.fn_GetRowToJson = function(pRow)
+{ 
+       var sJson = "({" +
+                        " COMM_CD:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "COMM_CD"),"") + "'"+  //0.COMM_CD
+                        ",WKDM_CD:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "WKDM_CD"),"") + "'"+  //1.WKDM_CD
+                        ",WKDM_NM:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "WKDM_NM"),"") + "'"+  //2.WKDM_NM
+                        ",WKDP_CD:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "WKDP_CD"),"") + "'"+  //3.WKDP_CD
+                        ",JOGM_CD:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "JOGM_CD"),"") + "'"+  //4.JOGM_CD
+                        ",JOGM_NM:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "JOGM_NM"),"") + "'"+  //4.JOGM_NM
+                        ",SERM_CD:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "SERM_CD"),"") + "'"+  //5.SERM_CD
+                        ",SERM_NM:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "SERM_NM"),"") + "'"+  //5.SERM_NM
+                        ",JOBM_CD:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "JOBM_CD"),"") + "'"+  //6.JOBM_CD
+                        ",JOBM_NM:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "JOBM_NM"),"") + "'"+  //6.JOBM_CD
+                        ",WKDM_LV:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "WKDM_LV"),"") + "'"+  //7.WKDM_LV
+                        ",INPU_YN:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "INPU_YN"),"") + "'"+  //8.INPU_YN
+                        ",CNTH_NO:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "CNTH_NO"),"") + "'"+  //9.CNTH_NO
+                        ",PJTH_NO:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "PJTH_NO"),"") + "'"+  //10.PJTH_NO
+                        ",RPJH_NO:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "RPJH_NO"),"") + "'"+  //11.RPJH_NO
+                        ",PBRH_NO:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "PBRH_NO"),"") + "'"+  //12.PBRH_NO
+                        ",SORT_NO:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "SORT_NO"),"") + "'"+  //13.SORT_NO
+                        ",USED_YN:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "USED_YN"),"") + "'"+  //14.USED_YN
+                        ",REMK_NM:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "REMK_NM"),"") + "'"+  //15.REMK_NM
+                        ",REGI_ID:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "REGI_ID"),"") + "'"+  //16.REGI_ID
+                        ",REGI_NM:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "REGI_NM"),"") + "'"+  //17.REGI_NM
+                        ",REGI_DT:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "REGI_DT"),"") + "'"+  //18.REGI_DT
+                        ",MODI_ID:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "MODI_ID"),"") + "'"+  //19.MODI_ID
+                        ",MODI_NM:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "MODI_NM"),"")+ "'"+  //20.MODI_NM
+                        ",MODI_DT:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "MODI_DT"),"") + "'"+  //21.MODI_DT
+                        ",DELE_NM:'" + this.gfn_Nvl(this.ds_Detail10.getColumn(pRow, "DELE_NM"),"") + "'"+  //22.DELE_NM
+                "})";
+		return sJson;
+}
+]]></Script>
+  </Form>
+</FDL>

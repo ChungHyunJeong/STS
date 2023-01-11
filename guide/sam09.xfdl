@@ -1,0 +1,2963 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="sam08" width="1500" height="800" titletext="테이블정보" onsize="sam07_onsize" onload="form_onload">
+    <Layouts>
+      <Layout height="800" mobileorientation="landscape" width="1500">
+        <Tab id="tab_TableInfo" taborder="6" tabindex="0" left="0" top="0" right="0" bottom="0">
+          <Tabpages>
+            <Tabpage id="tab_Page01" text="XML(쿼리) 파일 생성 ">
+              <Layouts>
+                <Layout>
+                  <Div id="div_TableInfo" taborder="0" left="8" top="8" height="380" right="8">
+                    <Layouts>
+                      <Layout>
+                        <Static id="Static00" taborder="0" text="테이블 정보" left="0" top="6" width="150" height="24" cssclass="sta_WF_SubTitle1" font="bold 14px/normal &quot;Gulim&quot;"/>
+                        <Combo id="cbo_Owner" left="110" top="6" width="160" height="24" innerdataset="ds_Owner" codecolumn="code" datacolumn="value" displaynulltext="선택하세요." value="SM" text="SMS" index="11" autoselect="false" taborder="1" onitemchanged="tab_TableInfo_tab_Page01_div_TableInfo_cbo_Owner_onitemchanged" visible="true"/>
+                        <Static id="Static01" taborder="2" text="컬럼 정보" left="412" top="6" width="150" height="24" cssclass="sta_WF_SubTitle1" font="bold 14px/normal &quot;Gulim&quot;"/>
+                        <Edit id="edt_DataSetName" taborder="3" top="6" height="24" right="98" width="200"/>
+                        <Static id="sta_DatasetName" taborder="4" text="데이터셋명" top="6" width="90" height="24" cssclass="sta_WF_DetailLabel01" font="bold 12px/normal &quot;Gulim&quot;" right="303"/>
+                        <Button id="btn_MakeDataSet" taborder="5" text="데이터셋 생성" top="6" width="90" height="24" right="0" onclick="tab_TableInfo_tab_Page01_div_TableInfo_btn_MakeDataSet_onclick" cssclass="bt_WF_InputArea_White"/>
+                        <Grid id="grd_TableList" taborder="6" left="0" top="40" width="400" binddataset="ds_TableList" autofittype="col" onkeydown="tab_TableInfo_tab_Page01_grd_TableList_onkeydown" height="340" cellsizingtype="col" selecttype="cell">
+                          <Formats>
+                            <Format id="default">
+                              <Columns>
+                                <Column size="90"/>
+                                <Column size="307"/>
+                              </Columns>
+                              <Rows>
+                                <Row size="24" band="head"/>
+                                <Row size="24"/>
+                              </Rows>
+                              <Band id="head">
+                                <Cell text="테이블ID"/>
+                                <Cell col="1" text="테이블명"/>
+                              </Band>
+                              <Band id="body">
+                                <Cell text="bind:TABLE_ID" edittype="normal"/>
+                                <Cell col="1" text="bind:TABLE_NM" edittype="normal"/>
+                              </Band>
+                            </Format>
+                          </Formats>
+                        </Grid>
+                        <Button id="btn_AllQuery" taborder="7" text="전체파일 생성" left="289" top="6" width="110" height="24" onclick="tab_TableInfo_tab_Page01_div_TableInfo_btn_AllQuery_onclick" cssclass="bt_WF_InputArea_White"/>
+                        <Button id="btn_MultiLaguageFile" taborder="8" text="다국어적용 파일 생성" left="499" top="6" width="153" height="24" onclick="tab_TableInfo_tab_Page01_div_TableInfo_btn_MultiLaguageFile_onclick" cssclass="bt_WF_InputArea_White"/>
+                        <Button id="btn_Excel" taborder="9" text="컬럼정보 엑셀출력" left="669" top="6" width="153" height="24" cssclass="bt_WF_InputArea_White" onclick="tab_TableInfo_tab_Page01_div_TableInfo_btn_Excel_onclick"/>
+                        <Grid id="grd_ColumnList00" taborder="10" top="40" binddataset="ds_ColumnList" autofittype="none" onheadclick="tab_TableInfo_tab_Page01_div_TableInfo_grd_ColumnList_onheadclick" selecttype="multirow" left="412" right="0" height="340" cellsizingtype="none">
+                          <Formats>
+                            <Format id="default">
+                              <Columns>
+                                <Column size="48"/>
+                                <Column size="140"/>
+                                <Column size="180"/>
+                                <Column size="150"/>
+                                <Column size="237"/>
+                                <Column size="108"/>
+                                <Column size="108"/>
+                                <Column size="80"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                              </Columns>
+                              <Rows>
+                                <Row size="24" band="head"/>
+                                <Row size="24"/>
+                              </Rows>
+                              <Band id="head">
+                                <Cell text="No."/>
+                                <Cell col="1" text="테이블ID"/>
+                                <Cell col="2" text="테이블명"/>
+                                <Cell col="3" text="컬럼ID"/>
+                                <Cell col="4" text="컬럼명"/>
+                                <Cell col="5" text="길이"/>
+                                <Cell col="6" text="데이터타입"/>
+                                <Cell col="7" text="NULL여부"/>
+                                <Cell col="8" colspan="2" text="PK여부"/>
+                              </Band>
+                              <Band id="body">
+                                <Cell expr="currow + 1" textAlign="center"/>
+                                <Cell col="1" text="bind:TABLE_ID" textAlign="left"/>
+                                <Cell col="2" text="bind:TABLE_NM" textAlign="left"/>
+                                <Cell col="3" text="bind:COLUMN_ID" edittype="normal"/>
+                                <Cell col="4" text="bind:COLUMN_NM" edittype="normal"/>
+                                <Cell col="5" text="bind:DATA_LENGTH" textAlign="center"/>
+                                <Cell col="6" text="bind:DATA_TYPE" textAlign="center"/>
+                                <Cell col="7" text="bind:IS_NULLABLE" textAlign="center"/>
+                                <Cell col="8" text="bind:PK_YN" textAlign="center"/>
+                                <Cell col="9" text="bind:ORDINAL_POSITION" textAlign="center"/>
+                              </Band>
+                            </Format>
+                          </Formats>
+                        </Grid>
+                        <Grid id="grd_ColumnList" taborder="11" left="412" top="40" binddataset="ds_ColumnList" right="0" height="340" autofittype="col" onheadclick="tab_TableInfo_tab_Page01_div_TableInfo_grd_ColumnList_onheadclick" selecttype="multiarea" cellsizingtype="col">
+                          <Formats>
+                            <Format id="default">
+                              <Columns>
+                                <Column size="40"/>
+                                <Column size="35"/>
+                                <Column size="100"/>
+                                <Column size="200"/>
+                                <Column size="80"/>
+                                <Column size="100"/>
+                                <Column size="80"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="338"/>
+                              </Columns>
+                              <Rows>
+                                <Row size="24" band="head"/>
+                                <Row size="24"/>
+                              </Rows>
+                              <Band id="head">
+                                <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
+                                <Cell col="1" text="No."/>
+                                <Cell col="2" text="컬럼ID"/>
+                                <Cell col="3" text="컬럼명"/>
+                                <Cell col="4" text="길이"/>
+                                <Cell col="5" text="데이터타입"/>
+                                <Cell col="6" text="NULL여부"/>
+                                <Cell col="7" colspan="2" text="PK여부"/>
+                                <Cell col="9" text="비고"/>
+                              </Band>
+                              <Band id="body">
+                                <Cell text="bind:S_CHK" edittype="checkbox" displaytype="checkboxcontrol"/>
+                                <Cell col="1" expr="currow + 1" textAlign="center"/>
+                                <Cell col="2" text="bind:COLUMN_ID" edittype="normal"/>
+                                <Cell col="3" text="bind:COLUMN_NM" edittype="normal"/>
+                                <Cell col="4" text="bind:DATA_LENGTH" textAlign="center"/>
+                                <Cell col="5" text="bind:DATA_TYPE" textAlign="center"/>
+                                <Cell col="6" text="bind:IS_NULLABLE" textAlign="center"/>
+                                <Cell col="7" text="bind:PK_YN" textAlign="center"/>
+                                <Cell col="8" text="bind:ORDINAL_POSITION" textAlign="center"/>
+                                <Cell col="9"/>
+                              </Band>
+                            </Format>
+                          </Formats>
+                        </Grid>
+                      </Layout>
+                    </Layouts>
+                  </Div>
+                  <Div id="div_Query" taborder="1" left="0" top="390" right="0" bottom="0">
+                    <Layouts>
+                      <Layout>
+                        <Static id="Static00" taborder="0" text="쿼리 정보" left="0" top="10" width="150" height="24" cssclass="sta_WF_DetailLabel01" font="bold 14px/normal &quot;Gulim&quot;"/>
+                        <Static id="sta_QueryId" taborder="1" text="입력/출력/저장 데이터셋" left="114" top="10" width="152" height="24" cssclass="sta_WF_DetailLabel01" font="bold 12px/normal &quot;Gulim&quot;"/>
+                        <Edit id="edt_InDataset" taborder="2" left="270" top="10" width="120" height="24" value="ds_Input" text="ds_Input"/>
+                        <Static id="sta_QueryType" taborder="3" text="생성할 쿼리유형" left="669" top="10" width="138" height="24" cssclass="sta_WF_DetailLabel01" font="bold 12px/normal &quot;Gulim&quot;"/>
+                        <CheckBox id="chk_Select" taborder="4" text="Select" left="812" top="10" width="60" height="24" value="true"/>
+                        <CheckBox id="chk_Insert" taborder="5" text="Insert" left="881" top="10" width="60" height="24" value="true"/>
+                        <CheckBox id="chk_Update" taborder="6" text="Update" left="949" top="10" width="64" height="24" value="true"/>
+                        <CheckBox id="chk_Delete" taborder="7" text="Delete" left="1021" top="10" width="60" height="24" value="true"/>
+                        <CheckBox id="chk_All" taborder="8" left="787" top="10" width="17" height="24" value="true" onchanged="tab_TableInfo_tab_Page01_div_Query_chk_All_onchanged"/>
+                        <Button id="btn_MakeQuery" taborder="9" text="쿼리문 생성" top="8" width="100" height="24" right="6" onclick="tab_TableInfo_tab_Page01_div_Query_btn_MakeQuery_onclick" cssclass="bt_WF_InputArea_White"/>
+                        <Button id="btn_Preview" taborder="10" text="미리보기" top="8" width="70" height="24" right="112" onclick="tab_TableInfo_tab_Page01_div_Query_btn_Preview_onclick" cssclass="bt_WF_InputArea_White"/>
+                        <Tab id="tab_Query" taborder="11" tabindex="0" left="0" top="40" right="0" bottom="0">
+                          <Tabpages>
+                            <Tabpage id="tpg_q1" text="저장">
+                              <Layouts>
+                                <Layout>
+                                  <TextArea id="txt_Query" taborder="0" left="0" top="0" right="0" bottom="0"/>
+                                </Layout>
+                              </Layouts>
+                            </Tabpage>
+                            <Tabpage id="tpg_q2" text="수정">
+                              <Layouts>
+                                <Layout>
+                                  <TextArea id="txt_Query" taborder="0" left="0" top="0" right="0" bottom="0"/>
+                                </Layout>
+                              </Layouts>
+                            </Tabpage>
+                            <Tabpage id="tpg_q3" text="삭제">
+                              <Layouts>
+                                <Layout>
+                                  <TextArea id="txt_Query" taborder="0" left="0" top="0" right="0" bottom="0"/>
+                                </Layout>
+                              </Layouts>
+                            </Tabpage>
+                            <Tabpage id="tpg_q4" text="조회">
+                              <Layouts>
+                                <Layout>
+                                  <TextArea id="txt_Query" taborder="0" left="0" top="0" right="0" bottom="0"/>
+                                </Layout>
+                              </Layouts>
+                            </Tabpage>
+                          </Tabpages>
+                        </Tab>
+                        <Edit id="edt_OutDataset" taborder="12" left="394" top="10" width="120" height="24" value="ds_Master10" text="ds_Master10"/>
+                        <Edit id="edt_SaveDataset" taborder="13" left="518" top="10" width="120" height="24" value="ds_Master10" text="ds_Master10"/>
+                      </Layout>
+                    </Layouts>
+                  </Div>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+            <Tabpage id="tab_Page02" text="쿼리분석기(Grid)">
+              <Layouts>
+                <Layout>
+                  <Static id="Static00" taborder="0" text="테이블 Owner 정보" left="8" top="10" width="150" height="24" cssclass="sta_WF_SubTitle1" font="normal bold 10pt/normal &quot;Arial&quot;"/>
+                  <Combo id="cbo_Owner" left="145" top="9" width="100" height="24" innerdataset="ds_Owner" codecolumn="code" datacolumn="value" displaynulltext="선택하세요." value="SM" text="SMS" index="11" autoselect="false" taborder="1"/>
+                  <Grid id="grd_QueryResultList" taborder="2" left="8" binddataset="ds_QueryResultList" bottom="8" autosizingtype="none" cellmovingtype="none" cellsizingtype="col" width="1000" height="150">
+                    <Formats>
+                      <Format id="default"/>
+                    </Formats>
+                  </Grid>
+                  <Static id="Static02" taborder="3" text="쿼리 결과" left="8" width="250" height="24" cssclass="sta_WF_SubTitle1" font="bold 13px/normal &quot;Malgun Gothic&quot;" bottom="168"/>
+                  <TextArea id="txt_Query" taborder="4" left="8" top="40" width="948" bottom="200"/>
+                  <Button id="btn_RunQuery" taborder="5" text="쿼리실행" top="8" width="94" height="27" onclick="tab_TableInfo_tab_Page02_btn_RunQuery_onclick" left="250" cssclass="bt_WF_PopupSearch"/>
+                  <Button id="btn_MakeDataSet" taborder="6" text="데이터셋 생성" width="98" height="24" onclick="tab_TableInfo_tab_Page02_btn_MakeDataSet_onclick" left="910" bottom="168" cssclass="bt_WF_InputArea_White"/>
+                  <Static id="sta_DatasetName" taborder="7" text="데이터셋명" width="90" height="24" cssclass="sta_WF_DetailLabel01" font="bold 12px/normal &quot;Gulim&quot;" left="609" bottom="168"/>
+                  <Edit id="edt_DataSetName" taborder="8" height="24" width="200" left="704" bottom="168"/>
+                  <Grid id="grd_MakeGrdList" taborder="9" left="968" top="8" right="9" binddataset="ds_MakeGridData" autofittype="col" bottom="200" autoenter="select" autoupdatetype="comboselect" cellclickbound="cell" oncellclick="tab_TableInfo_tab_Page02_grd_MakeGrdList_oncellclick" ondrag="tab_TableInfo_tab_Page02_grd_MakeGrdList_ondrag" ondrop="tab_TableInfo_tab_Page02_grd_MakeGrdList_ondrop" onheadclick="tab_TableInfo_tab_Page02_grd_MakeGrdList_onheadclick">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="30"/>
+                          <Column size="80"/>
+                          <Column size="128"/>
+                          <Column size="70"/>
+                          <Column size="94"/>
+                          <Column size="53"/>
+                          <Column size="70"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="24" band="head"/>
+                          <Row size="24"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell displaytype="checkboxcontrol" edittype="checkbox" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                          <Cell col="1" text="컬럼ID"/>
+                          <Cell col="2" text="컬럼명"/>
+                          <Cell col="3" text="정렬"/>
+                          <Cell col="4" text="Type"/>
+                          <Cell col="5" text="width"/>
+                          <Cell col="6" text="Width제외"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:s_chk" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                          <Cell col="1" text="bind:COLUMN_ID" edittype="normal"/>
+                          <Cell col="2" text="bind:COLUMN_NM" edittype="text" displaytype="editcontrol"/>
+                          <Cell col="3" text="bind:TEXT_ALIGN" displaytype="combocontrol" edittype="combo" combodataset="ds_ComboOdr" combocodecol="code" combodatacol="value"/>
+                          <Cell col="4" text="bind:COMP_TYPE" displaytype="combocontrol" edittype="combo" combodataset="ds_ComboType" combocodecol="code" combodatacol="value"/>
+                          <Cell col="5" textAlign="center" displaytype="editcontrol" edittype="text" text="bind:COL_WIDTH"/>
+                          <Cell col="6" displaytype="checkboxcontrol" edittype="checkbox" checkboxfalsevalue="0" checkboxtruevalue="1" text="bind:WIDTH_SKIP"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                  <Grid id="Grid00_00" taborder="10" left="1018" height="150" right="8" binddataset="ds_TableSch" autofittype="col" bottom="10" autoenter="select">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="60"/>
+                          <Column size="274"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="24" band="head"/>
+                          <Row size="24"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell/>
+                          <Cell col="1" text="테이블ID"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell text="bind:s_chk" displaytype="checkboxcontrol" edittype="checkbox" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                          <Cell col="1" text="bind:TABLE_ID" displaytype="editcontrol" edittype="text"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                  <Button id="btn_DoColumn" taborder="11" text="▲ 컬럼명 적용" width="110" height="24" right="8" bottom="168" onclick="tab_TableInfo_tab_Page02_btn_DoColumn_onclick" cssclass="bt_WF_InputArea_White"/>
+                  <Button id="btn_DeleteRow" taborder="12" text="행삭제" width="60" height="24" right="122" onclick="tab_TableInfo_tab_Page02_btn_DeleteRow_onclick" bottom="168"/>
+                  <Button id="btn_AddRow" taborder="13" text="행추가" width="60" height="24" right="186" onclick="tab_TableInfo_tab_Page02_btn_AddRow_onclick" bottom="168"/>
+                  <Edit id="edt_GridName" taborder="14" top="9" height="24" width="100" left="746" value="grd_" text="grd_"/>
+                  <Button id="btn_MakeGrid" taborder="15" text="그리드 생성" top="9" width="98" height="24" left="849" onclick="tab_TableInfo_tab_Page02_btn_MakeGrid_onclick" cssclass="bt_WF_InputArea_White"/>
+                  <Radio id="rdo_InOutMode" taborder="16" left="363" top="9" width="140" height="24" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" value="R" text="조회용" index="0" direction="vertical" onitemchanged="tab_TableInfo_tab_Page02_rdo_InOutMode_onitemchanged">
+                    <Dataset id="innerdataset">
+                      <ColumnInfo>
+                        <Column id="codecolumn" size="256"/>
+                        <Column id="datacolumn" size="256"/>
+                      </ColumnInfo>
+                      <Rows>
+                        <Row>
+                          <Col id="codecolumn">R</Col>
+                          <Col id="datacolumn">조회용</Col>
+                        </Row>
+                        <Row>
+                          <Col id="codecolumn">W</Col>
+                          <Col id="datacolumn">입력용</Col>
+                        </Row>
+                      </Rows>
+                    </Dataset>
+                  </Radio>
+                  <Static id="Static00_00" taborder="17" text="그리드기본(width) / 그리드명" left="507" top="9" width="176" height="24" cssclass="sta_WF_SubTitle1" font="normal bold 10pt/normal &quot;Arial&quot;"/>
+                  <Edit id="edt_GrdColWidth" taborder="18" top="9" height="24" width="50" left="693" value="100" text="100" textAlign="center"/>
+                  <Button id="btn_MakeReturnValue" taborder="19" text="팝업 리턴값 생성" left="448" width="148" height="30" onclick="tab_TableInfo_tab_Page02_btn_MakeReturnValue_onclick" bottom="165" cssclass="bt_WF_InputArea_White"/>
+                  <Button id="btn_WidthSet" taborder="20" text="컬럼명으로 Width정렬" width="129" height="26" onclick="tab_TableInfo_tab_Page02_btn_WidthSet_onclick" right="352" bottom="166" cssclass="bt_WF_InputArea_White"/>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+            <Tabpage id="tab_Page03" text="쿼리분석기(Input)">
+              <Layouts>
+                <Layout>
+                  <Static id="Static00" taborder="0" text="테이블 Owner 정보" left="8" top="10" width="150" height="24" cssclass="sta_WF_SubTitle1" font="normal bold 10pt/normal &quot;Arial&quot;"/>
+                  <Combo id="cbo_Owner" left="159" top="9" width="100" height="24" innerdataset="ds_Owner" codecolumn="code" datacolumn="value" displaynulltext="선택하세요." value="SM" text="SMS" index="11" autoselect="false" taborder="1"/>
+                  <Button id="btn_RunQuery" taborder="2" text="쿼리실행" top="8" width="89" height="26" left="263" onclick="tab_TableInfo_tab_Page03_btn_RunQuery_onclick" cssclass="bt_WF_PopupSearch"/>
+                  <Button id="btn_MakeInput" taborder="3" text="입력 컴포넌트 생성" top="9" width="140" height="24" left="668" onclick="tab_TableInfo_tab_Page03_btn_MakeInput_onclick" cssclass="bt_WF_InputArea_White"/>
+                  <Grid id="grd_MakeGrdList" taborder="4" left="818" top="40" right="8" binddataset="ds_MakeInputData" autofittype="col" bottom="200" autoenter="select" autoupdatetype="comboselect" cellclickbound="cell" oncellclick="tab_TableInfo_tab_Page03_grd_MakeGrdList_oncellclick" ondrag="tab_TableInfo_tab_Page03_grd_MakeGrdList_ondrag" ondragmove="tab_TableInfo_tab_Page03_grd_MakeGrdList_ondragmove" ondrop="tab_TableInfo_tab_Page03_grd_MakeGrdList_ondrop" onheadclick="tab_TableInfo_tab_Page03_grd_MakeGrdList_onheadclick">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="30"/>
+                          <Column size="80"/>
+                          <Column size="140"/>
+                          <Column size="70"/>
+                          <Column size="80"/>
+                          <Column size="48"/>
+                          <Column size="48"/>
+                          <Column size="110"/>
+                          <Column size="93"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="24" band="head"/>
+                          <Row size="24"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell displaytype="checkboxcontrol" edittype="checkbox" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                          <Cell col="1" text="컬럼ID"/>
+                          <Cell col="2" text="컬럼명"/>
+                          <Cell col="3" text="정렬"/>
+                          <Cell col="4" text="Type"/>
+                          <Cell col="5" text="행번호"/>
+                          <Cell col="6" text="열순번"/>
+                          <Cell col="7" text="(MASK) Format"/>
+                          <Cell col="8" text="비고"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:s_chk" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                          <Cell col="1" text="bind:COLUMN_ID" edittype="normal"/>
+                          <Cell col="2" text="bind:COLUMN_NM" edittype="text" displaytype="editcontrol"/>
+                          <Cell col="3" text="bind:TEXT_ALIGN" displaytype="combocontrol" edittype="combo" combodataset="ds_ComboOdr" combocodecol="code" combodatacol="value"/>
+                          <Cell col="4" text="bind:COMP_TYPE" displaytype="combocontrol" edittype="combo" combodataset="ds_InCompType" combocodecol="code" combodatacol="value"/>
+                          <Cell col="5" text="bind:ROW_NO" textAlign="center" displaytype="normal" edittype="none"/>
+                          <Cell col="6" text="bind:COL_NO" textAlign="center" displaytype="editcontrol" edittype="text"/>
+                          <Cell col="7" text="bind:FORMAT" textAlign="left" displaytype="editcontrol" edittype="text"/>
+                          <Cell col="8" text="bind:REMARK" textAlign="left" displaytype="editcontrol" edittype="text"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                  <TextArea id="txt_Query" taborder="5" left="8" top="40" width="800" bottom="200"/>
+                  <Static id="Static02" taborder="6" text="쿼리 결과" left="8" width="250" height="24" cssclass="sta_WF_SubTitle1" font="bold 12px/normal &quot;Gulim&quot;" bottom="168"/>
+                  <Static id="sta_DatasetName" taborder="7" text="데이터셋명" width="90" height="24" cssclass="sta_WF_DetailLabel01" font="bold 12px/normal &quot;Gulim&quot;" left="409" bottom="168"/>
+                  <Edit id="edt_DataSetName" taborder="8" height="24" width="200" left="504" bottom="168" value="ds_Master10" text="ds_Master10"/>
+                  <Button id="btn_MakeDataSet" taborder="9" text="데이터셋 생성" width="98" height="24" left="710" bottom="168" onclick="tab_TableInfo_tab_Page03_btn_MakeDataSet_onclick" cssclass="bt_WF_InputArea_White"/>
+                  <Button id="btn_AddRow" taborder="10" text="행추가" width="60" height="24" right="186" bottom="168" onclick="tab_TableInfo_tab_Page03_btn_AddRow_onclick"/>
+                  <Button id="btn_DeleteRow" taborder="11" text="행삭제" width="60" height="24" right="122" bottom="168" onclick="tab_TableInfo_tab_Page03_btn_DeleteRow_onclick"/>
+                  <Button id="btn_DoColumn" taborder="12" text="▲ 컬럼명 적용" width="110" height="24" right="8" bottom="168" onclick="tab_TableInfo_tab_Page03_btn_DoColumn_onclick" cssclass="bt_WF_InputArea_White"/>
+                  <Grid id="Grid00_00" taborder="13" left="818" height="150" right="8" binddataset="ds_TableSch" autofittype="col" bottom="10" autoenter="select">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="60"/>
+                          <Column size="274"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="24" band="head"/>
+                          <Row size="24"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell/>
+                          <Cell col="1" text="테이블ID"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell text="bind:s_chk" displaytype="checkboxcontrol" edittype="checkbox" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                          <Cell col="1" text="bind:TABLE_ID" displaytype="editcontrol" edittype="text"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                  <Grid id="grd_QueryResultList" taborder="14" left="8" binddataset="ds_QueryResultList" bottom="8" autosizingtype="none" cellmovingtype="none" cellsizingtype="col" width="800" height="150">
+                    <Formats>
+                      <Format id="default"/>
+                    </Formats>
+                  </Grid>
+                  <Static id="sta_DatasetName00" taborder="15" text="※비고컬럼은 Edit2Pop 2번째 컬럼명, CheckBox 텍스트명 입력 " width="400" height="24" cssclass="sta_WF_DetailLabel01" font="bold 12px/normal &quot;Gulim&quot;" left="821" bottom="168"/>
+                  <Static id="sta_MoveData" taborder="16" left="843" top="6" width="114" height="33" border="2px dotted black" padding="0px 0px 0px 5px" visible="false"/>
+                  <Edit id="edt_CompPath" taborder="17" height="24" width="310" left="355" text="div_MasterInput.form.tab_Master.tpg_01.form" value="div_MasterInput.form.tab_Master.tpg_01.form" top="9"/>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+          </Tabpages>
+        </Tab>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include "comLib::TempQueryMake.xjs";//공통함수
+  
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var objEnv = nexacro.getEnvironment();
+	var objSvc = objEnv.services["svcUrl"];
+	//objSvc.set_url ( "http://localhost:8190/" );
+	//this.tab_TableInfo.tab_Page01.form.cbo_Owner.set_displaynulltext("선택하세요.");
+	this.fn_GetColumnInfo();
+	//this.tab_TableInfo.tab_Page01.form.cbo_Owner.set_index(0);	
+	//this.tab_TableInfo_tab_Page01_cbo_Owner_onitemchanged();
+						 
+	this.gfn_SetGrid(this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.grd_TableList);
+	this.gfn_SetGrid(this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.grd_ColumnList);						 
+// 	this.gfn_SetGrid(this.div_MasterView.form.tab_Master.tpg_01.form.grd_Master11);
+// 	this.gfn_SetGrid(this.div_MasterView.form.tab_Master.tpg_02.form.grd_Master20);
+};
+
+/**************************************************************************************************
+* CallBack Function (서버수신)
+***************************************************************************************************/
+this.fn_Callback = function(svcID,errorCode,errorMsg)
+{
+//alert(svcID + " // " + errorCode + " // " + errorMsg);
+//trace(this.dsMenuListTmp.saveXML());
+	switch(svcID)
+	{
+		case "TABLE_LIST":
+
+			break;
+			
+		case "MAKE_FILE":
+			alert("파일생성이 완료 되었습니다.");
+			break;
+		case "COLUMN_LIST":
+			if (this.ds_ColumnList.getRowCount() > 0) {
+				this.ds_ColumnList.addColumn("S_CHK", "string");
+				
+				for (var iLoop = 0; iLoop < this.ds_ColumnList.getRowCount(); iLoop++) {
+					this.ds_ColumnList.setColumn(iLoop, "S_CHK", "1");
+				}
+				
+				//this.fn_GetQueryData();
+			}
+			break;
+			
+		case "COLUMN_LIST_MAKE":
+			if (this.ds_ColumnList.getRowCount() > 0) {
+				this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.grd_ColumnList.setCellProperty("head", 0, "text", "1");
+				this.ds_ColumnList.addColumn("S_CHK", "string");
+				
+				for (var iLoop = 0; iLoop < this.ds_ColumnList.getRowCount(); iLoop++) {
+					this.ds_ColumnList.setColumn(iLoop, "S_CHK", "1");
+				}
+				
+				this.tab_TableInfo.tab_Page01.form.div_Query.form.edt_Namespace.set_value(this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.cbo_Owner.value);
+				this.tab_TableInfo.tab_Page01.form.div_Query.form.edt_QueryContent.set_value(this.ds_ColumnList.getColumn(0, "TABLE_NM"));
+								
+			}
+			break;		
+			
+		case "QUERY_MAKE_TEMP":			
+			//임시생성 쿼리 조회
+			this.fn_GetTempQuery(); 
+			//테이블명 찾기
+			this.fn_FindTableNm();
+			break;
+			
+		case "QUERY_FreeList":
+			break;
+		case "REP_COL_LIST":
+
+			if (this.ds_ColumnFindList.getRowCount() > 0) {
+				this.fn_ReplaceColumn();//컬럼명 변경
+			}
+			break;			
+		case "MAKE_TEMP_LIST":
+			
+			var objGrd;
+			var objEdit;
+			if (this.tab_TableInfo.tabindex == 2) {
+				objGrd = this.tab_TableInfo.tab_Page03.form.grd_QueryResultList;
+				//objEdit = this.tab_TableInfo.tab_Page03.form.edt_GrdColWidth;
+			} else {
+				objGrd = this.tab_TableInfo.tab_Page02.form.grd_QueryResultList;
+				objEdit = this.tab_TableInfo.tab_Page02.form.edt_GrdColWidth;
+			}
+		
+			objGrd.set_formats("");
+			
+			if (this.ds_FreeQueryResultList.getRowCount() > 0) {
+				if (this.tab_TableInfo.tabindex == 2) {
+					this.ds_MakeInputData.clearData();
+					this.tab_TableInfo.tab_Page03.form.grd_MakeGrdList.setCellProperty("head",0, "text", "1");
+				} else {
+					this.ds_MakeGridData.clearData();
+					this.tab_TableInfo.tab_Page02.form.grd_MakeGrdList.setCellProperty("head",0, "text", "1");
+				}
+				
+				objGrd.set_enableredraw(false);
+				objGrd.set_binddataset("");
+				
+				objGrd.createFormat();
+				objGrd.appendContentsRow("head");
+				objGrd.appendContentsRow("body");
+
+				var iCol = this.ds_FreeQueryResultList.getColCount();
+				var indexCol = 0;
+				var sColName = "";
+				
+				for (var iLoop = 0; iLoop < iCol; iLoop++) {
+				
+					if (iLoop > 0) {
+						indexCol = objGrd.appendContentsCol();
+					}
+
+					sColName = this.ds_FreeQueryResultList.getColID(iLoop);
+
+					objGrd.setFormatColProperty(indexCol, "size", 100);
+					objGrd.setCellProperty("head", indexCol, "text", sColName);
+					objGrd.setCellProperty("body", indexCol, "text", "bind:" + sColName);
+					
+					if (this.tab_TableInfo.tabindex == 2) {
+						var iAddRow = this.ds_MakeInputData.addRow();
+						this.ds_MakeInputData.setColumn(iAddRow, "COLUMN_ID", sColName);
+						this.ds_MakeInputData.setColumn(iAddRow, "COLUMN_NM", sColName);
+						this.ds_MakeInputData.setColumn(iAddRow, "TEXT_ALIGN", "C");
+						this.ds_MakeInputData.setColumn(iAddRow, "COMP_TYPE", "Edit");					
+						this.ds_MakeInputData.setColumn(iAddRow, "s_chk", "1");
+					} else {
+						var iAddRow = this.ds_MakeGridData.addRow();
+						this.ds_MakeGridData.setColumn(iAddRow, "COLUMN_ID", sColName);
+						this.ds_MakeGridData.setColumn(iAddRow, "COLUMN_NM", sColName);
+						this.ds_MakeGridData.setColumn(iAddRow, "TEXT_ALIGN", "C");
+						this.ds_MakeGridData.setColumn(iAddRow, "COMP_TYPE", "normal");					
+						this.ds_MakeGridData.setColumn(iAddRow, "COL_WIDTH", objEdit.value);
+						this.ds_MakeGridData.setColumn(iAddRow, "s_chk", "1");					
+					}
+					
+				}				
+				
+				objGrd.set_binddataset("ds_FreeQueryResultList");
+				objGrd.set_enableredraw(true);	
+							
+				for (var iLoop=0; iLoop <this.ds_FreeQueryResultList.getRowCount(); iLoop++) {
+					//trace(this.ds_FreeQueryResultList.getColumn(iLoop, "RESULT_QTY"));
+				}				
+			
+				for (var iLoop=0; iLoop <this.ds_FreeQueryResultList.getRowCount(); iLoop++) {
+					//trace(this.ds_FreeQueryResultList.getColumn(iLoop, "WORK_DATE"));
+				}				
+				
+	
+			}
+			
+			if (this.tab_TableInfo.tabindex == 2) {
+				this.tab_TableInfo_tab_Page03_btn_DoColumn_onclick();//컬럼명적용
+			} else {
+				this.tab_TableInfo_tab_Page02_btn_DoColumn_onclick();//컬럼명적용
+				this.tab_TableInfo_tab_Page02_btn_WidthSet_onclick();//컬럼Width정렬
+				
+			}
+			break;
+
+		case "QUERY_LIST":
+			//this.fnSearch();//재조회
+			//trace(this.ds_QueryResultList.saveXML());
+			/*
+			alert(this.ds_QueryResultList.saveXML());
+			
+			var nCount = this.grd_QueryResultList.getCellCount( "head" );
+			
+			if (nCount > 0) {
+				for (var iLoop = nCount; iLoop >= 0; iLoop--) {
+					this.grd_QueryResultList.deleteContentsCol("head", iLoop);
+				}
+			}
+			
+			if (this.ds_QueryResultList.getRowCount() > 0) {
+				var iCol = this.ds_QueryResultList.getColCount();
+				//this.grd_QueryResultList.appendContentsRow("body");
+				for (var iLoop = 0; iLoop < iCol; iLoop++) {
+					this.grd_QueryResultList.appendContentsCol("head")
+				}
+			}
+			*/
+			
+			//trace(this.Grid00.getCurFormatString()); //현재 그리드 컨텐츠내용
+			
+			this.tab_TableInfo.tab_Page01.form.grd_QueryResultList.set_formats("");
+			
+			if (this.ds_QueryResultList.getRowCount() > 0) {
+				this.tab_TableInfo.tab_Page01.form.grd_QueryResultList.set_enableredraw(false);
+				this.tab_TableInfo.tab_Page01.form.grd_QueryResultList.set_binddataset("");
+				
+				this.tab_TableInfo.tab_Page01.form.grd_QueryResultList.createFormat();
+				this.tab_TableInfo.tab_Page01.form.grd_QueryResultList.appendContentsRow("head");
+				this.tab_TableInfo.tab_Page01.form.grd_QueryResultList.appendContentsRow("body");
+				
+				/*
+				var iCol = this.ds_QueryResultList.getColCount();
+				var indexCol = 0;
+				
+				for (var iLoop = 0; iLoop < iCol; iLoop++) {
+				
+					if (iLoop > 0) {
+						indexCol = this.grd_QueryResultList.appendContentsCol();
+					}
+					
+					this.grd_QueryResultList.setFormatColProperty(indexCol, "size", 100);
+					this.grd_QueryResultList.setCellProperty("head", indexCol, "text", this.ds_QueryResultList.getColID(iLoop));
+					this.grd_QueryResultList.setCellProperty("body", indexCol, "text", "bind:" + this.ds_QueryResultList.getColID(iLoop));
+				}
+				*/
+				
+				var iCol = this.ds_ColumnList.getRowCount();
+				var indexCol = 0;
+				var sColName = "";
+				
+				for (var iLoop = 0; iLoop < iCol; iLoop++) {
+				
+					if (iLoop > 0) {
+						indexCol = this.tab_TableInfo.tab_Page01.form.grd_QueryResultList.appendContentsCol();
+					}
+					
+					if (this.gfn_IsNull(this.ds_ColumnList.getColumn(iLoop, "COLUMN_NM"))) {
+						sColName = this.ds_ColumnList.getColumn(iLoop, "COLUMN_ID");
+					} else {
+						sColName = this.ds_ColumnList.getColumn(iLoop, "COLUMN_NM");
+					}
+					
+					this.tab_TableInfo.tab_Page01.form.grd_QueryResultList.setFormatColProperty(indexCol, "size", 100);
+					this.tab_TableInfo.tab_Page01.form.grd_QueryResultList.setCellProperty("head", indexCol, "text", sColName);
+					this.tab_TableInfo.tab_Page01.form.grd_QueryResultList.setCellProperty("body", indexCol, "text", "bind:" + this.ds_ColumnList.getColumn(iLoop, "COLUMN_ID"));
+				}				
+				
+				this.tab_TableInfo.tab_Page01.form.grd_QueryResultList.set_binddataset("ds_QueryResultList");
+				this.tab_TableInfo.tab_Page01.form.grd_QueryResultList.set_enableredraw(true);			
+			}
+			
+			break;
+	}
+};
+
+
+
+this.fn_GetColumnInfo = function()
+{
+	var sOwnner = this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.cbo_Owner.value;
+	var sSOwnner = sOwnner.toLowerCase();
+	this.ds_Where.clearData();
+	this.ds_TableList.clearData();
+
+	this.ds_Where.addRow();
+	this.ds_Where.setColumn(0, "OWNER", "1");	
+	
+	this.gfn_InitComService(this);
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = sSOwnner + ":M_" +  sOwnner + "_TABL_SL00";
+	this.gfn_AddComSearchService(this, svcAddObj);
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "TABLE_LIST";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = sOwnner;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Where=ds_Where" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_TableList=ds_TableList";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+
+	/*
+	var strSvcId    = "TABLE_LIST";
+	var strSvcUrl   = "cmm/selectTableList.do";
+	var inDataSet   = "ds_Where=ds_Where";
+	var outDataSet  = "ds_TableList=ds_TableList";	
+	var strArg      = "";
+	var callBackFnc = "fn_Callback";
+
+    //서비스 호출
+	this.gfn_Transaction(strSvcId, 	   //transaction을 구분하기 위한 svc id값
+						 strSvcUrl,    //trabsaction을 요청할 주소
+						 inDataSet,    //입력값으로 보낼 dataset id , a=b형태로 실제이름과 입력이름을 매칭
+						 outDataSet,   //처리결과값으로 받을 dataset id, a=b형태로 실제이름과 입력이름을 매칭
+						 strArg, 	   //입력값로 보낼 arguments, strFormData="20120607"
+						 callBackFnc); //transaction의 결과를 받을 Function 이름
+*/
+};
+
+this.fn_GetColumnInfoMake = function()
+{
+	
+	var sOwnner = this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.cbo_Owner.value;
+	var sSOwnner = sOwnner.toLowerCase();
+	this.gds_TranInfo.clearData();
+	this.gds_TranInfo.addRow();
+	this.gds_TranInfo.setColumn(0, "SQL_ID", sOwnner + ":" + sSOwnner + "." + sOwnner + "0000Dao.select" + sOwnner + "0000Dao001");
+	this.gds_TranInfo.setColumn(0, "IN_DATASET", "ds_Where");
+	this.gds_TranInfo.setColumn(0, "OUT_DATASET", "ds_TableMakeList");
+
+	this.ds_TableMakeList.clearData();	
+	this.ds_Where.clearData();
+	this.ds_Where.addRow();
+	if (sOwnner != "MES" && sOwnner != "EMS") {
+		this.ds_Where.setColumn(0, "OWNER", sOwnner + "S");
+	} else {
+		this.ds_Where.setColumn(0, "OWNER", sOwnner);
+	}
+	this.ds_Where.setColumn(0, "TABLE_ID", "");
+	
+	
+	var strSvcId    = "TABLE_LIST_MAKE";
+	var strSvcUrl   = "comSelect.do";
+	var inData      = "gds_TranInfo=gds_TranInfo ds_Where=ds_Where";
+	var outData     = "ds_TableMakeList=ds_TableMakeList";
+	var strArg      = "";
+	var callBackFnc = "fn_Callback";
+
+
+	//생략가능
+	var isAsync   = true;
+	var nDataType = 0;
+
+	this.gfn_Transaction( strSvcId , 	// transaction을 구분하기 위한 svc id값
+								strSvcUrl , 	// trabsaction을 요청할 주소
+								inData , 		// 입력값으로 보낼 dataset id , a=b형태로 실제이름과 입력이름을 매칭
+								outData , 		// 처리결과값으로 받을 dataset id, a=b형태로 실제이름과 입력이름을 매칭
+								strArg, 			// 입력갑스로 보낼 arguments, strFormData="20120607"
+								callBackFnc, 	// transaction의 결과를 받을 Function 이름
+								nDataType); // 통신방법 정의 [생략가능]	
+};
+
+this.ds_TableList_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+
+	if (this.ds_TableList.getRowCount() > 0) {
+		/*
+		var sOwnner = this.tab_TableInfo.tab_Page01.form.cbo_Owner.value;
+		var sSOwnner = sOwnner.toLowerCase();
+		this.gds_TranInfo.clearData();
+		this.gds_TranInfo.addRow();
+		this.gds_TranInfo.setColumn(0, "SQL_ID", sOwnner + ":" + sSOwnner + "." + sOwnner + "0000Dao.select" + sOwnner + "0000Dao002");
+		this.gds_TranInfo.setColumn(0, "IN_DATASET", "ds_Where");
+		this.gds_TranInfo.setColumn(0, "OUT_DATASET", "ds_ColumnList");
+
+		this.ds_ColumnList.clearData();	
+		this.ds_Where.clearData();
+		this.ds_Where.addRow();
+		if (sOwnner != "MES" && sOwnner != "EMS") {
+			this.ds_Where.setColumn(0, "OWNER", sOwnner + "S");
+		} else {
+			this.ds_Where.setColumn(0, "OWNER", sOwnner);
+		}
+		this.ds_Where.setColumn(0, "TABLE_ID", this.ds_TableList.getColumn(obj.rowposition, "TABLE_ID"));
+		
+		
+		var strSvcId    = "COLUMN_LIST";
+		var strSvcUrl   = "comSelect.do";
+		var inData      = "gds_TranInfo=gds_TranInfo ds_Where=ds_Where";
+		var outData     = "ds_ColumnList=ds_ColumnList";
+		var strArg      = "";
+		var callBackFnc = "fn_Callback";
+
+
+		//생략가능
+		var isAsync   = true;
+		var nDataType = 0;
+
+		this.gfn_Transaction( strSvcId , 	// transaction을 구분하기 위한 svc id값
+									strSvcUrl , 	// trabsaction을 요청할 주소
+									inData , 		// 입력값으로 보낼 dataset id , a=b형태로 실제이름과 입력이름을 매칭
+									outData , 		// 처리결과값으로 받을 dataset id, a=b형태로 실제이름과 입력이름을 매칭
+									strArg, 			// 입력갑스로 보낼 arguments, strFormData="20120607"
+									callBackFnc, 	// transaction의 결과를 받을 Function 이름
+									nDataType); // 통신방법 정의 [생략가능]		
+		*/
+		
+		var sOwnner = this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.cbo_Owner.value;
+		var sSOwnner = sOwnner.toLowerCase();		
+		this.ds_ColumnList.clearData();	
+		this.ds_Where.clearData();
+		this.ds_Where.addRow();
+		this.ds_Where.setColumn(0, "TABLE_ID", this.ds_TableList.getColumn(obj.rowposition, "TABLE_ID"));
+		
+		this.gfn_InitComService(this);
+		
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = sSOwnner + ":M_" + sOwnner + "_COLM_SL00";
+	this.gfn_AddComSearchService(this, svcAddObj);
+		
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "COLUMN_LIST";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = sOwnner;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Where=ds_Where" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_ColumnList=ds_ColumnList";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+	
+		
+		/*
+		var strSvcId    = "COLUMN_LIST";
+		var strSvcUrl   = "cmm/selectTableColumnList.do";
+		var inDataSet   = "ds_Where=ds_Where";
+		var outDataSet  = "ds_ColumnList=ds_ColumnList";	
+		var strArg      = "";
+		var callBackFnc = "fn_Callback";
+
+		//서비스 호출
+		this.gfn_Transaction(strSvcId, 	   //transaction을 구분하기 위한 svc id값
+							 strSvcUrl,    //trabsaction을 요청할 주소
+							 inDataSet,    //입력값으로 보낼 dataset id , a=b형태로 실제이름과 입력이름을 매칭
+							 outDataSet,   //처리결과값으로 받을 dataset id, a=b형태로 실제이름과 입력이름을 매칭
+							 strArg, 	   //입력값로 보낼 arguments, strFormData="20120607"
+							 callBackFnc); //transaction의 결과를 받을 Function 이름		
+		*/
+	}
+};
+
+//테이블데이터 조회
+this.fn_GetQueryData = function() 
+{
+	if (this.ds_TableList.getRowCount() > 0) {
+
+		var sTableId = this.ds_TableList.getColumn(this.ds_TableList.rowposition, "TABLE_ID");
+		this.ds_QueryResultList.clear();	
+		this.ds_Where.clearData();
+		this.ds_Where.addRow();
+		this.ds_Where.setColumn(0, "QUERY", "SELECT TOP 100 * FROM " + sTableId);
+		
+		var strSvcId    = "QUERY_LIST";
+		var strSvcUrl   = "cmm/selectTableDataList.do";
+		var inDataSet   = "ds_Where=ds_Where";
+		var outDataSet  = "ds_QueryResultList=ds_QueryResultList";	
+		var strArg      = "";
+		var callBackFnc = "fn_Callback";
+
+		//서비스 호출
+		this.gfn_Transaction(strSvcId, 	   //transaction을 구분하기 위한 svc id값
+							 strSvcUrl,    //trabsaction을 요청할 주소
+							 inDataSet,    //입력값으로 보낼 dataset id , a=b형태로 실제이름과 입력이름을 매칭
+							 outDataSet,   //처리결과값으로 받을 dataset id, a=b형태로 실제이름과 입력이름을 매칭
+							 strArg, 	   //입력값로 보낼 arguments, strFormData="20120607"
+							 callBackFnc); //transaction의 결과를 받을 Function 이름		
+	}
+};
+
+this.tab_TableInfo_tab_Page01_cbo_Owner_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	this.ds_TableList.clearData();
+	this.fn_GetColumnInfo();//컬럼정보 조회
+};
+
+this.tab_TableInfo_tab_Page02_btn_RunQuery_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+	if (!this.gfn_IsNull(this.tab_TableInfo.tab_Page02.form.txt_Query.value)) {
+		var sOwnner = this.tab_TableInfo.tab_Page02.form.cbo_Owner.value;
+		var sSOwnner = sOwnner.toLowerCase();
+		var sSelectQuery = "";//쿼리-조회
+		var sSelectHeadQuery = "";//쿼리헤더-조회
+		var sSelectQueryDetail = this.tab_TableInfo.tab_Page02.form.txt_Query.value;//쿼리상세-조회
+		var sReturn = "\n";
+		
+		sSelectHeadQuery = '<?xml version="1.0" encoding="utf-8"?>' + sReturn;
+		sSelectHeadQuery = sSelectHeadQuery + '<query>' + sReturn;				
+		sSelectHeadQuery = sSelectHeadQuery + '    <type>select</type>' + sReturn;				
+		sSelectHeadQuery = sSelectHeadQuery + '    <description><![CDATA[ 임시조회 쿼리 ]]]]><![CDATA[></description>' + sReturn;
+		sSelectHeadQuery = sSelectHeadQuery + '    <reload>true</reload>' + sReturn;
+		sSelectHeadQuery = sSelectHeadQuery + '    <monitoring>true</monitoring>' + sReturn;
+		sSelectHeadQuery = sSelectHeadQuery + '    <result-count>1</result-count>' + sReturn;
+		sSelectHeadQuery = sSelectHeadQuery + '    <statement>' + sReturn;	
+		sSelectHeadQuery = sSelectHeadQuery + '    <![CDATA[' + sReturn + sReturn;		
+
+		sSelectQuery = sSelectHeadQuery + sSelectQueryDetail;		
+		sSelectQuery = sSelectQuery + sReturn + '    ]]]]><![CDATA[>'; 
+		sSelectQuery = sSelectQuery + sReturn + '    </statement>';
+		sSelectQuery = sSelectQuery + sReturn + '    <input default-name="_none">';
+		sSelectQuery = sSelectQuery + sReturn + '    </input>';
+		sSelectQuery = sSelectQuery + sReturn + '    <output default-name="ds_FreeQueryResultList">';
+		sSelectQuery = sSelectQuery + sReturn + '    </output>';
+		sSelectQuery = sSelectQuery + sReturn + '</query>';
+				
+		this.ds_FreeQueryResultList.clear();	
+		this.ds_Where.clearData();
+		this.ds_Where.addRow();
+		this.ds_Where.setColumn(0, "OWNER", sSOwnner);
+		this.ds_Where.setColumn(0, "TABLE_ID", "");
+		this.ds_Where.setColumn(0, "QUERY", sSelectQuery);	
+		this.ds_Where.setColumn(0, "FILE_PATH", "C:\\\\ST_SYS\\\\workspace\\\\ST_ERP\\\\WebContent\\\\WEB-INF\\\\fsp\\\\sqlmap\\\\" + sSOwnner);	
+		this.ds_Where.setColumn(0, "FILE_NM", "C:\\\\ST_SYS\\\\workspace\\\\ST_ERP\\\\WebContent\\\\WEB-INF\\\\fsp\\\\sqlmap\\\\" + sSOwnner + "\\\\T_" + sOwnner.substr(0,2) + "_TMPSQL");
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "QUERY_MAKE_TEMP";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = "SmQueryMakeAction";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sMethodName = "makeTempFile";// Action 안에서 호출해야 하는 메소드 명, 기본은 execute를 호출하도록 되어있음	
+	svcCallObj.sInputDaset = "ds_Where=ds_Where" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_FreeQueryResultList=ds_FreeQueryResultList";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+
+	}
+	
+};
+
+this.tab_TableInfo_tab_Page01_btn_MakeQuery_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (this.ds_ColumnList.getRowCount() > 0) {
+	
+		var sQuery = "";		
+		var sTableId = "";
+		var sReturn = "\n";
+		
+		for (var iLoop = 0; iLoop < this.ds_ColumnList.getRowCount(); iLoop++) {
+			if (this.ds_ColumnList.getCaseCount("S_CHK == '1'") > 0)  {
+			
+				if (sQuery == "") {
+					sQuery = '<?xml version="1.0" encoding="UTF-8"?>' + sReturn;
+					sQuery = sQuery + '<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">' + sReturn;
+					sQuery = sQuery + sReturn; 
+					//sQuery = sQuery + "<mapper namespace=" + '"' + wf + "." + WF + "0000" + 'Dao">'+ sReturn; 
+					sQuery = sQuery + '<mapper namespace="wf.WF0000Dao">'+ sReturn; 
+					sQuery = sQuery + sReturn; 
+					sQuery = sQuery + "\n    SELECT ";
+				}
+				
+				if (this.ds_ColumnList.getColumn(iLoop, "S_CHK") == "1") {
+					if (sQuery ==  "    SELECT ") {
+						sQuery = sQuery + "\n           " + this.ds_ColumnList.getColumn(iLoop, "COLUMN_ID");
+					} else {
+						sQuery = sQuery + "\n         , " + this.ds_ColumnList.getColumn(iLoop, "COLUMN_ID");
+					}
+				}
+			}
+		}
+		
+		if (this.ds_ColumnList.getCaseCount("S_CHK == '1'") > 0)  {
+			sTableId = this.ds_ColumnList.getColumn(0, "TABLE_ID");
+			sQuery = sQuery + "\n      FROM " + sTableId + "\n     WHERE ROWNUM <= 100";
+			sQuery = sQuery + sReturn;
+			sQuery = sQuery + "</mapper>";
+			
+			//trace(sQuery);
+			var sOwner = this.tab_TableInfo.tab_Page01.form.cbo_Owner.value;
+			this.tab_TableInfo.set_tabindex(1);
+			this.tab_TableInfo.tab_Page02.form.cbo_Owner.set_value(sOwner);
+			this.tab_TableInfo.tab_Page02.form.txt_Query.set_value(sQuery);
+			//this.tab_TableInfo_tab_Page02_btn_RunQuery_onclick();
+			return;
+			this.ds_MakeFileInfo.clearData();
+			this.ds_MakeFileInfo.addRow();
+			this.ds_MakeFileInfo.setColumn(0, "FOLDER_NM", "ac/");
+			this.ds_MakeFileInfo.setColumn(0, "FILE_NM", "AC0001Dao.xml");
+			this.ds_MakeFileInfo.setColumn(0, "FILE_CONT", sQuery);
+
+			var strSvcId    = "MAKE_FILE";
+			var strSvcUrl   = "makeFile.do";
+			var inData      = "ds_MakeFileInfo=ds_MakeFileInfo";
+			var outData     = "";
+			var strArg      = "";
+			var callBackFnc = "fn_Callback";
+
+
+			//생략가능
+			var isAsync   = true;
+			var nDataType = 0;
+
+			this.gfn_Transaction( strSvcId , 	// transaction을 구분하기 위한 svc id값
+										strSvcUrl , 	// trabsaction을 요청할 주소
+										inData , 		// 입력값으로 보낼 dataset id , a=b형태로 실제이름과 입력이름을 매칭
+										outData , 		// 처리결과값으로 받을 dataset id, a=b형태로 실제이름과 입력이름을 매칭
+										strArg, 			// 입력갑스로 보낼 arguments, strFormData="20120607"
+										callBackFnc, 	// transaction의 결과를 받을 Function 이름
+										nDataType); // 통신방법 정의 [생략가능]	
+		}		
+	}
+};
+
+//미리보기
+this.tab_TableInfo_tab_Page01_div_Query_btn_Preview_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_TempQueryMake();
+};
+
+//쿼리생성
+this.tab_TableInfo_tab_Page01_div_Query_btn_MakeQuery_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//var sFilePath = "C:\\\\ST_SYS\\\\workspace\\\\ST_ERP\\\\WebContent\\\\WEB-INF\\\\fsp\\\\temp\\\\sm\\\\";
+	var sOwnner = this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.cbo_Owner.value;
+	var sSOwnner = sOwnner.toLowerCase();
+	var sFilePath = "C:\\\\ST_SYS\\\\workspace\\\\ST_ERP\\\\WebContent\\\\WEB-INF\\\\fsp\\\\temp\\\\" + sSOwnner + "\\\\";
+	var sTableId = this.ds_ColumnList.getColumn(0, "TABLE_ID");//테이블ID
+	this.ds_MakeFileInfo.clearData();
+	this.ds_MakeFileInfo.addRow();
+	this.ds_MakeFileInfo.setColumn(0, "FILE_PATH", "C:\\\\ST_SYS\\\\workspace\\\\ST_ERP\\\\WebContent\\\\WEB-INF\\\\fsp\\\\temp\\\\" + sSOwnner);	
+	this.ds_MakeFileInfo.setColumn(0, "FILE_NM", sFilePath + sTableId);
+	this.ds_MakeFileInfo.setColumn(0, "FILE_CONT_SELECT", this.tab_TableInfo.tab_Page01.form.div_Query.form.tab_Query.tpg_q4.form.txt_Query.value);
+	this.ds_MakeFileInfo.setColumn(0, "FILE_CONT_INSERT", this.tab_TableInfo.tab_Page01.form.div_Query.form.tab_Query.tpg_q1.form.txt_Query.value);
+	this.ds_MakeFileInfo.setColumn(0, "FILE_CONT_UPDATE", this.tab_TableInfo.tab_Page01.form.div_Query.form.tab_Query.tpg_q2.form.txt_Query.value);
+	this.ds_MakeFileInfo.setColumn(0, "FILE_CONT_DELETE", this.tab_TableInfo.tab_Page01.form.div_Query.form.tab_Query.tpg_q3.form.txt_Query.value);
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "QUERY_MAKE_ONE";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = "SmQueryMakeAction";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sMethodName = "makeOneFile";// Action 안에서 호출해야 하는 메소드 명, 기본은 execute를 호출하도록 되어있음
+	svcCallObj.sInputDaset = "ds_MakeFileInfo=ds_MakeFileInfo" //입력 데이터셋
+	svcCallObj.sOutDatset = "";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+
+	
+	/*
+	if (!this.gfn_IsNull(this.tab_TableInfo.tab_Page01.form.div_Query.form.txt_Query.value)) {
+
+		var sOwnner = this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.cbo_Owner.value;
+		var sSOwnner = sOwnner.toLowerCase();
+		var sDaoName = this.tab_TableInfo.tab_Page01.form.div_Query.form.edt_Namespace.value + "Dao.xml";
+		
+		this.ds_MakeFileInfo.clearData();
+		this.ds_MakeFileInfo.addRow();
+		this.ds_MakeFileInfo.setColumn(0, "FOLDER_NM", sSOwnner +"/");
+		this.ds_MakeFileInfo.setColumn(0, "FILE_NM", sDaoName);
+		this.ds_MakeFileInfo.setColumn(0, "FILE_CONT", this.tab_TableInfo.tab_Page01.form.div_Query.form.txt_Query.value);
+
+		var strSvcId    = "MAKE_FILE";
+		var strSvcUrl   = "makeFile.do";
+		var inData      = "ds_MakeFileInfo=ds_MakeFileInfo";
+		var outData     = "";
+		var strArg      = "";
+		var callBackFnc = "fn_Callback";
+
+
+		//생략가능
+		var isAsync   = true;
+		var nDataType = 0;
+
+		this.gfn_Transaction( strSvcId , 	// transaction을 구분하기 위한 svc id값
+									strSvcUrl , 	// trabsaction을 요청할 주소
+									inData , 		// 입력값으로 보낼 dataset id , a=b형태로 실제이름과 입력이름을 매칭
+									outData , 		// 처리결과값으로 받을 dataset id, a=b형태로 실제이름과 입력이름을 매칭
+									strArg, 			// 입력갑스로 보낼 arguments, strFormData="20120607"
+									callBackFnc, 	// transaction의 결과를 받을 Function 이름
+									nDataType); // 통신방법 정의 [생략가능]	
+	
+	}	
+	*/
+	
+};
+
+//테이블 Owner 정보 변경시
+this.tab_TableInfo_tab_Page01_div_TableInfo_cbo_Owner_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	this.ds_TableMakeList.clearData();
+	//this.fn_GetColumnInfoMake();//컬럼정보 조회	
+	this.fn_GetColumnInfo();
+};
+
+this.ds_TableMakeList_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	if (this.ds_TableMakeList.getRowCount() > 0) {
+	
+		this.tab_TableInfo.tab_Page01.form.div_Query.form.txt_Query.set_value("");
+		this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.grd_ColumnList.setCellProperty("head", 0, "text", "");
+		var sOwnner = this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.cbo_Owner.value;
+		var sSOwnner = sOwnner.toLowerCase();
+		
+		this.gds_TranInfo.clearData();
+		this.gds_TranInfo.addRow();
+		this.gds_TranInfo.setColumn(0, "SQL_ID", sOwnner + ":" + sSOwnner + "." + sOwnner + "0000Dao.select" + sOwnner + "0000Dao002");
+		this.gds_TranInfo.setColumn(0, "IN_DATASET", "ds_Where");
+		this.gds_TranInfo.setColumn(0, "OUT_DATASET", "ds_ColumnList");
+
+		this.ds_ColumnList.clearData();	
+		this.ds_Where.clearData();
+		this.ds_Where.addRow();
+		this.ds_Where.setColumn(0, "OWNER", sOwnner+ "S");
+		this.ds_Where.setColumn(0, "TABLE_ID", this.ds_TableMakeList.getColumn(obj.rowposition, "TABLE_ID"));
+		
+		
+		var strSvcId    = "COLUMN_LIST_MAKE";
+		var strSvcUrl   = "comSelect.do";
+		var inData      = "gds_TranInfo=gds_TranInfo ds_Where=ds_Where";
+		var outData     = "ds_ColumnList=ds_ColumnList";
+		var strArg      = "";
+		var callBackFnc = "fn_Callback";
+
+
+		//생략가능
+		var isAsync   = true;
+		var nDataType = 0;
+
+		this.gfn_Transaction( strSvcId , 	// transaction을 구분하기 위한 svc id값
+									strSvcUrl , 	// trabsaction을 요청할 주소
+									inData , 		// 입력값으로 보낼 dataset id , a=b형태로 실제이름과 입력이름을 매칭
+									outData , 		// 처리결과값으로 받을 dataset id, a=b형태로 실제이름과 입력이름을 매칭
+									strArg, 			// 입력갑스로 보낼 arguments, strFormData="20120607"
+									callBackFnc, 	// transaction의 결과를 받을 Function 이름
+									nDataType); // 통신방법 정의 [생략가능]			
+	}	
+};
+
+this.tab_TableInfo_tab_Page01_div_Query_chk_All_onchanged = function(obj:nexacro.CheckBox,e:nexacro.CheckBoxChangedEventInfo)
+{	
+	var chkValue = obj.value;
+	
+	this.tab_TableInfo.tab_Page01.form.div_Query.form.chk_Select.set_value(chkValue);
+	this.tab_TableInfo.tab_Page01.form.div_Query.form.chk_Insert.set_value(chkValue);
+	this.tab_TableInfo.tab_Page01.form.div_Query.form.chk_Update.set_value(chkValue);
+	this.tab_TableInfo.tab_Page01.form.div_Query.form.chk_Delete.set_value(chkValue);
+};
+
+this.tab_TableInfo_tab_Page01_div_TableInfo_grd_ColumnList_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	var sChk = this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.grd_ColumnList.getCellProperty("head",0, "text");
+	var bChk;
+	
+	if (sChk == "1") {
+		this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.grd_ColumnList.setCellProperty("head",0, "text", "0");
+		bChk = false;
+	} else {
+		this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.grd_ColumnList.setCellProperty("head",0, "text", "1");
+		bChk = true;
+	}
+	
+	if (this.ds_ColumnList.getRowCount() > 0) {
+		for (var iLoop = 0; iLoop < this.ds_ColumnList.getRowCount(); iLoop++) {
+			this.ds_ColumnList.setColumn(iLoop, "S_CHK", bChk);
+		}
+	}
+	
+};
+
+this.fn_CheckSkipColumn = function(sType, sColumn) {
+
+	if (sType == "C") {
+		if (sColumn == "MODI_ID" || sColumn == "MODI_DT" || sColumn == "DELE_ID" || sColumn == "DELE_DT") {
+			return false;
+		} else {
+			return true;
+		}
+	} else if (sType == "R") {
+		if (sColumn == "DELE_ID" || sColumn == "DELE_DT") {
+			return false;
+		} else {
+			return true;
+		}
+	} else if (sType == "U") {
+		if (sColumn == "REGI_ID" || sColumn == "REGI_DT" || sColumn == "DELE_ID" || sColumn == "DELE_DT") {
+			return false;
+		} else {
+			return true;
+		}	
+	} else if (sType == "D") {	
+		if (sColumn == "REGI_ID" || sColumn == "REGI_DT" || sColumn == "MODI_ID" || sColumn == "MODI_DT") {
+			return false;
+		} else {
+			return true;
+		}	
+	}
+}
+
+this.tab_TableInfo_tab_Page01_div_TableInfo_btn_MakeDataSet_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+	var sDataSet = "";
+	
+	sDataSet = sDataSet + '<InvisibleClipBoard version="1.0">';
+	sDataSet = sDataSet + '<Dataset id="' + this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.edt_DataSetName.value + '">';
+	sDataSet = sDataSet + '<ColumnInfo>';
+	
+	for (var iLoop = 0; iLoop < this.ds_ColumnList.getRowCount(); iLoop++) {
+		if (this.ds_ColumnList.getColumn(iLoop, "S_CHK") == "1") {
+			sDataSet = sDataSet + '<Column id="' + this.ds_ColumnList.getColumn(iLoop, "COLUMN_ID") + '" type="STRING" size="256"/>';
+		}
+	}
+	
+	sDataSet = sDataSet + '</ColumnInfo>';
+	sDataSet = sDataSet + '</Dataset>';
+	sDataSet = sDataSet + '</InvisibleClipBoard>';
+
+	alert(" " + this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.edt_DataSetName.value + " 데이터셋이 생성 되었습니다. \n Show Invisible Object Area 영역에 붙여넣기(Paste) 하시기 바랍니다. ");
+
+	system.setClipboard("CF_TEXT", sDataSet);
+
+};
+
+this.tab_TableInfo_tab_Page01_grd_TableList_onkeydown = function(obj:nexacro.Grid,e:nexacro.KeyEventInfo)
+{
+	this.gfn_grdCopy_Paste(obj, e);
+
+};
+
+
+
+/**
+* Grid/Excel간 Copy & Paste
+* @param : obj	- Grid Object
+* @param e		- Event Info
+* @return : N/A
+* @example : gfn_grdCopy_Paste(obj, e)
+*/
+this.gfn_grdCopy_Paste = function (obj, e)
+{
+	
+	if(e.shiftkey){
+	//if(e.ctrlKey){
+	
+		if(e.keycode == 67){
+			//데이터 복사 ctrl + c 키 동작
+			var strGrdDsNm = obj.binddataset;
+			var v_clip = "";
+			var strSeperate = "	";
+			
+			for (var i=obj.selectstartrow;i<=obj.selectendrow;i++) {
+				for (var j=obj.selectstartcol;j<=obj.selectendcol;j++) {
+					if (j < obj.selectendcol) {
+						v_clip += obj.getCellValue(i,j) + strSeperate;
+					} else {
+						v_clip += obj.getCellValue(i,j);
+					}
+				}
+				if (i < obj.selectendrow) {
+					
+					v_clip += "/";
+				}
+			}
+			
+			v_clip += "/";
+			//this.Clipboard = "";
+			//this.Clipboard = v_clip;
+			//trace("====" + obj.getCellValue(obj.getSelectedRows(),obj.getCellPos()));
+			system.setClipboard("CF_TEXT", obj.getCellValue(obj.getSelectedRows(),obj.getCellPos()));
+
+		} else if(e.keycode == 86) {
+			//데이터 붙여넣기
+			//에디트 가능할 경우 return;
+			var vCurEditType = obj.getCurEditType();
+			if(vCurEditType != "none"){
+				var isT = this.Grid00.getEditCaret();
+				if(!this.gfn_IsNull(isT)){
+					return;
+				}
+			}
+	
+			var bAddrow = true;
+			
+			if (!this.utlf_IsNull(this.gfn_grdCopy_Paste.arguments[2])) {
+				bAddrow = this.gfn_grdCopy_Paste.arguments[2];
+			}
+			
+			//Grid Binddataset
+			var strGrdDsNm = obj.binddataset;
+			//cell count
+			var nGrdCellCnt = obj.getCellCount("body");
+			//cell position
+			var nGrdCellPos = obj.getCellPos();		
+			//row position
+			var nRowPos = eval("this." + strGrdDsNm).rowposition;
+			//arrText2 index
+			var k = 0;
+			//Dataset rowcount
+			var nDsRowCnt = eval("this." + strGrdDsNm).getRowCount();		
+			
+			var t_clip = this.Clipboard;
+			var strText = new String(t_clip);
+			var arrText = new Array();
+			var arrText2 = new Array();			
+			arrText = strText.split("/");
+			
+			if (nDsRowCnt < (arrText.length + nRowPos -1)) {
+				if (bAddrow) {
+					
+				} else {
+					return false;
+				}			
+			}			
+			//복사한 Row만큼
+			var oDs =  eval("this." + strGrdDsNm);
+			for (var i=0;i<arrText.length;i++) {
+				
+				if (this.utlf_IsNull(arrText[i])) {
+					return;
+				}
+				arrText2 = arrText[i].split("	");
+				
+				//기존 dataset갯수보다 많은 경우
+				if ( nDsRowCnt <= nRowPos) {
+					var nAddrow = oDs.addRow();
+				}
+				
+				var nLoopCnt = (nGrdCellPos + arrText2.length);
+				if (nLoopCnt > nGrdCellCnt) {
+					nLoopCnt = nGrdCellCnt;
+				}
+				
+				//Dataset setcolumn
+				k = 0;
+				for (var j=nGrdCellPos;j<nLoopCnt;j++) {
+					var colid = obj.getCellProperty("body", j, "text").substr(5);
+				
+					oDs.setColumn(nRowPos, colid, arrText2[k]);
+					
+					k++;
+				}				
+				nRowPos++;
+				eval("this." + strGrdDsNm).rowposition = nRowPos;
+			}
+		}
+	}
+
+}
+
+this.tab_TableInfo_tab_Page02_btn_MakeDataSet_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sDataSet = "";
+	
+	sDataSet = sDataSet + '<InvisibleClipBoard version="1.0">';
+	sDataSet = sDataSet + '<Dataset id="' + this.tab_TableInfo.tab_Page02.form.edt_DataSetName.value + '">';
+	sDataSet = sDataSet + '<ColumnInfo>';
+
+	for (var iLoop = 0; iLoop < this.ds_FreeQueryResultList.getColCount(); iLoop++) {
+		
+		sDataSet = sDataSet + '<Column id="' + this.ds_FreeQueryResultList.getColID(iLoop) + '" type="STRING" size="256"/>';
+		
+	}
+	
+	sDataSet = sDataSet + '</ColumnInfo>';
+	sDataSet = sDataSet + '</Dataset>';
+	sDataSet = sDataSet + '</InvisibleClipBoard>';
+
+	alert(" " + this.tab_TableInfo.tab_Page02.form.edt_DataSetName.value + " 데이터셋이 생성 되었습니다. \n Show Invisible Object Area 영역에 붙여넣기(Paste) 하시기 바랍니다. ");
+
+	system.setClipboard("CF_TEXT", sDataSet);	
+};
+
+this.tab_TableInfo_tab_Page01_div_TableInfo_btn_AllQuery_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.ds_Where.clearData();
+	
+	var sOwnner = this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.cbo_Owner.value;
+	var sCallAction = "";//호출서비스
+	
+	if (sOwnner == "CA") {
+		sCallAction = "CaQueryMakeAction";//호출서비스
+	} else if(sOwnner == "CS") {
+		sCallAction = "CsQueryMakeAction";//호출서비스
+	} else if(sOwnner == "FA") {
+		sCallAction = "FaQueryMakeAction";//호출서비스
+	} else if(sOwnner == "HR") {
+		sCallAction = "HrQueryMakeAction";//호출서비스		
+	} else if(sOwnner == "IF") {
+		sCallAction = "IfQueryMakeAction";//호출서비스
+	} else if(sOwnner == "MM") {
+		sCallAction = "MmQueryMakeAction";//호출서비스
+	} else if(sOwnner == "PP") {
+		sCallAction = "PpQueryMakeAction";//호출서비스	
+	} else if(sOwnner == "PS") {
+		sCallAction = "PsQueryMakeAction";//호출서비스
+	} else if(sOwnner == "QM") {
+		sCallAction = "QmQueryMakeAction";//호출서비스
+	} else if(sOwnner == "RD") {
+		sCallAction = "RdQueryMakeAction";//호출서비스	
+	} else if(sOwnner == "SD") {
+		sCallAction = "SdQueryMakeAction";//호출서비스
+	} else if(sOwnner == "SM") {
+		sCallAction = "SmQueryMakeAction";//호출서비스
+	} else if(sOwnner == "WF") {
+		sCallAction = "WfQueryMakeAction";//호출서비스			
+	} else {
+		sCallAction = "SmQueryMakeAction";//호출서비스
+	}
+
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "QUERY_MAKE";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = sCallAction;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sMethodName = "makeFile";// Action 안에서 호출해야 하는 메소드 명, 기본은 execute를 호출하도록 되어있음
+	svcCallObj.sInputDaset = "ds_Where=ds_Where" //입력 데이터셋
+	svcCallObj.sOutDatset = "";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+
+};
+
+
+//임시생성 쿼리 조회
+this.fn_GetTempQuery = function()
+{
+	var sOwnner = "";
+	if (this.tab_TableInfo.tabindex == 2) {
+		sOwnner = this.tab_TableInfo.tab_Page03.form.cbo_Owner.value;
+	} else {
+		sOwnner = this.tab_TableInfo.tab_Page02.form.cbo_Owner.value;
+	}
+	
+	var sSOwnner = sOwnner.toLowerCase();
+	this.ds_Where.clearData();
+	this.ds_FreeQueryResultList.clearData();
+
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = sSOwnner + ":T_" + sOwnner.substr(0,2) + "_TMPSQL_SL00"
+	this.gfn_AddComSearchService(this, svcAddObj);	
+
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "MAKE_TEMP_LIST";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = sOwnner;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = ""; //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_FreeQueryResultList=ds_FreeQueryResultList";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+
+
+};
+
+//행추가
+this.tab_TableInfo_tab_Page02_btn_AddRow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.ds_TableSch.addRow();
+};
+
+//행삭제
+this.tab_TableInfo_tab_Page02_btn_DeleteRow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var iCount = this.ds_TableSch.getRowCount();
+	if (iCount > 0) {
+		if (this.ds_TableSch.getCaseCount("s_chk == '1'") > 0) {
+			for (var iLoop=iCount-1; iLoop >=0; iLoop--) {
+				if (this.ds_TableSch.getColumn(iLoop, "s_chk") == "1") {
+					this.ds_TableSch.deleteRow(iLoop);
+				}
+			}
+		} else {
+			alert("삭제할 대상을 선택하세요.");
+		}
+	}
+};
+
+//테이블명 찾기
+this.fn_FindTableNm = function() {
+	this.ds_TableSch.clearData();
+	var sQuery = "";
+	if (this.tab_TableInfo.tabindex == 2) {
+		sQuery = this.tab_TableInfo.tab_Page03.form.txt_Query.value;//전체쿼리 내용
+	} else {
+		sQuery = this.tab_TableInfo.tab_Page02.form.txt_Query.value;//전체쿼리 내용
+	}
+	var arrTablePrefix = new Array("T_HR","T_FA","T_CA","T_SD","T_PS","T_MM","T_PP","T_QM","T_CS","T_RD","T_WF","T_SM","T_IF","T_RM","T_HS","T_HD","T_HE","T_HG","T_HU","T_QE");
+	
+	for (var iLoop=0; iLoop < arrTablePrefix.length; iLoop++) {
+		var sTablePrefix = arrTablePrefix[iLoop];
+		this.fn_CheckTableNm(sQuery, sTablePrefix, 0);
+	}
+	
+	//trace(this.ds_TableSch.saveXML());
+}
+
+//테이블명 조회
+this.fn_CheckTableNm = function(sQuery, sTablePrefix, index) {
+
+	var iChkIndex = sQuery.indexOf(sTablePrefix, index);
+	
+	if (iChkIndex < 0) {
+		return;
+	} else {
+		var sTableName = sQuery.substr(iChkIndex, 10);		
+		var iFindRow = this.ds_TableSch.findRow("TABLE_ID", sTableName);
+		
+		if (iFindRow < 0) {
+			var iAddRow = this.ds_TableSch.addRow();
+			this.ds_TableSch.setColumn(iAddRow, "TABLE_ID", sTableName);
+			this.ds_TableSch.setColumn(iAddRow, "s_chk", "1");
+		}
+
+		this.fn_CheckTableNm(sQuery, sTablePrefix, (iChkIndex+1));
+	}
+}
+
+
+this.tab_TableInfo_tab_Page02_grd_MakeGrdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	obj.dropdownCombo();
+};
+
+//컬럼적용
+this.tab_TableInfo_tab_Page02_btn_DoColumn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_FindTableColumn();
+};
+
+
+//그리드 생성
+this.tab_TableInfo_tab_Page02_btn_MakeGrid_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sGrid = "";
+	var sGridName = this.tab_TableInfo.tab_Page02.form.edt_GridName.value;
+	var sDataset = this.tab_TableInfo.tab_Page02.form.edt_DataSetName.value;
+	var sReturn = "\n";
+	var iCnt = 0;	
+	var sColumnSize = "";//컬럼사이즈
+	var sCompTypeEdit = "";//컴포넌트유형-Edit
+	var sCompTypeDisplay = "";//컴포넌트유형-Display
+	var sCompInfo = "";//컴포넌트 정보
+	var sCell = "";//Head Cell정보
+	var sBody = "";//Body정보
+	var sTEXT_ALIGN = "";//정렬-체크값
+	var sTextAlign = "";//정렬
+	var maskeditformat = "";
+
+	
+	sGrid = sGrid + '<DesignFormClipBoard version="1.0">' + sReturn;
+	sGrid = sGrid + '<Copydata>' + sReturn;
+	sGrid = sGrid + '<Component copyrect="20,20,1000,380">' + sReturn;
+	
+	sGrid = sGrid + '<Grid id="' + sGridName + '" taborder="1" left="0" top="2" width="1000" height="380" binddataset="' + sDataset + '" autofittype="none">' + sReturn;
+	sGrid = sGrid + '	<Formats>' + sReturn;
+	sGrid = sGrid + '   	<Format id="default">' + sReturn;
+	sGrid = sGrid + '            <Columns>' + sReturn;	
+	
+	//입력용이면
+	
+	if (this.tab_TableInfo.tab_Page02.form.rdo_InOutMode.value != "R") {
+		sColumnSize = sColumnSize + '            	<Column size="30"/>' + sReturn;//컬럼사이즈
+		sCell = sCell + '            	<Cell col="0" text=""/>' + sReturn;//컬럼사이즈	
+		sBody = sBody + '            	<Cell col="0" cssclass="expr:comp.parent.gfn_Decode(crudType, &quot;I&quot;,&quot;cell_WF_Insert&quot;, &quot;U&quot;,&quot;cell_WF_Modify&quot;, &quot;D&quot;,&quot;cell_WF_Delete01&quot;, &quot;&quot;)" />' + sReturn;		
+		
+		sColumnSize = sColumnSize + '            	<Column size="30"/>' + sReturn;//컬럼사이즈
+		sCell = sCell + '            	<Cell col="1" text=""/>' + sReturn;//컬럼사이즈	
+		sBody = sBody + '            	<Cell col="1" text="" displaytype="text" expr="currow+1" />' + sReturn;		
+		
+		sColumnSize = sColumnSize + '            	<Column size="30"/>' + sReturn;//컬럼사이즈
+
+		//sCell = sCell + '            	<Cell col="2" text="" edittype="checkbox" displaytype="checkboxcontrol"/>' + sReturn;//컬럼사이즈		
+		sCell = sCell + '            	<Cell col="2" text="선택" edittype="none" displaytype="normal"/>' + sReturn;//컬럼사이즈		
+		sBody = sBody + '            	<Cell col="2" text="bind:s_chk" displaytype="checkboxcontrol" edittype="checkbox"/>' + sReturn;				
+		iCnt = 3;
+	}
+	
+
+	for (var iLoop = 0; iLoop < this.ds_MakeGridData.getRowCount(); iLoop++) {
+		
+		if (this.ds_MakeGridData.getColumn(iLoop, "s_chk") == "1") {
+
+			sColumnSize = sColumnSize + '            	<Column size="' + this.ds_MakeGridData.getColumn(iLoop, "COL_WIDTH") + '"/>' + sReturn;//컬럼사이즈
+			sCell = sCell + '            	<Cell col="' + iCnt + '" text="' + this.ds_MakeGridData.getColumn(iLoop, "COLUMN_NM") + '"/>' + sReturn;//컬럼사이즈
+			
+			sCompTypeEdit = this.ds_MakeGridData.getColumn(iLoop, "COMP_TYPE");//컴포넌트유형
+			sCompTypeDisplay = this.fn_CheckEditType(sCompTypeEdit);//Display Type
+			sTEXT_ALIGN = this.ds_MakeGridData.getColumn(iLoop, "TEXT_ALIGN");//정렬
+			maskeditformat = this.ds_MakeGridData.getColumn(iLoop, "maskeditformat");
+			
+			if (sTEXT_ALIGN == "C") {
+				sTextAlign = "center";//정렬
+			} else if (sTEXT_ALIGN == "L") {
+				sTextAlign = "left";//정렬
+			} else if (sTEXT_ALIGN == "R") {
+				sTextAlign = "right";//정렬
+			}
+			
+			//조회용인경우
+			if (this.tab_TableInfo.tab_Page02.form.rdo_InOutMode.value == "R") {
+				sCompInfo = ' displaytype="' + sCompTypeDisplay + '" textAlign="' + sTextAlign + '"';//컴포넌트 정보
+			} else {
+				sCompInfo = ' displaytype="' + sCompTypeDisplay + '" edittype="' + sCompTypeEdit + '" textAlign="' + sTextAlign + '"';//컴포넌트 정보
+			}
+			
+			//캘린더일경우
+			if (sCompTypeEdit == "date") {
+				sCompInfo = sCompInfo + ' calendardateformat="yyyy-MM-dd" calendardisplaynulltype="none"';//컴포넌트 정보
+			}
+			
+			if (!this.gfn_IsNull(maskeditformat)) {
+				sCompInfo = sCompInfo + ' maskedittype="string" maskeditformat="' + maskeditformat + '"';
+			}
+			
+			sBody = sBody + '            	<Cell col="' + iCnt + '" text="bind:' + this.ds_MakeGridData.getColumn(iLoop, "COLUMN_ID") + '"' + sCompInfo + '/>' + sReturn;//컬럼사이즈
+			iCnt++;
+		}
+	}
+	
+	sGrid = sGrid + sColumnSize + '            </Columns>' + sReturn;	
+	sGrid = sGrid + '            <Rows>' + sReturn;
+	sGrid = sGrid + '            	<Row size="26" band="head"/>' + sReturn;
+	sGrid = sGrid + '            	<Row size="24"/>' + sReturn;
+	sGrid = sGrid + '            </Rows>' + sReturn;	
+	sGrid = sGrid + '            <Band id="head">' + sReturn;
+	sGrid = sGrid + sCell + '            </Band>' + sReturn;
+	sGrid = sGrid + '            <Band id="body">' + sReturn;
+	sGrid = sGrid + sBody + '            </Band>' + sReturn;
+	sGrid = sGrid + '   	</Format>' + sReturn;
+	sGrid = sGrid + '	</Formats>' + sReturn;
+	sGrid = sGrid + '	</Grid>' + sReturn;
+	
+	sGrid = sGrid + '</Component>';
+	sGrid = sGrid + '</Copydata>';
+	sGrid = sGrid + '</DesignFormClipBoard>';
+
+	alert(" [ " + this.tab_TableInfo.tab_Page02.form.edt_GridName.value + " ] 그리드가 생성 되었습니다. \n 해당화면에 붙여넣을 위치에 클릭하신후 붙여넣기(Ctrl + V) 하시기 바랍니다. ");
+	trace(sGrid);
+	system.setClipboard("CF_TEXT", sGrid);		
+};
+
+this.fn_CheckEditType = function(sType) {
+
+	var iFindRow = this.ds_ComboType.findRow("code", sType);
+	var sEditType = "";
+
+	//조회용인경우
+	if (this.tab_TableInfo.tab_Page02.form.rdo_InOutMode.value == "R") {
+		sEditType = this.ds_ComboType.getColumn(iFindRow, "editType");
+	} else {
+		sEditType = this.ds_ComboType.getColumn(iFindRow, "editType2");
+	}
+	
+	if (this.gfn_IsNull(sEditType)) {
+		return "";
+	} else {
+		return sEditType;
+	}
+	 
+}
+
+//tab_Page03
+//조회
+this.tab_TableInfo_tab_Page03_btn_RunQuery_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (!this.gfn_IsNull(this.tab_TableInfo.tab_Page03.form.txt_Query.value)) {
+		var sOwnner = this.tab_TableInfo.tab_Page03.form.cbo_Owner.value;
+		var sSOwnner = sOwnner.toLowerCase();
+		var sSelectQuery = "";//쿼리-조회
+		var sSelectHeadQuery = "";//쿼리헤더-조회
+		var sSelectQueryDetail = this.tab_TableInfo.tab_Page03.form.txt_Query.value;//쿼리상세-조회
+		var sReturn = "\n";
+		
+		sSelectHeadQuery = '<?xml version="1.0" encoding="utf-8"?>' + sReturn;
+		sSelectHeadQuery = sSelectHeadQuery + '<query>' + sReturn;				
+		sSelectHeadQuery = sSelectHeadQuery + '    <type>select</type>' + sReturn;				
+		sSelectHeadQuery = sSelectHeadQuery + '    <description><![CDATA[ 임시조회 쿼리 ]]]]><![CDATA[></description>' + sReturn;
+		sSelectHeadQuery = sSelectHeadQuery + '    <reload>true</reload>' + sReturn;
+		sSelectHeadQuery = sSelectHeadQuery + '    <monitoring>true</monitoring>' + sReturn;
+		sSelectHeadQuery = sSelectHeadQuery + '    <result-count>1</result-count>' + sReturn;
+		sSelectHeadQuery = sSelectHeadQuery + '    <statement>' + sReturn;	
+		sSelectHeadQuery = sSelectHeadQuery + '    <![CDATA[' + sReturn + sReturn;		
+
+		sSelectQuery = sSelectHeadQuery + sSelectQueryDetail;		
+		sSelectQuery = sSelectQuery + sReturn + '    ]]]]><![CDATA[>'; 
+		sSelectQuery = sSelectQuery + sReturn + '    </statement>';
+		sSelectQuery = sSelectQuery + sReturn + '    <input default-name="_none">';
+		sSelectQuery = sSelectQuery + sReturn + '    </input>';
+		sSelectQuery = sSelectQuery + sReturn + '    <output default-name="ds_FreeQueryResultList">';
+		sSelectQuery = sSelectQuery + sReturn + '    </output>';
+		sSelectQuery = sSelectQuery + sReturn + '</query>';
+				
+		this.ds_FreeQueryResultList.clear();	
+		this.ds_Where.clearData();
+		this.ds_Where.addRow();
+		this.ds_Where.setColumn(0, "OWNER", sSOwnner);
+		this.ds_Where.setColumn(0, "TABLE_ID", "");
+		this.ds_Where.setColumn(0, "QUERY", sSelectQuery);	
+		this.ds_Where.setColumn(0, "FILE_PATH", "C:\\\\ST_SYS\\\\workspace\\\\ST_ERP\\\\WebContent\\\\WEB-INF\\\\fsp\\\\sqlmap\\\\" + sSOwnner);	
+		this.ds_Where.setColumn(0, "FILE_NM", "C:\\\\ST_SYS\\\\workspace\\\\ST_ERP\\\\WebContent\\\\WEB-INF\\\\fsp\\\\sqlmap\\\\" + sSOwnner + "\\\\T_" + sOwnner.substr(0,2) + "_TMPSQL");
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "QUERY_MAKE_TEMP";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = "SmQueryMakeAction";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sMethodName = "makeTempFile";// Action 안에서 호출해야 하는 메소드 명, 기본은 execute를 호출하도록 되어있음
+	svcCallObj.sInputDaset = "ds_Where=ds_Where" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_FreeQueryResultList=ds_FreeQueryResultList";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+
+	}	
+};
+
+//입력 컴포넌트 생성
+this.tab_TableInfo_tab_Page03_btn_MakeInput_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var iRowNo = "";//행순번
+	var iBefRowNo = "";//행순번-이전
+	var iColNo = "";//열순번
+	var iCnt = 0;
+	var iRowCnt = 1;
+	var sColumnId = "";//컬럼ID
+	var sCompId = "";//컴포넌트ID
+	var sCompId2 = "";//컴포넌트ID2
+	var sMakeComp = "";//생성할 컴폰넌트정보
+	var sStaticLine = "";//라인Static
+	var iTop = 0;//Top높이
+	var iLineCnt = 0;//라인건수
+	var sColumnNm = "";//컬럼명
+	var sCompId = "";//컴폰넌트ID
+	var iSameRowCnt = 0;//같은행 건수
+	var iWidth = 0;//행너비
+	var iTapOrder = 0;//탭오더
+	var sCompType = "";//컴포넌트유형
+	var sCompPreFix = "";//컴포넌트PreFix
+	var sBindDataset = this.tab_TableInfo.tab_Page03.form.edt_DataSetName.value;//Bind데이터셋정보
+	var sCompPath = this.tab_TableInfo.tab_Page03.form.edt_CompPath.value;//컴포넌트위치 
+	var iBindCnt = 0;//Bind건수
+	var sDesignForm = "";//디자인Tag
+	var sReturn = "\n";
+	var sCheckBoxText = "";//체크박스 텍스트
+	var sRemark = "";//비고컬럼
+	var sMaxLength = "";//Max Length
+	var sFORMAT = "";//MaskEdit Format
+	var sTextAlign = "";//정렬
+	
+	sDesignForm = '<DesignFormClipBoard version="1.0">' + sReturn;//디자인Tag
+
+	//Row번호 생성
+	for (var iLoop = 0; iLoop < this.ds_MakeInputData.getRowCount(); iLoop++) {		
+		if (this.ds_MakeInputData.getColumn(iLoop, "s_chk") == "1") {
+			iColNo = this.ds_MakeInputData.getColumn(iLoop, "COL_NO");//열순번
+			sColumnId = this.ds_MakeInputData.getColumn(iLoop, "COLUMN_ID");//컬럼ID
+			sCompType = this.ds_MakeInputData.getColumn(iLoop, "COMP_TYPE");//컴포넌트유형
+			sRemark = this.ds_MakeInputData.getColumn(iLoop, "REMARK");//비고컬럼		
+			
+			if (iCnt > 0) {
+				if (iColNo == "1") {
+					iRowCnt++;
+				}
+			}
+			this.ds_MakeInputData.setColumn(iLoop, "ROW_NO", iRowCnt);
+			
+			sCompId = sColumnId.substr(0, 1) + this.fn_Under2Camel(sColumnId).substr(1);			
+			this.ds_MakeInputData.setColumn(iLoop, "COMP_ID", sCompId);
+			
+			//비고컬럼을 사용하는경우
+			if (sCompType == "Edit2Pop") {
+				sCompId = sRemark.substr(0, 1) + this.fn_Under2Camel(sRemark).substr(1);			
+				this.ds_MakeInputData.setColumn(iLoop, "COMP_ID2", sCompId);			
+			}
+			
+			iCnt++;
+		}
+	}
+
+	for (var iLoop = 0; iLoop < this.ds_MakeInputData.getRowCount(); iLoop++) {		
+		if (this.ds_MakeInputData.getColumn(iLoop, "s_chk") == "1") {
+			sColumnId = this.ds_MakeInputData.getColumn(iLoop, "COLUMN_ID");//컬럼ID
+			iRowNo = this.ds_MakeInputData.getColumn(iLoop, "ROW_NO");//행순번
+			iColNo = this.ds_MakeInputData.getColumn(iLoop, "COL_NO");//열순번
+			sColumnNm = this.ds_MakeInputData.getColumn(iLoop, "COLUMN_NM");//컬럼명
+			sCompId = this.ds_MakeInputData.getColumn(iLoop, "COMP_ID");//컴폰넌트ID
+			sCompType = this.ds_MakeInputData.getColumn(iLoop, "COMP_TYPE");//컴포넌트유형
+			sCompPreFix = this.fn_GetCompPreFix(sCompType);//컴포넌트PreFix
+			sCompId2 = this.ds_MakeInputData.getColumn(iLoop, "COMP_ID2");//컴포넌트ID2
+			sRemark = this.ds_MakeInputData.getColumn(iLoop, "REMARK");//비고컬럼
+			sMaxLength = this.ds_MakeInputData.getColumn(iLoop, "MAX_LENGTH");//Max Length	
+			sFORMAT = this.ds_MakeInputData.getColumn(iLoop, "FORMAT");//MaskEdit Format		
+			sTextAlign = this.ds_MakeInputData.getColumn(iLoop, "TEXT_ALIGN");//정렬
+			
+			if (sTextAlign == "C") {
+				sTextAlign = "center";//정렬
+			} else if (sTextAlign == "L") {
+				sTextAlign = "left";//정렬
+			} else if (sTextAlign == "R") {
+				sTextAlign = "right";//정렬
+			}			
+			
+			//체크박스 인경우
+			if (sCompType == "CheckBox") {
+				sCheckBoxText = ' text="' + sRemark + '"';//체크박스 텍스트
+			} else {
+				sCheckBoxText = ' textAlign="' + sTextAlign + '"';//체크박스 텍스트
+			}
+			
+			//MaskEdit 인경우
+			if (sCompType == "MaskEdit") {
+				sCheckBoxText = sCheckBoxText + ' type="string" format="' + sFORMAT + '" trimtype="both"';
+			}
+			
+			if (iBefRowNo != iRowNo) {
+				//iTop = iTop + (iLineCnt * 34);//Top높이
+				iTop = (iLineCnt * 29) + 2;//Top높이
+				sStaticLine = iCnt;//라인Static
+				//sStaticLine = iCnt.padLeft(3, '0');//라인Static
+				
+				if (iCnt == 0) {
+					sMakeComp = '<Copydata>' + sReturn;
+					sMakeComp = sMakeComp + '<Component copyrect="0,' + iTop + ',1040,' + (iTop + 30) + '">' + sReturn;
+					sMakeComp = sMakeComp + '<Static id="sta_Line' + sStaticLine + '" tabstop="false" cssclass="sta_WF_DBg"/>' + sReturn;//생성할 컴폰넌트정보
+					sMakeComp = sMakeComp + '</Component>' + sReturn;
+					sMakeComp = sMakeComp + '</Copydata>' + sReturn;
+				} else {
+					sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+					sMakeComp = sMakeComp + '<Component copyrect="0,' + iTop + ',1040,' + (iTop + 30) + '">' + sReturn;				
+					sMakeComp = sMakeComp + '<Static id="sta_Line' + sStaticLine + '" tabstop="false" cssclass="sta_WF_DBg"/>' + sReturn;//생성할 컴폰넌트정보
+					sMakeComp = sMakeComp + '</Component>' + sReturn;
+					sMakeComp = sMakeComp + '</Copydata>' + sReturn;					
+				}
+				
+				sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+				sMakeComp = sMakeComp + '<Component copyrect="0,' + iTop + ',100,' + (iTop + 30) + '">' + sReturn;	
+				sMakeComp = sMakeComp + '<Static id="sta_' + sCompId + '" tabstop="false" text="' + sColumnNm + '" cssclass="sta_WF_DLabel"/>' + sReturn;				
+				sMakeComp = sMakeComp + '</Component>' + sReturn;
+				sMakeComp = sMakeComp + '</Copydata>' + sReturn;					
+				
+				iSameRowCnt = this.ds_MakeInputData.getCaseCount("ROW_NO=='" + iRowNo + "'");//같은행 건수
+				
+				iTapOrder++;//탭오더
+				
+				if (iSameRowCnt == 1) {
+					//sMakeComp = sMakeComp + '<' + sCompType + ' id="' + sCompPreFix + sCompId + '" taborder="' + iTapOrder + '" left="110" top="' + iTop + '" height="34" right="8"/>' + sReturn;
+					iWidth = 843;//행너비
+				} else if (iSameRowCnt == 2) { 
+					iWidth = 366;//행너비
+				} else {
+					iWidth = 130;//행너비
+				}
+				
+				sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+				if (sCompType == "Calendar") {
+					sMakeComp = sMakeComp + '<Component copyrect="103,' + (iTop + 3) + ',' + (103 + 130) +',' + (iTop + 27) + '">' + sReturn;	
+				} else {
+					//Edit 2개 팝업버튼 있는경우
+					if (sCompType == "Edit2Pop") {
+						sMakeComp = sMakeComp + '<Component copyrect="103,' + (iTop + 3) + ',' + (103 + 130) +',' + (iTop + 27) + '">' + sReturn;
+					} else {
+						sMakeComp = sMakeComp + '<Component copyrect="103,' + (iTop + 3) + ',' + (103 + iWidth) +',' + (iTop + 27) + '">' + sReturn;
+					}
+				}
+				
+				//Edit 2개 팝업버튼 있는경우
+				if (sCompType == "Edit2Pop") {
+					sMakeComp = sMakeComp + '<Edit id="' + sCompPreFix + sCompId + '" taborder="' + iTapOrder + '"' + sCheckBoxText + ' maxlength="' + sMaxLength + '"/>' + sReturn;
+				} else {
+					sMakeComp = sMakeComp + '<' + sCompType + ' id="' + sCompPreFix + sCompId + '" taborder="' + iTapOrder + '"' + sCheckBoxText + ' maxlength="' + sMaxLength + '" />' + sReturn;
+				}
+				sMakeComp = sMakeComp + '</Component>' + sReturn;
+				sMakeComp = sMakeComp + '<Bind>' + sReturn;
+				sMakeComp = sMakeComp + '<BindItem id="in_item' + iBindCnt + '" compid="' + sCompPath + '.' + sCompPreFix + sCompId + '" propid="value" datasetid="' + sBindDataset + '" columnid="' + sColumnId + '"/>' + sReturn;//Bind정보
+				sMakeComp = sMakeComp + '</Bind>' + sReturn;				
+				sMakeComp = sMakeComp + '</Copydata>' + sReturn;	
+				
+				//Edit 2개 팝업버튼 있는경우
+				if (sCompType == "Edit2Pop") {
+					sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+					sMakeComp = sMakeComp + '<Component copyrect="236,' + (iTop + 3) + ',' + (236 + 206) +',' + (iTop + 27) + '">' + sReturn;
+					sMakeComp = sMakeComp + '<Edit id="' + sCompPreFix + sCompId2 + '" taborder="' + iTapOrder + '" enable="false" />' + sReturn;
+					sMakeComp = sMakeComp + '</Component>' + sReturn;
+					sMakeComp = sMakeComp + '<Bind>' + sReturn;
+					sMakeComp = sMakeComp + '<BindItem id="in_item' + iBindCnt + '" compid="' + sCompPath + '.' + sCompPreFix + sCompId2 + '" propid="value" datasetid="' + sBindDataset + '" columnid="' + sRemark + '"/>' + sReturn;//Bind정보
+					sMakeComp = sMakeComp + '</Bind>' + sReturn;				
+					sMakeComp = sMakeComp + '</Copydata>' + sReturn;	
+					
+					sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+					sMakeComp = sMakeComp + '<Component copyrect="445,' + (iTop + 3) + ',' + (445 + 24) +',' + (iTop + 27) + '">' + sReturn;
+					sMakeComp = sMakeComp + '<Button id="btn_' + sCompId + '" taborder="' + iTapOrder + '" cssclass="btn_WF_SmallSearch"/>' + sReturn;
+					sMakeComp = sMakeComp + '</Component>' + sReturn;				
+					sMakeComp = sMakeComp + '</Copydata>' + sReturn;					
+				}
+								
+				iBindCnt++;//Bind건수				
+				iLineCnt++;//라인건수
+			} else {
+				
+				iTapOrder++;//탭오더
+				
+				if (iSameRowCnt == 2) {
+					sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+					sMakeComp = sMakeComp + '<Component copyrect="472,' + iTop + ',' + (472 + 100) +',' + (iTop + 30) + '">' + sReturn;					
+					sMakeComp = sMakeComp + '<Static id="sta_' + sCompId + '" tabstop="false" text="' + sColumnNm + '" cssclass="sta_WF_DLabel"/>' + sReturn;
+					sMakeComp = sMakeComp + '</Component>' + sReturn;
+					sMakeComp = sMakeComp + '</Copydata>' + sReturn;						
+					
+					sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+					
+					if (sCompType == "Calendar") {
+						sMakeComp = sMakeComp + '<Component copyrect="575,' + (iTop + 3) + ',' + (575 + 130) +',' + (iTop + 27) + '">' + sReturn;	
+					} else {
+						//Edit 2개 팝업버튼 있는경우
+						if (sCompType == "Edit2Pop") {
+							sMakeComp = sMakeComp + '<Component copyrect="575,' + (iTop + 3) + ',' + (575 + 130) +',' + (iTop + 27) + '">' + sReturn;
+						} else {
+							sMakeComp = sMakeComp + '<Component copyrect="575,' + (iTop + 3) + ',' + (575 + iWidth) +',' + (iTop + 27) + '">' + sReturn;
+						}
+					}
+					//Edit 2개 팝업버튼 있는경우
+					if (sCompType == "Edit2Pop") {
+						sMakeComp = sMakeComp + '<Edit id="' + sCompPreFix + sCompId + '" taborder="' + iTapOrder + '"' + sCheckBoxText + ' maxlength="' + sMaxLength + '"/>' + sReturn;
+					} else {
+						sMakeComp = sMakeComp + '<' + sCompType + ' id="' + sCompPreFix + sCompId + '" taborder="' + iTapOrder + '"' + sCheckBoxText + ' maxlength="' + sMaxLength + '"/>' + sReturn;
+					}
+					sMakeComp = sMakeComp + '</Component>' + sReturn;
+					sMakeComp = sMakeComp + '<Bind>' + sReturn;
+					sMakeComp = sMakeComp + '<BindItem id="in_item' + iBindCnt + '" compid="' + sCompPath + '.' + sCompPreFix + sCompId + '" propid="value" datasetid="' + sBindDataset + '" columnid="' + sColumnId + '"/>' + sReturn;//Bind정보
+					sMakeComp = sMakeComp + '</Bind>' + sReturn;				
+					sMakeComp = sMakeComp + '</Copydata>' + sReturn;	
+					
+					//Edit 2개 팝업버튼 있는경우
+					if (sCompType == "Edit2Pop") {
+						sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+						sMakeComp = sMakeComp + '<Component copyrect="708,' + (iTop + 3) + ',' + (708 + 206) +',' + (iTop + 27) + '">' + sReturn;
+						sMakeComp = sMakeComp + '<Edit id="' + sCompPreFix + sCompId2 + '" taborder="' + iTapOrder + '" enable="false" />' + sReturn;
+						sMakeComp = sMakeComp + '</Component>' + sReturn;
+						sMakeComp = sMakeComp + '<Bind>' + sReturn;
+						sMakeComp = sMakeComp + '<BindItem id="in_item' + iBindCnt + '" compid="' + sCompPath + '.' + sCompPreFix + sCompId2 + '" propid="value" datasetid="' + sBindDataset + '" columnid="' + sRemark + '"/>' + sReturn;//Bind정보
+						sMakeComp = sMakeComp + '</Bind>' + sReturn;				
+						sMakeComp = sMakeComp + '</Copydata>' + sReturn;	
+						
+						sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+						sMakeComp = sMakeComp + '<Component copyrect="917,' + (iTop + 3) + ',' + (917 + 24) +',' + (iTop + 27) + '">' + sReturn;
+						sMakeComp = sMakeComp + '<Button id="btn_' + sCompId + '" taborder="' + iTapOrder + '" cssclass="btn_WF_SmallSearch"/>' + sReturn;
+						sMakeComp = sMakeComp + '</Component>' + sReturn;				
+						sMakeComp = sMakeComp + '</Copydata>' + sReturn;					
+					}					
+				} else if (iSameRowCnt == 3) {
+					if (iColNo == "2") {
+						sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+						sMakeComp = sMakeComp + '<Component copyrect="236,' + iTop + ',' + (236 + 100) +',' + (iTop + 30) + '">' + sReturn;						
+						sMakeComp = sMakeComp + '<Static id="sta_' + sCompId + '" tabstop="false" text="' + sColumnNm + '" cssclass="sta_WF_DLabel"/>' + sReturn;
+						sMakeComp = sMakeComp + '</Component>' + sReturn;
+						sMakeComp = sMakeComp + '</Copydata>' + sReturn;	
+					
+						sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+						if (sCompType == "Calendar") {
+							sMakeComp = sMakeComp + '<Component copyrect="339,' + (iTop + 3) + ',' + (339 + 130) +',' + (iTop + 27) + '">' + sReturn;	
+						} else {
+							//Edit 2개 팝업버튼 있는경우
+							if (sCompType == "Edit2Pop") {
+								sMakeComp = sMakeComp + '<Component copyrect="339,' + (iTop + 3) + ',' + (339 + 130) +',' + (iTop + 27) + '">' + sReturn;	
+							} else {
+								sMakeComp = sMakeComp + '<Component copyrect="339,' + (iTop + 3) + ',' + (339 + iWidth) +',' + (iTop + 27) + '">' + sReturn;
+							}
+						}
+						//Edit 2개 팝업버튼 있는경우
+						if (sCompType == "Edit2Pop") {						
+							sMakeComp = sMakeComp + '<Edit id="' + sCompPreFix + sCompId + '" taborder="' + iTapOrder + '"' + sCheckBoxText + ' maxlength="' + sMaxLength + '"/>' + sReturn;	
+						} else {
+							sMakeComp = sMakeComp + '<' + sCompType + ' id="' + sCompPreFix + sCompId + '" taborder="' + iTapOrder + '"' + sCheckBoxText + ' maxlength="' + sMaxLength + '"/>' + sReturn;
+						}
+						sMakeComp = sMakeComp + '</Component>' + sReturn;
+						sMakeComp = sMakeComp + '<Bind>' + sReturn;
+						sMakeComp = sMakeComp + '<BindItem id="in_item' + iBindCnt + '" compid="' + sCompPath + '.' + sCompPreFix + sCompId + '" propid="value" datasetid="' + sBindDataset + '" columnid="' + sColumnId + '"/>' + sReturn;//Bind정보
+						sMakeComp = sMakeComp + '</Bind>' + sReturn;				
+						sMakeComp = sMakeComp + '</Copydata>' + sReturn;						
+					} else {
+						sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+						sMakeComp = sMakeComp + '<Component copyrect="472,' + iTop + ',' + (472 + 100) +',' + (iTop + 30) + '">' + sReturn;							
+						sMakeComp = sMakeComp + '<Static id="sta_' + sCompId + '" tabstop="false" text="' + sColumnNm + '" cssclass="sta_WF_DLabel"/>' + sReturn;
+						sMakeComp = sMakeComp + '</Component>' + sReturn;
+						sMakeComp = sMakeComp + '</Copydata>' + sReturn;						
+						
+						sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+						if (sCompType == "Calendar") {
+							sMakeComp = sMakeComp + '<Component copyrect="575,' + (iTop + 3) + ',' + (575 + 130) +',' + (iTop + 27) + '">' + sReturn;
+						} else {
+							//Edit 2개 팝업버튼 있는경우
+							if (sCompType == "Edit2Pop") {						
+								sMakeComp = sMakeComp + '<Component copyrect="575,' + (iTop + 3) + ',' + (575 + iWidth) +',' + (iTop + 27) + '" maxlength="' + sMaxLength + '">' + sReturn;
+							} else {
+								sMakeComp = sMakeComp + '<Component copyrect="575,' + (iTop + 3) + ',' + (575 + iWidth) +',' + (iTop + 27) + '" maxlength="' + sMaxLength + '">' + sReturn;
+							}
+						}
+						//Edit 2개 팝업버튼 있는경우
+						if (sCompType == "Edit2Pop") {								
+							sMakeComp = sMakeComp + '<Edit id="' + sCompPreFix + sCompId + '" taborder="' + iTapOrder + '"' + sCheckBoxText + ' maxlength="' + sMaxLength + '" />' + sReturn;		
+						} else {
+							sMakeComp = sMakeComp + '<' + sCompType + ' id="' + sCompPreFix + sCompId + '" taborder="' + iTapOrder + '"' + sCheckBoxText + ' maxlength="' + sMaxLength + '" />' + sReturn;		
+						}
+						sMakeComp = sMakeComp + '</Component>' + sReturn;
+						sMakeComp = sMakeComp + '<Bind>' + sReturn;
+						sMakeComp = sMakeComp + '<BindItem id="in_item' + iBindCnt + '" compid="' + sCompPath + '.' + sCompPreFix + sCompId + '" propid="value" datasetid="' + sBindDataset + '" columnid="' + sColumnId + '"/>' + sReturn;//Bind정보
+						sMakeComp = sMakeComp + '</Bind>' + sReturn;				
+						sMakeComp = sMakeComp + '</Copydata>' + sReturn;						
+					}
+				} else {
+					if (iColNo == "2") {
+						sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+						sMakeComp = sMakeComp + '<Component copyrect="236,' + iTop + ',' + (236 + 100) +',' + (iTop + 30) + '">' + sReturn;							
+						sMakeComp = sMakeComp + '<Static id="sta_' + sCompId + '" tabstop="false" text="' + sColumnNm + '" cssclass="sta_WF_DLabel"/>' + sReturn;
+						sMakeComp = sMakeComp + '</Component>' + sReturn;
+						sMakeComp = sMakeComp + '</Copydata>' + sReturn;
+						
+						sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+						if (sCompType == "Calendar") {
+							sMakeComp = sMakeComp + '<Component copyrect="339,' + (iTop + 3) + ',' + (339 + 130) +',' + (iTop + 27) + '">' + sReturn;		
+						} else {
+							//Edit 2개 팝업버튼 있는경우
+							if (sCompType == "Edit2Pop") {						
+								sMakeComp = sMakeComp + '<Component copyrect="339,' + (iTop + 3) + ',' + (339 + 130) +',' + (iTop + 27) + '">' + sReturn;
+							} else {
+								sMakeComp = sMakeComp + '<Component copyrect="339,' + (iTop + 3) + ',' + (339 + iWidth) +',' + (iTop + 27) + '">' + sReturn;
+							}
+						}
+						//Edit 2개 팝업버튼 있는경우
+						if (sCompType == "Edit2Pop") {								
+							sMakeComp = sMakeComp + '<Edit id="' + sCompPreFix + sCompId + '" taborder="' + iTapOrder + '"' + sCheckBoxText + ' maxlength="' + sMaxLength + '" />' + sReturn;	
+						} else {
+							sMakeComp = sMakeComp + '<' + sCompType + ' id="' + sCompPreFix + sCompId + '" taborder="' + iTapOrder + '"' + sCheckBoxText + ' maxlength="' + sMaxLength + '" />' + sReturn;
+						}
+						sMakeComp = sMakeComp + '</Component>' + sReturn;
+						sMakeComp = sMakeComp + '<Bind>' + sReturn;
+						sMakeComp = sMakeComp + '<BindItem id="in_item' + iBindCnt + '" compid="' + sCompPath + '.' + sCompPreFix + sCompId + '" propid="value" datasetid="' + sBindDataset + '" columnid="' + sColumnId + '"/>' + sReturn;//Bind정보
+						sMakeComp = sMakeComp + '</Bind>' + sReturn;				
+						sMakeComp = sMakeComp + '</Copydata>' + sReturn;						
+					} else if (iColNo == "3") {
+						sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+						sMakeComp = sMakeComp + '<Component copyrect="472,' + iTop + ',' + (472 + 100) +',' + (iTop + 30) + '">' + sReturn;							
+						sMakeComp = sMakeComp + '<Static id="sta_' + sCompId + '" tabstop="false" text="' + sColumnNm + '" cssclass="sta_WF_DLabel"/>' + sReturn;
+						sMakeComp = sMakeComp + '</Component>' + sReturn;
+						sMakeComp = sMakeComp + '</Copydata>' + sReturn;
+						
+						sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+						if (sCompType == "Calendar") {
+							sMakeComp = sMakeComp + '<Component copyrect="575,' + (iTop + 3) + ',' + (575 + 130) +',' + (iTop + 27) + '">' + sReturn;
+						} else {
+							//Edit 2개 팝업버튼 있는경우
+							if (sCompType == "Edit2Pop") {						
+								sMakeComp = sMakeComp + '<Component copyrect="575,' + (iTop + 3) + ',' + (575 + 130) +',' + (iTop + 27) + '">' + sReturn;
+							} else {
+								//sMakeComp = sMakeComp + '<Component copyrect="628,' + (iTop + 3) + ',' + (575 + iWidth) +',' + (iTop + 27) + '">' + sReturn; 0531
+								sMakeComp = sMakeComp + '<Component copyrect="575,' + (iTop + 3) + ',' + (575 + iWidth) +',' + (iTop + 27) + '">' + sReturn;
+							}
+						}
+						//Edit 2개 팝업버튼 있는경우
+						if (sCompType == "Edit2Pop") {								
+							sMakeComp = sMakeComp + '<Edit id="' + sCompPreFix + sCompId + '" taborder="' + iTapOrder + '"' + sCheckBoxText + ' maxlength="' + sMaxLength + '" />' + sReturn;
+						} else {
+							sMakeComp = sMakeComp + '<' + sCompType + ' id="' + sCompPreFix + sCompId + '" taborder="' + iTapOrder + '"' + sCheckBoxText + ' maxlength="' + sMaxLength + '" />' + sReturn;
+						}
+						sMakeComp = sMakeComp + '</Component>' + sReturn;
+						sMakeComp = sMakeComp + '<Bind>' + sReturn;
+						sMakeComp = sMakeComp + '<BindItem id="in_item' + iBindCnt + '" compid="' + sCompPath + '.' + sCompPreFix + sCompId + '" propid="value" datasetid="' + sBindDataset + '" columnid="' + sColumnId + '"/>' + sReturn;//Bind정보
+						sMakeComp = sMakeComp + '</Bind>' + sReturn;				
+						sMakeComp = sMakeComp + '</Copydata>' + sReturn;							
+					} else {
+						sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+						sMakeComp = sMakeComp + '<Component copyrect="707,' + iTop + ',' + (707 + 100) +',' + (iTop + 30) + '">' + sReturn;							
+						sMakeComp = sMakeComp + '<Static id="sta_' + sCompId + '" tabstop="false" text="' + sColumnNm + '" cssclass="sta_WF_DLabel"/>' + sReturn;
+						sMakeComp = sMakeComp + '</Component>' + sReturn;
+						sMakeComp = sMakeComp + '</Copydata>' + sReturn;
+						
+						sMakeComp = sMakeComp + '<Copydata>' + sReturn;
+						if (sCompType == "Calendar") {
+							sMakeComp = sMakeComp + '<Component copyrect="810,' + (iTop + 3) + ',' + (810 + 130) +',' + (iTop + 27) + '">' + sReturn;	
+						} else {
+							//Edit 2개 팝업버튼 있는경우
+							if (sCompType == "Edit2Pop") {						
+								sMakeComp = sMakeComp + '<Component copyrect="810,' + (iTop + 3) + ',' + (810 + 130) +',' + (iTop + 27) + '">' + sReturn;	
+							} else {
+								sMakeComp = sMakeComp + '<Component copyrect="810,' + (iTop + 3) + ',' + (810 + iWidth) +',' + (iTop + 27) + '">' + sReturn;
+							}
+						}
+						//Edit 2개 팝업버튼 있는경우
+						if (sCompType == "Edit2Pop") {								
+							sMakeComp = sMakeComp + '<Edit id="' + sCompPreFix + sCompId + '" taborder="' + iTapOrder + '"' + sCheckBoxText + ' maxlength="' + sMaxLength + '" />' + sReturn;	
+						} else {
+							sMakeComp = sMakeComp + '<' + sCompType + ' id="' + sCompPreFix + sCompId + '" taborder="' + iTapOrder + '"' + sCheckBoxText + ' maxlength="' + sMaxLength + '" />' + sReturn;
+						}
+						sMakeComp = sMakeComp + '</Component>' + sReturn;
+						sMakeComp = sMakeComp + '<Bind>' + sReturn;
+						sMakeComp = sMakeComp + '<BindItem id="in_item' + iBindCnt + '" compid="' + sCompPath + '.' + sCompPreFix + sCompId + '" propid="value" datasetid="' + sBindDataset + '" columnid="' + sColumnId + '"/>' + sReturn;//Bind정보
+						sMakeComp = sMakeComp + '</Bind>' + sReturn;				
+						sMakeComp = sMakeComp + '</Copydata>' + sReturn;							
+					}				
+				}
+
+				iBindCnt++;//Bind건수
+				
+			}
+			
+			iBefRowNo = iRowNo;//행순번-이전
+			
+			iCnt++;
+		}
+				
+	}
+	
+	sDesignForm = sDesignForm + sMakeComp;
+	sDesignForm = sDesignForm + '</DesignFormClipBoard>';
+	
+	alert(" 입력 컴포넌트정보가 생성 되었습니다. \n 해당화면에 붙여넣을 위치에 클릭하신후 붙여넣기(Ctrl + V) 하시기 바랍니다. ");
+	
+	trace(sDesignForm);
+	system.setClipboard("CF_TEXT", sDesignForm);		
+	
+};
+
+//데이터셋생성
+this.tab_TableInfo_tab_Page03_btn_MakeDataSet_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sDataSet = "";
+	
+	sDataSet = sDataSet + '<InvisibleClipBoard version="1.0">';
+	sDataSet = sDataSet + '<Dataset id="' + this.tab_TableInfo.tab_Page03.form.edt_DataSetName.value + '">';
+	sDataSet = sDataSet + '<ColumnInfo>';
+
+	for (var iLoop = 0; iLoop < this.ds_FreeQueryResultList.getColCount(); iLoop++) {
+		
+		sDataSet = sDataSet + '<Column id="' + this.ds_FreeQueryResultList.getColID(iLoop) + '" type="STRING" size="256"/>';
+		
+	}
+	
+	sDataSet = sDataSet + '</ColumnInfo>';
+	sDataSet = sDataSet + '</Dataset>';
+	sDataSet = sDataSet + '</InvisibleClipBoard>';
+
+	alert(" " + this.tab_TableInfo.tab_Page03.form.edt_DataSetName.value + " 데이터셋이 생성 되었습니다. \n Show Invisible Object Area 영역에 붙여넣기(Paste) 하시기 바랍니다. ");
+
+	system.setClipboard("CF_TEXT", sDataSet);		
+};
+//행추가
+this.tab_TableInfo_tab_Page03_btn_AddRow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.ds_TableSch.addRow();
+};
+//행삭제
+this.tab_TableInfo_tab_Page03_btn_DeleteRow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var iCount = this.ds_TableSch.getRowCount();
+	if (iCount > 0) {
+		if (this.ds_TableSch.getCaseCount("s_chk == '1'") > 0) {
+			for (var iLoop=iCount-1; iLoop >=0; iLoop--) {
+				if (this.ds_TableSch.getColumn(iLoop, "s_chk") == "1") {
+					this.ds_TableSch.deleteRow(iLoop);
+				}
+			}
+		} else {
+			alert("삭제할 대상을 선택하세요.");
+		}
+	}	
+};
+//컬럼명적용
+this.tab_TableInfo_tab_Page03_btn_DoColumn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_FindTableColumn();
+		
+};
+
+//그리드클릭-콤보펼치기
+this.tab_TableInfo_tab_Page03_grd_MakeGrdList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	obj.dropdownCombo();
+};
+
+//그리드 드래그
+this.tab_TableInfo_tab_Page03_grd_MakeGrdList_ondrag = function(obj:nexacro.Grid,e:nexacro.GridDragEventInfo)
+{
+	e.set_userdata(e.row);
+	/*
+	var strVal = this.ds_MakeInputData.getColumn(e.row, "COLUMN_ID");
+		strVal += " : " + this.ds_MakeInputData.getColumn(e.row, "COLUMN_NM");
+	this.tab_TableInfo.tab_Page03.form.sta_MoveData.set_text(strVal);
+	this.tab_TableInfo.tab_Page03.form.sta_MoveData.set_visible(true);
+	
+	var nL = obj.getOffsetLeft() + e.clientx + 720;
+	var nT = obj.getOffsetTop() + e.clienty;
+	this.tab_TableInfo.tab_Page03.form.sta_MoveData.move(nL, nT);
+	*/
+	return true;	
+};
+//그리드 드래그 Move
+this.tab_TableInfo_tab_Page03_grd_MakeGrdList_ondragmove = function(obj:nexacro.Grid,e:nexacro.GridDragEventInfo)
+{
+	//this.tab_TableInfo.tab_Page03.form.sta_MoveData.move(e.clientx + 720, e.clienty + 10);
+};
+//그리드 Drop
+this.tab_TableInfo_tab_Page03_grd_MakeGrdList_ondrop = function(obj:nexacro.Grid,e:nexacro.GridDragEventInfo)
+{
+	//this.tab_TableInfo.tab_Page03.form.sta_MoveData.set_visible(false);
+	var nRow = e.userdata;
+	this.ds_MakeInputData.moveRow(nRow, e.row);		
+};
+
+//변수를 카멜케이스형태로 변경
+this.fn_Under2Camel = function(str){
+	return str.toLowerCase().replace(/(\_[a-z])/g, function(arg){
+		return arg.toUpperCase().replace('_','');
+	});
+}
+
+//컴포넌트Type PreFix
+this.fn_GetCompPreFix = function(sComp)
+{
+	switch(sComp)
+	{
+		case "Static":
+			return "sta_";
+			break;
+		case "Edit":
+			return "edt_";
+			break;			
+		case "Edit2Pop":
+			return "edt_";
+			break;
+		case "Calendar":
+			return "cal_";
+			break;
+		case "MaskEdit":
+			return "mae_";
+			break;
+		case "Combo":
+			return "cbo_";
+			break;
+		case "TextArea":
+			return "txt_";
+			break;
+		case "Radio":
+			return "rdo_";
+			break;
+		case "CheckBox":
+			return "chk_";
+			break;			
+	}
+	
+}
+
+//다국어 적용 파일 생성
+this.tab_TableInfo_tab_Page01_div_TableInfo_btn_MultiLaguageFile_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sOwnner = this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.cbo_Owner.value;
+	var sSOwnner = sOwnner.toLowerCase();
+	this.ds_Where.clearData();
+	this.ds_Where.addRow();
+	this.ds_Where.setColumn(0,"FILE_PATH", "C:\\ST_SYS\\workspace\\ST_ERP\\ui\\nxui\\" + sSOwnner);
+	this.ds_Where.setColumn(0,"RUN_TYPE", "W");
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "MAKE_MULTI_LANGUAGE";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = "SmQueryMakeAction";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sMethodName = "makeMultiLanguage";// Action 안에서 호출해야 하는 메소드 명, 기본은 execute를 호출하도록 되어있음	
+	svcCallObj.sInputDaset = "ds_Where=ds_Where" //입력 데이터셋
+	svcCallObj.sOutDatset = "";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);		
+};
+
+//팝업리턴값 생성
+this.tab_TableInfo_tab_Page02_btn_MakeReturnValue_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (this.gfn_IsNull(this.tab_TableInfo.tab_Page02.form.edt_DataSetName.value)) {
+		alert("데이터셋명을 입력하세요.");
+		return;
+	}
+	
+	if (this.ds_MakeGridData.getRowCount() > 0) {
+		var sDsName = this.tab_TableInfo.tab_Page02.form.edt_DataSetName.value;
+		var sCheck = "";//체크값
+		var sReturn = "\n";
+		var sReturnValue = sReturn + "        rtnValue = '({' +" + sReturn;
+		var sRep = "^";//치환문자
+		var sCOLUMN_ID = "";//컬럼ID
+		var sCOLUMN_NM = "";//컬럼명
+		var iChkCnt = 0;
+		var iChkTotCnt = this.ds_MakeGridData.getCaseCount("s_chk =='1'");//체크총건수
+		
+		for (var iLoop = 0; iLoop < this.ds_MakeGridData.getRowCount(); iLoop++) {
+			sCheck = this.ds_MakeGridData.getColumn(iLoop, "s_chk");//체크값
+			if (sCheck == "1") {
+				sCOLUMN_ID = this.ds_MakeGridData.getColumn(iLoop, "COLUMN_ID");//컬럼ID
+				sCOLUMN_NM = this.ds_MakeGridData.getColumn(iLoop, "COLUMN_NM");//컬럼명
+				if (iChkCnt == 0) {
+					sReturnValue = sReturnValue + "                        ' " + sCOLUMN_ID + ":" + sRep + "' + this." + sDsName + ".getColumn(iRow, '" + sCOLUMN_ID + "') + '" + sRep + "'" + "+  //" + iChkCnt + '.' + sCOLUMN_NM + sReturn;
+				} else {
+					sReturnValue = sReturnValue + "                        '," + sCOLUMN_ID + ":" + sRep + "' + this." + sDsName + ".getColumn(iRow, '" + sCOLUMN_ID + "') + '" + sRep + "'" + "+  //" + iChkCnt + '.' + sCOLUMN_NM + sReturn;
+				}
+				iChkCnt++;
+			}
+		}
+		
+		sReturnValue = sReturnValue + "                '})';";
+		sReturnValue = sReturnValue.replace(/\^/g, '"');
+		trace(sReturnValue);
+		//this.fn_GetQueryData();
+	}		
+};
+
+
+this.tab_TableInfo_tab_Page02_grd_MakeGrdList_ondrag = function(obj:nexacro.Grid,e:nexacro.GridDragEventInfo)
+{
+	e.set_userdata(e.row);
+
+	return true;	
+};
+
+this.tab_TableInfo_tab_Page02_grd_MakeGrdList_ondrop = function(obj:nexacro.Grid,e:nexacro.GridDragEventInfo)
+{
+	var nRow = e.userdata;
+	this.ds_MakeGridData.moveRow(nRow, e.row);			
+};
+
+this.tab_TableInfo_tab_Page02_grd_MakeGrdList_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	var sChk = obj.getCellProperty("head",0, "text");
+	var bChk;
+
+	if (sChk == "1") {
+		obj.setCellProperty("head",0, "text", "0");
+		bChk = "0";
+	} else {
+		obj.setCellProperty("head",0, "text", "1");
+		bChk = "1";
+	}
+	
+	if (this.ds_MakeGridData.getRowCount() > 0) {
+		for (var iLoop = 0; iLoop < this.ds_MakeGridData.getRowCount(); iLoop++) {
+			this.ds_MakeGridData.setColumn(iLoop, "s_chk", bChk);
+		}
+	}	
+};
+
+this.tab_TableInfo_tab_Page03_grd_MakeGrdList_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	var sChk = obj.getCellProperty("head",0, "text");
+	var bChk;
+
+	if (sChk == "1") {
+		obj.setCellProperty("head",0, "text", "0");
+		bChk = "0";
+	} else {
+		obj.setCellProperty("head",0, "text", "1");
+		bChk = "1";
+	}
+	
+	if (this.ds_MakeInputData.getRowCount() > 0) {
+		for (var iLoop = 0; iLoop < this.ds_MakeInputData.getRowCount(); iLoop++) {
+			this.ds_MakeInputData.setColumn(iLoop, "s_chk", bChk);
+		}
+	}		
+};
+
+
+this.tab_TableInfo_tab_Page02_btn_WidthSet_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sCOLUMN_NM = "";//컬럼명
+	var iChkRow = 0;
+	var iFindRow = -1;
+	for (var iLoop=0; iLoop < this.ds_MakeGridData.getRowCount(); iLoop++) {
+		sCOLUMN_NM = this.ds_MakeGridData.getColumn(iLoop, "COLUMN_NM");//컬럼명
+		
+		if (this.ds_MakeGridData.getColumn(iLoop, "WIDTH_SKIP") != "1") {
+			iChkRow = this.fn_SchColLike(sCOLUMN_NM);
+			if (iChkRow > -1) {
+				if (!this.gfn_IsNull(this.ds_ColWidth.getColumn(iChkRow, "maskedittype"))) {
+					this.ds_MakeGridData.setColumn(iLoop, "maskedittype", this.ds_ColWidth.getColumn(iChkRow, "maskedittype"));
+					this.ds_MakeGridData.setColumn(iLoop, "maskeditformat", this.ds_ColWidth.getColumn(iChkRow, "maskeditformat"));
+				}
+				
+				this.ds_MakeGridData.setColumn(iLoop, "TEXT_ALIGN", this.ds_ColWidth.getColumn(iChkRow, "TEXT_ALIGN"));
+				this.ds_MakeGridData.setColumn(iLoop, "COMP_TYPE", this.ds_ColWidth.getColumn(iChkRow, "TYPE"));
+				this.ds_MakeGridData.setColumn(iLoop, "COL_WIDTH", this.ds_ColWidth.getColumn(iChkRow, "WIDTH"));
+			}
+			
+			iFindRow = this.ds_ColWidth.findRow("COLNM", sCOLUMN_NM);
+			
+			if (iFindRow > -1) {
+				this.ds_MakeGridData.setColumn(iLoop, "TEXT_ALIGN", this.ds_ColWidth.getColumn(iFindRow, "TEXT_ALIGN"));
+				this.ds_MakeGridData.setColumn(iLoop, "COMP_TYPE", this.ds_ColWidth.getColumn(iFindRow, "TYPE"));
+				this.ds_MakeGridData.setColumn(iLoop, "COL_WIDTH", this.ds_ColWidth.getColumn(iFindRow, "WIDTH"));		
+				if (!this.gfn_IsNull(this.ds_ColWidth.getColumn(iFindRow, "maskedittype"))) {
+					this.ds_MakeGridData.setColumn(iLoop, "maskedittype", this.ds_ColWidth.getColumn(iFindRow, "maskedittype"));
+					this.ds_MakeGridData.setColumn(iLoop, "maskeditformat", this.ds_ColWidth.getColumn(iFindRow, "maskeditformat"));
+				}			
+			}
+		}
+	}
+};
+
+//컬럼명Like검색
+this.fn_SchColLike = function(sCOLUMN_NM)
+{
+	var iRow = -1;
+	var sCOLNM = "";
+	for (var iLoop=0; iLoop<this.ds_ColWidth.getRowCount(); iLoop++) {
+		if (this.ds_ColWidth.getColumn(iLoop, "LIKE_SCH") == "1") {
+			sCOLNM = this.ds_ColWidth.getColumn(iLoop, "COLNM");
+			
+			if (String(sCOLUMN_NM).indexOf(sCOLNM) >= 0) {
+				return iLoop;
+			}
+		}
+	}
+	
+	return iRow;
+}
+this.tab_TableInfo_tab_Page01_div_TableInfo_btn_Excel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//출력 그리드 정보 설정
+	var objGridList = ["this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.grd_TableList|테이블정보",
+	                   "this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.grd_ColumnList00|" + this.ds_ColumnList.getColumn(0, "TABLE_ID")
+	                  ];
+	 
+	var sFileName = this.ds_TableList.getColumn(this.ds_TableList.rowposition, "TABLE_NM") +  "컬럼정보";//출력파일명
+	this.gfn_ExcelExport(this, objGridList, sFileName);	
+};
+]]></Script>
+    <Objects>
+      <Dataset id="ds_Where">
+        <ColumnInfo>
+          <Column id="OWNER" type="STRING" size="256"/>
+          <Column id="TABLE_ID" type="STRING" size="256"/>
+          <Column id="QUERY" type="STRING" size="256"/>
+          <Column id="FILE_PATH" type="STRING" size="256"/>
+          <Column id="FILE_NM" type="STRING" size="256"/>
+          <Column id="RUN_TYPE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_TableList" onrowposchanged="ds_TableList_onrowposchanged">
+        <ColumnInfo>
+          <Column id="OWNER" type="STRING" size="256"/>
+          <Column id="TABLE_ID" type="STRING" size="256"/>
+          <Column id="TABLE_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_ColumnList">
+        <ColumnInfo>
+          <Column id="TABLE_ID" type="STRING" size="256"/>
+          <Column id="TABLE_NM" type="STRING" size="256"/>
+          <Column id="COLUMN_ID" type="STRING" size="256"/>
+          <Column id="COLUMN_NM" type="STRING" size="256"/>
+          <Column id="DATA_LENGTH" type="STRING" size="256"/>
+          <Column id="DATA_TYPE" type="STRING" size="256"/>
+          <Column id="IS_NULLABLE" type="STRING" size="256"/>
+          <Column id="PK_YN" type="STRING" size="256"/>
+          <Column id="S_CHK" type="STRING" size="256"/>
+          <Column id="ORDINAL_POSITION" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="gds_TranInfo">
+        <ColumnInfo>
+          <Column id="SQL_ID" type="STRING" size="256"/>
+          <Column id="IN_DATASET" type="STRING" size="256"/>
+          <Column id="OUT_DATASET" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Owner">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">CA</Col>
+            <Col id="value">CAS</Col>
+          </Row>
+          <Row>
+            <Col id="code">CS</Col>
+            <Col id="value">CSS</Col>
+          </Row>
+          <Row>
+            <Col id="code">FA</Col>
+            <Col id="value">FAS</Col>
+          </Row>
+          <Row>
+            <Col id="code">HR</Col>
+            <Col id="value">HRS</Col>
+          </Row>
+          <Row>
+            <Col id="code">IF</Col>
+            <Col id="value">IFS</Col>
+          </Row>
+          <Row>
+            <Col id="code">MM</Col>
+            <Col id="value">MMS</Col>
+          </Row>
+          <Row>
+            <Col id="code">PP</Col>
+            <Col id="value">PPS</Col>
+          </Row>
+          <Row>
+            <Col id="code">PS</Col>
+            <Col id="value">PSS</Col>
+          </Row>
+          <Row>
+            <Col id="code">QM</Col>
+            <Col id="value">QMS</Col>
+          </Row>
+          <Row>
+            <Col id="code">RD</Col>
+            <Col id="value">RDS</Col>
+          </Row>
+          <Row>
+            <Col id="code">SD</Col>
+            <Col id="value">SDS</Col>
+          </Row>
+          <Row>
+            <Col id="code">SM</Col>
+            <Col id="value">SMS</Col>
+          </Row>
+          <Row>
+            <Col id="code">WF</Col>
+            <Col id="value">WFS</Col>
+          </Row>
+          <Row>
+            <Col id="code">SR</Col>
+            <Col id="value">SRS</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_QueryResultList"/>
+      <Dataset id="ds_FreeQueryResultList"/>
+      <Dataset id="ds_MakeFileInfo">
+        <ColumnInfo>
+          <Column id="FOLDER_NM" type="STRING" size="256"/>
+          <Column id="FILE_NM" type="STRING" size="256"/>
+          <Column id="FILE_CONT_SELECT" type="STRING" size="256"/>
+          <Column id="FILE_CONT_INSERT" type="STRING" size="256"/>
+          <Column id="FILE_CONT_UPDATE" type="STRING" size="256"/>
+          <Column id="FILE_CONT_DELETE" type="STRING" size="256"/>
+          <Column id="FILE_PATH" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_TableMakeList" onrowposchanged="ds_TableMakeList_onrowposchanged">
+        <ColumnInfo>
+          <Column id="OWNER" type="STRING" size="256"/>
+          <Column id="TABLE_ID" type="STRING" size="256"/>
+          <Column id="TABLE_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_ColumnMakeList">
+        <ColumnInfo>
+          <Column id="TABLE_ID" type="STRING" size="256"/>
+          <Column id="TABLE_NM" type="STRING" size="256"/>
+          <Column id="COLUMN_ID" type="STRING" size="256"/>
+          <Column id="COLUMN_NM" type="STRING" size="256"/>
+          <Column id="DATA_LENGTH" type="STRING" size="256"/>
+          <Column id="DATA_TYPE" type="STRING" size="256"/>
+          <Column id="NULLABLE" type="STRING" size="256"/>
+          <Column id="CONSTRAINT_TYPE" type="STRING" size="256"/>
+          <Column id="S_CHK" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_MakeFileInfo00">
+        <ColumnInfo>
+          <Column id="FOLDER_NM" type="STRING" size="256"/>
+          <Column id="FILE_NM" type="STRING" size="256"/>
+          <Column id="FILE_CONT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_TableSch">
+        <ColumnInfo>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="TABLE_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_MakeGridData">
+        <ColumnInfo>
+          <Column id="COLUMN_ID" type="STRING" size="256"/>
+          <Column id="COLUMN_NM" type="STRING" size="256"/>
+          <Column id="TEXT_ALIGN" type="STRING" size="256"/>
+          <Column id="COMP_TYPE" type="STRING" size="256"/>
+          <Column id="COL_WIDTH" type="STRING" size="256"/>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="MAX_LENGTH" type="STRING" size="256"/>
+          <Column id="WIDTH_SKIP" type="STRING" size="256"/>
+          <Column id="maskedittype" type="STRING" size="256"/>
+          <Column id="maskeditformat" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_ComboOdr">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">C</Col>
+            <Col id="value">중앙</Col>
+          </Row>
+          <Row>
+            <Col id="code">L</Col>
+            <Col id="value">좌측</Col>
+          </Row>
+          <Row>
+            <Col id="code">R</Col>
+            <Col id="value">우측</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_ComboType">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+          <Column id="editType" type="STRING" size="256"/>
+          <Column id="editType2" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">normal</Col>
+            <Col id="value">normal</Col>
+            <Col id="editType">normal</Col>
+            <Col id="editType2">normal</Col>
+          </Row>
+          <Row>
+            <Col id="code">button</Col>
+            <Col id="value">button</Col>
+            <Col id="editType">buttoncontrol</Col>
+            <Col id="editType2">buttoncontrol</Col>
+          </Row>
+          <Row>
+            <Col id="code">checkbox</Col>
+            <Col id="value">checkbox</Col>
+            <Col id="editType">checkboxcontrol</Col>
+            <Col id="editType2">checkboxcontrol</Col>
+          </Row>
+          <Row>
+            <Col id="code">combo</Col>
+            <Col id="value">combo</Col>
+            <Col id="editType2">combotext</Col>
+            <Col id="editType">combotext</Col>
+          </Row>
+          <Row>
+            <Col id="code">date</Col>
+            <Col id="value">date</Col>
+            <Col id="editType">calendarcontrol</Col>
+            <Col id="editType2">date</Col>
+          </Row>
+          <Row>
+            <Col id="code">mask</Col>
+            <Col id="value">mask</Col>
+            <Col id="editType">mask</Col>
+            <Col id="editType2">mask</Col>
+          </Row>
+          <Row>
+            <Col id="code">readonly</Col>
+            <Col id="value">readonly</Col>
+            <Col id="editType">readonly</Col>
+          </Row>
+          <Row>
+            <Col id="code">text</Col>
+            <Col id="value">text</Col>
+            <Col id="editType">text</Col>
+            <Col id="editType2">text</Col>
+          </Row>
+          <Row>
+            <Col id="code">textarea</Col>
+            <Col id="value">textarea</Col>
+            <Col id="editType2">text</Col>
+            <Col id="editType">textarea</Col>
+          </Row>
+          <Row>
+            <Col id="code">tree</Col>
+            <Col id="value">tree</Col>
+            <Col id="editType">treeitemcontrol</Col>
+            <Col id="editType2">treeitemcontrol</Col>
+          </Row>
+          <Row>
+            <Col id="code">none</Col>
+            <Col id="value">none</Col>
+            <Col id="editType">none</Col>
+            <Col id="editType2">none</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_ColumnFindList">
+        <ColumnInfo>
+          <Column id="TABLE_ID" type="STRING" size="256"/>
+          <Column id="TABLE_NM" type="STRING" size="256"/>
+          <Column id="COLUMN_ID" type="STRING" size="256"/>
+          <Column id="COLUMN_NM" type="STRING" size="256"/>
+          <Column id="DATA_LENGTH" type="STRING" size="256"/>
+          <Column id="DATA_TYPE" type="STRING" size="256"/>
+          <Column id="IS_NULLABLE" type="STRING" size="256"/>
+          <Column id="PK_YN" type="STRING" size="256"/>
+          <Column id="S_CHK" type="STRING" size="256"/>
+          <Column id="ORDINAL_POSITION" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_InCompType">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">Static</Col>
+            <Col id="value">Static</Col>
+          </Row>
+          <Row>
+            <Col id="code">Edit</Col>
+            <Col id="value">Edit</Col>
+          </Row>
+          <Row>
+            <Col id="code">Edit2Pop</Col>
+            <Col id="value">Edit 2 &amp; Pop</Col>
+          </Row>
+          <Row>
+            <Col id="code">Calendar</Col>
+            <Col id="value">Calendar</Col>
+          </Row>
+          <Row>
+            <Col id="code">MaskEdit</Col>
+            <Col id="value">MaskEdit</Col>
+          </Row>
+          <Row>
+            <Col id="code">Combo</Col>
+            <Col id="value">Combo</Col>
+          </Row>
+          <Row>
+            <Col id="code">TextArea</Col>
+            <Col id="value">TextArea</Col>
+          </Row>
+          <Row>
+            <Col id="code">Radio</Col>
+            <Col id="value">Radio</Col>
+          </Row>
+          <Row>
+            <Col id="code">CheckBox</Col>
+            <Col id="value">CheckBox</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_MakeInputData">
+        <ColumnInfo>
+          <Column id="COLUMN_ID" type="STRING" size="256"/>
+          <Column id="COLUMN_NM" type="STRING" size="256"/>
+          <Column id="TEXT_ALIGN" type="STRING" size="256"/>
+          <Column id="COMP_TYPE" type="STRING" size="256"/>
+          <Column id="COL_WIDTH" type="STRING" size="256"/>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="ROW_NO" type="STRING" size="256"/>
+          <Column id="COL_NO" type="STRING" size="256"/>
+          <Column id="FORMAT" type="STRING" size="256"/>
+          <Column id="REMARK" type="STRING" size="256"/>
+          <Column id="MAX_LENGTH" type="STRING" size="256"/>
+          <Column id="COMP_ID" type="STRING" size="256"/>
+          <Column id="COMP_ID2" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_ColumnFindList2">
+        <ColumnInfo>
+          <Column id="TABLE_ID" type="STRING" size="256"/>
+          <Column id="TABLE_NM" type="STRING" size="256"/>
+          <Column id="COLUMN_ID" type="STRING" size="256"/>
+          <Column id="COLUMN_NM" type="STRING" size="256"/>
+          <Column id="DATA_LENGTH" type="STRING" size="256"/>
+          <Column id="DATA_TYPE" type="STRING" size="256"/>
+          <Column id="IS_NULLABLE" type="STRING" size="256"/>
+          <Column id="PK_YN" type="STRING" size="256"/>
+          <Column id="S_CHK" type="STRING" size="256"/>
+          <Column id="ORDINAL_POSITION" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_ColWidth">
+        <ColumnInfo>
+          <Column id="COLNM" type="STRING" size="256"/>
+          <Column id="TEXT_ALIGN" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="WIDTH" type="STRING" size="256"/>
+          <Column id="maskedittype" type="STRING" size="256"/>
+          <Column id="maskeditformat" type="STRING" size="256"/>
+          <Column id="LIKE_SCH" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="COLNM">조직코드</Col>
+            <Col id="TEXT_ALIGN">C</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">80</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">사원코드</Col>
+            <Col id="TEXT_ALIGN">C</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">80</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">사번</Col>
+            <Col id="TEXT_ALIGN">C</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">80</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">거래처코드</Col>
+            <Col id="TEXT_ALIGN">C</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">80</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">고객번호</Col>
+            <Col id="TEXT_ALIGN">C</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">80</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">고객코드</Col>
+            <Col id="TEXT_ALIGN">C</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">80</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">성명</Col>
+            <Col id="TEXT_ALIGN">C</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">80</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">계약번호</Col>
+            <Col id="TEXT_ALIGN">C</Col>
+            <Col id="TYPE">mask</Col>
+            <Col id="WIDTH">80</Col>
+            <Col id="maskedittype">string</Col>
+            <Col id="maskeditformat">expr:(CNTH_NO.length &amp;gt; 8)?'@@@@-@-@@@@':'@@@-@@@@'</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">계약순번</Col>
+            <Col id="TEXT_ALIGN">C</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">60</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">프로젝트번호</Col>
+            <Col id="TEXT_ALIGN">C</Col>
+            <Col id="TYPE">mask</Col>
+            <Col id="WIDTH">80</Col>
+            <Col id="maskedittype">string</Col>
+            <Col id="maskeditformat">expr:(PJTH_NO.length &amp;gt; 8)?'@-@@@@-@@@@':'@@@-@@@@'</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">프로젝트순번</Col>
+            <Col id="TEXT_ALIGN">C</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">80</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">일자</Col>
+            <Col id="TEXT_ALIGN">C</Col>
+            <Col id="TYPE">date</Col>
+            <Col id="WIDTH">80</Col>
+            <Col id="LIKE_SCH">1</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">년월</Col>
+            <Col id="TEXT_ALIGN">C</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">80</Col>
+            <Col id="LIKE_SCH">1</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">년도</Col>
+            <Col id="TEXT_ALIGN">C</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">80</Col>
+            <Col id="LIKE_SCH">1</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">등록일시</Col>
+            <Col id="TEXT_ALIGN">C</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">130</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">수정일시</Col>
+            <Col id="TEXT_ALIGN">C</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">130</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">품명</Col>
+            <Col id="TEXT_ALIGN">L</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">200</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">품목명</Col>
+            <Col id="TEXT_ALIGN">L</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">200</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">프로젝트명</Col>
+            <Col id="TEXT_ALIGN">L</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">200</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">품목코드</Col>
+            <Col id="TEXT_ALIGN">C</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">100</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">사업장</Col>
+            <Col id="TEXT_ALIGN">L</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">100</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">실적사업부</Col>
+            <Col id="TEXT_ALIGN">L</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">100</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">창고</Col>
+            <Col id="TEXT_ALIGN">L</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">100</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">대분류</Col>
+            <Col id="TEXT_ALIGN">L</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">100</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">중분류</Col>
+            <Col id="TEXT_ALIGN">L</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">100</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">계약명</Col>
+            <Col id="TEXT_ALIGN">L</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">150</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">W/O</Col>
+            <Col id="TEXT_ALIGN">C</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">80</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">비고</Col>
+            <Col id="TEXT_ALIGN">L</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">200</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">수량</Col>
+            <Col id="TEXT_ALIGN">R</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">80</Col>
+          </Row>
+          <Row>
+            <Col id="COLNM">환율</Col>
+            <Col id="TEXT_ALIGN">R</Col>
+            <Col id="TYPE">normal</Col>
+            <Col id="WIDTH">80</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

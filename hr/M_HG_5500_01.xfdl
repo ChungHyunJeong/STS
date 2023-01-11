@@ -1,0 +1,949 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_HG_5500_01" width="1040" height="600" titletext="차량 예약 및 배차" scrollbartype="none" onclose="fn_FormClose" onload="fn_FormOnload" onsize="fn_FormOnsize">
+    <Layouts>
+      <Layout height="600" width="1040">
+        <Div id="div_Search" taborder="0" left="12" top="54" height="38" cssclass="div_WF_Search" right="12" formscrollbartype="none none">
+          <Layouts>
+            <Layout>
+              <Static id="sta_CspmNm" taborder="0" text="기간" left="16" top="6" width="80" height="24" cssclass="sta_WF_SLabel" DomainID="S00002"/>
+              <Static id="sta_CusmCd" taborder="1" text="사업장" left="354" top="6" width="80" height="24" cssclass="sta_WF_SLabel"/>
+              <Calendar id="cal_FromDd" taborder="2" left="96" top="6" width="105" height="24" dateformat="yyyy-MM-dd" cssclass="essential" onchanged="div_Search_cal_FromDd_onchanged"/>
+              <Static id="Static03" taborder="3" text="~" left="201" top="5" width="20" height="26" cssclass="sta_WF_Dash"/>
+              <Calendar id="cal_ClosDd" taborder="4" left="219" top="6" width="105" height="24" dateformat="yyyy-MM-dd" cssclass="essential"/>
+              <Combo id="cbo_SaumCd" taborder="5" left="423" top="6" height="24" width="150" codecolumn="SAUM_CD" datacolumn="SAUM_NM" displayrowcount="15" cssclass="essential" innerdataset="ds_FaSaum"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_PopupTitle" taborder="1" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Close" taborder="0" text="닫기" top="9" width="70" height="26" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+              <Static id="sta_PopupTitle" taborder="1" text="차량 예약 및 배차" left="20" top="10" height="24" cssclass="sta_WF_PopupTitle" width="300"/>
+              <Button id="btn_Search" taborder="2" text="조회" top="8" width="65" right="161" visible="true" cssclass="bt_WF_PopupSearch" height="28" onclick="div_PopupTitle_btn_Search_onclick"/>
+              <Button id="btn_Choice" taborder="3" text="선택" top="8" width="65" right="90" visible="true" cssclass="bt_WF_PopupSelect" height="28" onclick="div_PopupTitle_btn_Choice_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Tab id="tab_Master" taborder="2" tabindex="0" left="14" top="102" right="14" cssclass="tab_WF_MasterList" bottom="20">
+          <Tabpages>
+            <Tabpage id="tpg_01" text="배차정보" enable="true">
+              <Layouts>
+                <Layout>
+                  <Grid id="grd_Master10" taborder="0" left="0" top="2" binddataset="ds_Master11" autofittype="none" right="0" bottom="0" selecttype="cell" oncellclick="tab_Master_tpg_01_grd_Master10_oncellclick" oncelldblclick="tab_Master_tpg_01_grd_Master10_oncelldblclick" onclick="tab_Master_tpg_01_grd_Master10_onclick">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="35" band="left"/>
+                          <Column size="100" band="left"/>
+                          <Column size="150" band="left"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="26" band="head"/>
+                          <Row size="24" band="head"/>
+                          <Row size="24"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell rowspan="2" text="No."/>
+                          <Cell col="1" rowspan="2" text="사업장"/>
+                          <Cell col="2" rowspan="2" text="차량명칭"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell text="" displaytype="text" expr="currow+1" textAlign="center"/>
+                          <Cell col="1" displaytype="normal" textAlign="left" text="bind:SAUM_NM"/>
+                          <Cell col="2" displaytype="normal" textAlign="left" text="bind:CARS_NM"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+          </Tabpages>
+        </Tab>
+        <Static id="Static00" taborder="3" text="[ ∨:선택,  ▩:배차 ]" left="820" top="110" width="200" height="15"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="FROM_DD" type="STRING" size="256"/>
+          <Column id="CLOS_DD" type="STRING" size="256"/>
+          <Column id="EDCH_NM" type="STRING" size="256"/>
+          <Column id="SAUM_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10" onrowposchanged="ds_Master10_onrowposchanged" canrowposchange="ds_Master10_canrowposchange">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="EDCH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="WOFH_YN" type="STRING" size="256"/>
+          <Column id="EDCH_DD" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256" description="등록자"/>
+          <Column id="EMPM_CD" type="STRING" size="256" description="등록자-사번"/>
+          <Column id="EMPM_NM" type="STRING" size="256" description="등록자명"/>
+          <Column id="INOU_GU" type="STRING" size="256" description=""/>
+          <Column id="EDCH_GU" type="STRING" size="256"/>
+          <Column id="PLAC_NM" type="STRING" size="256"/>
+          <Column id="EDCH_NM" type="STRING" size="256"/>
+          <Column id="ORGA_NM" type="STRING" size="256"/>
+          <Column id="PERS_NM" type="STRING" size="256"/>
+          <Column id="FROM_DD" type="STRING" size="256"/>
+          <Column id="FROM_HR" type="STRING" size="256"/>
+          <Column id="FROM_MI" type="STRING" size="256"/>
+          <Column id="CLOS_HR" type="STRING" size="256"/>
+          <Column id="CLOS_MI" type="STRING" size="256"/>
+          <Column id="EDCH_CT" type="STRING" size="256"/>
+          <Column id="EDCH_AM" type="STRING" size="256"/>
+          <Column id="DELE_YN" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_ST" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DELE_ID" type="STRING" size="256"/>
+          <Column id="DELE_NM" type="STRING" size="256"/>
+          <Column id="DELE_DT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_FaSaum">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SAUM_CD" type="STRING" size="256"/>
+          <Column id="SAUM_NM" type="STRING" size="256"/>
+          <Column id="SAUE_NM" type="STRING" size="256"/>
+          <Column id="SAUM_NO" type="STRING" size="256"/>
+          <Column id="CORP_NO" type="STRING" size="256"/>
+          <Column id="ACUM_CD" type="STRING" size="256"/>
+          <Column id="BUSM_CD" type="STRING" size="256"/>
+          <Column id="SAGU_CD" type="STRING" size="256"/>
+          <Column id="REPR_NM" type="STRING" size="256"/>
+          <Column id="BUSI_CO" type="STRING" size="256"/>
+          <Column id="ITEM_NM" type="STRING" size="256"/>
+          <Column id="OTEL_NO" type="STRING" size="256"/>
+          <Column id="OFAX_NO" type="STRING" size="256"/>
+          <Column id="POST_NO" type="STRING" size="256"/>
+          <Column id="ADD1_NM" type="STRING" size="256"/>
+          <Column id="ADE1_NM" type="STRING" size="256"/>
+          <Column id="FROM_DD" type="STRING" size="256"/>
+          <Column id="CLOS_DD" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="DECL_YN" type="STRING" size="256"/>
+          <Column id="TAXO_CD" type="STRING" size="256"/>
+          <Column id="COST_YN" type="STRING" size="256"/>
+          <Column id="PROD_YN" type="STRING" size="256"/>
+          <Column id="MATE_YN" type="STRING" size="256"/>
+          <Column id="CYBE_YN" type="STRING" size="256"/>
+          <Column id="DESA_NM" type="STRING" size="256"/>
+          <Column id="HEAL_NO" type="STRING" size="256"/>
+          <Column id="NATI_NO" type="STRING" size="256"/>
+          <Column id="EMPL_NO" type="STRING" size="256"/>
+          <Column id="OCCU_NO" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DELE_ID" type="STRING" size="256"/>
+          <Column id="DELE_NM" type="STRING" size="256"/>
+          <Column id="DELE_DT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_FrToDate">
+        <ColumnInfo>
+          <Column id="FRTO_DT" type="STRING" size="256"/>
+          <Column id="FRTS_DT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master11" cancolumnchange="ds_Master11_cancolumnchange">
+        <ColumnInfo>
+          <Column id="SAUM_CD" type="STRING" size="256"/>
+          <Column id="SAUM_NM" type="STRING" size="256"/>
+          <Column id="CARS_NM" type="STRING" size="256"/>
+          <Column id="INOT_YN" type="STRING" size="256"/>
+          <Column id="CARM_CD" type="STRING" size="256"/>
+          <Column id="CHECK_GU" type="BIGDECIMAL" size="256"/>
+          <Column id="COUNT" type="BIGDECIMAL" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master13">
+        <ColumnInfo>
+          <Column id="SAUM_CD" type="STRING" size="256"/>
+          <Column id="SAUM_NM" type="STRING" size="256"/>
+          <Column id="CARS_NM" type="STRING" size="256"/>
+          <Column id="INOT_YN" type="STRING" size="256"/>
+          <Column id="CARM_CD" type="STRING" size="256"/>
+          <Column id="CARO_DAHR" type="STRING" size="256"/>
+          <Column id="BASE_HOUR" type="STRING" size="256"/>
+          <Column id="BASE_DATE" type="STRING" size="256"/>
+          <Column id="CARO_STAT" type="STRING" size="256"/>
+          <Column id="DISP_STAT" type="STRING" size="256"/>
+          <Column id="CARH_NO" type="STRING" size="256"/>
+          <Column id="CARH_SQ" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master14">
+        <ColumnInfo>
+          <Column id="SAUM_CD" type="STRING" size="256"/>
+          <Column id="SAUM_NM" type="STRING" size="256"/>
+          <Column id="CARS_NM" type="STRING" size="256"/>
+          <Column id="INOT_YN" type="STRING" size="256"/>
+          <Column id="CARM_CD" type="STRING" size="256"/>
+          <Column id="CARO_DAHR" type="STRING" size="256"/>
+          <Column id="BASE_HOUR" type="STRING" size="256"/>
+          <Column id="BASE_DATE" type="STRING" size="256"/>
+          <Column id="CARO_STAT" type="STRING" size="256"/>
+          <Column id="DISP_STAT" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : 
+*  @화면설명 : 차량 예약 및 배차
+*  @시스템명 : (HR) 인사관리 - 총무관리
+*  @작성자   : 
+*  @작성일   : 2022.04.15
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2022.04.14     	    최석목   	           최초 생성 (화면구성)
+*  2022.04.15           박지용                기능 구현
+*************************************************************************************************
+*/
+
+/***********************************************************************************************
+ * 0. 폼로드
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.01. Form Include 선언
+ ***********************************************************************************************/
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+this.fvSaumCd = "";//[부모창파라메타] 사업장코드
+this.fvComPrgmId = "";//[부모창파라메타] 프로그램ID
+
+/***********************************************************************************************
+ * 00.02. Form 변수 선언
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.03. Form Onload 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	//부모창 파라메타 처리
+	this.fvSaumCd = this.getOwnerFrame().SaumCd;//[부모창파라메타] 사업장코드
+	this.fvComPrgmId = this.getOwnerFrame().PrgmId;//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+	 
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+	
+	//this.div_PopupTitle_btn_Search_onclick();//조회
+}
+
+/***********************************************************************************************
+ * 00.04. Form [공통] 초기설정 함수 - 필수
+ ***********************************************************************************************/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.gfn_SetGrid(this.tab_Master.tpg_01.form.grd_Master10);//[공통]그리드 이벤트 설정 - 교육과정목록
+
+}
+
+/***********************************************************************************************
+ * 00.05. Form [업무] 초기설정 함수
+ ***********************************************************************************************/
+this.fn_FormBizInit = function() 
+{ 
+// 	//[공통] 날짜정보 설정	
+// 	this.gfn_SetCommFromToDate(this.fvComPrgmId, "MS", this.div_Search.form.cal_FromDd, this.div_Search.form.cal_ClosDd);//조회조건영역
+	
+	var sToDay = this.gfn_GetCommDate("toDay");//현재일자
+	
+	this.div_Search.form.cal_FromDd.set_value(sToDay);
+	this.div_Search.form.cal_ClosDd.set_value(sToDay);
+
+	this.fn_ComboSearch();
+	
+	//this.div_PopupTitle_btn_Search_onclick();//조회
+}
+
+/***********************************************************************************************
+ * 00.06. Form [업무] 일반콤보 조회 함수
+ ***********************************************************************************************/
+this.fn_ComboSearch = function() 
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+    svcAddObj.sSelectSql = "hr:M_HG_5500_C_SL10"; //[사업장]      
+ 	this.gfn_AddComSearchService(this, svcAddObj);
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "COMBO_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_HR;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_FaSaum=ds_FaSaum";//출력 데이터셋	
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+}
+
+/***********************************************************************************************
+ * 00.07. Form OnClose 이벤트
+ ***********************************************************************************************/
+ 
+/***********************************************************************************************
+ * 00.08. Form OnSize 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{ 
+
+	if (obj.width > 1400) {
+		this.grd_Master10.set_autofittype("col");
+	} else {
+		this.grd_Master10.set_autofittype("none");
+	}
+
+};
+ 
+/***********************************************************************************************
+ * 1. 조회 영역
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 01.01. [팝업버튼] 조회 버튼 클릭 이벤트
+ ***********************************************************************************************/
+this.div_PopupTitle_btn_Search_onclick = function()
+{ 
+	//조회전 유효성 체크
+	if (!this.fn_VaildSearch()) return;	
+	
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+	this.ds_Master10.clearData();
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+
+	this.ds_Input.setColumn(0, "FROM_DD", this.div_Search.form.cal_FromDd.value);//시작일자
+	this.ds_Input.setColumn(0, "CLOS_DD", this.div_Search.form.cal_ClosDd.value);//종료일자
+	this.ds_Input.setColumn(0, "SAUM_CD", this.div_Search.form.cbo_SaumCd.value);//사업장
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "hr:M_HG_5500_M_SL12";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	svcAddObj.sSelectSql = "hr:M_HG_5500_M_SL13";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "MST_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= this.G_SV_HR;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "ds_FrToDate=ds_FrToDate ds_Master13=ds_Master13";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);			
+}
+
+/***********************************************************************************************
+ * 01.02. [Vaildation] 조회 필수값 체크
+ ***********************************************************************************************/
+this.fn_VaildSearch = function()
+{
+	if (!this.gfn_CheckFromToDate(this.fvComPrgmId, this.div_Search.form.cal_FromDd, this.div_Search.form.cal_ClosDd)) return false;//조회기간 범위 체크
+	
+	//조회조건 필수입력값 있으면 체크
+	return true;
+}
+
+/***********************************************************************************************
+ * 01.03. [공통] 조회조건 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [고객명] KeyDown 이벤트
+ ***********************************************************************************************/
+this.div_Search_edt_EdchNm_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if (e.keycode == 13) {
+		this.div_PopupTitle_btn_Search_onclick();
+	}
+};
+  
+  
+/***********************************************************************************************
+ * 2. 입력
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 02.01. [공통버튼] 입력 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+ /***********************************************************************************************
+ * 02.MG0.01. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    01. [데이터셋-ds_Master10] 데이터 Row 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ * 02.MG0.02. [Master10 그리드] 더블클릭 이벤트
+ ***********************************************************************************************/ 
+this.grd_Master10_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if (e.row > -1) {
+		var mRow = this.ds_Master10.rowposition;
+		this.fn_Choice(mRow);
+	}	
+}; 
+
+/***********************************************************************************************
+ * 02.MG0.03. [Master10 그리드] ENTER KEY 줄선택 이벤트
+ ***********************************************************************************************/  
+this.grd_Master10_onkeyup = function(obj:nexacro.Grid,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == "13"){
+		var mRow = this.ds_Master10.rowposition;
+		this.fn_Choice(mRow);
+	}
+}; 
+ 
+/***********************************************************************************************
+ * 02.MG0.04. [Master10 그리드] 클릭 이벤트
+ ***********************************************************************************************/ 
+this.grd_Master10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+
+}; 
+ 
+/***********************************************************************************************
+ * 3. 복사
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 03.01. [팝업버튼] 복사 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 4. 취소
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 04.01. [팝업버튼] 취소 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 5. 저장
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 05.01. [팝업버튼] 저장 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 05.02. [Vaildation] Master 저장 필수값 체크 - 입력항목 
+ ***********************************************************************************************/ 
+this.fn_VaildMasterSave = function()
+{
+}
+
+/***********************************************************************************************
+ * 05.03. [Vaildation] Detail 저장 필수값 체크 - 그리드항목
+ ***********************************************************************************************/ 
+this.fn_VaildDetailSave = function()
+{
+}
+ 
+/***********************************************************************************************
+ * 6. 삭제
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 06.01. [공통버튼] 삭제 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+/***********************************************************************************************
+ * 06.02. [서비스] 삭제처리
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 06.03. [Vaildation] 삭제항목 체크
+ ***********************************************************************************************/  
+this.fn_VaildMasterDelete = function()
+{
+}
+
+/***********************************************************************************************
+ * 7. 엑셀
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 07.01. [팝업버튼] 엑셀저장 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 8. 인쇄
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 08.01. [팝업버튼] 인쇄 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 9. 결재요청
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 09.01. [팝업버튼] 결재요청 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 10. 결재현황
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.01. [팝업버튼] 결재현황 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 11. 재기안
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 11.01. [팝업버튼] 재기안 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 12. 닫기
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 12.01. [팝업버튼] 닫기 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.div_PopupTitle_btn_Close_onclick = function()
+{ 
+	this.gfn_PopClose();
+}
+
+/***********************************************************************************************
+ * 13. 선택
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 13.01. [팝업버튼] 선택 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.div_PopupTitle_btn_Choice_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	for (var iLoop=0; iLoop<this.ds_Master11.rowcount; iLoop++) {
+		var iChk = this.ds_Master11.getColumn(iLoop, "CHECK_GU");
+		
+		if (iChk != 0) {
+			this.ds_Master11.setColumn(iLoop, "COUNT", 1)
+		} else {
+			this.ds_Master11.setColumn(iLoop, "COUNT", 0)
+		}
+	}
+	
+	var sChk = this.ds_Master11.getCaseSum("COUNT!=0",1)
+	
+	if (sChk == 0) { 
+		this.gfn_Alert("SM046");//선택된 내용이 없습니다.
+		return false;
+	} else if (sChk != 1) {
+		this.gfn_Alert("HG009"); //하나의 차량만 선택하십시요.
+		return false;
+	}
+	
+	this.ds_Master14.clearData();
+	
+	for (var iLoop=0; iLoop<this.ds_Master13.rowcount; iLoop++) {
+		var sDispStat = this.ds_Master13.getColumn(iLoop, "DISP_STAT")
+		
+		if (sDispStat == "V") {
+			var iAddRow = this.gfn_GridInsertProcess(this, this.ds_Master14);
+			
+			this.ds_Master14.copyRow(iAddRow, this.ds_Master13, iLoop);
+		}
+	}
+	
+	var sNextWeek = this.gfn_GetCommDate("after7Day");//현재일시
+	var varCount = this.ds_Master14.getCaseCount("DISP_STAT = 'V'", "CARM_CD");
+	var iRowCount = this.ds_Master14.rowcount-1;
+	
+	var sSaumCd = this.ds_Master14.getColumn(0, "SAUM_CD")
+	var sCarmCd = this.ds_Master14.getColumn(0, "CARM_CD")
+	var sFromDd = this.ds_Master14.getColumn(0, "BASE_DATE")
+	var sFromHr = this.ds_Master14.getColumn(0, "BASE_HOUR")
+	
+	if (sFromDd > sNextWeek) {
+		this.gfn_Alert("HG010"); //일주일 이내로 1박2일만 신청 가능합니다.
+		return false;
+	}
+	
+	if (varCount == 1) {
+		var sClosDd = sFromDd
+		var sClosHr = sFromHr
+	} else {
+		var sClosDd = this.ds_Master14.getColumn(iRowCount, "BASE_DATE")
+		var sClosHr = this.ds_Master14.getColumn(iRowCount, "BASE_HOUR")
+	}
+	
+	this.fn_Choice(sSaumCd, sCarmCd, sFromDd, sFromHr, sClosDd, sClosHr)
+}
+
+/***********************************************************************************************
+ * 13.02. [사용자함수] 선택한 정보 부모창 리턴 함수 
+ ***********************************************************************************************/ 
+this.fn_Choice = function(sSaumCd, sCarmCd, sFromDd, sFromHr, sClosDd, sClosHr) {
+		rtnValue = "({" +
+                        ' SAUM_CD:"' + sSaumCd + '"'+  //0.사업장코드
+                        ',RQCR_CD:"' + sCarmCd + '"'+  //1.신청차량
+                        ',RQFR_DD:"' + sFromDd + '"'+  //2.신청시작일
+                        ',RQFR_HR:"' + sFromHr + '"'+  //3.신청시작시
+                        ',RQTO_DD:"' + sClosDd + '"'+  //4.신청종료일
+                        ',RQTO_HR:"' + sClosHr + '"'+  //5.신청종료시
+                "})";
+
+ 		this.gfn_PopClose(rtnValue);
+}
+
+/***********************************************************************************************
+ * 14. [CallBack] 함수
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 14.01. [서비스] CallBack 함수 처리
+ ***********************************************************************************************/ 
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST_SEARCH": //조회
+			this.fn_GridDateSet();//그리드 날짜 세팅
+			break;		
+		case "COMBO_SEARCH": //콤보조회
+
+			if (!this.gfn_IsNull(this.fvSaumCd)) {
+				this.div_Search.form.cbo_SaumCd.set_value(this.fvSaumCd);		
+			}		
+			break;				
+	}
+};
+
+
+/***********************************************************************************************
+ * 14.02. [팝업] CallBack 함수 처리
+          strId : 팝업호출시 지정한 팝업ID
+	      rtnValue : 팝업창에서 close시 지정한 반환값
+          주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/ 
+this.fn_PopupCallback = function(strId, rtnValue)
+{	
+};
+ 
+/***********************************************************************************************
+ * 14.03. [메세지] CallBack 함수 처리
+ ***********************************************************************************************/  
+this.fn_MsgCallback = function (strId, strVal)
+{
+};
+
+/***********************************************************************************************
+ * 15. [사용자정의 함수]
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 15.01. 배차정보 그리드 설정
+ ***********************************************************************************************/ 
+this.fn_GridDateSet = function() {
+	
+	//데이터셋 재설정
+	this.ds_Master11.clear();
+	
+	this.ds_Master11.addColumn("SAUM_CD", "string");//사업자코드
+	this.ds_Master11.addColumn("SAUM_NM", "string");//사업장명
+	this.ds_Master11.addColumn("CARS_NM", "string");//차량명칭
+	this.ds_Master11.addColumn("INOT_YN", "string");//출차여부
+	this.ds_Master11.addColumn("CARM_CD", "string");//차량코드
+	this.ds_Master11.addColumn("CHECK_GU", "BIGDECIMAL");//선택후 넘기기전여러줄중복체크용
+	this.ds_Master11.addColumn("COUNT", "BIGDECIMAL");//선택후 넘기기전여러줄중복체크용
+	
+	var sDate = "";//날짜
+	var sTime = "";//시간
+	
+	//From~To 날짜의 시간컬럼 동적 생성
+	//24시는 없다. 00시부터 있다.
+	if (this.ds_FrToDate.getRowCount() > 0) {
+		for (var iLoop=0; iLoop < this.ds_FrToDate.getRowCount(); iLoop++) {
+			
+			sDate = this.ds_FrToDate.getColumn(iLoop, "FRTS_DT");
+			
+			for (var jLoop=0; jLoop <= 23; jLoop++) {
+				sTime = jLoop.toString().padLeft(2, "0");
+				this.ds_Master11.addColumn(sDate + "_" + sTime, "string");//시간+날짜
+			}
+		}
+	}
+	
+	for (var iLoop=0; iLoop<this.ds_Master13.rowcount; iLoop++) {
+		var sSaumCd = this.ds_Master13.getColumn(iLoop, "SAUM_CD");
+		var sSaumNm = this.ds_Master13.getColumn(iLoop, "SAUM_NM");
+		var sCarmCd = this.ds_Master13.getColumn(iLoop, "CARM_CD");	
+		var sCarsNm = this.ds_Master13.getColumn(iLoop, "CARS_NM");	
+		var sCaroDahr = this.ds_Master13.getColumn(iLoop, "CARO_DAHR");
+		var sCaroStat = this.ds_Master13.getColumn(iLoop, "CARO_STAT");
+		var sDisptat = this.ds_Master13.getColumn(iLoop, "DISP_STAT");
+		
+ 		var iFvFindRow = this.ds_Master11.findRowExpr("SAUM_CD=='" + sSaumCd + "' && CARM_CD=='" + sCarmCd + "'", 0, this.ds_Master11.rowcount)
+		
+		if (iFvFindRow == -1) {
+			var iRow = this.ds_Master11.addRow();
+			
+			this.ds_Master11.setColumn(iRow, "SAUM_CD", sSaumCd);
+			this.ds_Master11.setColumn(iRow, "SAUM_NM", sSaumNm);
+			this.ds_Master11.setColumn(iRow, "CARM_CD", sCarmCd);
+			this.ds_Master11.setColumn(iRow, "CARS_NM", sCarsNm);
+			this.ds_Master11.setColumn(iRow, sCaroDahr, sDisptat);
+			
+			this.ds_Master11.setColumn(iRow, "CHECK_GU", 0);
+		} else if (iFvFindRow == 0) {
+			this.ds_Master11.setColumn(iRow, "SAUM_CD", sSaumCd);
+			this.ds_Master11.setColumn(iRow, "SAUM_NM", sSaumNm);
+			this.ds_Master11.setColumn(iRow, "CARM_CD", sCarmCd);
+			this.ds_Master11.setColumn(iRow, "CARS_NM", sCarsNm);
+			
+			this.ds_Master11.setColumn(iRow, sCaroDahr, sDisptat);
+			
+			this.ds_Master11.setColumn(iRow, "CHECK_GU", 0);
+		} else {
+			this.ds_Master11.setColumn(iFvFindRow, sCaroDahr, sDisptat);
+			
+			this.ds_Master11.setColumn(iFvFindRow, "CHECK_GU", 0);
+		}
+	}	
+		
+	//그리드 설정
+	//그리드 고정컬럼 설정
+	var sTotFormats       = '';//전체 Foramts
+	var sFormatHead       =  '<Formats>';//Formats - Head
+	    sFormatHead      += '<Format id="default">';
+	var sFormatColumns    = '<Columns>';//Formats - Colums - 변동
+	    sFormatColumns   += '<Column size="35" band="left"/>';
+		sFormatColumns   += '<Column size="100" band="left"/>';
+		sFormatColumns   += '<Column size="155" band="left"/>';
+		//sFormatColumns   += '<Column size="100" band="left"/>';
+		
+	var sFormatColumnsEnd = '</Columns>';//Formats - Colums End
+	
+	var sFormatRows       = '<Rows>';//Rows
+        sFormatRows      += '<Row size="26" band="head"/>';
+        sFormatRows      += '<Row size="24" band="head"/>';
+        sFormatRows      += '<Row size="24"/>';
+        sFormatRows      += '</Rows>';	
+		
+	var sBandHead         = '<Band id="head">';//Band Head
+	var sBandHeadCol      = '<Cell rowspan="2" text="No."/>';//Band Head Col - 변동
+	    sBandHeadCol     += '<Cell col="1" rowspan="2" text="사업장"/>';	
+		sBandHeadCol     += '<Cell col="2" rowspan="2" text="차량명칭"/>';
+		//sBandHeadCol     += '<Cell col="3" rowspan="2" text="출자여부(현재)"/>';
+		
+	var sBandHeadRow      = '';//Band Head Row - 변동
+
+	var sBandHeadEnd      = '</Band>';//Band Head End
+	
+	var sBandBody         = '<Band id="body">';//Band Body - 변동
+	    sBandBody        += '<Cell expr="currow + 1" textAlign="center"/>';
+		sBandBody        += '<Cell col="1" displaytype="normal" textAlign="left" text="bind:SAUM_NM"/>';
+		sBandBody        += '<Cell col="2" displaytype="normal" textAlign="left" text="bind:CARS_NM"/>';
+		//sBandBody        += '<Cell col="3" textAlign="center" text="bind:INOT_YN"/>';
+
+	var sBandBodyEnd      = '</Band>';//Band Body End
+	
+	var sFormatEnd        = '</Format>';//Formats - End
+	    sFormatEnd       += '</Formats>';
+				
+	var iColIndex = 2;//동적헤더컬럼 인덱스
+	var sFrtoDt = "";//포맷날짜
+	
+	//From~To 날짜의 시간컬럼 동적 그리드 생성
+	if (this.ds_FrToDate.getRowCount() > 0) {
+		for (var iLoop=0; iLoop < this.ds_FrToDate.getRowCount(); iLoop++) {
+			
+			iColIndex++;
+			
+			sFrtoDt = this.ds_FrToDate.getColumn(iLoop, "FRTO_DT");//포맷날짜
+			sDate = this.ds_FrToDate.getColumn(iLoop, "FRTS_DT");
+			
+			sBandHeadCol     += '<Cell col="' + iColIndex + '" colspan="24" text="' + sFrtoDt + '"/>';			
+			
+			for (var jLoop=0; jLoop <= 23; jLoop++) {
+				sTime = jLoop.toString().padLeft(2, "0");
+
+				if (jLoop > 0) {
+					iColIndex++;
+				}
+				
+				sBandHeadRow     += '<Cell row="1" col="' + iColIndex + '" text="' + jLoop + '"/>';//Band Head Row - 변동
+				sFormatColumns   += '<Column size="30"/>';
+				sBandBody        += '<Cell col="' + iColIndex + '" textAlign="center" text="bind:' + sDate + "_" + sTime + '"/>';
+			}
+		}
+	}	
+		
+		sTotFormats = sFormatHead + sFormatColumns + sFormatColumnsEnd + sFormatRows + sBandHead + sBandHeadCol + sBandHeadRow + sBandHeadEnd + sBandBody + sBandBodyEnd + sFormatEnd;//전체 Foramts		
+//trace(sTotFormats);
+	this.tab_Master.tpg_01.form.grd_Master10.set_formats("")	
+	this.tab_Master.tpg_01.form.grd_Master10.set_formats(sTotFormats);
+
+}
+
+this.tab_Master_tpg_01_grd_Master10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	row = e.row;
+	rowspan = this.tab_Master.tpg_01.form.grd_Master10.getCellProperty("body",e.cell,"rowposition");
+	text 	= this.tab_Master.tpg_01.form.grd_Master10.getCellProperty("body",e.cell,"text");
+ 	cellidx = this.tab_Master.tpg_01.form.grd_Master10.getCellProperty("body",e.cell,"col");
+
+	var sSaumCd = this.ds_Master11.getColumn(e.row, "SAUM_CD")
+	var sCarmCd = this.ds_Master11.getColumn(e.row, "CARM_CD")
+	
+	var sDate = nexacro.replaceAll(text, "bind:", "")
+	
+	if (sDate == "SAUM_NM" || sDate == "CARS_NM" || sDate == "INOT_YN") {
+		return false;
+	};
+	
+	var sToDay = this.gfn_GetCommDate("toDayFull");//현재일시
+	var sToDay1 = sToDay.substring(0, 4) + sToDay.substr(5, 2) + sToDay.substr(8, 2) + "_" + sToDay.substr(11, 2)
+	
+	var state = this.ds_Master11.getColumn(row, sDate);
+	var iChk = this.ds_Master11.getColumn(row, "CHECK_GU");
+	
+	if (this.gfn_IsNull(iChk)) {
+		iChk = 0
+	}
+	
+	if (state == "▩") {
+		return false;
+	} else if (state == "V") { 
+		this.ds_Master11.setColumn(row, sDate, "");
+		
+		iChk = iChk - 1
+		
+		this.ds_Master11.setColumn(row, "CHECK_GU", iChk)
+		
+		var iFvFindRow = this.ds_Master13.findRowExpr("SAUM_CD=='" + sSaumCd + "' && CARM_CD=='" + sCarmCd + "' && CARO_DAHR =='" + sDate + "'")
+		
+		if (iFvFindRow > 0) {
+			this.ds_Master13.setColumn(iFvFindRow, "DISP_STAT", "")
+		}
+	} else if (state == "☆") {	
+		return false;
+	} else {
+		if ( sDate < sToDay1 ) {
+			var arrMsgArg = [sToDay.substring(0, 4) + sToDay.substr(5, 2) + sToDay.substr(8, 2) + " " + sToDay.substr(11, 2) + "시"];
+			this.gfn_Alert("HG008", arrMsgArg);//현재일자 ( [ &ITM0 ] ) 이후만 설정할 수 있습니다.
+			
+			return false;
+		} else {
+			this.ds_Master11.setColumn(row, sDate, "V");
+			
+			iChk = iChk + 1
+			
+			this.ds_Master11.setColumn(row, "CHECK_GU", iChk)
+			
+			var iFvFindRow = this.ds_Master13.findRowExpr("SAUM_CD=='" + sSaumCd + "' && CARM_CD=='" + sCarmCd + "' && CARO_DAHR =='" + sDate + "'")
+		
+			if (iFvFindRow > 0) {
+				this.ds_Master13.setColumn(iFvFindRow, "DISP_STAT", "V")
+			}
+			
+			/* 차량 사용요청 기간중 사용 여부 체크 */
+			var nRows = this.ds_Master13.extractRows("SAUM_CD=='" + sSaumCd + "' && CARM_CD=='" + sCarmCd + "' && DISP_STAT == 'V'");
+			var bChk = true;
+			if(nRows.length >= 2){
+				for(var i=1; i<nRows.length; i++){
+					if(this.ds_Master13.findRowExpr("SAUM_CD=='" + sSaumCd + "' && CARM_CD=='" + sCarmCd + "' && CARO_STAT == '0'", nRows[i-1], nRows[i])>=0){
+						bChk = false;
+						break;
+					}
+				}
+			}
+			if(!bChk){
+				this.ds_Master11.setColumn(row, sDate, "");
+				this.ds_Master11.setColumn(row, "CHECK_GU", iChk-1);
+				this.ds_Master13.setColumn(iFvFindRow, "DISP_STAT", "");
+				
+				this.gfn_Alert("SD008", ["해당기간 차량사용"]);//현재일자 ( [ &ITM0 ] ) 이후만 설정할 수 있습니다.
+				return false;
+			}
+		}
+	};
+};
+
+this.div_Search_cal_FromDd_onchanged = function(obj:nexacro.Calendar,e:nexacro.ChangeEventInfo)
+{
+	
+	var sFromDd = this.div_Search.form.cal_FromDd.value;
+	
+	this.div_Search.form.cal_ClosDd.set_value(sFromDd);
+};
+
+
+this.tab_Master_tpg_01_grd_Master10_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	var row = e.row
+	var col = e.col;
+	var totrow = this.ds_Master13.getRowCount();
+	var text 	= this.tab_Master.tpg_01.form.grd_Master10.getCellProperty("body",e.cell,"text");
+	var rowpos = 0;
+
+	if (row == 0) {
+		rowpos = col - 3;
+	} else {
+		rowpos = (totrow  / (row + 1)) * row + (col - 3);
+	}
+
+	var sDate = nexacro.replaceAll(text, "bind:", "")	
+	var state = this.ds_Master11.getColumn(row, sDate);
+	var sSaumCd = this.ds_Master11.getColumn(row, "SAUM_CD");
+	var sCarmCd = this.ds_Master11.getColumn(row, "CARM_CD");
+
+	if (state == "▩" || state == "☆") {
+		var sPopupTitle = "차량신청 내역조회"; //Popup화면 타이틀
+		var sPopupFormUrl  = "hr::M_HG_5500_03.xfdl"; //Popup화면 URL
+		var oArg = {CarhNo:this.ds_Master13.getColumn(rowpos, "CARH_NO")
+		          , CarhSq:this.ds_Master13.getColumn(rowpos, "CARH_SQ")
+				  , SearchDt:sDate
+				  , SearchSt:state
+				  , SaumCd:sSaumCd
+				  , CarmCd:sCarmCd
+		          , PrgmId:"M_HG_5500"}; //Popup화면 전달 파라메터
+		var oOption = {title:sPopupTitle, width:"1000", height:"440"}; //Popup화면 옵션
+
+		this.gfn_OpenPopup("M_MG_5500_03", sPopupFormUrl, oArg, "fn_PopupCallback", oOption); //Popup화면 호출 함수		
+	} 
+	
+	return false;
+};
+]]></Script>
+  </Form>
+</FDL>

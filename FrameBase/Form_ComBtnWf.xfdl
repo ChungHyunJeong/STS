@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Form_ComBtnWf" width="1618" height="45">
+    <Layouts>
+      <Layout height="45" mobileorientation="landscape" width="1618">
+        <Button id="btn_InnerWf" taborder="4" text="내부결재" top="5" width="80" right="87" visible="true" cssclass="bt_TF_RequestAgain" height="34" onclick="btn_InnerWf_onclick" enable="true"/>
+        <Button id="btn_WfSysIdChange" taborder="3" text="결재자변경" top="5" width="80" right="170" visible="true" cssclass="bt_TF_RequestCurrentStatus" height="34" onclick="btn_WfSysIdChange_onclick" enable="false"/>
+        <Button id="btn_WfLineChange" taborder="2" text="결재선변경" top="5" width="80" right="253" visible="true" cssclass="bt_TF_RequestSettle" height="34" onclick="btn_WfLineChange_onclick" enable="false"/>
+        <Button id="btn_Save" taborder="1" text="저장" top="5" width="65" right="409" visible="true" cssclass="bt_TF_Save" onclick="btn_Save_onclick" height="34" enable="false"/>
+        <Button id="btn_Confirm" taborder="0" text="확인" top="5" width="65" right="613" visible="true" cssclass="bt_TF_Copy" height="34" onclick="btn_Confirm_onclick" enable="false"/>
+        <Button id="btn_Close" taborder="5" top="5" width="70" visible="true" cssclass="bt_TF_Close" right="14" height="34" onclick="btn_Close_onclick" text="닫기"/>
+        <Button id="btn_Reject" taborder="6" text="기각" top="5" width="65" right="545" visible="true" cssclass="bt_WF_Appr" height="34" onclick="btn_Reject_onclick" enable="false"/>
+        <Button id="btn_Appr" taborder="7" text="승인" top="5" width="65" right="681" visible="true" cssclass="bt_WF_Appr" height="34" onclick="btn_Appr_onclick" enable="false"/>
+        <Button id="btn_Print" taborder="8" text="인쇄" top="5" width="70" right="336" visible="true" cssclass="bt_TF_Print" onclick="btn_Print_onclick" height="34"/>
+        <Button id="btn_Search" taborder="9" text="조회" top="5" width="65" right="477" visible="true" cssclass="bt_TF_Search" onclick="btn_Search_onclick" height="34"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  공통버튼 처리
+*  @Creator 	csm
+*  @CreateDate 	2021.01.25
+*  @Desction    
+*********************** 소스 수정 이력 ********************************************************
+*  date          		Modifier                Description
+*************************************************************************************************
+*  2021.01.25     	    csm 	           	    최초 생성 
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * Form 변수 선언 영역
+ ************************************************************************************************/
+this.gvWorkForm = this.parent.parent.parent.parent;//WorkFrame 화면
+
+/***********************************************************************************************
+* Form 버튼 이벤트 영역
+ ***********************************************************************************************/
+ 
+/**
+ *  [공통버튼 처리]
+    조회     : fn_WfComBtnSearch
+	저장     : fn_WfComBtnSave
+	인쇄     : fn_WfComBtnPrint
+
+*/
+
+/**
+ *  [공통버튼] 조회 버튼 클릭시 처리
+*/
+this.btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	//[공통버튼] 조회 버튼 클릭시 처리 : WorkFrame의 fn_WfComBtnSearch() 함수 호출	
+	this.gvWorkForm.fn_WfComBtnSearch();	
+};
+
+/**
+ *  [공통버튼] 저장 버튼 클릭시 처리
+*/
+this.btn_Save_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통버튼] 결재저장 버튼 클릭시 처리 : WorkFrame의 fn_WfComBtnSaveWf() 함수 호출	
+	this.gvWorkForm.fn_WfComBtnSaveWf();		
+};
+
+/**
+ *  [공통버튼] 인쇄 버튼 클릭시 처리
+*/
+this.btn_Print_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통버튼] 인쇄 버튼 클릭시 처리 : WorkFrame의 fn_WfComBtnPrint() 함수 호출	
+	this.gvWorkForm.fn_WfComBtnPrint();		
+};
+
+/**
+ *  [공통버튼] 닫기 버튼 클릭시 처리
+*/
+this.btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통버튼] 닫기 버튼 클릭시 처리 : WorkFrame의 fn_WfComBtnClose() 함수 호출	
+	this.gvWorkForm.fn_WfComBtnClose();		
+};
+
+/**
+ *  [공통버튼] 승인 버튼 클릭시 처리
+*/
+this.btn_Appr_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통버튼] 승인 버튼 클릭시 처리 : WorkFrame의 fn_WfComBtnAppr() 함수 호출	
+	this.gvWorkForm.fn_WfComBtnAppr();		
+};
+
+/**
+ *  [공통버튼] 기각 버튼 클릭시 처리
+*/
+this.btn_Reject_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통버튼] 기각 버튼 클릭시 처리 : WorkFrame의 fn_WfComBtnReject() 함수 호출	
+	this.gvWorkForm.fn_WfComBtnReject();		
+};
+
+/**
+ *  [공통버튼] 확인 버튼 클릭시 처리
+*/
+this.btn_Confirm_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통버튼] 확인 버튼 클릭시 처리 : WorkFrame의 fn_WfComBtnConfirm() 함수 호출	
+	this.gvWorkForm.fn_WfComBtnConfirm();		
+};
+
+/**
+ *  [공통버튼] 취소 버튼 클릭시 처리
+*/
+this.btn_Cancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통버튼] 확인 버튼 클릭시 처리 : WorkFrame의 fn_WfComBtnCancel() 함수 호출	
+	this.gvWorkForm.fn_WfComBtnCancel();		
+};
+
+/**
+ *  [공통버튼] 결재선변경 버튼 클릭시 처리
+*/
+this.btn_WfLineChange_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통버튼] 결재선변경 버튼 클릭시 처리 : WorkFrame의 fn_WfComBtnWfLineChange() 함수 호출	
+	this.gvWorkForm.fn_WfComBtnWfLineChange();		
+};
+
+/**
+ *  [공통버튼] 결재자변경 버튼 클릭시 처리
+*/
+this.btn_WfSysIdChange_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통버튼] 결재자변경 버튼 클릭시 처리 : WorkFrame의 fn_WfComBtnWfSysIdChange() 함수 호출	
+	this.gvWorkForm.fn_WfComBtnWfSysIdChange();		
+};
+
+/**
+ *  [공통버튼] 내부결재 버튼 클릭시 처리
+*/
+this.btn_InnerWf_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통버튼] 내부결재 버튼 클릭시 처리 : WorkFrame의 fn_WfComBtnInnerWf() 함수 호출	
+	this.gvWorkForm.fn_WfComBtnInnerWf();		
+};
+
+/***********************************************************************************************
+* Form 사용자 함수 영역
+ ***********************************************************************************************/
+/**
+ *  [공통버튼] 버튼관리 화면의 버튼 설정
+*/
+this.fn_SetComButtonInit = function(obj)
+{
+	if (this.gfn_IsNull(obj)) {
+		trace("[공통버튼] 버튼 설정 처리함수(this.gfn_SetComButton()) 파라메터가 잘못 되었습니다.");
+	} else {		
+		var arrComBtnVisible = new Array();//보여줄 버튼정보 Array
+	
+		//[공통버튼] 조회 버튼 설정값 체크 : true 이면
+		if (obj.SELE_YN) {
+			arrComBtnVisible.push(this.btn_Search);
+		}	
+		
+		//[공통버튼] 저장 버튼 설정값 체크 : true 이면
+		if (obj.SAVE_YN) {
+			arrComBtnVisible.push(this.btn_Save);
+		}										
+		
+		if (arrComBtnVisible.length > 0) {		
+			var iRight = 0;
+			var iLoopIndex = 0;
+			var btnId = "";//버튼ID
+			var btnIdNow = "";//버튼ID-현재
+			var bDecide = false;//결재버튼유무
+			var bPrint = false;//출력버튼유무
+			var iAddWidth = 0;//추가여백
+
+			for (var iLoop=arrComBtnVisible.length-1; iLoop >= 0; iLoop--) {
+
+				btnIdNow = arrComBtnVisible[iLoop].name;//버튼ID-현재
+				
+				if (iLoopIndex > 0) {
+					if (btnId == "btn_Decide" || btnId == "btn_Process" || btnId == "btn_Recide") {
+						if (btnIdNow == "btn_Decide" || btnIdNow == "btn_Process" || btnIdNow == "btn_Recide") {
+							iRight = iRight + 83;
+						} else {
+							iRight = iRight + 90;
+						}
+					} else {
+						//결재버튼이 있는경우
+						if (bDecide) {
+							iAddWidth = 7;//추가여백
+							bDecide = false;
+						} else {
+							iAddWidth = 0;//추가여백
+						}
+						
+						//출력버튼이 있는경우
+						if (bPrint) {
+							iAddWidth = 7;//추가여백
+							bPrint = false;
+						} else {
+							iAddWidth = 0;//추가여백
+						}												
+						
+						if (btnId == "btn_Excel" || btnId == "btn_Print") {
+							if (btnIdNow == "btn_Excel" || btnIdNow == "btn_Print") {
+								iRight = iRight + 73;		
+							} else {
+								iRight = iRight + 73 + iAddWidth;	
+							}
+						} else {
+							iRight = iRight + 68 + iAddWidth;
+						}
+												
+						
+					}
+				} else {
+					iRight = iRight + 94;
+				}
+				
+				btnId = arrComBtnVisible[iLoop].name;//버튼ID
+				if (btnId == "btn_Decide" || btnId == "btn_Process" || btnId == "btn_Recide") {
+					bDecide = true;//결재버튼유무
+				} else {
+					bDecide = false;//결재버튼유무
+				}
+				if (btnId == "btn_Excel" || btnId == "btn_Print") {
+					bPrint = true;//출력버튼유무
+				} else {
+					bPrint = false;//출력버튼유무
+				}				
+
+				arrComBtnVisible[iLoop].set_right(iRight);
+				iLoopIndex++;
+			}	
+
+			for (var iLoop=0; iLoop < arrComBtnVisible.length; iLoop++) {
+				arrComBtnVisible[iLoop].set_visible(true);
+			}
+			
+		}
+		 
+	}
+};
+
+/**
+ *  [공통버튼] 버튼관리 화면의 버튼 Enable 설정
+*/
+this.fn_SetComButtonEnable = function(obj)
+{
+	if (this.gfn_IsNull(obj)) {
+		trace("[공통버튼] 버튼 설정 처리함수(this.fn_SetComButtonEnable()) 파라메터가 잘못 되었습니다.");
+	} else {
+
+		//[공통버튼] 저장 버튼 설정값 체크 : true 이면
+		if (!this.gfn_IsNull(obj.SAVE_Enable)) {
+			if (obj.SAVE_Enable) {
+				this.btn_Save.set_enable(true);
+			} else {
+				this.btn_Save.set_enable(false);
+			}	
+		}
+		
+		//[공통버튼] 인쇄 버튼 설정값 체크 : true 이면
+		if (!this.gfn_IsNull(obj.PRINT_Enable)) {
+			if (obj.PRINT_Enable) {
+				this.btn_Print.set_enable(true);
+			} else {
+				this.btn_Print.set_enable(false);
+			}	
+		}
+		
+		//[공통버튼] 승인 버튼 설정값 체크 : true 이면
+		if (!this.gfn_IsNull(obj.APPR_Enable)) {
+			if (obj.APPR_Enable) {
+				this.btn_Appr.set_enable(true);
+			} else {
+				this.btn_Appr.set_enable(false);
+			}	
+		}
+		
+		//[공통버튼] 기각 버튼 설정값 체크 : true 이면
+		if (!this.gfn_IsNull(obj.REJECT_Enable)) {
+			if (obj.REJECT_Enable) {
+				this.btn_Reject.set_enable(true);
+			} else {
+				this.btn_Reject.set_enable(false);
+			}	
+		}
+		
+		//[공통버튼] 취소 버튼 설정값 체크 : true 이면
+		if (!this.gfn_IsNull(obj.CANCEL_Enable)) {
+			if (obj.CANCEL_Enable) {
+				//this.btn_Cancel.set_enable(true);
+			} else {
+				//this.btn_Cancel.set_enable(false);
+			}	
+		}		
+		
+		//[공통버튼] 확인 버튼 설정값 체크 : true 이면
+		if (!this.gfn_IsNull(obj.CONFIRM_Enable)) {
+			if (obj.CONFIRM_Enable) {
+				this.btn_Confirm.set_enable(true);
+			} else {
+				this.btn_Confirm.set_enable(false);
+			}	
+		}
+		
+		//[공통버튼] 결재선변경 버튼 설정값 체크 : true 이면
+		if (!this.gfn_IsNull(obj.WFLINECHG_Enable)) {
+			if (obj.WFLINECHG_Enable) {
+				this.btn_WfLineChange.set_enable(true);
+			} else {
+				this.btn_WfLineChange.set_enable(false);
+			}	
+		}
+
+		//[공통버튼] 결재자변경 버튼 설정값 체크 : true 이면
+		if (!this.gfn_IsNull(obj.WFSYSCHG_Enable)) {
+			if (obj.WFSYSCHG_Enable) {
+				this.btn_WfSysIdChange.set_enable(true);
+			} else {
+				this.btn_WfSysIdChange.set_enable(false);
+			}	
+		}
+
+		//[공통버튼] 내부결재  버튼 설정값 체크 : true 이면
+		if (!this.gfn_IsNull(obj.INNERWF_Enable)) {
+			if (obj.INNERWF_Enable) {
+				this.btn_InnerWf.set_enable(true);
+			} else {
+				this.btn_InnerWf.set_enable(false);
+			}			
+		}
+	}
+};
+]]></Script>
+  </Form>
+</FDL>

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Excel" width="1618" height="897" titletext="New Form">
+    <Layouts>
+      <Layout height="897" width="1618">
+        <Button id="Button00" taborder="0" text="엑셀Import" left="50" top="40" width="160" height="44" onclick="Button00_onclick"/>
+        <Grid id="Grid00" taborder="1" left="50" top="110" width="1400" height="750" binddataset="ds_Import">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="120"/>
+                <Column size="120"/>
+                <Column size="120"/>
+                <Column size="120"/>
+                <Column size="120"/>
+                <Column size="120"/>
+                <Column size="120"/>
+                <Column size="120"/>
+                <Column size="120"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Column0"/>
+                <Cell col="1" text="Column1"/>
+                <Cell col="2" text="Column2"/>
+                <Cell col="3" text="Column3"/>
+                <Cell col="4" text="Column4"/>
+                <Cell col="5" text="Column5"/>
+                <Cell col="6" text="Column6"/>
+                <Cell col="7" text="Column7"/>
+                <Cell col="8" text="Column8"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:Column0"/>
+                <Cell col="1" text="bind:Column1"/>
+                <Cell col="2" text="bind:Column2"/>
+                <Cell col="3" text="bind:Column3"/>
+                <Cell col="4" text="bind:Column4"/>
+                <Cell col="5" text="bind:Column5"/>
+                <Cell col="6" text="bind:Column6"/>
+                <Cell col="7" text="bind:Column7"/>
+                <Cell col="8" text="bind:Column8"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Import">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="Column6" type="STRING" size="256"/>
+          <Column id="Column7" type="STRING" size="256"/>
+          <Column id="Column8" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.ds_Import.clearData();
+	
+	var sImportDataSetName = "ds_Import";//Import할 데이터셋명
+	var sImportSheetName = "Sheet1";//Import할 엑셀 Sheet명
+	var sBody = "A2";//Import할 엑셀 Body 영역
+	var sCallBackFunc = "fn_ImportCallback";//Callback Func
+	var sImportId = "MASTER10_IPT";//Import Id
+	
+	this.gfn_ExcelImport(this, sImportDataSetName, sImportSheetName, sBody, sCallBackFunc, sImportId);
+};
+
+this.fn_ImportCallback = function(sImportId)
+{
+	alert(sImportId);
+}]]></Script>
+  </Form>
+</FDL>

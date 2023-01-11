@@ -1,0 +1,634 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="cmmGridProcNew" width="260" height="29" titletext="그리드설정관련화면" background="transparent">
+    <Layouts>
+      <Layout height="29" width="260">
+        <PopupDiv id="PopupDivPivotList" visible="false" left="0" top="50" width="500" height="500" background="white" border="1px solid" text="">
+          <Layouts>
+            <Layout>
+              <Grid id="grd_Master10" taborder="0" left="22" top="47" autofittype="none" cellsizingtype="col" selecttype="multiarea" width="215" bottom="50" oncellclick="grd_Master10_oncellclick" onkeyup="PopupDivPivotList_grd_Master10_onkeyup">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="30" band="left"/>
+                      <Column size="185" band="left"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="26" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell displaytype="none" edittype="none"/>
+                      <Cell col="1" displaytype="normal" edittype="none" text="Pivot 대상"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell displaytype="checkboxcontrol" textAlign="center" edittype="checkbox" text="bind:COL_CHECK"/>
+                      <Cell col="1" text="bind:HEAD_TEXT" displaytype="normal" textAlign="left"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Grid id="grd_Master20" taborder="1" left="262" top="47" autofittype="none" cellsizingtype="col" selecttype="multiarea" width="215" binddataset="ds_Master10" bottom="50" oncellclick="grd_Master20_oncellclick">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="30" band="left"/>
+                      <Column size="185" band="left"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="26" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell displaytype="none" edittype="none"/>
+                      <Cell col="1" displaytype="normal" edittype="none" text="집계대상"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell displaytype="checkboxcontrol" textAlign="center" edittype="checkbox" text="bind:COL_CHECK"/>
+                      <Cell col="1" text="bind:HEAD_TEXT" displaytype="normal" textAlign="left"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Button id="btn_SomCheck" taborder="2" text="부분선택" top="14" width="70" height="20" right="176" visible="true" cssclass="bt_WF_InputArea_Blue" onclick="btn_SomCheck_onclick"/>
+              <Button id="btn_SomeUncheck" taborder="3" text="부분해지" top="14" width="70" height="20" right="103" visible="true" cssclass="bt_WF_InputArea_White" onclick="btn_SomeUncheck_onclick"/>
+              <Button id="btn_AllCheck" taborder="4" text="전체선택" top="14" width="70" height="20" right="322" visible="true" cssclass="bt_WF_InputArea_Blue" onclick="btn_AllCheck_onclick"/>
+              <Button id="btn_AllUncheck" taborder="5" text="전체해지" top="14" width="70" height="20" right="249" visible="true" cssclass="bt_WF_InputArea_White" onclick="btn_AllUncheck_onclick"/>
+              <Button id="btn_Choice" taborder="6" text="적용" visible="true" cssclass="btn_WF_Search" bottom="10" height="28" right="290" width="70" onclick="btn_Choice_onclick"/>
+              <Button id="btn_Cancel" taborder="7" text="해지" onclick="fn_clearPivot" visible="true" cssclass="btn_WF_Search" bottom="10" height="28" right="137" width="70"/>
+              <Button id="btn_Choice00" taborder="8" text="닫기" visible="true" cssclass="btn_WF_Search" bottom="10" height="28" right="213" width="70" onclick="PopupDivPivotList_btn_Choice00_onclick"/>
+            </Layout>
+          </Layouts>
+        </PopupDiv>
+        <Button id="btn_Cancel" taborder="1" text="해지" onclick="fn_clearPivot" visible="true" cssclass="bt_WF_InputArea_Blue" bottom="2" height="24" right="8" width="70"/>
+        <Button id="btn_Choice" taborder="2" text="Pivot" visible="true" cssclass="bt_WF_InputArea_Blue" bottom="2" height="24" right="85" width="70" onclick="sta_Summary_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+var pCurTabindex = -1; // 현재 활성화된 탭인덱스
+var pCurTab = ""; // 현재 탭페이지 오브젝트
+
+var pCurGrid = "";
+var pCurDS = "";
+var pPivotGrid = "";
+var pPivotGrid1 = [];
+var pPivotGrid2 = []; // gfn_SetGrid 확인용
+var pPivotDs = "";
+var pPivotDs1 = [];
+var grdId = "";
+
+
+
+var tNewDSData = "";
+var tNewDSSum = "";
+var tNewDSDataKeystring = "";
+var arrKeyCode = "";
+var arrKeyCode1 = [10];
+var targetPivotDataSet = "";
+
+var	tDSData = "";
+var	tDSSum = "";
+var	tDSDataKeystring = "";
+
+this.gfn_SetGrid(this.PopupDivPivotList.form.grd_Master10);//[공통]그리드 이벤트 설정 - 계약번호
+this.gfn_SetGrid(this.PopupDivPivotList.form.grd_Master20);//[공통]그리드 이벤트 설정 - 매출대비
+
+
+
+//그리드설정관련 화면 세팅
+this.fn_SetCmmGridProc = function(obj, pObjTab) {
+//trace("this.fn_SetCmmGridProc =========================================== start");	
+	
+	
+	if(!this.parent.parent.isValidObject("div_ComGridProc")) {
+		trace("1");
+		return false;
+	}
+	
+	if(!this.parent.parent.isValidObject("div_MasterView")) { 
+		trace("2");
+		return false;
+	}
+		
+	pCurTab = this.parent.parent.div_MasterView.form.tab_Master;
+	pCurTabIndex = pCurTab.tabindex; // 현재 활성화된 탭인덱스   "PivotGrid_"+pCurGrid.id
+	pCurGrid = this.gfn_FindGridObject(pCurTab.tabpages[pCurTabIndex].form); // 동적 그리드가 생성됐어도 대상 그리드를 리턴한다.
+		
+	pPivotGrid = pPivotGrid1[pCurTabIndex];
+	pPivotDs = pPivotDs1[pCurTabIndex];
+	
+	pCurDS = pCurGrid.getBindDataset();
+	
+	//trace("pCurDS ---> " + pCurDS.id);
+	
+	tDSData = "ds_Pivot_"+pCurGrid.id;
+	tDSSum = "ds_Sum_"+pCurGrid.id;
+	tDSDataKeystring = "ds_DataKeystring_"+pCurGrid.id;	
+	
+	grdId = "PivotGrid_"+pCurGrid.id; 
+	
+	return true;
+	
+//trace("this.fn_SetCmmGridProc =========================================== end");	
+	
+}
+this.chk_PivotYn_onclick = function(obj:nexacro.CheckBox,e:nexacro.ClickEventInfo) {
+}
+
+this.sta_Summary_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+	var selectedTabIdx = -1;
+	var allowFlag = true;
+	if(!this.parent.parent.isValidObject("div_MasterView")) { 
+		allowFlag = false;
+	} else {
+		if(!this.parent.parent.div_MasterView.form.isValidObject("tab_Master")) { 
+			allowFlag = false;
+		}
+	}
+	if(!allowFlag) { return; }
+	
+	this.fn_SetCmmGridProc();
+	
+	//trace(pCurDS.rowcount);
+	if(pCurDS.rowcount == 0) { 
+		alert('Pivot 오류(대상 값 없음)');
+		return;
+	}
+	
+	this.fn_pivotGridDestroy();
+	
+	if(!pCurTab.tabpages[pCurTab.tabindex].form.isValidObject(pPivotGrid1[pCurTab.tabindex])) { // 동적 그리드가 없을때만 데이터셋, 그리드 생성
+		
+		// 피벗 그리드 생성
+	
+		this.fn_pivotGridCreate();
+	
+		
+		// 현재 탭페이지 그리드 정보추출, 해당정보 데이터셋 저장
+		this.fn_currentGridInfo();
+		
+	} else {
+		
+		// 현재 탭페이지 그리드 정보추출, 해당정보 데이터셋 저장
+		this.fn_currentGridInfo();
+		
+		this.PopupDivPivotList.form.grd_Master10.set_binddataset(tNewDSData);
+		this.PopupDivPivotList.form.grd_Master20.set_binddataset(tNewDSSum);
+		
+	}
+	
+	
+
+	this.PopupDivPivotList.show();
+	this.PopupDivPivotList.trackPopupByComponent( obj, e.clientx-100, e.clienty+60 );
+};
+
+
+
+// 되돌리기
+this.fn_clearPivot = function() {
+	
+	if(!this.fn_SetCmmGridProc()) {
+		alert("Pivot 설정 초기화 실패\n\n시스템 관리자에게 문의하십시오.");
+		return;
+	}
+	
+	if(pCurTab.tabpages[pCurTab.tabindex].form.isValidObject(pPivotGrid)) {
+		pCurTab.tabpages[pCurTab.tabindex].form.removeChild(grdId);
+		
+		pPivotGrid1[pCurTab.tabindex].destroy();
+		pPivotGrid1[pCurTab.tabindex] = null;
+		pPivotGrid.destroy();
+		pPivotGrid = null;
+	}
+
+	// 본 그리드 원위치
+	pCurGrid.getBindDataset().filter("");
+	pCurGrid.setOffsetLeft(0);
+	
+	
+	
+	this.PopupDivPivotList.closePopup();
+	
+	
+}
+
+this.fn_currentGridInfo = function() {
+	
+	tDSData = "ds_Pivot_"+pCurGrid.id;
+	tDSSum = "ds_Sum_"+pCurGrid.id;
+	tDSDataKeystring = "ds_DataKeystring_"+pCurGrid.id;
+	
+	tNewDSData = new Dataset();
+	tNewDSSum = new Dataset();
+	tNewDSDataKeystring = new Dataset();
+	
+	this.removeChild(tDSData);
+	this.removeChild(tDSSum);
+	this.removeChild(tDSDataKeystring);
+		
+	this.addChild(tDSData, tNewDSData);
+	this.addChild(tDSSum, tNewDSSum);
+	this.addChild(tDSDataKeystring, tNewDSDataKeystring);
+	
+	tNewDSDataKeystring.removeEventHandlerLookup('onrowposchanged', "tNewDSDataKeystring_onrowposchanged"); // 이벤트 제거
+	tNewDSDataKeystring.addEventHandler("onrowposchanged", this.tNewDSDataKeystring_onrowposchanged, this);	
+	
+	tNewDSData.copyData(this.ds_Pivot);
+	tNewDSSum.copyData(this.ds_Pivot);
+	tNewDSData.clearData();
+	tNewDSSum.clearData();
+
+	for( var iLoop=0; iLoop<pCurGrid.getFormatColCount(); iLoop++) {
+		var columnText = "";//i + "번째 컬럼 ";
+		
+		for (var jLoop=0, len=pCurGrid.getCellCount("head"); jLoop<len; jLoop++) {
+			var maxHeadRow = 0;
+			var row = pCurGrid.getCellProperty("head", jLoop, "row");
+			if (maxHeadRow < row) {
+				maxHeadRow = row;
+			}
+			var nRow = parseInt(pCurGrid.getCellProperty("head", jLoop, "row"));
+			var nCol = parseInt(pCurGrid.getCellProperty("head",jLoop, "col"));
+			var headText = this.gfn_Nvl(pCurGrid.getCellProperty("head", jLoop, "text"), "");
+			if( nRow == maxHeadRow && nCol == iLoop ) columnText += "[" + headText + "]";
+			
+		}
+		
+		var nchk = 1;
+		var columnIndex = iLoop;
+		if( pCurGrid.getRealColSize(columnIndex) == 0 ) nchk = 0;
+		
+		if(!this.gfn_IsNull(pCurGrid.getCellProperty("body", iLoop, "text"))) {
+			bindId = pCurGrid.getCellProperty("body", iLoop, "text").replace("bind:","");
+		} else {
+			bindId = "";
+		}
+	
+		var k = tNewDSData.addRow();
+		var x = tNewDSSum.addRow();
+		tNewDSData.setColumn(k, "HEAD_TEXT", columnText);
+		tNewDSData.setColumn(k, "BODY_BIND", bindId);
+		tNewDSData.setColumn(k, "COL_INDEX", iLoop);
+		tNewDSData.setColumn(k, "COL_SIZE", pCurGrid.getFormatColSize(iLoop));
+		
+		tNewDSSum.setColumn(x, "HEAD_TEXT", columnText);
+		tNewDSSum.setColumn(x, "BODY_BIND", bindId);
+		tNewDSSum.setColumn(x, "COL_INDEX", iLoop);
+		tNewDSSum.setColumn(x, "COL_SIZE", pCurGrid.getFormatColSize(iLoop));
+		
+		if(pCurGrid.getCellProperty("body", iLoop, "textAlign") == 'right' || pCurGrid.getCellProperty("body", iLoop, "displaytype") == 'number') {
+			tNewDSData.setColumn(k, "SHOW_YN", "N");
+			tNewDSSum.setColumn(k, "SHOW_YN", "Y");
+		} else {
+			tNewDSData.setColumn(x, "SHOW_YN", "Y");
+			tNewDSSum.setColumn(x, "SHOW_YN", "N");
+		}
+		
+	}
+	
+	for(var i=0;i<tNewDSData.rowcount;i++) {
+		for(var j=0;j<pPivotGrid.getCellCount("body");j++) {
+			if(!this.gfn_IsNull(pPivotGrid.getCellProperty("body", j, "text")) && pPivotGrid.getFormatColSize(j) > 0) {
+				if(pPivotGrid.getCellProperty("body", j, "text").replace("bind:","") == tNewDSData.getColumn(i, "BODY_BIND")) {
+					tNewDSData.setColumn(i, "COL_CHECK", "1");
+				}
+				if(pPivotGrid.getCellProperty("body", j, "text").replace("bind:","") == tNewDSSum.getColumn(i, "BODY_BIND")) {
+					tNewDSSum.setColumn(i, "COL_CHECK", "1");
+				}
+			}
+		}
+	}
+	
+	tNewDSData.filter("SHOW_YN == 'Y' && (HEAD_TEXT != '[No.]' && HEAD_TEXT != '[]')");
+	tNewDSSum.filter("SHOW_YN == 'Y' && (HEAD_TEXT != '[No.]' && HEAD_TEXT != '[]')");
+	
+	this.PopupDivPivotList.form.grd_Master10.set_binddataset(tNewDSData);
+	this.PopupDivPivotList.form.grd_Master20.set_binddataset(tNewDSSum);
+	
+}
+
+this.fn_pivotGridDestroy = function() {
+	//if(pCurTab.tabpages[pCurTab.tabindex].form.isValidObject("PivotGrid_"+pCurGrid.id)) {
+		//pCurTab.tabpages[pCurTab.tabindex].form.removeChild("PivotGrid_"+pCurGrid.id);
+		
+		
+		//pPivotGrid.destroy(); 
+		//pPivotGrid = null;
+		
+	//}
+}
+
+this.fn_pivotGridCreate = function() {
+//trace("this.fn_pivotGridCreate =======================================");
+	this.fn_pivotGridDestroy();
+	// 그리드 생성
+	grdId = "PivotGrid_"+pCurGrid.id; 
+	
+	pPivotGrid1[pCurTab.tabindex] = new Grid();
+	pPivotGrid = pPivotGrid1[pCurTab.tabindex];
+	
+	pPivotGrid.init(grdId, 0, 2, 445, null, 0, 0);
+	//trace("3");
+	pCurTab.tabpages[pCurTab.tabindex].form.addChild(grdId, pPivotGrid);
+	pPivotGrid.set_formats(pCurGrid.formats);
+	pPivotGrid.addEventHandler("oncellclick", this.pPivotGrid_oncellclick, this);
+	pPivotGrid.addEventHandler("onkeyup", this.pPivotGrid_onkeyup, this);
+	//pPivotGrid.removeEventHandler("onheadclick", 	 this.gfn_Grid_onheadclick, 	 this); 	//헤드클릭이벤트제거
+	
+	pPivotGrid.show();
+	pPivotGrid.set_selecttype("multiarea");
+	pCurGrid.setOffsetLeft(450);
+	
+	for(var i=1;i<pPivotGrid.getFormatColCount();i++) {
+		pPivotGrid.setFormatColProperty(i, 'size', 0);
+	}
+	var pCurGridDataset = pCurGrid.getBindDataset();
+	
+	pPivotDs = new Dataset;
+	this.removeChild("ds_Pivot_"+pCurGrid.id);
+	this.addChild("ds_Pivot_"+pCurGrid.id, pPivotDs);
+	var colValue = "";
+	// 원 데이타 카피전 null 처리
+	pCurGridDataset.set_enableevent(false);
+	for(var z=0; z<pCurGridDataset.rowcount; z++) {
+		for(var y=0; y<pCurGridDataset.getColCount(); y++) {
+			colValue = pCurGridDataset.getColumn(z, y);
+			if(this.gfn_IsNull(colValue)) {
+				pCurGridDataset.setColumn(z, y, null);
+			} 
+		}
+	}
+	pCurGridDataset.set_enableevent(true);
+	
+	pPivotDs.copyData(pCurGridDataset);
+	pPivotGrid.set_binddataset(pPivotDs);
+	
+	this.gfn_PivotSetGrid(pPivotGrid);//[공통]그리드 이벤트 설정
+	
+	pPivotGrid.removeEventHandlerLookup('onheadclick', "gfn_Grid_onheadclick"); // 기존 이벤트 제거
+	pPivotGrid.set_enableredraw(false);
+	
+	pPivotGrid2[pCurTab.tabindex] = "1";
+	
+	pPivotDs1[pCurTab.tabindex] = pPivotDs;
+	
+	this.fn_SetCmmGridProc(); // 전역변수 셋팅
+	
+}
+
+this.grd_Master10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	return; // 적용 버튼에 의해 컨트롤
+	var pivotAppendCol = 0;
+	if(e.col == 0) {
+		var checkValue = obj.getCellValue(e.row, e.col);
+		
+		if(checkValue == '1') {
+			pPivotGrid.setFormatColProperty(tNewDSData.getColumn(e.row, "COL_INDEX"), 'size', tNewDSData.getColumn(e.row, "COL_SIZE"));
+			
+		} else {
+			pPivotGrid.setFormatColProperty(tNewDSData.getColumn(e.row, "COL_INDEX"), 'size', 0);
+		}
+		
+		tNewDSDataKeystring.set_enableevent(false);
+		this.executeKeystring();
+		tNewDSDataKeystring.set_enableevent(true);
+		
+	}
+};
+
+this.executeKeystring = function() {
+
+	pPivotGrid.set_enableredraw(true);
+	tNewDSDataKeystring.set_enableevent(false);
+	arrKeyCode1[pCurTabIndex] = "";
+	for(var i=0;i<tNewDSData.rowcount;i++) {
+		if(tNewDSData.getColumn(i, "COL_CHECK") == "1") {
+			arrKeyCode1[pCurTabIndex] += tNewDSData.getColumn(i, "BODY_BIND")+",";
+			pPivotGrid.setFormatColProperty(tNewDSData.getColumn(i, "COL_INDEX"), 'size', tNewDSData.getColumn(i, "COL_SIZE"));
+			
+		} else {
+			pPivotGrid.setFormatColProperty(tNewDSData.getColumn(i, "COL_INDEX"), 'size', 0);
+			
+		}
+	}
+	
+	for(var i=0;i<tNewDSSum.rowcount;i++) {
+		if(tNewDSSum.getColumn(i, "COL_CHECK") == "1") {
+			pPivotGrid.setFormatColProperty(tNewDSSum.getColumn(i, "COL_INDEX"), 'size', tNewDSSum.getColumn(i, "COL_SIZE"));
+		} else {
+			pPivotGrid.setFormatColProperty(tNewDSSum.getColumn(i, "COL_INDEX"), 'size', 0);
+		}
+	}
+	
+	arrKeyCode1[pCurTabIndex] = this.gfn_Left(arrKeyCode1[pCurTabIndex], arrKeyCode1[pCurTabIndex].length-1);
+	
+	pPivotDs.set_keystring("G:"+arrKeyCode1[pCurTabIndex]);
+	
+	tNewDSDataKeystring.copyData(pPivotDs);
+	tNewDSDataKeystring.clearData();
+	
+	for(var i=0;i<pPivotDs.rowcount;i++) {
+		if(pPivotDs.getRowLevel(i)==1) {
+			var k = tNewDSDataKeystring.addRow();
+			tNewDSDataKeystring.copyRow(k, pPivotDs, i);
+		}
+	}
+	
+	tNewDSDataKeystring.set_enableevent(true);
+	
+	pPivotGrid.set_binddataset(tNewDSDataKeystring);
+	tNewDSDataKeystring.set_rowposition(0);
+	
+	this.pPivotGrid_oncellclick(pPivotGrid, null);
+	
+	
+	if(tNewDSDataKeystring.rowcount > 0) {
+		//
+		this.tNewDSDataKeystring_onrowposchanged(tNewDSDataKeystring, null);
+	}
+	
+	
+	
+	pPivotGrid.set_enableredraw(false);
+	
+	
+}
+
+// this.grd_Master20_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+// { 
+// 	return;
+// 	var pivotAppendCol = 0;
+// 	if(e.col == 0) {
+// 		var checkValue = obj.getCellValue(e.row, e.col);
+// 		
+// 		if(checkValue == '1') {
+// 			pPivotGrid.setFormatColProperty(tNewDSSum.getColumn(e.row, "COL_INDEX"), 'size', tNewDSSum.getColumn(e.row, "COL_SIZE"));
+// 			
+// 		} else {
+// 			pPivotGrid.setFormatColProperty(tNewDSSum.getColumn(e.row, "COL_INDEX"), 'size', 0);
+// 		}
+// 		
+// 		tNewDSDataKeystring.set_enableevent(false);
+// 		this.executeKeystring();
+// 		tNewDSDataKeystring.set_enableevent(true);
+// 	}
+// };
+
+this.tNewDSDataKeystring_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo) {
+	
+	this.fn_SetCmmGridProc();
+	
+	var filtervalue = "";
+	var filterstr = "";
+	var arrSplitKeyCode = arrKeyCode1[pCurTabIndex].split(",");
+	
+	for(var i=0;i<arrSplitKeyCode.length;i++) {
+		filtervalue = obj.getColumn(obj.rowposition, arrSplitKeyCode[i]);
+		if(!this.gfn_IsNull(filtervalue)) {
+			//filtervalue = this.gfn_RemoveSpecialChar(filtervalue);
+			filterstr += arrSplitKeyCode[i]+"=="+nexacro.wrapQuote(filtervalue)+"&&";
+		} else {
+			//filterstr += "("+arrSplitKeyCode[i]+"==null || "+arrSplitKeyCode[i]+"=='')&&";
+			filterstr += arrSplitKeyCode[i]+"==null&&";
+		}
+	}
+	
+	filterstr = this.gfn_Left(filterstr, filterstr.length-2);
+	//trace("filterstr --> " + filterstr);
+	//trace("pCurDS --> " + pCurDS.id);
+	pCurDS.filter("");
+	pCurDS.filter(filterstr);
+	//pCurDS.set_rowposition(0);
+}
+
+this.fn_SavedPivotList = function() {
+	
+}
+
+this.btn_Cancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_pivotGridDestroy();
+	pCurDS.filter("");
+	this.PopupDivPivotList.closePopup();
+	pCurGrid.setOffsetLeft(0);
+};
+
+this.btn_Choice_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_SetCmmGridProc();
+	this.executeKeystring();
+};
+
+this.btn_AllCheck_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	tNewDSData.set_enableevent(false);
+	for(var i=0;i<tNewDSData.rowcount;i++) {
+		tNewDSData.setColumn(i, "COL_CHECK", "1");
+	}
+	tNewDSData.set_enableevent(true);
+};
+
+this.btn_AllUncheck_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	tNewDSData.set_enableevent(false);
+	for(var i=0;i<tNewDSData.rowcount;i++) {
+		tNewDSData.setColumn(i, "COL_CHECK", "0");
+	}
+	tNewDSData.set_enableevent(true);
+};
+
+// 부분선택
+this.btn_SomCheck_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var Srow = this.PopupDivPivotList.form.grd_Master10.getSelectedRows();
+	
+	tNewDSData.set_enableevent(false);
+	for(var i=0;i<Srow.length;i++) {
+
+		tNewDSData.setColumn(Srow[i], "COL_CHECK", "1");
+	}
+	tNewDSData.set_enableevent(true);
+	
+	var Srow = this.PopupDivPivotList.form.grd_Master20.getSelectedRows();
+	
+	tNewDSSum.set_enableevent(false);
+	for(var i=0;i<Srow.length;i++) {
+
+		tNewDSSum.setColumn(Srow[i], "COL_CHECK", "1");
+	}
+	tNewDSSum.set_enableevent(true);
+};
+
+// 부분해지
+this.btn_SomeUncheck_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var Srow = this.PopupDivPivotList.form.grd_Master10.getSelectedRows();
+	
+	tNewDSData.set_enableevent(false);
+	for(var i=0;i<Srow.length;i++) {
+		tNewDSData.setColumn(Srow[i], "COL_CHECK", "0");
+	}
+	tNewDSData.set_enableevent(true);
+	
+	var Srow = this.PopupDivPivotList.form.grd_Master20.getSelectedRows();
+	
+	tNewDSSum.set_enableevent(false);
+	for(var i=0;i<Srow.length;i++) {
+		tNewDSSum.setColumn(Srow[i], "COL_CHECK", "0");
+	}
+	tNewDSSum.set_enableevent(true);
+};
+
+// 닫기
+this.PopupDivPivotList_btn_Choice00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.PopupDivPivotList.closePopup();
+};
+
+this.pPivotGrid_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//trace(e.row);
+	var cRow = 0;
+	if(!this.gfn_IsNull(e)) {
+		cRow = e.row;
+	}
+
+	var sExpr = "expr:(currow == "+cRow+")?'cell_GRD_SelRow':''";
+	obj.set_enableredraw(true);
+	for(var iLoop=0; iLoop<obj.getFormatColCount();iLoop++) {
+		obj.setCellProperty( "body", iLoop, "cssclass", sExpr);
+	}
+	obj.set_enableredraw(false);
+};
+
+this.pPivotGrid_onkeyup = function(obj:nexacro.Grid,e:nexacro.KeyEventInfo) {
+	var cRow = obj.currentrow;
+	if(e.keycode == 40) { ++cRow; } else if(e.keycode == 38) { --cRow; }
+	this.pPivotGrid_oncellclick(obj, cRow);//선택한 Row BackgroundColor 설정
+}
+
+this.pPivotGrid_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo) {
+	trace("pPivotGrid_onkeyup_onheadclick");
+	obj.set_enableredraw(true);
+	trace("pPivotGrid_onkeyup_onheadclick");
+	//obj.set_enableredraw(false);
+}
+]]></Script>
+    <Objects>
+      <Dataset id="ds_Pivot" enableevent="false">
+        <ColumnInfo>
+          <Column id="COL_CHECK" type="STRING" size="256"/>
+          <Column id="HEAD_TEXT" type="STRING" size="256"/>
+          <Column id="BODY_BIND" type="STRING" size="256"/>
+          <Column id="SHOW_YN" type="STRING" size="256"/>
+          <Column id="COL_INDEX" type="STRING" size="256"/>
+          <Column id="COL_SIZE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

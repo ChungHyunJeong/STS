@@ -1,0 +1,703 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_SD_2200_01" width="800" height="500" titletext="견적상세내역" scrollbartype="none" onclose="fn_FormClose" onload="fn_FormOnload" onsize="fn_FormOnsize">
+    <Layouts>
+      <Layout height="500" width="800">
+        <Div id="div_PopupTitle" taborder="1" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Close" taborder="0" text="닫기" top="9" width="70" height="26" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+              <Static id="sta_PopupTitle" taborder="1" text="견적상세내역" left="20" top="10" height="24" cssclass="sta_WF_PopupTitle" width="300"/>
+              <Button id="btn_Search" taborder="2" text="조회" top="8" width="65" right="161" visible="false" cssclass="bt_WF_PopupSearch" height="28" onclick="div_PopupTitle_btn_Search_onclick"/>
+              <Button id="btn_Choice" taborder="3" text="선택" top="8" width="65" right="90" visible="true" cssclass="bt_WF_PopupSelect" height="28" onclick="div_PopupTitle_btn_Choice_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_MasterInput" taborder="1" left="12" top="50" right="12" bottom="14">
+          <Layouts>
+            <Layout>
+              <Tab id="tab_Master" taborder="0" tabindex="0" left="0" top="11" right="0" bottom="0" cssclass="tab_WF_MasterList" onchanged="div_DetailInput_tab_Detail_onchanged">
+                <Tabpages>
+                  <Tabpage id="tpg_01" text="견적상세내역">
+                    <Layouts>
+                      <Layout>
+                        <Grid id="grd_Master10" taborder="0" left="0" top="2" binddataset="ds_Master10" autofittype="none" right="0" bottom="0" oncellclick="div_MasterInput_tab_Master_tpg_01_grd_Master10_oncellclick" autoenter="select" cellsizingtype="col" selecttype="cell">
+                          <Formats>
+                            <Format id="default">
+                              <Columns>
+                                <Column size="30" band="left"/>
+                                <Column size="35" band="left"/>
+                                <Column size="35" band="left"/>
+                                <Column size="120" band="left"/>
+                                <Column size="300" band="left"/>
+                                <Column size="24" band="left"/>
+                                <Column size="60"/>
+                                <Column size="100"/>
+                                <Column size="100"/>
+                                <Column size="100"/>
+                                <Column size="100"/>
+                                <Column size="100"/>
+                                <Column size="300"/>
+                              </Columns>
+                              <Rows>
+                                <Row size="24" band="head"/>
+                                <Row size="24" band="head"/>
+                                <Row size="24"/>
+                                <Row size="24" band="summ"/>
+                              </Rows>
+                              <Band id="head">
+                                <Cell rowspan="2"/>
+                                <Cell col="1" rowspan="2" text="No."/>
+                                <Cell col="2" rowspan="2" text="선택"/>
+                                <Cell col="3" colspan="3" text="품목정보"/>
+                                <Cell col="6" rowspan="2" text="수량" cssclass="essential"/>
+                                <Cell col="7" rowspan="2" text="견적단가" cssclass="essential"/>
+                                <Cell col="8" colspan="2" text="원화"/>
+                                <Cell col="10" colspan="2" text="외화"/>
+                                <Cell col="12" rowspan="2" text="비고" cssclass="grdInput"/>
+                                <Cell row="1" col="3" text="품목코드" cssclass="essential"/>
+                                <Cell row="1" col="4" text="품목명"/>
+                                <Cell row="1" col="5"/>
+                                <Cell row="1" col="8" text="단가"/>
+                                <Cell row="1" col="9" text="금액"/>
+                                <Cell row="1" col="10" text="단가"/>
+                                <Cell row="1" col="11" text="금액"/>
+                              </Band>
+                              <Band id="body">
+                                <Cell cssclass="expr:comp.parent.gfn_Decode(crudType, &quot;I&quot;,&quot;cell_WF_Insert&quot;, &quot;U&quot;,&quot;cell_WF_Modify&quot;, &quot;D&quot;,&quot;cell_WF_Delete01&quot;, &quot;&quot;)"/>
+                                <Cell col="1" displaytype="text" expr="currow+1" text="bind:Column0"/>
+                                <Cell col="2" displaytype="checkboxcontrol" edittype="checkbox" text="bind:s_chk"/>
+                                <Cell col="3" text="bind:ITEM_CD" displaytype="normal" edittype="text"/>
+                                <Cell col="4" text="bind:ITEM_NM" displaytype="normal" textAlign="left" edittype="none"/>
+                                <Cell col="5" expandshow="show" expandsize="24"/>
+                                <Cell col="6" text="bind:QUTB_QT" displaytype="normal" textAlign="right" edittype="text" editinputtype="digit" editmaxlength="3"/>
+                                <Cell col="7" text="bind:QUTB_PR" displaytype="normal" textAlign="right" edittype="text" editinputtype="digit"/>
+                                <Cell col="8" text="bind:WONE_PR" displaytype="normal" textAlign="right" editinputtype="digit"/>
+                                <Cell col="9" text="bind:WONE_AM" displaytype="normal" textAlign="right" editinputtype="digit"/>
+                                <Cell col="10" text="bind:FORE_PR" displaytype="normal" textAlign="right" editinputtype="digit"/>
+                                <Cell col="11" text="bind:FORE_AM" displaytype="normal" textAlign="right" editinputtype="digit"/>
+                                <Cell col="12" text="bind:REMK_NM" displaytype="normal" textAlign="left" edittype="text"/>
+                              </Band>
+                              <Band id="summary">
+                                <Cell colspan="3" text="합계" textAlign="center"/>
+                                <Cell col="3"/>
+                                <Cell col="4"/>
+                                <Cell col="5"/>
+                                <Cell col="6" expr="dataset.getSum(&quot;QUTB_QT&quot;)" displaytype="mask" maskeditformat="###,###"/>
+                                <Cell col="7"/>
+                                <Cell col="8"/>
+                                <Cell col="9" expr="dataset.getCaseSum(&quot;crudType!='D'&quot;,&quot;WONE_AM&quot;)" editinputtype="digit,comma" displaytype="mask" maskeditformat="###,###,###,###.##"/>
+                                <Cell col="10"/>
+                                <Cell col="11" expr="dataset.getCaseSum(&quot;crudType!='D'&quot;,&quot;FORE_AM&quot;)" displaytype="mask" editinputtype="comma,digit" maskeditformat="###,###,###,###.##"/>
+                                <Cell col="12"/>
+                              </Band>
+                            </Format>
+                          </Formats>
+                        </Grid>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                </Tabpages>
+              </Tab>
+              <Div id="div_ComGrdBtn" taborder="1" top="15" height="20" right="0" width="435" async="false" enable="true" text=""/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="QUTH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="QUTB_SE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10" oncolumnchanged="ds_Master10_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="QUTH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="QUTB_SE" type="STRING" size="256"/>
+          <Column id="QUTC_SE" type="STRING" size="256"/>
+          <Column id="ITEM_CD" type="STRING" size="256"/>
+          <Column id="ITEM_NM" type="STRING" size="256"/>
+          <Column id="SPEC_NM" type="STRING" size="256"/>
+          <Column id="UNIT_CD" type="STRING" size="256"/>
+          <Column id="QUTB_QT" type="INT" size="256"/>
+          <Column id="QUTB_PR" type="BIGDECIMAL" size="256"/>
+          <Column id="WONE_PR" type="BIGDECIMAL" size="256"/>
+          <Column id="WONE_AM" type="BIGDECIMAL" size="256"/>
+          <Column id="FORE_PR" type="BIGDECIMAL" size="256"/>
+          <Column id="FORE_AM" type="BIGDECIMAL" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="DELE_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+          <Column id="crudPopup" type="STRING" size="256"/>
+          <Column id="codeKey" type="STRING" size="256"/>
+          <Column id="seqKey" type="FLOAT" size="256"/>
+          <Column id="descKey" type="FLOAT" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : M_SD_2200_01
+*  @화면설명 : 견적상세내용
+*  @시스템명 : (SD) 영업관리
+*  @작성자   : 홍윤기
+*  @작성일   : 2021.04.27
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.04.27     	    홍윤기 	           최초 생성 
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * 1. Form Include 선언 영역
+ ************************************************************************************************/
+//include "comLib::CommonUtil.xjs";//공통함수
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+this.fvCusmNm = "";//[부모창파라메타] 거래처명
+
+this.fvQuthNo = "";//[부모창파라메타] 견적번호
+this.fvWofhSq = "";//[부모창파라메타] 결재차수
+this.fvQutbSe = "";//[부모창파라메타] 견적순번
+this.fvCurrCd = "";//[부모창파라메타] 화폐코드
+this.fvExchRt = "";//[부모창파라메타] 환율
+this.fvcodeKey = "";//[부모창파라메타] 임시codeKey
+this.fvseqKey = "";//[부모창파라메타] 임시seqKey
+this.fvOwnerMaxCount = "";//[부모창파라메타] 총건수
+
+this.fvDataset = "";//[부모창파라메타] 데이터셋
+this.fvWfSearchMode = false;//[결재]결재내역 조회모드
+this.fvWofhStatus = false;//[결재]결재상태 조회모드 (등록=false, 그외 true)
+
+
+/***********************************************************************************************
+ * 3. Form 이벤트 영역
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 3.1. Form Onload 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+
+	//부모창 파라메타 처리
+	this.fvQuthNo = this.getOwnerFrame().paramQuthNo;
+	this.fvWofhSq = this.getOwnerFrame().paramWofhSq;
+	this.fvQutbSe = this.getOwnerFrame().paramQutbSe;
+	this.fvCurrCd = this.getOwnerFrame().paramCurrCd;
+	this.fvExchRt = this.getOwnerFrame().paramExchRt;
+	this.fvcodeKey = this.getOwnerFrame().paramcodeKey;
+	this.fvseqKey = this.getOwnerFrame().paramseqKey;
+	this.fvOwnerMaxCount = this.getOwnerFrame().paramOwnerMaxCount;
+	this.fvDataset = this.getOwnerFrame().paramDataset;
+	this.fvWfSearchMode = this.getOwnerFrame().paramWfSearchMode;//[결재]결재내역 조회모드
+	this.fvWofhStatus = this.getOwnerFrame().paramWofhStatus;//[결재]결재상태
+	this.fvComPrgmId = this.getOwnerFrame().PrgmId;//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.2. Form [공통] 초기설정 함수 - 필수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	
+	// 그리드에서 오른쪽 마우스 버튼 사용
+	this.gfn_SetGrid(this.div_MasterInput.form.tab_Master.tpg_01.form.grd_Master10);//[공통]그리드 이벤트 설정 - 견적상세내역
+
+	//[결재]결재내역 조회모드가 아니면-등록 && 결재상태가 "등록"인 경우
+	if (!this.fvWfSearchMode && !this.fvWofhStatus) {
+		this.div_MasterInput.form.div_ComGrdBtn.set_visible(true);
+		this.div_PopupTitle.form.btn_Choice.set_visible(true);
+		this.gfn_SetCompGroupEnable(this.div_MasterInput.form, true);//Master 입력 프리폼
+				
+		//권한체크 할 컴포넌트 : 컴포넌트 Full Path
+		var objCompCheckList = ["this.div_MasterInput.form.div_ComGrdBtn"];		
+		if (this.gfn_CommCompAuthCheck(this, objCompCheckList))
+		{
+			this.fvFormComBtnAuthYn = true;//그리드 공통버튼 권한 유무
+		}
+		
+		this.fn_SetGridInputButton();//[공통] 그리드 입력 버튼 설정
+	} else {
+		this.div_MasterInput.form.div_ComGrdBtn.set_visible(false);
+		this.div_PopupTitle.form.btn_Choice.set_visible(false);
+		this.gfn_SetCompGroupEnable(this.div_MasterInput.form, false);//Master 입력 프리폼
+		
+	}
+	
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.3. Form [업무] 초기설정 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormBizInit = function() 
+{
+	//창 오픈시 조회 부모창에서 전달해온 데이터셋을 화면에 보여줌
+	this.fn_Search();
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.4. Form OnClose 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/*---------------------------------------------------------------------------------------------
+ * 3.4. Form OnSize 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{
+	if (obj.width > 1100) {
+		this.grd_Master10.set_autofittype("col");
+	} else {
+		this.grd_Master10.set_autofittype("none");
+	}
+};
+
+/***********************************************************************************************
+ * 4. [화면] 버튼 이벤트 영역
+ -----------------------------------------------------------------------------------------------
+   4.1.조회 : btn_Search_onclick
+   4.2.선택 : btn_Choice_onclick
+   4.3.닫기 : btn_Close_onclick
+ ***********************************************************************************************/
+
+/*---------------------------------------------------------------------------------------------
+ * 4.1. 조회 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//창 오픈시 조회 : 버튼 미사용
+	//this.fn_Search();
+}
+
+
+/*---------------------------------------------------------------------------------------------
+ *  4.2. 선택 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Choice_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+	//변경여부 체크
+	if (!this.gfn_DsIsUpdated(this.ds_Master10)) {
+		this.gfn_Alert("SM036");//변경된 내용이 없습니다.
+		return;
+	}
+
+	//선택전 유효성 체크
+	//Master 데이터 유효성 체크
+	if (this.gfn_DsIsUpdated(this.ds_Master10)) {
+		if (!this.fn_VaildMasterSave()) return;
+	}
+	
+	this.fn_SelectRow();//선택한 행 리턴
+};
+
+
+/*---------------------------------------------------------------------------------------------
+ *  4.2.1. 선택 버튼 클릭 이벤트 : [Vaildation] Master 선택 필수값 체크 - 그리드항목
+  ---------------------------------------------------------------------------------------------*/
+this.fn_VaildMasterSave = function()
+{
+	//[저장] Validation 설정
+	var arrArgs = ["ITEM_CD^NULL"
+	              ,"QUTB_QT^NULL"
+	              ,"QUTB_PR^NULL"
+			      ]; 
+				  
+	var sCheckGroupTitle = this.div_MasterInput.form.tab_Master.tpg_01.text;//체크그룹 타이틀
+	
+	//Grid Vaild 체크
+	if (!this.gfn_CheckGridValid(this.div_MasterInput.form.tab_Master.tpg_01.form.grd_Master10, arrArgs, sCheckGroupTitle) ) {
+		return false;
+	}
+	
+	return true;
+}
+
+
+/*---------------------------------------------------------------------------------------------
+ *  4.3. 닫기 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_PopClose();
+};
+
+
+/***********************************************************************************************
+ * 5. [조회영역] 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 5.1. [조회영역-공통] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.1.1. [조회영역-팝업버튼] 
+  ---------------------------------------------------------------------------------------------*/
+ this.fn_Search = function()
+{ 
+	//상세화면에서 조회하지 않고 부모창에서 조회한것을 가져와서 처리함
+	//2021-05-12 설계자 변경
+	this.ds_Master10.loadXML(this.fvDataset);
+	this.ds_Master10.filter("");	
+	this.ds_Master10.filter("codeKey == '"+this.fvcodeKey+"' && seqKey == '"+this.fvseqKey+"' && QUTB_SE == '"+this.fvQutbSe+"'");
+	
+} 
+
+/***********************************************************************************************
+ * 5.2. [조회영역-업무] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.2.1. [조회영역-Edit] 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+
+/***********************************************************************************************
+ * 6. [컴포넌트] 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 6.1. [상세-그리드] 클릭 이벤트
+ ***********************************************************************************************/ 
+
+
+/***********************************************************************************************
+ * 7. [서비스] CallBack 함수 처리부분
+ ***********************************************************************************************/
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+
+};
+
+/***********************************************************************************************
+ * 8. [팝업] CallBack 함수 처리부분
+      strId : 팝업호출시 지정한 팝업ID
+	  rtnValue : 팝업창에서 close시 지정한 반환값
+      주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+	//[조회영역] 품목코드		
+	if (strId == "B_ITEM_CD_01") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);	
+			
+			if (!this.gfn_IsNull(arrRtnVal.ITEM_CD)) {
+				this.ds_Master10.setColumn(this.ds_Master10.rowposition, "ITEM_CD", arrRtnVal.ITEM_CD);
+				this.ds_Master10.setColumn(this.ds_Master10.rowposition, "ITEM_NM", arrRtnVal.ITEM_NM);
+				this.ds_Master10.setColumn(this.ds_Master10.rowposition, "SPEC_NM", arrRtnVal.SPEC_NM);
+			}
+		} else {
+				this.ds_Master10.setColumn(this.ds_Master10.rowposition, "ITEM_CD", "");
+				this.ds_Master10.setColumn(this.ds_Master10.rowposition, "ITEM_NM", "");
+				this.ds_Master10.setColumn(this.ds_Master10.rowposition, "SPEC_NM", "");
+		}
+	} 
+};
+
+/***********************************************************************************************
+ * 9. [메세지] CallBack 함수 처리부분
+ ***********************************************************************************************/
+/**
+ * @description 메세지 CallBack 함수
+*/
+this.fn_MsgCallback = function (strId, strVal)
+{
+
+};
+
+/***********************************************************************************************
+ * 10. [사용자함수]
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 10.1. [사용자함수] 선택한 행 리턴
+ ***********************************************************************************************/ 
+this.fn_SelectRow = function()
+{
+	if (this.ds_Master10.rowcount > -1) {	
+        var rtnValue = "({" +
+                        " QUTB_QT:'" + this.ds_Master10.getSum("QUTB_QT") + "'"+  //1.수량
+                        ",WONE_AM:'" + this.ds_Master10.getCaseSum("crudType!='D'","WONE_AM") + "'"+  //2.원화합계
+                        ",FORE_AM:'" + this.ds_Master10.getCaseSum("crudType!='D'","FORE_AM") + "'"+  //3.외화합계
+                "})";
+				
+		//this.getOwnerFrame().form.opener.ds_Detail11.copyData(this.ds_Master10); //취소가 되지 않아 사용불가
+
+		//팝업 데이터셋에서 부모 데이터셋으로 복사		
+		for (var iLoop=0; iLoop<this.ds_Master10.getRowCount(); iLoop++) {
+			var crudType = this.ds_Master10.getColumn(iLoop, "crudType"); //crudType
+			var crudPopup = this.ds_Master10.getColumn(iLoop, "crudPopup"); //팝업 대상 추가 "ADD"
+			if (crudPopup != "A") { // 팝업 ADD가 아님 (신규(I) OR 수정(U) OR 삭제(D))
+				for (var iRow=0; iRow<this.fvOwnerMaxCount;iRow++) {
+					if (this.getOwnerFrame().form.opener.ds_Detail11.getColumn(iRow, "codeKey") == this.ds_Master10.getColumn(iLoop, "codeKey")
+					 && this.getOwnerFrame().form.opener.ds_Detail11.getColumn(iRow, "seqKey")  == this.ds_Master10.getColumn(iLoop, "seqKey")
+					 && this.getOwnerFrame().form.opener.ds_Detail11.getColumn(iRow, "descKey") == this.ds_Master10.getColumn(iLoop, "descKey")
+					 && this.getOwnerFrame().form.opener.ds_Detail11.getColumn(iRow, "QUTB_SE") == this.ds_Master10.getColumn(iLoop, "QUTB_SE")
+					 && this.getOwnerFrame().form.opener.ds_Detail11.getColumn(iRow, "QUTC_SE") == this.ds_Master10.getColumn(iLoop, "QUTC_SE") ) {
+				
+						this.getOwnerFrame().form.opener.ds_Detail11.setColumn(iRow, "ITEM_CD", this.ds_Master10.getColumn(iLoop, "ITEM_CD"));
+						this.getOwnerFrame().form.opener.ds_Detail11.setColumn(iRow, "ITEM_NM", this.ds_Master10.getColumn(iLoop, "ITEM_NM"));
+						this.getOwnerFrame().form.opener.ds_Detail11.setColumn(iRow, "QUTB_QT", this.ds_Master10.getColumn(iLoop, "QUTB_QT"));
+						this.getOwnerFrame().form.opener.ds_Detail11.setColumn(iRow, "QUTB_PR", this.ds_Master10.getColumn(iLoop, "QUTB_PR"));
+						this.getOwnerFrame().form.opener.ds_Detail11.setColumn(iRow, "WONE_PR", this.ds_Master10.getColumn(iLoop, "WONE_PR"));
+						this.getOwnerFrame().form.opener.ds_Detail11.setColumn(iRow, "WONE_AM", this.ds_Master10.getColumn(iLoop, "WONE_AM"));
+						this.getOwnerFrame().form.opener.ds_Detail11.setColumn(iRow, "FORE_PR", this.ds_Master10.getColumn(iLoop, "FORE_PR"));
+						this.getOwnerFrame().form.opener.ds_Detail11.setColumn(iRow, "FORE_AM", this.ds_Master10.getColumn(iLoop, "FORE_AM"));
+						this.getOwnerFrame().form.opener.ds_Detail11.setColumn(iRow, "REMK_NM", this.ds_Master10.getColumn(iLoop, "REMK_NM"));
+						this.getOwnerFrame().form.opener.ds_Detail11.setColumn(iRow, "s_chk", this.ds_Master10.getColumn(iLoop, "s_chk"));
+						this.getOwnerFrame().form.opener.ds_Detail11.setColumn(iRow, "crudType", this.ds_Master10.getColumn(iLoop, "crudType"));
+
+						break;
+					}
+				}
+
+			} else { //신규이면서 팝업ADD이면
+				// 행추가 Row 복사
+				var iAddRow = this.getOwnerFrame().form.opener.ds_Detail11.addRow();
+				this.getOwnerFrame().form.opener.ds_Detail11.copyRow(iAddRow, this.ds_Master10, iLoop);
+				this.getOwnerFrame().form.opener.ds_Detail11.setColumn(iAddRow, "crudPopup", ""); //팝업 "ADD"상태 해제
+
+			}
+		}
+		
+		
+		//창닫고 값 넘기기
+		this.gfn_PopClose(rtnValue);
+		
+	} else {
+		this.gfn_Alert("SM046");//선택된 내용이 없습니다.
+		return;		
+	}
+}
+
+
+/***********************************************************************************************
+ * 10.2. [공통 그리드 버튼] 입력 버튼 설정
+ ***********************************************************************************************/ 
+this.fn_SetGridInputButton = function()
+{
+	//그리드 공통 버튼 권한이 있으면
+	if (this.fvFormComBtnAuthYn)
+	{
+		this.gfn_SetGridInputBtnUrl(this.div_MasterInput.form.div_ComGrdBtn);//[공통] 그리드 입력 버튼 URL 설정
+		
+		//상세 그리드버튼 설정 : 버튼ID|권한(Y/N)|호출함수명
+		var objBtnInfo01List = ["COPY|Y|fn_MasterGrd01Copy"
+							   ,"ADD|Y|fn_MasterGrd01AddRow"
+							   ,"INSERT|N|fn_MasterGrd01InsertRow"
+							   ,"DELETE|Y|fn_MasterGrd01DeleteRow"
+							   ,"CANCEL|Y|fn_MasterGrd01Cancel"];
+		this.div_MasterInput.form.div_ComGrdBtn.form.fn_SetGrdButtonFunc(this, objBtnInfo01List);	
+	}
+}
+
+
+/***********************************************************************************************
+ * 11. [입력]
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 11.1. [Master그리드-버튼] 복사 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01Copy = function()
+{
+	var iPreRow = this.ds_Master10.rowposition;
+
+	if (iPreRow > -1) {	//선택시 복사함	
+		var iAddRow = this.gfn_GridInsertProcess(this, this.ds_Master10);//crud_flag 변경-입력(I)
+		this.ds_Master10.copyRow(iAddRow, this.ds_Master10, iPreRow);
+		this.ds_Master10.setColumn(iAddRow, "s_chk", "0");	    //선택Default 0
+		this.ds_Master10.setColumn(iAddRow, "crudType", "I");	//신규 I
+		this.ds_Master10.setColumn(iAddRow, "crudPopup", "A");	//팝업 "ADD"
+
+		this.ds_Master10.setColumn(iPreRow, "s_chk", "0");	    //복사 Row 선택해제
+	}
+
+};
+
+/***********************************************************************************************
+ * 11.2. [Master그리드-버튼] 행추가 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01AddRow = function()
+{
+	var iAddRow = this.gfn_GridInsertProcess(this, this.ds_Master10);//crud_flag 변경-입력(I)	
+
+	//Key 순번 (견적상세 체크시 필요)	
+	if (iAddRow == 0) {
+		var descKey = "1"; 
+	} else {
+		var descKey = nexacro.toNumber(this.ds_Master10.getMax("descKey"));
+		descKey = descKey + 1;
+	}
+	
+	this.ds_Master10.setColumn(iAddRow, "QUTH_NO", this.fvQuthNo);
+	this.ds_Master10.setColumn(iAddRow, "WOFH_SQ", this.fvWofhSq);
+	this.ds_Master10.setColumn(iAddRow, "QUTB_SE", this.fvQutbSe);
+	this.ds_Master10.setColumn(iAddRow, "QUTB_QT", 1); //수량 Default 1
+	this.ds_Master10.setColumn(iAddRow, "codeKey", this.fvcodeKey);	
+	this.ds_Master10.setColumn(iAddRow, "seqKey", this.fvseqKey);	
+	this.ds_Master10.setColumn(iAddRow, "descKey", descKey);	
+	this.ds_Master10.setColumn(iAddRow, "crudPopup", "A");	//팝업 "ADD"
+	
+};
+
+/***********************************************************************************************
+ * 11.3. [Master그리드-버튼] 행삽입 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01InsertRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 11.4. [Master그리드-버튼] 행삭제 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01DeleteRow = function()
+{	
+	for (var iLoop=0; iLoop<this.ds_Master10.getRowCount();iLoop++) {
+		var s_chk  = this.ds_Master10.getColumn(iLoop, "s_chk"); //s_chk
+		var crudType  = this.ds_Master10.getColumn(iLoop, "crudType"); //crudType
+		var crudPopup = this.ds_Master10.getColumn(iLoop, "crudPopup"); //팝업 대상 추가 "ADD" 확인
+		if (s_chk == '1' && crudType == 'I' && crudPopup != "A") { // 삭제시 팝업 ADD인 경우 부모의 Detail11에서 삭제
+
+			for (var iDelLoop=0; iDelLoop<this.fvOwnerMaxCount; iDelLoop++) {
+				if (this.getOwnerFrame().form.opener.ds_Detail11.getColumn(iDelLoop, "codeKey") == this.ds_Master10.getColumn(iLoop, "codeKey")
+				 && this.getOwnerFrame().form.opener.ds_Detail11.getColumn(iDelLoop, "seqKey")  == this.ds_Master10.getColumn(iLoop, "seqKey")
+				 && this.getOwnerFrame().form.opener.ds_Detail11.getColumn(iDelLoop, "descKey") == this.ds_Master10.getColumn(iLoop, "descKey")
+				 && this.getOwnerFrame().form.opener.ds_Detail11.getColumn(iDelLoop, "QUTB_SE") == this.ds_Master10.getColumn(iLoop, "QUTB_SE")
+				 && this.getOwnerFrame().form.opener.ds_Detail11.getColumn(iDelLoop, "QUTC_SE") == this.ds_Master10.getColumn(iLoop, "QUTC_SE") ) {
+
+					//부모 Detail11 삭제					
+					this.getOwnerFrame().form.opener.ds_Detail11.deleteRow(iDelLoop);
+				}
+			}
+			
+			if (iLoop > this.fvOwnerMaxCount) break;			
+		}	
+	}
+
+	this.gfn_GridDelProcess(this, this.ds_Master10);//crud_flag 변경-삭제(D)	
+
+};
+
+/***********************************************************************************************
+ * 11.5. [Master그리드-버튼] 취소 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01Cancel = function()
+{
+	this.gfn_UndoColumn(this.div_MasterInput.form.tab_Master.tpg_01.form.grd_Master10);
+
+};
+ 
+/***********************************************************************************************
+ * 11.6. [Master그리드] 셀 클릭 이벤트
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ *    01. [그리드-grd_Master] 셀클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_MasterInput_tab_Master_tpg_01_grd_Master10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//그리드 콤보 및 캘린더 클릭시 펼치기
+	obj.dropdownCombo();
+	obj.dropdownCalendar();
+
+	//품목정보
+	if (e.col == 5) {	
+		var sPopupId = "B_ITEM_CD_01";//팝업ID - 품목정보
+		var oArg = { ItemCd:this.ds_Master10.getColumn(this.ds_Master10.rowposition,"ITEM_CD"), ItemNm:"" };//Argument처리
+		this.gfn_ItemPop(sPopupId, oArg);		
+	}
+}
+
+/***********************************************************************************************
+ * 02.MG0.07. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    01. [데이터셋-ds_Master] 데이터변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+this.ds_Master10_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	this.gfn_GridUpdateProcess(this, obj, e);//crudType 변경-수정(U)
+
+	//품목코드
+	if (e.columnid == "ITEM_CD") {
+		this.gfn_GetCommItemGrid(obj, "ITEM_CD", "ITEM_NM");//품명 검색			
+		
+	// 수량 입력(변경)시
+	} else if (e.columnid == "QUTB_QT") {
+		var iQutrQt = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "QUTB_QT");//수량
+		var iQutbPr = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "QUTB_PR");//견적단가
+
+		if (!this.gfn_IsNull(iQutbPr)) {	//견적단가 존재시			
+			var iWonePr = nexacro.floor(this.fvExchRt * iQutbPr, 2);          	//원화단가 = 환율 * 견적단가 (10/18 계산시 소숫점 2자리까지)
+			var iWoneAm = nexacro.floor(this.fvExchRt * iQutrQt * iQutbPr, 0);	//원화금액 = 환율 * 수량 * 견적단가 (10/18 계산완료시 소숫점 0 절사함)
+
+			if (this.fvCurrCd == '0090') {	//KRW(원화)
+				var iForePr = 0;	// 외화단가 = 0원
+				var iForeAm = 0;	// 외화금액 = 0원
+			} else {
+				var iForePr = iQutbPr;          	//외화단가 = 견적단가
+				var iForeAm = iQutrQt * iQutbPr;	//외화금액 = 수량 * 견적단가
+			}
+		
+			//그리드에 적용
+			this.ds_Master10.setColumn(this.ds_Master10.rowposition, "WONE_PR", nexacro.floor(iWonePr,0));	//원화단가(10/18 저장시 소숫점 0 절사함)
+			this.ds_Master10.setColumn(this.ds_Master10.rowposition, "WONE_AM", iWoneAm);	//원화금액
+			this.ds_Master10.setColumn(this.ds_Master10.rowposition, "FORE_PR", iForePr);	//외화단가
+			this.ds_Master10.setColumn(this.ds_Master10.rowposition, "FORE_AM", iForeAm);	//외화금액
+			
+		}
+		
+	// 견적단가 입력(변경)시
+	} else if (e.columnid == "QUTB_PR") {
+		var iQutrQt = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "QUTB_QT");//수량
+		var iQutbPr = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "QUTB_PR");//견적단가
+		
+		if (!this.gfn_IsNull(iQutrQt)) {	//수량 존재시			
+			var iWonePr = nexacro.floor(this.fvExchRt * iQutbPr, 2);          	//원화단가 = 환율 * 견적단가 (10/18 계산시 소숫점 2자리까지)
+			var iWoneAm = nexacro.floor(this.fvExchRt * iQutrQt * iQutbPr, 0);	//원화금액 = 환율 * 수량 * 견적단가 (10/18 계산완료시 소숫점 0 절사함)
+			
+			if (this.fvCurrCd == '0090') {	//KRW(원화)
+				var iForePr = 0;	// 외화단가 = 0원
+				var iForeAm = 0;	// 외화금액 = 0원
+			} else {
+				var iForePr = iQutbPr;          	//외화단가 = 견적단가
+				var iForeAm = iQutrQt * iQutbPr;	//외화금액 = 수량 * 견적단가
+			}
+		
+		
+			//그리드에 적용
+			this.ds_Master10.setColumn(this.ds_Master10.rowposition, "WONE_PR", nexacro.floor(iWonePr,0));	//원화단가(10/18 저장시 소숫점 0 절사함)
+			this.ds_Master10.setColumn(this.ds_Master10.rowposition, "WONE_AM", iWoneAm);	//원화금액
+			this.ds_Master10.setColumn(this.ds_Master10.rowposition, "FORE_PR", iForePr);	//외화단가
+			this.ds_Master10.setColumn(this.ds_Master10.rowposition, "FORE_AM", iForeAm);	//외화금액
+			
+		}	
+	}
+
+};
+
+
+
+
+
+]]></Script>
+  </Form>
+</FDL>

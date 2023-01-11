@@ -1,0 +1,3230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_WF_2100" width="1542" height="695" titletext="기안/품의 등록" onload="fn_FormOnload" onclose="fn_FormClose" onsize="fn_FormOnSize" ontimer="M_WF_2100_ontimer">
+    <Layouts>
+      <Layout height="695" width="1542">
+        <Div id="div_Search" taborder="0" left="14" top="12" height="66" cssclass="div_WF_Search" formscrollbartype="none none" right="14" text="">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="5" text="등록일자" left="16" top="6" width="80" height="24" cssclass="sta_WF_SLabel"/>
+              <Static id="Static01" taborder="6" text="문서구분" left="376" top="6" width="80" height="24" cssclass="sta_WF_SLabel"/>
+              <Calendar id="cal_OffhDdFr" taborder="0" left="96" top="6" width="110" height="24" dateformat="yyyy-MM-dd" cssclass="essential"/>
+              <Static id="Static03" taborder="7" text="~" left="211" top="5" width="20" height="26" cssclass="sta_WF_Dash"/>
+              <Calendar id="cal_OffhDdTo" taborder="1" left="234" top="6" width="110" height="24" dateformat="yyyy-MM-dd" cssclass="essential"/>
+              <Static id="sta_DepmCd" taborder="8" text="등록부서" left="16" top="34" width="80" height="24" cssclass="sta_WF_SLabel"/>
+              <Edit id="edt_DepmNm" taborder="10" left="188" top="34" width="130" height="24" enable="true" maxlength="50" onchanged="div_Search_edt_DepmNm_onchanged"/>
+              <Button id="btn_DepmCd" taborder="11" left="320" top="34" width="24" height="24" onclick="div_Search_btn_DepmCd_onclick" tabstop="false" cssclass="btn_WF_SmallSearch" cursor="pointer"/>
+              <Static id="Static01_00" taborder="9" text="등록자" left="376" top="34" width="80" height="24" cssclass="sta_WF_SLabel"/>
+              <Edit id="edt_EmpmCd" taborder="4" left="456" top="34" width="90" height="24" maxlength="10" onchanged="div_Search_edt_EmpmCd_onchanged"/>
+              <Button id="btn_SystId" taborder="13" left="680" top="34" width="24" height="24" cssclass="btn_WF_SmallSearch" tabstop="false" onclick="div_Search_btn_SystId_onclick" cursor="pointer"/>
+              <Edit id="edt_EmpmNm" taborder="12" left="548" top="34" width="130" height="24" enable="true" maxlength="50" onchanged="div_Search_edt_EmpmNm_onchanged"/>
+              <Edit id="edt_DepmCd" taborder="3" left="96" top="34" width="90" height="24" maxlength="10" onchanged="div_Search_edt_DepmCd_onchanged" cssclass="essential"/>
+              <Combo id="cbo_OffhGu" taborder="2" left="456" top="6" height="24" codecolumn="CODM_CD" datacolumn="CODM_NM" width="248" innerdataset="ds_Wf205Sch"/>
+              <Edit id="edt_SystId" taborder="14" left="705" top="34" width="10" height="24" maxlength="10" visible="false"/>
+              <Static id="Static04_00" taborder="15" text="결재이력" left="737" top="34" width="80" height="24" cssclass="sta_WF_SLabel"/>
+              <CheckBox id="chk_WofhYn" taborder="16" left="819" top="34" width="150" height="24" text="" falsevalue="0" truevalue="1"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="sta_HSplitter" taborder="5" left="425" top="122" width="2" height="265" cssclass="sta_SP_Bg"/>
+        <Static id="sta_VSplitter" taborder="7" left="14" top="sta_HSplitter:0" height="2" right="14" cssclass="sta_SP_Bg"/>
+        <Div id="div_MasterView" taborder="1" left="14" top="90" text="" right="sta_HSplitter:0" bottom="sta_VSplitter:3" onsize="div_MasterView_onsize">
+          <Layouts>
+            <Layout>
+              <Static id="sta_Master10" taborder="0" text="기안/품의목록" left="0" top="0" width="220" height="32" cssclass="sta_WF_Title" onclick="div_MasterView_sta_Master10_onclick"/>
+              <Grid id="grd_Master10" taborder="1" left="0" top="32" binddataset="ds_Master10" autofittype="none" right="6" bottom="0" cellsizingtype="col" selecttype="cell">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="35" band="left"/>
+                      <Column size="85" band="left"/>
+                      <Column size="55"/>
+                      <Column size="55"/>
+                      <Column size="450"/>
+                      <Column size="70"/>
+                      <Column size="200"/>
+                      <Column size="90"/>
+                      <Column size="140"/>
+                      <Column size="140"/>
+                      <Column size="100"/>
+                      <Column size="100"/>
+                      <Column size="100"/>
+                      <Column size="200"/>
+                      <Column size="24"/>
+                      <Column size="140"/>
+                      <Column size="80"/>
+                      <Column size="130"/>
+                      <Column size="80"/>
+                      <Column size="130"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="26" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="No."/>
+                      <Cell col="1" text="관리번호"/>
+                      <Cell col="2" text="결재상태"/>
+                      <Cell col="3" text="결재차수"/>
+                      <Cell col="4" text="제목"/>
+                      <Cell col="5" text="문서구분"/>
+                      <Cell col="6" text="문서번호"/>
+                      <Cell col="7" text="등록일자"/>
+                      <Cell col="8" text="수신"/>
+                      <Cell col="9" text="참조"/>
+                      <Cell col="10" text="전화번호"/>
+                      <Cell col="11" text="FAX번호"/>
+                      <Cell col="12" text="기안금액"/>
+                      <Cell col="13" text="비고"/>
+                      <Cell col="14"/>
+                      <Cell col="15" text="등록부서"/>
+                      <Cell col="16" text="등록자"/>
+                      <Cell col="17" text="등록일시"/>
+                      <Cell col="18" text="수정자"/>
+                      <Cell col="19" text="수정일시"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell expr="currow + 1" textAlign="center"/>
+                      <Cell col="1" text="bind:OFFH_NO" displaytype="mask" textAlign="center" maskeditformat="@@@@@@-@@@@" maskedittype="string"/>
+                      <Cell col="2" text="bind:WOFH_ST" displaytype="combotext" textAlign="center" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM" cssclass="expr:comp.parent.gfn_SetGridWfStat(WOFH_ST)"/>
+                      <Cell col="3" text="bind:WOFH_SQ" displaytype="normal" textAlign="center"/>
+                      <Cell col="4" text="bind:TITL_NM" displaytype="normal" textAlign="left"/>
+                      <Cell col="5" text="bind:OFFH_GU" displaytype="combotext" textAlign="center" combodataset="ds_Wf205" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                      <Cell col="6" text="bind:DOCU_NM" displaytype="normal" textAlign="left"/>
+                      <Cell col="7" text="bind:OFFH_DD" displaytype="date" textAlign="center" calendardateformat="yyyy-MM-dd" calendardisplaynulltype="none"/>
+                      <Cell col="8" text="bind:RECE_NM" displaytype="normal" textAlign="left"/>
+                      <Cell col="9" text="bind:REFE_NM" displaytype="normal" textAlign="left"/>
+                      <Cell col="10" text="bind:TELE_NO" displaytype="normal" textAlign="left"/>
+                      <Cell col="11" text="bind:FAXT_NO" displaytype="normal" textAlign="left"/>
+                      <Cell col="12" text="bind:OFFH_AM" displaytype="normal" textAlign="right"/>
+                      <Cell col="13" text="bind:REMK_NM" displaytype="normal" textAlign="left"/>
+                      <Cell col="14" expandshow="show" expandsize="24"/>
+                      <Cell col="15" text="bind:DEPM_NM1"/>
+                      <Cell col="16" text="bind:REGI_NM" displaytype="normal" textAlign="center"/>
+                      <Cell col="17" text="bind:REGI_DT" displaytype="normal" textAlign="center"/>
+                      <Cell col="18" text="bind:MODI_NM" displaytype="normal" textAlign="center"/>
+                      <Cell col="19" text="bind:MODI_DT" displaytype="normal" textAlign="center"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Button id="btn_DivMoveMv" taborder="2" width="12" cssclass="bt_WF_FoldA_R" right="0" height="35" onclick="div_MasterView_btn_DivMoveMv_onclick" text="" top="133" cursor="pointer" visible="false"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_DetailInput" taborder="2" left="14" right="14" bottom="5" top="sta_VSplitter:0" text="">
+          <Layouts>
+            <Layout>
+              <Tab id="tab_Detail" taborder="0" tabindex="0" left="0" top="5" right="0" bottom="0" cssclass="tab_WF_DetailList" enable="false" onchanged="div_DetailInput_tab_Detail_onchanged">
+                <Tabpages>
+                  <Tabpage id="tpg_01" text="기안/품의상세">
+                    <Layouts>
+                      <Layout>
+                        <WebBrowser id="web_ContNm" taborder="0" left="0" top="2" right="0" enable="true" tabstop="true" bottom="0" onloadcompleted="div_DetailInput_tab_Detail_tpg_01_web_ContNm_onloadcompleted"/>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                  <Tabpage id="tpg_02" text="첨부파일">
+                    <Layouts>
+                      <Layout>
+                        <Div id="div_CommFile" taborder="0" left="0" top="2" right="0" bottom="0" url="cmm::cmmFileList.xfdl" async="false" text=""/>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                </Tabpages>
+              </Tab>
+              <Div id="div_ComGrdBtn" taborder="1" top="15" height="20" right="0" width="435" async="false" enable="false"/>
+              <Button id="btn_DivMoveDi" taborder="2" top="6" height="10" width="40" visible="false" cssclass="bt_TF_FoldA" onclick="div_DetailInput_btn_DivMoveDi_onclick" left="686" cursor="pointer"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_MasterInput" taborder="3" left="sta_HSplitter:6" top="90" text="" enable="false" right="14" bottom="sta_VSplitter:3">
+          <Layouts>
+            <Layout>
+              <Tab id="tab_Master" taborder="0" tabindex="0" left="0" top="0" right="0" bottom="0" cssclass="tab_WF_MasterList">
+                <Tabpages>
+                  <Tabpage id="tpg_01" text="기안/품의내역" enable="true">
+                    <Layouts>
+                      <Layout>
+                        <Static id="sta_Line13" tabstop="false" cssclass="sta_WF_DBg" taborder="0" left="0" top="2" height="30" right="0" minwidth="1094" maxwidth=""/>
+                        <Static id="sta_OffhNo" tabstop="false" text="관리번호" cssclass="sta_WF_DLabel" taborder="1" left="0" top="2" width="100" height="30"/>
+                        <Static id="sta_OffhDd" tabstop="false" text="등록일자" cssclass="sta_WF_DLabel" taborder="2" left="472" top="2" width="100" height="30"/>
+                        <Calendar id="cal_OffhDd" taborder="3" maxlength="" left="575" top="5" width="130" height="24" cssclass="essential" readonly="true" dateformat="yyyy-MM-dd"/>
+                        <Static id="sta_Line15" tabstop="false" cssclass="sta_WF_DBg" taborder="4" left="0" top="31" height="30" right="0" minwidth="1094" maxwidth=""/>
+                        <Static id="sta_DepmCd" tabstop="false" text="등록부서" cssclass="sta_WF_DLabel" taborder="6" left="0" top="31" width="100" height="30"/>
+                        <Edit id="edt_DepmCd" taborder="7" maxlength="10" left="103" top="34" width="130" height="24" cssclass="essential" readonly="true"/>
+                        <Edit id="edt_DepmNm" taborder="8" left="236" top="34" width="233" height="24" readonly="true"/>
+                        <Static id="sta_EmpmCd" tabstop="false" text="등록자" cssclass="sta_WF_DLabel" taborder="9" left="472" top="31" width="100" height="30"/>
+                        <Edit id="edt_EmpmCd" taborder="10" maxlength="10" left="575" top="34" width="130" height="24" cssclass="essential" readonly="true"/>
+                        <Edit id="edt_EmpmNm" taborder="11" left="708" top="34" height="24" readonly="true" right="3" minwidth="383" maxwidth="" onchanged="div_MasterInput_tab_Master_tpg_01_edt_EmpmNm_onchanged"/>
+                        <Static id="sta_Line17" tabstop="false" cssclass="sta_WF_DBg" taborder="12" left="0" top="60" height="30" right="0" minwidth="1094" maxwidth=""/>
+                        <Static id="sta_OffhGu" tabstop="false" text="문서구분" cssclass="sta_WF_DLabel" taborder="13" left="0" top="60" width="100" height="30"/>
+                        <Combo id="cbo_OffhGu" taborder="14" maxlength="10" left="103" top="63" width="366" height="24" innerdataset="ds_Wf205" codecolumn="CODM_CD" datacolumn="CODM_NM" cssclass="essential"/>
+                        <Static id="sta_DocuNo" tabstop="false" text="문서번호" cssclass="sta_WF_DLabel" taborder="15" left="472" top="60" width="100" height="30"/>
+                        <Edit id="edt_DocuNo" taborder="16" maxlength="100" left="575" top="63" height="24" readonly="true" right="3" minwidth="516" maxwidth=""/>
+                        <Static id="sta_Line19" tabstop="false" cssclass="sta_WF_DBg" taborder="17" left="0" top="89" height="30" right="0" minwidth="1094" maxwidth=""/>
+                        <Static id="sta_TitlNm" tabstop="false" text="제목" cssclass="sta_WF_DLabel" taborder="18" left="0" top="89" width="100" height="30"/>
+                        <Edit id="edt_TitlNm" taborder="19" maxlength="100" left="103" top="92" height="24" cssclass="essential" right="3" minwidth="988" maxwidth=""/>
+                        <Static id="sta_Line20" tabstop="false" cssclass="sta_WF_DBg" taborder="20" left="0" top="118" height="30" right="0" minwidth="1094" maxwidth=""/>
+                        <Static id="sta_ReceNm" tabstop="false" text="수신" cssclass="sta_WF_DLabel" taborder="21" left="0" top="118" width="100" height="30"/>
+                        <Edit id="edt_ReceNm" taborder="22" maxlength="100" left="103" top="121" width="130" height="24"/>
+                        <Static id="sta_RefeNm" tabstop="false" text="참조" cssclass="sta_WF_DLabel" taborder="23" left="236" top="118" width="100" height="30"/>
+                        <Edit id="edt_RefeNm" taborder="24" maxlength="100" left="339" top="121" width="130" height="24"/>
+                        <Static id="sta_TeleNo" tabstop="false" text="전화번호" cssclass="sta_WF_DLabel" taborder="25" left="472" top="118" width="100" height="30"/>
+                        <Edit id="edt_TeleNo" taborder="26" maxlength="100" left="575" top="121" width="130" height="24"/>
+                        <Static id="sta_FaxtNo" tabstop="false" text="FAX번호" cssclass="sta_WF_DLabel" taborder="27" left="707" top="118" width="100" height="30"/>
+                        <Edit id="edt_FaxtNo" taborder="28" maxlength="100" left="810" top="121" height="24" right="3" minwidth="281" maxwidth=""/>
+                        <Static id="sta_Line24" tabstop="false" cssclass="sta_WF_DBg" taborder="29" left="0" top="147" height="30" right="0" minwidth="1094" maxwidth=""/>
+                        <Static id="sta_OffhAm" tabstop="false" text="기안금액" cssclass="sta_WF_DLabel" taborder="30" left="0" top="147" width="100" height="30"/>
+                        <Static id="sta_Line25" tabstop="false" cssclass="sta_WF_DBg" taborder="32" left="0" top="176" right="0" bottom="0" minwidth="1094" maxwidth=""/>
+                        <Static id="sta_RemkNm" tabstop="false" text="비고" cssclass="sta_WF_DLabel" taborder="33" left="0" top="176" width="100" bottom="3"/>
+                        <Edit id="edt_SystId" taborder="34" top="34" width="7" height="24" maxlength="20" visible="false" right="34"/>
+                        <MaskEdit id="mae_OffhAm" taborder="31" left="103" top="150" height="24" format="###,###,##0" cssclass="essential" width="366"/>
+                        <MaskEdit id="mae_OffhNo" taborder="5" left="103" top="5" width="366" height="24" type="string" format="@@@@@@-@@@@" cssclass="essential"/>
+                        <TextArea id="edt_RemkNm" taborder="35" left="103" top="179" bottom="3" right="3" minwidth="988" maxwidth=""/>
+                        <Button id="btn_RemkPop" taborder="36" top="182" height="24" cursor="pointer" onclick="div_MasterInput_tab_Master_tpg_01_btn_RemkPop_onclick" cssclass="btn_WF_SmallSearch" minwidth="24" maxwidth="" width="24" left="edt_RemkNm:-24"/>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                </Tabpages>
+              </Tab>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btn_DivMoveMi" taborder="4" top="78" height="10" width="40" visible="true" onclick="btn_DivMoveMi_onclick" cssclass="bt_TF_FoldA" left="700" cursor="pointer"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="FROM_DD" type="STRING" size="256" description="조회시작일자"/>
+          <Column id="CLOS_DD" type="STRING" size="256" description="조회종료일자"/>
+          <Column id="DEPM_CD" type="STRING" size="256" description="부서코드(조직코드)"/>
+          <Column id="SESU_ID" type="STRING" size="256" description="시스템사용자ID"/>
+          <Column id="OFFH_GU" type="STRING" size="256"/>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+          <Column id="OFFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_YN" type="STRING" size="256"/>
+          <Column id="SLIP_ID" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10" onrowposchanged="ds_Master10_onrowposchanged" oncolumnchanged="ds_Master10_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="OFFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="WOFH_YN" type="STRING" size="256"/>
+          <Column id="OFFH_GU" type="STRING" size="256"/>
+          <Column id="DOCU_NO" type="STRING" size="256"/>
+          <Column id="OFFH_DD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="TITL_NM" type="STRING" size="256"/>
+          <Column id="RECE_NM" type="STRING" size="256"/>
+          <Column id="REFE_NM" type="STRING" size="256"/>
+          <Column id="TELE_NO" type="STRING" size="256"/>
+          <Column id="FAXT_NO" type="STRING" size="256"/>
+          <Column id="OFFH_AM" type="STRING" size="256"/>
+          <Column id="OFFH_NM" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_ST" type="STRING" size="256"/>
+          <Column id="DELE_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="DEPM_CD1" type="STRING" size="256"/>
+          <Column id="DEPM_NM1" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DOCU_NM" type="STRING" size="256"/>
+          <Column id="SLIP_ID" type="STRING" size="256"/>
+          <Column id="EMAL_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Wf110">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Wf205">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Wf205Sch">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master11">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="OFFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="WOFH_YN" type="STRING" size="256"/>
+          <Column id="OFFH_GU" type="STRING" size="256"/>
+          <Column id="DOCU_NO" type="STRING" size="256"/>
+          <Column id="OFFH_DD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="TITL_NM" type="STRING" size="256"/>
+          <Column id="RECE_NM" type="STRING" size="256"/>
+          <Column id="REFE_NM" type="STRING" size="256"/>
+          <Column id="TELE_NO" type="STRING" size="256"/>
+          <Column id="FAXT_NO" type="STRING" size="256"/>
+          <Column id="OFFH_AM" type="STRING" size="256"/>
+          <Column id="OFFH_NM" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_ST" type="STRING" size="256"/>
+          <Column id="DELE_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master12">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="OFFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="WOFH_YN" type="STRING" size="256"/>
+          <Column id="OFFH_GU" type="STRING" size="256"/>
+          <Column id="DOCU_NO" type="STRING" size="256"/>
+          <Column id="OFFH_DD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="TITL_NM" type="STRING" size="256"/>
+          <Column id="RECE_NM" type="STRING" size="256"/>
+          <Column id="REFE_NM" type="STRING" size="256"/>
+          <Column id="TELE_NO" type="STRING" size="256"/>
+          <Column id="FAXT_NO" type="STRING" size="256"/>
+          <Column id="OFFH_AM" type="STRING" size="256"/>
+          <Column id="OFFH_NM" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_ST" type="STRING" size="256"/>
+          <Column id="DELE_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10Wf">
+        <ColumnInfo>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+          <Column id="TABL_NM" type="STRING" size="256"/>
+          <Column id="FILH_GU" type="STRING" size="256"/>
+          <Column id="PK01_NO" type="STRING" size="256"/>
+          <Column id="PK02_NO" type="STRING" size="256"/>
+          <Column id="PK03_NO" type="STRING" size="256"/>
+          <Column id="PK04_NO" type="STRING" size="256"/>
+          <Column id="PK05_NO" type="STRING" size="256"/>
+          <Column id="PK06_NO" type="STRING" size="256"/>
+          <Column id="PK07_NO" type="STRING" size="256"/>
+          <Column id="PK08_NO" type="STRING" size="256"/>
+          <Column id="PK09_NO" type="STRING" size="256"/>
+          <Column id="PK10_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ_NO" type="STRING" size="256"/>
+          <Column id="FILE_YN" type="STRING" size="256"/>
+          <Column id="ACCH_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master13">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="OFFM_CD" type="STRING" size="256"/>
+          <Column id="WFTI_CD" type="STRING" size="256"/>
+          <Column id="WFRU_CD" type="STRING" size="256"/>
+          <Column id="OTEL_YN" type="STRING" size="256"/>
+          <Column id="OFAX_YN" type="STRING" size="256"/>
+          <Column id="RCPT_YN" type="STRING" size="256"/>
+          <Column id="CONF_YN" type="STRING" size="256"/>
+          <Column id="RDGU_YN" type="STRING" size="256"/>
+          <Column id="PJTH_YN" type="STRING" size="256"/>
+          <Column id="RNDH_YN" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_ComWfLine">
+        <ColumnInfo>
+          <Column id="POSI_NM1" type="STRING" size="256"/>
+          <Column id="APPR_NM1" type="STRING" size="256"/>
+          <Column id="SIGN_UL1" type="STRING" size="256"/>
+          <Column id="APPR_TM1" type="STRING" size="256"/>
+          <Column id="POSI_NM2" type="STRING" size="256"/>
+          <Column id="APPR_NM2" type="STRING" size="256"/>
+          <Column id="SIGN_UL2" type="STRING" size="256"/>
+          <Column id="APPR_TM2" type="STRING" size="256"/>
+          <Column id="POSI_NM3" type="STRING" size="256"/>
+          <Column id="APPR_NM3" type="STRING" size="256"/>
+          <Column id="SIGN_UL3" type="STRING" size="256"/>
+          <Column id="APPR_TM3" type="STRING" size="256"/>
+          <Column id="POSI_NM4" type="STRING" size="256"/>
+          <Column id="APPR_NM4" type="STRING" size="256"/>
+          <Column id="SIGN_UL4" type="STRING" size="256"/>
+          <Column id="APPR_TM4" type="STRING" size="256"/>
+          <Column id="POSI_NM5" type="STRING" size="256"/>
+          <Column id="APPR_NM5" type="STRING" size="256"/>
+          <Column id="SIGN_UL5" type="STRING" size="256"/>
+          <Column id="APPR_TM5" type="STRING" size="256"/>
+          <Column id="POSI_NM6" type="STRING" size="256"/>
+          <Column id="APPR_NM6" type="STRING" size="256"/>
+          <Column id="SIGN_UL6" type="STRING" size="256"/>
+          <Column id="APPR_TM6" type="STRING" size="256"/>
+          <Column id="POSI_NM7" type="STRING" size="256"/>
+          <Column id="APPR_NM7" type="STRING" size="256"/>
+          <Column id="SIGN_UL7" type="STRING" size="256"/>
+          <Column id="APPR_TM7" type="STRING" size="256"/>
+          <Column id="POSI_NM8" type="STRING" size="256"/>
+          <Column id="APPR_NM8" type="STRING" size="256"/>
+          <Column id="SIGN_UL8" type="STRING" size="256"/>
+          <Column id="APPR_TM8" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10Rt" onrowposchanged="ds_Master10_onrowposchanged" oncolumnchanged="ds_Master10_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="OFFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="WOFH_YN" type="STRING" size="256"/>
+          <Column id="OFFH_GU" type="STRING" size="256"/>
+          <Column id="DOCU_NO" type="STRING" size="256"/>
+          <Column id="OFFH_DD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="TITL_NM" type="STRING" size="256"/>
+          <Column id="RECE_NM" type="STRING" size="256"/>
+          <Column id="REFE_NM" type="STRING" size="256"/>
+          <Column id="TELE_NO" type="STRING" size="256"/>
+          <Column id="FAXT_NO" type="STRING" size="256"/>
+          <Column id="OFFH_AM" type="STRING" size="256"/>
+          <Column id="OFFH_NM" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_ST" type="STRING" size="256"/>
+          <Column id="DELE_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="DEPM_CD1" type="STRING" size="256"/>
+          <Column id="DEPM_NM1" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DOCU_NM" type="STRING" size="256"/>
+          <Column id="SLIP_ID" type="STRING" size="256"/>
+          <Column id="EMAL_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_ComWfDrLine">
+        <ColumnInfo>
+          <Column id="POSI_NM1" type="STRING" size="256"/>
+          <Column id="APPR_NM1" type="STRING" size="256"/>
+          <Column id="SIGN_UL1" type="STRING" size="256"/>
+          <Column id="APPR_TM1" type="STRING" size="256"/>
+          <Column id="POSI_NM2" type="STRING" size="256"/>
+          <Column id="APPR_NM2" type="STRING" size="256"/>
+          <Column id="SIGN_UL2" type="STRING" size="256"/>
+          <Column id="APPR_TM2" type="STRING" size="256"/>
+          <Column id="POSI_NM3" type="STRING" size="256"/>
+          <Column id="APPR_NM3" type="STRING" size="256"/>
+          <Column id="SIGN_UL3" type="STRING" size="256"/>
+          <Column id="APPR_TM3" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_ComWfAtLine">
+        <ColumnInfo>
+          <Column id="POSI_NM1" type="STRING" size="256"/>
+          <Column id="APPR_NM1" type="STRING" size="256"/>
+          <Column id="SIGN_UL1" type="STRING" size="256"/>
+          <Column id="APPR_TM1" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail18">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WCLD_SE" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="WFRE_CD" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="WOFH_DD" type="STRING" size="256"/>
+          <Column id="WOFH_DM" type="STRING" size="256"/>
+          <Column id="PATH_NM" type="STRING" size="256"/>
+          <Column id="EMSI_ID" type="STRING" size="256"/>
+          <Column id="EMSI_NM" type="STRING" size="256"/>
+          <Column id="FILE_UL" type="STRING" size="256"/>
+          <Column id="MEMO_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_ComWfLine18">
+        <ColumnInfo>
+          <Column id="POSI_NM1" type="STRING" size="256"/>
+          <Column id="APPR_NM1" type="STRING" size="256"/>
+          <Column id="SIGN_UL1" type="STRING" size="256"/>
+          <Column id="APPR_TM1" type="STRING" size="256"/>
+          <Column id="POSI_NM2" type="STRING" size="256"/>
+          <Column id="APPR_NM2" type="STRING" size="256"/>
+          <Column id="SIGN_UL2" type="STRING" size="256"/>
+          <Column id="APPR_TM2" type="STRING" size="256"/>
+          <Column id="POSI_NM3" type="STRING" size="256"/>
+          <Column id="APPR_NM3" type="STRING" size="256"/>
+          <Column id="SIGN_UL3" type="STRING" size="256"/>
+          <Column id="APPR_TM3" type="STRING" size="256"/>
+          <Column id="POSI_NM4" type="STRING" size="256"/>
+          <Column id="APPR_NM4" type="STRING" size="256"/>
+          <Column id="SIGN_UL4" type="STRING" size="256"/>
+          <Column id="APPR_TM4" type="STRING" size="256"/>
+          <Column id="POSI_NM5" type="STRING" size="256"/>
+          <Column id="APPR_NM5" type="STRING" size="256"/>
+          <Column id="SIGN_UL5" type="STRING" size="256"/>
+          <Column id="APPR_TM5" type="STRING" size="256"/>
+          <Column id="POSI_NM6" type="STRING" size="256"/>
+          <Column id="APPR_NM6" type="STRING" size="256"/>
+          <Column id="SIGN_UL6" type="STRING" size="256"/>
+          <Column id="APPR_TM6" type="STRING" size="256"/>
+          <Column id="POSI_NM7" type="STRING" size="256"/>
+          <Column id="APPR_NM7" type="STRING" size="256"/>
+          <Column id="SIGN_UL7" type="STRING" size="256"/>
+          <Column id="APPR_TM7" type="STRING" size="256"/>
+          <Column id="POSI_NM8" type="STRING" size="256"/>
+          <Column id="APPR_NM8" type="STRING" size="256"/>
+          <Column id="SIGN_UL8" type="STRING" size="256"/>
+          <Column id="APPR_TM8" type="STRING" size="256"/>
+          <Column id="MEMO_NM" type="STRING" size="2000"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_ComWfLine20">
+        <ColumnInfo>
+          <Column id="POSI_NM1" type="STRING" size="256"/>
+          <Column id="APPR_NM1" type="STRING" size="256"/>
+          <Column id="SIGN_UL1" type="STRING" size="256"/>
+          <Column id="APPR_TM1" type="STRING" size="256"/>
+          <Column id="POSI_NM2" type="STRING" size="256"/>
+          <Column id="APPR_NM2" type="STRING" size="256"/>
+          <Column id="SIGN_UL2" type="STRING" size="256"/>
+          <Column id="APPR_TM2" type="STRING" size="256"/>
+          <Column id="POSI_NM3" type="STRING" size="256"/>
+          <Column id="APPR_NM3" type="STRING" size="256"/>
+          <Column id="SIGN_UL3" type="STRING" size="256"/>
+          <Column id="APPR_TM3" type="STRING" size="256"/>
+          <Column id="POSI_NM4" type="STRING" size="256"/>
+          <Column id="APPR_NM4" type="STRING" size="256"/>
+          <Column id="SIGN_UL4" type="STRING" size="256"/>
+          <Column id="APPR_TM4" type="STRING" size="256"/>
+          <Column id="POSI_NM5" type="STRING" size="256"/>
+          <Column id="APPR_NM5" type="STRING" size="256"/>
+          <Column id="SIGN_UL5" type="STRING" size="256"/>
+          <Column id="APPR_TM5" type="STRING" size="256"/>
+          <Column id="POSI_NM6" type="STRING" size="256"/>
+          <Column id="APPR_NM6" type="STRING" size="256"/>
+          <Column id="SIGN_UL6" type="STRING" size="256"/>
+          <Column id="APPR_TM6" type="STRING" size="256"/>
+          <Column id="POSI_NM7" type="STRING" size="256"/>
+          <Column id="APPR_NM7" type="STRING" size="256"/>
+          <Column id="SIGN_UL7" type="STRING" size="256"/>
+          <Column id="APPR_TM7" type="STRING" size="256"/>
+          <Column id="POSI_NM8" type="STRING" size="256"/>
+          <Column id="APPR_NM8" type="STRING" size="256"/>
+          <Column id="SIGN_UL8" type="STRING" size="256"/>
+          <Column id="APPR_TM8" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_ComWfLine19">
+        <ColumnInfo>
+          <Column id="POSI_NM1" type="STRING" size="256"/>
+          <Column id="APPR_NM1" type="STRING" size="256"/>
+          <Column id="SIGN_UL1" type="STRING" size="256"/>
+          <Column id="APPR_TM1" type="STRING" size="256"/>
+          <Column id="POSI_NM2" type="STRING" size="256"/>
+          <Column id="APPR_NM2" type="STRING" size="256"/>
+          <Column id="SIGN_UL2" type="STRING" size="256"/>
+          <Column id="APPR_TM2" type="STRING" size="256"/>
+          <Column id="POSI_NM3" type="STRING" size="256"/>
+          <Column id="APPR_NM3" type="STRING" size="256"/>
+          <Column id="SIGN_UL3" type="STRING" size="256"/>
+          <Column id="APPR_TM3" type="STRING" size="256"/>
+          <Column id="POSI_NM4" type="STRING" size="256"/>
+          <Column id="APPR_NM4" type="STRING" size="256"/>
+          <Column id="SIGN_UL4" type="STRING" size="256"/>
+          <Column id="APPR_TM4" type="STRING" size="256"/>
+          <Column id="POSI_NM5" type="STRING" size="256"/>
+          <Column id="APPR_NM5" type="STRING" size="256"/>
+          <Column id="SIGN_UL5" type="STRING" size="256"/>
+          <Column id="APPR_TM5" type="STRING" size="256"/>
+          <Column id="POSI_NM6" type="STRING" size="256"/>
+          <Column id="APPR_NM6" type="STRING" size="256"/>
+          <Column id="SIGN_UL6" type="STRING" size="256"/>
+          <Column id="APPR_TM6" type="STRING" size="256"/>
+          <Column id="POSI_NM7" type="STRING" size="256"/>
+          <Column id="APPR_NM7" type="STRING" size="256"/>
+          <Column id="SIGN_UL7" type="STRING" size="256"/>
+          <Column id="APPR_TM7" type="STRING" size="256"/>
+          <Column id="POSI_NM8" type="STRING" size="256"/>
+          <Column id="APPR_NM8" type="STRING" size="256"/>
+          <Column id="SIGN_UL8" type="STRING" size="256"/>
+          <Column id="APPR_TM8" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail19">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WCLD_SE" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="WFRE_CD" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="WOFH_DD" type="STRING" size="256"/>
+          <Column id="WOFH_DM" type="STRING" size="256"/>
+          <Column id="PATH_NM" type="STRING" size="256"/>
+          <Column id="EMSI_ID" type="STRING" size="256"/>
+          <Column id="EMSI_NM" type="STRING" size="256"/>
+          <Column id="FILE_UL" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail20">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WCLD_SE" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="WFRE_CD" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="WOFH_DD" type="STRING" size="256"/>
+          <Column id="WOFH_DM" type="STRING" size="256"/>
+          <Column id="PATH_NM" type="STRING" size="256"/>
+          <Column id="EMSI_ID" type="STRING" size="256"/>
+          <Column id="EMSI_NM" type="STRING" size="256"/>
+          <Column id="FILE_UL" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_WfFileUrl18">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WCLD_SE" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="PATH_NM" type="STRING" size="256"/>
+          <Column id="EMSI_ID" type="STRING" size="256"/>
+          <Column id="EMSI_NM" type="STRING" size="256"/>
+          <Column id="FILE_UL" type="STRING" size="256"/>
+          <Column id="WFRE_CD" type="STRING" size="256"/>
+          <Column id="MEMO_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_WfFileUrl19">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WCLD_SE" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="PATH_NM" type="STRING" size="256"/>
+          <Column id="EMSI_ID" type="STRING" size="256"/>
+          <Column id="EMSI_NM" type="STRING" size="256"/>
+          <Column id="FILE_UL" type="STRING" size="256"/>
+          <Column id="WFRE_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_WfFileUrl20">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WCLD_SE" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="PATH_NM" type="STRING" size="256"/>
+          <Column id="EMSI_ID" type="STRING" size="256"/>
+          <Column id="EMSI_NM" type="STRING" size="256"/>
+          <Column id="FILE_UL" type="STRING" size="256"/>
+          <Column id="WFRE_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_ComFileList">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="FILE_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_WfFileUrl21">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WCLD_SE" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="PATH_NM" type="STRING" size="256"/>
+          <Column id="EMSI_ID" type="STRING" size="256"/>
+          <Column id="EMSI_NM" type="STRING" size="256"/>
+          <Column id="FILE_UL" type="STRING" size="256"/>
+          <Column id="WFRE_CD" type="STRING" size="256"/>
+          <Column id="MEMO_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail21">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WCLD_SE" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="WFRE_CD" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="WOFH_DD" type="STRING" size="256"/>
+          <Column id="WOFH_DM" type="STRING" size="256"/>
+          <Column id="PATH_NM" type="STRING" size="256"/>
+          <Column id="EMSI_ID" type="STRING" size="256"/>
+          <Column id="EMSI_NM" type="STRING" size="256"/>
+          <Column id="FILE_UL" type="STRING" size="256"/>
+          <Column id="MEMO_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_ComWfLine21">
+        <ColumnInfo>
+          <Column id="POSI_NM1" type="STRING" size="256"/>
+          <Column id="APPR_NM1" type="STRING" size="256"/>
+          <Column id="SIGN_UL1" type="STRING" size="256"/>
+          <Column id="APPR_TM1" type="STRING" size="256"/>
+          <Column id="POSI_NM2" type="STRING" size="256"/>
+          <Column id="APPR_NM2" type="STRING" size="256"/>
+          <Column id="SIGN_UL2" type="STRING" size="256"/>
+          <Column id="APPR_TM2" type="STRING" size="256"/>
+          <Column id="POSI_NM3" type="STRING" size="256"/>
+          <Column id="APPR_NM3" type="STRING" size="256"/>
+          <Column id="SIGN_UL3" type="STRING" size="256"/>
+          <Column id="APPR_TM3" type="STRING" size="256"/>
+          <Column id="POSI_NM4" type="STRING" size="256"/>
+          <Column id="APPR_NM4" type="STRING" size="256"/>
+          <Column id="SIGN_UL4" type="STRING" size="256"/>
+          <Column id="APPR_TM4" type="STRING" size="256"/>
+          <Column id="POSI_NM5" type="STRING" size="256"/>
+          <Column id="APPR_NM5" type="STRING" size="256"/>
+          <Column id="SIGN_UL5" type="STRING" size="256"/>
+          <Column id="APPR_TM5" type="STRING" size="256"/>
+          <Column id="POSI_NM6" type="STRING" size="256"/>
+          <Column id="APPR_NM6" type="STRING" size="256"/>
+          <Column id="SIGN_UL6" type="STRING" size="256"/>
+          <Column id="APPR_TM6" type="STRING" size="256"/>
+          <Column id="POSI_NM7" type="STRING" size="256"/>
+          <Column id="APPR_NM7" type="STRING" size="256"/>
+          <Column id="SIGN_UL7" type="STRING" size="256"/>
+          <Column id="APPR_TM7" type="STRING" size="256"/>
+          <Column id="POSI_NM8" type="STRING" size="256"/>
+          <Column id="APPR_NM8" type="STRING" size="256"/>
+          <Column id="SIGN_UL8" type="STRING" size="256"/>
+          <Column id="APPR_TM8" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : M_WF_2100
+*  @화면설명 : 기안/품의 등록
+*  @시스템명 : (WF) 결재관리
+*  @작성자   : 최석목
+*  @작성일   : 2021.06.28
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.06.28     	    최석목 	           최초 생성 
+   2022.02.21           박지용                기안/품의목록 제목,문서번호 size 수정
+   2022.02.21           박지용                문서구분 선택시 조회 안됨 수정(쿼리)
+   2022.04.12			조수빈				   칼럼명 수정(EMPL_CD-->SYST_ID, DEPT_CD-->DEPM_CD)
+*************************************************************************************************
+*/
+
+/***********************************************************************************************
+ * 0. 폼로드
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.01. Form Include 선언
+ ***********************************************************************************************/
+//include "comLib::CommonUtil.xjs";//공통함수
+include "comLib::lib_splitter.xjs";            
+
+/***********************************************************************************************
+ * 00.02. Form 변수 선언
+ ***********************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+this.fvFormComBtnAuthYn = false;//그리드 공통버튼 권한 유무
+this.fvFileDiv = this.div_DetailInput.form.tab_Detail.tpg_02.form.div_CommFile.form;//[첨부파일]Div
+this.fvPathNm = "WF";//[첨부파일]업무파일경로
+this.fvDsRowPosChange = true;//데이터셋 Row 변경이벤트-실행유무
+this.fvSchKeyYn = false;//저장후 재조회여부
+this.fvSchKey01 = "";//조회Key01
+this.fvSchKey02 = "";//조회Key02
+this.fvSchKey03 = "";//조회Key03
+var fvFileInfo = new Object();//[첨부파일]정보
+
+this.fvWfSearchMode = false;//[결재]결재내역 조회모드
+this.fvWfPopupMode = false;//[결재]결재내역 팝업화면으로 호출여부
+
+this.fvWebCompLoadYn = false;//웹컴포넌트 로드 완료여부
+this.fvDtlSearchYn = false;//상세조회여부
+this.fvWofhStatus = false;//[결재]결재상태 조회모드 (등록=false, 그외 true)
+this.fvOffhNo = "";//부모창 파라메타 - 관리번호
+this.fvWofhSq = "";//부모창 파라메타 - 결재차수
+
+/***********************************************************************************************
+ * 00.03. Form Onload 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+
+}
+
+/***********************************************************************************************
+ * 00.04. Form [공통] 초기설정 함수 - 필수
+ ***********************************************************************************************/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.fvComPrgmId = this.gfn_CommLoadFormPrgmId(this);//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+	this.gfn_SetGrid(this.div_MasterView.form.grd_Master10);//[공통]그리드 이벤트 설정 - 목록
+	this.fvOffhNo = this.getOwnerFrame().OffhNo;//부모창 파라메타 - 관리번호
+	this.fvWofhSq = this.getOwnerFrame().WofhSq;//부모창 파라메타 - 결재차수
+	//스플리터 초기화 함수 호출
+	this.gfn_InitSpliter(this.sta_HSplitter, "horizontal", -1, -1);
+	
+	//스플리터 초기화 함수 호출
+	this.gfn_InitSpliter(this.sta_VSplitter, "vertical", -1, -1);
+	this.fn_SetTabComAttachFile();//[공통] 첨부파일 Tab 설정
+}
+
+/***********************************************************************************************
+ * 00.05. Form [업무] 초기설정 함수
+ ***********************************************************************************************/
+this.fn_FormBizInit = function() 
+{ 
+	//[공통] 날짜정보 설정	
+	this.gfn_SetCommFromToDate(this.fvComPrgmId, "MS", this.div_Search.form.cal_OffhDdFr, this.div_Search.form.cal_OffhDdTo);//조회조건영역
+	
+	//[공통] 부서정보 설정
+	var arrComp = ["this.div_Search.form.edt_DepmCd^this.div_Search.form.edt_DepmNm"
+				  ];
+	this.gfn_SetCommDepmCd(this.fvComPrgmId, arrComp);
+	
+	//[공통] 사원정보 설정
+	var arrComp = ["this.div_Search.form.edt_EmpmCd^this.div_Search.form.edt_EmpmNm^this.div_Search.form.edt_SystId"
+                  ];
+	this.gfn_SetCommEmpmCd(this.fvComPrgmId, arrComp);
+
+	//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+	var objCondList = ["WF205|ds_Wf205Sch|Y|ALL","WF205|ds_Wf205","WF110|ds_Wf110"];
+	//공통코드 설정함수 호출				   
+	this.gfn_GetCommCode(this, objCondList, "");
+	
+	//[업무] 내용 Web컴포넌트 Url설정
+	this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.set_url(this.gfn_GetServerUrl("Edit"));//웹에디터 Url 설정		
+	
+	//콤보 인덱스 설정
+	this.div_Search.form.cbo_OffhGu.set_index(0);
+	
+	//[업무] 일반콤보조회
+	this.fn_ComboSearch();
+	
+
+}
+
+/***********************************************************************************************
+ * 00.06. Form [업무] 일반콤보 조회 함수
+ ***********************************************************************************************/
+this.fn_ComboSearch = function() 
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "wf:M_WF_2100_M_SL13";//쿼리ID
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "COMBO_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_WF;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Master13=ds_Master13";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+}
+
+/***********************************************************************************************
+ * 00.07. Form OnClose 이벤트
+ ***********************************************************************************************/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/***********************************************************************************************
+ * 00.08. Form OnSize 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnSize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{
+	//웹컴포넌트가 로드 완료되었을경우
+	if (this.fvWebCompLoadYn) {
+		//내용 Web컴포넌트에 값 세팅
+		var oWeb = this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.getProperty("window");
+		var iHeight = this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.getOffsetHeight()-60;
+		oWeb.callMethod("fn_updateSize", iHeight);
+	}
+};
+
+/***********************************************************************************************
+ * 1. 조회 영역
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 01.01. [공통버튼] 조회 버튼 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_ComBtnSearch = function(sWofhNo)
+{ 
+
+	//[결재] 결재 PID가 있으면-결재Popup으로 호출시
+	if (!this.gfn_IsNull(sWofhNo)) {
+		this.fvWfSearchMode = true;//[결재]결재내역 조회모드
+		this.fvWfPopupMode = true;//[결재]결재내역 팝업화면으로 호출여부
+	}
+	
+	//조회전 유효성 체크
+	if (!this.fn_VaildSearch()) return;	
+	
+	//저장후 재조회시-마스터 데이터셋 이벤트 비활성화
+	if (this.fvSchKeyYn) {
+		this.ds_Master10.set_enableevent(false);
+	}
+
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Master10.clearData();
+
+	this.ds_Input.clearData();
+	this.fvFileDiv.fn_ClearAtchFile();//첨부파일 정보 초기화
+	
+	//[결재] 결재 PID가 없으면
+	if (this.gfn_IsNull(sWofhNo)) {	
+		if (this.gfn_IsNull(this.fvOffhNo )) {
+			//내용 Web컴포넌트 초기화
+			var oWeb = this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.getProperty("window");
+			oWeb.callMethod("fn_setData", "");		
+		}
+	}
+	
+	var sSqlId = "";//쿼리ID
+	
+	//[결재] 결재내역 조회가 아니면
+	if (!this.fvWfSearchMode) {
+		//[업무] 조회조건 입력
+		this.ds_Input.addRow();
+					
+		if (this.gfn_IsNull(this.fvOffhNo )) {
+			this.ds_Input.setColumn(0, "FROM_DD", this.div_Search.form.cal_OffhDdFr.value);
+			this.ds_Input.setColumn(0, "CLOS_DD", this.div_Search.form.cal_OffhDdTo.value);
+			this.ds_Input.setColumn(0, "DEPM_CD", this.div_Search.form.edt_DepmCd.value);
+			this.ds_Input.setColumn(0, "SESU_ID", this.div_Search.form.edt_SystId.value);
+			this.ds_Input.setColumn(0, "OFFH_GU", this.div_Search.form.cbo_OffhGu.value);	
+			this.ds_Input.setColumn(0, "WOFH_YN", this.div_Search.form.chk_WofhYn.value);
+			
+			sSqlId = "wf:M_WF_2100_M_SL10";//쿼리ID
+		//기안품의현황 화면에서 팝업으로 조회시
+		} else {
+			this.ds_Input.setColumn(0, "OFFH_NO", this.fvOffhNo);//관리번호
+			this.ds_Input.setColumn(0, "WOFH_SQ", this.fvWofhSq);//결재차수
+			sSqlId = "wf:M_WF_2100_M_SL12";//쿼리ID
+		}
+	} else {
+		//[업무] 조회조건 입력
+		this.ds_Input.addRow();
+		
+		if (this.gfn_IsNull(this.fvOffhNo )) {
+			this.ds_Input.setColumn(0, "WOFH_NO", sWofhNo);	
+			
+			sSqlId = "wf:M_WF_2100_M_SL12";//쿼리ID
+		//기안품의현황 화면에서 팝업으로 조회시
+		} else {
+			this.ds_Input.setColumn(0, "OFFH_NO", this.fvOffhNo);//관리번호
+			this.ds_Input.setColumn(0, "WOFH_SQ", this.fvWofhSq);//결재차수
+			sSqlId = "wf:M_WF_2100_M_SL12";//쿼리ID
+		}
+	}
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = sSqlId;
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "MST_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_WF;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Master10=ds_Master10";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+	svcCallObj.sComBtnDst = "SEARCH";//공통버튼구분-조회버튼
+	svcCallObj.sPrgmId = this.fvComPrgmId;//프로그램ID
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+}
+
+/***********************************************************************************************
+ * 01.02. [Vaildation] 조회 필수값 체크
+ ***********************************************************************************************/
+this.fn_VaildSearch = function()
+{
+	//[결재] 결재내역 조회가 아니면
+	if (!this.fvWfSearchMode) {
+		if (!this.gfn_CheckFromToDate(this.fvComPrgmId, this.div_Search.form.cal_OffhDdFr, this.div_Search.form.cal_OffhDdTo)) return false;//조회기간 범위 체크
+		//조회조건 필수입력값 있으면 체크
+		// Validation 설정
+		var arrArgs = ["this.div_Search.form.edt_DepmCd^" + this.div_Search.form.sta_DepmCd.text + "|NULL"
+					  ]; 
+					  
+		var sCheckGroupTitle = "조회조건";//체크그룹 타이틀
+
+		//컴포넌트 Vaild 체크
+		if (!this.gfn_CheckFormCompValid(this, arrArgs, sCheckGroupTitle)) {
+			return false;
+		}	
+	}
+	return true;
+}
+
+/***********************************************************************************************
+ * 01.03. [공통] 조회조건 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [부서]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 부서 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_btn_DepmCd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "S_DEPM_CD_01";//팝업ID - 부서코드
+	var oArg = {PrgmId:this.fvComPrgmId, AuthYn:"Y", DepmNm:this.div_Search.form.edt_DepmNm.value };//Argument처리권한체크용	
+	this.gfn_DeptPop(sPopupId, oArg);
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 부서코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_DepmCd_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "S_DEPM_CD_01";//팝업ID - 부서코드
+	this.gfn_GetCommAuDepm(this.fvComPrgmId, "C", this.div_Search.form.edt_DepmCd, this.div_Search.form.edt_DepmNm, sPopupId);//코드로 검색권한체크용	
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 부서명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_DepmNm_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "S_DEPM_CD_01";//팝업ID - 부서코드
+	this.gfn_GetCommAuDepm(this.fvComPrgmId, "N", this.div_Search.form.edt_DepmCd, this.div_Search.form.edt_DepmNm, sPopupId);//코드명으로 검색권한체크용	
+};
+
+/***********************************************************************************************
+ *    02. [사용자]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 사용자 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_btn_SystId_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "S_SYST_ID_01";//팝업ID - 사용자정보
+	var oArg = {PrgmId:this.fvComPrgmId, AuthYn:"Y", EmpmNm:this.div_Search.form.edt_EmpmNm.value};//Argument처리권한체크용	
+	this.gfn_UserPop(sPopupId, oArg);		
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사원코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_EmpmCd_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "S_SYST_ID_01";//팝업ID - 사원코드
+	this.gfn_GetCommAuEmpm(this.fvComPrgmId, "C", this.div_Search.form.edt_EmpmCd, this.div_Search.form.edt_EmpmNm, this.div_Search.form.edt_SystId, sPopupId, "", "", false);//코드로 검색권한체크용		
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사원명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_EmpmNm_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "S_SYST_ID_01";//팝업ID - 사원코드
+	this.gfn_GetCommAuEmpm(this.fvComPrgmId, "N", this.div_Search.form.edt_EmpmCd, this.div_Search.form.edt_EmpmNm, this.div_Search.form.edt_SystId, sPopupId, "", "", false);//코드명으로 검색권한체크용			
+};
+
+/***********************************************************************************************
+ *    03. [계약번호]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/***********************************************************************************************
+ *    04. [프로젝트]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 프로젝트 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 프로젝트 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ *    05. [거래처]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 거래처 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 거래처코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 거래처명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ *    06. [사업장]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 사업장 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사업장 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+  
+/***********************************************************************************************
+ *    07. [W/O]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] W/O 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] W/O 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ *    08. [품목코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-팝업버튼] 품목코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 품목코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ *    09. [계정코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 계정코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 계정코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+
+/***********************************************************************************************
+ * 2. 입력
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 02.01. [공통버튼] 입력 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnAdd = function()
+{
+	
+	//데이터 변경여부 체크
+	if (this.gfn_DsIsUpdated(this.ds_Master10)) {
+		this.gfn_Alert("SM002");//변경된 내용이 있습니다.\n저장 후 작업하시기 바랍니다.
+
+		return;
+	}
+
+	this.fvDsRowPosChange = false;//데이터셋 Row 변경이벤트-실행유무
+	var sToDay = this.gfn_GetCommDate("toDay");//현재일자
+	
+	var iAddRow = this.ds_Master10.addRow();
+	this.ds_Master10.setColumn(iAddRow, "DEPM_CD", this.gfn_GetSessionValue("DEPM_CD"));//작성자부서코드	
+	this.ds_Master10.setColumn(iAddRow, "DEPM_NM", this.gfn_GetSessionValue("DEPM_NM"));//작성자부서명	
+	this.ds_Master10.setColumn(iAddRow, "EMPM_CD", this.gfn_GetSessionValue("USEM_ID"));//작성자사번	
+	this.ds_Master10.setColumn(iAddRow, "EMPM_NM", this.gfn_GetSessionValue("USEM_NM"));//작성자명		
+	this.ds_Master10.setColumn(iAddRow, "SYST_ID", this.gfn_GetSessionValue("SYST_ID"));//작성자ID	
+	this.ds_Master10.setColumn(iAddRow, "OFFH_DD", sToDay);//작성일자-오늘날짜로 설정
+	this.ds_Master10.setColumn(iAddRow, "WOFH_ST", "0010");//결재진행상태-작성
+	this.ds_Master10.setColumn(iAddRow, "OFFH_AM", "0");//기안금액	
+
+	//입력영역 활성화
+	this.div_MasterInput.set_enable(true);
+	this.div_DetailInput.form.div_ComGrdBtn.set_enable(true);
+	this.div_MasterInput.form.tab_Master.tpg_01.form.cbo_OffhGu.set_enable(true);
+	this.div_DetailInput.form.tab_Detail.set_enable(true);
+	
+	//기안품의상세 초기화(OLE)
+	var oWeb = this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.getProperty("window");				                
+	oWeb.callMethod("fn_setData", "");
+
+	
+	//처음 입력 항목에 포커스
+	this.div_MasterInput.form.tab_Master.tpg_01.form.cbo_OffhGu.setFocus();
+
+	this.fvFileDiv.fn_ClearAtchFile();//첨부파일 정보 초기화
+	
+	//첨부파일정보 권한설정
+	var oScrnBtnAuth = new Object();//[공통] 첨부파일 권한정보
+	oScrnBtnAuth.BTN_ENABLE = true;//권한 유무	
+	this.fvFileDiv.fn_SetCommFileBtnAuth(oScrnBtnAuth);	
+	
+	this.fvDsRowPosChange = true;//데이터셋 Row 변경이벤트-실행유무
+}
+
+/***********************************************************************************************
+ * 02.MF0.01. [Master Freeform 공통] 입력항목 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [부서]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 부서 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_MasterInput_tab_Master_tpg_01_btn_DepmCd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "M_DEPM_CD_01";//팝업ID - 부서코드
+	var oArg = { DepmNm:this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DepmCd.value};//Argument처리
+	this.gfn_DeptPop(sPopupId, oArg);	
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 부서코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+this.div_MasterInput_tab_Master_tpg_01_edt_DepmCd_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "M_DEPM_CD_01";//팝업ID - 부서코드
+	this.gfn_GetCommDepm("C", this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DepmCd, this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DepmNm, sPopupId);//코드로 검색
+};
+
+/***********************************************************************************************
+ *    02. [사용자]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 사용자 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_MasterInput_tab_Master_tpg_01_btn_SystId_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "M_SYST_ID_01";//팝업ID - 사용자정보
+	var oArg = {  EmpmNm:this.div_MasterInput.form.tab_Master.tpg_01.form.edt_SystId.value};//Argument처리
+	this.gfn_UserPop(sPopupId, oArg);		
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 사원코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+this.div_MasterInput_tab_Master_tpg_01_edt_EmpmCd_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "M_SYST_ID_01";//팝업ID - 사원코드
+	this.gfn_GetCommEmpm("C", this.div_MasterInput.form.tab_Master.tpg_01.form.edt_EmpmCd, this.div_MasterInput.form.tab_Master.tpg_01.form.edt_EmpmNm, this.div_MasterInput.form.tab_Master.tpg_01.form.edt_SystId, sPopupId);//코드로 검색		
+};
+
+/***********************************************************************************************
+ *    03. [계약번호]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+  
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 이전 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 이전 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+
+
+/***********************************************************************************************
+ *    04. [프로젝트]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 프로젝트 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 프로젝트 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+  
+/***********************************************************************************************
+ *    05. [거래처]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 거래처 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 거래처코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ *    06. [사업장]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 사업장 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 사업장코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+  
+/***********************************************************************************************
+ *    07. [W/O]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] W/O 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] W/O 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+  
+/***********************************************************************************************
+ *    08. [품목코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 품목코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 품목코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+
+/***********************************************************************************************
+ *    09. [계정코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 계정코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 계정코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+
+/***********************************************************************************************
+ *    10. [비고]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 비고 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_MasterInput_tab_Master_tpg_01_btn_RemkPop_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (!this.gfn_IsNull(this.div_MasterInput.form.tab_Master.tpg_01.form.edt_RemkNm.value)) {
+		var sPopupId = "M_REMK_01";//팝업ID - 비고상세
+		var sTitle = this.div_MasterInput.form.tab_Master.tpg_01.form.sta_RemkNm.text;//팝업 타이틀
+		var oArg = {  Remk:this.div_MasterInput.form.tab_Master.tpg_01.form.edt_RemkNm.value};//Argument처리
+		this.gfn_RemkPop(sPopupId, sTitle, oArg);		
+	}
+};
+
+/***********************************************************************************************
+ * 02.MF0.02. [Master Freeform 일반] 입력항목 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [고객]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 고객 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 고객코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/   
+
+/***********************************************************************************************
+ * 02.MF0.03. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    01. [데이터셋-ds_Master10] 데이터 Row 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.ds_Master10_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	if (e.newrow > -1) {
+
+		//[결재] 결재상태에 따른 컴포넌트 제어
+		this.fn_SetWfCompEnable();		
+		
+		//관리번호 정보가 있으면 - 상세조회
+		if (!this.gfn_IsNull(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "OFFH_NO"))) {
+		
+			//내용 Web컴포넌트에 값 세팅
+			//웹컴포넌트가 로드 완료되었을경우							
+			if (this.fvWebCompLoadYn) {			
+				//var oWeb = this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.getProperty("window");
+				//var sContNm = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "OFFH_NM");//본문내용
+				//oWeb.callMethod("fn_setData", this.gfn_ReplaceWebEditorData(sContNm));			
+				
+				this.setTimer(998,500);
+				
+			}
+			
+			//첨부파일 정보 조회
+			var oFileInfo = new Object();//[공통] 첨부파일정보
+			oFileInfo.PRGM_ID = this.fvComPrgmId;//프로그램ID
+			oFileInfo.FILH_GU = "H";//첨부파일위치구분 : H-Head, D-상세(그리드Row), E-기타
+			oFileInfo.PK01_NO = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "COMM_CD");//PK번호1-회사코드
+			oFileInfo.PK02_NO = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "OFFH_NO");//PK번호2-관리번호
+			oFileInfo.PK03_NO = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_SQ");//PK번호3-결재차수						
+			
+			this.fvFileDiv.fn_AtchFileSearch(oFileInfo);	
+		}
+	}
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    02. [데이터셋-ds_Master10] Row 변경전 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.ds_Master10_canrowposchange = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	if (!this.fvDsRowPosChange) return;//Row변경이벤트 수행유무
+	
+	//데이터 변경여부 체크
+	if (this.gfn_DsIsUpdated(this.ds_Master10) || this.fvFileDiv.fn_CheckFileAddYn()) {
+		this.gfn_Confirm("SM003", "", "CONF.MAST_CHANGE", "fn_MsgCallback");//변경된 내역을 저장 하시겠습니까?
+		return false;
+	}	
+
+	return true;
+};  
+
+/*---------------------------------------------------------------------------------------------
+ *    03. [데이터셋-ds_Master10] Row 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.ds_Master10_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	if (e.columnid == "OFFH_GU") {
+		var iRow = this.ds_Master10.rowposition;
+
+		var sOFFH_GU = this.ds_Master10.getColumn(iRow, "OFFH_GU");//문서구분
+
+		if (!this.gfn_IsNull(sOFFH_GU)) {
+			var iFindRow = this.ds_Master13.findRow("OFFM_CD", sOFFH_GU);//문서구분
+
+			if (iFindRow > -1) {
+				var sOTEL_YN = this.ds_Master13.getColumn(iFindRow, "OTEL_YN");//전화번호여부
+				var sOFAX_YN = this.ds_Master13.getColumn(iFindRow, "OFAX_YN");//팩스번호여부
+				var sRCPT_YN = this.ds_Master13.getColumn(iFindRow, "RCPT_YN");//수신처여부
+				var sCONF_YN = this.ds_Master13.getColumn(iFindRow, "CONF_YN");//참조처여부				
+				var sWFTI_CD = this.ds_Master13.getColumn(iFindRow, "WFTI_CD");//문서번호
+
+				//문서구분-등록시
+				if (sWFTI_CD == "0010") {
+					//this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DocuNo.set_cssclass("essential");
+					//this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DocuNo.set_readonly(false);
+					
+				} else {
+					//this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DocuNo.set_cssclass("");
+					//this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DocuNo.set_readonly(true);
+				}
+
+				if (sOTEL_YN == "1") {
+					this.div_MasterInput.form.tab_Master.tpg_01.form.edt_TeleNo.set_cssclass("essential");
+				} else {
+					this.div_MasterInput.form.tab_Master.tpg_01.form.edt_TeleNo.set_cssclass("");
+				}
+				
+				if (sOFAX_YN == "1") {
+					this.div_MasterInput.form.tab_Master.tpg_01.form.edt_FaxtNo.set_cssclass("essential");
+				} else {
+					this.div_MasterInput.form.tab_Master.tpg_01.form.edt_FaxtNo.set_cssclass("");
+				}
+				
+				if (sRCPT_YN == "1") {
+					this.div_MasterInput.form.tab_Master.tpg_01.form.edt_ReceNm.set_cssclass("essential");			
+				} else {
+					this.div_MasterInput.form.tab_Master.tpg_01.form.edt_ReceNm.set_cssclass("");			
+				}
+				
+				if (sCONF_YN == "1") {
+					this.div_MasterInput.form.tab_Master.tpg_01.form.edt_RefeNm.set_cssclass("essential");	
+				} else {
+					this.div_MasterInput.form.tab_Master.tpg_01.form.edt_RefeNm.set_cssclass("");
+				}
+						
+				return;
+			}
+		}
+		
+		this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DocuNo.set_cssclass("");
+		this.div_MasterInput.form.tab_Master.tpg_01.form.edt_TeleNo.set_cssclass("");
+		this.div_MasterInput.form.tab_Master.tpg_01.form.edt_FaxtNo.set_cssclass("");
+		this.div_MasterInput.form.tab_Master.tpg_01.form.edt_ReceNm.set_cssclass("");	
+		this.div_MasterInput.form.tab_Master.tpg_01.form.edt_RefeNm.set_cssclass("");	
+	}
+};
+
+/***********************************************************************************************
+ * 02.MG0.01. [Master그리드-버튼] 복사 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01Copy = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.02. [Master그리드-버튼] 행추가 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01AddRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.03. [Master그리드-버튼] 행삽입 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01InsertRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.04. [Master그리드-버튼] 행삭제 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01DeleteRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.05. [Master그리드-버튼] 취소 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01Cancel = function()
+{
+};
+ 
+/***********************************************************************************************
+ * 02.MG0.06. [Master그리드] 셀 클릭 이벤트
+ ***********************************************************************************************/ 
+ 
+/***********************************************************************************************
+ * 02.MG0.07. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+ 
+
+/***********************************************************************************************
+ * 02.DG0.01. [Detail그리드-버튼] 복사 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01Copy = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.DG0.02. [Detail그리드-버튼] 행추가 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01AddRow = function()
+{
+
+};
+
+/***********************************************************************************************
+ * 02.DG0.03. [Detail그리드-버튼] 행삽입 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01InsertRow = function()
+{
+
+};
+
+
+/***********************************************************************************************
+ * 02.DG0.04. [Detail그리드-버튼] 행삭제 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01DeleteRow = function()
+{
+
+};
+
+/***********************************************************************************************
+ * 02.DG0.05. [Detail그리드-버튼] 취소 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01Cancel = function()
+{
+
+};
+ 
+/***********************************************************************************************
+ * 02.DG0.06. [Detail그리드] 셀 클릭 이벤트
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ *    01. [그리드-grd_Detail10] 셀클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+  
+ /***********************************************************************************************
+ * 02.DG0.08. [내용 Web컴포넌트] 로드완료 이벤트
+ ***********************************************************************************************/
+this.div_DetailInput_tab_Detail_tpg_01_web_ContNm_onloadcompleted = function(obj:nexacro.WebBrowser,e:nexacro.WebLoadCompEventInfo)
+{
+	//상세내용이 조회되었을경우
+	if (this.fvDtlSearchYn && this.fvWfSearchMode) {
+		//내용 Web컴포넌트에 값 세팅
+		var oWeb = this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.getProperty("window");
+		var sContNm = this.gfn_Nvl(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "OFFH_NM"), "");
+
+		oWeb.callMethod("fn_setData", this.gfn_ReplaceWebEditorData(sContNm));	
+		
+	}
+	
+	//내용 Web컴포넌트에 값 세팅
+	var oWeb = this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.getProperty("window");
+	var iHeight = this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.getOffsetHeight()-60;
+	oWeb.callMethod("fn_updateSize", iHeight);	
+	
+	this.fvWebCompLoadYn = true;//웹컴포넌트 로드 완료여부	
+	
+	//결재화면에서 팝업으로 호출시
+	if (this.fvWfPopupMode) {	
+		this.setTimer( 999, 500 );		
+	}
+	
+};
+  
+/***********************************************************************************************
+ * 02.DG0.08. [Detail Tab] 변경 이벤트
+ ***********************************************************************************************/
+this.div_DetailInput_tab_Detail_onchanged = function(obj:nexacro.Tab,e:nexacro.TabIndexChangeEventInfo)
+{
+	var iTabIndex = e.postindex;
+	
+	this.div_DetailInput.form.div_ComGrdBtn.set_enable(true);
+	
+	var sWOFH_ST = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_ST");//결재진행상태
+	
+	//Tab-출고상세
+	if (iTabIndex == 0) {
+		this.div_DetailInput.form.div_ComGrdBtn.set_url("");
+		this.div_DetailInput.form.div_ComGrdBtn.set_visible(false);
+	//Tab-첨부파일
+	} else if (iTabIndex == 1) {	
+	
+		if (this.gfn_IsNull(sWOFH_ST) || sWOFH_ST == "0010") {
+			this.div_DetailInput.form.div_ComGrdBtn.set_visible(true);
+		}
+		this.fn_SetGridFileButton();//[공통] 그리드 파일 버튼 설정
+	}
+};  
+
+/***********************************************************************************************
+ * 02.DG1.06. [첨부 파일 그리드-버튼] 파일추가 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_FileGrd01AddRow = function()
+{
+	this.fvFileDiv.fn_ComFileAdd();//파일추가
+};
+
+/***********************************************************************************************
+ * 02.DG1.07. [첨부 파일 그리드-버튼] 파일삭제 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_FileGrd01DeleteRow = function()
+{
+	this.fvFileDiv.fn_ComFileDelete();//파일삭제
+};
+
+ 
+/***********************************************************************************************
+ * 3. 복사
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 03.01. [공통버튼] 복사 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCopy = function()
+{ 	
+	//선택된 Row
+	var iRowPos = this.ds_Master10.rowposition;
+	var iAddRow = 0;
+	
+	
+	
+	
+	this.fvFileDiv.fn_ClearAtchFile();//첨부파일 정보 초기화
+	
+	iAddRow = this.ds_Master10.addRow();
+
+	this.ds_Master10.set_enableevent(false);
+	this.ds_Master10.copyRow(iAddRow, this.ds_Master10, iRowPos);
+	this.ds_Master10.setColumn(iAddRow, "DEPM_CD", this.gfn_GetSessionValue("DEPM_CD"));//작성자부서코드	
+	this.ds_Master10.setColumn(iAddRow, "DEPM_NM", this.gfn_GetSessionValue("DEPM_NM"));//작성자부서명	
+	this.ds_Master10.setColumn(iAddRow, "EMPM_CD", this.gfn_GetSessionValue("USEM_ID"));//작성자사번	
+	this.ds_Master10.setColumn(iAddRow, "EMPM_NM", this.gfn_GetSessionValue("USEM_NM"));//작성자명		
+	this.ds_Master10.setColumn(iAddRow, "SYST_ID", this.gfn_GetSessionValue("SYST_ID"));//작성자ID		
+	this.ds_Master10.setColumn(iAddRow, "OFFH_DD", this.gfn_GetCommDate("toDay"));
+	this.ds_Master10.setColumn(iAddRow, "REGI_ID", "");
+	this.ds_Master10.setColumn(iAddRow, "REGI_NM", "");
+	this.ds_Master10.setColumn(iAddRow, "MODI_NM", "");
+	this.ds_Master10.setColumn(iAddRow, "MODI_DT", "");	
+	this.ds_Master10.setColumn(iAddRow, "DEPM_NM1", "");	
+	this.ds_Master10.setColumn(iAddRow, "OFFH_NO", "");
+	this.ds_Master10.setColumn(iAddRow, "WOFH_NO", "");
+	this.ds_Master10.setColumn(iAddRow, "WOFH_SQ", "");
+	this.ds_Master10.setColumn(iAddRow, "WOFH_YN", "");
+	this.ds_Master10.setColumn(iAddRow, "WOFH_ST", "0010");
+
+	this.ds_Master10.set_enableevent(true);
+
+}
+
+/***********************************************************************************************
+ * 4. 취소
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 04.01. [공통버튼] 취소 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCancel = function()
+{ 
+	this.ds_Master10.reset();
+	this.fvFileDiv.fn_ClearAtchFile();//첨부파일 정보 초기화
+}
+
+/***********************************************************************************************
+ * 5. 저장
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 05.01. [공통버튼] 저장 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnSave = function()
+{ 
+
+	//내용 Web컴포넌트 정보값 세팅
+	var oWeb = this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.getProperty("window");
+	var sOffhNm = oWeb.callMethod("fn_getData");//내용	
+
+	if (this.ds_Master10.getRowCount() > 0 && this.ds_Master10.rowposition > -1) {
+		this.ds_Master10.setColumn(this.ds_Master10.rowposition, "OFFH_NM", sOffhNm);//본문내용
+	}
+	
+	//변경여부 체크
+	if (!this.gfn_DsIsUpdated(this.ds_Master10) && !this.fvFileDiv.fn_CheckFileAddYn()) {
+		this.gfn_Alert("SM036");//변경된 내용이 없습니다.
+		return;
+	}
+
+	//첨부파일정보 변경시
+	if (this.fvFileDiv.fn_CheckFileAddYn()) {
+		//첨부파일정보만 변경시
+		if (!this.gfn_DsIsUpdated(this.ds_Master10) && this.ds_Master10.getRowCount() > 0) {
+			//첨부파일정보 저장
+			fvFileInfo = new Object();//[공통] 첨부파일정보
+			fvFileInfo.PRGM_ID = this.fvComPrgmId;//프로그램ID
+			fvFileInfo.FILH_GU = "H";//첨부파일위치구분 : H-Head, B-상세(그리드Row), E-기타
+			fvFileInfo.CALLBACK_FUNC = "";//호출할 콜백함수
+			fvFileInfo.PATH_NM = this.fvPathNm;//업무파일경로
+			fvFileInfo.PK01_NO = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "COMM_CD");//PK번호1-회사코드
+			fvFileInfo.PK02_NO = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "OFFH_NO");//PK번호2-관리번호
+			fvFileInfo.PK03_NO = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_SQ");//PK번호3-결재차수
+			//첨부파일Div 화면에 Key세팅하게 변경
+			this.fvFileDiv.fn_AtchFileSave(this, fvFileInfo);
+			return;	
+		}
+	}
+
+	//저장전 유효성 체크
+	//Master 데이터 유효성 체크
+	if (this.gfn_DsIsUpdated(this.ds_Master10)) {
+		if (!this.fn_VaildMasterSave()) return;
+	}
+
+	//Master 입력/수정/삭제 상태 체크
+	var sChkRowType = this.gfn_GetRowType(this.ds_Master10, this.ds_Master10.rowposition);
+	
+	//Master 입력 상태이면
+	if (sChkRowType == "I") {
+	
+		//채번-관리번호
+		var sTemhNo = this.gfn_GetTbnmNo(this.fvComPrgmId, this.ds_Master10.getColumn(this.ds_Master10.rowposition, "OFFH_DD"));//관리번호
+		if (this.gfn_IsNull(sTemhNo)) {
+			//관리번호를 가져오는데 실패했습니다.
+			return;
+		}
+		
+		var sChkTemhNo = "";//출고번호-체크용
+		var iMasterRowPos = this.ds_Master10.rowposition;//Master 현재 Row Position
+		
+		//Master 데이터셋에 채번정보 입력-관리번호
+		this.ds_Master10.setColumn(iMasterRowPos, "OFFH_NO", sTemhNo);
+		this.ds_Master10.setColumn(iMasterRowPos, "WOFH_SQ", "1");//결재차수
+		this.ds_Master10.setColumn(iMasterRowPos, "WOFH_YN", "1");//최종여부
+		
+		//사외공문이 아닌경우 문서번호 채번
+		if (this.div_MasterInput.form.tab_Master.tpg_01.form.cbo_OffhGu.value != "0050") {
+			if (this.fn_GetDocuNo()) {
+				this.ds_Master10.setColumn(iMasterRowPos, "DOCU_NO", this.ds_Master12.getColumn(0, "DOCU_NO"));//문서번호
+			} else {
+				return;
+			}
+		}
+	}	
+	
+	//첨부파일정보 변경시
+	if (this.fvFileDiv.fn_CheckFileAddYn()) {
+		fvFileInfo = new Object();//[공통] 첨부파일정보
+		fvFileInfo.PRGM_ID = this.fvComPrgmId;//프로그램ID
+		fvFileInfo.FILH_GU = "H";//첨부파일위치구분 : H-Head, D-상세(그리드Row), E-기타
+		fvFileInfo.CALLBACK_FUNC = "fn_ComBtnSearch";//호출할 콜백함수
+		fvFileInfo.PATH_NM = this.fvPathNm;//업무파일경로
+		fvFileInfo.PK01_NO = nApp.gvCompany;//PK번호1-회사코드
+		fvFileInfo.PK02_NO = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "OFFH_NO");//PK번호2-관리번호
+		fvFileInfo.PK03_NO = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_SQ");//PK번호3-결재차수			
+	}	
+	
+	//저장시 재조회 Key설정
+	this.fvSchKey01 = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "OFFH_NO");//조회Key01
+	this.fvSchKey02 = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_SQ");//조회Key02
+
+	//[공통]서비스 정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	
+	//[공통]서비스 정보 추가
+	svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object				 
+	svcAddObj.sInsertSql = "wf:M_WF_2100_M_IN10";//저장Sql
+	svcAddObj.sUpdateSql = "wf:M_WF_2100_M_UP10";//수정Sql
+	svcAddObj.sDeleteSql = "wf:M_WF_2100_M_DL10";//삭제Sql
+	svcAddObj.sSaveFlagColumn = "";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+							 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+
+	this.gfn_AddComSaveService(this, svcAddObj);
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "SAVE";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_WF;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Master10=ds_Master10:U" //입력 데이터셋
+	svcCallObj.sOutDatset = "";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명		
+	
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+
+}
+
+/***********************************************************************************************
+ * 05.02. [Vaildation] Master 저장 필수값 체크 - 입력항목 
+ ***********************************************************************************************/ 
+this.fn_VaildMasterSave = function()
+{
+	//[저장] Validation 설정
+	var arrArgs = ["this.div_MasterInput.form.tab_Master.tpg_01.form.cal_OffhDd^" + this.div_MasterInput.form.tab_Master.tpg_01.form.sta_OffhDd.text + "|NULL" //등록일자
+			      ,"this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DepmCd^" + this.div_MasterInput.form.tab_Master.tpg_01.form.sta_DepmCd.text + "|NULL" //등록부서
+			      ,"this.div_MasterInput.form.tab_Master.tpg_01.form.edt_SystId^" + this.div_MasterInput.form.tab_Master.tpg_01.form.sta_EmpmCd.text + "|NULL" //등록자
+				  ,"this.div_MasterInput.form.tab_Master.tpg_01.form.cbo_OffhGu^" + this.div_MasterInput.form.tab_Master.tpg_01.form.sta_OffhGu.text + "|NULL" //문서구분
+				  ,"this.div_MasterInput.form.tab_Master.tpg_01.form.edt_TitlNm^" + this.div_MasterInput.form.tab_Master.tpg_01.form.sta_TitlNm.text + "|NULL" //제목
+				  //,"this.div_MasterInput.form.tab_Master.tpg_01.form.edt_ReceNm^" + this.div_MasterInput.form.tab_Master.tpg_01.form.sta_ReceNm.text + "|NULL" //수신
+				  //,"this.div_MasterInput.form.tab_Master.tpg_01.form.edt_RefeNm^" + this.div_MasterInput.form.tab_Master.tpg_01.form.sta_RefeNm.text + "|NULL" //참조
+				  //,"this.div_MasterInput.form.tab_Master.tpg_01.form.edt_TeleNo^" + this.div_MasterInput.form.tab_Master.tpg_01.form.sta_TeleNo.text + "|NULL" //전화번호
+				  //,"this.div_MasterInput.form.tab_Master.tpg_01.form.edt_FaxtNo^" + this.div_MasterInput.form.tab_Master.tpg_01.form.sta_FaxtNo.text + "|NULL" //FAX번호
+				//  ,"this.div_MasterInput.form.tab_Master.tpg_01.form.mae_OffhAm^" + this.div_MasterInput.form.tab_Master.tpg_01.form.sta_OffhAm.text + "|NULL" //기안금액				  
+			      ]; 
+			
+	var sCheckGroupTitle = this.div_MasterInput.form.tab_Master.tpg_01.text;//체크그룹 타이틀
+	
+	var iRow = this.ds_Master10.rowposition;
+
+	var sOFFH_GU = this.ds_Master10.getColumn(iRow, "OFFH_GU");//문서구분
+
+	if (!this.gfn_IsNull(sOFFH_GU)) {
+		var iFindRow = this.ds_Master13.findRow("OFFM_CD", sOFFH_GU);//문서구분
+
+		if (iFindRow > -1) {
+			var sOTEL_YN = this.ds_Master13.getColumn(iFindRow, "OTEL_YN");//전화번호여부
+			var sOFAX_YN = this.ds_Master13.getColumn(iFindRow, "OFAX_YN");//팩스번호여부
+			var sRCPT_YN = this.ds_Master13.getColumn(iFindRow, "RCPT_YN");//수신처여부
+			var sCONF_YN = this.ds_Master13.getColumn(iFindRow, "CONF_YN");//참조처여부
+			var sWFTI_CD = this.ds_Master13.getColumn(iFindRow, "WFTI_CD");//문서번호
+			
+			//문서번호-등록시
+			if (sWFTI_CD == "0010") {
+				//arrArgs.push("this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DocuNo^" + this.div_MasterInput.form.tab_Master.tpg_01.form.sta_DocuNo.text + "|NULL");//문서번호
+			}				
+
+			if (sOTEL_YN == "1") {
+				arrArgs.push("this.div_MasterInput.form.tab_Master.tpg_01.form.edt_TeleNo^" + this.div_MasterInput.form.tab_Master.tpg_01.form.sta_TeleNo.text + "|NULL");//전화번호
+			}
+			
+			if (sOFAX_YN == "1") {
+				arrArgs.push("this.div_MasterInput.form.tab_Master.tpg_01.form.edt_FaxtNo^" + this.div_MasterInput.form.tab_Master.tpg_01.form.sta_FaxtNo.text + "|NULL");////FAX번호
+			}
+			
+			if (sRCPT_YN == "1") {
+				arrArgs.push("this.div_MasterInput.form.tab_Master.tpg_01.form.edt_ReceNm^" + this.div_MasterInput.form.tab_Master.tpg_01.form.sta_ReceNm.text + "|NULL");//수신
+			}
+			
+			if (sCONF_YN == "1") {
+				arrArgs.push("this.div_MasterInput.form.tab_Master.tpg_01.form.edt_RefeNm^" + this.div_MasterInput.form.tab_Master.tpg_01.form.sta_RefeNm.text + "|NULL");//참조
+			}
+					
+		}
+	}	
+
+	//컴포넌트 Vaild 체크
+	if (!this.gfn_CheckFormCompValid(this, arrArgs, sCheckGroupTitle)) {
+		return false;
+	}
+
+	return true;
+}
+
+/***********************************************************************************************
+ * 05.03. [문서번호 채번] 사외공문(0050) 이 아닌경우 저장시 문서번호 채번
+ ***********************************************************************************************/ 
+this.fn_GetDocuNo = function()
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Master12.clearData();
+	this.ds_Input.clearData();
+
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "DEPM_CD", this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DepmCd.value);
+	this.ds_Input.setColumn(0, "OFFH_GU", this.div_MasterInput.form.tab_Master.tpg_01.form.cbo_OffhGu.value);//문서구분
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "wf:M_WF_2100_M_SL11";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "DOCU_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_WF;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Master12=ds_Master12";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+    svcCallObj.isSync = true;//동기식으로 설정할지 여부
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+	
+	if (this.ds_Master12.getRowCount() < 1) 
+	{
+		this.gfn_Alert("SM029");//채번번호가 정상적으로 생성되지 않았습니다.
+		return false;
+	} else {
+		return true;
+	}
+}
+
+ 
+/***********************************************************************************************
+ * 6. 삭제
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 06.01. [공통버튼] 삭제 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnDelete = function()
+{ 
+	this.gfn_Confirm("SM004", "", "CONF.DELETE", "fn_MsgCallback");//삭제 하시겠습니까?
+}
+
+/***********************************************************************************************
+ * 06.02. [서비스] 삭제처리
+ ***********************************************************************************************/  
+this.fn_SvcDelete = function() 
+{ 
+	//삭제전 유효성 체크
+	//Master 데이터 유효성 체크
+	if (!this.fn_VaildMasterDelete()) return;
+	
+	//삭제키 정보 설정
+	this.ds_Master11.clearData();
+	this.ds_Master11.addRow();
+	this.ds_Master11.setColumn(0, "OFFH_NO", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "OFFH_NO"));//관리번호
+	this.ds_Master11.setColumn(0, "WOFH_SQ", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_SQ"));//결재차수
+	this.ds_Master11.setColumn(0, "crudType", "D");//삭제-Flag
+	
+	//[공통]서비스 정보 초기화
+	this.gfn_InitComService(this);
+	
+	//Master 삭제
+	//[공통]서비스 정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sInsertSql = "";//저장Sql
+	svcAddObj.sUpdateSql = "";//수정Sql
+	svcAddObj.sDeleteSql = "wf:M_WF_2100_M_DL10";//삭제Sql
+	svcAddObj.sSaveFlagColumn = "crudType";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+							 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+
+	this.gfn_AddComSaveService(this, svcAddObj);
+
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "DELETE";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_WF;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Master10=ds_Master11" //입력 데이터셋
+	svcCallObj.sOutDatset = "";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+	
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+
+}
+
+/***********************************************************************************************
+ * 06.03. [Vaildation] 삭제항목 체크
+ ***********************************************************************************************/  
+this.fn_VaildMasterDelete = function()
+{
+	if (this.ds_Master10.getRowCount() < 1 || this.gfn_IsNull(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "OFFH_NO"))) {
+		this.gfn_Alert("SM006");//삭제할 대상을 선택하세요.
+		return false;
+	}
+	return true;
+}
+
+/***********************************************************************************************
+ * 7. 엑셀
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 07.01. [공통버튼] 엑셀저장 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnExcel = function()
+{ 
+	//출력 그리드 정보 설정
+	var objGridList = ["this.div_MasterView.form.grd_Master10|" + this.div_MasterView.form.sta_Master10.text
+	                  ];
+	 
+	var sFileName = "기안/품의 등록";//출력파일명
+	this.gfn_ExcelExport(this, objGridList, sFileName);
+}
+
+/***********************************************************************************************
+ * 8. 인쇄
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 08.01. [공통버튼] 인쇄 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnPrint = function()
+{ 
+		var iSelRow = this.ds_Master10.rowposition;//선택한Row
+ 
+		if (this.ds_Master10.getRowCount() > 0 && iSelRow > -1) {
+		
+		this.ds_ComWfLine.clearData();   //결재, 협조, 접수
+		this.ds_ComWfDrLine.clearData(); //접수부서
+		this.ds_ComWfLine18.clearData(); //결재,   접수
+		this.ds_ComWfLine19.clearData(); //협조
+		this.ds_ComWfLine20.clearData(); //접수
+		this.ds_ComFileList.clearData(); //첨부파일 //add
+		//this.ds_ComWfAtLine.clearData(); //감사
+ 
+		var sOFFH_GU = this.ds_Master10.getColumn(iSelRow, "OFFH_GU");//문서구분(  기안 : 0010, 0020, 0050 )	
+		
+		var oDs = this.ds_ComWfLine;//결재라인정보
+		//var oDsAt = "";//결재라인정보-감사			
+		var oDsAt = this.ds_ComWfAtLine;//결재라인정보-감사
+		
+		var sCommCd = this.ds_Master10.getColumn(iSelRow, "COMM_CD");//회사코드
+		var sWofhNo = this.ds_Master10.getColumn(iSelRow, "WOFH_NO");//결재PID
+		var sCallBackFunc = "fn_ComWfLineCallback";//콜백함수				
+		var sId = sOFFH_GU;//콜백함수 구분ID - 문서구분
+
+// this.alert(this.fvFileDiv.ds_Smfilb.rowcount );//add //첨부파일
+ 
+		//첨부파일 데이타셋에 담기 
+		if ( this.fvFileDiv.ds_Smfilb.rowcount > 0 ) {
+		
+			this.ds_ComFileList.clearData();
+			this.ds_ComFileList.addRow()	
+			
+			var sFileNmTmp = "";
+			var sFileNm    = "";	
+			
+			for(var iLoop = 0; iLoop < this.fvFileDiv.ds_Smfilb.rowcount; iLoop++){
+				sFileNmTmp = this.fvFileDiv.ds_Smfilb.getColumn(iLoop, "FILE_NM");
+				if (iLoop == 0) {
+					sFileNm   = sFileNmTmp; 		
+				} else {   
+					sFileNm   = sFileNm + ',  '+sFileNmTmp; 		
+				}
+			} //loop	
+		
+			this.ds_ComFileList.setColumn(0, "FILE_NM", sFileNm) ;//첨부파일제목 	// 
+		
+	  } //첨부파일
+
+		//레포트 결재라인 조회후 레포트 출력			
+		this.gfn_GetCommWfLine(this, oDs, sCommCd, sWofhNo, sCallBackFunc, sId, "", oDsAt);  //결재라인조회
+			
+	} else {
+		this.gfn_Alert("SM083");//출력할 정보가 없습니다.
+	}
+
+
+
+}
+
+/***********************************************************************************************
+ * 9. 결재요청
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 09.01. [공통버튼] 결재요청 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnDecide = function()
+{ 
+	//[공통] 결재요청 Vaildation 체크
+	if (!this.fn_VaildWfDecide()) return;
+	
+	var iRow = this.ds_Master10.rowposition;
+	var sPks = this.ds_Master10.getColumn(iRow, "COMM_CD");//회사코드
+	sPks += "ⓐ" + this.ds_Master10.getColumn(iRow, "OFFH_NO");//관리번호
+	sPks += "ⓐ" + this.ds_Master10.getColumn(iRow, "WOFH_SQ");//결재차수
+	var sWctmId = "";//결재업무ID
+	
+	//사외공문인경우 
+	if (this.div_MasterInput.form.tab_Master.tpg_01.form.cbo_OffhGu.value == "0050") {
+		sWctmId = "WF_M_WF_2100_W2";//결재업무ID
+	} else {
+		sWctmId = "WF_M_WF_2100_W1";//결재업무ID
+	}
+	
+	var sPopupId = "C_WF_REQUEST";//팝업ID - 결재요청
+	var oArg = { CommCd:this.gfn_GetSessionValue("COMM_CD")//회사코드
+	           , ModuCd:"WF"//모듈구분
+			   , WctmId:"WF_M_WF_2100_W1"//결재업무ID
+			   , SystId:this.gfn_GetSessionValue("SYST_ID")//결재자_시스템사번
+			   , WofhNm:"[" + this.div_MasterInput.form.tab_Master.tpg_01.form.cbo_OffhGu.text + "] " + this.ds_Master10.getColumn(iRow, "TITL_NM") //결재명
+			   , WofhNo:this.ds_Master10.getColumn(iRow, "WOFH_NO")//결재PID
+			   , InnrGb:"1"//내부결재구분(1:신규, 2:내부)
+			   , CharSystId:""//담당자_시스템사번
+			   , CharWfguCd:""//담당자 결재구분
+			   , SworqVr:"3"//결재요청버전(1,2,3)
+			   , WfamAmtr:this.div_MasterInput.form.tab_Master.tpg_01.form.mae_OffhAm.value//금액
+			   , WfamOpid:""//원천PIID
+			   , WfPkvl:sPks//PK값 정보 - PK 값을 순서대로 전달, Row구분자는 ⓡ, 조건 구분자는 ⓐ
+	           };//Argument처리
+	this.gfn_WfRequestPop(sPopupId, oArg);	
+}
+
+/***********************************************************************************************
+ * 09.02. [공통버튼] 결재요청 유효성체크
+ ***********************************************************************************************/  
+this.fn_VaildWfDecide = function() {
+	
+	//변경여부 체크
+	if (!this.gfn_DsIsUpdated(this.ds_Master10) && !this.fvFileDiv.fn_CheckFileAddYn()) {
+		var sWOFH_ST = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_ST");//결재진행상태
+
+		//결재상태에 따른 결재요청 가능여부 체크
+		if (!this.gfn_CheckDecideWf(sWOFH_ST)) {
+			return false;
+		}
+		
+	} else {
+		var arrMsgArg = ["결재요청"];
+		this.gfn_Alert("SM064", arrMsgArg);//변경된 내용이 있습니다.\n저장 후 &ITM0하시기 바랍니다.
+		return false;
+	}
+	
+	//결재진행내역체크
+	if (this.ds_Master10.getRowCount() < 1 || this.ds_Master10.rowposition < 0) {
+		this.gfn_Alert("WF016", arrMsgArg);//결재내역을 선택한 후 결재요청하세요.
+		return false;
+	}	
+	
+	return true;
+}
+
+/***********************************************************************************************
+ * 10. 결재현황
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.01. [공통버튼] 결재현황 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnProcess = function()
+{ 
+	this.gfn_WfStatPop(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_NO"));//결재진행현황 팝업호출
+}
+
+/***********************************************************************************************
+ * 11. 재기안
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 11.01. [공통버튼] 재기안 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnRecide = function()
+{ 
+	//재기안시 최종여부 체크
+	var sWOFH_YN = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_YN");//최종여부
+	if (sWOFH_YN != "1") {
+		this.gfn_Alert("WF022");//결재차수가 최종일경우에만 재기안 처리 하실 수 있습니다.
+		return;
+	}
+	this.gfn_Confirm("WF019", "", "CONF.RECIDE", "fn_MsgCallback");//재기안 하시겠습니까?		
+}
+
+/***********************************************************************************************
+ * 09.02. [공통버튼] 재기안 유효성체크
+ ***********************************************************************************************/  
+this.fn_VaildWfRecide = function() {
+	
+	//변경여부 체크
+	if (!this.gfn_DsIsUpdated(this.ds_Master10) && !this.fvFileDiv.fn_CheckFileAddYn()) {
+		var sWOFH_ST = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_ST");//결재진행상태
+
+		//결재상태에 따른 재기안 가능여부 체크
+		if (!this.gfn_CheckRecideWf(sWOFH_ST)) {
+			return false;
+		}
+		
+	} else {
+		var arrMsgArg = ["재기안"];
+		this.gfn_Alert("SM064", arrMsgArg);//변경된 내용이 있습니다.\n저장 후 &ITM0하시기 바랍니다.
+		return false;
+	}
+	
+	//결재진행내역체크
+	if (this.ds_Master10.getRowCount() < 1 || this.ds_Master10.rowposition < 0) {
+		this.gfn_Alert("WF021", arrMsgArg);//결재내역을 선택한 후 재기안하세요.
+		return false;
+	}		
+	
+	return true;
+}
+
+/***********************************************************************************************
+ * 11.03. [공통버튼] 재기안 서비스
+ ***********************************************************************************************/ 
+this.fn_ComBtnRecideProc = function()
+{ 
+	//[공통] 재기안 Vaildation 체크
+	if (!this.fn_VaildWfRecide()) return;
+	
+	nApp.gds_WfRst.clearData();//[결재]재기안결과 글로벌 데이터셋
+	this.ds_Master10Wf.clearData();
+	this.ds_Master10Wf.addRow();
+
+	this.ds_Master10Wf.setColumn(0, "PRGM_ID", this.fvComPrgmId);//프로그램ID
+	this.ds_Master10Wf.setColumn(0, "TABL_NM", "WFS..T_WF_OFFH");//재기안처리할 테이블명-마스터테이블부터 순서대로
+	this.ds_Master10Wf.setColumn(0, "FILH_GU", "H");//파일구분
+	this.ds_Master10Wf.setColumn(0, "PK01_NO", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "COMM_CD"));//PK번호1-PK는 마스터 테이블기준 순서대로 
+	this.ds_Master10Wf.setColumn(0, "PK02_NO", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "OFFH_NO"));//PK번호2
+	this.ds_Master10Wf.setColumn(0, "PK03_NO", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_SQ"));//PK번호3
+	this.ds_Master10Wf.setColumn(0, "PK04_NO", "");//PK번호4
+	this.ds_Master10Wf.setColumn(0, "PK05_NO", "");//PK번호5
+	this.ds_Master10Wf.setColumn(0, "PK06_NO", "");//PK번호6
+	this.ds_Master10Wf.setColumn(0, "PK07_NO", "");//PK번호7
+	this.ds_Master10Wf.setColumn(0, "PK08_NO", "");//PK번호8
+	this.ds_Master10Wf.setColumn(0, "PK09_NO", "");//PK번호9
+	this.ds_Master10Wf.setColumn(0, "PK10_NO", "");//PK번호10
+	this.ds_Master10Wf.setColumn(0, "WOFH_SQ_NO", "3");//결재차수-컬럼번호 : 첨부파일의 Key중 결재차수 컬럼의 PK컬럼순서
+	this.ds_Master10Wf.setColumn(0, "FILE_YN", "Y");//첨부파일 사용업무여부
+	this.ds_Master10Wf.setColumn(0, "ACCH_YN", "N");//자동전표 사용업무여부	
+	
+	//[공통] 재기안후 재조회시 KEY값 설정
+	this.fvSchKey01 = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "OFFH_NO");//조회Key01
+	this.fvSchKey02 = nexacro.toNumber(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_SQ")) + 1;//조회Key02	
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "wf:M_WF_1100_M_UP12";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "WF_RECIDE";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= "";			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_Master10Wf=ds_Master10Wf" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "gds_WfRst=gds_WfRst";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+}
+
+/***********************************************************************************************
+ * 12. 닫기
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 12.01. [공통버튼] 닫기 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnClose = function()
+{ 
+	return true;
+}
+
+/***********************************************************************************************
+ * 13. [CallBack] 함수
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 13.01. [서비스] CallBack 함수 처리
+ ***********************************************************************************************/ 
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{   
+		case "COMWFLINE_SEARCH": //결재구분별 조회	//기안, 협조전 조회
+		
+		    var iSelRow = this.ds_Master10.rowposition;//선택한Row
+			var sOFFH_GU = this.ds_Master10.getColumn(iSelRow, "OFFH_GU");//문서구분(  기안 : 0010, 0020, 0050 )	 
+
+			var sReportFile = "";//레포트파일ID
+			
+			if (sOFFH_GU == "0010") {			
+			
+				sReportFile = "M_WF_2100_01";//레포트파일ID //기안				
+				
+			} else if ( sOFFH_GU == "0020") {
+			
+				sReportFile = "M_WF_2100_02";//레포트파일ID //협조전
+			} 
+
+		//	sReportFile = "M_WF_2100_01";//레포트파일ID //기안
+			
+		
+			//마스터출력할 Row 복사
+			this.ds_Master10Rt.clearData();
+			this.ds_Master10Rt.addRow();
+			this.ds_Master10Rt.copyRow(0, this.ds_Master10, this.ds_Master10.rowposition);
+	 
+			
+		//if (sId == "0050") { 
+	
+			if (this.ds_WfFileUrl18.getRowCount() > 0) {			 	  
+ 
+				var objWfFileUrl18 = this.ds_WfFileUrl18;							
+				this.ds_ComWfLine18.clearData();
+				this.ds_ComWfLine18.addRow();	
+	
+				var iNowCol = 1;//현재컬럼번호
+				var sEMSI_ID = "";//저장파일명	
+				var sFILE_UL = "";//URL		
+				var sFULL_FILE_UL = "";//Full URL	
+				var sEncode = "";
+				var sEMPM_MEMO_NM = "";
+				var sMEMO_NM = "";
+				
+				for (var iLoop=0; iLoop < objWfFileUrl18.getRowCount(); iLoop++) {	
+				
+					sEMSI_ID = objWfFileUrl18.getColumn(iLoop, "EMSI_ID");//저장파일명	
+					sFILE_UL = objWfFileUrl18.getColumn(iLoop, "FILE_UL");//URL			
+					sFULL_FILE_UL18 = "";//Full 
+				 
+					if (!this.gfn_IsNull(sEMSI_ID)) {
+						sEncode = encodeURI(sEMSI_ID.replace(/\+/,"%2B"));
+						sFULL_FILE_UL = sFILE_UL + sEncode;//Full URL
+					}	
+					
+					this.ds_ComWfLine18.setColumn(0, "POSI_NM" + iNowCol, objWfFileUrl18.getColumn(iLoop, "POSI_NM"));//직위
+					this.ds_ComWfLine18.setColumn(0, "APPR_NM" + iNowCol, objWfFileUrl18.getColumn(iLoop, "EMPM_NM"));//성명
+					this.ds_ComWfLine18.setColumn(0, "SIGN_UL" + iNowCol, sFULL_FILE_UL18);//사인
+					this.ds_ComWfLine18.setColumn(0, "APPR_TM" + iNowCol, objWfFileUrl18.getColumn(iLoop, "WOFH_DD"));//날짜
+					
+					//결재자별 첨언					
+					sMEMO_NM =  objWfFileUrl18.getColumn(iLoop, "MEMO_NM")  ; //첨언						
+					if(!this.gfn_IsNull(sMEMO_NM)){
+						sMEMO_NM = nexacro.replaceAll(sMEMO_NM, '      ',''); // 공백제거
+						sMEMO_NM = nexacro.replaceAll(sMEMO_NM, '\n',''); //줄바꿈 제거
+					}		 
+					
+					if (!this.gfn_IsNull(sMEMO_NM)) {							
+						if(iLoop == 0) {
+							sEMPM_MEMO_NM =  '[' + objWfFileUrl18.getColumn(iLoop, "EMPM_NM") +'] '+ sMEMO_NM  + '\n' ; //성명 + 첨언
+						} else if (iLoop > 0 ) {
+						    sEMPM_MEMO_NM =  sEMPM_MEMO_NM + '[' + objWfFileUrl18.getColumn(iLoop, "EMPM_NM") +'] '+ sMEMO_NM  + '\n' ; //성명 + 첨언						
+						}	
+					
+					}		
+					
+					iNowCol++;
+				}	//loop	18	
+				
+				this.ds_ComWfLine18.setColumn(0, "MEMO_NM", sEMPM_MEMO_NM ); //성명+ 첨언						
+				
+		//	}// ds_WfFileUrl18
+				
+			if (this.ds_WfFileUrl19.getRowCount() > 0) {				
+	 		 
+				var objWfFileUrl19 = this.ds_WfFileUrl19;		
+				this.ds_ComWfLine19.clearData();
+				this.ds_ComWfLine19.addRow();		
+			 
+				var iNowCol = 1;//현재컬럼번호
+				var sEMSI_ID = "";//저장파일명	
+				var sFILE_UL = "";//URL		
+				var sFULL_FILE_UL = "";//Full URL	
+				var sEncode = "";
+				
+				for (var iLoop=0; iLoop <  objWfFileUrl19.getRowCount(); iLoop++) {	
+				 
+				//this.alert(objWfFileUrl19.getRowCount());
+				
+					sEMSI_ID = objWfFileUrl19.getColumn(iLoop, "EMSI_ID");//저장파일명	
+					sFILE_UL = objWfFileUrl19.getColumn(iLoop, "FILE_UL");//URL			
+					sFULL_FILE_UL = "";//Full 
+				 
+					if (!this.gfn_IsNull(sEMSI_ID)) {
+						sEncode = encodeURI(sEMSI_ID.replace(/\+/,"%2B"));
+						sFULL_FILE_UL = sFILE_UL + sEncode;//Full URL
+					}	
+					
+					this.ds_ComWfLine19.setColumn(0, "POSI_NM" + iNowCol, objWfFileUrl19.getColumn(iLoop, "POSI_NM"));//직위
+					this.ds_ComWfLine19.setColumn(0, "APPR_NM" + iNowCol, objWfFileUrl19.getColumn(iLoop, "EMPM_NM"));//성명
+					this.ds_ComWfLine19.setColumn(0, "SIGN_UL" + iNowCol, sFULL_FILE_UL);//사인
+					this.ds_ComWfLine19.setColumn(0, "APPR_TM" + iNowCol, objWfFileUrl19.getColumn(iLoop, "WOFH_DD"));//날짜
+					iNowCol++
+				 
+				}//loop	19	
+			
+			}//ds_WfFileUrl19
+			
+			if (this.ds_WfFileUrl20.getRowCount() > 0) {				
+	 		
+				var objWfFileUrl20 = this.ds_WfFileUrl20;		
+				this.ds_ComWfLine20.clearData();
+				this.ds_ComWfLine20.addRow();		
+			 
+				var iNowCol = 1;//현재컬럼번호
+				var sEMSI_ID = "";//저장파일명	
+				var sFILE_UL = "";//URL		
+				var sFULL_FILE_UL = "";//Full URL	
+				var sEncode = "";
+				
+				for (var iLoop=0; iLoop < objWfFileUrl20.getRowCount(); iLoop++) {	
+				
+					sEMSI_ID = objWfFileUrl20.getColumn(iLoop, "EMSI_ID");//저장파일명	
+					sFILE_UL = objWfFileUrl20.getColumn(iLoop, "FILE_UL");//URL			
+					sFULL_FILE_UL = "";//Full 
+				 
+					if (!this.gfn_IsNull(sEMSI_ID)) {
+						sEncode = encodeURI(sEMSI_ID.replace(/\+/,"%2B"));
+						sFULL_FILE_UL = sFILE_UL + sEncode;//Full URL
+					}	
+					
+					this.ds_ComWfLine20.setColumn(0, "POSI_NM" + iNowCol, objWfFileUrl20.getColumn(iLoop, "POSI_NM"));//직위
+					this.ds_ComWfLine20.setColumn(0, "APPR_NM" + iNowCol, objWfFileUrl20.getColumn(iLoop, "EMPM_NM"));//성명
+					this.ds_ComWfLine20.setColumn(0, "SIGN_UL" + iNowCol, sFULL_FILE_UL);//사인
+					this.ds_ComWfLine20.setColumn(0, "APPR_TM" + iNowCol, objWfFileUrl20.getColumn(iLoop, "WOFH_DD"));//날짜
+					iNowCol++;
+				}	//loop20
+			
+			}//ds_WfFileUrl2020		 
+			
+			if (this.ds_WfFileUrl21.getRowCount() > 0) {				
+
+				var objWfFileUrl21 = this.ds_WfFileUrl21;		
+				this.ds_ComWfLine21.clearData();
+				this.ds_ComWfLine21.addRow();		
+			 
+				var iNowCol = 1;//현재컬럼번호
+				var sEMSI_ID = "";//저장파일명	
+				var sFILE_UL = "";//URL		
+				var sFULL_FILE_UL = "";//Full URL	
+				var sEncode = "";
+				
+				for (var iLoop=0; iLoop <  objWfFileUrl21.getRowCount(); iLoop++) {			
+				
+					sEMSI_ID = objWfFileUrl21.getColumn(iLoop, "EMSI_ID");//저장파일명	
+					sFILE_UL = objWfFileUrl21.getColumn(iLoop, "FILE_UL");//URL			
+					sFULL_FILE_UL = "";//Full 
+				 
+					if (!this.gfn_IsNull(sEMSI_ID)) {
+						sEncode = encodeURI(sEMSI_ID.replace(/\+/,"%2B"));
+						sFULL_FILE_UL = sFILE_UL + sEncode;//Full URL
+					}	
+					
+					this.ds_ComWfLine21.setColumn(0, "POSI_NM" + iNowCol, objWfFileUrl21.getColumn(iLoop, "POSI_NM"));//직위
+					this.ds_ComWfLine21.setColumn(0, "APPR_NM" + iNowCol, objWfFileUrl21.getColumn(iLoop, "EMPM_NM"));//성명
+					this.ds_ComWfLine21.setColumn(0, "SIGN_UL" + iNowCol, sFULL_FILE_UL);//사인
+					this.ds_ComWfLine21.setColumn(0, "APPR_TM" + iNowCol, objWfFileUrl21.getColumn(iLoop, "WOFH_DD"));//날짜
+					iNowCol++				 
+				}//loop	21				
+			}//ds_WfFileUrl21 결재(주관부서)
+			
+			
+			
+
+	} //기안문	
+	
+
+	//출력
+			var dsObj = new Object();//출력 데이터셋 정보		
+				dsObj.ds_Master10 = this.ds_Master10Rt;	
+				dsObj.ds_ComWfLine = this.ds_ComWfLine;// 결재라인
+				dsObj.ds_ComWfLine18 = this.ds_ComWfLine18;// 결재라인18 ds_ComWfLine18
+				dsObj.ds_ComWfLine19 = this.ds_ComWfLine19;// 결재라인19
+				dsObj.ds_ComWfLine20 = this.ds_ComWfLine20;// 결재라인20
+				dsObj.ds_ComFileList = this.ds_ComFileList;// 첨부파일				
+ 				dsObj.ds_ComWfDrLine = this.ds_ComWfLine21;//주관부서 결재라인 //20220919
+				//dsObj.ds_ComWfDrLine = this.ds_ComWfDrLine;//주관부서 결재라인  
+// 				dsObj.ds_ComWfAtLine = this.ds_ComWfAtLine;//감사 결재라인				
+
+
+				var paObj = new Object();//출력 파라메타 정보	
+				paObj.PRNT_NM = this.gfn_GetSessionValue("USEM_NM");//출력자
+				paObj.LOGO_UL = this.gfn_GetReportImageUrl("LOGO_UL_01");//이미지-로고
+				   
+				var oArg = {ProjectFolder:"WF"        //레포트저장 폴더
+						  , ReportFile:sReportFile 	  //레포트파일명
+						  , ReportDs:dsObj            //레포트파라메타 - 데이터셋
+						  , ReportParam:paObj         //레포트파라메타 - 변수
+						   };                         //Popup화면 전달 파라메터
+						   
+				this.gfn_ReportPop("REPORT", oArg, "fn_PopupCallback");//레포트 팝업 호출	 
+	 
+			break;
+			
+			
+			
+			
+			
+		case "MST_SEARCH": //조회		
+	
+			this.div_MasterInput.form.tab_Master.tpg_01.form.cbo_OffhGu.set_enable(false);
+			if (this.ds_Master10.getRowCount() > 0) {
+			
+				//저장후 재조회여부-true
+				if (this.fvSchKeyYn) {
+					var iFvFindRow = this.ds_Master10.findRowExpr("OFFH_NO=='" + this.fvSchKey01 + "' && WOFH_SQ=='" + this.fvSchKey02 + "'");//업무Key Row 찾기
+
+					//마스터 데이터셋 이벤트가 비활성시 - 활성화
+					if (!this.ds_Master10.enableevent) {
+						this.ds_Master10.set_enableevent(true);
+					}
+				
+					if (iFvFindRow > -1) {
+						if (iFvFindRow == 0) {
+							this.ds_Master10.set_rowposition(-1);
+						} 
+						this.ds_Master10.set_rowposition(iFvFindRow);
+					} else {
+						this.ds_Master10.set_rowposition(0);
+					}
+									
+				}				
+				
+				//입력영역 활성화
+				this.div_MasterInput.set_enable(true);
+				this.div_DetailInput.form.tab_Detail.set_enable(true);
+					
+				//첨부파일정보 권한설정
+				var oScrnBtnAuth = new Object();//[공통] 첨부파일 권한정보
+				oScrnBtnAuth.BTN_ENABLE = true;//권한 유무	
+				this.fvFileDiv.fn_SetCommFileBtnAuth(oScrnBtnAuth);	
+				
+				//[공통]그리드NoData Text 초기화 설정
+				this.gfn_InitGridNoDataText(this.div_MasterView.form.grd_Master10);
+				
+			} else {
+										
+				//[공통]그리드NoData Text설정
+				this.gfn_SetGridNoDataText(this.div_MasterView.form.grd_Master10);
+				
+				//마스터 데이터셋 이벤트가 비활성시 - 활성화
+				if (!this.ds_Master10.enableevent) {
+					this.ds_Master10.set_enableevent(true);
+				}
+			
+				//입력영역 비활성화
+				this.div_MasterInput.set_enable(false);
+				this.div_DetailInput.form.tab_Detail.set_enable(false);
+					
+				//첨부파일정보 권한설정
+				var oScrnBtnAuth = new Object();//[공통] 첨부파일 권한정보
+				oScrnBtnAuth.BTN_ENABLE = false;//권한 유무	
+				this.fvFileDiv.fn_SetCommFileBtnAuth(oScrnBtnAuth);					
+			}
+			
+			//[결재] 결재내역 조회 모드인경우
+			if (this.fvWfSearchMode) {
+
+				//웹컴포넌트 로드 완료된 상태이면
+				if (this.fvWebCompLoadYn) {
+					if (this.ds_Master10.getRowCount() > 0) {
+						//내용 Web컴포넌트에 값 세팅
+						//var oWeb = this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.getProperty("window");
+						//var sContNm = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "OFFH_NM");//본문내용
+						//oWeb.callMethod("fn_setData", this.gfn_ReplaceWebEditorData(sContNm));	
+					
+						this.setTimer(998,500);
+						
+					}			
+				}			
+			} else {
+
+				if (this.ds_Master10.getRowCount() > 0) {
+
+					//내용 Web컴포넌트에 값 세팅
+					//var oWeb = this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.getProperty("window");
+					//var sContNm = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "OFFH_NM");//본문내용
+					//oWeb.callMethod("fn_setData", this.gfn_ReplaceWebEditorData(sContNm));		
+					//웹컴포넌트가 로드 완료되었을경우					
+					
+					if (this.fvWebCompLoadYn) {					
+						this.setTimer(998,500);
+					}					
+				} else {
+	
+					//내용 Web컴포넌트에 값 세팅
+					var oWeb = this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.getProperty("window");				                
+					oWeb.callMethod("fn_setData", "");				
+				}			
+			}
+
+			this.fvDtlSearchYn = true;//상세조회여부			
+			
+			//저장후 재조회여부-true
+			if (this.fvSchKeyYn) {
+				this.fvSchKeyYn = false;//저장후 재조회여부
+			}			
+	
+			break;
+		case "SAVE":   //저장		
+
+			//첨부파일 추가건이 없으면
+			if (!this.fvFileDiv.fn_CheckFileAddYn()) {
+				this.fvSchKeyYn = true;//저장후 재조회여부
+				this.fn_ComBtnSearch();//저장후 재조회
+			} else {
+				this.fvFileDiv.fn_AtchFileSave(this, fvFileInfo);			
+			}
+			break;			
+			
+		case "DELETE": //삭제		
+			this.fn_ComBtnSearch();//조회
+			break;			
+		case "WF_RECIDE": //재기안처리		
+			if (nApp.gds_WfRst.getRowCount() > 0) {
+				if (nApp.gds_WfRst.getColumn(0, "O_RET_CODE") == "TRUE") {
+					this.gfn_Alert("WF012");//재기안 처리가 완료되었습니다.
+					this.fvSchKeyYn = true;//저장후 재조회여부
+					this.fn_ComBtnSearch();//재기안 재조회
+				} else {
+					var arrMsgArg = [nApp.gds_WfRst.getColumn(0, "O_RET_CMSG")];
+					this.gfn_Alert("WF013", arrMsgArg);//재기안 처리시 오류가 발생하였습니다.\n&ITM0				
+				}
+			} else {
+				var arrMsgArg = [""];
+				this.gfn_Alert("WF013", arrMsgArg);//재기안 처리시 오류가 발생하였습니다.\n&ITM0
+			}
+			break;		
+			
+		case "COMBO_SEARCH": //콤보내역조회시		
+			if (!this.gfn_IsNull(this.fvOffhNo)) {
+				this.fvWfSearchMode = true;//[결재]결재내역 조회모드
+				this.fvWfPopupMode=true;//팝업으로 호출여부
+				this.fn_ComBtnSearch();//조회
+			}
+			break;				
+
+			
+	}
+};
+
+/***********************************************************************************************
+ * 13.02. [팝업] CallBack 함수 처리
+          strId : 팝업호출시 지정한 팝업ID
+	      rtnValue : 팝업창에서 close시 지정한 반환값
+          주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/ 
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+
+	//[결재요청/결재취소]
+	if (strId == "C_WF_REQUEST") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);
+			
+			//리턴메세지코드
+			if (!this.gfn_IsNull(arrRtnVal.MSG_CODE)) {
+				//결재정상처리 된경우
+				if (arrRtnVal.MSG_CODE == "0") {
+					//[공통] 결재요청/결재취소 재조회시 KEY값 설정
+					this.fvSchKeyYn = true;
+					this.fvSchKey01 = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "OFFH_NO");//조회Key01
+					this.fvSchKey02 = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_SQ");//조회Key02					
+					//재조회
+					this.fn_ComBtnSearch();
+				}
+			}	
+		}	
+	//[조회영역]
+	//등록부서
+	} else if (strId == "S_DEPM_CD_01") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);
+			
+			if (!this.gfn_IsNull(arrRtnVal.DEPM_CD)) {
+				this.div_Search.form.edt_DepmCd.set_value(arrRtnVal.DEPM_CD);
+				this.div_Search.form.edt_DepmNm.set_value(arrRtnVal.DEPM_NM);
+			}
+		} else {
+			//조회조건영역 - 전체권한여부 체크
+			if (this.gfn_CheckAllAuth(this.fvComPrgmId)) {
+				this.div_Search.form.edt_DepmCd.set_value("");
+				this.div_Search.form.edt_DepmNm.set_value("");		
+			} else {
+				this.div_Search.form.edt_DepmCd.set_value(this.gfn_GetSessionValue("DEPM_CD"));
+				this.div_Search.form.edt_DepmNm.set_value(this.gfn_GetSessionValue("DEPM_NM"));					
+			}	
+		}
+	//등록자
+	} else if (strId == "S_SYST_ID_01") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);	
+			
+			if (!this.gfn_IsNull(arrRtnVal.EMPM_CD)) {
+				this.div_Search.form.edt_EmpmCd.set_value(arrRtnVal.EMPM_CD);
+				this.div_Search.form.edt_EmpmNm.set_value(arrRtnVal.EMPM_NM);
+				this.div_Search.form.edt_SystId.set_value(arrRtnVal.SYST_ID);
+			}
+		} else {
+			//조회조건영역 - 자신의자료 권한여부 체크		
+			if (this.gfn_CheckOwnAuth(this.fvComPrgmId)) {
+				this.div_Search.form.edt_EmpmCd.set_value(this.gfn_GetSessionValue("EMPM_CD"));
+				this.div_Search.form.edt_EmpmNm.set_value(this.gfn_GetSessionValue("EMPM_NM"));
+				this.div_Search.form.edt_SystId.set_value(this.gfn_GetSessionValue("SYST_ID"));	
+			} else {
+				this.div_Search.form.edt_EmpmCd.set_value("");
+				this.div_Search.form.edt_EmpmNm.set_value("");
+				this.div_Search.form.edt_SystId.set_value("");				
+			}	
+		}
+		
+	//[Master영역]
+	//등록부서		
+	} else if (strId == "M_DEPM_CD_01") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);	
+			
+			if (!this.gfn_IsNull(arrRtnVal.DEPM_CD)) {
+				this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DepmCd.set_value(arrRtnVal.DEPM_CD);
+				this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DepmNm.set_value(arrRtnVal.DEPM_NM);
+			}
+		} else {
+			this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DepmCd.set_value("");
+			this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DepmNm.set_value("");		
+		}
+	//등록자		
+	} else if (strId == "M_SYST_ID_01") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);	
+			
+			if (!this.gfn_IsNull(arrRtnVal.EMPM_CD)) {
+				this.div_MasterInput.form.tab_Master.tpg_01.form.edt_EmpmCd.set_value(arrRtnVal.EMPM_CD);
+				this.div_MasterInput.form.tab_Master.tpg_01.form.edt_EmpmNm.set_value(arrRtnVal.EMPM_NM);
+				this.div_MasterInput.form.tab_Master.tpg_01.form.edt_SystId.set_value(arrRtnVal.SYST_ID);				
+			}
+		} else {
+			this.div_MasterInput.form.tab_Master.tpg_01.form.edt_EmpmCd.set_value("");
+			this.div_MasterInput.form.tab_Master.tpg_01.form.edt_EmpmNm.set_value("");
+			this.div_MasterInput.form.tab_Master.tpg_01.form.edt_SystId.set_value("");		
+		}
+	}
+
+	//[Detail영역-검색]
+};
+ 
+/***********************************************************************************************
+ * 13.03. [메세지] CallBack 함수 처리
+ ***********************************************************************************************/  
+this.fn_MsgCallback = function (strId, strVal)
+{
+	//삭제여부
+	if (strId == "CONF.DELETE") {
+		if(strVal )
+		{
+			this.fn_SvcDelete();//삭제 서비스 호출
+		}
+	//MASTER 변경사항 저장여부
+	} else if (strId == "CONF.MAST_CHANGE") {
+		if(strVal )
+		{
+			this.fn_ComBtnSave();//저장 서비스 호출
+		} else {
+			//데이터 변경여부 체크
+			if (this.gfn_DsIsUpdated(this.ds_Master10)) {
+				this.gfn_UndoColumn(this.div_MasterView.form.grd_Master10);
+			}		
+			
+		}
+	//[결재] 재기안여부
+	} else if (strId == "CONF.RECIDE") {
+		if(strVal) {
+			this.fn_ComBtnRecideProc();//[결재] 재기안 서비스 호출
+		}	
+	}
+
+}; 
+
+
+
+/***********************************************************************************************
+ * 13.04. [인쇄] 결재라인조회 CallBack 함수 처리
+ ***********************************************************************************************/  
+this.fn_ComWfLineCallback = function (sId){
+
+//this.alert("가====>" +sId) ;//add 문서구분
+
+ 	var sReportFile = "";//레포트파일ID
+
+	
+	//문서구분 - 기안문
+	if (sId == "0010") {
+		sReportFile = "M_WF_2100_01";//레포트파일ID
+	//문서구분 - 업무협조
+	} else if (sId == "0020") {
+		sReportFile = "M_WF_2100_02";//레포트파일ID	
+	//문서구분 - 사외공문
+	} else if (sId == "0050") {
+		sReportFile = "M_WF_2100_05";//레포트파일ID			
+	}
+	
+// 	 
+// 	마스터출력할 Row 복사
+	this.ds_Master10Rt.clearData();
+	this.ds_Master10Rt.addRow();
+	this.ds_Master10Rt.copyRow(0, this.ds_Master10, this.ds_Master10.rowposition);
+
+	if (sId == "0050") { //문서구분: 사외공문
+		//	this.alert("bb11: " + sId);
+		this.ds_Master10Rt.setColumn(0, "RECE_NM", this.div_MasterInput.form.tab_Master.tpg_01.form.edt_ReceNm.text); //수신
+		this.ds_Master10Rt.setColumn(0, "REFE_NM", this.div_MasterInput.form.tab_Master.tpg_01.form.edt_RefeNm.text) ;//참조
+		this.ds_Master10Rt.setColumn(0, "TITL_NM", this.div_MasterInput.form.tab_Master.tpg_01.form.edt_TitlNm.text) ;//제목 	// 															  
+		this.ds_Master10Rt.setColumn(0, "DOCU_NO", this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DocuNo.text) ;//문서번호	
+		this.ds_Master10Rt.setColumn(0, "TELE_NO", this.div_MasterInput.form.tab_Master.tpg_01.form.edt_TeleNo.text) ;//전화번호
+		this.ds_Master10Rt.setColumn(0, "FAXT_NO", this.div_MasterInput.form.tab_Master.tpg_01.form.edt_FaxtNo.text) ;//팩스
+		
+	//this.alert(this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DocuNo.text);//결재PID
+ 	}		 
+	
+// 	결재전체
+		//if (sId == "0010") {
+		if (sId == "0010" || sId == "0020") {  //기안 OR 협조전
+
+	//	if (this.ds_ComWfLine.getRowCount() > 0 ) { //결재상태 상관없이 출력 요청함.
+
+			//결재구분에 따른 결재라인 조회 ( M_WF_1100_D_SL18 // 결재, 기안 0010, 0060 )
+			var iSelRow = this.ds_Master10.rowposition;//선택한Row
+			var sCommCd = this.ds_Master10.getColumn(iSelRow, "COMM_CD");//회사코드
+			var sWofhNo = this.ds_Master10.getColumn(iSelRow, "WOFH_NO");//결재PID
+		
+			//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+			this.ds_Detail18.clearData();  //결재, 기안
+			this.ds_Detail19.clearData();  //협조
+			this.ds_Detail20.clearData();  //접수
+			this.ds_Detail21.clearData();  //결재(주관부서)(20220919)
+			this.ds_Input.clearData();
+
+			var sSqlId = "";
+			var sOutDatset = "";
+
+			this.ds_Input.addRow();
+			this.ds_Input.setColumn(0, "COMM_CD", sCommCd);// 회사코드
+			this.ds_Input.setColumn(0, "WOFH_NO", sWofhNo);// 결재번호	
+		
+			//[공통]서비스정보 초기화
+			this.gfn_InitComService(this);
+			
+			//[공통]서비스정보 추가
+			var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+			svcAddObj.sSelectSql = "wf:M_WF_1100_D_SL18"; //결재, 기안
+			this.gfn_AddComSearchService(this, svcAddObj);
+
+			svcAddObj.sSelectSql = "wf:M_WF_1100_D_SL19"; //협조
+			this.gfn_AddComSearchService(this, svcAddObj);
+			
+			svcAddObj.sSelectSql = "wf:M_WF_1100_D_SL20";//접수
+			this.gfn_AddComSearchService(this, svcAddObj);							
+			
+			svcAddObj.sSelectSql = "wf:M_WF_1100_D_SL21"; //결재(주관부서) (20220919)
+			this.gfn_AddComSearchService(this, svcAddObj);
+
+
+			//[공통]서비스 호출 변수
+			var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+			svcCallObj.sTrid = "COMWFLINE_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+			svcCallObj.sActionName = this.G_SV_WF;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조		
+			svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋		
+			svcCallObj.sOutDatset = "ds_WfFileUrl18=ds_Detail18 ds_WfFileUrl19=ds_Detail19 ds_WfFileUrl20=ds_Detail20 ds_WfFileUrl21=ds_Detail21";//출력 데이터셋 //20220919
+			//svcCallObj.sOutDatset = "ds_WfFileUrl18=ds_Detail18 ds_WfFileUrl19=ds_Detail19 ds_WfFileUrl20=ds_Detail20";//출력 데이터셋 //add						
+			//svcCallObj.sOutDatset = "gds_WfSlipFileUrl=ds_Detail18";//출력 데이터셋 //add	
+			//svcCallObj.sOutDatset = "ds_ComWfLine18=ds_Detail18 ds_ComWfLine19=ds_Detail19 ds_ComWfLine20=ds_Detail20";//출력 데이터셋 //add					
+			svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+			svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+			//svcCallObj.isSync = true;//동기식으로 설정할지 여부
+
+			//[공통]서비스 호출
+			this.gfn_CallComService(this, svcCallObj);				
+		
+	//	} //this.ds_ComWfLine.getRowCount()
+	
+//사외공문 출력 
+	} else if (sId == "0050") {
+	
+//this.alert(this.ds_ComWfLine.getRowCount());
+			var dsObj = new Object();//출력 데이터셋 정보
+				dsObj.ds_Master10 = this.ds_Master10Rt;	
+				dsObj.ds_ComWfLine = this.ds_ComWfLine;// 결재라인	 
+
+			var paObj = new Object();//출력 파라메타 정보	
+			paObj.PRNT_NM = this.gfn_GetSessionValue("USEM_NM");//출력자
+			paObj.LOGO_UL = this.gfn_GetReportImageUrl("LOGO_UL_01");//이미지-로고
+			paObj.SEAL_UL = this.gfn_GetReportImageUrl("SIGN_UL_01");//직인-로고
+			   
+			var oArg = {ProjectFolder:"WF"        //레포트저장 폴더
+					  , ReportFile:sReportFile 	  //레포트파일명
+					  , ReportDs:dsObj            //레포트파라메타 - 데이터셋
+					  , ReportParam:paObj         //레포트파라메타 - 변수
+					   };                         //Popup화면 전달 파라메터
+					   
+			this.gfn_ReportPop("REPORT", oArg, "fn_PopupCallback");//레포트 팝업 호출	
+		}
+ 
+
+}; 
+ 
+/***********************************************************************************************
+ * 14. [화면 사이즈] 조정 버튼 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 14.01. [조회영역-▲] 화면 사이즈조정 버튼 이벤트
+ ***********************************************************************************************/ 
+this.btn_DivMoveMi_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통] 버튼 변수
+	var btnObj = new Object();//[공통] 버튼 변수 정보 Object
+	btnObj.DivSearch = "this.div_Search";//조회영역 Div
+	btnObj.DivMstLeft = "this.div_MasterView";//Master영역 Left Div : Master영역이 하나인경우에는 Left에 설정
+	btnObj.DivMstRight = "this.div_MasterInput";//Master영역 Right Div
+	btnObj.DivDetail = "this.div_DetailInput";//Detail영역 Div
+	btnObj.MstLeft = this.sta_HSplitter.getOffsetLeft() + 6;//Master영역 Div Left
+	btnObj.MstTop = 90;//Master영역 Div Top
+	btnObj.MstHeight = 294;//Master영역 Div Height : Height가 없는경우 ""로 입력
+	btnObj.MoveBtnDtl = "";//Detail영역 Move 버튼 : 없으면 ""로 입력
+	this.gfn_MoveSeBtnNew(obj, btnObj);//Master영역 접고/펼치기 버튼 이벤트
+
+};
+
+/***********************************************************************************************
+ * 14.02. [Master영역-▶] 화면 사이즈조정 버튼 이벤트
+ ***********************************************************************************************/ 
+this.div_MasterView_btn_DivMoveMv_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통] 버튼 변수
+	var btnObj = new Object();//[공통] 버튼 변수 정보 Object
+	btnObj.DivMstLeft = "this.div_MasterView";//Master영역 Left Div : Master영역이 하나인경우에는 Left에 설정
+	btnObj.DivMstRight = "this.div_MasterInput";//Master영역 Right Div
+	btnObj.MstWidth = 412;//Master Left 영역 Div Width
+	btnObj.MstHeight = 294;//Master Left영역 Div Height : Height가 없는경우 ""로 입력
+	btnObj.MoveBtnSch = "this.btn_DivMoveMi";//조회영역밑 Move 버튼
+	btnObj.MoveBtnDtl = "this.div_DetailInput.form.btn_DivMoveDi";//Detail영역 Move 버튼 : 없으면 ""로 입력
+	this.gfn_MoveMlBtn(obj, btnObj);//Master Left 영역 접고/펼치기 버튼 이벤트	
+};
+
+/***********************************************************************************************
+ * 14.03. [Detail영역-▲] 화면 사이즈조정 버튼 이벤트
+ ***********************************************************************************************/ 
+this.div_DetailInput_btn_DivMoveDi_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통] 버튼 변수
+	var btnObj = new Object();//[공통] 버튼 변수 정보 Object
+	btnObj.DivMstLeft = "this.div_MasterView";//Master영역 Left Div : Master영역이 하나인경우에는 Left에 설정
+	btnObj.DivMstRight = "this.div_MasterInput";//Master영역 Right Div
+	btnObj.DivDetail = "this.div_DetailInput";//Detail영역 Div
+	btnObj.DtlTop = 378;//Detail영역 Div Top
+	btnObj.MoveBtnSch = "this.btn_DivMoveMi";//조회영역밑 Move 버튼
+	this.gfn_MoveDtlBtn(obj, btnObj);//Detail영역 접고/펼치기 버튼 이벤트				
+	
+	//내용 Web컴포넌트에 값 세팅
+	var oWeb = this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.getProperty("window");
+	var iHeight = this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.getOffsetHeight()-60;
+	oWeb.callMethod("fn_updateSize", iHeight);	
+};
+
+/***********************************************************************************************
+ * 15. [사용자정의 함수]
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 15.00. [결재] 결재상태에 따른 컴포넌트 Enable 등 처리
+ ***********************************************************************************************/ 
+this.fn_SetWfCompEnable = function()
+{ 	
+	//[결재]결재내역 팝업화면으로 호출여부
+	if (!this.fvWfPopupMode) {
+		//[결재] 공통버튼 제어
+		var bCommSaveButton = false;//저장버튼 활성화 여부-기본값은 false로 해야함. - 결재승인후 수정일 필요한 화면에서만 true로 설정해야함. 
+		this.fvWofhStatus = this.gfn_SetCommButtonWf(this, this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_ST"), bCommSaveButton);//결재진행상태		
+	}
+	
+	//[결재]결재내역 조회모드이면 Visble false
+	if (this.fvWfSearchMode || this.fvWofhStatus) {
+		//[결재]결재내역 팝업화면으로 호출여부
+		if (this.fvWfPopupMode) {
+			this.div_Search.set_enable(false);//조회영역 Enable처리
+		}
+		this.div_DetailInput.form.div_ComGrdBtn.set_visible(false);
+		//[결재] Div하위의 컴포넌트 Enable 처리
+		this.gfn_SetCompGroupEnable(this.div_MasterInput.form, false);//Master 입력 프리폼
+		this.gfn_SetCompGroupEnable(this.div_DetailInput.form, false);//Detail 입력			
+		this.div_MasterInput.form.tab_Master.tpg_01.form.btn_RemkPop.set_enable(true);
+		
+		//내용 Web컴포넌트 ReadOnly 설정
+		if (this.fvWebCompLoadYn ) {
+			this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.set_enable(true);
+			var oWeb = this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.getProperty("window");
+			oWeb.callMethod("fn_setReadOnly", true);	
+		}
+
+	} else {
+		this.div_DetailInput.form.div_ComGrdBtn.set_visible(true);
+		//[결재] Div하위의 컴포넌트 Enable 처리
+		this.gfn_SetCompGroupEnable(this.div_MasterInput.form, true);//Master 입력 프리폼
+		this.gfn_SetCompGroupEnable(this.div_DetailInput.form, true);//Detail 입력	
+		//[결재] Div하위의 컴포넌트 Enable 처리 제외할 컴포넌트설정
+		this.div_MasterInput.form.tab_Master.tpg_01.form.mae_OffhNo.set_enable(false);
+		this.div_MasterInput.form.tab_Master.tpg_01.form.cal_OffhDd.set_enable(false);
+		this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DepmCd.set_enable(false);
+		this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DepmNm.set_enable(false);
+		this.div_MasterInput.form.tab_Master.tpg_01.form.edt_EmpmCd.set_enable(false);
+		this.div_MasterInput.form.tab_Master.tpg_01.form.edt_EmpmNm.set_enable(false);
+		this.div_MasterInput.form.tab_Master.tpg_01.form.edt_DocuNo.set_enable(false);
+		
+		//웹컴포넌트가 로드 완료되었을경우
+		if (this.fvWebCompLoadYn) {
+			//내용 Web컴포넌트 ReadOnly 설정
+			var oWeb = this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.getProperty("window");
+			oWeb.callMethod("fn_setReadOnly", false);	
+		}
+	}
+}
+
+/***********************************************************************************************
+ * 15.01. [공통 그리드 버튼] 입력 버튼 설정
+ ***********************************************************************************************/ 
+this.fn_SetGridInputButton = function()
+{
+}
+
+/***********************************************************************************************
+ * 15.02. [공통 그리드 버튼] 검색 Tab 버튼 설정
+ ***********************************************************************************************/ 
+this.fn_SetGridChoiceButton = function()
+{
+}
+
+/***********************************************************************************************
+ * 15.03. [공통 첨부파일] 화면 설정
+ ***********************************************************************************************/ 
+this.fn_SetTabComAttachFile = function()
+{
+	//그리드 공통 버튼 권한이 있으면
+	if (this.fvFormComBtnAuthYn)
+	{
+		//첨부파일정보 권한설정
+		var oScrnAuth = new Object();//[공통] 첨부파일 권한정보
+		oScrnAuth.POPUP_YN = "N";//팝업화면 유무
+		oScrnAuth.AUTH_YN = "Y";//권한 유무
+		oScrnAuth.FILE_CHECK_YN = "Y";//첨부파일종류 체크유무
+		oScrnAuth.PRGM_ID = this.fvComPrgmId;//프로그램ID
+		oScrnAuth.FILM_GU = "H";//첨부파일구분-Head
+		
+		this.fvFileDiv.fn_SetCommFileScrnAuth(oScrnAuth);	
+	} else {
+		//첨부파일정보 권한설정
+		var oScrnAuth = new Object();//[공통] 첨부파일 권한정보
+		oScrnAuth.POPUP_YN = "N";//팝업화면 유무
+		oScrnAuth.AUTH_YN = "N";//권한 유무
+		oScrnAuth.FILE_CHECK_YN = "Y";//첨부파일종류 체크유무
+		oScrnAuth.PRGM_ID = this.fvComPrgmId;//프로그램ID
+		oScrnAuth.FILM_GU = "H";//첨부파일구분-Head		
+		
+		this.fvFileDiv.fn_SetCommFileScrnAuth(oScrnAuth);	
+	}
+}
+
+/***********************************************************************************************
+ * 15.04. [공통 그리드 버튼] 파일 버튼 설정
+ ***********************************************************************************************/ 
+this.fn_SetGridFileButton = function()
+{
+	this.gfn_SetFileBtnUrl(this.div_DetailInput.form.div_ComGrdBtn);//[공통] 파일 버튼 URL 설정
+	
+	//파일 버튼 설정 : 버튼ID|호출함수명
+	var objBtnInfo01List = ["ADD|fn_FileGrd01AddRow"
+						 ,"DELETE|fn_FileGrd01DeleteRow"];
+	this.div_DetailInput.form.div_ComGrdBtn.form.fn_SetGrdButtonFunc(this, objBtnInfo01List);			
+}
+
+this.div_MasterInput_tab_Master_tpg_01_edt_EmpmNm_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	
+};
+
+this.M_WF_2100_ontimer = function(obj:nexacro.Form,e:nexacro.TimerEventInfo)
+{
+	if (e.timerid == 998) {
+		this.killTimer(998);
+		
+		var oWeb = this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.getProperty("window");
+		var sContNm = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "OFFH_NM");
+		trace("sContNm==" + this.gfn_ReplaceWebEditorData(sContNm));
+		oWeb.callMethod("fn_setData", this.gfn_ReplaceWebEditorData(sContNm));
+
+	} else if (e.timerid == 999) {
+		this.killTimer(999);
+		
+		//내용 Web컴포넌트에 값 세팅
+		var oWeb = this.div_DetailInput.form.tab_Detail.tpg_01.form.web_ContNm.getProperty("window");
+		oWeb.callMethod("fn_setReadOnly", true);	
+	}	
+};
+
+this.div_MasterView_onsize = function(obj:nexacro.Div,e:nexacro.SizeEventInfo)
+{
+	this.sta_HSplitter.set_height(this.div_MasterView.getOffsetHeight() - 29);
+
+};
+]]></Script>
+    <Bind>
+      <BindItem id="item1" compid="div_MasterInput.form.tab_Master.tpg_01.form.cal_OffhDd" propid="value" datasetid="ds_Master10" columnid="OFFH_DD"/>
+      <BindItem id="item2" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_DepmCd" propid="value" datasetid="ds_Master10" columnid="DEPM_CD"/>
+      <BindItem id="item3" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_DepmNm" propid="value" datasetid="ds_Master10" columnid="DEPM_NM"/>
+      <BindItem id="item4" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_EmpmCd" propid="value" datasetid="ds_Master10" columnid="EMPM_CD"/>
+      <BindItem id="item5" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_EmpmNm" propid="value" datasetid="ds_Master10" columnid="EMPM_NM"/>
+      <BindItem id="item6" compid="div_MasterInput.form.tab_Master.tpg_01.form.cbo_OffhGu" propid="value" datasetid="ds_Master10" columnid="OFFH_GU"/>
+      <BindItem id="item7" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_DocuNo" propid="value" datasetid="ds_Master10" columnid="DOCU_NM"/>
+      <BindItem id="item8" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_TitlNm" propid="value" datasetid="ds_Master10" columnid="TITL_NM"/>
+      <BindItem id="item9" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_ReceNm" propid="value" datasetid="ds_Master10" columnid="RECE_NM"/>
+      <BindItem id="item10" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_RefeNm" propid="value" datasetid="ds_Master10" columnid="REFE_NM"/>
+      <BindItem id="item11" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_TeleNo" propid="value" datasetid="ds_Master10" columnid="TELE_NO"/>
+      <BindItem id="item12" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_FaxtNo" propid="value" datasetid="ds_Master10" columnid="FAXT_NO"/>
+      <BindItem id="item15" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_SystId" propid="value" datasetid="ds_Master10" columnid="SYST_ID"/>
+      <BindItem id="item13" compid="div_MasterInput.form.tab_Master.tpg_01.form.mae_OffhAm" propid="value" datasetid="ds_Master10" columnid="OFFH_AM"/>
+      <BindItem id="item0" compid="div_MasterInput.form.tab_Master.tpg_01.form.mae_OffhNo" propid="value" datasetid="ds_Master10" columnid="OFFH_NO"/>
+      <BindItem id="item14" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_RemkNm" propid="value" datasetid="ds_Master10" columnid="REMK_NM"/>
+    </Bind>
+  </Form>
+</FDL>

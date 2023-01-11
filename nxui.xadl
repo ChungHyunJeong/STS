@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ADL version="2.0">
+  <Application id="nxui" screenid="ScreenDeskTop" onload="Application_onload" onbeforeexit="Application_onbeforeexit" licenseurl="install\license\nexacro17_client_license.xml">
+    <Layout>
+      <MainFrame id="mainframe" showtitlebar="true" showstatusbar="false" width="1600" height="900" titletext="시너스텍 iERP" background="" openstatus="maximize">
+        <VFrameSet id="VFrameSet" separatesize="*,0" background="">
+          <Frames>
+            <ChildFrame id="LoginFrame" showtitlebar="false" showtitleicon="false" background=""/>
+            <HFrameSet id="HFrameSet" separatesize="300,*" visible="true">
+              <Frames>
+                <ChildFrame id="LeftFrame" showtitlebar="false" showstatusbar="false" dragmovetype="none"/>
+                <VFrameSet id="VFrameSet1" separatesize="0,*,36">
+                  <Frames>
+                    <ChildFrame id="TopFrame" showtitlebar="false" showtitleicon="false" dragmovetype="none"/>
+                    <!--
+                    <ChildFrame id="WorkFrame" showtitlebar="false" showstatusbar="false" formurl="FrameBase::Form_Work.xfdl"/>
+					-->
+                    <FrameSet id="WorkFrame" showtitlebar="false" showtitleicon="false" background="#f9f9f9">
+                      <Frames/>
+                    </FrameSet>
+                    <ChildFrame id="TabFrame" showcascadetitletext="false" showtitlebar="false" showtitleicon="false" dragmovetype="none" formurl=""/>
+                  </Frames>
+                </VFrameSet>
+              </Frames>
+            </HFrameSet>
+          </Frames>
+        </VFrameSet>
+      </MainFrame>
+    </Layout>
+  </Application>
+  <Script type="xscript5.1"><![CDATA[/**
+*  메인 어플리케이션 스크립트(xadl)
+*  @FileName   : xadl	
+*  @Creator    : csm
+*  @CreateDate : 2020.08.24
+*  @Desction   : Application
+************** 소스 수정 이력 ***********************************************
+*  date          	Modifier           Description
+*******************************************************************************
+*  2020.08.24     	csm 	           최초 생성 
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * application 변수 선언 영역
+************************************************************************************************/
+
+this.MENU_COLUM = {
+	ID : "MENU_ID",         //메뉴 ID
+	NAME : "MENU_NAME",     //메뉴 명
+	WIN_ID : "OPEN_WIN_ID", //윈도우(프레임)아이디(열린 메뉴의 윈도우 아이디)
+	URL : "MENU_URL",       //메뉴 URL
+	GROUP_ID : "GROUP_ID"   //그룹 ID
+};
+
+this.MAX_OPEN_MENU = 20; //열린 메뉴 최대 갯수
+
+this.gvExtCommonPath  = "";
+this.gvIsComBtnUse = true;	//공통 버튼 사용유무
+this.gvUrlSSO = "http://118.33.113.115/sso/nexa.jsp";
+
+this.gvMenuColumns = {
+	menuId : "MENU_ID",    //  MENU ID
+	menuNm : "MENU_NAME",
+	winId : "WINID",      //윈도우(프레임)아이디(열린 메뉴의 윈도우 아이디)
+	menuUrl : "MENU_URL",
+	groupId : "GROUP_ID",
+	auth : "AUTH",
+	menuLevel : "LVL"    //메뉴레벨
+};
+this.gvSessionColumns = {
+	userName : "EMST_NAME",
+	userDeptName : "DEPT_NAME"
+};
+this.gvMsgColumns = {
+	msgCd : "MESG_CODE",
+	msgNm : "MESG_NAME",
+	msgTp : "MESG_TYPE"
+};
+
+this.gvMax        = 10;     //열린 메뉴 최대 갯수
+this.gvRealTrace = trace;
+this.gvHost = "";
+
+/*---------------------------------------------------------------------------------------------------------
+ * Frame 관련 변수
+----------------------------------------------------------------------------------------------------------*/
+nApp = nexacro.getApplication();//글로벌 Application
+nEnv = nexacro.getEnvironment();//글로벌 환경
+
+this.gvVFrameSet	= ""; //VFrameSet	
+this.gvLoginFrame	= ""; //LoginFrame
+this.gvTopFrame	    = ""; //TopFrame
+this.gvHFrameSet    = ""; //HFrameSet
+this.gvLeftFrame    = ""; //LeftFrame
+this.gvVFrameSet1   = ""; //VFrameSet1
+this.gvTabFrame     = ""; //TabFrame
+this.gvWorkFrame    = ""; //WorkForm	
+this.gvBottomFrame  = ""; //BottomFrame
+
+/***********************************************************************************************
+* Application EVENT 영역(onload, onbeforeclose)
+/***********************************************************************************************/
+
+/**
+ * @description Applicaton onload시 처리내역
+*/
+this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventInfo)
+{
+
+	var sNavi = system.navigatorname;
+	
+	if (sNavi != "nexacro") { 
+	
+		history.pushState(null, null, location.href); 
+		
+		window.onpopstate = function(event) { 
+
+			history.go(1); 
+		}; 
+
+	}
+	
+	// QuikView 여부 설정
+	nexacro.setEnvironmentVariable("evQuikView", "N");
+
+	var objApp = nexacro.getApplication();
+	
+	// Frame 변수 저장 - Multie Frame
+	this.gvVFrameSet	= nApp.mainframe.VFrameSet;                                	//VFrameSet	
+	this.gvLoginFrame	= nApp.mainframe.VFrameSet.LoginFrame; 				   		//LoginFrame		
+	this.gvHFrameSet    = nApp.mainframe.VFrameSet.HFrameSet;                      	//HFrameSet
+	this.gvLeftFrame    = nApp.mainframe.VFrameSet.HFrameSet.LeftFrame;            	//LeftFrame
+	this.gvVFrameSet1   = nApp.mainframe.VFrameSet.HFrameSet.VFrameSet1;           	//VFrameSet1
+	this.gvTopFrame     = nApp.mainframe.VFrameSet.HFrameSet.VFrameSet1.TopFrame;     //TopFrame	
+	this.gvTabFrame     = nApp.mainframe.VFrameSet.HFrameSet.VFrameSet1.TabFrame;  	//TabFrame		
+	this.gvWorkFrame    = nApp.mainframe.VFrameSet.HFrameSet.VFrameSet1.WorkFrame;    //WorkFrame
+    this.gvBottomFrame  = nApp.mainframe.VFrameSet.BottomFrame;  			            //BottomFrame
+
+	/*	
+	this.gvLeftTabFrame = objApp.mainframe.VFrameSet.HFrameSet.frameLeftTab;            //LeftFrameTab
+	
+	
+	// Frame 변수 저장 - Single Frame	
+	this.gvTopFrame	= objApp.mainframe.VFrameSet.frameTop; 				   		        //TopFrame
+	this.gvSingleWorkFrame	= objApp.mainframe.VFrameSet.framesetSWork; 				//Single WorkFrame	
+
+	// 초기 Frame 정보 조회 및 초기 Frame 설정
+	var sFrameType = objApp.gds_FrameInfo.getColumn(0, "frameType");//프레임유형 : S-싱글형, M-멀티형	
+	*/
+	// 접속경로 확인 및 설정
+	trace("===== 접속경로 : " + nexacro.getProjectPath());	
+	
+	//접속시스템이 SRM이면
+	if (nApp.gvSystem == "SRM") {
+		nApp.mainframe.set_titletext("시너스텍 iSRM");
+	}
+
+	var objApp = nexacro.getApplication();
+	var appUrl = nexacro.getProjectPath();
+	var objEnv = nexacro.getEnvironment();
+
+ 	if( appUrl.indexOf("file://") > -1)
+ 	{
+		var objSvc = objEnv.services["svcUrl"];
+		objSvc.set_url ( "http://localhost:8190/" );
+		objApp.gvHost = "http://localhost:8190/";		
+ 	}
+ 	else
+ 	{
+		var objSvc = objEnv.services["svcUrl"];		
+		var appUrlSplit = appUrl.split("/");
+		var protocol = appUrlSplit[0];
+		//objSvc.set_url( protocol + "//" + appUrlSplit[2] + "/shinsungcs/" );
+
+		//objSvc.set_url( protocol + "//" + appUrlSplit[2] + "/" );		
+		//objApp.gvHost = protocol + "//" + appUrlSplit[2] + "/";
+		if( appUrl.indexOf("localhost") > -1 || appUrl.indexOf("127.0.0.1") > -1 )
+		{
+			objSvc.set_url( protocol + "//" + appUrlSplit[2] + "/");		
+			objApp.gvHost = protocol + "//" + appUrlSplit[2] + "/";				
+		} else {
+			//objSvc.set_url( protocol + "//" + appUrlSplit[2] + "/BSKCorp/");		
+			//objApp.gvHost = protocol + "//" + appUrlSplit[2] + "/BSKCorp/";		
+			objSvc.set_url( protocol + "//" + appUrlSplit[2] + "/");		
+			objApp.gvHost = protocol + "//" + appUrlSplit[2] + "/";					
+		}
+ 	}
+	
+	var strHost = objApp.gvHost;
+	if( strHost.indexOf("localhost") > -1 || strHost.indexOf("127.0.0.1") > -1 )
+	{
+		//objApp.mainframe.set_titletext(objApp.mainframe.titletext+"(로컬)");
+		this.afnSetTraceMode(true);
+	}
+	else
+	{
+		//objApp.mainframe.set_titletext(objApp.mainframe.titletext);
+		this.afnSetTraceMode(true);
+	}
+
+	trace("objApp.gvHost ---->"+objApp.gvHost);
+	trace("svcUrl ---->"+objEnv.services["svcUrl"].url);
+	trace("gvSystem ---->" + nApp.gvSystem);
+	trace("gvMenuId ---->" + nApp.gvMenuId);
+	trace("gvMenuParam ---->" + nApp.gvMenuParam);
+	
+	
+	this.gvLoginFrame.set_formurl("FrameBase::Login.xfdl");
+
+};
+
+this.afn_setSeparatesize = function(strType)
+{
+
+	var strType = strType||'';
+	if( strType == '' ) return;
+	
+	var objApp = nexacro.getApplication();
+	switch(strType)
+	{
+		case "LOGOUT":
+			this.gvVFrameSet.set_separatesize("*,0,0,0");
+			// 로그인 화면 open
+			this.gvLeftFrame.set_formurl("");
+			this.gvTopFrame.set_formurl("");
+			this.gvTabFrame.set_formurl("");			
+			this.gvLoginFrame.set_formurl("");
+			this.gvLoginFrame.set_formurl("FrameBase::Login.xfdl");		
+			//this.gvLeftFrame.set_formurl("");
+			//this.gvTopFrame.set_formurl("");
+			//this.gvTabFrame.set_formurl("");			
+			break;
+		case "LOGIN":
+			//this.gvVFrameSet.set_separatesize("0,75,*,29");
+			//this.gvVFrameSet.set_separatesize("0,*,47");//기존
+			//this.gvLoginFrame.set_formurl("");
+			//this.gvLoginFrame.set_formurl("frame::LoginFrameSingle.xfdl");
+		
+			this.gvLeftFrame.set_formurl("");
+			this.gvTopFrame.set_formurl("");
+			this.gvTabFrame.set_formurl("");			
+			this.gvLeftFrame.set_formurl("FrameBase::Form_Left.xfdl");
+			this.gvTopFrame.set_formurl("FrameBase::Form_Top.xfdl");
+			this.gvTabFrame.set_formurl("FrameBase::Form_Tab.xfdl");
+
+			this.gvVFrameSet.set_separatesize("0,*");
+			break;
+		case "OPEN":
+			this.gvHFrameSet.set_separatesize("310,*");
+			break;		
+		case "CLOSE":
+			this.gvHFrameSet.set_separatesize("58,*");
+			//this.gvHFrameSet.set_separatesize("0,*");
+			break;					
+		case "S_WORK": //Single WorkFrame 인경우 
+			this.gvVFrameSet.set_separatesize("0,40,*,0,47");		
+			// Top Frame 화면설정
+			this.gvTopFrame.set_formurl("");	
+			this.gvTopFrame.set_formurl("frame::TopFrameSingle.xfdl");		
+			// Work Frame 화면설정
+			this.gvSingleWorkFrame.set_formurl("");				
+			this.gvSingleWorkFrame.set_formurl("frame::WorkFrameSingle.xfdl");	
+			// Bottom Frame 화면설정
+			this.gvBottomFrame.set_formurl("");
+			this.gvBottomFrame.set_formurl("frame::BottomFrameSingle.xfdl");
+
+			break;		
+		case "MAIN": //포털화면
+			this.gvVFrameSet1.set_separatesize("0,*,0");
+			break;
+		case "WORK": //메뉴화면
+			this.gvVFrameSet1.set_separatesize("0,*,36");
+			break;
+		case "LEFT_FOLD":
+			this.gvHFrame.set_separatesize("0,*");
+			break;
+		case "LEFT_UNFOLD":
+			this.gvHFrame.set_separatesize("225,*");
+			break;
+	}
+
+};
+/**
+ * @description trace 재정의하여 trace로그 생성 방지
+*/
+this.afnSetTraceMode = function(bTrace)
+{
+	trace("★★ 운영접속시에는 trace 로그를 남기지 않도록 설정되었습니다.");
+	
+    nexacro.setEnvironmentVariable("evTraceMode", bTrace);
+    if (bTrace)
+    {
+		trace = this.gvRealTrace;
+    }
+    else
+	{
+        trace = function trace(){};
+    }
+}
+
+/**
+ * @description ESC 통신중단 방지(10월 16일 버전에서는 작동하지 않음)
+*/
+this.Application_onerror = function(obj:nexacro.Application,e:nexacro.ErrorEventInfo)
+{
+	trace("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Application_onerror!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	trace("e.statuscode : " + e.statuscode);
+	trace("e.errormsg : " + e.errormsg);
+	
+	// 사용자가 ESC키를 눌렀을 경우 ESC통신 중단 방지처리
+	if (e.errorcode == -2147418039) {
+		return true;
+	}
+};
+
+
+this.Application_onbeforeexit = function(obj:nexacro.Application,e:nexacro.ExitEventInfo)
+{
+
+};
+]]></Script>
+</ADL>

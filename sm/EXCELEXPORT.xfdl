@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="EXCELEXPORT" width="450" height="350" titletext="엑셀출력" scrollbartype="none" onclose="fn_FormClose" onload="fn_FormOnload">
+    <Layouts>
+      <Layout height="350" width="450">
+        <Grid id="grd_Master" taborder="0" top="52" right="12" left="12" autofittype="col" binddataset="ds_Master" oncelldblclick="grd_Master_oncelldblclick" bottom="12" selecttype="multiarea">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="40"/>
+                <Column size="40"/>
+                <Column size="300"/>
+              </Columns>
+              <Rows>
+                <Row size="26" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="NO"/>
+                <Cell col="1" displaytype="checkboxcontrol" edittype="checkbox"/>
+                <Cell col="2" text="출력할 그리드"/>
+              </Band>
+              <Band id="body">
+                <Cell expr="currow+1" displaytype="text"/>
+                <Cell col="1" text="bind:s_chk" displaytype="checkboxcontrol" edittype="checkbox" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                <Cell col="2" text="bind:GRID_NM"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Div id="div_PopupTitle" taborder="1" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Close" taborder="0" text="닫기" top="9" width="70" height="26" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+              <Static id="sta_PopupTitle" taborder="1" text="엑셀출력" left="20" top="10" height="24" cssclass="sta_WF_PopupTitle" width="300"/>
+              <Button id="btn_Choice" taborder="2" text="엑셀출력" top="8" width="90" right="90" visible="true" cssclass="bt_WF_PopupSelect" height="28" onclick="div_PopupTitle_btn_Choice_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Master">
+        <ColumnInfo>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="GRID_ID" type="STRING" size="256"/>
+          <Column id="GRID_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : 
+*  @화면설명 : 엑셀출력
+*  @시스템명 : (SM) 시스템
+*  @작성자   : 최석목
+*  @작성일   : 2021.01.27
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.01.27     	    최석목 	           최초 생성 
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * 1. Form Include 선언 영역
+ ************************************************************************************************/
+
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+this.paramFile = "";//[부모창파라메타] 값
+this.paramGrd = "";//[부모창파라메타] 값
+this.paramNm = "";//[부모창파라메타] 값
+
+/***********************************************************************************************
+ * 3. Form 이벤트 영역
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 3.1. Form Onload 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	//부모창 파라메타 처리
+	this.paramFile = this.getOwnerFrame().paramFile;
+	this.paramGrd = this.getOwnerFrame().paramGrd;
+	this.paramNm = this.getOwnerFrame().paramNm;
+	this.fvComPrgmId = this.getOwnerFrame().PrgmId;//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+
+	this.fn_FormInit();//화면로드시 초기 설정 함수 
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.2. Form 초기설정 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.gfn_SetGrid(this.grd_Master);//[공통]그리드 이벤트 설정
+	
+	var arrGrid = this.paramGrd.split("^^^");
+	var arrGridNm = this.paramNm.split("^^^");
+	this.ds_Master.clearData();
+	var iAddRow = 0;
+	
+	for (var iLoop=0; iLoop<arrGrid.length; iLoop++) {
+		
+		iAddRow = this.ds_Master.addRow();
+		this.ds_Master.setColumn(iAddRow, "GRID_ID", arrGrid[iLoop]);
+		this.ds_Master.setColumn(iAddRow, "GRID_NM", arrGridNm[iLoop]);
+		this.ds_Master.setColumn(iAddRow, "s_chk", "1");
+	}
+	
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.3. Form OnClose 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/***********************************************************************************************
+ * 4. 버튼 이벤트 영역
+ -----------------------------------------------------------------------------------------------
+   4.1.엑셀출력 : btn_ExcelExport
+
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 4.1. 엑셀출력 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Choice_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (this.ds_Master.getRowCount() > 0) {
+		var rtnValue = "";
+		var iCheckCnt = 0;
+		
+		for (var iLoop = 0; iLoop < this.ds_Master.getRowCount(); iLoop++) {
+			if (this.ds_Master.getColumn(iLoop, "s_chk") == "1") {
+				//부모창으로 리턴값은 문자열로만 가능
+				
+				if (iCheckCnt == 0) {
+					rtnValue = this.paramFile+ ";;" + this.ds_Master.getColumn(iLoop, "GRID_ID") + ";;" + this.ds_Master.getColumn(iLoop, "GRID_NM");//1. (문자열) 리턴값을 ";;"구분자를 사용해서 리턴 : 부모창에서 var arrRtnVal = rtnValue.split(";;");		
+				} else {
+					rtnValue = rtnValue + "@^&" + this.paramFile+ ";;" + this.ds_Master.getColumn(iLoop, "GRID_ID") + ";;" + this.ds_Master.getColumn(iLoop, "GRID_NM");//1. (문자열) 리턴값을 ";;"구분자를 사용해서 리턴 : 부모창에서 var arrRtnVal = rtnValue.split(";;");		
+				}
+				
+				iCheckCnt++;
+			}
+		}
+		
+		this.gfn_PopClose(rtnValue);	
+	}		
+};
+
+
+/*---------------------------------------------------------------------------------------------
+ *  4.2. 닫기 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_PopClose();
+};
+
+]]></Script>
+  </Form>
+</FDL>

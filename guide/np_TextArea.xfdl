@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="np_TextArea" width="1280" height="720" onload="np_Edit_onload" titletext="TextArea">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="1280">
+        <Static id="Static07" text="WordWrap  : none" position="absolute" left="56" width="224" top="165" height="40" cssclass="sta_WF_Title" taborder="0"/>
+        <Static id="Static08" text="Binding" position="absolute" left="435" width="130" top="164" height="40" cssclass="sta_WF_Title" taborder="2"/>
+        <Static id="Static01" taborder="3" text="normal" left="54" top="24" width="76" height="23" cssclass="sta_WF_Title"/>
+        <Static id="Static02" taborder="5" text="disabled" left="244" top="24" width="106" height="23" cssclass="sta_WF_Title"/>
+        <Static id="Static03" taborder="6" text="readonly" left="434" top="24" width="116" height="23" cssclass="sta_WF_Title"/>
+        <Static id="Static04" taborder="7" text="essential" left="624" top="24" width="116" height="23" cssclass="sta_WF_Title"/>
+        <TextArea id="TextArea01" taborder="8" left="54" top="57" width="130" height="90" value="가나다&#10;가나다&#10;가나다&#10;가나다&#10;가나다&#10;가나다" scrollbarsize="10"/>
+        <TextArea id="TextArea02" taborder="9" left="244" top="57" width="130" height="90" enable="false" value="가나다&#10;가나다&#10;가나다&#10;가나다&#10;가나다&#10;가나다" scrollbarsize="10"/>
+        <TextArea id="TextArea03" taborder="10" left="434" top="57" width="130" height="90" readonly="true" value="가나다&#10;가나다&#10;가나다&#10;가나다&#10;가나다&#10;가나다" scrollbarsize="10"/>
+        <TextArea id="TextArea04" taborder="11" left="624" top="57" width="130" height="90" value="가나다&#10;가나다&#10;가나다&#10;가나다&#10;가나다&#10;가나다" cssclass="essential" scrollbarsize="10"/>
+        <Static id="Static09" text="WordWrap  : char" position="absolute" left="56" width="224" top="305" height="40" cssclass="sta_WF_Title" taborder="12"/>
+        <Static id="Static10" text="Setting value using Script" position="absolute" left="56" width="224" top="445" height="40" cssclass="sta_WF_Title" taborder="13"/>
+        <TextArea id="TextArea05" taborder="14" left="54" top="204" width="130" height="90" value="가나다라마바사아차카타파하" wordWrap="none" scrollbarsize="10"/>
+        <TextArea id="TextArea06" taborder="15" left="54" top="344" width="130" height="90" value="가나다라마바사아차카타파하" wordWrap="char" scrollbarsize="10"/>
+        <TextArea id="TextArea07" taborder="16" left="54" top="485" width="130" height="90" value="가나다라마바사아차카타파하" wordWrap="char" scrollbarsize="10"/>
+        <Button id="Button00" taborder="17" text="입력" left="200" top="491" width="76" height="26" onclick="Button00_onclick"/>
+        <Grid id="Grid01" taborder="1" binddataset="ds_data" autofittype="col" position="absolute" left="434" top="206" width="276" height="134" scrollbarsize="10">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="26" band="head"/>
+                <Row size="26"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="code"/>
+                <Cell col="1" text="name"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:Column0"/>
+                <Cell col="1" style="align:left;" text="bind:Column1"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <TextArea id="TextArea00" taborder="4" left="434" top="345" width="276" height="85" readonly="true"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_data" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">1</Col>
+            <Col id="Column1">aple</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">2</Col>
+            <Col id="Column1">pineapple</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">3</Col>
+            <Col id="Column1">tangerine</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">orange</Col>
+            <Col id="Column0">4</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">5</Col>
+            <Col id="Column1">blueberry</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">6</Col>
+            <Col id="Column1">pomegranate</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">pear</Col>
+            <Col id="Column0">7</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">grape</Col>
+            <Col id="Column0">8</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">peach</Col>
+            <Col id="Column0">9</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">10</Col>
+            <Col id="Column1">watermelon</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var objDate = new Date();
+	
+	var str = objDate.getFullYear()+ "년 "+ (objDate.getMonth()+1)  + "월" + objDate.getDate() + "일\n\n스크립트에서 입력한 텍스트입니다.";
+	this.TextArea07.set_value(str);	
+};
+]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="TextArea00" propid="value" datasetid="ds_data" columnid="Column1"/>
+    </Bind>
+  </Form>
+</FDL>

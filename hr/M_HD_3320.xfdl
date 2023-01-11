@@ -1,0 +1,2418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_HD_3320" width="1442" height="695" titletext="일근태관리" onload="fn_FormOnload" onclose="fn_FormClose">
+    <Layouts>
+      <Layout height="695" width="1442">
+        <Div id="div_Search" taborder="0" left="14" top="12" height="66" cssclass="div_WF_Search" formscrollbartype="none none" right="14" text="">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="4" text="조회기간" left="16" top="6" width="80" height="24" cssclass="sta_WF_SLabel" DomainID="S00002"/>
+              <Calendar id="cal_TemhDtFr" taborder="0" left="96" top="6" width="110" height="24" dateformat="yyyy-MM-dd" cssclass="essential"/>
+              <Static id="Static03" taborder="5" text="~" left="211" top="5" width="20" height="26" cssclass="sta_WF_Dash"/>
+              <Calendar id="cal_TemhDtTo" taborder="1" left="234" top="6" width="110" height="24" dateformat="yyyy-MM-dd" cssclass="essential"/>
+              <Static id="sta_DepmCd" taborder="6" text="부서" left="16" top="34" width="80" height="24" cssclass="sta_WF_SLabel" DomainID="S00003"/>
+              <Edit id="edt_DepmNm" taborder="8" left="188" top="34" width="130" height="24" enable="true" maxlength="50" onchanged="div_Search_edt_DepmNm_onchanged"/>
+              <Button id="btn_DepmCd" taborder="9" left="320" top="34" width="24" height="24" onclick="div_Search_btn_DepmCd_onclick" tabstop="false" cssclass="btn_WF_SmallSearch" cursor="pointer"/>
+              <Static id="Static01_00" taborder="7" text="사번" left="376" top="34" width="80" height="24" cssclass="sta_WF_SLabel"/>
+              <Edit id="edt_EmpmCd" taborder="3" left="456" top="34" width="90" height="24" maxlength="10" onchanged="div_Search_edt_EmpmCd_onchanged"/>
+              <Button id="btn_SystId" taborder="11" left="680" top="34" width="24" height="24" cssclass="btn_WF_SmallSearch" tabstop="false" onclick="div_Search_btn_SystId_onclick" cursor="pointer"/>
+              <Edit id="edt_EmpmNm" taborder="10" left="548" top="34" width="130" height="24" enable="true" maxlength="50" onchanged="div_Search_edt_EmpmNm_onchanged"/>
+              <Edit id="edt_DepmCd" taborder="2" left="96" top="34" width="90" height="24" maxlength="10" onchanged="div_Search_edt_DepmCd_onchanged" cssclass="essential"/>
+              <Edit id="edt_SystId" taborder="12" left="705" top="34" width="10" height="24" maxlength="10" visible="false"/>
+              <Div id="div_ComGridSearch00" taborder="13" top="34" height="30" width="328" url="cmm::cmmGridSearch.xfdl" async="false" left="1096" visible="false"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_MasterView" taborder="1" left="14" top="90" right="14" bottom="5">
+          <Layouts>
+            <Layout>
+              <Tab id="tab_Master" taborder="0" tabindex="0" left="0" top="0" bottom="0" cssclass="tab_WF_MasterList" right="0" onchanged="div_MasterView_tab_Master_onchanged">
+                <Tabpages>
+                  <Tabpage id="tpg_01" text="일근태현황" enable="true">
+                    <Layouts>
+                      <Layout>
+                        <Grid id="grd_Master10" taborder="1" left="0" top="32" width="342" binddataset="ds_Master10" autofittype="none" bottom="0" selecttype="cell" cellsizingtype="col" oncellclick="div_MasterView_tab_Master_tpg_01_grd_Master10_oncellclick">
+                          <Formats>
+                            <Format id="default">
+                              <Columns>
+                                <Column size="35" band="left"/>
+                                <Column size="120"/>
+                                <Column size="70"/>
+                                <Column size="80"/>
+                                <Column size="70"/>
+                                <Column size="70"/>
+                                <Column size="70"/>
+                                <Column size="80"/>
+                                <Column size="88"/>
+                              </Columns>
+                              <Rows>
+                                <Row size="26" band="head"/>
+                                <Row size="24"/>
+                              </Rows>
+                              <Band id="head">
+                                <Cell text="No."/>
+                                <Cell col="1" text="부서"/>
+                                <Cell col="2" text="사번"/>
+                                <Cell col="3" text="성명"/>
+                                <Cell col="4" text="직책"/>
+                                <Cell col="5" text="직위"/>
+                                <Cell col="6" text="직종"/>
+                                <Cell col="7" text="직군"/>
+                                <Cell col="8" text="직렬"/>
+                              </Band>
+                              <Band id="body">
+                                <Cell expr="currow + 1" textAlign="center"/>
+                                <Cell col="1" text="bind:DEPM_NM" displaytype="normal" textAlign="left" suppress="1"/>
+                                <Cell col="2" text="bind:EMPM_CD" displaytype="normal" textAlign="center"/>
+                                <Cell col="3" text="bind:EMPM_NM" displaytype="normal" textAlign="center"/>
+                                <Cell col="4" text="bind:DUTY_NM" displaytype="normal" textAlign="center"/>
+                                <Cell col="5" text="bind:POSI_NM" displaytype="normal" textAlign="center"/>
+                                <Cell col="6" text="bind:JOTY_NM" displaytype="normal" textAlign="center"/>
+                                <Cell col="7" text="bind:JOGM_NM" textAlign="center"/>
+                                <Cell col="8" text="bind:SERM_NM" displaytype="normal" textAlign="center"/>
+                              </Band>
+                            </Format>
+                          </Formats>
+                        </Grid>
+                        <Grid id="grd_Master11" taborder="1" left="346" top="32" binddataset="ds_Master11" autofittype="none" right="0" bottom="0" selecttype="multiarea" cellsizingtype="col" oncellclick="div_MasterView_tab_Master_tpg_01_grd_Master11_oncellclick">
+                          <Formats>
+                            <Format id="default">
+                              <Columns>
+                                <Column size="35" band="left"/>
+                                <Column size="80" band="left"/>
+                                <Column size="80" band="left"/>
+                                <Column size="51"/>
+                                <Column size="70"/>
+                                <Column size="70"/>
+                                <Column size="60"/>
+                                <Column size="60"/>
+                                <Column size="60"/>
+                                <Column size="60"/>
+                                <Column size="70"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="44"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="70"/>
+                                <Column size="70"/>
+                                <Column size="80"/>
+                                <Column size="130"/>
+                              </Columns>
+                              <Rows>
+                                <Row size="24" band="head"/>
+                                <Row size="26" band="head"/>
+                                <Row size="24"/>
+                                <Row size="24" band="summ"/>
+                              </Rows>
+                              <Band id="head">
+                                <Cell rowspan="2" text="No."/>
+                                <Cell col="1" rowspan="2" text="성명"/>
+                                <Cell col="2" rowspan="2" text="일자"/>
+                                <Cell col="3" rowspan="2" text="요일"/>
+                                <Cell col="4" rowspan="2" text="연장근로"/>
+                                <Cell col="5" rowspan="2" text="야간근로"/>
+                                <Cell col="6" rowspan="2" text="심야근로"/>
+                                <Cell col="7" colspan="3" text="휴일근로"/>
+                                <Cell col="10" rowspan="2" text="대체근무일"/>
+                                <Cell col="11" colspan="4" text="특근"/>
+                                <Cell col="15" colspan="10" text="휴가,결근"/>
+                                <Cell col="25" colspan="6" text="기타"/>
+                                <Cell col="31" rowspan="2" text="출근시간"/>
+                                <Cell col="32" rowspan="2" text="퇴근시간"/>
+                                <Cell col="33" rowspan="2" text="수정자"/>
+                                <Cell col="34" rowspan="2" text="수정일시"/>
+                                <Cell row="1" col="7" text="주간"/>
+                                <Cell row="1" col="8" text="야간"/>
+                                <Cell row="1" col="9" text="연장"/>
+                                <Cell row="1" col="11" text="철야"/>
+                                <Cell row="1" col="12" text="토요일"/>
+                                <Cell row="1" col="13" text="일요일"/>
+                                <Cell row="1" col="14" text="식대"/>
+                                <Cell row="1" col="15" text="년차"/>
+                                <Cell row="1" col="16" text="반차"/>
+                                <Cell row="1" col="17" text="반반차"/>
+                                <Cell row="1" col="18" text="경조"/>
+                                <Cell row="1" col="19" text="공가"/>
+                                <Cell row="1" col="20" text="병가"/>
+                                <Cell row="1" col="21" text="출산"/>
+                                <Cell row="1" col="22" text="포상"/>
+                                <Cell row="1" col="23" text="해외"/>
+                                <Cell row="1" col="24" text="결근"/>
+                                <Cell row="1" col="25" text="교육"/>
+                                <Cell row="1" col="26" text="훈련"/>
+                                <Cell row="1" col="27" text="출장"/>
+                                <Cell row="1" col="28" text="지각"/>
+                                <Cell row="1" col="29" text="조퇴"/>
+                                <Cell row="1" col="30" text="기타"/>
+                              </Band>
+                              <Band id="body">
+                                <Cell text="bind:JOTY_NM" displaytype="normal" textAlign="center" expr="currow + 1"/>
+                                <Cell col="1" text="bind:EMPM_NM" displaytype="normal" textAlign="center" suppress="1"/>
+                                <Cell col="2" text="bind:CALM_DD" displaytype="date" textAlign="center" calendardateformat="yyyy-MM-dd"/>
+                                <Cell col="3" text="bind:CALM_NM" displaytype="normal" textAlign="center"/>
+                                <Cell col="4" text="bind:WKOT_HR" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="5" text="bind:WKNT_HR" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="6" text="bind:SIMY_CT" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="7" text="bind:HOWK_CT" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="8" text="bind:HONT_CT" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="9" text="bind:HOOT_CT" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="10" text="bind:DAEC_CT" displaytype="normal" textAlign="right"/>
+                                <Cell col="11" text="bind:SPAL_CT" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="12" text="bind:SPSA_CT" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="13" text="bind:SPSU_CT" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="14" text="bind:SPEA_CT" displaytype="checkboxcontrol" textAlign="center" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                                <Cell col="15" text="bind:A01" displaytype="checkboxcontrol" textAlign="center" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                                <Cell col="16" text="bind:A02" displaytype="checkboxcontrol" textAlign="center" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                                <Cell col="17" text="bind:A03" displaytype="checkboxcontrol" textAlign="center" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                                <Cell col="18" text="bind:A05" displaytype="checkboxcontrol" textAlign="center" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                                <Cell col="19" text="bind:A06" displaytype="checkboxcontrol" textAlign="center" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                                <Cell col="20" text="bind:A07" displaytype="checkboxcontrol" textAlign="center" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                                <Cell col="21" text="bind:A09" displaytype="checkboxcontrol" textAlign="center" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                                <Cell col="22" text="bind:A10" displaytype="checkboxcontrol" textAlign="center" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                                <Cell col="23" text="bind:A12" displaytype="checkboxcontrol" textAlign="center" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                                <Cell col="24" text="bind:A11" displaytype="checkboxcontrol" textAlign="center" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                                <Cell col="25" text="bind:B01" displaytype="checkboxcontrol" textAlign="center" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                                <Cell col="26" text="bind:B02" displaytype="checkboxcontrol" textAlign="center" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                                <Cell col="27" text="bind:B03" displaytype="checkboxcontrol" textAlign="center" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                                <Cell col="28" text="bind:B04" displaytype="checkboxcontrol" textAlign="center" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                                <Cell col="29" text="bind:B05" displaytype="checkboxcontrol" textAlign="center" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                                <Cell col="30" text="bind:B06" displaytype="checkboxcontrol" textAlign="center" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                                <Cell col="31" text="bind:GTIN_DT" displaytype="normal" textAlign="center" calendardateformat="yyyy-MM-dd" calendardisplayinvalidtype="none" calendardisplaynulltype="none" maskedittype="string" maskeditformat="@@:@@"/>
+                                <Cell col="32" text="bind:GTOU_DT" displaytype="normal" textAlign="center" calendardateformat="yyyy-MM-dd" calendardisplaynulltype="none" calendardisplayinvalidtype="none" maskedittype="string" maskeditformat="@@:@@"/>
+                                <Cell col="33" text="bind:MODI_NM" textAlign="center"/>
+                                <Cell col="34" text="bind:MODI_DT" textAlign="center"/>
+                              </Band>
+                              <Band id="summary">
+                                <Cell/>
+                                <Cell col="1" text="합계"/>
+                                <Cell col="2"/>
+                                <Cell col="3"/>
+                                <Cell col="4" expr="dataset.getSum(&quot;WKOT_HR&quot;)"/>
+                                <Cell col="5" expr="dataset.getSum(&quot;WKNT_HR&quot;)"/>
+                                <Cell col="6" expr="dataset.getSum(&quot;SIMY_CT&quot;)"/>
+                                <Cell col="7" expr="dataset.getSum(&quot;HOWK_CT&quot;)"/>
+                                <Cell col="8" expr="dataset.getSum(&quot;HONT_CT&quot;)"/>
+                                <Cell col="9" expr="dataset.getSum(&quot;HOOT_CT&quot;)"/>
+                                <Cell col="10" expr="dataset.getSum(&quot;DAEC_CT&quot;)"/>
+                                <Cell col="11" expr="dataset.getSum(&quot;SPAL_CT&quot;)"/>
+                                <Cell col="12" expr="dataset.getSum(&quot;SPSA_CT&quot;)"/>
+                                <Cell col="13" expr="dataset.getSum(&quot;SPSU_CT&quot;)"/>
+                                <Cell col="14" expr="dataset.getCaseCount(&quot;SPEA_CT=='1'&quot;)"/>
+                                <Cell col="15" expr="dataset.getCaseCount(&quot;A01=='1'&quot;)"/>
+                                <Cell col="16" expr="dataset.getCaseCount(&quot;A02=='1'&quot;)"/>
+                                <Cell col="17" expr="dataset.getCaseCount(&quot;A03=='1'&quot;)"/>
+                                <Cell col="18" expr="dataset.getCaseCount(&quot;A05=='1'&quot;)"/>
+                                <Cell col="19" expr="dataset.getCaseCount(&quot;A06=='1'&quot;)"/>
+                                <Cell col="20" expr="dataset.getCaseCount(&quot;A07=='1'&quot;)"/>
+                                <Cell col="21" expr="dataset.getCaseCount(&quot;A09=='1'&quot;)"/>
+                                <Cell col="22" expr="dataset.getCaseCount(&quot;A10=='1'&quot;)"/>
+                                <Cell col="23" expr="dataset.getCaseCount(&quot;A12=='1'&quot;)"/>
+                                <Cell col="24" expr="dataset.getCaseCount(&quot;A11=='1'&quot;)"/>
+                                <Cell col="25" expr="dataset.getCaseCount(&quot;B01=='1'&quot;)"/>
+                                <Cell col="26" expr="dataset.getCaseCount(&quot;B02=='1'&quot;)"/>
+                                <Cell col="27" expr="dataset.getCaseCount(&quot;B03=='1'&quot;)"/>
+                                <Cell col="28" expr="dataset.getCaseCount(&quot;B04=='1'&quot;)"/>
+                                <Cell col="29" expr="dataset.getCaseCount(&quot;B05=='1'&quot;)"/>
+                                <Cell col="30" expr="dataset.getCaseCount(&quot;B06=='1'&quot;)"/>
+                                <Cell col="31"/>
+                                <Cell col="32"/>
+                                <Cell col="33"/>
+                                <Cell col="34"/>
+                              </Band>
+                            </Format>
+                          </Formats>
+                        </Grid>
+                        <Static id="sta_MaaterTitle" taborder="2" text="임직원목록" left="0" top="1" width="220" height="32" cssclass="sta_WF_Title" onclick="div_MasterView_Static00_onclick"/>
+                        <Static id="sta_MaaterTitle00" taborder="3" text="일근태현황" left="346" top="1" width="220" height="32" cssclass="sta_WF_Title" onclick="div_MasterView_Static00_onclick"/>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                  <Tabpage id="tpg_02" text="기간별근태현황">
+                    <Layouts>
+                      <Layout>
+                        <Grid id="grd_Master20" taborder="0" left="0" top="2" binddataset="ds_Master20" autofittype="none" right="0" bottom="0" selecttype="multiarea" cellsizingtype="col" oncellclick="div_MasterView_tab_Master_tpg_02_grd_Master20_oncellclick">
+                          <Formats>
+                            <Format id="default">
+                              <Columns>
+                                <Column size="35" band="left"/>
+                                <Column size="120" band="left"/>
+                                <Column size="70" band="left"/>
+                                <Column size="80" band="left"/>
+                                <Column size="70" band="left"/>
+                                <Column size="70" band="left"/>
+                                <Column size="80" band="left"/>
+                                <Column size="80" band="left"/>
+                                <Column size="70"/>
+                                <Column size="70"/>
+                                <Column size="60"/>
+                                <Column size="60"/>
+                                <Column size="60"/>
+                                <Column size="60"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="45"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                                <Column size="40"/>
+                              </Columns>
+                              <Rows>
+                                <Row size="24" band="head"/>
+                                <Row size="26" band="head"/>
+                                <Row size="24"/>
+                                <Row size="24" band="summ"/>
+                              </Rows>
+                              <Band id="head">
+                                <Cell/>
+                                <Cell col="1" colspan="7" text="사원정보"/>
+                                <Cell col="8" rowspan="2" text="연장근로"/>
+                                <Cell col="9" rowspan="2" text="야간근로"/>
+                                <Cell col="10" colspan="3" text="휴일근로"/>
+                                <Cell col="13" text="심야근로"/>
+                                <Cell col="14" colspan="4" text="특근"/>
+                                <Cell col="18" colspan="12" text="휴가,결근"/>
+                                <Cell col="30" colspan="6" text="기타"/>
+                                <Cell row="1" text="No."/>
+                                <Cell row="1" col="1" text="부서"/>
+                                <Cell row="1" col="2" text="사번"/>
+                                <Cell row="1" col="3" text="성명"/>
+                                <Cell row="1" col="4" text="직책"/>
+                                <Cell row="1" col="5" text="직위"/>
+                                <Cell row="1" col="6" text="근무지"/>
+                                <Cell row="1" col="7" text="직종"/>
+                                <Cell row="1" col="10" text="주간"/>
+                                <Cell row="1" col="11" text="야간"/>
+                                <Cell row="1" col="12" text="연장"/>
+                                <Cell row="1" col="13" text="입력"/>
+                                <Cell row="1" col="14" text="철야"/>
+                                <Cell row="1" col="15" text="토요일"/>
+                                <Cell row="1" col="16" text="일요일"/>
+                                <Cell row="1" col="17" text="식대"/>
+                                <Cell row="1" col="18" text="연차"/>
+                                <Cell row="1" col="19" text="반차"/>
+                                <Cell row="1" col="20" text="반반차"/>
+                                <Cell row="1" col="21" text="월차"/>
+                                <Cell row="1" col="22" text="경조"/>
+                                <Cell row="1" col="23" text="공가"/>
+                                <Cell row="1" col="24" text="병가"/>
+                                <Cell row="1" col="25" text="생휴"/>
+                                <Cell row="1" col="26" text="출산"/>
+                                <Cell row="1" col="27" text="포상"/>
+                                <Cell row="1" col="28" text="결근"/>
+                                <Cell row="1" col="29" text="해외"/>
+                                <Cell row="1" col="30" text="교육"/>
+                                <Cell row="1" col="31" text="훈련"/>
+                                <Cell row="1" col="32" text="출장"/>
+                                <Cell row="1" col="33" text="지각"/>
+                                <Cell row="1" col="34" text="조퇴"/>
+                                <Cell row="1" col="35" text="기타1"/>
+                              </Band>
+                              <Band id="body">
+                                <Cell expr="currow + 1" textAlign="center"/>
+                                <Cell col="1" text="bind:DEPM_NM" displaytype="normal" textAlign="left" suppress="1"/>
+                                <Cell col="2" text="bind:EMPM_CD" displaytype="normal" textAlign="center"/>
+                                <Cell col="3" text="bind:EMPM_NM" displaytype="normal" textAlign="center"/>
+                                <Cell col="4" text="bind:DUTY_NM" displaytype="normal" textAlign="center"/>
+                                <Cell col="5" text="bind:POSI_NM" displaytype="normal" textAlign="center"/>
+                                <Cell col="6" text="bind:WOPL_NM" displaytype="normal" textAlign="left"/>
+                                <Cell col="7" text="bind:JOTY_NM" displaytype="normal" textAlign="left"/>
+                                <Cell col="8" text="bind:WKOT_HR" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="9" text="bind:WKNT_HR" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="10" text="bind:HOWK_CT" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="11" text="bind:HONT_CT" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="12" text="bind:HOOT_CT" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="13" text="bind:SIMY_CT" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="14" text="bind:SPAL_CT" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="15" text="bind:SPSA_CT" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="16" text="bind:SPSU_CT" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="17" text="bind:SPEA_CT" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="18" text="bind:A01" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="19" text="bind:A02" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="20" text="bind:A03" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="21" text="bind:A04" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="22" text="bind:A05" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="23" text="bind:A06" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="24" text="bind:A07" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="25" text="bind:A08" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="26" text="bind:A09" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="27" text="bind:A10" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="28" text="bind:A11" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="29" text="bind:A12" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="30" text="bind:B01" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="31" text="bind:B02" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="32" text="bind:B03" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="33" text="bind:B04" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="34" text="bind:B05" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="35" text="bind:B06" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                              </Band>
+                              <Band id="summary">
+                                <Cell/>
+                                <Cell col="1" text="합계"/>
+                                <Cell col="2" expr="dataset.getCount()"/>
+                                <Cell col="3"/>
+                                <Cell col="4"/>
+                                <Cell col="5"/>
+                                <Cell col="6"/>
+                                <Cell col="7"/>
+                                <Cell col="8" expr="dataset.getSum(&quot;WKOT_HR&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="9" expr="dataset.getSum(&quot;WKNT_HR&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="10" expr="dataset.getSum(&quot;HOWK_CT&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="11" expr="dataset.getSum(&quot;HONT_CT&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="12" expr="dataset.getSum(&quot;HOOT_CT&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="13" expr="dataset.getSum(&quot;SIMY_CT&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="14" expr="dataset.getSum(&quot;SPAL_CT&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="15" expr="dataset.getSum(&quot;SPSA_CT&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="16" expr="dataset.getSum(&quot;SPSU_CT&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="17" expr="dataset.getSum(&quot;SPEA_CT&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="18" expr="dataset.getSum(&quot;A01&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="19" expr="dataset.getSum(&quot;A02&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="20" expr="dataset.getSum(&quot;A03&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="21" expr="dataset.getSum(&quot;A04&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="22" expr="dataset.getSum(&quot;A05&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="23" expr="dataset.getSum(&quot;A06&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="24" expr="dataset.getSum(&quot;A07&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="25" expr="dataset.getSum(&quot;A08&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="26" expr="dataset.getSum(&quot;A09&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="27" expr="dataset.getSum(&quot;A10&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="28" expr="dataset.getSum(&quot;A11&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="29" expr="dataset.getSum(&quot;A12&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="30" expr="dataset.getSum(&quot;B01&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="31" expr="dataset.getSum(&quot;B02&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="32" expr="dataset.getSum(&quot;B03&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="33" expr="dataset.getSum(&quot;B04&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="34" expr="dataset.getSum(&quot;B05&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                                <Cell col="35" expr="dataset.getSum(&quot;B06&quot;)" displaytype="mask" maskeditformat="###,##0.0"/>
+                              </Band>
+                            </Format>
+                          </Formats>
+                        </Grid>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                  <Tabpage id="tpg_03" text="연장근로현황">
+                    <Layouts>
+                      <Layout>
+                        <Grid id="grd_Master30" taborder="0" left="0" top="2" binddataset="ds_Master30" autofittype="none" right="0" bottom="0" selecttype="multiarea" cellsizingtype="col" oncellclick="div_MasterView_tab_Master_tpg_03_grd_Master30_oncellclick">
+                          <Formats>
+                            <Format id="default">
+                              <Columns>
+                                <Column size="35" band="left"/>
+                                <Column size="120" band="left"/>
+                                <Column size="70" band="left"/>
+                                <Column size="80" band="left"/>
+                                <Column size="70" band="left"/>
+                                <Column size="70" band="left"/>
+                                <Column size="70" band="left"/>
+                                <Column size="100" band="left"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="50"/>
+                                <Column size="60"/>
+                              </Columns>
+                              <Rows>
+                                <Row size="26" band="head"/>
+                                <Row size="24"/>
+                                <Row size="24"/>
+                                <Row size="24"/>
+                                <Row size="24"/>
+                                <Row size="24"/>
+                                <Row size="24"/>
+                                <Row size="24"/>
+                                <Row size="24"/>
+                                <Row size="24"/>
+                                <Row size="24" band="summ"/>
+                              </Rows>
+                              <Band id="head">
+                                <Cell text="No."/>
+                                <Cell col="1" text="부서"/>
+                                <Cell col="2" text="사번"/>
+                                <Cell col="3" text="성명"/>
+                                <Cell col="4" text="직책"/>
+                                <Cell col="5" text="직위"/>
+                                <Cell col="6" text="직종"/>
+                                <Cell col="7" text="근로구분"/>
+                                <Cell col="8" text=""/>
+                                <Cell col="9" text=""/>
+                                <Cell col="10" text=""/>
+                                <Cell col="11" text=""/>
+                                <Cell col="12"/>
+                                <Cell col="13" text=""/>
+                                <Cell col="14" text=""/>
+                                <Cell col="15" text=""/>
+                                <Cell col="16" text=""/>
+                                <Cell col="17"/>
+                                <Cell col="18" text=""/>
+                                <Cell col="19" text=""/>
+                                <Cell col="20" text=""/>
+                                <Cell col="21" text=""/>
+                                <Cell col="22"/>
+                                <Cell col="23"/>
+                                <Cell col="24"/>
+                                <Cell col="25"/>
+                                <Cell col="26"/>
+                                <Cell col="27"/>
+                                <Cell col="28"/>
+                                <Cell col="29"/>
+                                <Cell col="30"/>
+                                <Cell col="31"/>
+                                <Cell col="32"/>
+                                <Cell col="33"/>
+                                <Cell col="34"/>
+                                <Cell col="35"/>
+                                <Cell col="36"/>
+                                <Cell col="37"/>
+                                <Cell col="38"/>
+                                <Cell col="39" text="합계"/>
+                              </Band>
+                              <Band id="body">
+                                <Cell rowspan="9" expr="currow + 1" textAlign="center" verticalAlign="top"/>
+                                <Cell col="1" rowspan="9" text="bind:DEPM_NM" displaytype="normal" textAlign="left" verticalAlign="top"/>
+                                <Cell col="2" rowspan="9" text="bind:EMPM_CD" displaytype="normal" textAlign="center" verticalAlign="top"/>
+                                <Cell col="3" rowspan="9" text="bind:EMPM_NM" displaytype="normal" textAlign="center" verticalAlign="top"/>
+                                <Cell col="4" rowspan="9" text="bind:DUTY_NM" displaytype="normal" textAlign="center" verticalAlign="top"/>
+                                <Cell col="5" rowspan="9" text="bind:POSI_NM" displaytype="normal" textAlign="center" verticalAlign="top"/>
+                                <Cell col="6" rowspan="9" text="bind:JOTY_NM" displaytype="normal" textAlign="left" verticalAlign="top"/>
+                                <Cell col="7" text="평일_연장근로" displaytype="normal" textAlign="left"/>
+                                <Cell col="8" text="bind:A01" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="9" text="bind:A02" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="10" text="bind:A03" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="11" text="bind:A04" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="12" text="bind:A05" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="13" text="bind:A06" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="14" text="bind:A07" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="15" text="bind:A08" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="16" text="bind:A09" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="17" text="bind:A10" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="18" text="bind:A11" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="19" text="bind:A12" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="20" text="bind:A13" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="21" text="bind:A14" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="22" text="bind:A15" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="23" text="bind:A16" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="24" text="bind:A17" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="25" text="bind:A18" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="26" text="bind:A19" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="27" text="bind:A20" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="28" text="bind:A21" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="29" text="bind:A22" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="30" text="bind:A23" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="31" text="bind:A24" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="32" text="bind:A25" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="33" text="bind:A26" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="34" text="bind:A27" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="35" text="bind:A28" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="36" text="bind:A29" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="37" text="bind:A30" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="38" text="bind:A31" displaytype="mask" textAlign="right" maskeditformat="##0.0"/>
+                                <Cell col="39" displaytype="mask" textAlign="right" maskeditformat="#,##0.0" expr="A01+A02+A03+A04+A05+A06+A07+A08+A09+A10+A11+A12+A13+A14+A15+A16+A17+A18+A19+A20+A21+A22+A23+A24+A25+A26+A27+A28+A29+A30+A31"/>
+                                <Cell row="1" col="7" text="평일_야간근로"/>
+                                <Cell row="1" col="8" text="bind:B01" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="9" text="bind:B02" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="10" text="bind:B03" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="11" text="bind:B04" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="12" text="bind:B05" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="13" text="bind:B06" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="14" text="bind:B07" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="15" text="bind:B08" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="16" text="bind:B09" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="17" text="bind:B10" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="18" text="bind:B11" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="19" text="bind:B12" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="20" text="bind:B13" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="21" text="bind:B14" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="22" text="bind:B15" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="23" text="bind:B16" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="24" text="bind:B17" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="25" text="bind:B18" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="26" text="bind:B119" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="27" text="bind:B20" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="28" text="bind:B21" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="29" text="bind:B22" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="30" text="bind:B23" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="31" text="bind:B24" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="32" text="bind:B25" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="33" text="bind:B26" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="34" text="bind:B27" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="35" text="bind:B28" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="36" text="bind:B29" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="37" text="bind:B30" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="38" text="bind:B31" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="1" col="39" displaytype="mask" textAlign="right" maskeditformat="#,##0.0" expr="B01+B02+B03+B04+B05+B06+B07+B08+B09+B10+B11+B12+B13+B14+B15+B16+B17+B18+B19+B20+B21+B22+B23+B24+B25+B26+B27+B28+B29+B30+B31"/>
+                                <Cell row="2" col="7" text="평일_심야(입력)"/>
+                                <Cell row="2" col="8" text="bind:C01" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="9" text="bind:C02" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="10" text="bind:C03" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="11" text="bind:C04" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="12" text="bind:C05" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="13" text="bind:C06" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="14" text="bind:C07" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="15" text="bind:C08" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="16" text="bind:C09" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="17" text="bind:C10" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="18" text="bind:C11" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="19" text="bind:C12" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="20" text="bind:C13" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="21" text="bind:C14" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="22" text="bind:C15" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="23" text="bind:C16" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="24" text="bind:C17" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="25" text="bind:C18" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="26" text="bind:C19" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="27" text="bind:C20" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="28" text="bind:C21" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="29" text="bind:C22" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="30" text="bind:C23" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="31" text="bind:C24" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="32" text="bind:C25" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="33" text="bind:C26" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="34" text="bind:C27" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="35" text="bind:C28" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="36" text="bind:C29" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="37" text="bind:C30" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="38" text="bind:C31" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="2" col="39" displaytype="mask" textAlign="right" maskeditformat="#,##0.0" expr="C01+C02+C03+C04+C05+C06+C07+C08+C09+C10+C11+C12+C13+C14+C15+C16+C17+C18+C19+C20+C21+C22+C23+C24+C25+C26+C27+C28+C29+C30+C31"/>
+                                <Cell row="3" col="7" text="휴일_근로"/>
+                                <Cell row="3" col="8" text="bind:D01" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="9" text="bind:D02" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="10" text="bind:D03" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="11" text="bind:D04" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="12" text="bind:D05" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="13" text="bind:D06" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="14" text="bind:D07" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="15" text="bind:D08" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="16" text="bind:D09" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="17" text="bind:D10" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="18" text="bind:D11" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="19" text="bind:D12" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="20" text="bind:D13" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="21" text="bind:D14" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="22" text="bind:D15" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="23" text="bind:D16" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="24" text="bind:D17" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="25" text="bind:D18" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="26" text="bind:D19" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="27" text="bind:D20" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="28" text="bind:D21" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="29" text="bind:D22" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="30" text="bind:D23" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="31" text="bind:D24" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="32" text="bind:D25" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="33" text="bind:D26" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="34" text="bind:D27" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="35" text="bind:D28" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="36" text="bind:D29" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="37" text="bind:D30" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="38" text="bind:D31" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="3" col="39" displaytype="mask" textAlign="right" maskeditformat="#,##0.0" expr="D01+D02+D03+D04+D05+D06+D07+D08+D09+D10+D11+D12+D13+D14+D15+D16+D17+D18+D19+D20+D21+D22+D23+D24+D25+D26+D27+D28+D29+D30+D31"/>
+                                <Cell row="4" col="7" text="휴일_야간근로"/>
+                                <Cell row="4" col="8" text="bind:E01" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="9" text="bind:E02" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="10" text="bind:E03" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="11" text="bind:E04" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="12" text="bind:E05" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="13" text="bind:E06" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="14" text="bind:E07" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="15" text="bind:E08" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="16" text="bind:E09" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="17" text="bind:E10" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="18" text="bind:E11" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="19" text="bind:E12" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="20" text="bind:E13" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="21" text="bind:E14" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="22" text="bind:E15" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="23" text="bind:E16" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="24" text="bind:E17" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="25" text="bind:E18" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="26" text="bind:E19" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="27" text="bind:E20" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="28" text="bind:E21" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="29" text="bind:E22" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="30" text="bind:E23" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="31" text="bind:E24" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="32" text="bind:E25" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="33" text="bind:E26" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="34" text="bind:E27" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="35" text="bind:E28" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="36" text="bind:E29" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="37" text="bind:E30" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="38" text="bind:E31" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="4" col="39" displaytype="mask" textAlign="right" maskeditformat="#,##0.0" expr="E01+E02+E03+E04+E05+E06+E07+E08+E09+E10+E11+E12+E13+E14+E15+E16+E17+E18+E19+E20+E21+E22+E23+E24+E25+E26+E27+E28+E29+E30+E31"/>
+                                <Cell row="5" col="7" text="휴일_연장근로"/>
+                                <Cell row="5" col="8" text="bind:F01" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="9" text="bind:F02" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="10" text="bind:F03" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="11" text="bind:F04" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="12" text="bind:F05" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="13" text="bind:F06" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="14" text="bind:F07" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="15" text="bind:F08" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="16" text="bind:F09" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="17" text="bind:F10" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="18" text="bind:F11" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="19" text="bind:F12" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="20" text="bind:F13" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="21" text="bind:F14" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="22" text="bind:F15" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="23" text="bind:F16" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="24" text="bind:F17" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="25" text="bind:F18" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="26" text="bind:F19" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="27" text="bind:F20" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="28" text="bind:F21" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="29" text="bind:F22" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="30" text="bind:F23" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="31" text="bind:F24" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="32" text="bind:F25" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="33" text="bind:F26" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="34" text="bind:F27" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="35" text="bind:F28" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="36" text="bind:F29" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="37" text="bind:F30" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="38" text="bind:F31" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="5" col="39" displaytype="mask" textAlign="right" maskeditformat="#,##0.0" expr="F01+F02+F03+F04+F05+F06+F07+F08+F09+F10+F11+F12+F13+F14+F15+F16+F17+F18+F19+F20+F21+F22+F23+F24+F25+F26+F27+F28+F29+F30+F31"/>
+                                <Cell row="6" col="7" text="특근_철야"/>
+                                <Cell row="6" col="8" text="bind:G01" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="9" text="bind:G02" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="10" text="bind:G03" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="11" text="bind:G04" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="12" text="bind:G05" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="13" text="bind:G06" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="14" text="bind:G07" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="15" text="bind:G08" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="16" text="bind:G09" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="17" text="bind:G10" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="18" text="bind:G11" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="19" text="bind:G12" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="20" text="bind:G13" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="21" text="bind:G14" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="22" text="bind:G15" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="23" text="bind:G16" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="24" text="bind:G17" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="25" text="bind:G18" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="26" text="bind:G19" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="27" text="bind:G20" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="28" text="bind:G21" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="29" text="bind:G22" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="30" text="bind:G23" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="31" text="bind:G24" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="32" text="bind:G25" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="33" text="bind:G26" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="34" text="bind:G27" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="35" text="bind:G28" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="36" text="bind:G29" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="37" text="bind:G30" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="38" text="bind:G31" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="6" col="39" displaytype="mask" textAlign="right" maskeditformat="#,##0.0" expr="G01+G02+G03+G04+G05+G06+G07+G08+G09+G10+G11+G12+G13+G14+G15+G16+G17+G18+G19+G20+G21+G22+G23+G24+G25+G26+G27+G28+G29+G30+G31"/>
+                                <Cell row="7" col="7" text="휴일_토요일"/>
+                                <Cell row="7" col="8" text="bind:H01" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="9" text="bind:H02" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="10" text="bind:H03" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="11" text="bind:H04" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="12" text="bind:H05" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="13" text="bind:H06" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="14" text="bind:H07" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="15" text="bind:H08" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="16" text="bind:H09" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="17" text="bind:H10" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="18" text="bind:H11" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="19" text="bind:H12" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="20" text="bind:H13" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="21" text="bind:H14" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="22" text="bind:H15" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="23" text="bind:H16" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="24" text="bind:H17" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="25" text="bind:H18" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="26" text="bind:H19" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="27" text="bind:H20" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="28" text="bind:H21" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="29" text="bind:H22" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="30" text="bind:H23" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="31" text="bind:H24" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="32" text="bind:H25" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="33" text="bind:H26" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="34" text="bind:H27" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="35" text="bind:H28" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="36" text="bind:H29" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="37" text="bind:H30" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="38" text="bind:H31" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="7" col="39" displaytype="mask" textAlign="right" maskeditformat="#,##0.0" expr="H01+H02+H03+H04+H05+H06+H07+H08+H09+H10+H11+H12+H13+H14+H15+H16+H17+H18+H19+H20+H21+H22+H23+H24+H25+H26+H27+H28+H29+H30+H31"/>
+                                <Cell row="8" col="7" text="휴일_일요일"/>
+                                <Cell row="8" col="8" text="bind:I01" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="9" text="bind:I02" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="10" text="bind:I03" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="11" text="bind:I04" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="12" text="bind:I05" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="13" text="bind:I06" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="14" text="bind:I07" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="15" text="bind:I08" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="16" text="bind:I09" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="17" text="bind:I10" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="18" text="bind:I11" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="19" text="bind:I12" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="20" text="bind:I13" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="21" text="bind:I14" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="22" text="bind:I15" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="23" text="bind:I16" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="24" text="bind:I17" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="25" text="bind:I18" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="26" text="bind:I19" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="27" text="bind:I20" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="28" text="bind:I21" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="29" text="bind:I22" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="30" text="bind:I23" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="31" text="bind:I24" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="32" text="bind:I25" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="33" text="bind:I26" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="34" text="bind:I27" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="35" text="bind:I28" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="36" text="bind:I29" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="37" text="bind:I30" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="38" text="bind:I31" displaytype="mask" maskeditformat="##0.0" textAlign="right"/>
+                                <Cell row="8" col="39" displaytype="mask" textAlign="right" maskeditformat="#,##0.0" expr="I01+I02+I03+I04+I05+I06+I07+I08+I09+I10+I11+I12+I13+I14+I15+I16+I17+I18+I19+I20+I21+I22+I23+I24+I25+I26+I27+I28+I29+I30+I31"/>
+                              </Band>
+                              <Band id="summary">
+                                <Cell/>
+                                <Cell col="1" text="합계"/>
+                                <Cell col="2"/>
+                                <Cell col="3"/>
+                                <Cell col="4"/>
+                                <Cell col="5"/>
+                                <Cell col="6"/>
+                                <Cell col="7"/>
+                                <Cell col="8" expr="dataset.getSum(&quot;A01&quot;) + dataset.getSum(&quot;B01&quot;) + dataset.getSum(&quot;C01&quot;) + dataset.getSum(&quot;D01&quot;) + dataset.getSum(&quot;E01&quot;) + dataset.getSum(&quot;F01&quot;) + dataset.getSum(&quot;G01&quot;) + dataset.getSum(&quot;H01&quot;) + dataset.getSum(&quot;I01&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="9" expr="dataset.getSum(&quot;A02&quot;) + dataset.getSum(&quot;B02&quot;) + dataset.getSum(&quot;C02&quot;) + dataset.getSum(&quot;D02&quot;) + dataset.getSum(&quot;E02&quot;) + dataset.getSum(&quot;F02&quot;) + dataset.getSum(&quot;G02&quot;) + dataset.getSum(&quot;H02&quot;) + dataset.getSum(&quot;I02&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="10" expr="dataset.getSum(&quot;A03&quot;) + dataset.getSum(&quot;B03&quot;) + dataset.getSum(&quot;C03&quot;) + dataset.getSum(&quot;D03&quot;) + dataset.getSum(&quot;E03&quot;) + dataset.getSum(&quot;F03&quot;) + dataset.getSum(&quot;G03&quot;) + dataset.getSum(&quot;H03&quot;) + dataset.getSum(&quot;I03&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="11" expr="dataset.getSum(&quot;A04&quot;) + dataset.getSum(&quot;B04&quot;) + dataset.getSum(&quot;C04&quot;) + dataset.getSum(&quot;D04&quot;) + dataset.getSum(&quot;E04&quot;) + dataset.getSum(&quot;F04&quot;) + dataset.getSum(&quot;G04&quot;) + dataset.getSum(&quot;H04&quot;) + dataset.getSum(&quot;I04&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="12" expr="dataset.getSum(&quot;A05&quot;) + dataset.getSum(&quot;B05&quot;) + dataset.getSum(&quot;C05&quot;) + dataset.getSum(&quot;D05&quot;) + dataset.getSum(&quot;E05&quot;) + dataset.getSum(&quot;F05&quot;) + dataset.getSum(&quot;G05&quot;) + dataset.getSum(&quot;H05&quot;) + dataset.getSum(&quot;I05&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="13" expr="dataset.getSum(&quot;A06&quot;) + dataset.getSum(&quot;B06&quot;) + dataset.getSum(&quot;C06&quot;) + dataset.getSum(&quot;D06&quot;) + dataset.getSum(&quot;E06&quot;) + dataset.getSum(&quot;F06&quot;) + dataset.getSum(&quot;G06&quot;) + dataset.getSum(&quot;H06&quot;) + dataset.getSum(&quot;I06&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="14" expr="dataset.getSum(&quot;A07&quot;) + dataset.getSum(&quot;B07&quot;) + dataset.getSum(&quot;C07&quot;) + dataset.getSum(&quot;D07&quot;) + dataset.getSum(&quot;E07&quot;) + dataset.getSum(&quot;F07&quot;) + dataset.getSum(&quot;G07&quot;) + dataset.getSum(&quot;H07&quot;) + dataset.getSum(&quot;I07&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="15" expr="dataset.getSum(&quot;A08&quot;) + dataset.getSum(&quot;B08&quot;) + dataset.getSum(&quot;C08&quot;) + dataset.getSum(&quot;D08&quot;) + dataset.getSum(&quot;E08&quot;) + dataset.getSum(&quot;F08&quot;) + dataset.getSum(&quot;G08&quot;) + dataset.getSum(&quot;H08&quot;) + dataset.getSum(&quot;I08&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="16" expr="dataset.getSum(&quot;A09&quot;) + dataset.getSum(&quot;B09&quot;) + dataset.getSum(&quot;C09&quot;) + dataset.getSum(&quot;D09&quot;) + dataset.getSum(&quot;E09&quot;) + dataset.getSum(&quot;F09&quot;) + dataset.getSum(&quot;G09&quot;) + dataset.getSum(&quot;H09&quot;) + dataset.getSum(&quot;I09&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="17" expr="dataset.getSum(&quot;A10&quot;) + dataset.getSum(&quot;B10&quot;) + dataset.getSum(&quot;C10&quot;) + dataset.getSum(&quot;D10&quot;) + dataset.getSum(&quot;E10&quot;) + dataset.getSum(&quot;F10&quot;) + dataset.getSum(&quot;G10&quot;) + dataset.getSum(&quot;H10&quot;) + dataset.getSum(&quot;I10&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="18" expr="dataset.getSum(&quot;A11&quot;) + dataset.getSum(&quot;B11&quot;) + dataset.getSum(&quot;C11&quot;) + dataset.getSum(&quot;D11&quot;) + dataset.getSum(&quot;E11&quot;) + dataset.getSum(&quot;F11&quot;) + dataset.getSum(&quot;G11&quot;) + dataset.getSum(&quot;H11&quot;) + dataset.getSum(&quot;I11&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="19" expr="dataset.getSum(&quot;A12&quot;) + dataset.getSum(&quot;B12&quot;) + dataset.getSum(&quot;C12&quot;) + dataset.getSum(&quot;D12&quot;) + dataset.getSum(&quot;E12&quot;) + dataset.getSum(&quot;F12&quot;) + dataset.getSum(&quot;G12&quot;) + dataset.getSum(&quot;H12&quot;) + dataset.getSum(&quot;I12&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="20" expr="dataset.getSum(&quot;A13&quot;) + dataset.getSum(&quot;B13&quot;) + dataset.getSum(&quot;C13&quot;) + dataset.getSum(&quot;D13&quot;) + dataset.getSum(&quot;E13&quot;) + dataset.getSum(&quot;F13&quot;) + dataset.getSum(&quot;G13&quot;) + dataset.getSum(&quot;H13&quot;) + dataset.getSum(&quot;I13&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="21" expr="dataset.getSum(&quot;A14&quot;) + dataset.getSum(&quot;B14&quot;) + dataset.getSum(&quot;C14&quot;) + dataset.getSum(&quot;D14&quot;) + dataset.getSum(&quot;E14&quot;) + dataset.getSum(&quot;F14&quot;) + dataset.getSum(&quot;G14&quot;) + dataset.getSum(&quot;H14&quot;) + dataset.getSum(&quot;I14&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="22" expr="dataset.getSum(&quot;A15&quot;) + dataset.getSum(&quot;B15&quot;) + dataset.getSum(&quot;C15&quot;) + dataset.getSum(&quot;D15&quot;) + dataset.getSum(&quot;E15&quot;) + dataset.getSum(&quot;F15&quot;) + dataset.getSum(&quot;G15&quot;) + dataset.getSum(&quot;H15&quot;) + dataset.getSum(&quot;I15&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="23" expr="dataset.getSum(&quot;A16&quot;) + dataset.getSum(&quot;B16&quot;) + dataset.getSum(&quot;C16&quot;) + dataset.getSum(&quot;D16&quot;) + dataset.getSum(&quot;E16&quot;) + dataset.getSum(&quot;F16&quot;) + dataset.getSum(&quot;G16&quot;) + dataset.getSum(&quot;H16&quot;) + dataset.getSum(&quot;I16&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="24" expr="dataset.getSum(&quot;A17&quot;) + dataset.getSum(&quot;B17&quot;) + dataset.getSum(&quot;C17&quot;) + dataset.getSum(&quot;D17&quot;) + dataset.getSum(&quot;E17&quot;) + dataset.getSum(&quot;F17&quot;) + dataset.getSum(&quot;G17&quot;) + dataset.getSum(&quot;H17&quot;) + dataset.getSum(&quot;I17&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="25" expr="dataset.getSum(&quot;A18&quot;) + dataset.getSum(&quot;B18&quot;) + dataset.getSum(&quot;C18&quot;) + dataset.getSum(&quot;D18&quot;) + dataset.getSum(&quot;E18&quot;) + dataset.getSum(&quot;F18&quot;) + dataset.getSum(&quot;G18&quot;) + dataset.getSum(&quot;H18&quot;) + dataset.getSum(&quot;I18&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="26" expr="dataset.getSum(&quot;A19&quot;) + dataset.getSum(&quot;B19&quot;) + dataset.getSum(&quot;C19&quot;) + dataset.getSum(&quot;D19&quot;) + dataset.getSum(&quot;E19&quot;) + dataset.getSum(&quot;F19&quot;) + dataset.getSum(&quot;G19&quot;) + dataset.getSum(&quot;H19&quot;) + dataset.getSum(&quot;I19&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="27" expr="dataset.getSum(&quot;A20&quot;) + dataset.getSum(&quot;B20&quot;) + dataset.getSum(&quot;C20&quot;) + dataset.getSum(&quot;D20&quot;) + dataset.getSum(&quot;E20&quot;) + dataset.getSum(&quot;F20&quot;) + dataset.getSum(&quot;G20&quot;) + dataset.getSum(&quot;H20&quot;) + dataset.getSum(&quot;I20&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="28" expr="dataset.getSum(&quot;A21&quot;) + dataset.getSum(&quot;B21&quot;) + dataset.getSum(&quot;C21&quot;) + dataset.getSum(&quot;D21&quot;) + dataset.getSum(&quot;E21&quot;) + dataset.getSum(&quot;F21&quot;) + dataset.getSum(&quot;G21&quot;) + dataset.getSum(&quot;H21&quot;) + dataset.getSum(&quot;I21&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="29" expr="dataset.getSum(&quot;A22&quot;) + dataset.getSum(&quot;B22&quot;) + dataset.getSum(&quot;C22&quot;) + dataset.getSum(&quot;D22&quot;) + dataset.getSum(&quot;E22&quot;) + dataset.getSum(&quot;F22&quot;) + dataset.getSum(&quot;G22&quot;) + dataset.getSum(&quot;H22&quot;) + dataset.getSum(&quot;I22&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="30" expr="dataset.getSum(&quot;A23&quot;) + dataset.getSum(&quot;B23&quot;) + dataset.getSum(&quot;C23&quot;) + dataset.getSum(&quot;D23&quot;) + dataset.getSum(&quot;E23&quot;) + dataset.getSum(&quot;F23&quot;) + dataset.getSum(&quot;G23&quot;) + dataset.getSum(&quot;H23&quot;) + dataset.getSum(&quot;I23&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="31" expr="dataset.getSum(&quot;A24&quot;) + dataset.getSum(&quot;B24&quot;) + dataset.getSum(&quot;C24&quot;) + dataset.getSum(&quot;D24&quot;) + dataset.getSum(&quot;E24&quot;) + dataset.getSum(&quot;F24&quot;) + dataset.getSum(&quot;G24&quot;) + dataset.getSum(&quot;H24&quot;) + dataset.getSum(&quot;I24&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="32" expr="dataset.getSum(&quot;A25&quot;) + dataset.getSum(&quot;B25&quot;) + dataset.getSum(&quot;C25&quot;) + dataset.getSum(&quot;D25&quot;) + dataset.getSum(&quot;E25&quot;) + dataset.getSum(&quot;F25&quot;) + dataset.getSum(&quot;G25&quot;) + dataset.getSum(&quot;H25&quot;) + dataset.getSum(&quot;I25&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="33" expr="dataset.getSum(&quot;A26&quot;) + dataset.getSum(&quot;B26&quot;) + dataset.getSum(&quot;C26&quot;) + dataset.getSum(&quot;D26&quot;) + dataset.getSum(&quot;E26&quot;) + dataset.getSum(&quot;F26&quot;) + dataset.getSum(&quot;G26&quot;) + dataset.getSum(&quot;H26&quot;) + dataset.getSum(&quot;I26&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="34" expr="dataset.getSum(&quot;A27&quot;) + dataset.getSum(&quot;B27&quot;) + dataset.getSum(&quot;C27&quot;) + dataset.getSum(&quot;D27&quot;) + dataset.getSum(&quot;E27&quot;) + dataset.getSum(&quot;F27&quot;) + dataset.getSum(&quot;G27&quot;) + dataset.getSum(&quot;H27&quot;) + dataset.getSum(&quot;I27&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="35" expr="dataset.getSum(&quot;A28&quot;) + dataset.getSum(&quot;B28&quot;) + dataset.getSum(&quot;C28&quot;) + dataset.getSum(&quot;D28&quot;) + dataset.getSum(&quot;E28&quot;) + dataset.getSum(&quot;F28&quot;) + dataset.getSum(&quot;G28&quot;) + dataset.getSum(&quot;H28&quot;) + dataset.getSum(&quot;I28&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="36" expr="dataset.getSum(&quot;A29&quot;) + dataset.getSum(&quot;B29&quot;) + dataset.getSum(&quot;C29&quot;) + dataset.getSum(&quot;D29&quot;) + dataset.getSum(&quot;E29&quot;) + dataset.getSum(&quot;F29&quot;) + dataset.getSum(&quot;G29&quot;) + dataset.getSum(&quot;H29&quot;) + dataset.getSum(&quot;I29&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="37" expr="dataset.getSum(&quot;A30&quot;) + dataset.getSum(&quot;B30&quot;) + dataset.getSum(&quot;C30&quot;) + dataset.getSum(&quot;D30&quot;) + dataset.getSum(&quot;E30&quot;) + dataset.getSum(&quot;F30&quot;) + dataset.getSum(&quot;G30&quot;) + dataset.getSum(&quot;H30&quot;) + dataset.getSum(&quot;I30&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="38" expr="dataset.getSum(&quot;A31&quot;) + dataset.getSum(&quot;B31&quot;) + dataset.getSum(&quot;C31&quot;) + dataset.getSum(&quot;D31&quot;) + dataset.getSum(&quot;E31&quot;) + dataset.getSum(&quot;F31&quot;) + dataset.getSum(&quot;G31&quot;) + dataset.getSum(&quot;H31&quot;) + dataset.getSum(&quot;I31&quot;)" displaytype="mask" textAlign="right" maskeditformat="###,##0.0"/>
+                                <Cell col="39" displaytype="mask" textAlign="right" maskeditformat="###,##0.0" expr="dataset.getSum(&quot;A01&quot;) + dataset.getSum(&quot;B01&quot;) + dataset.getSum(&quot;C01&quot;) + dataset.getSum(&quot;D01&quot;) + dataset.getSum(&quot;E01&quot;) + dataset.getSum(&quot;F01&quot;) + dataset.getSum(&quot;G01&quot;) + dataset.getSum(&quot;H01&quot;) + dataset.getSum(&quot;I01&quot;) +dataset.getSum(&quot;A02&quot;) + dataset.getSum(&quot;B02&quot;) + dataset.getSum(&quot;C02&quot;) + dataset.getSum(&quot;D02&quot;) + dataset.getSum(&quot;E02&quot;) + dataset.getSum(&quot;F02&quot;) + dataset.getSum(&quot;G02&quot;) + dataset.getSum(&quot;H02&quot;) + dataset.getSum(&quot;I02&quot;) +dataset.getSum(&quot;A03&quot;) + dataset.getSum(&quot;B03&quot;) + dataset.getSum(&quot;C03&quot;) + dataset.getSum(&quot;D03&quot;) + dataset.getSum(&quot;E03&quot;) + dataset.getSum(&quot;F03&quot;) + dataset.getSum(&quot;G03&quot;) + dataset.getSum(&quot;H03&quot;) + dataset.getSum(&quot;I03&quot;) +dataset.getSum(&quot;A04&quot;) + dataset.getSum(&quot;B04&quot;) + dataset.getSum(&quot;C04&quot;) + dataset.getSum(&quot;D04&quot;) + dataset.getSum(&quot;E04&quot;) + dataset.getSum(&quot;F04&quot;) + dataset.getSum(&quot;G04&quot;) + dataset.getSum(&quot;H04&quot;) + dataset.getSum(&quot;I04&quot;) +dataset.getSum(&quot;A05&quot;) + dataset.getSum(&quot;B05&quot;) + dataset.getSum(&quot;C05&quot;) + dataset.getSum(&quot;D05&quot;) + dataset.getSum(&quot;E05&quot;) + dataset.getSum(&quot;F05&quot;) + dataset.getSum(&quot;G05&quot;) + dataset.getSum(&quot;H05&quot;) + dataset.getSum(&quot;I05&quot;) +dataset.getSum(&quot;A06&quot;) + dataset.getSum(&quot;B06&quot;) + dataset.getSum(&quot;C06&quot;) + dataset.getSum(&quot;D06&quot;) + dataset.getSum(&quot;E06&quot;) + dataset.getSum(&quot;F06&quot;) + dataset.getSum(&quot;G06&quot;) + dataset.getSum(&quot;H06&quot;) + dataset.getSum(&quot;I06&quot;) +dataset.getSum(&quot;A07&quot;) + dataset.getSum(&quot;B07&quot;) + dataset.getSum(&quot;C07&quot;) + dataset.getSum(&quot;D07&quot;) + dataset.getSum(&quot;E07&quot;) + dataset.getSum(&quot;F07&quot;) + dataset.getSum(&quot;G07&quot;) + dataset.getSum(&quot;H07&quot;) + dataset.getSum(&quot;I07&quot;) +dataset.getSum(&quot;A08&quot;) + dataset.getSum(&quot;B08&quot;) + dataset.getSum(&quot;C08&quot;) + dataset.getSum(&quot;D08&quot;) + dataset.getSum(&quot;E08&quot;) + dataset.getSum(&quot;F08&quot;) + dataset.getSum(&quot;G08&quot;) + dataset.getSum(&quot;H08&quot;) + dataset.getSum(&quot;I08&quot;) +dataset.getSum(&quot;A09&quot;) + dataset.getSum(&quot;B09&quot;) + dataset.getSum(&quot;C09&quot;) + dataset.getSum(&quot;D09&quot;) + dataset.getSum(&quot;E09&quot;) + dataset.getSum(&quot;F09&quot;) + dataset.getSum(&quot;G09&quot;) + dataset.getSum(&quot;H09&quot;) + dataset.getSum(&quot;I09&quot;) +dataset.getSum(&quot;A10&quot;) + dataset.getSum(&quot;B10&quot;) + dataset.getSum(&quot;C10&quot;) + dataset.getSum(&quot;D10&quot;) + dataset.getSum(&quot;E10&quot;) + dataset.getSum(&quot;F10&quot;) + dataset.getSum(&quot;G10&quot;) + dataset.getSum(&quot;H10&quot;) + dataset.getSum(&quot;I10&quot;) +dataset.getSum(&quot;A11&quot;) + dataset.getSum(&quot;B11&quot;) + dataset.getSum(&quot;C11&quot;) + dataset.getSum(&quot;D11&quot;) + dataset.getSum(&quot;E11&quot;) + dataset.getSum(&quot;F11&quot;) + dataset.getSum(&quot;G11&quot;) + dataset.getSum(&quot;H11&quot;) + dataset.getSum(&quot;I11&quot;) +dataset.getSum(&quot;A12&quot;) + dataset.getSum(&quot;B12&quot;) + dataset.getSum(&quot;C12&quot;) + dataset.getSum(&quot;D12&quot;) + dataset.getSum(&quot;E12&quot;) + dataset.getSum(&quot;F12&quot;) + dataset.getSum(&quot;G12&quot;) + dataset.getSum(&quot;H12&quot;) + dataset.getSum(&quot;I12&quot;) +dataset.getSum(&quot;A13&quot;) + dataset.getSum(&quot;B13&quot;) + dataset.getSum(&quot;C13&quot;) + dataset.getSum(&quot;D13&quot;) + dataset.getSum(&quot;E13&quot;) + dataset.getSum(&quot;F13&quot;) + dataset.getSum(&quot;G13&quot;) + dataset.getSum(&quot;H13&quot;) + dataset.getSum(&quot;I13&quot;) +dataset.getSum(&quot;A14&quot;) + dataset.getSum(&quot;B14&quot;) + dataset.getSum(&quot;C14&quot;) + dataset.getSum(&quot;D14&quot;) + dataset.getSum(&quot;E14&quot;) + dataset.getSum(&quot;F14&quot;) + dataset.getSum(&quot;G14&quot;) + dataset.getSum(&quot;H14&quot;) + dataset.getSum(&quot;I14&quot;) +dataset.getSum(&quot;A15&quot;) + dataset.getSum(&quot;B15&quot;) + dataset.getSum(&quot;C15&quot;) + dataset.getSum(&quot;D15&quot;) + dataset.getSum(&quot;E15&quot;) + dataset.getSum(&quot;F15&quot;) + dataset.getSum(&quot;G15&quot;) + dataset.getSum(&quot;H15&quot;) + dataset.getSum(&quot;I15&quot;) +dataset.getSum(&quot;A16&quot;) + dataset.getSum(&quot;B16&quot;) + dataset.getSum(&quot;C16&quot;) + dataset.getSum(&quot;D16&quot;) + dataset.getSum(&quot;E16&quot;) + dataset.getSum(&quot;F16&quot;) + dataset.getSum(&quot;G16&quot;) + dataset.getSum(&quot;H16&quot;) + dataset.getSum(&quot;I16&quot;) +dataset.getSum(&quot;A17&quot;) + dataset.getSum(&quot;B17&quot;) + dataset.getSum(&quot;C17&quot;) + dataset.getSum(&quot;D17&quot;) + dataset.getSum(&quot;E17&quot;) + dataset.getSum(&quot;F17&quot;) + dataset.getSum(&quot;G17&quot;) + dataset.getSum(&quot;H17&quot;) + dataset.getSum(&quot;I17&quot;) +dataset.getSum(&quot;A18&quot;) + dataset.getSum(&quot;B18&quot;) + dataset.getSum(&quot;C18&quot;) + dataset.getSum(&quot;D18&quot;) + dataset.getSum(&quot;E18&quot;) + dataset.getSum(&quot;F18&quot;) + dataset.getSum(&quot;G18&quot;) + dataset.getSum(&quot;H18&quot;) + dataset.getSum(&quot;I18&quot;) +dataset.getSum(&quot;A19&quot;) + dataset.getSum(&quot;B19&quot;) + dataset.getSum(&quot;C19&quot;) + dataset.getSum(&quot;D19&quot;) + dataset.getSum(&quot;E19&quot;) + dataset.getSum(&quot;F19&quot;) + dataset.getSum(&quot;G19&quot;) + dataset.getSum(&quot;H19&quot;) + dataset.getSum(&quot;I19&quot;) +dataset.getSum(&quot;A20&quot;) + dataset.getSum(&quot;B20&quot;) + dataset.getSum(&quot;C20&quot;) + dataset.getSum(&quot;D20&quot;) + dataset.getSum(&quot;E20&quot;) + dataset.getSum(&quot;F20&quot;) + dataset.getSum(&quot;G20&quot;) + dataset.getSum(&quot;H20&quot;) + dataset.getSum(&quot;I20&quot;) +dataset.getSum(&quot;A21&quot;) + dataset.getSum(&quot;B21&quot;) + dataset.getSum(&quot;C21&quot;) + dataset.getSum(&quot;D21&quot;) + dataset.getSum(&quot;E21&quot;) + dataset.getSum(&quot;F21&quot;) + dataset.getSum(&quot;G21&quot;) + dataset.getSum(&quot;H21&quot;) + dataset.getSum(&quot;I21&quot;) +dataset.getSum(&quot;A22&quot;) + dataset.getSum(&quot;B22&quot;) + dataset.getSum(&quot;C22&quot;) + dataset.getSum(&quot;D22&quot;) + dataset.getSum(&quot;E22&quot;) + dataset.getSum(&quot;F22&quot;) + dataset.getSum(&quot;G22&quot;) + dataset.getSum(&quot;H22&quot;) + dataset.getSum(&quot;I22&quot;) +dataset.getSum(&quot;A23&quot;) + dataset.getSum(&quot;B23&quot;) + dataset.getSum(&quot;C23&quot;) + dataset.getSum(&quot;D23&quot;) + dataset.getSum(&quot;E23&quot;) + dataset.getSum(&quot;F23&quot;) + dataset.getSum(&quot;G23&quot;) + dataset.getSum(&quot;H23&quot;) + dataset.getSum(&quot;I23&quot;) +dataset.getSum(&quot;A24&quot;) + dataset.getSum(&quot;B24&quot;) + dataset.getSum(&quot;C24&quot;) + dataset.getSum(&quot;D24&quot;) + dataset.getSum(&quot;E24&quot;) + dataset.getSum(&quot;F24&quot;) + dataset.getSum(&quot;G24&quot;) + dataset.getSum(&quot;H24&quot;) + dataset.getSum(&quot;I24&quot;) +dataset.getSum(&quot;A25&quot;) + dataset.getSum(&quot;B25&quot;) + dataset.getSum(&quot;C25&quot;) + dataset.getSum(&quot;D25&quot;) + dataset.getSum(&quot;E25&quot;) + dataset.getSum(&quot;F25&quot;) + dataset.getSum(&quot;G25&quot;) + dataset.getSum(&quot;H25&quot;) + dataset.getSum(&quot;I25&quot;) +dataset.getSum(&quot;A26&quot;) + dataset.getSum(&quot;B26&quot;) + dataset.getSum(&quot;C26&quot;) + dataset.getSum(&quot;D26&quot;) + dataset.getSum(&quot;E26&quot;) + dataset.getSum(&quot;F26&quot;) + dataset.getSum(&quot;G26&quot;) + dataset.getSum(&quot;H26&quot;) + dataset.getSum(&quot;I26&quot;) +dataset.getSum(&quot;A27&quot;) + dataset.getSum(&quot;B27&quot;) + dataset.getSum(&quot;C27&quot;) + dataset.getSum(&quot;D27&quot;) + dataset.getSum(&quot;E27&quot;) + dataset.getSum(&quot;F27&quot;) + dataset.getSum(&quot;G27&quot;) + dataset.getSum(&quot;H27&quot;) + dataset.getSum(&quot;I27&quot;) +dataset.getSum(&quot;A28&quot;) + dataset.getSum(&quot;B28&quot;) + dataset.getSum(&quot;C28&quot;) + dataset.getSum(&quot;D28&quot;) + dataset.getSum(&quot;E28&quot;) + dataset.getSum(&quot;F28&quot;) + dataset.getSum(&quot;G28&quot;) + dataset.getSum(&quot;H28&quot;) + dataset.getSum(&quot;I28&quot;) +dataset.getSum(&quot;A29&quot;) + dataset.getSum(&quot;B29&quot;) + dataset.getSum(&quot;C29&quot;) + dataset.getSum(&quot;D29&quot;) + dataset.getSum(&quot;E29&quot;) + dataset.getSum(&quot;F29&quot;) + dataset.getSum(&quot;G29&quot;) + dataset.getSum(&quot;H29&quot;) + dataset.getSum(&quot;I29&quot;) +dataset.getSum(&quot;A30&quot;) + dataset.getSum(&quot;B30&quot;) + dataset.getSum(&quot;C30&quot;) + dataset.getSum(&quot;D30&quot;) + dataset.getSum(&quot;E30&quot;) + dataset.getSum(&quot;F30&quot;) + dataset.getSum(&quot;G30&quot;) + dataset.getSum(&quot;H30&quot;) + dataset.getSum(&quot;I30&quot;) +dataset.getSum(&quot;A31&quot;) + dataset.getSum(&quot;B31&quot;) + dataset.getSum(&quot;C31&quot;) + dataset.getSum(&quot;D31&quot;) + dataset.getSum(&quot;E31&quot;) + dataset.getSum(&quot;F31&quot;) + dataset.getSum(&quot;G31&quot;) + dataset.getSum(&quot;H31&quot;) + dataset.getSum(&quot;I31&quot;)"/>
+                              </Band>
+                            </Format>
+                          </Formats>
+                        </Grid>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                  <Tabpage id="tpg_04" text="휴일/철야근무현황">
+                    <Layouts>
+                      <Layout>
+                        <Grid id="ds_Master40" taborder="0" left="0" top="2" binddataset="ds_Master40" autofittype="col" right="0" bottom="0" selecttype="multiarea" cellsizingtype="col" suppresslevel="allcompare" oncellclick="div_MasterView_tab_Master_tpg_04_ds_Master40_oncellclick">
+                          <Formats>
+                            <Format id="default">
+                              <Columns>
+                                <Column size="35"/>
+                                <Column size="70"/>
+                                <Column size="120"/>
+                                <Column size="70"/>
+                                <Column size="80"/>
+                                <Column size="70"/>
+                                <Column size="70"/>
+                                <Column size="127"/>
+                                <Column size="90"/>
+                                <Column size="82"/>
+                                <Column size="73"/>
+                                <Column size="150"/>
+                                <Column size="377"/>
+                              </Columns>
+                              <Rows>
+                                <Row size="26" band="head"/>
+                                <Row size="24"/>
+                              </Rows>
+                              <Band id="head">
+                                <Cell text="No."/>
+                                <Cell col="1" text="상세보기"/>
+                                <Cell col="2" text="부서"/>
+                                <Cell col="3" text="사번"/>
+                                <Cell col="4" text="성명"/>
+                                <Cell col="5" text="직책"/>
+                                <Cell col="6" text="직위"/>
+                                <Cell col="7" text="휴가구분(근태계)"/>
+                                <Cell col="8" text="근무일자" displaytype="normal" calendardateformat="yyyy-MM-dd"/>
+                                <Cell col="9" text="근무시간"/>
+                                <Cell col="10" text="식사여부"/>
+                                <Cell col="11" text="프로세스번호"/>
+                                <Cell col="12" text="비고"/>
+                              </Band>
+                              <Band id="body">
+                                <Cell expr="currow + 1" textAlign="center"/>
+                                <Cell col="1" displaytype="buttoncontrol" text="상세보기"/>
+                                <Cell col="2" text="bind:DEPM_NM" displaytype="normal" textAlign="left" suppress="1"/>
+                                <Cell col="3" text="bind:EMPM_CD" displaytype="normal" textAlign="center" suppress="1"/>
+                                <Cell col="4" text="bind:EMPM_NM" displaytype="normal" textAlign="center" suppress="1"/>
+                                <Cell col="5" text="bind:DUTY_NM" displaytype="normal" textAlign="center" suppress="1"/>
+                                <Cell col="6" text="bind:POSI_NM" displaytype="normal" textAlign="center" suppress="1"/>
+                                <Cell col="7" text="bind:GTDH_GU" displaytype="combotext" textAlign="center" combodataset="ds_Hr305" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                                <Cell col="8" text="bind:GTDH_DD" displaytype="date" textAlign="center" calendardateformat="yyyy-MM-dd" calendardisplaynulltype="none"/>
+                                <Cell col="9" text="bind:HOOT_CT" displaytype="normal" textAlign="right"/>
+                                <Cell col="10" text="bind:MEAL_YN" displaytype="checkboxcontrol" textAlign="center" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                                <Cell col="11" text="bind:WOFH_NO" textAlign="center"/>
+                                <Cell col="12" text="bind:REMK_NM"/>
+                              </Band>
+                            </Format>
+                          </Formats>
+                        </Grid>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                </Tabpages>
+              </Tab>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btn_DivMoveMi" taborder="2" top="78" height="10" width="40" visible="true" onclick="btn_DivMoveMi_onclick" cssclass="bt_TF_FoldA" left="700" cursor="pointer"/>
+        <Div id="div_ComGridProc" taborder="3" top="83" height="30" cssclass="div_WF_Search" width="678" right="14" url="cmm::cmmGridProc.xfdl" async="false" visible="false"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="FROM_DD" type="STRING" size="256" description="조회시작일자"/>
+          <Column id="CLOS_DD" type="STRING" size="256" description="조회종료일자"/>
+          <Column id="DEPM_CD" type="STRING" size="256" description="부서코드(조직코드)"/>
+          <Column id="SESU_ID" type="STRING" size="256" description="시스템사용자ID"/>
+          <Column id="FROM_DT" type="STRING" size="256"/>
+          <Column id="LAST_DD" type="STRING" size="256"/>
+          <Column id="CLOS_DT" type="STRING" size="256"/>
+          <Column id="FROM_YY" type="STRING" size="256"/>
+          <Column id="LAST_FE" type="STRING" size="256"/>
+          <Column id="FIRS_YY" type="STRING" size="256"/>
+          <Column id="LAST_YY" type="STRING" size="256"/>
+          <Column id="JOTY_NM" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="A01" type="STRING" size="256"/>
+          <Column id="A02" type="STRING" size="256"/>
+          <Column id="A03" type="STRING" size="256"/>
+          <Column id="A04" type="STRING" size="256"/>
+          <Column id="A05" type="STRING" size="256"/>
+          <Column id="A06" type="STRING" size="256"/>
+          <Column id="A07" type="STRING" size="256"/>
+          <Column id="A08" type="STRING" size="256"/>
+          <Column id="A09" type="STRING" size="256"/>
+          <Column id="A10" type="STRING" size="256"/>
+          <Column id="A11" type="STRING" size="256"/>
+          <Column id="A12" type="STRING" size="256"/>
+          <Column id="A13" type="STRING" size="256"/>
+          <Column id="A14" type="STRING" size="256"/>
+          <Column id="A15" type="STRING" size="256"/>
+          <Column id="A16" type="STRING" size="256"/>
+          <Column id="A17" type="STRING" size="256"/>
+          <Column id="A18" type="STRING" size="256"/>
+          <Column id="A19" type="STRING" size="256"/>
+          <Column id="A20" type="STRING" size="256"/>
+          <Column id="A21" type="STRING" size="256"/>
+          <Column id="A22" type="STRING" size="256"/>
+          <Column id="A23" type="STRING" size="256"/>
+          <Column id="A24" type="STRING" size="256"/>
+          <Column id="A25" type="STRING" size="256"/>
+          <Column id="A26" type="STRING" size="256"/>
+          <Column id="A27" type="STRING" size="256"/>
+          <Column id="A28" type="STRING" size="256"/>
+          <Column id="A29" type="STRING" size="256"/>
+          <Column id="A30" type="STRING" size="256"/>
+          <Column id="A31" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master30__">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SERM_CD" type="STRING" size="256"/>
+          <Column id="SERM_NM" type="STRING" size="256"/>
+          <Column id="JOBM_CD" type="STRING" size="256"/>
+          <Column id="JOBM_NM" type="STRING" size="256"/>
+          <Column id="WKDM_NM" type="STRING" size="256"/>
+          <Column id="WKDB_GU" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="POSI_CD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="WKDB_CT" type="STRING" size="256"/>
+          <Column id="CT_01" type="STRING" size="256"/>
+          <Column id="CT_02" type="STRING" size="256"/>
+          <Column id="CT_03" type="STRING" size="256"/>
+          <Column id="CT_04" type="STRING" size="256"/>
+          <Column id="CT_05" type="STRING" size="256"/>
+          <Column id="CT_06" type="STRING" size="256"/>
+          <Column id="CT_07" type="STRING" size="256"/>
+          <Column id="CT_08" type="STRING" size="256"/>
+          <Column id="CT_09" type="STRING" size="256"/>
+          <Column id="CT_10" type="STRING" size="256"/>
+          <Column id="CT_11" type="STRING" size="256"/>
+          <Column id="CT_12" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Hr430">
+        <ColumnInfo>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Hr202">
+        <ColumnInfo>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10" onrowposchanged="ds_Master10_onrowposchanged">
+        <ColumnInfo>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="SERM_NM" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="JOTY_NM" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="POSI_CD" type="STRING" size="256"/>
+          <Column id="DUTY_CD" type="STRING" size="256"/>
+          <Column id="JOTY_CD" type="STRING" size="256"/>
+          <Column id="JOGM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master11" onrowposchanged="ds_Master11_onrowposchanged">
+        <ColumnInfo>
+          <Column id="JOTY_NM" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="CALM_DD" type="STRING" size="256"/>
+          <Column id="CALM_NM" type="STRING" size="256"/>
+          <Column id="WKOT_HR" type="STRING" size="256"/>
+          <Column id="WKNT_HR" type="STRING" size="256"/>
+          <Column id="HOWK_CT" type="STRING" size="256"/>
+          <Column id="HONT_CT" type="STRING" size="256"/>
+          <Column id="HOOT_CT" type="STRING" size="256"/>
+          <Column id="DAEC_CT" type="STRING" size="256"/>
+          <Column id="SIMY_CT" type="STRING" size="256"/>
+          <Column id="SPAL_CT" type="STRING" size="256"/>
+          <Column id="SPSA_CT" type="STRING" size="256"/>
+          <Column id="SPSU_CT" type="STRING" size="256"/>
+          <Column id="SPEA_CT" type="STRING" size="256"/>
+          <Column id="A01" type="STRING" size="256"/>
+          <Column id="A02" type="STRING" size="256"/>
+          <Column id="A03" type="STRING" size="256"/>
+          <Column id="A04" type="STRING" size="256"/>
+          <Column id="A05" type="STRING" size="256"/>
+          <Column id="A06" type="STRING" size="256"/>
+          <Column id="A07" type="STRING" size="256"/>
+          <Column id="A08" type="STRING" size="256"/>
+          <Column id="A09" type="STRING" size="256"/>
+          <Column id="A10" type="STRING" size="256"/>
+          <Column id="A11" type="STRING" size="256"/>
+          <Column id="A12" type="STRING" size="256"/>
+          <Column id="B01" type="STRING" size="256"/>
+          <Column id="B02" type="STRING" size="256"/>
+          <Column id="B03" type="STRING" size="256"/>
+          <Column id="B04" type="STRING" size="256"/>
+          <Column id="B05" type="STRING" size="256"/>
+          <Column id="B06" type="STRING" size="256"/>
+          <Column id="GTIN_DT" type="STRING" size="256"/>
+          <Column id="GTOU_DT" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master20">
+        <ColumnInfo>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="WOPL_NM" type="STRING" size="256"/>
+          <Column id="JOTY_NM" type="STRING" size="256"/>
+          <Column id="WKOT_HR" type="STRING" size="256"/>
+          <Column id="WKNT_HR" type="STRING" size="256"/>
+          <Column id="HOWK_CT" type="STRING" size="256"/>
+          <Column id="HONT_CT" type="STRING" size="256"/>
+          <Column id="HOOT_CT" type="STRING" size="256"/>
+          <Column id="SIMY_CT" type="STRING" size="256"/>
+          <Column id="SPAL_CT" type="STRING" size="256"/>
+          <Column id="SPSA_CT" type="STRING" size="256"/>
+          <Column id="SPSU_CT" type="STRING" size="256"/>
+          <Column id="SPEA_CT" type="STRING" size="256"/>
+          <Column id="A01" type="STRING" size="256"/>
+          <Column id="A02" type="STRING" size="256"/>
+          <Column id="A03" type="STRING" size="256"/>
+          <Column id="A04" type="STRING" size="256"/>
+          <Column id="A05" type="STRING" size="256"/>
+          <Column id="A06" type="STRING" size="256"/>
+          <Column id="A07" type="STRING" size="256"/>
+          <Column id="A08" type="STRING" size="256"/>
+          <Column id="A09" type="STRING" size="256"/>
+          <Column id="A10" type="STRING" size="256"/>
+          <Column id="A11" type="STRING" size="256"/>
+          <Column id="A12" type="STRING" size="256"/>
+          <Column id="B01" type="STRING" size="256"/>
+          <Column id="B02" type="STRING" size="256"/>
+          <Column id="B03" type="STRING" size="256"/>
+          <Column id="B04" type="STRING" size="256"/>
+          <Column id="B05" type="STRING" size="256"/>
+          <Column id="B06" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_HrCalm">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SAUM_CD" type="STRING" size="256"/>
+          <Column id="CALM_DD" type="STRING" size="256"/>
+          <Column id="CALM_NM" type="STRING" size="256"/>
+          <Column id="CALM_GU" type="STRING" size="256"/>
+          <Column id="HOLI_NM" type="STRING" size="256"/>
+          <Column id="CALM_YY" type="STRING" size="256"/>
+          <Column id="CALM_QT" type="STRING" size="256"/>
+          <Column id="CALM_YM" type="STRING" size="256"/>
+          <Column id="WEEK_CT" type="STRING" size="256"/>
+          <Column id="MONT_YM" type="STRING" size="256"/>
+          <Column id="MONT_CT" type="STRING" size="256"/>
+          <Column id="CALM_CT" type="STRING" size="256"/>
+          <Column id="CALM_MM" type="STRING" size="256"/>
+          <Column id="CALM_DY" type="STRING" size="256"/>
+          <Column id="LUNA_DT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master30">
+        <ColumnInfo>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="JOTY_NM" type="STRING" size="256"/>
+          <Column id="GEUN_GU" type="STRING" size="256"/>
+          <Column id="A01" type="STRING" size="256"/>
+          <Column id="A02" type="STRING" size="256"/>
+          <Column id="A03" type="STRING" size="256"/>
+          <Column id="A04" type="STRING" size="256"/>
+          <Column id="A05" type="STRING" size="256"/>
+          <Column id="A06" type="STRING" size="256"/>
+          <Column id="A07" type="STRING" size="256"/>
+          <Column id="A08" type="STRING" size="256"/>
+          <Column id="A09" type="STRING" size="256"/>
+          <Column id="A10" type="STRING" size="256"/>
+          <Column id="A11" type="STRING" size="256"/>
+          <Column id="A12" type="STRING" size="256"/>
+          <Column id="A13" type="STRING" size="256"/>
+          <Column id="A14" type="STRING" size="256"/>
+          <Column id="A15" type="STRING" size="256"/>
+          <Column id="A16" type="STRING" size="256"/>
+          <Column id="A17" type="STRING" size="256"/>
+          <Column id="A18" type="STRING" size="256"/>
+          <Column id="A19" type="STRING" size="256"/>
+          <Column id="A20" type="STRING" size="256"/>
+          <Column id="A21" type="STRING" size="256"/>
+          <Column id="A22" type="STRING" size="256"/>
+          <Column id="A23" type="STRING" size="256"/>
+          <Column id="A24" type="STRING" size="256"/>
+          <Column id="A25" type="STRING" size="256"/>
+          <Column id="A26" type="STRING" size="256"/>
+          <Column id="A27" type="STRING" size="256"/>
+          <Column id="A28" type="STRING" size="256"/>
+          <Column id="A29" type="STRING" size="256"/>
+          <Column id="A30" type="STRING" size="256"/>
+          <Column id="A31" type="STRING" size="256"/>
+          <Column id="B01" type="STRING" size="256"/>
+          <Column id="B02" type="STRING" size="256"/>
+          <Column id="B03" type="STRING" size="256"/>
+          <Column id="B04" type="STRING" size="256"/>
+          <Column id="B05" type="STRING" size="256"/>
+          <Column id="B06" type="STRING" size="256"/>
+          <Column id="B07" type="STRING" size="256"/>
+          <Column id="B08" type="STRING" size="256"/>
+          <Column id="B09" type="STRING" size="256"/>
+          <Column id="B10" type="STRING" size="256"/>
+          <Column id="B11" type="STRING" size="256"/>
+          <Column id="B12" type="STRING" size="256"/>
+          <Column id="B13" type="STRING" size="256"/>
+          <Column id="B14" type="STRING" size="256"/>
+          <Column id="B15" type="STRING" size="256"/>
+          <Column id="B16" type="STRING" size="256"/>
+          <Column id="B17" type="STRING" size="256"/>
+          <Column id="B18" type="STRING" size="256"/>
+          <Column id="B19" type="STRING" size="256"/>
+          <Column id="B20" type="STRING" size="256"/>
+          <Column id="B21" type="STRING" size="256"/>
+          <Column id="B22" type="STRING" size="256"/>
+          <Column id="B23" type="STRING" size="256"/>
+          <Column id="B24" type="STRING" size="256"/>
+          <Column id="B25" type="STRING" size="256"/>
+          <Column id="B26" type="STRING" size="256"/>
+          <Column id="B27" type="STRING" size="256"/>
+          <Column id="B28" type="STRING" size="256"/>
+          <Column id="B29" type="STRING" size="256"/>
+          <Column id="B30" type="STRING" size="256"/>
+          <Column id="B31" type="STRING" size="256"/>
+          <Column id="C01" type="STRING" size="256"/>
+          <Column id="C02" type="STRING" size="256"/>
+          <Column id="C03" type="STRING" size="256"/>
+          <Column id="C04" type="STRING" size="256"/>
+          <Column id="C05" type="STRING" size="256"/>
+          <Column id="C06" type="STRING" size="256"/>
+          <Column id="C07" type="STRING" size="256"/>
+          <Column id="C08" type="STRING" size="256"/>
+          <Column id="C09" type="STRING" size="256"/>
+          <Column id="C10" type="STRING" size="256"/>
+          <Column id="C11" type="STRING" size="256"/>
+          <Column id="C12" type="STRING" size="256"/>
+          <Column id="C13" type="STRING" size="256"/>
+          <Column id="C14" type="STRING" size="256"/>
+          <Column id="C15" type="STRING" size="256"/>
+          <Column id="C16" type="STRING" size="256"/>
+          <Column id="C17" type="STRING" size="256"/>
+          <Column id="C18" type="STRING" size="256"/>
+          <Column id="C19" type="STRING" size="256"/>
+          <Column id="C20" type="STRING" size="256"/>
+          <Column id="C21" type="STRING" size="256"/>
+          <Column id="C22" type="STRING" size="256"/>
+          <Column id="C23" type="STRING" size="256"/>
+          <Column id="C24" type="STRING" size="256"/>
+          <Column id="C25" type="STRING" size="256"/>
+          <Column id="C26" type="STRING" size="256"/>
+          <Column id="C27" type="STRING" size="256"/>
+          <Column id="C28" type="STRING" size="256"/>
+          <Column id="C29" type="STRING" size="256"/>
+          <Column id="C30" type="STRING" size="256"/>
+          <Column id="C31" type="STRING" size="256"/>
+          <Column id="D01" type="STRING" size="256"/>
+          <Column id="D02" type="STRING" size="256"/>
+          <Column id="D03" type="STRING" size="256"/>
+          <Column id="D04" type="STRING" size="256"/>
+          <Column id="D05" type="STRING" size="256"/>
+          <Column id="D06" type="STRING" size="256"/>
+          <Column id="D07" type="STRING" size="256"/>
+          <Column id="D08" type="STRING" size="256"/>
+          <Column id="D09" type="STRING" size="256"/>
+          <Column id="D10" type="STRING" size="256"/>
+          <Column id="D11" type="STRING" size="256"/>
+          <Column id="D12" type="STRING" size="256"/>
+          <Column id="D13" type="STRING" size="256"/>
+          <Column id="D14" type="STRING" size="256"/>
+          <Column id="D15" type="STRING" size="256"/>
+          <Column id="D16" type="STRING" size="256"/>
+          <Column id="D17" type="STRING" size="256"/>
+          <Column id="D18" type="STRING" size="256"/>
+          <Column id="D19" type="STRING" size="256"/>
+          <Column id="D20" type="STRING" size="256"/>
+          <Column id="D21" type="STRING" size="256"/>
+          <Column id="D22" type="STRING" size="256"/>
+          <Column id="D23" type="STRING" size="256"/>
+          <Column id="D24" type="STRING" size="256"/>
+          <Column id="D25" type="STRING" size="256"/>
+          <Column id="D26" type="STRING" size="256"/>
+          <Column id="D27" type="STRING" size="256"/>
+          <Column id="D28" type="STRING" size="256"/>
+          <Column id="D29" type="STRING" size="256"/>
+          <Column id="D30" type="STRING" size="256"/>
+          <Column id="D31" type="STRING" size="256"/>
+          <Column id="E01" type="STRING" size="256"/>
+          <Column id="E02" type="STRING" size="256"/>
+          <Column id="E03" type="STRING" size="256"/>
+          <Column id="E04" type="STRING" size="256"/>
+          <Column id="E05" type="STRING" size="256"/>
+          <Column id="E06" type="STRING" size="256"/>
+          <Column id="E07" type="STRING" size="256"/>
+          <Column id="E08" type="STRING" size="256"/>
+          <Column id="E09" type="STRING" size="256"/>
+          <Column id="E10" type="STRING" size="256"/>
+          <Column id="E11" type="STRING" size="256"/>
+          <Column id="E12" type="STRING" size="256"/>
+          <Column id="E13" type="STRING" size="256"/>
+          <Column id="E14" type="STRING" size="256"/>
+          <Column id="E15" type="STRING" size="256"/>
+          <Column id="E16" type="STRING" size="256"/>
+          <Column id="E17" type="STRING" size="256"/>
+          <Column id="E18" type="STRING" size="256"/>
+          <Column id="E19" type="STRING" size="256"/>
+          <Column id="E20" type="STRING" size="256"/>
+          <Column id="E21" type="STRING" size="256"/>
+          <Column id="E22" type="STRING" size="256"/>
+          <Column id="E23" type="STRING" size="256"/>
+          <Column id="E24" type="STRING" size="256"/>
+          <Column id="E25" type="STRING" size="256"/>
+          <Column id="E26" type="STRING" size="256"/>
+          <Column id="E27" type="STRING" size="256"/>
+          <Column id="E28" type="STRING" size="256"/>
+          <Column id="E29" type="STRING" size="256"/>
+          <Column id="E30" type="STRING" size="256"/>
+          <Column id="E31" type="STRING" size="256"/>
+          <Column id="F01" type="STRING" size="256"/>
+          <Column id="F02" type="STRING" size="256"/>
+          <Column id="F03" type="STRING" size="256"/>
+          <Column id="F04" type="STRING" size="256"/>
+          <Column id="F05" type="STRING" size="256"/>
+          <Column id="F06" type="STRING" size="256"/>
+          <Column id="F07" type="STRING" size="256"/>
+          <Column id="F08" type="STRING" size="256"/>
+          <Column id="F09" type="STRING" size="256"/>
+          <Column id="F10" type="STRING" size="256"/>
+          <Column id="F11" type="STRING" size="256"/>
+          <Column id="F12" type="STRING" size="256"/>
+          <Column id="F13" type="STRING" size="256"/>
+          <Column id="F14" type="STRING" size="256"/>
+          <Column id="F15" type="STRING" size="256"/>
+          <Column id="F16" type="STRING" size="256"/>
+          <Column id="F17" type="STRING" size="256"/>
+          <Column id="F18" type="STRING" size="256"/>
+          <Column id="F19" type="STRING" size="256"/>
+          <Column id="F20" type="STRING" size="256"/>
+          <Column id="F21" type="STRING" size="256"/>
+          <Column id="F22" type="STRING" size="256"/>
+          <Column id="F23" type="STRING" size="256"/>
+          <Column id="F24" type="STRING" size="256"/>
+          <Column id="F25" type="STRING" size="256"/>
+          <Column id="F26" type="STRING" size="256"/>
+          <Column id="F27" type="STRING" size="256"/>
+          <Column id="F28" type="STRING" size="256"/>
+          <Column id="F29" type="STRING" size="256"/>
+          <Column id="F30" type="STRING" size="256"/>
+          <Column id="F31" type="STRING" size="256"/>
+          <Column id="G01" type="STRING" size="256"/>
+          <Column id="G02" type="STRING" size="256"/>
+          <Column id="G03" type="STRING" size="256"/>
+          <Column id="G04" type="STRING" size="256"/>
+          <Column id="G05" type="STRING" size="256"/>
+          <Column id="G06" type="STRING" size="256"/>
+          <Column id="G07" type="STRING" size="256"/>
+          <Column id="G08" type="STRING" size="256"/>
+          <Column id="G09" type="STRING" size="256"/>
+          <Column id="G10" type="STRING" size="256"/>
+          <Column id="G11" type="STRING" size="256"/>
+          <Column id="G12" type="STRING" size="256"/>
+          <Column id="G13" type="STRING" size="256"/>
+          <Column id="G14" type="STRING" size="256"/>
+          <Column id="G15" type="STRING" size="256"/>
+          <Column id="G16" type="STRING" size="256"/>
+          <Column id="G17" type="STRING" size="256"/>
+          <Column id="G18" type="STRING" size="256"/>
+          <Column id="G19" type="STRING" size="256"/>
+          <Column id="G20" type="STRING" size="256"/>
+          <Column id="G21" type="STRING" size="256"/>
+          <Column id="G22" type="STRING" size="256"/>
+          <Column id="G23" type="STRING" size="256"/>
+          <Column id="G24" type="STRING" size="256"/>
+          <Column id="G25" type="STRING" size="256"/>
+          <Column id="G26" type="STRING" size="256"/>
+          <Column id="G27" type="STRING" size="256"/>
+          <Column id="G28" type="STRING" size="256"/>
+          <Column id="G29" type="STRING" size="256"/>
+          <Column id="G30" type="STRING" size="256"/>
+          <Column id="G31" type="STRING" size="256"/>
+          <Column id="H01" type="STRING" size="256"/>
+          <Column id="H02" type="STRING" size="256"/>
+          <Column id="H03" type="STRING" size="256"/>
+          <Column id="H04" type="STRING" size="256"/>
+          <Column id="H05" type="STRING" size="256"/>
+          <Column id="H06" type="STRING" size="256"/>
+          <Column id="H07" type="STRING" size="256"/>
+          <Column id="H08" type="STRING" size="256"/>
+          <Column id="H09" type="STRING" size="256"/>
+          <Column id="H10" type="STRING" size="256"/>
+          <Column id="H11" type="STRING" size="256"/>
+          <Column id="H12" type="STRING" size="256"/>
+          <Column id="H13" type="STRING" size="256"/>
+          <Column id="H14" type="STRING" size="256"/>
+          <Column id="H15" type="STRING" size="256"/>
+          <Column id="H16" type="STRING" size="256"/>
+          <Column id="H17" type="STRING" size="256"/>
+          <Column id="H18" type="STRING" size="256"/>
+          <Column id="H19" type="STRING" size="256"/>
+          <Column id="H20" type="STRING" size="256"/>
+          <Column id="H21" type="STRING" size="256"/>
+          <Column id="H22" type="STRING" size="256"/>
+          <Column id="H23" type="STRING" size="256"/>
+          <Column id="H24" type="STRING" size="256"/>
+          <Column id="H25" type="STRING" size="256"/>
+          <Column id="H26" type="STRING" size="256"/>
+          <Column id="H27" type="STRING" size="256"/>
+          <Column id="H28" type="STRING" size="256"/>
+          <Column id="H29" type="STRING" size="256"/>
+          <Column id="H30" type="STRING" size="256"/>
+          <Column id="H31" type="STRING" size="256"/>
+          <Column id="I01" type="STRING" size="256"/>
+          <Column id="I02" type="STRING" size="256"/>
+          <Column id="I03" type="STRING" size="256"/>
+          <Column id="I04" type="STRING" size="256"/>
+          <Column id="I05" type="STRING" size="256"/>
+          <Column id="I06" type="STRING" size="256"/>
+          <Column id="I07" type="STRING" size="256"/>
+          <Column id="I08" type="STRING" size="256"/>
+          <Column id="I09" type="STRING" size="256"/>
+          <Column id="I10" type="STRING" size="256"/>
+          <Column id="I11" type="STRING" size="256"/>
+          <Column id="I12" type="STRING" size="256"/>
+          <Column id="I13" type="STRING" size="256"/>
+          <Column id="I14" type="STRING" size="256"/>
+          <Column id="I15" type="STRING" size="256"/>
+          <Column id="I16" type="STRING" size="256"/>
+          <Column id="I17" type="STRING" size="256"/>
+          <Column id="I18" type="STRING" size="256"/>
+          <Column id="I19" type="STRING" size="256"/>
+          <Column id="I20" type="STRING" size="256"/>
+          <Column id="I21" type="STRING" size="256"/>
+          <Column id="I22" type="STRING" size="256"/>
+          <Column id="I23" type="STRING" size="256"/>
+          <Column id="I24" type="STRING" size="256"/>
+          <Column id="I25" type="STRING" size="256"/>
+          <Column id="I26" type="STRING" size="256"/>
+          <Column id="I27" type="STRING" size="256"/>
+          <Column id="I28" type="STRING" size="256"/>
+          <Column id="I29" type="STRING" size="256"/>
+          <Column id="I30" type="STRING" size="256"/>
+          <Column id="I31" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Hr305">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master40">
+        <ColumnInfo>
+          <Column id="GTDH_NO" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="GTDH_DD" type="STRING" size="256"/>
+          <Column id="GTDH_GU" type="STRING" size="256"/>
+          <Column id="HOOT_CT" type="STRING" size="256"/>
+          <Column id="MEAL_YN" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_HrJogm">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="JOGM_CD" type="STRING" size="256"/>
+          <Column id="JOGM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : M_HD_3320
+*  @화면설명 : 일근태관리
+*  @시스템명 : (HD) 시스템
+*  @작성자   : 김순삼
+*  @작성일   : 2021.11.29
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.11.29     	    김순삼 	           최초 생성 
+*************************************************************************************************
+*/
+
+/***********************************************************************************************
+ * 0. 폼로드
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.01. Form Include 선언
+ ***********************************************************************************************/
+//include "comLib::CommonUtil.xjs";//공통함수
+
+/***********************************************************************************************
+ * 00.02. Form 변수 선언
+ ***********************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+this.fvDtlSearchYn = false;//상세조회여부
+/***********************************************************************************************
+ * 00.03. Form Onload 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+}
+
+/***********************************************************************************************
+ * 00.04. Form [공통] 초기설정 함수 - 필수
+ ***********************************************************************************************/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.fvComPrgmId = this.gfn_CommLoadFormPrgmId(this);//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+	this.gfn_SetGrid(this.div_MasterView.form.tab_Master.tpg_01.form.grd_Master10);//[공통]그리드 이벤트 설정 - 출력목록
+	this.gfn_SetGrid(this.div_MasterView.form.tab_Master.tpg_01.form.grd_Master11);
+	this.gfn_SetGrid(this.div_MasterView.form.tab_Master.tpg_02.form.grd_Master20);
+	this.gfn_SetGrid(this.div_MasterView.form.tab_Master.tpg_03.form.grd_Master30);
+	this.gfn_SetGrid(this.div_MasterView.form.tab_Master.tpg_04.form.ds_Master40);
+	
+}
+
+/***********************************************************************************************
+ * 00.05. Form [업무] 초기설정 함수
+ ***********************************************************************************************/
+this.fn_FormBizInit = function() 
+{ 	
+	
+	//[공통] 날짜정보 설정	
+	this.gfn_SetCommFromToDate(this.fvComPrgmId, "MS", this.div_Search.form.cal_TemhDtFr, this.div_Search.form.cal_TemhDtTo);//조회조건영역
+	
+	//[공통] 부서정보 설정
+	var arrComp = ["this.div_Search.form.edt_DepmCd^this.div_Search.form.edt_DepmNm"
+				  ];
+	this.gfn_SetCommDepmCd(this.fvComPrgmId, arrComp);
+	
+	
+	//[공통] 사원정보 설정
+	var arrComp = ["this.div_Search.form.edt_EmpmCd^this.div_Search.form.edt_EmpmNm^this.div_Search.form.edt_SystId"
+                  ];
+	this.gfn_SetCommEmpmCd(this.fvComPrgmId, arrComp);
+
+	//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+	var objCondList = ["HR305|ds_Hr305"];
+	//공통코드 설정함수 호출				   
+	this.gfn_GetCommCode(this, objCondList, "");
+
+	//콤보 인덱스 설정
+//	this.div_Search.form.cbo_Ct01Cd.set_index(0);
+	
+	//[업무] 일반콤보조회
+	//this.fn_ComboSearch();
+	
+	//[공통-Pivot] 그리드 검색/Pivot 설정
+	//this.div_Search.form.div_ComGridSearch.form.fn_SetCmmGridProc(this, this.div_MasterView.form.tab_Master);
+	//this.div_ComGridProc.form.fn_SetCmmGridProc(this, this.div_MasterView.form.tab_Master);
+	
+}
+
+/***********************************************************************************************
+ * 00.06. Form [업무] 일반콤보 조회 함수
+ ***********************************************************************************************/
+this.fn_ComboSearch = function() 
+{
+
+}
+
+/***********************************************************************************************
+ * 00.07. Form OnClose 이벤트
+ ***********************************************************************************************/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/***********************************************************************************************
+ * 1. 조회 영역
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 01.01. [공통버튼] 조회 버튼 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_ComBtnSearch = function()
+{ 
+	//조회전 유효성 체크
+	if (!this.fn_VaildSearch()) return;	
+	
+	this.fvDtlSearchYn = false;//상세조회여부
+	
+	var iTabIdx = this.div_MasterView.form.tab_Master.tabindex;	
+	
+	this.ds_Input.clearData();	
+		
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "FROM_DD", this.div_Search.form.cal_TemhDtFr.value);
+	this.ds_Input.setColumn(0, "CLOS_DD", this.div_Search.form.cal_TemhDtTo.value);
+	this.ds_Input.setColumn(0, "DEPM_CD", this.div_Search.form.edt_DepmCd.value);
+	this.ds_Input.setColumn(0, "SESU_ID", this.div_Search.form.edt_SystId.value);	
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object	
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	
+	var sOutDatset = "";
+	
+	if(iTabIdx == 0){	
+		this.ds_Master10.clearData();
+		this.ds_Master11.clearData();		
+		svcAddObj.sSelectSql = "hr:M_HD_3320_M_SL10";
+		sOutDatset = "ds_Master10=ds_Master10";//출력 데이터셋
+	}else if(iTabIdx == 1){		
+		this.ds_Master20.clearData();
+		svcAddObj.sSelectSql = "hr:M_HD_3320_M_SL20";
+		sOutDatset = "ds_Master20=ds_Master20";//출력 데이터셋
+	}else if(iTabIdx == 2){
+	
+		// 두 일자간의 차이일수 계산
+		//31일을 초과하면 안됨		
+		
+		var sFromDd = this.div_Search.form.cal_TemhDtFr.value + "";
+		var sClosDd = this.div_Search.form.cal_TemhDtTo.value + "";
+		
+		var iTermDd = this.gfn_GetDiffDate(sFromDd,sClosDd) + 1	;
+		if(iTermDd > 31){
+			this.div_Search.form.cal_TemhDtTo.setFocus();
+			this.gfn_Alert("HD003");//조회기간이 31일을 초과할 수 없습니다.
+			return;
+		}	
+	
+		this.ds_HrCalm.clearData();		
+		this.ds_Master30.clearData();
+		
+		svcAddObj.sSelectSql = "hr:M_HD_3320_M_SL31";
+		sOutDatset = "ds_HrCalm=ds_HrCalm";//출력 데이터셋		
+		
+	}else if(iTabIdx == 3){		
+		this.ds_Master40.clearData();
+		svcAddObj.sSelectSql = "hr:M_HD_3320_M_SL40";
+		sOutDatset = "ds_Master40=ds_Master40";//출력 데이터셋		
+	}	
+	
+			
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);	
+	
+	this.gfn_AddComSearchService(this, svcAddObj);
+
+	//[공통]서비스 호출 변수
+	if(iTabIdx == 2){
+		svcCallObj.sTrid = "MST_SEARCH_30";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	}else{
+		svcCallObj.sTrid = "MST_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	}
+	svcCallObj.sActionName = this.G_SV_HR;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	//svcCallObj.sOutDatset = "ds_Master10=ds_Master10";//출력 데이터셋
+	svcCallObj.sOutDatset = sOutDatset;//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+	svcCallObj.sComBtnDst = "SEARCH";//공통버튼구분-조회버튼
+	svcCallObj.sPrgmId = this.fvComPrgmId;//프로그램ID
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+}
+
+
+/***********************************************************************************************
+ * 01.02. [Vaildation] 조회 필수값 체크
+ ***********************************************************************************************/
+this.fn_VaildSearch = function()
+{
+	var arrArgs = ["this.div_Search.form.edt_DepmCd^" + this.div_Search.form.sta_DepmCd.text + "|NULL" //부서
+				  ]; 
+				  
+	var sCheckGroupTitle = "검색조건";//체크그룹 타이틀
+
+	if (!this.gfn_CheckFromToDate(this.fvComPrgmId, this.div_Search.form.cal_TemhDtFr, this.div_Search.form.cal_TemhDtTo)) return false;//조회기간 범위 체크
+	//조회조건 필수입력값 있으면 체크
+	if (!this.gfn_CheckFormCompValid(this, arrArgs, sCheckGroupTitle)) {
+		return false;
+	}	
+	return true;
+}
+
+/***********************************************************************************************
+ * 01.03. [공통] 조회조건 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [부서]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 부서 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_btn_DepmCd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "S_DEPM_CD_01";//팝업ID - 부서코드
+	var oArg = {PrgmId:this.fvComPrgmId, AuthYn:"Y", DepmNm:this.div_Search.form.edt_DepmNm.value };//Argument처리
+	this.gfn_DeptPop(sPopupId, oArg);
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 부서코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_DepmCd_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "S_DEPM_CD_01";//팝업ID - 부서코드
+	this.gfn_GetCommAuDepm(this.fvComPrgmId,"C", this.div_Search.form.edt_DepmCd, this.div_Search.form.edt_DepmNm, sPopupId);//코드로 검색
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 부서명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_DepmNm_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "S_DEPM_CD_01";//팝업ID - 부서코드
+	this.gfn_GetCommAuDepm(this.fvComPrgmId,"N", this.div_Search.form.edt_DepmCd, this.div_Search.form.edt_DepmNm, sPopupId);//코드명으로 검색
+};
+
+/***********************************************************************************************
+ *    02. [사용자]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 사용자 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_btn_SystId_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "S_SYST_ID_01";//팝업ID - 사용자정보
+	var oArg = {PrgmId:this.fvComPrgmId, AuthYn:"Y", EmpmNm:this.div_Search.form.edt_EmpmNm.value};//Argument처리
+	this.gfn_UserPop(sPopupId, oArg);		
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사원코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_EmpmCd_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "S_SYST_ID_01";//팝업ID - 사원코드
+	this.gfn_GetCommAuEmpm(this.fvComPrgmId,"C", this.div_Search.form.edt_EmpmCd, this.div_Search.form.edt_EmpmNm, this.div_Search.form.edt_SystId, sPopupId, "", "", false);//코드로 검색-권한체크용
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사원명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_EmpmNm_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "S_SYST_ID_01";//팝업ID - 사원코드
+	this.gfn_GetCommAuEmpm(this.fvComPrgmId,"N", this.div_Search.form.edt_EmpmCd, this.div_Search.form.edt_EmpmNm, this.div_Search.form.edt_SystId, sPopupId);//코드명으로 검색		
+};
+
+/***********************************************************************************************
+ *    03. [계약번호]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_btn_CnthNo_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "S_CNTH_NO_01";//팝업ID - 계약정보
+	var oArg = { CnthNo:this.div_Search.form.mae_CnthNo.value, PrgmId:"M_SD_3100"};//Argument처리
+	this.gfn_ContPop(sPopupId, oArg);		
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_mae_CnthNo_onchanged = function(obj:nexacro.MaskEdit,e:nexacro.ChangeEventInfo)
+{
+	this.gfn_GetCommCnth(this.div_Search.form.mae_CnthNo, this.div_Search.form.edt_CnthNm);//코드로 검색		
+};
+
+/***********************************************************************************************
+ *    04. [프로젝트]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 프로젝트 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 프로젝트 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ *    05. [거래처]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 거래처 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_btn_CusmCd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "S_CUSM_CD_01";//팝업ID - 거래처정보
+	var oArg = { CusmNm:this.div_Search.form.edt_CusmNm.value};//Argument처리
+	this.gfn_CusmPop(sPopupId, oArg);	
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 거래처코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_CusmCd_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "S_CUSM_CD_01";//팝업ID - 거래처정보
+	this.gfn_GetCommCusm("C", this.div_Search.form.edt_CusmCd, this.div_Search.form.edt_CusmNm, sPopupId);//코드로 검색
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 거래처명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_CusmNm_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "S_CUSM_CD_01";//팝업ID - 거래처정보
+	this.gfn_GetCommCusm("N", this.div_Search.form.edt_CusmCd, this.div_Search.form.edt_CusmNm, sPopupId);//코드명으로 검색
+};
+
+/***********************************************************************************************
+ *    06. [사업장]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 사업장 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사업장 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+  
+/***********************************************************************************************
+ *    07. [W/O]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] W/O 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] W/O 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ *    08. [품목코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-팝업버튼] 품목코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_btn_ItemCd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "S_ITEM_CD_01";//팝업ID - 품목정보
+	var oArg = { ItemCd:this.div_MasterInput.form.tab_Master.tpg_01.form.edt_ItemCd.value, ItemNm:"" };//Argument처리
+	this.gfn_ItemPop(sPopupId, oArg);		
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 품목코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+this.div_Search_edt_ItemCd_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	this.gfn_GetCommItem(this.div_Search.form.edt_ItemCd, this.div_Search.form.edt_ItemNm);//코드로 검색		
+};
+
+/***********************************************************************************************
+ *    09. [계정코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 계정코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 계정코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+
+/***********************************************************************************************
+ * 2. 입력
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 02.01. [공통버튼] 입력 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnAdd = function()
+{
+}
+
+/***********************************************************************************************
+ * 3. 복사
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 03.01. [공통버튼] 복사 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCopy = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 4. 취소
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 04.01. [공통버튼] 취소 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCancel = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 5. 저장
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 05.01. [공통버튼] 저장 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnSave = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 05.02. [Vaildation] Master 저장 필수값 체크 - 입력항목 
+ ***********************************************************************************************/ 
+this.fn_VaildMasterSave = function()
+{
+	return true;
+}
+ 
+/***********************************************************************************************
+ * 6. 삭제
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 06.01. [공통버튼] 삭제 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnDelete = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 7. 엑셀
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 07.01. [공통버튼] 엑셀저장 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnExcel = function()
+{ 
+	var iTabIdx = this.div_MasterView.form.tab_Master.tabindex;	
+	
+	//출력 그리드 정보 설정	
+	if(iTabIdx == 0){
+		var objGridList = ["this.div_MasterView.form.tab_Master.tpg_01.form.grd_Master10|조직트리"    //this.div_MasterView.form.tab_Master.tpg_01.text
+						  ,"this.div_MasterView.form.tab_Master.tpg_01.form.grd_Master11|일근태"      // this.div_MasterView.form.tab_Master.tpg_02.text						  
+						  ];		
+	}else if(iTabIdx == 1){	
+		var objGridList = ["this.div_MasterView.form.tab_Master.tpg_02.form.grd_Master20|기간별근태현황"    //this.div_MasterView.form.tab_Master.tpg_01.text 					  
+						  ];	
+	}else if(iTabIdx == 2){	
+		var objGridList = ["this.div_MasterView.form.tab_Master.tpg_03.form.grd_Master30|연장근로현황"    //this.div_MasterView.form.tab_Master.tpg_01.text 					  
+						  ];		
+	}else if(iTabIdx == 3){	
+		var objGridList = ["this.div_MasterView.form.tab_Master.tpg_04.form.ds_Master40|휴일근무현황"    //this.div_MasterView.form.tab_Master.tpg_01.text 					  
+						  ];		
+	}
+	 
+	var sFileName = "일근태현황";//출력파일명
+	this.gfn_ExcelExport(this, objGridList, sFileName);
+}
+
+/***********************************************************************************************
+ * 8. 인쇄
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 08.01. [공통버튼] 인쇄 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnPrint = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 9. 결재요청
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 09.01. [공통버튼] 결재요청 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnDecide = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 10. 결재현황
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.01. [공통버튼] 결재현황 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnProcess = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 11. 재기안
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 11.01. [공통버튼] 재기안 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnRecide = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 12. 닫기
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 12.01. [공통버튼] 닫기 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnClose = function()
+{ 
+	return true;
+}
+
+/***********************************************************************************************
+ * 13. [CallBack] 함수
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 13.01. [서비스] CallBack 함수 처리
+ ***********************************************************************************************/ 
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST_SEARCH": //조회		
+			if (this.ds_Master10.getRowCount() > 0) {			
+				//[공통]그리드NoData Text 초기화 설정
+				//this.gfn_InitGridNoDataText(this.div_MasterView.form.tab_Master.tpg_01.form.grd_Master10);				
+			} else {				
+				//[공통]그리드NoData Text설정
+				//this.gfn_SetGridNoDataText(this.div_MasterView.form.tab_Master.tpg_01.form.grd_Master10);		
+			}	
+// 			//가변 컬럼 세팅
+// 			//월별 일컬럼
+// 			var arrColMaster = ["WKDB_CT_01", "WKDB_CT_02", "WKDB_CT_03", "WKDB_CT_04", "WKDB_CT_05"
+// 							  , "WKDB_CT_06", "WKDB_CT_07", "WKDB_CT_08", "WKDB_CT_09", "WKDB_CT_10"
+// 							  , "WKDB_CT_11", "WKDB_CT_12", "WKDB_CT_13", "WKDB_CT_14", "WKDB_CT_15"
+// 							  , "WKDB_CT_16", "WKDB_CT_17", "WKDB_CT_18", "WKDB_CT_19", "WKDB_CT_20"
+// 							  , "WKDB_CT_21", "WKDB_CT_22", "WKDB_CT_23", "WKDB_CT_24", "WKDB_CT_25"
+// 							  , "WKDB_CT_26", "WKDB_CT_27", "WKDB_CT_28", "WKDB_CT_29", "WKDB_CT_30"
+// 							  , "WKDB_CT_31"]; 
+// 			var sText  = "";
+// 			var nIdxBody=0;
+// 			var grdObj =this.div_MasterView.form.tab_Master.tpg_02.form.grd_Master20;
+// 			for (var idx=0; idx<arrColMaster.length; idx++) 
+// 			{
+// 				sText = this.ds_Master20.getColumn(this.ds_Master20.rowposition, arrColMaster[idx]); //컬럼값
+// 				nIdxBody = grdObj.getBindCellIndex("Body",arrColMaster[idx]); //해당 컬럼의 인덱스값			
+// 				
+// 				if (sText == -1) 
+// 				{	
+// 					grdObj.setRealColSize("body",nIdxBody, 0, false );
+// 				}  
+// 				else 
+// 				{
+//  					grdObj.setRealColSize("body",nIdxBody, 80 , false);
+// 				}
+// 			}
+			
+			
+			break;
+		case "MST_SEARCH_30": //조회
+			this.ds_Input.clearData();	
+		
+			//[업무] 조회조건 입력
+			this.ds_Input.addRow();
+			this.ds_Input.setColumn(0, "FROM_DD", this.div_Search.form.cal_TemhDtFr.value);
+			this.ds_Input.setColumn(0, "CLOS_DD", this.div_Search.form.cal_TemhDtTo.value);
+			this.ds_Input.setColumn(0, "DEPM_CD", this.div_Search.form.edt_DepmCd.value);
+			this.ds_Input.setColumn(0, "SESU_ID", this.div_Search.form.edt_SystId.value);
+			
+			var iCellIdx = this.div_MasterView.form.tab_Master.tpg_03.form.grd_Master30.getBindCellIndex("body","A01");
+			
+			var iNum = 0;
+			for(var iLoop = 0; iLoop < this.ds_HrCalm.rowcount; iLoop++){
+			    if(iLoop < 9) {
+					iNum = '0' + (iLoop + 1).toString();					
+				}else{
+					iNum =  (iLoop + 1).toString();
+				}				
+				this.ds_Input.setColumn(0, "A" + iNum,  this.ds_HrCalm.getColumn(iLoop, "CALM_DD"));				
+			}			
+			
+			var iCol = iCellIdx;
+			
+			var grdobj = this.div_MasterView.form.tab_Master.tpg_03.form.grd_Master30;
+			for(var iLoop = 0; iLoop < 31; iLoop++){
+				grdobj.setCellProperty("head", iCol + iLoop, "text", "");				
+			}
+			
+			var iNum  = 0;
+			var strYm = "";
+			
+			iCol = iCellIdx;
+			
+			for(var iLoop = 0; iLoop < this.ds_HrCalm.rowcount; iLoop++){
+			    strYm  = this.ds_HrCalm.getColumn(iLoop, "CALM_DD_DIS");
+				grdobj.setCellProperty("head", iCol + iLoop, "text", strYm);				
+				grdobj.setFormatColProperty(iCol + iLoop,"size",43);
+			}			
+			
+			iCol = iCellIdx;
+			
+			for(var iLoop = 0; iLoop < 31; iLoop++){				
+				strYm  =  grdobj.getCellProperty( "head", iCol + iLoop, "text" );
+				if(this.gfn_IsNull(strYm)){
+					grdobj.setFormatColProperty(iCol + iLoop,"size",0);
+				}
+			} 
+			
+			//[공통]서비스정보 추가
+			var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object	
+			var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+				
+			//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정	
+			var sOutDatset = "";
+			svcAddObj.sSelectSql = "hr:M_HD_3320_M_SL30";
+			sOutDatset = "ds_Master30=ds_Master30";//출력 데이터셋		
+
+			//[공통]서비스정보 초기화
+			this.gfn_InitComService(this);	
+			
+			this.gfn_AddComSearchService(this, svcAddObj);
+
+			//[공통]서비스 호출 변수
+			svcCallObj.sTrid = "MST_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+
+			svcCallObj.sActionName = this.G_SV_HR;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+			svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+			svcCallObj.sOutDatset = "ds_Master30=ds_Master30";//출력 데이터셋			
+			svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+			svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+			svcCallObj.sComBtnDst = "SEARCH";//공통버튼구분-조회버튼
+			svcCallObj.sPrgmId = this.fvComPrgmId;//프로그램ID
+
+			//[공통]서비스 호출
+			this.gfn_CallComService(this, svcCallObj);				
+		
+			break;
+			
+		case "COMBO_SEARCH": //콤보조회		
+// 			if (this.ds_FaSaum.getRowCount() > 0) {
+// 				this.ds_FaSaum.insertRow();
+// 				this.ds_FaSaum.setColumn(0, "SAUM_NM", "ALL");
+// 				//this.div_Search.form.cbo_SaumCd.set_index(0);
+// 			}
+			break;
+		case "DTL_SEARCH":		
+			this.fvDtlSearchYn = false;//상세조회여부
+			break;
+	}
+};
+
+/***********************************************************************************************
+ * 13.02. [팝업] CallBack 함수 처리
+          strId : 팝업호출시 지정한 팝업ID
+	      rtnValue : 팝업창에서 close시 지정한 반환값
+          주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/ 
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+	//[조회영역]
+	//계약번호
+	if (strId == "S_CNTH_NO_01") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);
+			
+			if (!this.gfn_IsNull(arrRtnVal.CNTH_NO)) {
+				this.div_Search.form.mae_CnthNo.set_value(arrRtnVal.CNTH_NO);
+				this.div_Search.form.edt_CnthNm.set_value(arrRtnVal.CNTH_NM);
+			}	
+		}
+	//거래처
+	} else if (strId == "S_CUSM_CD_01") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);
+			
+			if (!this.gfn_IsNull(arrRtnVal.CUSM_CD)) {
+				this.div_Search.form.edt_CusmCd.set_value(arrRtnVal.CUSM_CD);
+				this.div_Search.form.edt_CusmNm.set_value(arrRtnVal.CUSM_NM);
+			}
+		}	
+	//출고부서
+	} else if (strId == "S_DEPM_CD_01") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);
+			
+			if (!this.gfn_IsNull(arrRtnVal.DEPM_CD)) {
+				this.div_Search.form.edt_DepmCd.set_value(arrRtnVal.DEPM_CD);
+				this.div_Search.form.edt_DepmNm.set_value(arrRtnVal.DEPM_NM);
+			}
+		}else{
+			//조회조건영역 - 전체권한여부 체크
+			if (this.gfn_CheckAllAuth(this.fvComPrgmId)) {
+				this.div_Search.form.edt_DepmCd.set_value("");
+				this.div_Search.form.edt_DepmNm.set_value("");		
+			} else {
+				this.div_Search.form.edt_DepmCd.set_value(this.gfn_GetSessionValue("DEPM_CD"));
+				this.div_Search.form.edt_DepmNm.set_value(this.gfn_GetSessionValue("DEPM_NM"));					
+			}
+		}	
+	//출고자
+	} else if (strId == "S_SYST_ID_01") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);	
+			
+			if (!this.gfn_IsNull(arrRtnVal.EMPM_CD)) {
+				this.div_Search.form.edt_EmpmCd.set_value(arrRtnVal.EMPM_CD);
+				this.div_Search.form.edt_EmpmNm.set_value(arrRtnVal.EMPM_NM);
+				this.div_Search.form.edt_SystId.set_value(arrRtnVal.SYST_ID);
+			}
+		}else{
+			//조회조건영역 - 자신의자료 권한여부 체크		
+			if (this.gfn_CheckOwnAuth(this.fvComPrgmId)) {
+				this.div_Search.form.edt_EmpmCd.set_value(this.gfn_GetSessionValue("EMPM_CD"));
+				this.div_Search.form.edt_EmpmNm.set_value(this.gfn_GetSessionValue("EMPM_NM"));
+				this.div_Search.form.edt_SystId.set_value(this.gfn_GetSessionValue("SYST_ID"));	
+			} else {
+				this.div_Search.form.edt_EmpmCd.set_value("");
+				this.div_Search.form.edt_EmpmNm.set_value("");
+				this.div_Search.form.edt_SystId.set_value("");				
+			}
+		}	
+	//품목코드
+	} else if (strId == "S_ITEM_CD_01") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);
+			
+			if (!this.gfn_IsNull(arrRtnVal.ITEM_CD)) {
+				this.div_Search.form.edt_ItemCd.set_value(arrRtnVal.ITEM_CD);
+				this.div_Search.form.edt_ItemNm.set_value(arrRtnVal.ITEM_NM);
+			}
+		}			
+	}
+
+};
+ 
+/***********************************************************************************************
+ * 13.03. [메세지] CallBack 함수 처리
+ ***********************************************************************************************/  
+this.fn_MsgCallback = function (strId, strVal)
+{
+}; 
+ 
+/***********************************************************************************************
+ * 14. [화면 사이즈] 조정 버튼 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 14.01. [조회영역-▲] 화면 사이즈조정 버튼 이벤트
+ ***********************************************************************************************/ 
+this.btn_DivMoveMi_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통] 버튼 변수
+	var btnObj = new Object();//[공통] 버튼 변수 정보 Object
+	btnObj.DivSearch = "this.div_Search";//조회영역 Div
+	btnObj.DivMstLeft = "this.div_MasterView";//Master영역 Left Div : Master영역이 하나인경우에는 Left에 설정
+	btnObj.DivMstRight = "";//Master영역 Right Div
+	btnObj.DivDetail = "";//Detail영역 Div
+	btnObj.MstLeft = 14;//Master영역 Div Left
+	btnObj.MstTop = 90;//Master영역 Div Top
+	btnObj.MstHeight = "";//Master영역 Div Height : Height가 없는경우 ""로 입력
+	btnObj.MoveBtnDtl = "";//Detail영역 Move 버튼 : 없으면 ""로 입력
+	this.gfn_MoveSeBtn(obj, btnObj);//Master영역 접고/펼치기 버튼 이벤트
+};
+
+/***********************************************************************************************
+ * 15. [사용자정의 함수]
+ ***********************************************************************************************/
+this.div_MasterView_tab_Master_onchanged = function(obj:nexacro.Tab,e:nexacro.TabIndexChangeEventInfo)
+{
+	//Tab변경 이벤트
+	//[공통-Pivot] Tab변경시 그리드 Pivot 관련 함수 호출
+// 	this.div_ComGridProc.form.chk_PivotYn_onclick();
+// 	
+// 	//Tab_월별,년도 시 작성일자2 비활성화
+// 	var iTabIndex = e.postindex;	
+// 	
+// 	 if (iTabIndex == 1 || iTabIndex == 2) {
+// 		this.div_Search.form.cal_TemhDtTo.set_enable( false );
+// 	 } else {
+// 		this.div_Search.form.cal_TemhDtTo.set_enable( true );
+// 	 }
+	
+};
+
+/***********************************************************************************************
+ * 02.MF0.03. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    01. [데이터셋-ds_Master10] 데이터 Row 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.ds_Master10_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	if (e.newrow > -1 &&  !this.fvDtlSearchYn) {
+		this.gfn_SetGridSelectRowColor(this.div_MasterView.form.tab_Master.tpg_01.form.grd_Master10, e.newrow);//선택한 Row BackgroundColor 설정
+		//정보가 있으면 - 상세조회
+		if (!this.gfn_IsNull(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "EMPM_CD"))) {
+			
+			//this.fn_setButtonEnable();
+			
+			//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+			//this.ds_Detail10.clearData();
+			//this.ds_Detail20.clearData();		
+			this.ds_Input.clearData();
+			 
+			this.ds_Input.addRow();			
+			this.ds_Input.setColumn(0, "FROM_DD", this.div_Search.form.cal_TemhDtFr.value);			
+			this.ds_Input.setColumn(0, "CLOS_DD", this.div_Search.form.cal_TemhDtTo.value);
+			this.ds_Input.setColumn(0, "SESU_ID", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "SYST_ID"));
+			this.ds_Input.setColumn(0, "EMPM_NM", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "EMPM_NM"));
+			this.ds_Input.setColumn(0, "JOTY_NM", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "JOTY_NM"));
+			
+			this.fvDtlSearchYn = true;//상세조회여부
+			
+			//[공통]서비스정보 초기화
+			this.gfn_InitComService(this);
+			
+			//[공통]서비스정보 추가
+			var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+			svcAddObj.sSelectSql = "hr:M_HD_3320_M_SL11";
+			this.gfn_AddComSearchService(this, svcAddObj);			
+
+			//[공통]서비스 호출 변수
+			var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+			svcCallObj.sTrid = "DTL_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+			svcCallObj.sActionName = this.G_SV_HR;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조			
+			svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋			
+			svcCallObj.sOutDatset = "ds_Master11=ds_Master11";//출력 데이터셋
+			svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+			svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+			//[공통]서비스 호출
+			this.gfn_CallComService(this, svcCallObj);					
+			
+		}
+	}
+};
+this.div_MasterView_tab_Master_tpg_04_ds_Master40_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	var nRow = e.row;
+	
+	this.gfn_SetGridSelectRowColor(obj, e.row);//선택한 Row BackgroundColor 설정
+
+	
+	if(nRow > -1 && e.col == 1) {
+		var sGtdhNo = this.ds_Master40.getColumn(nRow, "GTDH_NO");
+		var sWofhSq = this.ds_Master40.getColumn(nRow, "WOFH_SQ");
+	
+		var TemhDtFr = '11111111';//기준일자
+		var TemhDtTo = '99991111';//기준일자
+		var DepmCd = "1000000";//부서
+		var FromDd = this.ds_Input.getColumn(0, "FROM_DD");		
+			
+		var sPopupId = "M_HD_3300";
+		var sPopupTitle = "근태관리"; //Popup화면 타이틀
+		var sPopupFormUrl  = "hr::M_HD_3300.xfdl"; //Popup화면 URL
+		var oArg = {paramTitle:sPopupTitle, paramGtdhNo:sGtdhNo, paramWofhSq:sWofhSq,  paramTemhDtFr:TemhDtFr, paramTemhDtTo:TemhDtTo, paramDepmCd:DepmCd, paramFromDd:FromDd}; //Popup화면 전달 파라메터
+		var oOption = {title:sPopupTitle, width:"1400", height:"800", popuptype:"TitlePopup"}; //Popup화면 옵션
+		var sPopupCallBack = "fn_PopupCallback"; //Popup화면 호출후 Callback 처리 함수
+
+		this.gfn_OpenPopup(sPopupId, sPopupFormUrl, oArg, sPopupCallBack, oOption); //Popup화면 호출 함수
+		}
+};
+
+this.div_MasterView_tab_Master_tpg_01_grd_Master10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{	
+	
+
+};
+
+this.div_MasterView_tab_Master_tpg_01_grd_Master11_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfn_SetGridSelectRowColor(obj, e.row);//선택한 Row BackgroundColor 설정
+
+};
+
+this.div_MasterView_tab_Master_tpg_02_grd_Master20_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfn_SetGridSelectRowColor(obj, e.row);//선택한 Row BackgroundColor 설정
+
+};
+
+this.div_MasterView_tab_Master_tpg_03_grd_Master30_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfn_SetGridSelectRowColor(obj, e.row);//선택한 Row BackgroundColor 설정
+
+};
+
+
+]]></Script>
+  </Form>
+</FDL>

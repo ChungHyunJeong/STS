@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="sam01" width="1363" height="689" titletext="팝업 처리" onload="form_onload" initvalueid="iv_Form0">
+    <Layouts>
+      <Layout height="760" mobileorientation="landscape" width="1045">
+        <Div id="divSearch" taborder="0" left="0" top="0" right="3" height="43" cssclass="div_WF_SearchBg">
+          <Layouts>
+            <Layout>
+              <Edit id="edtId" taborder="0" left="72" top="10" width="157" height="21"/>
+              <Edit id="edtName" taborder="1" left="319" top="10" width="157" height="21"/>
+              <Static id="Static01" taborder="2" text="ID : " left="19" top="10" width="44" height="21" cssclass="sta_WF_SearchLabel"/>
+              <Static id="Static00" taborder="3" text="NAME : " left="247" top="10" width="64" height="21" cssclass="sta_WF_SearchLabel"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btnPopModal" taborder="1" text="Popup Modal" left="0" top="525" width="114" height="29" onclick="btnPopModal_onclick"/>
+        <Button id="btnPopOpen" taborder="2" text="Popup Open(Modeless ,resizable=false)" left="0" top="595" width="260" height="29" onclick="btnPopOpen_onclick"/>
+        <Button id="btnPopOpenResizable" taborder="3" text="Popup Open(Modeless ,resizable=true)" left="0" top="633" width="260" height="29" onclick="btnPopOpenResizable_onclick"/>
+        <TextArea id="txt01" taborder="4" left="0" top="53" value="※ 팝업 처리 탭소스를 확인하세요&#10;ref::ref04.xfdl&#10;&#10;&#9;팝업 처리를위한 API : this.gfnOpenPopup&#10;&#9;&#10;&#9;this.gfnOpenPopup(popupId&#10;                       ,sFormUrl&#10;                       ,oArg&#10;                       ,sPopupCallBack&#10;                       ,frameOption&#10;&#9;&#9;&#9;&#9;&#9;   );&#10;&#9;&#9;&#9;&#9;&#9;   &#10;&#9;popupId : 팝업창ID(영문)&#10;&#9;sFormUrl : 팝업창으로 띄울 화면Url&#10;&#9;oArg : 팝업창으로 전달할 파라미터 설정(object)&#10;&#9;sPopupCallBack : 표준팝업 콜백함수 fnPopupCallback를 사용한다.&#10;&#9;frameOption : 프레임처리 관련 옵션을 지정한다.&#10; &#10;&#9;oArg 파라미터 구성방법&#10;&#9;-&gt; {키:값 , 키:값 , ~~~}&#10;&#9;&#10;&#9;frameOption 프레임 옵션 지정방법 및 종류&#10;&#9;-&gt; 구성방법은 oArg와 동일함&#10;&#9;-&gt; title : 팝업창 타이틀 지정(필수)&#10;&#9;-&gt; width : 팝업창 너비, 개발자가 개발한 화면 사이즈(필수)&#10;&#9;-&gt; height : 팝업창 높이, 개발자가 개발한 화면 사이즈(필수) &#10;&#9;-&gt; popuptype : modal(modal창,default) / modeless(open창)(옵션)&#10;                   생략시 modal&#10;&#9;-&gt; resizable : true/false(default) , popuptype=modeless일 경우만 적용&#10;                   생략시 false" readonly="true" height="460" right="505"/>
+        <TextArea id="txt00" taborder="5" top="53" value="※ 팝업 처리 탭소스를 확인하세요&#10;ref::ref04.xfdl&#10;&#10;&#9;팝업 콜백함수&#10;&#9;&#10;/**&#10; * @description Popup CallBack 함수&#10;&#10;&#9;-&gt; Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음&#10;&#9;&#10;&#9;개발시 팝업콜백함수는 fnPopupCallback 표준으로 사용한다.&#10;&#9;strId : 팝업호출시 지정한 팝업ID&#10;&#9;strVal : 팝업창에서 close시 지정한 반환값&#10;&#10;*/&#10;this.fnPopupCallback = function(strId, strVal)&#10;{&#10;&#9;trace(&quot; strId : &quot; + strId + &quot; strVal : &quot; + strVal);&#10;&#9;// TO DO&#10;};" readonly="true" height="460" right="3" width="475"/>
+        <Static id="sta05" taborder="6" text="여백 20" width="227" height="20" background="green" left="100" top="669" visible="false"/>
+        <Static id="sta04" taborder="7" text="여백&#13;&#10;20" width="3" height="178" background="green" top="27" right="0" visible="false"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  script 표준
+*  @MenuPath    샘플 > script 표준
+*  @FileName 	ref00.xfdl 
+*  @Creator 	공통팀
+*  @CreateDate 	2018.05.01
+*  @Desction    스크립트 표준 및 주석 표준 정의
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2018.05.01     	공통팀 	                최초 생성 
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * include 영역
+ ************************************************************************************************/
+//include "lib::libCommon.xjs";
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.fv_Test = "폼변수";	// 폼변수는 반드시 this.변수명으로 기술한다.
+
+/************************************************************************************************
+ * FORM EVENT 영역(onload,fnClose 및 기타 폼관련 이벤트)
+ ************************************************************************************************/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	//this.gfnFormOnLoad(this);
+};
+/**
+ * @description 화면 닫힐때 변경사항 체크(입력 화면에서 변경되는 Dataset 체크 필요, 선택)
+ * @return {boolean} true(화면 닫음) / false(화면 닫지 않음)
+*/
+this.fnClose = function()
+{
+    // 체크 대상이 없으면 아래와 같이 default 처리
+	return true;
+};
+/************************************************************************************************
+ * COMMON FUNCTION
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * CALLBACK 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/**
+ * @description Transaction CallBack 함수(선택)
+*/
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}
+	switch(sSvcId)
+	{
+		case "search":
+			break;
+	}
+};
+
+/**
+ * @description Popup CallBack 함수
+
+	-> Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+	
+	개발시 팝업콜백함수는 fnPopupCallback 표준으로 사용한다.
+	strId : 팝업호출시 지정한 팝업ID
+	rtnValue : 팝업창에서 close시 지정한 반환값
+
+*/
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+	trace(" strId : " + strId + " strVal : " + rtnValue);
+	
+	if (!this.gfn_IsNull(rtnValue)) {
+		var arrRtnVal = rtnValue.split(";;");	
+		
+		if (arrRtnVal.length > 0) {
+			trace(" rtnValue1 : " + arrRtnVal[0]);
+			trace(" rtnValue2 : " + arrRtnVal[1]);
+		}
+	}
+	// TO DO
+};
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/
+/*
+	팝업 처리를위한 API : this.gfnOpenPopup
+	
+	this.gfnOpenPopup(popupId
+                       ,sFormUrl
+                       ,oArg
+                       ,sPopupCallBack
+                       ,frameOption
+					   );
+					   
+	popupId : 팝업창ID(영문)
+	sFormUrl : 팝업창으로 띄울 화면Url
+	oArg : 팝업창으로 전달할 파라미터 설정(object)
+	sPopupCallBack : 표준팝업 콜백함수 fnPopupCallback를 사용한다.
+	frameOption : 프레임처리 관련 옵션을 지정한다.
+ 
+	oArg 파라미터 구성방법
+	-> {키:값 , 키:값 , ~~~}
+	
+	frameOption 프레임 옵션 지정방법 및 종류
+	-> 구성방법은 oArg와 동일함
+	-> title : 팝업창 타이틀 지정(필수)
+	-> width : 팝업창 너비, 개발자가 개발한 화면 사이즈(필수)
+	-> height : 팝업창 높이, 개발자가 개발한 화면 사이즈(필수) 
+	-> popuptype : modal(modal창,default) / modeless(open창)(옵션)
+                   생략시 modal
+	-> resizable : true/false(default) , popuptype=modeless일 경우만 적용
+                   생략시 false
+ */
+ 
+this.btnPopModal_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "sam01_01P"; //Popup화면 타이틀
+	var sPopupTitle = "모달 팝업"; //Popup화면 타이틀
+	var sPopupFormUrl  = "sample::sam01_01P.xfdl"; //Popup화면 URL
+	var oArg = {paramCode:"abcd", paramNum:12345, paramDataset:this.ds_Test.saveXML()}; //Popup화면 전달 파라메터
+	var oOption = {title:sPopupTitle, width:"500", height:"400"}; //Popup화면 옵션
+	var sPopupCallBack = "fn_PopupCallback"; //Popup화면 호출후 Callback 처리 함수
+	this.gfn_OpenPopup(sPopupId, sPopupFormUrl, oArg, sPopupCallBack, oOption); //Popup화면 호출 함수
+};
+
+this.btnPopOpen_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sTitle = "OPEN 팝업";
+	var sFormUrl  = "ref::ref04_02.xfdl";
+	var oArg = { paramCode:"abcdef",paramNum:12345 };  // Argument처리
+	var oOption = {title:sTitle,width:"400",height:"300",popuptype:"modeless"}; // Frame 옵션처리
+	var sPopupCallBack = "";
+	this.gfnOpenPopup( "openpopup",sFormUrl,oArg,sPopupCallBack,oOption);
+};
+
+this.btnPopOpenResizable_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sTitle = "OPEN 팝업 Resizable";
+	var sFormUrl  = "ref::ref04_02.xfdl";
+	var oArg = { paramCode:"abcdef",paramNum:12345 };  // Argument처리
+	var oOption = {title:sTitle,width:"400",height:"300",popuptype:"modeless",resizable:true}; // Frame 옵션처리
+	var sPopupCallBack = "";
+	this.gfnOpenPopup( "openpopupResizable",sFormUrl,oArg,sPopupCallBack,oOption);
+};
+
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sTitle = "모달 팝업";
+	var sFormUrl  = "cmm::popupsample.xfdl";
+	var oArg = {paramCode:"abcd", paramNum:12345};  // Argument처리
+	var oOption = {title:sTitle,width:"492",height:"364"}; // Frame 옵션처리
+	var sPopupCallBack = "fnPopupCallback";
+	this.gfnOpenPopup( "popup",sFormUrl,oArg,sPopupCallBack,oOption);	
+};
+
+this.fn_test = function() {
+	this.alert("11");
+}]]></Script>
+    <Objects>
+      <Dataset id="ds_Test">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">1</Col>
+            <Col id="Column1">명칭1</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">2</Col>
+            <Col id="Column1">명칭2</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_Test2">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

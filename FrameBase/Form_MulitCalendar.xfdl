@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Form_MulitCalendar" width="370" height="220" titletext="New Form" onload="Form_MulitCalendar_onload">
+    <Layouts>
+      <Layout height="220" mobileorientation="landscape" width="370">
+        <Button id="btn_Cancel" taborder="0" text="취소" left="190" top="187" width="80" height="24" onclick="btn_Cancel_onclick"/>
+        <Button id="btn_Confirm" taborder="1" text="선택" left="100" top="187" width="80" height="24" onclick="btn_Confirm_onclick"/>
+        <Calendar id="cal_FromDate" taborder="2" left="0" top="1" width="180" height="180" showmonthspin="false" type="monthonly"/>
+        <Calendar id="cal_ToDate" taborder="3" left="190" top="1" width="180" height="180" showmonthspin="false" type="monthonly"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[this.gv_ComFromCal = "";//From 달력 ID
+this.gv_ComToCal = "";//To 달력 ID
+this.gv_ComCheckDst = "";//체크구분 - D:일짜, M:월
+this.gv_ComCheckNum = 0;//체크숫자
+
+this.Form_MulitCalendar_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var arrCompCal = this.text.split(";;");
+
+	if (!this.gfn_IsNull(arrCompCal[0])) {
+		this.gv_ComFromCal = this.gfn_Replace(arrCompCal[0], "this.", "this.parent.parent.");//From 달력 ID
+		if (this.gfn_IsNull(eval(this.gv_ComFromCal).value)) {
+			this.cal_FromDate.set_value(this.gfn_GetDate("date"));
+		} else {
+			this.cal_FromDate.set_value(eval(this.gv_ComFromCal).value);
+		}
+	}
+	
+	if (!this.gfn_IsNull(arrCompCal[1])) {
+		this.gv_ComToCal = this.gfn_Replace(arrCompCal[1], "this.", "this.parent.parent.");//To 달력 ID
+		if (this.gfn_IsNull(eval(this.gv_ComToCal).value)) {
+			this.cal_ToDate.set_value(this.gfn_GetDate("date"));
+		} else {
+			this.cal_ToDate.set_value(eval(this.gv_ComToCal).value);
+		}		
+	}	
+	
+	//날짜 체크값이 있으면 - 예) D:30, M:10
+	if (!this.gfn_IsNull(arrCompCal[2])) {
+		var arrCheck = arrCompCal[2].split(":");
+		if (!this.gfn_IsNull(arrCheck)) {
+			this.gv_ComCheckDst = arrCheck[0];//체크구분 - D:일짜, M:월
+			this.gv_ComCheckNum = parseInt(arrCheck[1]);//체크숫자
+		}
+	} else {
+		this.gv_ComCheckDst = "";//체크구분 - D:일짜, M:월
+		this.gv_ComCheckNum = 0;//체크숫자	
+	}
+
+};
+
+this.btn_Confirm_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (this.cal_FromDate.value > this.cal_ToDate.value) {
+		this.alert("시작일자가 종료일자 보다 큽니다.");
+		return;
+	}	
+	
+	//체크조건이 있으면 체크
+	if (!this.gfn_IsNull(this.gv_ComCheckDst)) {
+		var sStartDate = this.cal_FromDate.value;//시작일자
+		var sEndDate = this.cal_ToDate.value;//종료일자
+	
+		if (this.gv_ComCheckDst == "D") {
+			if (this.gfn_GetDiffDate(sStartDate, sEndDate) > this.gv_ComCheckNum) {
+				this.alert("체크일수 범위(" + this.gv_ComCheckNum + "일) 를 초과합니다.");
+				return;
+			}
+		} else if (this.gv_ComCheckDst == "M") {
+			if (this.gfn_GetDiffMonth(sStartDate, sEndDate) > this.gv_ComCheckNum) {
+				this.alert("체크일수 범위(" + this.gv_ComCheckNum + "개월) 를 초과합니다.");
+				return;
+			}		
+		}
+	}	
+
+	eval(this.gv_ComFromCal).set_value(this.cal_FromDate.value);
+	eval(this.gv_ComToCal).set_value(this.cal_ToDate.value);
+	
+	this.parent.closePopup();
+};
+
+this.btn_Cancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.parent.closePopup();
+};]]></Script>
+  </Form>
+</FDL>

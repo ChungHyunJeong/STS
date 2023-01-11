@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="cmmFileButton" width="312" height="20" titletext="파일 버튼" onload="cmmGridButton_onload" onclose="cmmFileButton_onclose">
+    <Layouts>
+      <Layout height="20" width="312">
+        <Button id="btn_DeleteRow" taborder="0" text="파일삭제" top="0" width="70" height="20" right="0" onclick="btn_DeleteRow_onclick" visible="true" cssclass="bt_WF_LineDel"/>
+        <Button id="btn_AddRow" taborder="1" text="파일추가" top="0" width="70" height="20" right="73" onclick="btn_AddRow_onclick" visible="true" cssclass="bt_WF_LineAdd"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[this.oCallFormId;//호출한 화면ID
+this.fvCallFuncAddRow="";//파일 추가버튼 호출함수
+this.fvCallFuncDeleteRow="";//파일 삭제버튼 호출함수
+
+this.cmmGridButton_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+
+};
+
+this.fn_SetGrdButtonFunc = function(oFormId, objBtnInfoList) 
+{
+	this.oCallFormId = oFormId;//호출한 화면ID
+	if (this.gfn_IsNull(objBtnInfoList)) return;	
+	
+	for (var iLoop=0; iLoop<objBtnInfoList.length; iLoop++ )
+	{
+		arrBtnInfo = objBtnInfoList[iLoop].split("|");
+		
+		//파일추가
+		if (arrBtnInfo[0] == "ADD") {
+			this.fvCallFuncAddRow=arrBtnInfo[1];//파일추가 버튼 호출함수
+		} else if (arrBtnInfo[0] == "DELETE") {
+			this.fvCallFuncDeleteRow=arrBtnInfo[1];//파일삭제 버튼 호출함수
+		}
+	}
+	
+}
+
+
+this.btn_AddRow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (!this.gfn_IsNull(this.fvCallFuncAddRow)) {
+		this.lookupFunc(this.fvCallFuncAddRow).call();
+	}
+};
+
+this.btn_DeleteRow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (!this.gfn_IsNull(this.fvCallFuncDeleteRow)) {
+		this.lookupFunc(this.fvCallFuncDeleteRow).call();
+	}
+};
+
+this.cmmFileButton_onclose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	e.stopPropagation(); 	
+};
+]]></Script>
+  </Form>
+</FDL>

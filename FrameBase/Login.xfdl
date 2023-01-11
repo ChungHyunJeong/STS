@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Login" width="1280" height="720" onload="Login_onload" background="url('theme://images/bg_login.jpg') no-repeat center center" onsize="Login_onsize">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="1280">
+        <Div id="div_Login" taborder="1" left="495" top="282" width="286" height="278" text="">
+          <Layouts>
+            <Layout>
+              <ImageViewer id="img_Logo" taborder="0" left="0" top="1" width="286" height="42" cssclass="img_Login_Logo"/>
+              <Combo id="cbo_Lang" taborder="1" text="Korean" left="0" top="60" width="275" height="38" cssclass="combo_Login_Language" value="" index="-1" innerdataset="ds_Sm015" codecolumn="CODM_CD" datacolumn="CODM_NM"/>
+              <Edit id="edt_UserId" taborder="2" left="0" top="104" width="275" height="38" text="2020003" cssclass="edit_Login_ID"/>
+              <Edit id="edt_PassWord" taborder="3" left="0" top="148" width="275" height="38" text="cndgus!@#3211" password="true" cssclass="edit_Login_PW" onkeydown="div_Login_edt_PassWord_onkeydown" onkeyup="div_Login_edt_PassWord_onkeyup" value="cndgus!@#3211"/>
+              <Button id="btn_Login" taborder="4" left="0" top="224" width="275" height="50" onclick="btn_Login_onclick" cssclass="bt_Login"/>
+              <CheckBox id="chk_IdSave" taborder="5" text="ID저장" left="2" top="192" width="98" height="26" truevalue="1" falsevalue="0" cssclass="chk_LOGIN_Save"/>
+              <Static id="sta_Msg" taborder="6" left="111" top="193" width="175" height="22"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="Button00" taborder="0" text="SRM" left="850" top="301" width="89" height="31" background="white" visible="false"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+//include "comLib::sz_fsp_nx.xjs";
+this.fvCheckBrowserYn = true;//브라우져체크
+
+this.Login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	if (nApp.gvSystem == "SRM") {
+		//this.Button00.set_visible(true);
+	}
+	var nDivWidth = this.div_Login.getOffsetWidth();
+	var nDivHeight = this.div_Login.getOffsetHeight();
+	
+	var nLeft = nexacro.round( (this.getOffsetWidth() - nDivWidth ) / 2);
+	var nTop  = nexacro.round( (this.getOffsetHeight() - nDivHeight) / 2);
+	
+	this.div_Login.move(nLeft, nTop);
+	this.resetScroll();
+	
+	var sUserId = nexacro.getPrivateProfile( "LOGIN_USER_ID" );
+
+	if (!this.gfn_IsNull(sUserId)) {
+		this.div_Login.form.edt_UserId.set_value(sUserId);
+		this.div_Login.form.chk_IdSave.set_value("1");
+		this.div_Login.form.edt_PassWord.setFocus();
+	} else {
+		this.div_Login.form.edt_UserId.set_value(null);
+		this.div_Login.form.chk_IdSave.set_value("0");
+		this.div_Login.form.edt_UserId.setFocus();
+	}
+
+	//임시 - 사용자변경모드시
+	if (nApp.gvChangeUser == "true" || nApp.gvChangeUser == true) {
+		this.div_Login.form.edt_UserId.set_value(nApp.gvId);
+		//this.div_Login.form.edt_PassWord.set_value(nApp.gvPw);
+	}
+	
+	//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+	var objCondList = ["SM015|ds_Sm015"];
+	//공통코드 설정함수 호출				   
+	this.gfn_GetCommCode(this, objCondList, "");
+	
+	//콤보 인덱스 설정
+	this.div_Login.form.cbo_Lang.set_index(0);
+	
+	//사용언어 설정
+	nApp.gvLanguage = this.div_Login.form.cbo_Lang.value;
+	
+	var sNavi = system.navigatorname;
+	
+	trace("sNavi =========> " + sNavi);
+	
+	var agent = "";
+	
+	if (sNavi != "nexacro") {
+		agent = this.fn_CheckBroswer();
+	}
+	trace("agent =========> " + agent);
+	trace("nApp.gvChangeUser =========> " + nApp.gvChangeUser);
+	trace("nApp.gvSsoLoginYn =========> " + nApp.gvSsoLoginYn);
+	trace("nApp.gvId =========> " + nApp.gvId);
+
+	//브라우저 체크
+	//	if (sNavi == "Edge" || sNavi == "Chrome" || sNavi == "nexacro") {
+	if (agent == "Microsoft Edge" || agent == "Chrome" || agent == "IOS" || agent == "Android" || sNavi == "nexacro") {
+		this.div_Login.form.btn_Login.set_enable(true);
+	} else {
+		this.div_Login.form.btn_Login.set_enable(false);
+		this.fvCheckBrowserYn = false;//브라우져체크
+		this.alert("Edge 및 Chrome 브라우저에서만 사용이 가능합니다.");
+		return;
+	}	
+
+	//임시 - 사용자변경모드시
+	if (nApp.gvChangeUser == "true" || nApp.gvChangeUser == true) {
+		this.btn_Login_onclick();
+	}
+
+};
+
+this.btn_Login_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//공통메세지 조회
+	//this.gfn_GetCommMsg();
+	//다국어처리
+	//this.gfn_GetCommMultilingual();
+	//trace(this.objApp.gds_UserInfo.saveXML());
+	//nApp.afn_setSeparatesize("LOGIN");
+	//return;
+	this.ds_Input.clearData();
+	nApp.gds_UserInfo.clearData();
+	nApp.gds_CommMsg.clearData();
+	nApp.gds_MultiLanguages.clearData();
+	this.ds_LoginResult.clearData();
+
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "G_COMM", "ST");	
+	//this.ds_Input.setColumn(0, "SYST_ID", this.Edit00.value);	//이재만		
+	//this.ds_Input.setColumn(0, "USEM_PW", this.Edit01.value);
+	//this.ds_Input.setColumn(0, "SYST_ID", "0002095");//김시현	
+	//this.ds_Input.setColumn(0, "USEM_PW", "0987llkkjj%");	
+	//this.ds_Input.setColumn(0, "SYST_ID", "0002250");//이대희	
+	//this.ds_Input.setColumn(0, "USEM_PW", "dleogml101!!");	
+	//this.ds_Input.setColumn(0, "SYST_ID", "0002099");//한태환	
+	//this.ds_Input.setColumn(0, "USEM_PW", "gjqjffh22@");		
+
+	//this.ds_Input.setColumn(0, "SYST_ID", nApp.gvId);	
+	//this.ds_Input.setColumn(0, "USEM_PW", nApp.gvPw);		
+	this.ds_Input.setColumn(0, "SYST_ID", this.div_Login.form.edt_UserId.value);	
+	this.ds_Input.setColumn(0, "EMPM_CD", this.div_Login.form.edt_UserId.value);
+	this.ds_Input.setColumn(0, "USEM_PW", this.div_Login.form.edt_PassWord.value);		
+	this.ds_Input.setColumn(0, "LANG_CD", this.div_Login.form.cbo_Lang.value);	
+	
+	//SRM시스템으로 접속시
+	if (nApp.gvSystem == "SRM") {
+		this.ds_Input.setColumn(0, "MODM_CD", "SR");
+	}
+	
+	//임시 - 사용자변경모드시
+	if (nApp.gvChangeUser == "true" || nApp.gvChangeUser == true) {
+		this.ds_Input.setColumn(0, "S_DST", "Y");			
+	} else {
+		this.ds_Input.setColumn(0, "S_DST", "N");	
+	}
+	
+	//trace(this.ds_Input.saveXML());
+	//this.ds_Input.setColumn(0, "SYST_ID", "F200033");//CA사업부 - 김승철	
+	//this.ds_Input.setColumn(0, "USEM_PW", "sckim2011!");		
+	
+   	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);	
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "LOGIN_INFO";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = "LoginOutAction";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sMethodName = "searchUserInfo";// Action 안에서 호출해야 하는 메소드 명, 기본은 execute를 호출하도록 되어있음	
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "gds_UserInfo=gds_UserInfo gds_CommMsg=gds_CommMsg gds_MultiLanguages=gds_MultiLanguages gds_Menu=gds_Menu ds_LoginResult=ds_LoginResult";//출력 데이터셋
+
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명	
+	
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);		
+	
+	/*
+	var strSvcId    = "LOGIN_INFO";	
+	var strSvcUrl   = "login.do";
+	var inData      = "ds_UserInfo=ds_UserInfo";
+	//var outData     = "gds_UserInfo=gds_UserInfo gds_Menu=gds_Menu gds_FavoriteMenu=gds_FavoriteMenu";	
+	var outData     = "gds_UserInfo=gds_UserInfo";	
+	var strArg      = "";
+	var callBackFnc = "fn_Callback";	
+
+	//생략가능
+	var isAsync   = true;
+	var nDataType = 0;
+
+	this.gfn_Transaction(strSvcId ,   // transaction을 구분하기 위한 svc id값
+						 strSvcUrl ,  // trabsaction을 요청할 주소
+						 inData , 	  // 입력값으로 보낼 dataset id , a=b형태로 실제이름과 입력이름을 매칭
+						 outData , 	  // 처리결과값으로 받을 dataset id, a=b형태로 실제이름과 입력이름을 매칭
+						 strArg, 	  // 입력갑스로 보낼 arguments, strFormData="20120607"
+						 callBackFnc, // transaction의 결과를 받을 Function 이름
+						 nDataType);  // 통신방법 정의 [생략가능]		
+						 
+	*/
+						 
+};
+
+
+/************************************************************************************************
+ * CALLBACK 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/**
+ * @description Transaction CallBack 함수(선택)
+*/
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "LOGIN_INFO":
+			//trace(nApp.gds_CommMsg.saveXML());
+			
+			if (nApp.gds_UserInfo.getRowCount() > 0) {
+				if ( this.div_Login.form.chk_IdSave.value == "1") {
+					var bSucc = nexacro.setPrivateProfile( "LOGIN_USER_ID", this.div_Login.form.edt_UserId.value );
+				} else {
+					var bSucc = nexacro.setPrivateProfile( "LOGIN_USER_ID", "");
+				}
+				
+				nApp.afn_setSeparatesize("LOGIN");
+				/*
+				//개별로그인인경우
+				if (nApp.gvSsoLoginYn == "false" || nApp.gvSsoLoginYn == false) {				
+					nApp.afn_setSeparatesize("LOGIN");
+				} else {
+					//fn_CallLogin(this.div_Login.form.edt_UserId.value, this.div_Login.form.edt_PassWord.value);//SSO 로그인 처리
+				}
+				*/
+			} else {
+				//trace(this.ds_LoginResult.saveXML());
+				//로그인 결과정보
+				if (this.ds_LoginResult.getRowCount() > 0) {
+					var sRSLT_CD = this.ds_LoginResult.getColumn(0, "RSLT_CD");//로그인 결과코드
+					if (sRSLT_CD == "E01") {
+						this.gfn_Alert("SM075");//로그인 사용자정보가 존재하지 않습니다.
+					} else if (sRSLT_CD == "E02") {
+						sRSLT_CT = this.ds_LoginResult.getColumn(0, "RSLT_CT");//결과메시지 - 오류횟수
+						var arrMsgArg = [sRSLT_CT];
+						this.gfn_Alert("SM074", arrMsgArg);//로그인ID 또는 패스워드 정보가 유효하지 않습니다.
+						
+					} else if (sRSLT_CD == "E03") {
+						this.gfn_Alert("SM076");//비밀번호 오류회수 초과로 계정이 잠김 상태입니다.						
+					}
+				}
+			}
+			
+			break;
+	}
+};
+
+
+this.fn_afterSearch = function (svcId, ErrorCode, ErrorMsg) {
+	if(ErrorCode == 0){
+	//trace(this.ds_ComCodeList.saveXML());
+	//	alert(this.ds_ComCodeList.getRowCount() + "건이 조회되었습니다.");
+
+	//trace(nApp.gds_UserInfo.saveXML());
+	}else{
+		alert("처리 중 오류가 발생하였습니다.");
+	}
+}
+
+this.Login_onsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{
+	var nDivWidth = this.div_Login.getOffsetWidth();
+	var nDivHeight = this.div_Login.getOffsetHeight();
+	
+	var nLeft = nexacro.round( (this.getOffsetWidth() - nDivWidth ) / 2);
+	var nTop  = nexacro.round( (this.getOffsetHeight() - nDivHeight) / 2);
+	
+	this.div_Login.move(nLeft, nTop);
+	this.resetScroll();	
+};
+
+this.div_Login_edt_PassWord_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if (e.keycode == 13 && this.fvCheckBrowserYn) {
+		this.btn_Login_onclick();
+	}
+
+
+	
+};
+
+//브라우저 체크
+this.fn_CheckBroswer = function() {
+
+	var varUA = navigator.userAgent.toLowerCase();
+	//브라우저 종류 확인. userAgent값을 모두 소문자로 변환하여 변수에 대입
+	
+	if(varUA.match("iphone") != null||
+		varUA.match("ipad") != null||
+		varUA.match("ipot") != null||
+		varUA.match("ipod") != null) {//IOS
+		return "IOS";
+	} else if(varUA.match("Android") != null) {//안드로이드
+		return "Android";
+	} else if(varUA.match("edge") != null) {//엣지
+		return "Microsoft Edge";
+	} else if (varUA.match("whale") != null) {//웨일
+		return "Whale";
+	} else if(varUA.match("msie") != null || varUA.match("trident") != null) {
+	//IE (msie : ~ IE 10 / trident : IE 11)
+		return "Internet Explorer";
+	} else if(varUA.match("firefox") != null) {//파이어폭스
+		return "Firefox";
+	} else if(varUA.match("opera") != null) {//오페라
+		return "Opera";
+	} else if(varUA.match("chrome") != null) {//크롬
+		return "Chrome";
+	} else if(varUA.match("safari") != null) {//사파리
+		return "Safari";
+	} else {
+		return "Unknown";
+	}
+
+}
+
+this.div_Login_edt_PassWord_onkeyup = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	var shiftKey = e.shiftkey; 
+	var keyCode = e.keycode;
+	var sValue = obj.value;
+	var sLastValue = "";//마지막입력값
+	
+	if (!this.gfn_IsNull(sValue)) {
+ 		if ((keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122)) 
+		{ 
+			sLastValue = this.gfn_Right(sValue,1);//마지막입력값
+			if(sLastValue.search(/[A-Z]/g) > -1) {
+				this.div_Login.form.sta_Msg.set_text("CAPS LOCK이 켜져 있습니다.");
+			} else {
+				this.div_Login.form.sta_Msg.set_text("");			
+			}
+		} else {
+			this.div_Login.form.sta_Msg.set_text("");
+		}	
+	}
+};
+]]></Script>
+    <Objects>
+      <Dataset id="ds_UserInfo">
+        <ColumnInfo>
+          <Column id="gvUserId" type="STRING" size="256"/>
+          <Column id="gvUserPasswd" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_LoginUserInfo">
+        <ColumnInfo>
+          <Column id="gvUserId" type="STRING" size="256"/>
+          <Column id="gvUserNm" type="STRING" size="256"/>
+          <Column id="gvUserPwd" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_ComCodeList">
+        <ColumnInfo>
+          <Column id="COMM_GRP_CD" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="COMM_CD_NM" type="STRING" size="256"/>
+          <Column id="USE_YN" type="STRING" size="256"/>
+          <Column id="SORT_ORDER" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="G_COMM" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="USEM_PW" type="STRING" size="256"/>
+          <Column id="LOGN_IP" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="LANG_CD" type="STRING" size="256"/>
+          <Column id="S_DST" type="STRING" size="256"/>
+          <Column id="MODM_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Sm015">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_LoginResult">
+        <ColumnInfo>
+          <Column id="RSLT_CD" type="STRING" size="256"/>
+          <Column id="RSLT_CT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

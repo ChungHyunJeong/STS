@@ -1,0 +1,712 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_FA_0140_01" width="1400" height="800" titletext="자동전표 쿼리 테스트" scrollbartype="none" onclose="fn_FormClose" onload="fn_FormOnload">
+    <Layouts>
+      <Layout height="800" width="1400">
+        <Div id="div_PopupTitle" taborder="1" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Close" taborder="0" text="닫기" top="9" width="70" height="26" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+              <Static id="sta_PopupTitle" taborder="1" text="자동전표 쿼리 테스트" left="20" top="10" height="24" cssclass="sta_WF_PopupTitle" width="300"/>
+              <Button id="btn_Choice" taborder="2" text="적용" top="8" width="65" right="90" visible="true" cssclass="bt_WF_PopupSelect" height="28" onclick="div_PopupTitle_btn_Choice_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_MasterView" taborder="0" left="14" top="46" width="400" bottom="12">
+          <Layouts>
+            <Layout>
+              <Static id="sta_Master10" taborder="0" text="자동전표Head" left="0" top="0" width="220" height="32" cssclass="sta_WF_Title"/>
+              <Grid id="grd_Master10" taborder="1" left="0" top="32" binddataset="ds_Master10" autofittype="col" right="11" height="62" oncellclick="div_MasterView_grd_Master10_oncellclick">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="361"/>
+                      <Column size="24"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="26" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="전표Head SQL문"/>
+                      <Cell col="1"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:AUTM_GU" displaytype="normal" textAlign="left"/>
+                      <Cell col="1" text="bind:REMK_NM" displaytype="normal" textAlign="left" expandshow="show" expandsize="24" cursor="pointer"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Static id="sta_Master10_00" taborder="2" text="자동전표Body" left="0" top="100" width="220" height="32" cssclass="sta_WF_Title"/>
+              <Grid id="grd_Detail10" taborder="3" left="0" top="132" autofittype="col" right="11" bottom="308" binddataset="ds_Detail10" autoenter="select" oncellclick="div_MasterView_grd_Detail10_oncellclick">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="60"/>
+                      <Column size="100"/>
+                      <Column size="180"/>
+                      <Column size="50"/>
+                      <Column size="24"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="26" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="정렬순서"/>
+                      <Cell col="1" text="계정코드"/>
+                      <Cell col="2" text="계정명"/>
+                      <Cell col="3" text="SQL문"/>
+                      <Cell col="4"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:SORT_NO" displaytype="normal" textAlign="center"/>
+                      <Cell col="1" text="bind:ACOM_CD" displaytype="normal" textAlign="center"/>
+                      <Cell col="2" text="bind:ACOM_NM"/>
+                      <Cell col="3" text="bind:AUTD_GU" displaytype="text" textAlign="left"/>
+                      <Cell col="4" expandshow="show" expandsize="24" cursor="pointer"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Grid id="grd_Param" taborder="4" left="0" top="482" binddataset="ds_Param" autofittype="col" right="11" autoenter="select" bottom="0">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="40"/>
+                      <Column size="166"/>
+                      <Column size="182"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="24" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="No."/>
+                      <Cell col="1" text="파라메타"/>
+                      <Cell col="2" text="파라메타값"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell textAlign="center" expr="currow + 1"/>
+                      <Cell col="1" text="bind:PARAM_ID" textAlign="center"/>
+                      <Cell col="2" text="bind:PARAM_VALUE" edittype="normal"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Button id="btn_QueryRun" taborder="5" text="SQL 실행" top="450" width="100" height="24" cssclass="btn_WF_Search" cursor="pointer" enable="true" right="11" onclick="div_MasterView_btn_QueryRun_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Tab id="tab_Master" taborder="2" tabindex="0" left="420" top="56" cssclass="tab_WF_DetailList" bottom="12" right="14">
+          <Tabpages>
+            <Tabpage id="tpg_01" text="Head">
+              <Layouts>
+                <Layout>
+                  <TextArea id="txt_Query" taborder="0" left="0" top="2" height="434" right="0"/>
+                  <Grid id="grd_QueryResultList" taborder="1" left="0" binddataset="ds_QueryResultList" bottom="0" autosizingtype="none" cellmovingtype="none" cellsizingtype="col" height="258" right="0">
+                    <Formats>
+                      <Format id="default"/>
+                    </Formats>
+                  </Grid>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+            <Tabpage id="tpg_02" text="Body">
+              <Layouts>
+                <Layout>
+                  <TextArea id="txt_Query" taborder="0" left="0" top="2" height="434" right="0"/>
+                  <Grid id="grd_QueryResultList" taborder="1" left="0" binddataset="ds_QueryResultList" bottom="0" autosizingtype="none" cellmovingtype="none" cellsizingtype="col" height="258" right="0">
+                    <Formats>
+                      <Format id="default"/>
+                    </Formats>
+                  </Grid>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+          </Tabpages>
+        </Tab>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Master10" onrowposchanged="ds_Master10_onrowposchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="AUTM_CD" type="STRING" size="256"/>
+          <Column id="AUTM_NM" type="STRING" size="256"/>
+          <Column id="MODM_CD" type="STRING" size="256"/>
+          <Column id="ACCH_GU" type="STRING" size="256"/>
+          <Column id="ACCH_NM" type="STRING" size="256"/>
+          <Column id="ACRE_NM" type="STRING" size="256"/>
+          <Column id="AUTM_GU" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail10">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="AUTM_CD" type="STRING" size="256"/>
+          <Column id="ACOM_CD" type="STRING" size="256"/>
+          <Column id="ACOM_NM" type="STRING" size="256"/>
+          <Column id="DECR_GU" type="STRING" size="256"/>
+          <Column id="AUTD_GU" type="STRING" size="256"/>
+          <Column id="AUTM_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="MODM_CD" type="STRING" size="256" description="조회시작일자"/>
+          <Column id="AUTM_NM" type="STRING" size="256"/>
+          <Column id="AUTM_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Param">
+        <ColumnInfo>
+          <Column id="PARAM_ID" type="STRING" size="256"/>
+          <Column id="PARAM_VALUE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Where">
+        <ColumnInfo>
+          <Column id="OWNER" type="STRING" size="256"/>
+          <Column id="TABLE_ID" type="STRING" size="256"/>
+          <Column id="QUERY" type="STRING" size="256"/>
+          <Column id="FILE_PATH" type="STRING" size="256"/>
+          <Column id="FILE_NM" type="STRING" size="256"/>
+          <Column id="RUN_TYPE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_FreeQueryResultList"/>
+      <Dataset id="ds_FreeQueryResultList2"/>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : M_FA_0140_01
+*  @화면설명 : 자동전표 쿼리 테스트
+*  @시스템명 : (FA) 재무회계
+*  @작성자   : 최석목
+*  @작성일   : 2021.01.27
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.01.27     	    최석목 	           최초 생성 
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * 1. Form Include 선언 영역
+ ************************************************************************************************/
+
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvComPrgmId = "";//화면ID
+this.fvMstData = "";//[부모창파라메타] Master데이터
+
+/***********************************************************************************************
+ * 3. Form 이벤트 영역
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 3.1. Form Onload 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	//부모창 파라메타 처리
+	this.fvMstData = this.getOwnerFrame().MstData;//[부모창파라메타] Master데이터
+	this.ds_Master10.loadXML(this.fvMstData);
+	this.fn_FormInit();//화면로드시 초기 설정 함수 
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.2. Form 초기설정 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormInit = function() 
+{
+	this.fn_BodySearch();//상세내역 조회
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.3. Form OnClose 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/***********************************************************************************************
+ * 4. 버튼 이벤트 영역
+ -----------------------------------------------------------------------------------------------
+   4.1.조회 : fn_Search
+   4.2.확인 : fn_Confirm
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 4.1. 닫기 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_PopClose();	
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 4.2. 적용 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Choice_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var rtnValue = "({" +
+				" SQL:'" + this.txt_Remk.value + "'"+  //1.쿼리내용				
+		"})";
+				
+	//this.gfn_PopClose(rtnValue);
+	this.gfn_PopClose(this.txt_Remk.value);
+};
+
+/***********************************************************************************************
+ * 5. [조회영역] 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 5.1. [조회영역-공통] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.1.1. [조회영역-팝업버튼] 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_SbpBtn_Do01 = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 5.2. [조회영역-업무] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.2.1. [조회영역-Edit] 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_SeEdt_Do01 = function()
+{ 
+}
+
+
+/***********************************************************************************************
+ * 6. [컴포넌트] 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 02.MF0.03. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    01. [데이터셋-ds_Master10] 데이터 Row 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.ds_Master10_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+
+};
+
+/***********************************************************************************************
+ * 7. [서비스] CallBack 함수 처리부분
+ ***********************************************************************************************/
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "DTL_SEARCH": //조회		
+			//파라메타 내용 추출
+			this.fn_GetParam();
+			break;		
+			
+		case "QUERY_MAKE_TEMP": //쿼리파일 생성		
+			//생성된 쿼리조회
+			this.fn_GetTempQuery();
+			break;			
+		case "MAKE_TEMP_LIST":
+			
+			var objGrd;
+			var objDs;
+
+			if (this.tab_Master.tabindex == 0) {
+				objGrd = this.tab_Master.tpg_01.form.grd_QueryResultList;
+				objDs = this.ds_FreeQueryResultList;
+			} else {
+				objGrd = this.tab_Master.tpg_02.form.grd_QueryResultList;
+				objDs = this.ds_FreeQueryResultList2;
+			}
+		
+			objGrd.set_formats("");
+			
+			if (objDs.getRowCount() > 0) {
+
+				objGrd.set_enableredraw(false);
+				objGrd.set_binddataset("");
+				
+				objGrd.createFormat();
+				objGrd.appendContentsRow("head");
+				objGrd.appendContentsRow("body");
+
+				var iCol = objDs.getColCount();
+				var indexCol = 0;
+				var sColName = "";
+				
+				for (var iLoop = 0; iLoop < iCol; iLoop++) {
+				
+					if (iLoop > 0) {
+						indexCol = objGrd.appendContentsCol();
+					}
+
+					sColName = objDs.getColID(iLoop);
+
+					objGrd.setFormatColProperty(indexCol, "size", 100);
+					objGrd.setCellProperty("head", indexCol, "text", sColName);
+					objGrd.setCellProperty("body", indexCol, "text", "bind:" + sColName);					
+					
+				}				
+				
+				if (this.tab_Master.tabindex == 0) {
+					objGrd.set_binddataset("ds_FreeQueryResultList");
+				} else {
+					objGrd.set_binddataset("ds_FreeQueryResultList2");
+				}
+				objGrd.set_enableredraw(true);	
+
+			}
+
+			break;			
+	}
+};
+
+/***********************************************************************************************
+ * 8. [팝업] CallBack 함수 처리부분
+      strId : 팝업호출시 지정한 팝업ID
+	  rtnValue : 팝업창에서 close시 지정한 반환값
+      주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+	trace(" strId : " + strId + " strVal : " + rtnValue);
+	
+	//프로그램ID
+	if (strId == "ADMN1010_P1") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = rtnValue.split(";;");	
+			
+			if (arrRtnVal.length > 0) {
+			}
+		}
+	}
+};
+
+/***********************************************************************************************
+ * 9. [메세지] CallBack 함수 처리부분
+ ***********************************************************************************************/
+/**
+ * @description 메세지 CallBack 함수
+*/
+this.fn_MsgCallback = function (strId, strVal)
+{
+
+	if(strId == "CONF.DELETE"){
+		if(strVal )
+		{
+			this.fn_SvcDelete();//삭제 서비스 호출
+		}
+	}
+};
+
+
+
+/***********************************************************************************************
+ * 10. [사용자함수]
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.1. [사용자함수] Body 내역 조회
+ ***********************************************************************************************/ 
+this.fn_BodySearch = function()
+{  
+	if (this.ds_Master10.getRowCount() > 0) {
+
+		//상세조회
+		if (!this.gfn_IsNull(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "AUTM_CD"))) {
+			//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+			this.ds_Detail10.clearData();
+			this.ds_Input.clearData();
+			
+			this.ds_Input.addRow();
+			this.ds_Input.setColumn(0, "AUTM_CD", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "AUTM_CD"));
+					
+			//[공통]서비스정보 초기화
+			this.gfn_InitComService(this);
+			
+			//[공통]서비스정보 추가
+			var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+			svcAddObj.sSelectSql = "fa:M_FA_0140_D_SL10";
+			this.gfn_AddComSearchService(this, svcAddObj);
+			
+			//[공통]서비스 호출 변수
+			var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+			svcCallObj.sTrid = "DTL_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+			svcCallObj.sActionName = this.G_SV_FA;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+			svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+			svcCallObj.sOutDatset = "ds_Detail10=ds_Detail10";//출력 데이터셋
+			svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+			svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+			//[공통]서비스 호출
+			this.gfn_CallComService(this, svcCallObj);		
+		}
+	}
+}  
+
+
+//파라메타 내용 추출
+this.fn_GetParam = function()
+{
+
+	if (this.ds_Master10.getRowCount() > 0) {
+		var sQuery = this.ds_Master10.getColumn(0, "AUTM_GU");
+		this.fn_CheckParam(sQuery, "@", 0);
+	}
+
+	if (this.ds_Detail10.getRowCount() > 0) {
+		var sQuery = this.ds_Detail10.getColumn(0, "AUTD_GU");
+		this.fn_CheckParam(sQuery, "@", 0);
+	}
+};
+
+//파라메타 조회
+this.fn_CheckParam = function(sQuery, sSearchWord, index) {
+
+	var iChkIndex = sQuery.indexOf(sSearchWord, index);
+	
+	if (iChkIndex < 0) {
+		return;
+	} else {
+		var sParamName = sQuery.substr(iChkIndex, 8);		
+		var iFindRow = this.ds_Param.findRow("PARAM_ID", sParamName);
+		
+		if (iFindRow < 0) {
+			var iAddRow = this.ds_Param.addRow();
+			this.ds_Param.setColumn(iAddRow, "PARAM_ID", sParamName);
+		}
+
+		this.fn_CheckParam(sQuery, sSearchWord, (iChkIndex+1));
+	}
+	var sValue = "";
+	for (var iLoop=0; iLoop < this.ds_Param.getRowCount(); iLoop++) {
+		
+		if (iLoop == 0) {
+			sValue = "ST";
+		} else if (iLoop == 1) {
+			sValue = "2108030003";
+		} else {
+			sValue = "3";
+		}
+		
+		this.ds_Param.setColumn(iLoop, "PARAM_VALUE", sValue);
+	}
+}
+
+this.div_MasterView_grd_Master10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//SQL문
+	if (e.col == 1) {
+		var sPopupId = "M_AUTM_GU_01";
+		var sTitle = "SQL문";
+		var sSqlInfo = this.ds_Master10.getColumn(0, "AUTM_GU");
+		this.fn_CallSqlDetailPop(sPopupId, sTitle, sSqlInfo);
+	}
+};
+
+
+this.div_MasterView_grd_Detail10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//SQL문
+	if (e.col == 4) {
+		var sPopupId = "B_AUTD_GU_01";
+		var sTitle = "SQL문";
+		var sSqlInfo = this.ds_Detail10.getColumn(this.ds_Detail10.rowposition, "AUTD_GU");
+		this.fn_CallSqlDetailPop(sPopupId, sTitle, sSqlInfo);
+	}	
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [SQL 상세-Button]  버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_CallSqlDetailPop = function(sPopupId, sTitle, sSqlInfo)
+{
+	//if (!this.gfn_IsNull(sSqlInfo)) {
+		var oArg = {Title:sTitle, SqlInfo:sSqlInfo};//Argument처리
+		this.gfn_SqlPop(sPopupId, sTitle, oArg);		
+	//}
+}
+
+//SQL 실행
+this.div_MasterView_btn_QueryRun_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sSql = "";
+	var sParamId = "";
+	var sParamValue = "";
+		
+	if (this.tab_Master.tabindex == 0) {
+		sSql = this.ds_Master10.getColumn(0, "AUTM_GU");
+		sParamId = "";
+		sParamValue = "";
+		for (var iLoop=0; iLoop<this.ds_Param.getRowCount(); iLoop++) {
+			sParamId = this.ds_Param.getColumn(iLoop, "PARAM_ID");
+			sParamValue = this.ds_Param.getColumn(iLoop, "PARAM_VALUE");
+			sSql = nexacro.replaceAll(sSql, sParamId, "'" + sParamValue + "'");
+		}
+		
+		this.tab_Master.tpg_01.form.txt_Query.set_value(sSql);
+	} else {
+	
+		for (var iLoop=0; iLoop<this.ds_Detail10.getRowCount(); iLoop++) {
+			if (iLoop ==0) {
+				sSql = this.ds_Detail10.getColumn(iLoop, "AUTD_GU");
+			} else {
+				sSql = sSql + "\n" + "UNION ALL \n" + this.ds_Detail10.getColumn(iLoop, "AUTD_GU");
+			}
+		}
+		
+		sParamId = "";
+		sParamValue = "";
+		for (var iLoop=0; iLoop<this.ds_Param.getRowCount(); iLoop++) {
+			sParamId = this.ds_Param.getColumn(iLoop, "PARAM_ID");
+			sParamValue = this.ds_Param.getColumn(iLoop, "PARAM_VALUE");
+			sSql = nexacro.replaceAll(sSql, sParamId, "'" + sParamValue + "'");
+		}
+		
+		this.tab_Master.tpg_02.form.txt_Query.set_value(sSql);	
+	}
+	
+	var sOwnner = "ST";
+	var sSOwnner = sOwnner.toLowerCase();
+	var sSelectQuery = "";//쿼리-조회
+	var sSelectHeadQuery = "";//쿼리헤더-조회
+	var sSelectQueryDetail = "";//쿼리상세-조회
+	if (this.tab_Master.tabindex == 0) {
+		sSelectQueryDetail = this.tab_Master.tpg_01.form.txt_Query.value;//쿼리상세-조회
+	} else {
+		sSelectQueryDetail = this.tab_Master.tpg_02.form.txt_Query.value;//쿼리상세-조회
+	}
+	var sReturn = "\n";
+	
+	sSelectHeadQuery = '<?xml version="1.0" encoding="utf-8"?>' + sReturn;
+	sSelectHeadQuery = sSelectHeadQuery + '<query>' + sReturn;				
+	sSelectHeadQuery = sSelectHeadQuery + '    <type>select</type>' + sReturn;				
+	sSelectHeadQuery = sSelectHeadQuery + '    <description><![CDATA[ 임시조회 쿼리 ]]]]><![CDATA[></description>' + sReturn;
+	sSelectHeadQuery = sSelectHeadQuery + '    <reload>true</reload>' + sReturn;
+	sSelectHeadQuery = sSelectHeadQuery + '    <monitoring>true</monitoring>' + sReturn;
+	sSelectHeadQuery = sSelectHeadQuery + '    <result-count>1</result-count>' + sReturn;
+	sSelectHeadQuery = sSelectHeadQuery + '    <statement>' + sReturn;	
+	sSelectHeadQuery = sSelectHeadQuery + '    <![CDATA[' + sReturn + sReturn;		
+
+	sSelectQuery = sSelectHeadQuery + sSelectQueryDetail;		
+	sSelectQuery = sSelectQuery + sReturn + '    ]]]]><![CDATA[>'; 
+	sSelectQuery = sSelectQuery + sReturn + '    </statement>';
+	sSelectQuery = sSelectQuery + sReturn + '    <input default-name="_none">';
+	sSelectQuery = sSelectQuery + sReturn + '    </input>';
+	sSelectQuery = sSelectQuery + sReturn + '    <output default-name="ds_FreeQueryResultList">';
+	sSelectQuery = sSelectQuery + sReturn + '    </output>';
+	sSelectQuery = sSelectQuery + sReturn + '</query>';
+			
+	if (this.tab_Master.tabindex == 0) {
+		this.ds_FreeQueryResultList.clear();	
+	} else {
+		this.ds_FreeQueryResultList2.clear();	
+	}
+	this.ds_Where.clearData();
+	this.ds_Where.addRow();
+	this.ds_Where.setColumn(0, "OWNER", sSOwnner);
+	this.ds_Where.setColumn(0, "TABLE_ID", "");
+	this.ds_Where.setColumn(0, "QUERY", sSelectQuery);	
+	
+	var objApp = nexacro.getApplication();
+	var sHost = objApp.gvHost;
+	trace("sHost==" + sHost);
+	
+	//로컬이 아닌경우
+	if (sHost.indexOf("http://ierp") > -1) {
+		this.ds_Where.setColumn(0, "FILE_PATH", "D:\\\\Apps\\\\AppScr\\\\\ERP\\\\WEB-INF\\\\fsp\\\\sqlmap\\\\" + sSOwnner);	
+		this.ds_Where.setColumn(0, "FILE_NM", "D:\\\\Apps\\\\AppScr\\\\\ERP\\\\WEB-INF\\\\fsp\\\\sqlmap\\\\" + sSOwnner + "\\\\T_" + sOwnner.substr(0,2) + "_TMPSQL");	
+	} else {	
+		this.ds_Where.setColumn(0, "FILE_PATH", "C:\\\\ST_SYS\\\\workspace\\\\ST_ERP\\\\WebContent\\\\WEB-INF\\\\fsp\\\\sqlmap\\\\" + sSOwnner);	
+		this.ds_Where.setColumn(0, "FILE_NM", "C:\\\\ST_SYS\\\\workspace\\\\ST_ERP\\\\WebContent\\\\WEB-INF\\\\fsp\\\\sqlmap\\\\" + sSOwnner + "\\\\T_" + sOwnner.substr(0,2) + "_TMPSQL");
+	}
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "QUERY_MAKE_TEMP";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = "SmQueryMakeAction";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sMethodName = "makeTempFile";// Action 안에서 호출해야 하는 메소드 명, 기본은 execute를 호출하도록 되어있음	
+	svcCallObj.sInputDaset = "ds_Where=ds_Where" //입력 데이터셋
+	if (this.tab_Master.tabindex == 0) {
+		svcCallObj.sOutDatset = "ds_FreeQueryResultList=ds_FreeQueryResultList";//출력 데이터셋
+	} else {
+		svcCallObj.sOutDatset = "ds_FreeQueryResultList2=ds_FreeQueryResultList";//출력 데이터셋
+	}
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+	
+};
+
+//임시생성 쿼리 조회
+this.fn_GetTempQuery = function()
+{
+	var sOwnner = "ST";
+	
+	var sSOwnner = sOwnner.toLowerCase();
+	this.ds_Where.clearData();
+	if (this.tab_Master.tabindex == 0) {
+		this.ds_FreeQueryResultList.clearData();
+	} else {
+		this.ds_FreeQueryResultList2.clearData();
+	}
+
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = sSOwnner + ":T_" + sOwnner.substr(0,2) + "_TMPSQL_SL00"
+	this.gfn_AddComSearchService(this, svcAddObj);	
+
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "MAKE_TEMP_LIST";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = "";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = ""; //입력 데이터셋
+	if (this.tab_Master.tabindex == 0) {
+		svcCallObj.sOutDatset = "ds_FreeQueryResultList=ds_FreeQueryResultList";//출력 데이터셋
+	} else {
+		svcCallObj.sOutDatset = "ds_FreeQueryResultList2=ds_FreeQueryResultList";//출력 데이터셋
+	}
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+
+
+};]]></Script>
+  </Form>
+</FDL>

@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="cmmPopup" width="512" height="384" titletext="화면 연결" onload="form_onload" onkeydown="form_onkeydown">
+    <Layouts>
+      <Layout height="384" width="512">
+        <Div id="divForm" taborder="1" left="0" top="0" right="0" bottom="0"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  컨설팅 표준화 작업
+*  @MenuPath    cmm > cmmPopup.xfdl (공통 팝업페이지)
+*  @FileName 	cmmPopup.xfdl 
+*  @Creator 	consulting
+*  @CreateDate 	2017.10.19
+*  @Desction         스크립트 표준 및 주석 표준 정의
+************** 소스 수정 이력 ***************************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2017.03.09     	consulting 	                최초 생성 
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+
+/***********************************************************************************************
+* FORM EVENT 영역(onload)
+/***********************************************************************************************/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	//this.gfn_FormOnLoad(this); //초기화[필수]
+	//trace("paramTitle : " + this.getOwnerFrame().paramTitle);	
+	//trace("paramUrl : " + this.getOwnerFrame().paramUrl);	
+
+	//타이틀세팅
+	//if( !this.gfnIsNull(this.getOwnerFrame().paramTitle)){
+	//	this.set_titletext(this.getOwnerFrame().paramTitle);
+	//}
+	//divForm url 세팅
+	if( !this.gfn_IsNull(this.getOwnerFrame().paramUrl)){
+		this.divForm.set_url(this.getOwnerFrame().paramUrl);
+	}
+	
+	//화면해상도 체크해서 팝업사이즈 재조정
+	var orgWidth = this.getOffsetWidth();//원래화면 너비
+	var orgHeight = this.getOffsetHeight();//원래화면 높이
+	var nWidth = nexacro.getApplication().mainframe.width;//화면해상도 너비
+	var nHeight = nexacro.getApplication().mainframe.height;//화면해상도 높이
+
+	if (orgWidth > nWidth || orgHeight > nHeight) {
+		this.getOwnerFrame().set_width(nWidth);
+		this.getOwnerFrame().set_height(nHeight);
+		this.set_width(nWidth);
+		this.set_height(nHeight);	
+		this.getOwnerFrame().set_left(0);
+		this.getOwnerFrame().set_top(0);		
+		this.resetScroll();
+	}	
+};
+
+/************************************************************************************************
+* TRANSACTION 서비스 호출 처리
+************************************************************************************************/
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분
+ ************************************************************************************************/
+
+ /************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+ 
+ /************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/
+
+/**
+ * @description 각 화면에서 디버그창을 호출할 수 있도록 단축키 지정
+*/
+this.form_onkeydown = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{
+	// 공통 키다운 이벤트 호출
+	this.gfn_Onkeydown(obj, e);
+};
+]]></Script>
+  </Form>
+</FDL>

@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="BANMINFO" width="800" height="500" titletext="은행정보" scrollbartype="none" onclose="fn_FormClose" onload="fn_FormOnload" onsize="fn_FormOnsize">
+    <Layouts>
+      <Layout height="500" width="800">
+        <Div id="div_Search" taborder="0" left="12" top="50" height="66" cssclass="div_WF_Search" right="12" formscrollbartype="none none">
+          <Layouts>
+            <Layout>
+              <Static id="sta_BanmNm" taborder="0" text="은행명" left="16" top="6" width="80" height="26" cssclass="sta_WF_SLabel"/>
+              <Edit id="edt_BanmNm" taborder="1" left="96" top="6" width="240" height="24" onchanged="div_Search_edt_SechVl_onchanged"/>
+              <Static id="sta_UsedYn" taborder="2" text="사용여부" left="376" top="6" width="100" height="24" cssclass="sta_WF_SLabel"/>
+              <Combo id="cbo_UsedYn" taborder="3" left="486" top="6" height="24" innerdataset="ds_Sm088" codecolumn="CODM_CD" datacolumn="CODM_NM" width="200"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="grd_Master10" taborder="1" left="12" top="126" autofittype="col" right="12" oncelldblclick="grd_Master10_oncelldblclick" bottom="14" cellsizingtype="col" binddataset="ds_Master10" onkeyup="grd_Master10_onkeyup" selecttype="multiarea">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="35"/>
+                <Column size="200"/>
+                <Column size="100"/>
+                <Column size="200"/>
+                <Column size="200"/>
+                <Column size="100"/>
+              </Columns>
+              <Rows>
+                <Row size="26" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="No."/>
+                <Cell col="1" text="은행명"/>
+                <Cell col="2" text="지점코드"/>
+                <Cell col="3" text="지점명"/>
+                <Cell col="4" text="은행요약명"/>
+                <Cell col="5" text="사업자등록번호"/>
+              </Band>
+              <Band id="body">
+                <Cell expr="currow+1" textAlign="center"/>
+                <Cell col="1" text="bind:BANM_GU" textAlign="left" combodataset="ds_Fa005" combodatacol="CODM_NM" combocodecol="CODM_CD" displaytype="combotext"/>
+                <Cell col="2" text="bind:BANM_CD" textAlign="center"/>
+                <Cell col="3" textAlign="left" text="bind:BANM_NM"/>
+                <Cell col="4" text="bind:BANS_NM"/>
+                <Cell col="5" text="bind:SAUM_NO" textAlign="center" displaytype="mask" maskedittype="string" maskeditformat="@@@-@@-@@@@@"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Div id="div_PopupTitle" taborder="2" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Close" taborder="0" text="닫기" top="9" width="70" height="26" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+              <Static id="sta_PopupTitle" taborder="1" text="은행지점정보" left="20" top="10" height="24" cssclass="sta_WF_PopupTitle" width="300"/>
+              <Button id="btn_Search" taborder="2" text="조회" top="8" width="65" right="161" visible="true" cssclass="bt_WF_PopupSearch" height="28" onclick="div_PopupTitle_btn_Search_onclick"/>
+              <Button id="btn_Choice" taborder="3" text="선택" top="8" width="65" right="90" visible="true" cssclass="bt_WF_PopupSelect" height="28" onclick="div_PopupTitle_btn_Choice_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="BANM_NM" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Sm088">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="BANM_CD" type="STRING" size="256"/>
+          <Column id="BANM_NM" type="STRING" size="256"/>
+          <Column id="BANM_GU" type="STRING" size="256"/>
+          <Column id="BANS_NM" type="STRING" size="256"/>
+          <Column id="SAUM_NO" type="STRING" size="256"/>
+          <Column id="POST_NO" type="STRING" size="256"/>
+          <Column id="ADDR_NM" type="STRING" size="256"/>
+          <Column id="OTEL_NO" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DELE_ID" type="STRING" size="256"/>
+          <Column id="DELE_NM" type="STRING" size="256"/>
+          <Column id="DELE_DT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Fa005">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : 
+*  @화면설명 : 은행정보
+*  @시스템명 : (SM) 시스템
+*  @작성자   : 박지용
+*  @작성일   : 2021.05.18
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.05.18     	    박지용 	           최초 생성
+*  2021.09.29     	    박혜림 	           수정(리스트에 컬럼추가)
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * 1. Form Include 선언 영역
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+this.fvBanmNm = "";//[부모창파라메타] 은행명
+
+/***********************************************************************************************
+ * 3. Form 이벤트 영역
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 3.1. Form Onload 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	//부모창 파라메타 처리
+	this.fvBanmNm = this.getOwnerFrame().BanmNm;//[부모창파라메타] 은행명
+	this.fvComPrgmId = this.getOwnerFrame().PrgmId;//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+	
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+	
+	
+	//자동조회
+	//this.div_PopupTitle_btn_Search_onclick();
+	
+	
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.2. Form [공통] 초기설정 함수 - 필수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.gfn_SetGrid(this.grd_Master10);//[공통]그리드 이벤트 설정 - 출력목록
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.3. Form [업무] 초기설정 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormBizInit = function() 
+{
+	//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+	var objCondList = ["SM088|ds_Sm088","FA005|ds_Fa005"];
+	//공통코드 설정함수 호출				   
+	this.gfn_GetCommCode(this, objCondList, "");
+	
+	//콤보 인덱스 설정
+	this.div_Search.form.cbo_UsedYn.set_index(1);
+	
+	if (!this.gfn_IsNull(this.fvBanmNm)) {
+		this.div_Search.form.edt_BanmNm.set_value(this.fvBanmNm);
+		this.div_PopupTitle_btn_Search_onclick();//조회
+	}
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.4. Form OnClose 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/*---------------------------------------------------------------------------------------------
+ * 3.4. Form OnSize 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{
+	if (obj.width > 1100) {
+		this.grd_Master10.set_autofittype("col");
+	} else {
+		this.grd_Master10.set_autofittype("none");
+	}
+};
+
+/***********************************************************************************************
+ * 4. [화면] 버튼 이벤트 영역
+ -----------------------------------------------------------------------------------------------
+   4.1.조회 : btn_Search_onclick
+   4.2.선택 : btn_Choice_onclick
+   4.3.닫기 : fn_Close
+ ***********************************************************************************************/
+
+/*---------------------------------------------------------------------------------------------
+ * 4.1. 조회 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+	this.ds_Master10.clearData();
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+
+	this.ds_Input.setColumn(0, "BANM_NM", this.div_Search.form.edt_BanmNm.value);//은행명	
+	this.ds_Input.setColumn(0, "USED_YN", this.div_Search.form.cbo_UsedYn.value);//사용여부	
+	
+// 	//사용여부-사용
+// 	if (this.div_Search.form.cbo_UsedYn.value == "0020") {
+// 		this.ds_Input.setColumn(0, "USED_YN", "1");//사용여부
+// 	} else if (this.div_Search.form.cbo_UsedYn.value == "0030") {
+// 		this.ds_Input.setColumn(0, "USED_YN", "0");//사용여부
+// 	} else {
+// 		this.ds_Input.setColumn(0, "USED_YN", "");//사용여부
+// 	}
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "fa:M_FA_BANM_C_SL00";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "MST_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= this.G_SV_FA;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "ds_Master10=ds_FaBanm";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);		
+};
+
+/*---------------------------------------------------------------------------------------------
+ *  4.2. 선택 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Choice_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_SelectRow(this.ds_Master10.rowposition);//선택한 행 리턴
+};
+
+
+
+/*---------------------------------------------------------------------------------------------
+ *  4.3. 닫기 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_PopClose();
+};
+
+
+/***********************************************************************************************
+ * 5. [조회영역] 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 5.1. [조회영역-공통] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.1.1. [조회영역-팝업버튼] 
+  ---------------------------------------------------------------------------------------------*/
+this.fn_SbpBtn_Do01 = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 5.2. [조회영역-업무] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.2.1. [조회영역-Edit] 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_SechVl_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	this.div_PopupTitle_btn_Search_onclick();//검색
+};
+
+/***********************************************************************************************
+ * 6. [컴포넌트] 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 6.1. [상세-그리드] 더블 클릭 이벤트
+ ***********************************************************************************************/ 
+this.grd_Master10_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.fn_SelectRow(e.row);//선택한 행 리턴
+};
+
+
+/***********************************************************************************************
+ * 6.2. [Master10 그리드] ENTER KEY 줄선택 이벤트
+ ***********************************************************************************************/  
+this.grd_Master10_onkeyup = function(obj:nexacro.Grid,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == "13"){
+		this.fn_SelectRow(e.row);//선택한 행 리턴
+	}
+}; 
+
+/***********************************************************************************************
+ * 7. [서비스] CallBack 함수 처리부분
+ ***********************************************************************************************/
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST_SEARCH": //조회	
+			//조회시 focus 이동
+			this.grd_Master10.setFocus(0);			
+			break;						
+	}
+};
+
+/***********************************************************************************************
+ * 8. [팝업] CallBack 함수 처리부분
+      strId : 팝업호출시 지정한 팝업ID
+	  rtnValue : 팝업창에서 close시 지정한 반환값
+      주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+};
+
+/***********************************************************************************************
+ * 9. [메세지] CallBack 함수 처리부분
+ ***********************************************************************************************/
+/**
+ * @description 메세지 CallBack 함수
+*/
+this.fn_MsgCallback = function (strId, strVal)
+{
+
+};
+
+/***********************************************************************************************
+ * 10. [사용자함수]
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 10.1. [사용자함수] 선택한 행 리턴
+ ***********************************************************************************************/ 
+this.fn_SelectRow = function(iRow)
+{
+	if (iRow > -1) {	
+	
+        var  rtnValue = "({" +
+                        ' COMM_CD:"' + this.ds_Master10.getColumn(iRow, "COMM_CD") + '"'+  //0.회사코드
+                        ',BANM_CD:"' + this.ds_Master10.getColumn(iRow, "BANM_CD") + '"'+  //1.지점코드
+                        ',BANM_NM:"' + this.ds_Master10.getColumn(iRow, "BANM_NM") + '"'+  //2.지점명
+                        ',BANM_GU:"' + this.ds_Master10.getColumn(iRow, "BANM_GU") + '"'+  //3.은행코드(HR777)
+                        ',BANS_NM:"' + this.gfn_Nvl(this.ds_Master10.getColumn(iRow, "BANS_NM"), "") + '"'+  //4.은행_요약명
+                        ',SAUM_NO:"' + this.ds_Master10.getColumn(iRow, "SAUM_NO") + '"'+  //5.사업자등록번호
+                        ',OTEL_NO:"' + this.ds_Master10.getColumn(iRow, "OTEL_NO") + '"'+  //6.전화번호
+                        ',POST_NO:"' + this.ds_Master10.getColumn(iRow, "POST_NO") + '"'+  //7.우편번호
+                        ',ADDR_NM:"' + this.ds_Master10.getColumn(iRow, "ADDR_NM") + '"'+  //8.주소
+                        ',SORT_NO:"' + this.ds_Master10.getColumn(iRow, "SORT_NO") + '"'+  //9.정렬순서
+                        ',USED_YN:"' + this.ds_Master10.getColumn(iRow, "USED_YN") + '"'+  //10.사용여부
+                        ',REMK_NM:"' + this.ds_Master10.getColumn(iRow, "REMK_NM") + '"'+  //11.비고
+                "})";
+
+					
+		this.gfn_PopClose(rtnValue);
+	} else {
+		this.gfn_Alert("SM046");//선택된 내용이 없습니다.
+		return;		
+	}
+}
+
+
+
+]]></Script>
+  </Form>
+</FDL>

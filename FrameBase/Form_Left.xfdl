@@ -1,0 +1,1875 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Form_Left" width="300" height="999" titletext="Form_Left" onload="Form_Left_onload" cssclass="bt_LF_MyInfo" ontimer="Form_Left_ontimer">
+    <Layouts>
+      <Layout width="300" height="999">
+        <Div id="div_MenuS" taborder="0" left="0" top="0" width="57" bottom="0" visible="false" background="#0198cc">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Home" taborder="0" left="0" top="0" width="57" height="57" cssclass="bt_LF_Home" text="" onclick="div_MenuS_btn_Home_onclick"/>
+              <Button id="btn_Menu01" taborder="1" left="0" top="97" width="57" height="90" onclick="fn_GroupMenuBtnClick" text="Menu&#13;&#10;All" cssclass="bt_LF_AllMenu" textAlign="center" cursor="pointer" tooltiptext="전체메뉴"/>
+              <Button id="btn_MenuRecent" taborder="2" left="0" top="187" width="57" height="86" escapebutton="true" text="Menu&#13;&#10;Recent" cssclass="bt_LF_Recent" onclick="div_MenuS_btn_MenuRecent_onclick" cursor="pointer" tooltiptext="최근사용메뉴"/>
+              <Button id="btn_Staff" taborder="3" left="0" top="273" width="57" height="80" text="Staff" cssclass="bt_LF_Group" cursor="pointer" onclick="div_MenuS_btn_Staff_onclick" tooltiptext="조직도" visible="false"/>
+              <Button id="btn_Imemo" taborder="4" left="0" top="353" width="57" height="80" text="i-Memo" cssclass="bt_LF_Minutes" onclick="div_MenuS_btn_Imemo_onclick" cursor="pointer" tooltiptext="i-Memo" visible="false"/>
+              <Button id="btn_Workflow" taborder="5" left="0" top="433" width="57" height="80" text="Work&#13;&#10;flow" cssclass="bt_LF_SMS" cursor="pointer" onclick="div_MenuS_btn_Workflow_onclick" tooltiptext="결재함" visible="false"/>
+              <Button id="btn_HelpDesk" taborder="6" left="0" top="513" width="57" height="88" text="Help&#13;&#10;Desk" cssclass="bt_LF_Help" cursor="pointer" tooltiptext="Help Desk" visible="false" onclick="div_MenuS_btn_HelpDesk_onclick"/>
+              <Button id="btn_Manager" taborder="7" left="0" top="601" width="57" height="84" cssclass="bt_LF_Incharge" text="IT Manager" cursor="pointer" tooltiptext="IT관리자" visible="false" onclick="div_MenuS_btn_Manager_onclick"/>
+              <Button id="btn_MenuOpen" taborder="8" left="0" top="57" width="57" height="40" onclick="div_MenuS_btn_MenuOpen_onclick" cssclass="bt_LF_Toggle"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_LeftMenu" taborder="1" left="57" top="0" bottom="0" right="0">
+          <Layouts>
+            <Layout>
+              <Grid id="grd_MenuList" taborder="1" left="0" top="183" right="0" cssclass="grd_LF_Menu" binddataset="ds_Menu" treeuseline="true" treeusebutton="use" treeusecheckbox="false" treeinitstatus="collapse,all" autofittype="col" bottom="100" oncellclick="div_LeftMenu_grd_MenuList_oncellclick" cursor="pointer" oncelldblclick="div_LeftMenu_grd_MenuList_oncelldblclick">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="249"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="10" band="head"/>
+                      <Row size="30"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:MENU_NM" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:MENU_LV" cssclass="expr:(CLSM_YN == '0' &amp;&amp; USED_YN == '0')?'grid_WF_Grey':''"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Static id="Static01" taborder="0" left="0" top="0" height="183" right="0" cssclass="sta_LF_Menu"/>
+              <ImageViewer id="img_Logo" taborder="2" left="12" top="23" height="42" background="url('theme://images/logo_ierp.png') no-repeat center center" right="8" border="0px none" text=""/>
+              <Static id="sta_DeptNm" taborder="3" text="디지털컨텐츠 사업부" left="14" top="67" height="24" right="12" cssclass="sta_LF_Dept" textAlign="right"/>
+              <Static id="sta_UserNm" taborder="4" text="홍길동 부장" left="91" top="88" height="24" right="32" textAlign="right" cssclass="sta_LF_Name"/>
+              <ImageViewer id="img_IcoMy" taborder="5" left="211" top="88" height="24" background="url('theme://images/icon_my.png') no-repeat center center" border="0px none" right="8"/>
+              <Button id="btn_LogOut" taborder="6" top="114" height="15" right="12" width="42" cssclass="bt_LF_LogOut" onclick="div_LeftMenu_btn_LogOut_onclick" cursor="pointer"/>
+              <Button id="btn_MyInfo" taborder="7" top="114" width="42" height="15" right="57" cssclass="bt_LF_MyInfo" onclick="div_LeftMenu_btn_MyInfo_onclick" cursor="pointer"/>
+              <Edit id="edt_Search" taborder="8" left="10" top="142" width="156" height="30" autoselect="true" displaynulltext="메뉴명을 입력하세요." onkeydown="div_LeftMenu_edt_Search_onkeydown" cssclass="edit_LF_MenuSearch"/>
+              <Button id="btn_MenuSearch" taborder="9" left="163" top="142" height="30" right="10" border="0px none" borderRadius="0px" onclick="div_LeftMenu_btn_MenuSearch_onclick" cssclass="bt_LF_MenuSearch" cursor="pointer"/>
+              <Static id="Static01_00" taborder="10" left="0" right="0" cssclass="sta_LF_Menu" bottom="0" height="100"/>
+              <Static id="sta_Logo" taborder="11" text="ⓒ SynusTech  " left="10" height="24" font="12px/normal &quot;Malgun Gothic&quot;,&quot;돋움&quot;" textAlign="right" bottom="32" onclick="div_LeftMenu_sta_DeptNm00_onclick" color="#a1a1a1" width="85"/>
+              <Combo id="cbo_LinkSite" taborder="12" text="Link Site" left="10" height="30" right="40" value="" index="-1" displaynulltext="Link Site" bottom="59" cursor="pointer" innerdataset="ds_Sm910" codecolumn="OP01_NM" datacolumn="CODM_NM" onitemchanged="div_LeftMenu_cbo_LinkSite_onitemchanged"/>
+              <Button id="sta_Erp" taborder="13" text="ERP환경설정" left="161" height="32" cssclass="bt_LF_Setting" width="73" bottom="36" cursor="pointer" visible="false" onclick="div_LeftMenu_sta_Erp_onclick"/>
+              <Button id="sta_Junkyul" taborder="14" text="| 전결규정 |" left="90" height="32" cssclass="bt_LF_Setting" width="68" bottom="36" cursor="pointer" visible="false" onclick="div_LeftMenu_sta_Junkyul_onclick"/>
+              <Button id="Button00_01" taborder="15" left="204" width="30" height="30" cssclass="bt_LF_LinkEdit" bottom="59" cursor="pointer"/>
+              <Button id="btn_ChangUser" taborder="16" top="114" width="60" height="15" right="102" text="사용자변경" font="9px/normal &quot;Algerian&quot;" background="white" border="1px solid darkgray" onclick="div_LeftMenu_btn_ChangUser_onclick" visible="false" cursor="pointer"/>
+              <Static id="sta_DbInfo" taborder="17" left="116" top="43" width="100" height="26" color="red" font="bold 22px/normal &quot;Malgun Gothic&quot;" visible="false"/>
+              <Button id="btn_Refresh" taborder="18" top="48" width="17" height="17" cssclass="bt_WF_wgRefresh" onclick="btn_Refresh_onclick" right="10" cursor="pointer" tooltiptext="DB정보 조회 새로고침" visible="false"/>
+              <Button id="btn_CnthNoReload" taborder="19" top="114" width="60" height="15" text="코드갱신" font="9px/normal &quot;Algerian&quot;" background="white" border="1px solid darkgray" visible="false" cursor="pointer" onclick="div_LeftMenu_btn_CnthNoReload_onclick" tooltiptext="계약번호갱신" left="10"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_SearchMenu" taborder="2" left="330" top="183" bottom="100" visible="false" width="243">
+          <Layouts>
+            <Layout>
+              <Static id="Static01" taborder="0" left="0" top="0" height="46" right="0" cssclass="sta_LF_ResultTitle" text="메뉴검색결과"/>
+              <Grid id="grd_MenuList" taborder="1" left="0" top="75" right="0" cssclass="grd_LF_Menu" binddataset="ds_SearchMenu" treeuseline="false" treeusebutton="no" treeusecheckbox="false" treeinitstatus="expand,all" autofittype="col" bottom="0" oncellclick="div_SearchMenu_grd_MenuList_oncellclick" cursor="pointer">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="249"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="10" band="head"/>
+                      <Row size="30"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:MENU_NM" padding="0px 0px 0px 10px" cssclass="expr:(CLSM_YN == '0' &amp;&amp; USED_YN == '0')?'grid_WF_Grey':''" displaytype="treeitemcontrol"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Static id="sta_SearchResult" taborder="2" left="0" top="45" height="30" right="0" text="0건이 검색되었습니다." cssclass="sta_LF_SearchResult" padding="0px 10px 0px 12px"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_RecentMenu" taborder="3" left="600" top="183" bottom="100" visible="false" width="243">
+          <Layouts>
+            <Layout>
+              <Static id="Static01" taborder="0" left="0" top="0" height="46" right="0" cssclass="sta_LF_ResultTitle" text="최근메뉴(7일)"/>
+              <Grid id="grd_MenuList" taborder="1" left="0" top="45" right="0" cssclass="grd_LF_Menu" binddataset="ds_RecedntMenu" treeuseline="false" treeusebutton="no" treeusecheckbox="false" treeinitstatus="expand,all" autofittype="col" bottom="0" oncellclick="div_RecentMenu_grd_MenuList_oncellclick">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="249"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="10" band="head"/>
+                      <Row size="30"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:MENU_NM" padding="0px 0px 0px 10px" cssclass="expr:(CLSM_YN == '0' &amp;&amp; USED_YN == '0')?'grid_WF_Grey':''"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_MenuSp" taborder="4" left="60" top="0" width="57" bottom="0" visible="false" background="#0198cc">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Home" taborder="0" left="0" top="0" width="57" height="57" cssclass="bt_LF_Home" text="" onclick="div_MenuS_btn_Home_onclick"/>
+              <Button id="btn_Menu01" taborder="1" left="0" top="97" width="57" height="90" onclick="fn_GroupMenuBtnClick" text="Menu&#13;&#10;All" cssclass="bt_LF_AllMenu" textAlign="center" cursor="pointer" tooltiptext="전체메뉴"/>
+              <Button id="btn_MenuRecent" taborder="2" left="0" top="187" width="57" height="86" escapebutton="true" text="Menu&#13;&#10;Recent" cssclass="bt_LF_Recent" onclick="div_MenuS_btn_MenuRecent_onclick" cursor="pointer" tooltiptext="최근사용메뉴"/>
+              <Button id="btn_Estimate" taborder="3" left="0" top="273" width="57" height="80" text="견적&#13;&#10;등록" cssclass="bt_LF_Estimate" cursor="pointer" tooltiptext="견적등록" onclick="div_MenuSp_btn_Estimate_onclick"/>
+              <Button id="btn_OrderConfirm" taborder="4" left="0" top="353" width="57" height="80" text="발주&#13;&#10;확인" cssclass="bt_LF_OrderConfirm" cursor="pointer" tooltiptext="발주확인" onclick="div_MenuSp_btn_OrderConfirm_onclick"/>
+              <Button id="btn_Shipment" taborder="5" left="0" top="433" width="57" height="80" text="납품&#13;&#10;관리" cssclass="bt_LF_Shipment" cursor="pointer" tooltiptext="납품관리" onclick="div_MenuSp_btn_Shipment_onclick"/>
+              <Button id="btn_Bill" taborder="6" left="0" top="513" width="57" height="88" text="매출&#13;&#10;현황" cssclass="bt_LF_Bill" cursor="pointer" tooltiptext="매출현황" visible="true" onclick="div_MenuSp_btn_Bill_onclick"/>
+              <Button id="btn_MenuOpen" taborder="7" left="0" top="57" width="57" height="40" onclick="div_MenuS_btn_MenuOpen_onclick" cssclass="bt_LF_Toggle"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.fvNowWorkGrp="";//현재업무그룹
+this.fvNowWorkGrpBtn="";//현재업무그룹-버튼
+this.fvMenuOpenMode="A";//메뉴열기모드:A-전체
+this.gvMenuOpenMode = true;//좌측메뉴 OPEM여부 - true:OPEN, false:CLOSE
+this.fvWkDyMessage = "";//업무일지 체크 관련 메시지
+
+this.Form_Left_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.fn_InitMenu();
+	this.fn_InitCode(); 	// 부서, 직원, 거래처 ---> 20221208 JCH 추가 - 계약번호만 적용
+};
+
+this.fn_InitMenu = function() {
+	
+	if (nApp.gvSystem == "ERP") {
+	
+		if (nApp.gvMenuId == "M_SM_4300") {
+			this.setTimer( 0, 300 );//타이머 실행
+		} else {
+			this.div_MenuS.set_visible(true);
+			//버튼 보이게 설정
+			this.div_MenuS.form.btn_MenuRecent.set_visible(true);
+			this.div_MenuS.form.btn_Staff.set_visible(true);
+			this.div_MenuS.form.btn_Imemo.set_visible(true);
+			this.div_MenuS.form.btn_Workflow.set_visible(true);
+			this.div_MenuS.form.btn_HelpDesk.set_visible(true);
+			this.div_MenuS.form.btn_Manager.set_visible(true);
+
+			this.div_LeftMenu.form.sta_Junkyul.set_visible(true);
+			this.div_LeftMenu.form.sta_Erp.set_visible(true);		
+
+			this.div_LeftMenu.form.sta_DeptNm.set_text(this.gfn_GetSessionValue("DEPM_NM"));//부서명	
+			var sUserNm = this.gfn_Nvl(this.gfn_GetSessionValue("USEM_NM")) +  " " + this.gfn_Nvl(this.gfn_GetSessionValue("POSI_NM"));
+			this.div_LeftMenu.form.sta_UserNm.set_text(sUserNm);//사용자명		
+
+			var iAddRow = 0;
+
+			var sPGRM_CD = this.gfn_GetSessionValue("PGRM_CD");//권한그룹코드
+			//trace("sPGRM_CD==" + sPGRM_CD);
+			
+			//관리자 권한일경우에만 테이블 정보 메뉴 보여줌
+			if (sPGRM_CD.indexOf("SM00") > -1 || sPGRM_CD.indexOf("SM10") > -1 ) {
+
+				iAddRow = nApp.gds_Menu.addRow();
+				nApp.gds_Menu.setColumn(iAddRow, "MENU_ID", "ZZ80000000");
+				nApp.gds_Menu.setColumn(iAddRow, "MENU_NM", "테이블정보(개발용)");
+				nApp.gds_Menu.setColumn(iAddRow, "MENU_DEPH", "테이블정보(개발용)");
+				
+				nApp.gds_Menu.setColumn(iAddRow, "MENU_URL", "guide::sam09.xfdl");
+				nApp.gds_Menu.setColumn(iAddRow, "MENU_LV", "0");
+				nApp.gds_Menu.setColumn(iAddRow, "MENU_DST", "S");
+				nApp.gds_Menu.setColumn(iAddRow, "WORK_GRP_CD", "");
+				nApp.gds_Menu.setColumn(iAddRow, "UP_MENU_ID", "");
+				nApp.gds_Menu.setColumn(iAddRow, "PRGM_ID", "TableInfo");
+				nApp.gds_Menu.setColumn(iAddRow, "MENU_PARAM", "");
+				nApp.gds_Menu.setColumn(iAddRow, "BTN_INIT", "");
+				nApp.gds_Menu.setColumn(iAddRow, "BTN_NEW", "");
+				nApp.gds_Menu.setColumn(iAddRow, "BTN_DELETE", "");
+				nApp.gds_Menu.setColumn(iAddRow, "BTN_SAVE", "");
+				nApp.gds_Menu.setColumn(iAddRow, "BTN_SEARCH", "");
+				nApp.gds_Menu.setColumn(iAddRow, "BTN_EXCEL", "");	
+				nApp.gds_Menu.setColumn(iAddRow, "USED_YN", "1");
+			}
+			
+			iAddRow = nApp.gds_Menu.addRow();
+			nApp.gds_Menu.setColumn(iAddRow, "MENU_ID", "ZZ90000000");
+			nApp.gds_Menu.setColumn(iAddRow, "MENU_NM", "Portal");
+			nApp.gds_Menu.setColumn(iAddRow, "MENU_DEPH", "Portal");
+			nApp.gds_Menu.setColumn(iAddRow, "MENU_URL", "FrameBase::Form_Portal.xfdl");
+			nApp.gds_Menu.setColumn(iAddRow, "MENU_LV", "0");
+			nApp.gds_Menu.setColumn(iAddRow, "MENU_DST", "S");
+			nApp.gds_Menu.setColumn(iAddRow, "WORK_GRP_CD", "");
+			nApp.gds_Menu.setColumn(iAddRow, "UP_MENU_ID", "");
+			nApp.gds_Menu.setColumn(iAddRow, "PRGM_ID", "Form_Portal");
+			nApp.gds_Menu.setColumn(iAddRow, "MENU_PARAM", "");
+			nApp.gds_Menu.setColumn(iAddRow, "BTN_INIT", "");
+			nApp.gds_Menu.setColumn(iAddRow, "BTN_NEW", "");
+			nApp.gds_Menu.setColumn(iAddRow, "BTN_DELETE", "");
+			nApp.gds_Menu.setColumn(iAddRow, "BTN_SAVE", "");
+			nApp.gds_Menu.setColumn(iAddRow, "BTN_SEARCH", "");
+			nApp.gds_Menu.setColumn(iAddRow, "BTN_EXCEL", "");	
+			nApp.gds_Menu.setColumn(iAddRow, "USED_YN", "1");
+			
+			//업무일지작성 대상자 여부확인
+			//1. 직책 - 팀원만 체크
+			var sSYST_ID = this.gfn_GetSessionValue("SYST_ID");//시스템사번
+			var sDUTY_CD = this.gfn_GetSessionValue("DUTY_CD");//직책코드
+			var sTEUS_YN = this.gfn_GetSessionValue("TEUS_YN");//임시사용자여부
+			var bCheckYn = false;//체크대상여부
+			
+			if (sDUTY_CD == "0050") {
+				if (sTEUS_YN == "0") {
+					bCheckYn = true;//체크대상여부
+				}					
+			} 
+
+			//직책이 팀원이거나 임시사용자가 아니면 체크대상
+			if (bCheckYn) {
+				if (!this.gfn_IsNull(sSYST_ID)) {
+				
+					//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+					this.ds_Input.clearData();
+					this.ds_Wkdy.clearData();
+
+					//[공통]서비스정보 초기화
+					this.gfn_InitComService(this);
+					
+					//[공통]서비스정보 추가 - 업무일지 미체크자 정보 조회
+					var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+					svcAddObj.sSelectSql = "sm:M_SM_WKDY_M_SL10";
+					this.gfn_AddComSearchService(this, svcAddObj);
+					
+					//[공통]서비스 호출 변수
+					var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+					svcCallObj.sTrid = "WKDY_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+					svcCallObj.sActionName = this.G_SV_SR;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+					svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+					svcCallObj.sOutDatset = "ds_Wkdy=ds_Wkdy";//출력 데이터셋
+					svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+					svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+					svcCallObj.isSync = true;//동기식으로 설정할지 여부
+					
+					//[공통]서비스 호출
+					this.gfn_CallComService(this, svcCallObj);
+					
+					nApp.gds_WkdyInfo.clearData();
+					nApp.gds_WkdyInfo.addRow();
+					nApp.gds_WkdyInfo.setColumn(0, "SYST_ID", sSYST_ID);//시스템사번				
+		
+					if(this.ds_Wkdy.getRowCount() > 0) {
+						//업무일지 제어 사용
+						if (this.ds_Wkdy.getColumn(0, "CODM_CD") == "0010" && this.ds_Wkdy.getColumn(0, "OP01_NM") == "1") {
+							if (this.ds_Wkdy.getCaseCount("OP01_NM == '" + sSYST_ID + "'") > 0) {
+								nApp.gds_WkdyInfo.setColumn(0, "WKDY_YN", "N");//업무일지체크 대상여부(Y-체크대상)
+							} else {
+								nApp.gds_WkdyInfo.setColumn(0, "WKDY_YN", "Y");//업무일지체크 대상여부(Y-체크대상)
+							}
+						} else {
+							nApp.gds_WkdyInfo.setColumn(0, "WKDY_YN", "N");//업무일지체크 대상여부(Y-체크대상)
+						}
+					} else {							
+						nApp.gds_WkdyInfo.setColumn(0, "WKDY_YN", "N");//업무일지체크 대상여부(Y-체크대상)
+					}
+				}		
+			} else {
+				if (!this.gfn_IsNull(sSYST_ID)) {
+					nApp.gds_WkdyInfo.clearData();
+					nApp.gds_WkdyInfo.addRow();
+					nApp.gds_WkdyInfo.setColumn(0, "SYST_ID", sSYST_ID);//시스템사번
+					nApp.gds_WkdyInfo.setColumn(0, "WKDY_YN", "N");//업무일지체크 대상여부(Y-체크대상)
+				}
+			}
+		}
+	} else if (nApp.gvSystem == "SRM") {
+	
+		var iAddRow = nApp.gds_Menu.addRow();
+
+		nApp.gds_Menu.setColumn(iAddRow, "MENU_ID", "ZZ90000000");
+		nApp.gds_Menu.setColumn(iAddRow, "MENU_NM", "Portal");
+		nApp.gds_Menu.setColumn(iAddRow, "MENU_DEPH", "Portal");
+		nApp.gds_Menu.setColumn(iAddRow, "MENU_URL", "FrameBase::Form_Portal_SRM.xfdl");
+		nApp.gds_Menu.setColumn(iAddRow, "MENU_LV", "1");
+		nApp.gds_Menu.setColumn(iAddRow, "MENU_DST", "S");
+		nApp.gds_Menu.setColumn(iAddRow, "WORK_GRP_CD", "");
+		nApp.gds_Menu.setColumn(iAddRow, "UP_MENU_ID", "");
+		nApp.gds_Menu.setColumn(iAddRow, "PRGM_ID", "Form_Portal");
+		nApp.gds_Menu.setColumn(iAddRow, "MENU_PARAM", "");
+		nApp.gds_Menu.setColumn(iAddRow, "BTN_INIT", "");
+		nApp.gds_Menu.setColumn(iAddRow, "BTN_NEW", "");
+		nApp.gds_Menu.setColumn(iAddRow, "BTN_DELETE", "");
+		nApp.gds_Menu.setColumn(iAddRow, "BTN_SAVE", "");
+		nApp.gds_Menu.setColumn(iAddRow, "BTN_SEARCH", "");
+		nApp.gds_Menu.setColumn(iAddRow, "BTN_EXCEL", "");	
+		nApp.gds_Menu.setColumn(iAddRow, "USED_YN", "1");	
+		
+		this.div_MenuSp.set_left(0);
+		this.div_MenuSp.set_visible(true);
+		this.div_LeftMenu.form.sta_Erp.set_visible(true);	
+		this.div_LeftMenu.form.img_Logo.set_background("url('theme://images/logo_isrm.png') no-repeat center center");
+		this.div_LeftMenu.form.sta_DeptNm.set_text(this.gfn_GetSessionValue("COMM_NM"));//부서명	
+		var sUserNm = this.gfn_Nvl(this.gfn_GetSessionValue("USEM_NM")) +  " " + this.gfn_Nvl(this.gfn_GetSessionValue("POSI_NM"));
+		this.div_LeftMenu.form.sta_UserNm.set_text(sUserNm);//사용자명			
+		//this.div_LeftMenu.form.grd_MenuList.setTreeStatus(1, true);
+		//this.div_LeftMenu.form.grd_MenuList.setSubCellProperty( "body", 0, 0, "treestartlevel", "2" );
+		nApp.gds_Menu.deleteRow(0);
+		
+		//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+		this.ds_Input.clearData();
+		this.ds_Input.addRow();
+		this.ds_Input.setColumn(0, "SYST_ID", this.gfn_GetSessionValue("SYST_ID"));
+
+		//[공통]서비스정보 초기화
+		this.gfn_InitComService(this);
+		
+		//[공통]서비스정보 추가
+		var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sSelectSql = "sr:M_SR_CMAH_SL10";
+		this.gfn_AddComSearchService(this, svcAddObj);
+		
+		//[공통]서비스 호출 변수
+		var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		svcCallObj.sTrid = "SRM_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+		svcCallObj.sActionName = this.G_SV_SR;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+		svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+		svcCallObj.sOutDatset = "ds_Cmah=ds_Cmah";//출력 데이터셋
+		svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+		svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+		svcCallObj.isSync = true;//동기식으로 설정할지 여부
+		//[공통]서비스 호출
+		this.gfn_CallComService(this, svcCallObj);
+		if(this.ds_Cmah.rowcount == 0){
+			//사용약관 체크
+			var sPopupId = "S_TERMCONS_01";//팝업ID - 파트너 사용약관 동의
+			var oArg = {PrgmId:"S_TERMCONS_01", sCusmCd:this.gfn_GetSessionValue("CUSM_CD"), sCusmNm:this.gfn_GetSessionValue("CUSM_NM"), sTermYn:"Y"};//Argument처리
+			this.gfn_TermsPop(sPopupId, oArg);
+		}
+	
+	}
+	
+	//DB체크여부 확인
+	var objEnv = nexacro.getEnvironment();
+	var sSvcUrl = objEnv.services["svcUrl"].url;
+	
+	//로컬로 접속시 DB체크 필요
+	if (sSvcUrl.indexOf("localhost") > 0 || sSvcUrl.indexOf("127.0.0.1") > 0) {
+	
+		this.div_LeftMenu.form.sta_DbInfo.set_visible(true);
+		this.div_LeftMenu.form.btn_Refresh.set_visible(true);
+		//this.setTimer( 9, 5000 );//타이머 실행
+		this.gfn_InitComService(this);	
+		
+		//[공통]서비스 호출 변수
+		var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		svcCallObj.sTrid = "DB_CHECK";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+		svcCallObj.sActionName = "DbCheckAction";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+		svcCallObj.sMethodName = "checkDbInfo";// Action 안에서 호출해야 하는 메소드 명, 기본은 execute를 호출하도록 되어있음	
+		svcCallObj.sInputDaset = "" //입력 데이터셋
+		svcCallObj.sOutDatset = "ds_DbCheckResult=ds_DbCheckResult";//출력 데이터셋
+		svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+		svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명	
+		
+		//[공통]서비스 호출
+		this.gfn_CallComService(this, svcCallObj);			
+	}
+	
+	//테스트화면
+	/*
+	var iAddRow = nApp.gds_Menu.addRow();
+	nApp.gds_Menu.setColumn(iAddRow, "MENU_ID", "ZZ90000001");
+	nApp.gds_Menu.setColumn(iAddRow, "MENU_NM", "테스트");
+	nApp.gds_Menu.setColumn(iAddRow, "MENU_URL", "sm::M_SM_0021.xfdl");
+	nApp.gds_Menu.setColumn(iAddRow, "MENU_LV", "0");
+	nApp.gds_Menu.setColumn(iAddRow, "MENU_DST", "S");
+	nApp.gds_Menu.setColumn(iAddRow, "WORK_GRP_CD", "");
+	nApp.gds_Menu.setColumn(iAddRow, "UP_MENU_ID", "");
+	nApp.gds_Menu.setColumn(iAddRow, "PRGM_ID", "M_SM_0021");
+	nApp.gds_Menu.setColumn(iAddRow, "MENU_PARAM", "");
+	nApp.gds_Menu.setColumn(iAddRow, "BTN_INIT", "");
+	nApp.gds_Menu.setColumn(iAddRow, "BTN_NEW", "");
+	nApp.gds_Menu.setColumn(iAddRow, "BTN_DELETE", "");
+	nApp.gds_Menu.setColumn(iAddRow, "BTN_SAVE", "");
+	nApp.gds_Menu.setColumn(iAddRow, "BTN_SEARCH", "");
+	nApp.gds_Menu.setColumn(iAddRow, "BTN_EXCEL", "");	
+	nApp.gds_Menu.setColumn(iAddRow, "USED_YN", "1");		
+	*/
+	this.div_SearchMenu.set_left(57);
+	this.div_SearchMenu.set_right(0);	
+	this.div_RecentMenu.set_left(57);
+	this.div_RecentMenu.set_right(0);		
+	this.ds_Menu.copyData(nApp.gds_Menu);
+	
+	this.setTimer( 0, 300 );//타이머 실행
+	
+	
+	
+	
+	//비밀번호 변경여부 체크
+	if (this.gfn_GetSessionValue("CHAN_YN") == "Y") {
+		var sPopupId = "S_USERCPWD_01";//팝업ID - 패스워드변경
+		var oArg = {PrgmId:this.fvComPrgmId, ChangeYn:"Y"};//Argument처리
+		this.gfn_UserPwdChgPop(sPopupId, oArg);
+	}
+	
+	
+	
+	
+	
+	if (nApp.gvSystem == "SRM") {
+		//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+		var objCondList = ["SM910|ds_Sm910"];
+		var objFilterList = ["OP03_NM=='1'"];	  
+						   
+		//공통코드 설정함수 호출				   
+		this.gfn_GetCommCode(this, objCondList, objFilterList);		
+	} else {
+		//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+		var objCondList = ["SM910|ds_Sm910"];
+						   
+		var objFilterList = ["OP02_NM=='1'"];	  
+						   
+		//공통코드 설정함수 호출				   
+		this.gfn_GetCommCode(this, objCondList, objFilterList);		
+	}
+	
+	/*
+	var sWorkGrpCd = "SHOP";//업무그룹코드:매장관리
+	var sMenuName = "매장관리";
+	this.ds_Menu.clearData();
+	this.objApp.gds_Menu.filter("");
+	this.objApp.gds_Menu.filter("WORK_GRP_CD=='" + sWorkGrpCd + "' && MENU_LV > 0");
+	this.ds_Menu.copyData(this.objApp.gds_Menu, true);//필터링된것만 복사
+	
+	//메뉴타이틀 설정
+	this.div_LeftMenu.form.sta_MenuGroup.set_text(sMenuName);
+	this.div_MenuS.form.btn_Menu01.set_cssclass("btn_LF_Menu01S");//업무메뉴버튼CssClass설정
+	this.fvNowWorkGrpBtn="01";//현재업무그룹-버튼
+	*/
+	//this.div_LeftMenu.form.grd_MenuList.setTreeStatus(0, true);
+	/*
+	var nRowinde = 37;
+	var nScrollPos = 24 * nexacro.toNumber(nRowinde);
+	this.div_LeftMenu.form.grd_MenuList.vscrollbar.set_pos(nScrollPos);	
+	*/
+}
+
+/*
+	JCH 사용
+	- 컬럼자동화 관련 데이터셋 설정
+	- 시스템 단축키 설정
+*/
+this.fn_InitCode = function()
+{
+	//trace("fn_InitCode============================================================");
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	
+	this.ds_Input.clearData();
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "SYST_ID", this.gfn_GetSessionValue("SYST_ID"));	
+	
+	nApp.gds_AutoControl.clearData();
+	svcAddObj.sSelectSql = "sm:M_SM_AUTOCONTROL_INFO"; //[공통]서비스정보 추가 - 자동화 ( 정충현 추가 )
+	this.gfn_AddComSearchService(this, svcAddObj);
+/*	
+	nApp.gds_EmpmInfo.clearData();
+	svcAddObj.sSelectSql = "sm:M_SM_EMPM_INFO"; //[공통]서비스정보 추가 - 직원 정보
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	nApp.gds_DepmInfo.clearData();
+	svcAddObj.sSelectSql = "sm:M_SM_DEPM_INFO"; //[공통]서비스정보 추가 - 부서 정보
+	this.gfn_AddComSearchService(this, svcAddObj);	
+	
+ 	nApp.gds_CusmInfo.clearData();
+ 	svcAddObj.sSelectSql = "sm:M_SM_CUSM_INFO"; //[공통]서비스정보 추가 - 거래처 정보
+ 	this.gfn_AddComSearchService(this, svcAddObj);		
+*/
+	nApp.gds_CnthInfo.clearData();
+	svcAddObj.sSelectSql = "sm:M_SM_CNTH_INFO"; //[공통]서비스정보 추가 - 계약번호 정보
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	nApp.gds_Hotkey.clearData();
+	svcAddObj.sSelectSql = "sm:M_SM_HOTKEY_SL10"; //[공통]서비스정보 추가 - 단축키 정보
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_SM;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	//svcCallObj.sOutDatset = "gds_AutoControl=gds_AutoControl gds_EmpmInfo=gds_EmpmInfo gds_DepmInfo=gds_DepmInfo gds_CnthInfo=gds_CnthInfo gds_CusmInfo=gds_CusmInfo";//출력 데이터셋
+	//svcCallObj.sOutDatset = "gds_AutoControl=gds_AutoControl gds_EmpmInfo=gds_EmpmInfo gds_DepmInfo=gds_DepmInfo gds_CnthInfo=gds_CnthInfo";//출력 데이터셋
+	svcCallObj.sOutDatset = "gds_AutoControl=gds_AutoControl gds_CnthInfo=gds_CnthInfo gds_Hotkey=gds_Hotkey";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "";//서버에서 처리가 완료된 후 Callback 받을 Function 명	
+	svcCallObj.isSync = true;//동기식으로 설정할지 여부
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+};
+
+this.div_SearchMenu_grd_Search_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	var iRow = e.row;
+
+	//화면인경우
+	if (this.ds_SearchMenu.getColumn(iRow, "MENU_DST") == "S") {
+		var oObj = {
+			dsMenu : this.ds_SearchMenu,  // 메뉴 dataset
+			nRow   : iRow ,      	// 선택된 Row
+			oArg   : ""       		// 넘길 argument
+		};
+		//선택된 메뉴 호출
+		this.gfn_CallMenu(oObj);			
+	}		
+};
+
+this.div_LeftMenu_grd_MenuList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+//trace("div_LeftMenu_grd_MenuList_oncellclick ---------------------------------------------------------");
+	var nRow = e.row;
+
+	//화면인경우
+	if (this.ds_Menu.getColumn(nRow, "MENU_DST") == "S") {
+		
+		if (this.ds_Menu.getColumn(nRow, "USED_YN") == "1") {
+			
+			//URL 사용하는 화면인경우
+			if (this.ds_Menu.getColumn(nRow, "PFIX_YN") == "1") {
+				var sCallUrl = this.ds_Menu.getColumn(nRow, "PFIX_NM");//URL 경로
+				if (!this.gfn_IsNull(sCallUrl)) {
+					//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+					var objCondList = ["SF100|ds_Sf100"					 
+									  ];
+					//공통코드 설정함수 호출				   
+					this.gfn_GetCommCode(this, objCondList, "");
+					
+					if (this.ds_Sf100.getRowCount() > 0) {
+						var iFindRow = this.ds_Sf100.findRowAs("CODM_CD", "0010");//URL정보 조회
+						var sId = this.ds_Sf100.getColumn(iFindRow, "OP01_NM");
+						var sPwd = this.ds_Sf100.getColumn(iFindRow, "OP02_NM");
+						var sPfixNm = sCallUrl;
+						var sUrl = nexacro.replaceAll(nexacro.replaceAll(sPfixNm, "REPLACE_ID", encodeURI(sId)), "REPLACE_PWD", encodeURI(sPwd));
+						//trace("sUrl==" + sUrl);
+
+						if (this.gfn_IsNull(sUrl)) {
+							this.gfn_Alert("SD019");//스마일EDI URL 정보가 유효하지 않습니다.\n&ITM0
+						} else {
+							if (this.gfn_IsNull(sId)) {
+								var arrMsgArg = ["ID 정보가 빈값입니다."];
+								this.gfn_Alert("SD019", arrMsgArg);//스마일EDI URL 정보가 유효하지 않습니다.\n&ITM0
+							} else if (this.gfn_IsNull(sPwd)) {
+								var arrMsgArg = ["패스워드 정보가 빈값입니다."];
+								this.gfn_Alert("SD019", arrMsgArg);//스마일EDI URL 정보가 유효하지 않습니다.\n&ITM0			
+							} else {
+							   nApp.gvSubmit = "Y";
+							   var o=window.open('', "POPUP", 'height=' + screen.height + ',width=' + screen.width + 'fullscreen=yes');
+
+							   var form = document.createElement('form');
+							   form.setAttribute('method', 'POST');
+							   form.setAttribute('action', sUrl);
+							   o.document.body.appendChild(form);
+							   form.submit();
+							}
+						}
+					}					
+				} else {
+					this.gfn_Alert("SD019");//스마일EDI URL 정보가 유효하지 않습니다.\n&ITM0
+					return;
+				}
+			} else {
+			
+				var sCalMenuId = this.ds_Menu.getColumn(nRow, "MENU_ID");//메뉴ID
+				
+				//SRM-HOME 메뉴버튼 누른경우
+				if (sCalMenuId == "M_SR_0100") {
+					this.gfn_CallScrn("Form_Portal");
+				} else {
+					var oObj = {
+						dsMenu : this.ds_Menu,  // 메뉴 dataset
+						nRow   : nRow ,      	// 선택된 Row
+						oArg   : ""       		// 넘길 argument
+					};			
+					if (!this.fn_CheckWorkDaily(sCalMenuId)) { // 업무일지와 다면평가 체크 통과되어야 메뉴 호출
+						if(!this.fn_CheckDamyun(sCalMenuId)) {
+							//선택된 메뉴 호출
+							this.gfn_CallMenu(oObj);							
+						} else {
+						
+							var arrMsgArg = [this.fvWkDyMessage];
+							var msgCode = "SM125"; //다면평가 미등록 인원입니다.\n해당인원의 다면평가를 등록 해주세요.\n&ITM0
+							this.gfn_Confirm(msgCode, arrMsgArg, "CONF.DAMYUN", "fn_MsgCallback");			
+							
+						}
+					} else {
+
+						var arrMsgArg = [this.fvWkDyMessage];
+						var msgCode = "SM111";//업무일지 미작성 일자입니다.\n해당일자의 업무일지를 작성해주세요.\n&ITM0
+						this.gfn_Confirm(msgCode, arrMsgArg, "CONF.WKDY", "fn_MsgCallback");
+					}
+					
+				}
+			}
+		} else {
+			this.gfn_Alert("SM049");//해당 화면의 권한이 없습니다.
+		}
+	}	
+};
+
+this.div_SearchMenu_grd_MenuList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	var iRow = e.row;
+	//화면인경우
+	if (this.ds_SearchMenu.getColumn(iRow, "MENU_DST") == "S") {
+		if (this.ds_SearchMenu.getColumn(iRow, "USED_YN") == "1") {
+		
+			//URL 사용하는 화면인경우
+			if (this.ds_SearchMenu.getColumn(iRow, "PFIX_YN") == "1") {
+				var sCallUrl = this.ds_SearchMenu.getColumn(iRow, "PFIX_NM");//URL 경로
+				if (!this.gfn_IsNull(sCallUrl)) {
+					//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+					var objCondList = ["SF100|ds_Sf100"					 
+									  ];
+					//공통코드 설정함수 호출				   
+					this.gfn_GetCommCode(this, objCondList, "");
+					
+					if (this.ds_Sf100.getRowCount() > 0) {
+						var iFindRow = this.ds_Sf100.findRowAs("CODM_CD", "0010");//URL정보 조회
+						var sId = this.ds_Sf100.getColumn(iFindRow, "OP01_NM");
+						var sPwd = this.ds_Sf100.getColumn(iFindRow, "OP02_NM");
+						var sPfixNm = sCallUrl;
+						var sUrl = nexacro.replaceAll(nexacro.replaceAll(sPfixNm, "REPLACE_ID", encodeURI(sId)), "REPLACE_PWD", encodeURI(sPwd));
+						//trace("sUrl==" + sUrl);
+
+						if (this.gfn_IsNull(sUrl)) {
+							this.gfn_Alert("SD019");//스마일EDI URL 정보가 유효하지 않습니다.\n&ITM0
+						} else {
+							if (this.gfn_IsNull(sId)) {
+								var arrMsgArg = ["ID 정보가 빈값입니다."];
+								this.gfn_Alert("SD019", arrMsgArg);//스마일EDI URL 정보가 유효하지 않습니다.\n&ITM0
+							} else if (this.gfn_IsNull(sPwd)) {
+								var arrMsgArg = ["패스워드 정보가 빈값입니다."];
+								this.gfn_Alert("SD019", arrMsgArg);//스마일EDI URL 정보가 유효하지 않습니다.\n&ITM0			
+							} else {
+							   nApp.gvSubmit = "Y";
+							   var o=window.open('', "POPUP", 'height=' + screen.height + ',width=' + screen.width + 'fullscreen=yes');
+
+							   var form = document.createElement('form');
+							   form.setAttribute('method', 'POST');
+							   form.setAttribute('action', sUrl);
+							   o.document.body.appendChild(form);
+							   form.submit();
+							}
+						}
+					}					
+				} else {
+					this.gfn_Alert("SD019");//스마일EDI URL 정보가 유효하지 않습니다.\n&ITM0
+					return;
+				}
+			} else {
+				var oObj = {
+					dsMenu : this.ds_SearchMenu,  // 메뉴 dataset
+					nRow   : iRow ,      	// 선택된 Row
+					oArg   : ""       		// 넘길 argument
+				};
+				//선택된 메뉴 호출
+				//this.gfn_CallMenu(oObj);		
+				
+				var sCalMenuId = this.ds_SearchMenu.getColumn(iRow, "MENU_ID");//메뉴ID
+				if (!this.fn_CheckWorkDaily(sCalMenuId)) { // 업무일지와 다면평가 체크 통과되어야 메뉴 호출
+					if(!this.fn_CheckDamyun(sCalMenuId)) {
+						//선택된 메뉴 호출
+						this.gfn_CallMenu(oObj);							
+					} else {
+					
+						var arrMsgArg = [this.fvWkDyMessage];
+						var msgCode = "SM125"; //다면평가 미등록 인원입니다.\n해당인원의 다면평가를 등록 해주세요.\n&ITM0
+						this.gfn_Confirm(msgCode, arrMsgArg, "CONF.DAMYUN", "fn_MsgCallback");			
+						
+					}
+				} else {
+
+					var arrMsgArg = [this.fvWkDyMessage];
+					var msgCode = "SM111";//업무일지 미작성 일자입니다.\n해당일자의 업무일지를 작성해주세요.\n&ITM0
+					this.gfn_Confirm(msgCode, arrMsgArg, "CONF.WKDY", "fn_MsgCallback");
+				}
+				
+			}
+		} else {
+			this.gfn_Alert("SM049");//해당 화면의 권한이 없습니다.		
+		}
+	}		
+};
+
+this.div_MenuS_btn_MenuOpen_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//메뉴가 OPEN 상태이면
+	if (this.gvMenuOpenMode) {
+		nApp.afn_setSeparatesize("CLOSE");
+		this.gvMenuOpenMode = false;//좌측메뉴 OPEM여부
+		//this.div_MenuS.form.btn_MenuOpen.set_cssclass("btn_TF_Open");
+	} else {
+		nApp.afn_setSeparatesize("OPEN");
+		this.gvMenuOpenMode = true;//좌측메뉴 OPEM여부
+		//this.div_MenuS.form.btn_MenuOpen.set_cssclass("btn_TF_Fold");
+	}		
+};
+
+this.div_LeftMenu_btn_MenuSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (this.gfn_IsNull(this.div_LeftMenu.form.edt_Search.value)) {
+		return;
+	}
+	//검색메뉴 데이터셋 초기화
+	this.ds_SearchMenuTemp.clearData();
+	this.ds_SearchMenu.clearData();
+	
+	//검색메뉴 임시데이터셋에 전체메뉴 정보 복사
+	this.ds_SearchMenuTemp.copyData(nApp.gds_Menu);
+	
+	//검색메뉴 필터링
+	//this.ds_SearchMenuTemp.filter("String(MENU_NM).substr(0," + this.edt_Search.value.length + ").indexOf('" + this.edt_Search.value.replace("'","\\'") + "') >= 0");
+	//this.ds_SearchMenuTemp.filter("String(MENU_NM).indexOf('" + this.div_LeftMenu.form.edt_Search.value.replace("'","\\'") + "') >= 0 && MENU_DST=='S'");
+	this.ds_SearchMenuTemp.filter("String(MENU_NM).toLowerCase().indexOf('" + this.div_LeftMenu.form.edt_Search.value.toLowerCase().replace("'","\\'") + "') >= 0 && MENU_DST=='S'");
+
+	//필터된 데이터셋 복사
+	this.ds_SearchMenu.copyData(this.ds_SearchMenuTemp, true);	
+		
+	this.div_LeftMenu.form.grd_MenuList.set_visible(false);
+	
+	this.div_SearchMenu.form.sta_SearchResult.set_text("Result : " + this.ds_SearchMenu.getRowCount());
+	this.div_SearchMenu.set_visible(true);	
+	this.div_RecentMenu.set_visible(false);
+
+};
+
+this.div_LeftMenu_edt_Search_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == 13) {
+	    this.div_LeftMenu_btn_MenuSearch_onclick();
+	}		
+};
+
+this.div_LeftMenu_sta_DeptNm00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+//개인정보관리
+this.div_LeftMenu_btn_MyInfo_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sCallFunc = "fn_ComboSearch";//호출함수명 
+	var oParam = new Object();
+
+	this.gfn_CallScrn("M_HR_2050", sCallFunc, oParam);
+
+};
+
+this.div_LeftMenu_btn_LogOut_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_Confirm("SM096", "", "CONF.LOGOUT", "fn_MsgCallback");//로그아웃 하시겠습니까?
+
+};
+
+this.div_MenuS_btn_Home_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var iRow = 0;
+
+	//화면인경우
+	if (this.ds_MainMenu.getColumn(iRow, "MENU_DST") == "S") {
+		var oObj = {
+			dsMenu : this.ds_MainMenu,  // 메뉴 dataset
+			nRow   : iRow ,      	// 선택된 Row
+			oArg   : ""       		// 넘길 argument
+		};
+		//선택된 메뉴 호출
+		this.gfn_CallMenu(oObj);			
+	}		
+};
+
+this.div_LeftMenu_btn_ChangUser_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//ERP로 로그인한 경우만
+	if (nApp.gvSystem == "ERP") {
+		var sPopupId = "S_SYST_ID_01";//팝업ID - 사용자정보
+		var oArg = { EmpmNm:""};//Argument처리
+		this.gfn_UserPop(sPopupId, oArg);	
+	}
+};
+
+/***********************************************************************************************
+ * 13.02. [팝업] CallBack 함수 처리
+          strId : 팝업호출시 지정한 팝업ID
+	      rtnValue : 팝업창에서 close시 지정한 반환값
+          주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/ 
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+	if (strId == "S_SYST_ID_01") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);	
+			
+			if (!this.gfn_IsNull(arrRtnVal.EMPM_CD)) {
+				nApp.gvTabFrame.form.fn_ArrangeWin("CloseAll");
+				this.fn_EmpmSearch(arrRtnVal.SYST_ID);
+			}
+		}	
+    }
+}
+
+this.fn_EmpmSearch = function(sId) 
+{
+
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+	this.ds_Empm.clearData();
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "SYST_ID", sId);
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sm:M_SM_TMEP_SL10";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "COMBO_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_SM;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Empm=ds_Empm";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+
+}
+
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{	
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "COMBO_SEARCH":   //저장		
+	
+			if (this.ds_Empm.getRowCount() > 0) {
+				//nApp.gvId = this.ds_Empm.getColumn(0, "SYST_ID");
+				nApp.gvId = this.ds_Empm.getColumn(0, "USEM_ID");
+				nApp.gvPw = this.ds_Empm.getColumn(0, "USEM_PW");
+				nApp.gvChangeUser = true;//사용자변경여부
+				//trace(nApp.gvId + "/" + nApp.gvPw);
+				nApp.afn_setSeparatesize("LOGOUT");
+			}
+			break;	
+				
+		case "LOGOUT":   //로그아웃	
+			nApp.afn_setSeparatesize("LOGOUT");
+			break;	
+		
+		case "DB_CHECK": //DB정보체크
+			if (this.ds_DbCheckResult.getRowCount() > 0) {
+				if (this.ds_DbCheckResult.getColumn(0, "CKDB_NM") == "D") {
+					this.div_LeftMenu.form.sta_DbInfo.set_text("[개발] DB");
+					this.div_LeftMenu.form.sta_DbInfo.set_color("blue");
+					//this.div_LeftMenu.form.sta_DbInfo.set_visible(true);
+					//this.div_LeftMenu.form.btn_Refresh.set_visible(true);
+				} else if (this.ds_DbCheckResult.getColumn(0, "CKDB_NM") == "E") {
+					this.div_LeftMenu.form.sta_DbInfo.set_text("[기타] DB");
+					this.div_LeftMenu.form.sta_DbInfo.set_color("yellow");
+					//this.div_LeftMenu.form.sta_DbInfo.set_visible(true);
+					//this.div_LeftMenu.form.btn_Refresh.set_visible(true);
+				} else {
+					this.div_LeftMenu.form.sta_DbInfo.set_text("[운영] DB");
+					this.div_LeftMenu.form.sta_DbInfo.set_color("red");
+					//this.div_LeftMenu.form.sta_DbInfo.set_visible(false);
+					//this.div_LeftMenu.form.btn_Refresh.set_visible(false);
+				}
+			} else {
+				trace("================================= DB 체크정보가 없습니다. ====================================");
+			}
+			break;
+		case "RECENT_SEARCH":   //최근사용메뉴	
+			this.ds_RecedntMenu.clearData();
+			
+			if (this.ds_Master10.getRowCount() > 0) {
+				var sPRGM_ID = "";//프로그램ID
+				var iFindRow = 0;
+				var iAddRow = 0;
+			
+				for (var iLoop=0; iLoop < this.ds_Master10.getRowCount(); iLoop++) {
+					sPRGM_ID = this.ds_Master10.getColumn(iLoop, "PRGM_ID");//프로그램ID
+					if (!this.gfn_IsNull(sPRGM_ID) && (sPRGM_ID != "Form_Portal" && sPRGM_ID != "TableInfo" )) {
+						iFindRow = nApp.gds_Menu.findRowAs("PRGM_ID",sPRGM_ID);
+						
+						if (iFindRow > -1) {
+							iAddRow = this.ds_RecedntMenu.addRow();
+							this.ds_RecedntMenu.copyRow(iAddRow, nApp.gds_Menu, iFindRow);							
+						}
+					}
+				}
+			}
+			
+			if (this.ds_RecedntMenu.getRowCount() > 0) {
+				this.ds_RecedntMenu.set_rowposition(0);
+			}
+			
+			break;				
+			
+
+	}
+};
+
+this.fn_GroupMenuBtnClick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.div_LeftMenu.form.grd_MenuList.set_visible(true);
+	this.div_SearchMenu.set_visible(false);	
+	this.div_RecentMenu.set_visible(false);	
+};
+
+this.div_MenuS_btn_MenuRecent_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.div_LeftMenu.form.grd_MenuList.set_visible(false);
+	this.div_SearchMenu.set_visible(false);	
+	this.div_RecentMenu.set_visible(true);
+	
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Master10.clearData();
+
+	this.ds_Input.clearData();
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "SYST_ID", this.gfn_GetSessionValue("SYST_ID"));
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sm:M_SM_MENU_M_SL10";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "RECENT_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_SM;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Master10=ds_Master10";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);		
+};
+
+this.div_RecentMenu_grd_MenuList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	var iRow = e.row;
+
+	//화면인경우
+	if (this.ds_RecedntMenu.getColumn(iRow, "MENU_DST") == "S") {
+	
+		if (this.ds_RecedntMenu.getColumn(iRow, "USED_YN") == "1") {
+		
+			//URL 사용하는 화면인경우
+			if (this.ds_RecedntMenu.getColumn(iRow, "PFIX_YN") == "1") {
+				var sCallUrl = this.ds_RecedntMenu.getColumn(iRow, "PFIX_NM");//URL 경로
+				if (!this.gfn_IsNull(sCallUrl)) {
+					//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+					var objCondList = ["SF100|ds_Sf100"					 
+									  ];
+					//공통코드 설정함수 호출				   
+					this.gfn_GetCommCode(this, objCondList, "");
+					
+					if (this.ds_Sf100.getRowCount() > 0) {
+						var iFindRow = this.ds_Sf100.findRowAs("CODM_CD", "0010");//URL정보 조회
+						var sId = this.ds_Sf100.getColumn(iFindRow, "OP01_NM");
+						var sPwd = this.ds_Sf100.getColumn(iFindRow, "OP02_NM");
+						var sPfixNm = sCallUrl;
+						var sUrl = nexacro.replaceAll(nexacro.replaceAll(sPfixNm, "REPLACE_ID", encodeURI(sId)), "REPLACE_PWD", encodeURI(sPwd));
+						//trace("sUrl==" + sUrl);
+
+						if (this.gfn_IsNull(sUrl)) {
+							this.gfn_Alert("SD019");//스마일EDI URL 정보가 유효하지 않습니다.\n&ITM0
+						} else {
+							if (this.gfn_IsNull(sId)) {
+								var arrMsgArg = ["ID 정보가 빈값입니다."];
+								this.gfn_Alert("SD019", arrMsgArg);//스마일EDI URL 정보가 유효하지 않습니다.\n&ITM0
+							} else if (this.gfn_IsNull(sPwd)) {
+								var arrMsgArg = ["패스워드 정보가 빈값입니다."];
+								this.gfn_Alert("SD019", arrMsgArg);//스마일EDI URL 정보가 유효하지 않습니다.\n&ITM0			
+							} else {
+							   nApp.gvSubmit = "Y";
+							   var o=window.open('', "POPUP", 'height=' + screen.height + ',width=' + screen.width + 'fullscreen=yes');
+
+							   var form = document.createElement('form');
+							   form.setAttribute('method', 'POST');
+							   form.setAttribute('action', sUrl);
+							   o.document.body.appendChild(form);
+							   form.submit();
+							}
+						}
+					}					
+				} else {
+					this.gfn_Alert("SD019");//스마일EDI URL 정보가 유효하지 않습니다.\n&ITM0
+					return;
+				}
+			} else {
+				var oObj = {
+					dsMenu : this.ds_RecedntMenu,  // 메뉴 dataset
+					nRow   : iRow ,      	// 선택된 Row
+					oArg   : ""       		// 넘길 argument
+				};
+				//선택된 메뉴 호출
+				//this.gfn_CallMenu(oObj);	
+				var sCalMenuId = this.ds_RecedntMenu.getColumn(iRow, "MENU_ID");//메뉴ID
+				if (!this.fn_CheckWorkDaily(sCalMenuId)) { // 업무일지와 다면평가 체크 통과되어야 메뉴 호출
+					if(!this.fn_CheckDamyun(sCalMenuId)) {
+						//선택된 메뉴 호출
+						this.gfn_CallMenu(oObj);							
+					} else {
+					
+						var arrMsgArg = [this.fvWkDyMessage];
+						var msgCode = "SM125"; //다면평가 미등록 인원입니다.\n해당인원의 다면평가를 등록 해주세요.\n&ITM0
+						this.gfn_Confirm(msgCode, arrMsgArg, "CONF.DAMYUN", "fn_MsgCallback");			
+						
+					}
+				} else {
+
+					var arrMsgArg = [this.fvWkDyMessage];
+					var msgCode = "SM111";//업무일지 미작성 일자입니다.\n해당일자의 업무일지를 작성해주세요.\n&ITM0
+					this.gfn_Confirm(msgCode, arrMsgArg, "CONF.WKDY", "fn_MsgCallback");
+				}			
+				
+			}
+		} else {
+			this.gfn_Alert("SM049");//해당 화면의 권한이 없습니다.		
+		}
+	}		
+};
+
+//i-Memo
+this.div_MenuS_btn_Imemo_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var iRow = this.ds_Menu.findRowAs("PRGM_ID","M_SM_3100");//i-Memo화면호출
+
+	//var iRow = this.ds_Menu.findRowAs("PRGM_ID","M_SM_0021");//i-Memo화면호출
+	
+	//화면인경우
+	if (this.ds_Menu.getColumn(iRow, "MENU_DST") == "S") {
+	
+		if (this.ds_Menu.getColumn(iRow, "USED_YN") == "1") {
+			var oObj = {
+				dsMenu : this.ds_Menu,  // 메뉴 dataset
+				nRow   : iRow ,      	// 선택된 Row
+				oArg   : ""       		// 넘길 argument
+			};
+			//선택된 메뉴 호출
+			this.gfn_CallMenu(oObj);		
+		} else {
+			this.gfn_Alert("SM049");//해당 화면의 권한이 없습니다.		
+		}
+	}		
+};
+
+//Staff
+this.div_MenuS_btn_Staff_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var iRow = this.ds_Menu.findRowAs("PRGM_ID","M_HR_1220");//조직도 화면호출
+	
+	//화면인경우
+	if (this.ds_Menu.getColumn(iRow, "MENU_DST") == "S") {
+	
+		if (this.ds_Menu.getColumn(iRow, "USED_YN") == "1") {
+			var oObj = {
+				dsMenu : this.ds_Menu,  // 메뉴 dataset
+				nRow   : iRow ,      	// 선택된 Row
+				oArg   : ""       		// 넘길 argument
+			};
+			//선택된 메뉴 호출
+			this.gfn_CallMenu(oObj);		
+		} else {
+			this.gfn_Alert("SM049");//해당 화면의 권한이 없습니다.		
+		}
+	}		
+};
+
+this.Form_Left_ontimer = function(obj:nexacro.Form,e:nexacro.TimerEventInfo)
+{
+	if (nApp.gvTabScrnLoadYn) {
+		this.killTimer( 0 );
+		
+		if (nApp.gvMenuId == "M_SM_4300") {
+			nApp.mainframe.VFrameSet.HFrameSet.set_separatesize("0,*");
+			nApp.mainframe.VFrameSet.set_separatesize("0,*");
+			nApp.mainframe.VFrameSet.HFrameSet.VFrameSet1.set_separatesize("0,*,0");		
+			nApp.mainframe.setOffsetHeight(700);
+			nApp.mainframe.setOffsetWidth(200);
+		} else {
+			this.div_MenuS_btn_Home_onclick();
+		}
+		
+		//외부호출 메뉴정보가 있으면
+		if (!this.gfn_IsNull(nApp.gvMenuId)) {
+			var sCallFunc = "";//호출함수명 
+			var oParam = new Object();
+			
+			//외부호출 파라메타 정보가 있으면
+			if (!this.gfn_IsNull(nApp.gvMenuParam)) {
+				oParam.mMenuParam = nApp.gvMenuParam;
+				//trace("oParam.mMenuParam==" + oParam.mMenuParam);
+			}
+			
+			this.gfn_CallScrn(nApp.gvMenuId, sCallFunc, oParam);		
+		}
+	}
+	
+	//DB체크 서비스인경우
+	if (e.timerid == 9) {
+	
+		if (this.div_LeftMenu.form.chk_Db.value) {
+			/*
+			this.gfn_InitComService(this);	
+			
+			//[공통]서비스 호출 변수
+			var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+			svcCallObj.sTrid = "DB_CHECK";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+			svcCallObj.sActionName = "DbCheckAction";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+			svcCallObj.sMethodName = "checkDbInfo";// Action 안에서 호출해야 하는 메소드 명, 기본은 execute를 호출하도록 되어있음	
+			svcCallObj.sInputDaset = "" //입력 데이터셋
+			svcCallObj.sOutDatset = "ds_DbCheckResult=ds_DbCheckResult";//출력 데이터셋
+			svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+			svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명	
+			
+			//[공통]서비스 호출
+			this.gfn_CallComService(this, svcCallObj);	
+			*/
+		}
+	}
+	
+};
+
+
+
+this.div_LeftMenu_grd_MenuList_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if (this.ds_Menu.getColumn(e.row, "MENU_DST") != "S") {
+		this.div_LeftMenu.form.grd_MenuList.set_enableredraw(false); 
+		
+		if(this.div_LeftMenu.form.grd_MenuList.getTreeStatus(this.div_LeftMenu.form.grd_MenuList.getTreeRow(e.row)) == 0) 
+		{ 
+			this.div_LeftMenu.form.grd_MenuList.setTreeStatus(this.div_LeftMenu.form.grd_MenuList.getTreeRow(e.row), true); 
+		} else { 
+			this.div_LeftMenu.form.grd_MenuList.setTreeStatus(this.div_LeftMenu.form.grd_MenuList.getTreeRow(e.row), false); 
+		} 
+		
+		this.div_LeftMenu.form.grd_MenuList.set_enableredraw(true); 
+	}
+};
+
+//Workflow 클릭
+this.div_MenuS_btn_Workflow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//결재함
+	//this.gfn_CallScrn("M_WF_1100");		
+	
+	var sCalMenuId = "M_WF_1100";//메뉴ID
+	
+	//SRM-HOME 메뉴버튼 누른경우
+	if (sCalMenuId == "M_SR_0100") {
+		this.gfn_CallScrn("Form_Portal");
+	} else {
+				//trace("this.fn_CheckWorkDaily(sCalMenuId) --> " + this.fn_CheckWorkDaily(sCalMenuId));
+				//trace("this.fn_CheckDamyun(sCalMenuId) --> " + this.fn_CheckDamyun(sCalMenuId));		
+		if (!this.fn_CheckWorkDaily(sCalMenuId)) { // 업무일지와 다면평가 체크 통과되어야 메뉴 호출
+			if(!this.fn_CheckDamyun(sCalMenuId)) {
+				//선택된 메뉴 호출
+				this.gfn_CallScrn(sCalMenuId);							
+			} else {
+			
+				var arrMsgArg = [this.fvWkDyMessage];
+				var msgCode = "SM125"; //다면평가 미등록 인원입니다.\n해당인원의 다면평가를 등록 해주세요.\n&ITM0
+				this.gfn_Confirm(msgCode, arrMsgArg, "CONF.DAMYUN", "fn_MsgCallback");			
+				
+			}
+		} else {
+
+			var arrMsgArg = [this.fvWkDyMessage];
+			var msgCode = "SM111";//업무일지 미작성 일자입니다.\n해당일자의 업무일지를 작성해주세요.\n&ITM0
+			this.gfn_Confirm(msgCode, arrMsgArg, "CONF.WKDY", "fn_MsgCallback");
+		}
+	}
+	
+};
+
+/*
+this.div_LeftMenu_Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+		var sPopupId = "S_USERCPWD_01";//팝업ID - 패스워드변경
+		var oArg = {PrgmId:this.fvComPrgmId, ChangeYn:"Y"};//Argument처리
+		this.gfn_UserPwdChgPop(sPopupId, oArg);
+};
+*/
+this.div_LeftMenu_cbo_LinkSite_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	if (!this.gfn_IsNull(obj.value)) {
+	   nApp.gvSubmit = "Y";
+	   var o=window.open('', "POPUP", 'height=' + screen.height + ',width=' + screen.width + 'fullscreen=yes');
+
+	   var form = document.createElement('form');
+	   form.setAttribute('method', 'POST');
+	   form.setAttribute('action', obj.value);
+	   o.document.body.appendChild(form);
+	   form.submit();
+
+	}
+};
+
+this.div_MenuS_btn_HelpDesk_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	
+	var iRow = this.ds_Menu.findRowAs("PRGM_ID","M_SM_8200");//Helpdesk 요청 화면호출
+	
+	//화면인경우
+	if (this.ds_Menu.getColumn(iRow, "MENU_DST") == "S") {
+	
+		if (this.ds_Menu.getColumn(iRow, "USED_YN") == "1") {
+			var oObj = {
+				dsMenu : this.ds_Menu,  // 메뉴 dataset
+				nRow   : iRow ,      	// 선택된 Row
+				oArg   : ""       		// 넘길 argument
+			};
+			//선택된 메뉴 호출
+			this.gfn_CallMenu(oObj);		
+		} else {
+			this.gfn_Alert("SM049");//해당 화면의 권한이 없습니다.		
+		}
+	}	
+};
+
+this.div_MenuS_btn_Manager_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+
+	var iRow = this.ds_Menu.findRowAs("PRGM_ID","M_SM_0600");//IT관리자 화면호출
+	
+	//화면인경우
+	if (this.ds_Menu.getColumn(iRow, "MENU_DST") == "S") {
+	
+		if (this.ds_Menu.getColumn(iRow, "USED_YN") == "1") {
+			var oObj = {
+				dsMenu : this.ds_Menu,  // 메뉴 dataset
+				nRow   : iRow ,      	// 선택된 Row
+				oArg   : ""       		// 넘길 argument
+			};
+			//선택된 메뉴 호출
+			this.gfn_CallMenu(oObj);		
+		} else {
+			this.gfn_Alert("SM049");//해당 화면의 권한이 없습니다.		
+		}
+	}	
+};
+
+//견적등록
+this.div_MenuSp_btn_Estimate_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_CallScrn("M_MM_2110");	
+};
+//발주확인
+this.div_MenuSp_btn_OrderConfirm_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_CallScrn("M_SR_2100");	
+};
+//출하관리
+this.div_MenuSp_btn_Shipment_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_CallScrn("M_SR_5100");	
+};
+//계산서현황
+this.div_MenuSp_btn_Bill_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_CallScrn("M_SR_8100");	
+};
+
+//비밀번호 변경
+this.div_LeftMenu_sta_Erp_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "S_USERCPWD_01";//팝업ID - 패스워드변경
+	var oArg = {PrgmId:this.fvComPrgmId, ChangeYn:"N"};//Argument처리
+	this.gfn_UserPwdChgPop(sPopupId, oArg);	
+};
+
+//전결규정 팝업
+this.div_LeftMenu_sta_Junkyul_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	/*
+	var sPopupTitle = "전결규정"; //Popup화면 타이틀
+	var sPopupFormUrl  = "sm::PDFINFO.xfdl"; //Popup화면 URL
+	var oArg = {}; //Popup화면 전달 파라메터
+	var oOption = {title:sPopupTitle, width:"1200", height:"800"}; //Popup화면 옵션
+	var sPopupCallBack = sPopupCallBack = "fn_PopupCallback"; //Popup화면 호출후 Callback 처리 함수
+
+	this.gfn_OpenPopup("PDFINFO", sPopupFormUrl, oArg, sPopupCallBack, oOption); //Popup화면 호출 함수		
+	*/
+	
+	var sFileNm = "JUNGUL_FS.pdf";
+	var sUrl = nEnv.services["svcUrl"].url+"FileUploader?mode=downloadWeb&subDir=EX";			
+		sUrl += "&fileName="+encodeURI(sFileNm.replace(/\+/,"%2B"));
+	var sDownFileNm = "전결규정";
+	
+	this.fdt_File.set_downloadfilename(sDownFileNm);
+	this.fdt_File.set_url(sUrl);
+
+	this.fdt_File.download();
+};
+
+/***********************************************************************************************
+ * 13.03. [메세지] CallBack 함수 처리
+ ***********************************************************************************************/  
+this.fn_MsgCallback = function (strId, strVal)
+{
+	//로그아웃
+	if (strId == "CONF.LOGOUT") {
+		if(strVal )
+		{
+			nApp.gvTabFrame.form.fn_ArrangeWin("CloseAll");
+
+			//[공통]서비스정보 초기화
+			this.gfn_InitComService(this);	
+			
+			//[공통]서비스 호출 변수
+			var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+			svcCallObj.sTrid = "LOGOUT";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+			svcCallObj.sActionName = "LoginOutAction";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+			svcCallObj.sMethodName = "logout";// Action 안에서 호출해야 하는 메소드 명, 기본은 execute를 호출하도록 되어있음	
+			svcCallObj.sInputDaset = "" //입력 데이터셋
+			svcCallObj.sOutDatset = "";//출력 데이터셋
+			svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+			svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명	
+			
+			//[공통]서비스 호출
+			this.gfn_CallComService(this, svcCallObj);
+		}
+	} else if (strId == "CONF.WKDY") {
+			this.gfn_CallScrn("M_HD_4100");
+	} else if (strId == "CONF.DAMYUN") {
+			this.gfn_CallScrn("M_HE_7600");
+	}
+
+}; 
+ 
+//DB정보 조회 새로고침
+this.btn_Refresh_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_InitComService(this);	
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "DB_CHECK";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = "DbCheckAction";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sMethodName = "checkDbInfo";// Action 안에서 호출해야 하는 메소드 명, 기본은 execute를 호출하도록 되어있음	
+	svcCallObj.sInputDaset = "" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_DbCheckResult=ds_DbCheckResult";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명	
+	
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);			
+};
+
+//업무일지 작성여부 체크
+this.fn_CheckWorkDaily = function(sMENU_ID)
+{
+	//trace("fn_CheckWorkDaily ================");
+	//trace("업무일지작성 체크대상 : " + nApp.gds_WkdyInfo.getColumn(0, "WKDY_YN"));
+
+	//업무일지 미작성시 체크 메뉴
+	if (this.gfn_IsNull(sMENU_ID)) return false;	
+	if (nApp.gds_WkdyPrgm.getCaseCount("MENU_ID == '" +  sMENU_ID + "'") < 1) return false;
+	//업무일지 작성여부 체크 데이터셋
+	if (nApp.gds_WkdyInfo.getRowCount() < 1) return false;
+	if (nApp.gds_WkdyInfo.getColumn(0, "WKDY_YN") == "N") return false;//업무일지 작성 체크대상이 아니면
+	var sLSCK_DT = nApp.gds_WkdyInfo.getColumn(0, "LSCK_DT");//마지막 체크일자
+	var sCKSU_YN = nApp.gds_WkdyInfo.getColumn(0, "CKSU_YN");//체크성공여부-체크 성공이면 체크 하지 않음.
+	
+	//trace("마지막 체크일자 --> " + this.gfn_IsNull(sLSCK_DT));
+	if (!this.gfn_IsNull(sLSCK_DT)) {
+		//마지막 체크일자와 로컬날짜가 같은경우
+		if (sLSCK_DT == this.gfn_GetDate()) {
+			if (sCKSU_YN == "Y") {
+				return false;
+			}
+		}
+	}
+	
+	var sSYST_ID = this.gfn_GetSessionValue("SYST_ID");//시스템사번
+
+	if (!this.gfn_IsNull(sSYST_ID)) {
+	
+		//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+		this.ds_Input.clearData();
+		this.ds_NoWkDy.clearData();
+		
+		this.ds_Input.addRow();
+		this.ds_Input.setColumn(0, "SYST_ID", sSYST_ID);
+
+		//[공통]서비스정보 초기화
+		this.gfn_InitComService(this);
+		
+		//[공통]서비스정보 추가 - 업무일지 미체크자 정보 조회
+		var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sSelectSql = "sm:M_SM_WKDY_M_SL11";
+		this.gfn_AddComSearchService(this, svcAddObj);
+		
+		//[공통]서비스 호출 변수
+		var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		svcCallObj.sTrid = "NOWWKDY_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+		svcCallObj.sActionName = this.G_SV_SM;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+		svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+		svcCallObj.sOutDatset = "ds_NoWkDy=ds_NoWkDy";//출력 데이터셋
+		svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+		svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+		svcCallObj.isSync = true;//동기식으로 설정할지 여부
+		
+		//[공통]서비스 호출
+		this.gfn_CallComService(this, svcCallObj);
+
+		//CALM_DD
+		if(this.ds_NoWkDy.getRowCount() > 0) {
+		
+			
+			nApp.gds_WkdyInfo.setColumn(0, "LSCK_DT", "");
+			nApp.gds_WkdyInfo.setColumn(0, "CKSU_YN", "N");		
+			var sDay = "";
+			var sTotDay = "";
+			var sCALM_DD = "";
+			var iChkCnt = 0;
+			var sFormDt = "";//시작일자
+			var sToDt = "";  //종료일자
+			var pgm_gu = ""; // 프로그램구분 ( 'A':업무일지, 'B':다면평가 )
+			
+			for (var iLoop=0; iLoop<this.ds_NoWkDy.getRowCount(); iLoop++) {
+			
+				pgm_gu = this.ds_NoWkDy.getColumn(iLoop, "PGM_GU");
+				
+				if(pgm_gu == 'A') { // 업무일지
+				
+					sCALM_DD = this.ds_NoWkDy.getColumn(iLoop, "CALM_DD");
+					sDay = this.gfn_StringFormat(sCALM_DD, "@@@@.@@.@@");
+					
+					iChkCnt++;
+					
+					if (iLoop == 0) {
+						sTotDay = sDay;
+					}
+
+					if (iLoop == (this.ds_NoWkDy.getRowCount() - 1)) {
+						if (iChkCnt > 1) {
+							sTotDay = sTotDay + " ~ " + sDay + " (" + iChkCnt + "일)";
+						} else {
+							sTotDay = sTotDay + " (1일)";
+						}
+					}
+					
+				} else if(pgm_gu == 'B') { // 다면평가
+				
+					sCALM_DD = this.ds_NoWkDy.getColumn(iLoop, "CALM_DD");
+					sDay = sCALM_DD;
+					
+					iChkCnt++;
+					
+					if (iLoop == 0) {
+						sTotDay = sDay;
+					}
+
+					if (iLoop == (this.ds_NoWkDy.getRowCount() - 1)) {
+						if (iChkCnt > 1) {
+							sTotDay = sTotDay + " ~ " + sDay + " (" + iChkCnt + "명)";
+						} else {
+							sTotDay = sTotDay + " (1명)";
+						}
+					}				
+				
+				}
+			}			
+			
+			this.fvWkDyMessage = sTotDay;//업무일지 체크 관련 메시지
+			
+			/*
+			for (var iLoop=0; iLoop<this.ds_NoWkDy.getRowCount(); iLoop++) {
+				sCALM_DD = this.ds_NoWkDy.getColumn(iLoop, "CALM_DD");
+				sDay = this.gfn_StringFormat(sCALM_DD, "@@@@-@@-@@");
+				
+				iChkCnt++;
+				
+				if (iChkCnt == 3) {
+					sTotDay = sTotDay + ", " + sDay + "\n";
+					iChkCnt = 0;
+				} else {
+					if (iLoop ==0) {
+						sTotDay = "  " + sDay;
+					} else {
+						sTotDay = sTotDay + ", " + sDay;
+					}
+				}
+				
+				this.fvWkDyMessage = sTotDay;//업무일지 체크 관련 메시지
+				
+			}
+			*/
+	
+			return true;
+		} else {
+			nApp.gds_WkdyInfo.setColumn(0, "LSCK_DT", this.gfn_GetDate());
+			nApp.gds_WkdyInfo.setColumn(0, "CKSU_YN", "Y");
+			return false;
+		}
+	}
+}
+
+// 다면평가 체크
+this.fn_CheckDamyun = function(sMENU_ID) {
+	
+	return false; // 해제 20221124
+	
+	var sSYST_ID = this.gfn_GetSessionValue("SYST_ID");//시스템사번
+
+	if (!this.gfn_IsNull(sSYST_ID)) {
+	
+		//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+		this.ds_Input.clearData();
+		this.ds_NoWkDy.clearData();
+		
+		this.ds_Input.addRow();
+		this.ds_Input.setColumn(0, "SYST_ID", sSYST_ID);
+
+		//[공통]서비스정보 초기화
+		this.gfn_InitComService(this);
+		
+		//[공통]서비스정보 추가 - 업무일지 미체크자 정보 조회
+		var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sSelectSql = "sm:M_SM_WKDY_M_SL12";
+		this.gfn_AddComSearchService(this, svcAddObj);
+		
+		//[공통]서비스 호출 변수
+		var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		svcCallObj.sTrid = "NODAMYUN_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+		svcCallObj.sActionName = this.G_SV_SM;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+		svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+		svcCallObj.sOutDatset = "ds_NoDaMyun=ds_NoDaMyun";//출력 데이터셋
+		svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+		svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+		svcCallObj.isSync = true;//동기식으로 설정할지 여부
+		
+		//[공통]서비스 호출
+		this.gfn_CallComService(this, svcCallObj);
+
+		//CALM_DD
+		if(this.ds_NoDaMyun.getRowCount() > 0) {
+		
+			var sDay = "";
+			var sTotDay = "";
+			var sCALM_DD = "";
+			var iChkCnt = 0;
+			var sFormDt = "";//시작일자
+			var sToDt = "";  //종료일자
+			var pgm_gu = ""; // 프로그램구분 ( 'A':업무일지, 'B':다면평가 )
+			
+			this.fvWkDyMessage = "";//다면평가 체크 관련 메시지
+	
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
+this.div_LeftMenu_btn_CnthNoReload_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	
+	nApp.gds_AutoControl.clearData();
+	svcAddObj.sSelectSql = "sm:M_SM_CNTH_INFO"; //[공통]서비스정보 추가 - 자동화 ( 정충현 추가 )
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_SM;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	//svcCallObj.sOutDatset = "gds_AutoControl=gds_AutoControl gds_EmpmInfo=gds_EmpmInfo gds_DepmInfo=gds_DepmInfo gds_CnthInfo=gds_CnthInfo gds_CusmInfo=gds_CusmInfo";//출력 데이터셋
+	svcCallObj.sOutDatset = "gds_CnthInfo=gds_CnthInfo";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "";//서버에서 처리가 완료된 후 Callback 받을 Function 명	
+	svcCallObj.isSync = true;//동기식으로 설정할지 여부
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+};
+]]></Script>
+    <Objects>
+      <Dataset id="ds_SearchMenu">
+        <ColumnInfo>
+          <Column id="MENU_ID" type="STRING" size="256"/>
+          <Column id="MENU_NM" type="STRING" size="256"/>
+          <Column id="MENU_URL" type="STRING" size="256"/>
+          <Column id="MENU_LV" type="STRING" size="256"/>
+          <Column id="MENU_DST" type="STRING" size="256"/>
+          <Column id="WORK_GRP_CD" type="STRING" size="256"/>
+          <Column id="UP_MENU_ID" type="STRING" size="256"/>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+          <Column id="CALL_PA" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="SELE_YN" type="STRING" size="256"/>
+          <Column id="COPY_YN" type="STRING" size="256"/>
+          <Column id="INSE_YN" type="STRING" size="256"/>
+          <Column id="CANC_YN" type="STRING" size="256"/>
+          <Column id="SAVE_YN" type="STRING" size="256"/>
+          <Column id="DELE_YN" type="STRING" size="256"/>
+          <Column id="EXCE_YN" type="STRING" size="256"/>
+          <Column id="PRIN_YN" type="STRING" size="256"/>
+          <Column id="WFRQ_YN" type="STRING" size="256"/>
+          <Column id="WFSE_YN" type="STRING" size="256"/>
+          <Column id="WFRE_YN" type="STRING" size="256"/>
+          <Column id="SERA_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_SearchMenuTemp">
+        <ColumnInfo>
+          <Column id="MENU_ID" type="STRING" size="256"/>
+          <Column id="MENU_NM" type="STRING" size="256"/>
+          <Column id="MENU_URL" type="STRING" size="256"/>
+          <Column id="MENU_LV" type="STRING" size="256"/>
+          <Column id="MENU_DST" type="STRING" size="256"/>
+          <Column id="WORK_GRP_CD" type="STRING" size="256"/>
+          <Column id="UP_MENU_ID" type="STRING" size="256"/>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+          <Column id="CALL_PA" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="SELE_YN" type="STRING" size="256"/>
+          <Column id="COPY_YN" type="STRING" size="256"/>
+          <Column id="INSE_YN" type="STRING" size="256"/>
+          <Column id="CANC_YN" type="STRING" size="256"/>
+          <Column id="SAVE_YN" type="STRING" size="256"/>
+          <Column id="DELE_YN" type="STRING" size="256"/>
+          <Column id="EXCE_YN" type="STRING" size="256"/>
+          <Column id="PRIN_YN" type="STRING" size="256"/>
+          <Column id="WFRQ_YN" type="STRING" size="256"/>
+          <Column id="WFSE_YN" type="STRING" size="256"/>
+          <Column id="WFRE_YN" type="STRING" size="256"/>
+          <Column id="SERA_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Menu">
+        <ColumnInfo>
+          <Column id="MENU_ID" type="STRING" size="256"/>
+          <Column id="MENU_NM" type="STRING" size="256"/>
+          <Column id="MENU_URL" type="STRING" size="256"/>
+          <Column id="MENU_LV" type="INT" size="256"/>
+          <Column id="MENU_DST" type="STRING" size="256"/>
+          <Column id="WORK_GRP_CD" type="STRING" size="256"/>
+          <Column id="UP_MENU_ID" type="STRING" size="256"/>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+          <Column id="CALL_PA" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="SELE_YN" type="STRING" size="256"/>
+          <Column id="COPY_YN" type="STRING" size="256"/>
+          <Column id="INSE_YN" type="STRING" size="256"/>
+          <Column id="CANC_YN" type="STRING" size="256"/>
+          <Column id="SAVE_YN" type="STRING" size="256"/>
+          <Column id="DELE_YN" type="STRING" size="256"/>
+          <Column id="EXCE_YN" type="STRING" size="256"/>
+          <Column id="PRIN_YN" type="STRING" size="256"/>
+          <Column id="WFRQ_YN" type="STRING" size="256"/>
+          <Column id="WFSE_YN" type="STRING" size="256"/>
+          <Column id="WFRE_YN" type="STRING" size="256"/>
+          <Column id="SERA_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_MainMenu">
+        <ColumnInfo>
+          <Column id="MENU_ID" type="STRING" size="256"/>
+          <Column id="MENU_NM" type="STRING" size="256"/>
+          <Column id="MENU_URL" type="STRING" size="256"/>
+          <Column id="MENU_LV" type="STRING" size="256"/>
+          <Column id="MENU_DST" type="STRING" size="256"/>
+          <Column id="WORK_GRP_CD" type="STRING" size="256"/>
+          <Column id="UP_MENU_ID" type="STRING" size="256"/>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+          <Column id="CALL_PA" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="SELE_YN" type="STRING" size="256"/>
+          <Column id="COPY_YN" type="STRING" size="256"/>
+          <Column id="INSE_YN" type="STRING" size="256"/>
+          <Column id="CANC_YN" type="STRING" size="256"/>
+          <Column id="SAVE_YN" type="STRING" size="256"/>
+          <Column id="DELE_YN" type="STRING" size="256"/>
+          <Column id="EXCE_YN" type="STRING" size="256"/>
+          <Column id="PRIN_YN" type="STRING" size="256"/>
+          <Column id="WFRQ_YN" type="STRING" size="256"/>
+          <Column id="WFSE_YN" type="STRING" size="256"/>
+          <Column id="WFRE_YN" type="STRING" size="256"/>
+          <Column id="SERA_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="MENU_ID">ZZ90000000</Col>
+            <Col id="MENU_NM">Portal</Col>
+            <Col id="MENU_URL">FrameBase::Form_Portal.xfdl</Col>
+            <Col id="MENU_LV">0</Col>
+            <Col id="MENU_DST">S</Col>
+            <Col id="PRGM_ID">Form_Portal</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Empm">
+        <ColumnInfo>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="USEM_PW" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10">
+        <ColumnInfo>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_RecedntMenu">
+        <ColumnInfo>
+          <Column id="MENU_ID" type="STRING" size="256"/>
+          <Column id="MENU_NM" type="STRING" size="256"/>
+          <Column id="MENU_URL" type="STRING" size="256"/>
+          <Column id="MENU_LV" type="STRING" size="256"/>
+          <Column id="MENU_DST" type="STRING" size="256"/>
+          <Column id="WORK_GRP_CD" type="STRING" size="256"/>
+          <Column id="UP_MENU_ID" type="STRING" size="256"/>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+          <Column id="CALL_PA" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="SELE_YN" type="STRING" size="256"/>
+          <Column id="COPY_YN" type="STRING" size="256"/>
+          <Column id="INSE_YN" type="STRING" size="256"/>
+          <Column id="CANC_YN" type="STRING" size="256"/>
+          <Column id="SAVE_YN" type="STRING" size="256"/>
+          <Column id="DELE_YN" type="STRING" size="256"/>
+          <Column id="EXCE_YN" type="STRING" size="256"/>
+          <Column id="PRIN_YN" type="STRING" size="256"/>
+          <Column id="WFRQ_YN" type="STRING" size="256"/>
+          <Column id="WFSE_YN" type="STRING" size="256"/>
+          <Column id="WFRE_YN" type="STRING" size="256"/>
+          <Column id="SERA_CD" type="STRING" size="256"/>
+          <Column id="PFIX_YN" type="STRING" size="256"/>
+          <Column id="PFIX_NM" type="STRING" size="256"/>
+          <Column id="MENU_DEPH" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Sm910">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <FileDownTransfer id="fdt_File"/>
+      <Dataset id="ds_DbCheckResult">
+        <ColumnInfo>
+          <Column id="CKDB_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Sf100">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Cmah">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="CMAH_YY" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Wkdy">
+        <ColumnInfo>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_NoWkDy">
+        <ColumnInfo>
+          <Column id="CALM_DD" type="STRING" size="256"/>
+          <Column id="PGM_GU" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_NoDaMyun">
+        <ColumnInfo>
+          <Column id="CALM_DD" type="STRING" size="256"/>
+          <Column id="PGM_GU" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Sm931">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="PRGM_ID_01" type="STRING" size="256"/>
+          <Column id="PRGM_ID_02" type="STRING" size="256"/>
+          <Column id="PRGM_ID_03" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

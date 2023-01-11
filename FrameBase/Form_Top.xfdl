@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Form_Top" width="1618" height="57" titletext="Form_Top" onload="fn_FormOnload" ontimer="Form_Top_ontimer">
+    <Layouts>
+      <Layout width="1618" height="57" screenid="ScreenDeskTop">
+        <Div id="div_Btn" taborder="0" left="434" top="0" right="8" url="FrameBase::Form_ComBtn.xfdl" text="" bottom="0"/>
+        <Static id="sta_Title" taborder="1" left="24" top="0" width="400" cssclass="sta_WF_PageTitle" bottom="0"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  [System] Top Frame
+*  @Creator 	공통개발팀
+*  @CreateDate 	2020.12.02
+*  @Desction    
+******************* 소스 수정 이력 *************************************************************
+*  date          		Modifier                Description
+*************************************************************************************************
+*  2020.12.02     	    공통개발팀 	           	    최초 생성 
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * Form Include 선언 영역
+ ************************************************************************************************/
+
+
+/************************************************************************************************
+ * Form 변수 선언 영역
+ ************************************************************************************************/
+
+this.fvCommLoginUserNm = "";//로그인 사용자명
+
+/***********************************************************************************************
+* Form 이벤트 영역
+ ***********************************************************************************************/
+/**
+ *  Form Onload 이벤트
+*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	//this.fn_FormInit();//화면로드시 초기 설정 함수
+	//this.fvCommLoginUserNm = this.gfn_GetSessionValue("gvUserNm");//로그인 사용자명
+	//this.sta_LoginUserInfo.set_text(this.fvCommLoginUserNm);
+	//this.setTimer(0, 1000);
+}
+
+/**
+ *  Form OnClose 이벤트
+*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+this.btn_Logout_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//trace(nApp.gds_OpenMenu.saveXML());
+	var iFramesCnt = nApp.gvWorkFrame.frames.length;	
+	
+   for (var i=iFramesCnt; i>=0; i--) {			
+	   if( i > 0 ){
+		  nApp.gvTabFrame.form.gfn_TabOnClose(nApp.gvWorkFrame.frames[i-1].name);
+		}	
+	}	
+	
+	nApp.afn_setSeparatesize("LOGOUT");
+	//this.fn_Logout();//로그아웃처리
+};
+
+
+this.fn_Logout = function()
+{
+	
+	var strSvcId    = "LOGOUT_INFO";
+	var strSvcUrl   = "logout.do";
+	var inData      = "gds_UserInfo=gds_UserInfo";
+	var outData     = "";	
+	var strArg      = "";
+	var callBackFnc = "fn_Callback";	
+
+	//생략가능
+	var isAsync   = true;
+	var nDataType = 0;
+
+	this.gfn_Transaction(strSvcId ,   // transaction을 구분하기 위한 svc id값
+						 strSvcUrl ,  // trabsaction을 요청할 주소
+						 inData , 	  // 입력값으로 보낼 dataset id , a=b형태로 실제이름과 입력이름을 매칭
+						 outData , 	  // 처리결과값으로 받을 dataset id, a=b형태로 실제이름과 입력이름을 매칭
+						 strArg, 	  // 입력갑스로 보낼 arguments, strFormData="20120607"
+						 callBackFnc, // transaction의 결과를 받을 Function 이름
+						 nDataType);  // 통신방법 정의 [생략가능]		
+						 
+};
+
+
+/************************************************************************************************
+ * CALLBACK 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/**
+ * @description Transaction CallBack 함수(선택)
+*/
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "LOGOUT_INFO":
+			nApp.afn_setSeparatesize("LOGOUT");					
+			break;
+	}
+};
+
+this.fn_OpenMenu = function()
+{
+	nApp.afn_setSeparatesize("OPEN");
+	this.gvMenuOpenMode = true;//좌측메뉴 OPEM여부
+	this.btm_MenuOpen.set_cssclass("btn_TF_Fold");
+}
+
+this.Form_Top_ontimer = function(obj:nexacro.Form,e:nexacro.TimerEventInfo)
+{	
+	//<b v='true'>정우성</b>님 / 2020년 10월 22일 오후 3:23:17
+	var sText = "<b v='true'>" + this.fvCommLoginUserNm + "</b>님 / " + this.fn_GetWorldTime();
+	this.sta_LoginUserInfo.set_text(sText);
+};
+
+this.fn_GetWorldTime = function()
+{
+	var objDate = new Date();
+	var nTime = objDate.getTime() + (objDate.getTimezoneOffset() * 60000);
+	objDate.setTime(nTime);
+	
+	var s =
+    this.fn_getDate(objDate.getFullYear(), 4) + '년 ' +
+    this.fn_getDate(objDate.getMonth() + 1, 2) + '월 ' +
+    this.fn_getDate(objDate.getDate(), 2) + '일 ' +
+
+    this.fn_getDate(objDate.getHours(), 2) + ':' +
+    this.fn_getDate(objDate.getMinutes(), 2) + ':' +
+    this.fn_getDate(objDate.getSeconds(), 2);
+
+	return s;
+}
+
+this.fn_getDate = function(n, digits) 
+{
+  var zero = '';
+  n = n.toString();
+
+  if (n.length < digits) {
+    for (i = 0; i < digits - n.length; i++)
+      zero += '0';
+  }
+  return zero + n;
+}]]></Script>
+  </Form>
+</FDL>

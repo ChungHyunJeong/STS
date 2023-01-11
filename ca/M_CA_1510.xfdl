@@ -1,0 +1,2362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_CA_1510" width="1442" height="695" titletext="결산_체크리스트" onload="fn_FormOnload" onclose="fn_FormClose">
+    <Layouts>
+      <Layout height="695" width="1442">
+        <Div id="div_Search" taborder="0" left="14" top="12" height="66" cssclass="div_WF_Search" formscrollbartype="none none" right="14" text="">
+          <Layouts>
+            <Layout>
+              <Static id="sta_FromDd" taborder="0" text="결산년월" left="16" top="6" width="80" height="24" cssclass="sta_WF_SLabel" DomainID="S00002"/>
+              <Static id="sta_AcumCd" taborder="1" text="회계단위" left="375" top="6" width="80" height="24" cssclass="sta_WF_SLabel"/>
+              <Edit id="edt_AcumCd" taborder="2" left="456" top="6" width="90" height="24" maxlength="10" onchanged="div_Search.form.edt_AcumCd_onchanged" cssclass="essential"/>
+              <Edit id="edt_AcumNm" taborder="3" left="548" top="6" width="130" height="24" enable="false" tabstop="true" maxlength="50"/>
+              <Button id="btn_AcumCd" taborder="4" left="680" top="6" width="24" height="24" cssclass="btn_WF_SmallSearch" tabstop="false" onclick="div_Search_btn_AcumCd_onclick" cursor="pointer" text=""/>
+              <Calendar id="cal_FromDd" taborder="5" left="96" top="6" width="110" height="24" dateformat="yyyy-MM" cssclass="essential" editformat="yyyy-MM" popuptype="none" ondropdown="div_Search_cal_FromDd_ondropdown"/>
+              <Div id="div_ComGridSearch" taborder="6" top="34" height="30" width="328" url="cmm::cmmGridSearch.xfdl" async="false" left="1096"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btn_DivMoveMi" taborder="1" top="78" height="10" width="40" visible="true" onclick="btn_DivMoveMi_onclick" cssclass="bt_TF_FoldA" text="" left="700" cursor="pointer"/>
+        <Tab id="Tab00" taborder="2" tabindex="0" left="15" top="83" right="0" bottom="0" cssclass="tab_WF_DetailList">
+          <Tabpages>
+            <Tabpage id="tpg_01" text="결산기초">
+              <Layouts>
+                <Layout>
+                  <Static id="sta_MstList" taborder="0" text="체크리스트" left="0" top="0" width="220" height="32" cssclass="sta_WF_Title" onclick="div_MasterView_Static00_onclick"/>
+                  <Grid id="grd_Master10" taborder="1" left="5" top="32" binddataset="ds_Master10" autofittype="none" autosizingtype="none" cellsizingtype="col" selecttype="cell" right="0" height="180" oncellclick="Tab00_tpg_01_grd_Master10_oncellclick">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="35"/>
+                          <Column size="150"/>
+                          <Column size="150"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="476"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="26" band="head"/>
+                          <Row size="24"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell text="No."/>
+                          <Cell col="1" text="구분"/>
+                          <Cell col="2" text="비교화면명"/>
+                          <Cell col="3" text="현황총액(A)"/>
+                          <Cell col="4" text="결산총액(B)"/>
+                          <Cell col="5" text="차이(A-B)"/>
+                          <Cell col="6" text="비고"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell expr="currow + 1" textAlign="center"/>
+                          <Cell col="1" displaytype="normal" text="bind:GUBN1" textAlign="left" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="2" displaytype="normal" text="bind:GUBN2" textAlign="left" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="3" textAlign="right" text="bind:DATA1" displaytype="number"/>
+                          <Cell col="4" textAlign="right" text="bind:DATA2" displaytype="number"/>
+                          <Cell col="5" textAlign="right" text="bind:GAP1" displaytype="number" color="red" font="bold 12px/normal &quot;Gothic&quot;"/>
+                          <Cell col="6" text="bind:REMK" displaytype="normal" textAlign="left" suppress="0"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                  <Static id="sta_MstList00" taborder="2" text="비교" left="0" top="209" width="220" height="32" cssclass="sta_WF_Title" onclick="div_MasterView_Static00_onclick"/>
+                  <Grid id="grd_Detail10" taborder="3" left="5" top="241" binddataset="ds_Detail10" autofittype="none" right="10" autosizingtype="none" cellsizingtype="col" selecttype="cell" bottom="10" oncellclick="Tab00_tpg_01_grd_Detail10_oncellclick">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="35"/>
+                          <Column size="120"/>
+                          <Column size="85"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="26" band="head"/>
+                          <Row size="24" band="head"/>
+                          <Row size="24"/>
+                          <Row size="24" band="summ"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell rowspan="2" text="No."/>
+                          <Cell col="1" rowspan="2" text="계약번호"/>
+                          <Cell col="2" rowspan="2" text="계약순번"/>
+                          <Cell col="3" colspan="3" text="현황"/>
+                          <Cell col="6" colspan="3" text="결산"/>
+                          <Cell col="9" rowspan="2" text="합계차이"/>
+                          <Cell row="1" col="3" text="직접비"/>
+                          <Cell row="1" col="4" text="간접비"/>
+                          <Cell row="1" col="5" text="합계"/>
+                          <Cell row="1" col="6" text="직접비"/>
+                          <Cell row="1" col="7" text="간접비"/>
+                          <Cell row="1" col="8" text="합계"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell expr="currow + 1" textAlign="center"/>
+                          <Cell col="1" displaytype="normal" text="bind:GUBN1" textAlign="center" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="2" displaytype="normal" text="bind:GUBN2" textAlign="center" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="3" textAlign="right" text="bind:JIK_AM" displaytype="number"/>
+                          <Cell col="4" textAlign="right" text="bind:GAN_AM" displaytype="number"/>
+                          <Cell col="5" textAlign="right" text="bind:WONE_AM" displaytype="number"/>
+                          <Cell col="6" textAlign="right" text="bind:T_JIK_AM" displaytype="number"/>
+                          <Cell col="7" textAlign="right" text="bind:T_GAN_AM" displaytype="number"/>
+                          <Cell col="8" textAlign="right" text="bind:T_WONE_AM" displaytype="number"/>
+                          <Cell col="9" textAlign="right" text="bind:GAP" displaytype="number" font="bold 12px/normal &quot;Gothic&quot;" color="red"/>
+                        </Band>
+                        <Band id="summary">
+                          <Cell/>
+                          <Cell col="1"/>
+                          <Cell col="2"/>
+                          <Cell col="3" expr="dataset.getSum(&quot;JIK_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="4" expr="dataset.getSum(&quot;GAN_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="5" expr="dataset.getSum(&quot;WONE_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="6" expr="dataset.getSum(&quot;T_JIK_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="7" expr="dataset.getSum(&quot;T_GAN_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="8" expr="dataset.getSum(&quot;T_WONE_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="9" expr="dataset.getSum(&quot;GAP&quot;)" displaytype="number" textAlign="right"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+            <Tabpage id="Tabpage2" text="결산결과">
+              <Layouts>
+                <Layout>
+                  <Static id="sta_MstList" taborder="0" text="체크리스트" left="0" top="0" width="220" height="32" cssclass="sta_WF_Title" onclick="div_MasterView_Static00_onclick"/>
+                  <Grid id="grd_Master20" taborder="1" left="5" top="32" binddataset="ds_Master20" autofittype="none" autosizingtype="none" cellsizingtype="col" selecttype="cell" right="0" height="277">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="35"/>
+                          <Column size="150"/>
+                          <Column size="150"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="158"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="26" band="head"/>
+                          <Row size="24" band="head"/>
+                          <Row size="24"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell rowspan="2" text="No."/>
+                          <Cell col="1" rowspan="2" text="구분"/>
+                          <Cell col="2" rowspan="2" text="비교화면명"/>
+                          <Cell col="3" colspan="3" text="결산기초, 전표"/>
+                          <Cell col="6" colspan="3" text="결산결과"/>
+                          <Cell col="9" rowspan="2" text="차이(A-B)"/>
+                          <Cell col="10" text="비고"/>
+                          <Cell row="1" col="3" text="직접비"/>
+                          <Cell row="1" col="4" text="간접비"/>
+                          <Cell row="1" col="5" text="합계(A)"/>
+                          <Cell row="1" col="6" text="직접비"/>
+                          <Cell row="1" col="7" text="간접비"/>
+                          <Cell row="1" col="8" text="합계(B)"/>
+                          <Cell row="1" col="10"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell expr="currow + 1" textAlign="center"/>
+                          <Cell col="1" displaytype="normal" text="bind:GUBN1" textAlign="left" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="2" displaytype="normal" text="bind:GUBN2" textAlign="left" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="3" textAlign="right" text="bind:JIK_AM" displaytype="number"/>
+                          <Cell col="4" textAlign="right" text="bind:GAN_AM" displaytype="number"/>
+                          <Cell col="5" textAlign="right" text="bind:SUM_AM" displaytype="number"/>
+                          <Cell col="6" textAlign="right" text="bind:T_JIK_AM" displaytype="number"/>
+                          <Cell col="7" textAlign="right" text="bind:T_GAN_AM" displaytype="number"/>
+                          <Cell col="8" textAlign="right" text="bind:T_SUM_AM" displaytype="number"/>
+                          <Cell col="9" textAlign="right" text="bind:SUM_GAP1" displaytype="number" font="bold 12px/normal &quot;Gothic&quot;" color="red"/>
+                          <Cell col="10" text="bind:REMK" displaytype="normal" textAlign="left" suppress="0"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                  <Grid id="grd_Daster20" taborder="2" left="5" top="322" binddataset="ds_Detail20" autofittype="none" autosizingtype="none" cellsizingtype="col" selecttype="cell" right="0" height="277" oncellclick="Tab00_Tabpage2_grd_Daster20_oncellclick">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="35"/>
+                          <Column size="150"/>
+                          <Column size="150"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="120"/>
+                          <Column size="158"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="26" band="head"/>
+                          <Row size="24" band="head"/>
+                          <Row size="24"/>
+                          <Row size="24" band="summ"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell rowspan="2" text="No."/>
+                          <Cell col="1" rowspan="2" text="계약번호"/>
+                          <Cell col="2" rowspan="2" text="계약순번"/>
+                          <Cell col="3" colspan="3" text="결산기초, 전표"/>
+                          <Cell col="6" colspan="3" text="결산결과"/>
+                          <Cell col="9" rowspan="2" text="차이(A-B)"/>
+                          <Cell col="10" text="비고"/>
+                          <Cell row="1" col="3" text="직접비"/>
+                          <Cell row="1" col="4" text="간접비"/>
+                          <Cell row="1" col="5" text="합계(A)"/>
+                          <Cell row="1" col="6" text="직접비"/>
+                          <Cell row="1" col="7" text="간접비"/>
+                          <Cell row="1" col="8" text="합계(B)"/>
+                          <Cell row="1" col="10"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell expr="currow + 1" textAlign="center"/>
+                          <Cell col="1" displaytype="normal" text="bind:GUBN1" textAlign="left" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="2" displaytype="normal" text="bind:GUBN2" textAlign="left" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="3" textAlign="right" text="bind:JIK_AM" displaytype="number"/>
+                          <Cell col="4" textAlign="right" text="bind:GAN_AM" displaytype="number"/>
+                          <Cell col="5" textAlign="right" text="bind:SUM_AM" displaytype="number"/>
+                          <Cell col="6" textAlign="right" text="bind:T_JIK_AM" displaytype="number"/>
+                          <Cell col="7" textAlign="right" text="bind:T_GAN_AM" displaytype="number"/>
+                          <Cell col="8" textAlign="right" text="bind:T_SUM_AM" displaytype="number"/>
+                          <Cell col="9" textAlign="right" text="bind:SUM_GAP1" displaytype="number" font="bold 12px/normal &quot;Gothic&quot;" color="red"/>
+                          <Cell col="10" text="bind:REMK" displaytype="normal" textAlign="left" suppress="0"/>
+                        </Band>
+                        <Band id="summary">
+                          <Cell/>
+                          <Cell col="1"/>
+                          <Cell col="2"/>
+                          <Cell col="3" expr="dataset.getSum(&quot;JIK_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="4" expr="dataset.getSum(&quot;GAN_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="5" expr="dataset.getSum(&quot;SUM_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="6" expr="dataset.getSum(&quot;T_JIK_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="7" expr="dataset.getSum(&quot;T_GAN_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="8" expr="dataset.getSum(&quot;T_SUM_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="9" expr="dataset.getSum(&quot;SUM_GAP1&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="10"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+            <Tabpage id="Tabpage3" text="계약별손익">
+              <Layouts>
+                <Layout>
+                  <Grid id="grd_Master30" taborder="0" left="5" top="32" binddataset="ds_Master30" autofittype="none" autosizingtype="none" cellsizingtype="col" selecttype="cell" right="0" height="150">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="35"/>
+                          <Column size="200"/>
+                          <Column size="200"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="72"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="26" band="head"/>
+                          <Row size="24" band="head"/>
+                          <Row size="24"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell rowspan="2" text="No."/>
+                          <Cell col="1" rowspan="2" text="구분"/>
+                          <Cell col="2" rowspan="2" text="비교화면명"/>
+                          <Cell col="3" colspan="5" text="제품_재공품평가전표발의"/>
+                          <Cell col="8" colspan="5" text="결산결과_계약별손익"/>
+                          <Cell col="13" rowspan="2" text="차이(A-B)"/>
+                          <Cell col="14" rowspan="2" text="비고"/>
+                          <Cell row="1" col="3" text="재료비"/>
+                          <Cell row="1" col="4" text="노무비"/>
+                          <Cell row="1" col="5" text="경비"/>
+                          <Cell row="1" col="6" text="외주비"/>
+                          <Cell row="1" col="7" text="합계(A)"/>
+                          <Cell row="1" col="8" text="재료비"/>
+                          <Cell row="1" col="9" text="노무비"/>
+                          <Cell row="1" col="10" text="경비"/>
+                          <Cell row="1" col="11" text="외주비"/>
+                          <Cell row="1" col="12" text="합계(B)"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell expr="currow + 1" textAlign="center"/>
+                          <Cell col="1" displaytype="normal" text="bind:GUBN1" textAlign="left" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="2" displaytype="normal" text="bind:GUBN2" textAlign="left" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="3" textAlign="right" text="bind:MATE_AM" displaytype="number"/>
+                          <Cell col="4" textAlign="right" text="bind:NOMU_AM" displaytype="number"/>
+                          <Cell col="5" textAlign="right" text="bind:COST_AM" displaytype="number"/>
+                          <Cell col="6" textAlign="right" text="bind:OUTS_AM" displaytype="number"/>
+                          <Cell col="7" textAlign="right" text="bind:SUM_AM" displaytype="number"/>
+                          <Cell col="8" textAlign="right" text="bind:T_MATE_AM" displaytype="number"/>
+                          <Cell col="9" textAlign="right" text="bind:T_NOMU_AM" displaytype="number"/>
+                          <Cell col="10" textAlign="right" text="bind:T_COST_AM" displaytype="number"/>
+                          <Cell col="11" textAlign="right" text="bind:T_OUTS_AM" displaytype="number"/>
+                          <Cell col="12" textAlign="right" text="bind:T_SUM_AM" displaytype="number"/>
+                          <Cell col="13" textAlign="right" text="bind:SUM_GAP1" displaytype="number" color="red" font="bold 12px/normal &quot;Gothic&quot;"/>
+                          <Cell col="14" text="bind:REMK" displaytype="normal" textAlign="left" suppress="0"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                  <Static id="sta_MstList" taborder="1" text="체크리스트" left="0" top="0" width="220" height="32" cssclass="sta_WF_Title" onclick="div_MasterView_Static00_onclick"/>
+                  <Grid id="grd_Master31" taborder="2" left="5" top="182" binddataset="ds_Master31" autofittype="none" autosizingtype="none" cellsizingtype="col" selecttype="cell" right="0" height="150">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="35"/>
+                          <Column size="200"/>
+                          <Column size="200"/>
+                          <Column size="72"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="200"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="26" band="head"/>
+                          <Row size="24" band="head"/>
+                          <Row size="24"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell rowspan="2" text="No."/>
+                          <Cell col="1" rowspan="2" text="구분"/>
+                          <Cell col="2" rowspan="2" text="비교화면명"/>
+                          <Cell col="3" rowspan="2" text="구분"/>
+                          <Cell col="4" colspan="4" text="간주매출전표발의"/>
+                          <Cell col="8" colspan="4" text="결산결과_계약별손익"/>
+                          <Cell col="12" rowspan="2" text="차이(A-B)"/>
+                          <Cell col="13" rowspan="2" text="비고"/>
+                          <Cell row="1" col="4" text="당월진행매출"/>
+                          <Cell row="1" col="5" text="계약자산"/>
+                          <Cell row="1" col="6" text="계약부채"/>
+                          <Cell row="1" col="7" text="합계(A)"/>
+                          <Cell row="1" col="8" text="당월진행매출"/>
+                          <Cell row="1" col="9" text="계약자산"/>
+                          <Cell row="1" col="10" text="계약부채"/>
+                          <Cell row="1" col="11" text="합계(B)"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell expr="currow + 1" textAlign="center"/>
+                          <Cell col="1" displaytype="normal" text="bind:GUBN1" textAlign="left" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="2" displaytype="normal" text="bind:GUBN2" textAlign="left" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="3" displaytype="normal" text="bind:GUBN3" textAlign="center" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="4" textAlign="right" text="bind:UNTO_AM" displaytype="number"/>
+                          <Cell col="5" textAlign="right" text="bind:WGTO_AM" displaytype="number"/>
+                          <Cell col="6" textAlign="right" text="bind:OVTO_AM" displaytype="number"/>
+                          <Cell col="7" textAlign="right" text="bind:W_SUM" displaytype="number"/>
+                          <Cell col="8" textAlign="right" text="bind:T_UNTO_AM" displaytype="number"/>
+                          <Cell col="9" textAlign="right" text="bind:T_WGTO_AM" displaytype="number"/>
+                          <Cell col="10" textAlign="right" text="bind:T_OVTO_AM" displaytype="number"/>
+                          <Cell col="11" textAlign="right" text="bind:T_W_SUM" displaytype="number"/>
+                          <Cell col="12" textAlign="right" text="bind:W_GAP" displaytype="number" color="red" font="bold 12px/normal &quot;Gothic&quot;"/>
+                          <Cell col="13" text="bind:REMK" displaytype="normal" textAlign="left" suppress="0"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                  <Grid id="grd_Detail30" taborder="3" left="5" top="460" binddataset="ds_Detail30" autofittype="none" autosizingtype="none" cellsizingtype="col" selecttype="cell" right="0" bottom="0" oncellclick="Tab00_Tabpage3_grd_Detail30_oncellclick">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="35"/>
+                          <Column size="200"/>
+                          <Column size="200"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="72"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="26" band="head"/>
+                          <Row size="24" band="head"/>
+                          <Row size="24"/>
+                          <Row size="24" band="summ"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell rowspan="2" text="No."/>
+                          <Cell col="1" rowspan="2" text="구분"/>
+                          <Cell col="2" rowspan="2" text="비교화면명"/>
+                          <Cell col="3" colspan="5" text="제품_재공품평가전표발의"/>
+                          <Cell col="8" colspan="5" text="결산결과_계약별손익"/>
+                          <Cell col="13" rowspan="2" text="차이(A-B)"/>
+                          <Cell col="14" rowspan="2" text="비고"/>
+                          <Cell row="1" col="3" text="재료비"/>
+                          <Cell row="1" col="4" text="노무비"/>
+                          <Cell row="1" col="5" text="경비"/>
+                          <Cell row="1" col="6" text="외주비"/>
+                          <Cell row="1" col="7" text="합계(A)"/>
+                          <Cell row="1" col="8" text="재료비"/>
+                          <Cell row="1" col="9" text="노무비"/>
+                          <Cell row="1" col="10" text="경비"/>
+                          <Cell row="1" col="11" text="외주비"/>
+                          <Cell row="1" col="12" text="합계(B)"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell expr="currow + 1" textAlign="center"/>
+                          <Cell col="1" displaytype="normal" text="bind:GUBN1" textAlign="left" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="2" displaytype="normal" text="bind:GUBN2" textAlign="left" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="3" textAlign="right" text="bind:MATE_AM" displaytype="number"/>
+                          <Cell col="4" textAlign="right" text="bind:NOMU_AM" displaytype="number"/>
+                          <Cell col="5" textAlign="right" text="bind:COST_AM" displaytype="number"/>
+                          <Cell col="6" textAlign="right" text="bind:OUTS_AM" displaytype="number"/>
+                          <Cell col="7" textAlign="right" text="bind:SUM_AM" displaytype="number"/>
+                          <Cell col="8" textAlign="right" text="bind:T_MATE_AM" displaytype="number"/>
+                          <Cell col="9" textAlign="right" text="bind:T_NOMU_AM" displaytype="number"/>
+                          <Cell col="10" textAlign="right" text="bind:T_COST_AM" displaytype="number"/>
+                          <Cell col="11" textAlign="right" text="bind:T_OUTS_AM" displaytype="number"/>
+                          <Cell col="12" textAlign="right" text="bind:T_SUM_AM" displaytype="number"/>
+                          <Cell col="13" textAlign="right" text="bind:SUM_GAP1" displaytype="number" color="red" font="bold 12px/normal &quot;Gothic&quot;"/>
+                          <Cell col="14" text="bind:REMK" displaytype="normal" textAlign="left" suppress="0"/>
+                        </Band>
+                        <Band id="summary">
+                          <Cell/>
+                          <Cell col="1"/>
+                          <Cell col="2"/>
+                          <Cell col="3" expr="dataset.getSum(&quot;MATE_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="4" expr="dataset.getSum(&quot;NOMU_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="5" expr="dataset.getSum(&quot;COST_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="6" expr="dataset.getSum(&quot;OUTS_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="7" expr="dataset.getSum(&quot;SUM_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="8" expr="dataset.getSum(&quot;T_MATE_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="9" expr="dataset.getSum(&quot;T_NOMU_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="10" expr="dataset.getSum(&quot;T_COST_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="11" expr="dataset.getSum(&quot;T_OUTS_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="12" expr="dataset.getSum(&quot;T_SUM_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="13" expr="dataset.getSum(&quot;SUM_GAP1&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="14"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                  <Static id="sta_MstList00" taborder="4" text="비교" left="0" top="430" width="220" height="32" cssclass="sta_WF_Title" onclick="div_MasterView_Static00_onclick"/>
+                  <Grid id="grd_Detail31" taborder="5" left="5" top="460" binddataset="ds_Detail31" autofittype="none" autosizingtype="none" cellsizingtype="col" selecttype="cell" right="0" bottom="0" oncellclick="Tab00_Tabpage3_grd_Detail31_oncellclick">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="35"/>
+                          <Column size="200"/>
+                          <Column size="200"/>
+                          <Column size="72"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="200"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="26" band="head"/>
+                          <Row size="24" band="head"/>
+                          <Row size="24"/>
+                          <Row size="24" band="summ"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell rowspan="2" text="No."/>
+                          <Cell col="1" rowspan="2" text="구분"/>
+                          <Cell col="2" rowspan="2" text="비교화면명"/>
+                          <Cell col="3" rowspan="2" text="구분"/>
+                          <Cell col="4" colspan="4" text="간주매출전표발의"/>
+                          <Cell col="8" colspan="4" text="결산결과_계약별손익"/>
+                          <Cell col="12" rowspan="2" text="차이(A-B)"/>
+                          <Cell col="13" rowspan="2" text="비고"/>
+                          <Cell row="1" col="4" text="당월진행매출"/>
+                          <Cell row="1" col="5" text="계약자산"/>
+                          <Cell row="1" col="6" text="계약부채"/>
+                          <Cell row="1" col="7" text="합계(A)"/>
+                          <Cell row="1" col="8" text="당월진행매출"/>
+                          <Cell row="1" col="9" text="계약자산"/>
+                          <Cell row="1" col="10" text="계약부채"/>
+                          <Cell row="1" col="11" text="합계(B)"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell expr="currow + 1" textAlign="center"/>
+                          <Cell col="1" displaytype="normal" text="bind:GUBN1" textAlign="left" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="2" displaytype="normal" text="bind:GUBN2" textAlign="left" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="3" displaytype="normal" text="bind:GUBN3" textAlign="center" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="4" textAlign="right" text="bind:UNTO_AM" displaytype="number"/>
+                          <Cell col="5" textAlign="right" text="bind:WGTO_AM" displaytype="number"/>
+                          <Cell col="6" textAlign="right" text="bind:OVTO_AM" displaytype="number"/>
+                          <Cell col="7" textAlign="right" text="bind:W_SUM" displaytype="number"/>
+                          <Cell col="8" textAlign="right" text="bind:T_UNTO_AM" displaytype="number"/>
+                          <Cell col="9" textAlign="right" text="bind:T_WGTO_AM" displaytype="number"/>
+                          <Cell col="10" textAlign="right" text="bind:T_OVTO_AM" displaytype="number"/>
+                          <Cell col="11" textAlign="right" text="bind:T_W_SUM" displaytype="number"/>
+                          <Cell col="12" textAlign="right" text="bind:W_GAP" displaytype="number" color="red" font="bold 12px/normal &quot;Gothic&quot;"/>
+                          <Cell col="13" text="bind:REMK" displaytype="normal" textAlign="left" suppress="0"/>
+                        </Band>
+                        <Band id="summary">
+                          <Cell/>
+                          <Cell col="1"/>
+                          <Cell col="2"/>
+                          <Cell col="3"/>
+                          <Cell col="4" expr="dataset.getSum(&quot;UNTO_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="5" expr="dataset.getSum(&quot;WGTO_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="6" expr="dataset.getSum(&quot;OVTO_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="7" expr="dataset.getSum(&quot;W_SUM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="8" expr="dataset.getSum(&quot;T_UNTO_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="9" expr="dataset.getSum(&quot;T_WGTO_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="10" expr="dataset.getSum(&quot;T_OVTO_AM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="11" expr="dataset.getSum(&quot;T_W_SUM&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="12" expr="dataset.getSum(&quot;W_GAP&quot;)" displaytype="number" textAlign="right"/>
+                          <Cell col="13"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                  <Grid id="grd_Master32" taborder="6" left="5" top="332" binddataset="ds_Master32" autofittype="none" autosizingtype="none" cellsizingtype="col" selecttype="cell" right="0" height="100" oncellclick="Tab00_Tabpage3_grd_Master32_oncellclick">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="35"/>
+                          <Column size="200"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="100"/>
+                          <Column size="200"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="26" band="head"/>
+                          <Row size="24" band="head"/>
+                          <Row size="24"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell rowspan="2" text="No."/>
+                          <Cell col="1" rowspan="2" text="구분"/>
+                          <Cell col="2" colspan="4" text="당월손익"/>
+                          <Cell col="6" colspan="4" text="이전월손익"/>
+                          <Cell col="10" rowspan="2" text="차이(D-A+B)"/>
+                          <Cell col="11" rowspan="2" text="차이(D-E+F+C)"/>
+                          <Cell col="12" rowspan="2" text="비고"/>
+                          <Cell row="1" col="2" text="전기누적(A)"/>
+                          <Cell row="1" col="3" text="당기누적(B)"/>
+                          <Cell row="1" col="4" text="당월투입(C)"/>
+                          <Cell row="1" col="5" text="누적(D)"/>
+                          <Cell row="1" col="6" text="전기누적(E)"/>
+                          <Cell row="1" col="7" text="당기누적(F)"/>
+                          <Cell row="1" col="8" text="당월투입"/>
+                          <Cell row="1" col="9" text="누적"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell expr="currow + 1" textAlign="center"/>
+                          <Cell col="1" displaytype="normal" text="bind:GUBN1" textAlign="left" combodataset="ds_Wf110" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                          <Cell col="2" textAlign="right" text="bind:THIS_LYNU_SUM" displaytype="number"/>
+                          <Cell col="3" textAlign="right" text="bind:THIS_TYNU_SUM" displaytype="number"/>
+                          <Cell col="4" textAlign="right" text="bind:THIS_TMNU_SUM" displaytype="number"/>
+                          <Cell col="5" textAlign="right" text="bind:THIS_NU_SUM" displaytype="number"/>
+                          <Cell col="6" textAlign="right" text="bind:PRE_LYNU_SUM" displaytype="number"/>
+                          <Cell col="7" textAlign="right" text="bind:PRE_TYNU_SUM" displaytype="number"/>
+                          <Cell col="8" textAlign="right" text="bind:PRE_TMNU_SUM" displaytype="number"/>
+                          <Cell col="9" textAlign="right" text="bind:PRE_NU_SUM" displaytype="number"/>
+                          <Cell col="10" textAlign="right" text="bind:THIS_NU_RESULT" displaytype="number" color="red" font="bold 12px/normal &quot;Gothic&quot;"/>
+                          <Cell col="11" textAlign="right" text="bind:PRE_NU_RESULT" displaytype="number" color="red" font="bold 12px/normal &quot;Gothic&quot;"/>
+                          <Cell col="12" text="bind:REMK" displaytype="normal" textAlign="left" suppress="0"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+            <Tabpage id="Tabpage4" text="진행매출">
+              <Layouts>
+                <Layout/>
+              </Layouts>
+            </Tabpage>
+          </Tabpages>
+        </Tab>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="FROM_DD" type="STRING" size="256"/>
+          <Column id="ACUM_CD" type="STRING" size="256"/>
+          <Column id="RESULT_TABLE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_FaSaum">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SAUM_CD" type="STRING" size="256"/>
+          <Column id="SAUM_NM" type="STRING" size="256"/>
+          <Column id="SAUE_NM" type="STRING" size="256"/>
+          <Column id="SAUM_NO" type="STRING" size="256"/>
+          <Column id="CORP_NO" type="STRING" size="256"/>
+          <Column id="ACUM_CD" type="STRING" size="256"/>
+          <Column id="BUSM_CD" type="STRING" size="256"/>
+          <Column id="SAGU_CD" type="STRING" size="256"/>
+          <Column id="REPR_NM" type="STRING" size="256"/>
+          <Column id="BUSI_CO" type="STRING" size="256"/>
+          <Column id="ITEM_NM" type="STRING" size="256"/>
+          <Column id="OTEL_NO" type="STRING" size="256"/>
+          <Column id="OFAX_NO" type="STRING" size="256"/>
+          <Column id="POST_NO" type="STRING" size="256"/>
+          <Column id="ADD1_NM" type="STRING" size="256"/>
+          <Column id="ADE1_NM" type="STRING" size="256"/>
+          <Column id="FROM_DD" type="STRING" size="256"/>
+          <Column id="CLOS_DD" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="DECL_YN" type="STRING" size="256"/>
+          <Column id="TAXO_CD" type="STRING" size="256"/>
+          <Column id="COST_YN" type="STRING" size="256"/>
+          <Column id="PROD_YN" type="STRING" size="256"/>
+          <Column id="MATE_YN" type="STRING" size="256"/>
+          <Column id="CYBE_YN" type="STRING" size="256"/>
+          <Column id="DESA_NM" type="STRING" size="256"/>
+          <Column id="HEAL_NO" type="STRING" size="256"/>
+          <Column id="NATI_NO" type="STRING" size="256"/>
+          <Column id="EMPL_NO" type="STRING" size="256"/>
+          <Column id="OCCU_NO" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DELE_ID" type="STRING" size="256"/>
+          <Column id="DELE_NM" type="STRING" size="256"/>
+          <Column id="DELE_DT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10" onrowposchanged="ds_Master10_onrowposchanged">
+        <ColumnInfo>
+          <Column id="GUBN1" type="STRING" size="256"/>
+          <Column id="GUBN2" type="STRING" size="256"/>
+          <Column id="DATA1" type="STRING" size="256"/>
+          <Column id="DATA2" type="STRING" size="256"/>
+          <Column id="GAP1" type="STRING" size="256"/>
+          <Column id="REMK" type="STRING" size="256"/>
+          <Column id="ORD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail10" canrowposchange="ds_Master10_canrowposchange">
+        <ColumnInfo>
+          <Column id="GUBN1" type="STRING" size="256"/>
+          <Column id="GUBN2" type="STRING" size="256"/>
+          <Column id="JIK_AM" type="STRING" size="256"/>
+          <Column id="GAN_AM" type="STRING" size="256"/>
+          <Column id="WONE_AM" type="STRING" size="256"/>
+          <Column id="T_JIK_AM" type="STRING" size="256"/>
+          <Column id="T_GAN_AM" type="STRING" size="256"/>
+          <Column id="T_WONE_AM" type="STRING" size="256"/>
+          <Column id="GAP" type="STRING" size="256"/>
+          <Column id="REMK" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master20" onrowposchanged="ds_Master20_onrowposchanged">
+        <ColumnInfo>
+          <Column id="GUBN1" type="STRING" size="256"/>
+          <Column id="GUBN2" type="STRING" size="256"/>
+          <Column id="JIK_AM" type="STRING" size="256"/>
+          <Column id="GAN_AM" type="STRING" size="256"/>
+          <Column id="SUM_AM" type="STRING" size="256"/>
+          <Column id="T_JIK_AM" type="STRING" size="256"/>
+          <Column id="T_GAN_AM" type="STRING" size="256"/>
+          <Column id="T_SUM_AM" type="STRING" size="256"/>
+          <Column id="SUM_GAP1" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master30" onrowposchanged="ds_Master30_onrowposchanged">
+        <ColumnInfo>
+          <Column id="GUBN1" type="STRING" size="256"/>
+          <Column id="GUBN2" type="STRING" size="256"/>
+          <Column id="MATE_AM" type="STRING" size="256"/>
+          <Column id="NOMU_AM" type="STRING" size="256"/>
+          <Column id="COST_AM" type="STRING" size="256"/>
+          <Column id="OUTS_AM" type="STRING" size="256"/>
+          <Column id="SUM_AM" type="STRING" size="256"/>
+          <Column id="T_MATE_AM" type="STRING" size="256"/>
+          <Column id="T_NOMU_AM" type="STRING" size="256"/>
+          <Column id="T_COST_AM" type="STRING" size="256"/>
+          <Column id="T_OUTS_AM" type="STRING" size="256"/>
+          <Column id="T_SUM_AM" type="STRING" size="256"/>
+          <Column id="SUM_GAP1" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master31" onrowposchanged="ds_Master31_onrowposchanged">
+        <ColumnInfo>
+          <Column id="GUBN1" type="STRING" size="256"/>
+          <Column id="GUBN2" type="STRING" size="256"/>
+          <Column id="GUBN3" type="STRING" size="256"/>
+          <Column id="UNTO_AM" type="STRING" size="256"/>
+          <Column id="WGTO_AM" type="STRING" size="256"/>
+          <Column id="OVTO_AM" type="STRING" size="256"/>
+          <Column id="W_SUM" type="STRING" size="256"/>
+          <Column id="T_UNTO_AM" type="STRING" size="256"/>
+          <Column id="T_WGTO_AM" type="STRING" size="256"/>
+          <Column id="T_OVTO_AM" type="STRING" size="256"/>
+          <Column id="T_W_SUM" type="STRING" size="256"/>
+          <Column id="W_GAP" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail20">
+        <ColumnInfo>
+          <Column id="GUBN1" type="STRING" size="256"/>
+          <Column id="GUBN2" type="STRING" size="256"/>
+          <Column id="JIK_AM" type="STRING" size="256"/>
+          <Column id="GAN_AM" type="STRING" size="256"/>
+          <Column id="SUM_AM" type="STRING" size="256"/>
+          <Column id="T_JIK_AM" type="STRING" size="256"/>
+          <Column id="T_GAN_AM" type="STRING" size="256"/>
+          <Column id="T_SUM_AM" type="STRING" size="256"/>
+          <Column id="SUM_GAP1" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail30">
+        <ColumnInfo>
+          <Column id="GUBN1" type="STRING" size="256"/>
+          <Column id="GUBN2" type="STRING" size="256"/>
+          <Column id="MATE_AM" type="STRING" size="256"/>
+          <Column id="NOMU_AM" type="STRING" size="256"/>
+          <Column id="COST_AM" type="STRING" size="256"/>
+          <Column id="OUTS_AM" type="STRING" size="256"/>
+          <Column id="SUM_AM" type="STRING" size="256"/>
+          <Column id="T_MATE_AM" type="STRING" size="256"/>
+          <Column id="T_NOMU_AM" type="STRING" size="256"/>
+          <Column id="T_COST_AM" type="STRING" size="256"/>
+          <Column id="T_OUTS_AM" type="STRING" size="256"/>
+          <Column id="T_SUM_AM" type="STRING" size="256"/>
+          <Column id="SUM_GAP1" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail31">
+        <ColumnInfo>
+          <Column id="GUBN1" type="STRING" size="256"/>
+          <Column id="GUBN2" type="STRING" size="256"/>
+          <Column id="GUBN3" type="STRING" size="256"/>
+          <Column id="UNTO_AM" type="STRING" size="256"/>
+          <Column id="WGTO_AM" type="STRING" size="256"/>
+          <Column id="OVTO_AM" type="STRING" size="256"/>
+          <Column id="W_SUM" type="STRING" size="256"/>
+          <Column id="T_UNTO_AM" type="STRING" size="256"/>
+          <Column id="T_WGTO_AM" type="STRING" size="256"/>
+          <Column id="T_OVTO_AM" type="STRING" size="256"/>
+          <Column id="T_W_SUM" type="STRING" size="256"/>
+          <Column id="W_GAP" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master32">
+        <ColumnInfo>
+          <Column id="GUBN1" type="STRING" size="256"/>
+          <Column id="GUBN2" type="STRING" size="256"/>
+          <Column id="GUBN3" type="STRING" size="256"/>
+          <Column id="THIS_LYNU_SUM" type="STRING" size="256"/>
+          <Column id="THIS_TYNU_SUM" type="STRING" size="256"/>
+          <Column id="THIS_TMNU_SUM" type="STRING" size="256"/>
+          <Column id="THIS_NU_SUM" type="STRING" size="256"/>
+          <Column id="PRE_LYNU_SUM" type="STRING" size="256"/>
+          <Column id="PRE_TYNU_SUM" type="STRING" size="256"/>
+          <Column id="PRE_TMNU_SUM" type="STRING" size="256"/>
+          <Column id="PRE_NU_SUM" type="STRING" size="256"/>
+          <Column id="THIS_NU_RESULT" type="STRING" size="256"/>
+          <Column id="PRE_NU_RESULT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : M_CA_1510
+*  @화면설명 : 결산_체크리스트
+*  @시스템명 : (CA) 시스템
+*  @작성자   : 정충현
+*  @작성일   : 2022.09.06
+
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2022.09.06   	    정충현 	           최초 생성 
+*************************************************************************************************
+*/
+
+/***********************************************************************************************
+ * 0. 폼로드
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.01. Form Include 선언
+ ***********************************************************************************************/
+//include "comLib::CommonUtil.xjs";//공통함수
+
+/***********************************************************************************************
+ * 00.02. Form 변수 선언
+ ***********************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+this.fvFormComBtnAuthYn = false;//그리드 공통버튼 권한 유무
+this.fvDsRowPosChange = true;//데이터셋 Row 변경이벤트-실행유무
+this.fvSchKeyYn = false;//저장후 재조회여부
+this.fvSchKey01 = "";//조회Key01
+this.fvSchKey02 = "";//조회Key02
+this.fvSchKey03 = "";//조회Key03
+
+
+/***********************************************************************************************
+ * 00.03. Form Onload 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+	
+}
+
+/***********************************************************************************************
+ * 00.04. Form [공통] 초기설정 함수 - 필수
+ ***********************************************************************************************/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.fvComPrgmId = this.gfn_CommLoadFormPrgmId(this);//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+	this.gfn_SetGrid(this.Tab00.tpg_01.form.grd_Master10);//
+	this.gfn_SetGrid(this.Tab00.tpg_01.form.grd_Detail10);//
+	
+	this.gfn_SetGrid(this.Tab00.Tabpage2.form.grd_Master20);//
+	this.gfn_SetGrid(this.Tab00.Tabpage2.form.grd_Daster20);//
+	
+	this.gfn_SetGrid(this.Tab00.Tabpage3.form.grd_Master30);//
+	this.gfn_SetGrid(this.Tab00.Tabpage3.form.grd_Master31);//
+	this.gfn_SetGrid(this.Tab00.Tabpage3.form.grd_Master32);//
+	
+	this.gfn_SetGrid(this.Tab00.Tabpage3.form.grd_Detail30);//
+	this.gfn_SetGrid(this.Tab00.Tabpage3.form.grd_Detail31);//
+
+	//권한체크 할 컴포넌트 : 컴포넌트 Full Path
+	var objCompCheckList = ["this.div_MasterInput.form.div_ComGrdBtn"];		
+	if (this.gfn_CommCompAuthCheck(this, objCompCheckList))
+	{
+		this.fvFormComBtnAuthYn = true;//그리드 공통버튼 권한 유무
+	}
+	
+	
+}
+
+/***********************************************************************************************
+ * 00.05. Form [업무] 초기설정 함수
+ ***********************************************************************************************/
+this.fn_FormBizInit = function() 
+{ 
+
+	//[공통] 날짜정보 설정
+	var sToDay = this.gfn_GetCommDate("toDay");//현재일자
+	this.div_Search.form.cal_FromDd.set_value(sToDay.substr(0,6));
+	
+
+	//회계단위 설정
+	this.div_Search.form.edt_AcumCd.set_value(this.gfn_GetSessionValue("ACUM_CD"));
+	this.div_Search.form.edt_AcumNm.set_value( this.gfn_GetSessionValue("ACUM_NM"));
+
+		
+	//[업무] 일반콤보조회
+	this.fn_ComboSearch();
+	
+}
+
+/***********************************************************************************************
+ * 00.06. Form [업무] 일반콤보 조회 함수
+ ***********************************************************************************************/
+this.fn_ComboSearch = function() 
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+    svcAddObj.sSelectSql = "hr:M_HG_5500_C_SL10"; //[사업장]      
+ 	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "COMBO_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_HR;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_FaSaum=ds_FaSaum";//출력 데이터셋	
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+
+}
+
+/***********************************************************************************************
+ * 00.07. Form OnClose 이벤트
+ ***********************************************************************************************/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+	
+};
+
+/***********************************************************************************************
+ * 1. 조회 영역
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 01.01. [공통버튼] 조회 버튼 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_ComBtnSearch = function()
+{ 
+
+	//조회전 유효성 체크
+	if (!this.fn_VaildSearch()) return;
+	
+    //저장후 재조회시-마스터 데이터셋 이벤트 비활성화
+	if (this.fvSchKeyYn) {
+		this.ds_Master10.set_enableevent(false);
+	}		
+	
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	//this.ds_Master10.clearData();
+	this.ds_Input.clearData();
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "FROM_DD", this.div_Search.form.cal_FromDd.value.substring(0, 6));
+	this.ds_Input.setColumn(0, "ACUM_CD",  this.div_Search.form.edt_AcumCd.value);
+
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);	
+	var selectedTabIdx = this.Tab00.tabindex;
+	var sSqlId = "";
+	var sOutDatset = "";
+	
+	if (selectedTabIdx == 0) { // 결산기초
+		sSqlId = "ca:M_CA_1510_M_SL10";
+		sOutDatset = "ds_Master10=ds_Master10";
+		this.ds_Master10.clearData();
+		this.ds_Detail10.clearData();
+	} else if (selectedTabIdx == 1) { // 결산결과
+		sSqlId = "ca:M_CA_1510_M_SL20";
+		sOutDatset = "ds_Master20=ds_Master20";
+		this.ds_Master20.clearData();
+	} else if (selectedTabIdx == 2) { // 결산결과_계약별손익
+		sSqlId = "ca:M_CA_1510_M_SL30";
+		sOutDatset = "ds_Master30=ds_Master30";
+		this.ds_Master30.clearData();	
+	}
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = sSqlId;
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "MST_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_CA;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	//svcCallObj.sOutDatset = "ds_Master"+callPageNumber+"=ds_Master"+callPageNumber;//출력 데이터셋
+	svcCallObj.sOutDatset = sOutDatset;//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+	svcCallObj.sComBtnDst = "SEARCH";//공통버튼구분-조회버튼
+	svcCallObj.sPrgmId = this.fvComPrgmId;//프로그램ID	svcCallObj.sOutDatset = "ds_Master10=ds_Master10 ds_Master20=ds_Master20 ds_Master30=ds_Master30 ds_Master40=ds_Master40 ds_Master50=ds_Master50 ds_Master60=ds_Master60 ds_Master70=ds_Master70";//출력 데이터셋
+	
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+}
+
+this.fn_tab3 = function()
+{ 
+trace('here');
+
+
+	this.ds_Input.clearData();
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "FROM_DD", this.div_Search.form.cal_FromDd.value.substring(0, 6));
+	this.ds_Input.setColumn(0, "ACUM_CD",  this.div_Search.form.edt_AcumCd.value);
+
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);	
+	var selectedTabIdx = this.Tab00.tabindex;
+	var sSqlId = "";
+	var sOutDatset = "";
+	
+	
+	sSqlId = "ca:M_CA_1510_M_SL31";
+	sOutDatset = "ds_Master31=ds_Master31";
+	this.ds_Master31.clearData();	
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = sSqlId;
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "MST_SEARCH3";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_CA;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	//svcCallObj.sOutDatset = "ds_Master"+callPageNumber+"=ds_Master"+callPageNumber;//출력 데이터셋
+	svcCallObj.sOutDatset = sOutDatset;//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+	svcCallObj.sComBtnDst = "SEARCH";//공통버튼구분-조회버튼
+	svcCallObj.sPrgmId = this.fvComPrgmId;//프로그램ID	svcCallObj.sOutDatset = "ds_Master10=ds_Master10 ds_Master20=ds_Master20 ds_Master30=ds_Master30 ds_Master40=ds_Master40 ds_Master50=ds_Master50 ds_Master60=ds_Master60 ds_Master70=ds_Master70";//출력 데이터셋
+	
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+}
+
+this.fn_tab3_1 = function()
+{ 
+trace('here');
+
+
+	this.ds_Input.clearData();
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "FROM_DD", this.div_Search.form.cal_FromDd.value.substring(0, 6));
+	this.ds_Input.setColumn(0, "ACUM_CD",  this.div_Search.form.edt_AcumCd.value);
+
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);	
+	var selectedTabIdx = this.Tab00.tabindex;
+	var sSqlId = "";
+	var sOutDatset = "";
+	
+	
+	sSqlId = "ca:M_CA_1510_M_SL32";
+	sOutDatset = "ds_Master32=ds_Master32";
+	this.ds_Master32.clearData();	
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = sSqlId;
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "MST_SEARCH3_1";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_CA;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	//svcCallObj.sOutDatset = "ds_Master"+callPageNumber+"=ds_Master"+callPageNumber;//출력 데이터셋
+	svcCallObj.sOutDatset = sOutDatset;//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+	svcCallObj.sComBtnDst = "SEARCH";//공통버튼구분-조회버튼
+	svcCallObj.sPrgmId = this.fvComPrgmId;//프로그램ID	svcCallObj.sOutDatset = "ds_Master10=ds_Master10 ds_Master20=ds_Master20 ds_Master30=ds_Master30 ds_Master40=ds_Master40 ds_Master50=ds_Master50 ds_Master60=ds_Master60 ds_Master70=ds_Master70";//출력 데이터셋
+	
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+}
+
+/***********************************************************************************************
+ * 01.02. [Vaildation] 조회 필수값 체크
+ ***********************************************************************************************/
+this.fn_VaildSearch = function()
+{
+	//[검색]NULL 체크
+	var arrArgs = ["this.div_Search.form.cal_FromDd^" + this.div_Search.form.sta_FromDd.text + "|NULL"
+				  ,"this.div_Search.form.edt_AcumCd^" + this.div_Search.form.sta_AcumCd.text + "|NULL"
+				  ]; 
+	
+	//컴포넌트 Vaild 체크
+	if (!this.gfn_CheckFormCompValid(this, arrArgs) ) {
+		return false;
+	}
+	return true;
+}
+
+/***********************************************************************************************
+ * 01.03. [공통] 조회조건 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [부서]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 부서 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 부서코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 부서명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+/***********************************************************************************************
+ *    02. [사용자]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 사용자 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사원코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사원명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+/***********************************************************************************************
+ *    03. [회계단위]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 회계단위 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_btn_AcumCd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//회계단위 pop창으로 변경
+   var sPopupId = "S_ACUM_CD_01";//팝업ID - 계정코드
+   var oArg = { AcumNm: this.div_Search.form.edt_AcumNm.value};//Argument처리
+   this.gfn_AcumPop(sPopupId, oArg);  		
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 회계단위 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search.form.edt_AcumCd_onchanged = function(obj:nexacro.MaskEdit,e:nexacro.ChangeEventInfo)
+{
+	//this.gfn_GetCommCnth(this.div_Search.form.edt_AcumCd, this.div_Search.form.edt_AcumNm);//코드로 검색	
+	
+	//trace("1000 = " + this.div_Search.form.edt_AcumCd.value)
+	this.gfn_GetCummAcum("C"
+	                    , this.div_Search.form.edt_AcumCd
+						, this.div_Search.form.edt_AcumNm
+						, "S_ACUM_CD_01");
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 적용년월 드롭다운
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_cal_FromDd_ondropdown = function(obj:nexacro.Calendar,e:nexacro.EventInfo)
+{
+	this.gfn_CallYmCalendar(this, "this.div_Search.form.cal_FromDd", "fn_YmCallBack");	
+};
+
+/***********************************************************************************************
+ *    05. [거래처]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 거래처 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 거래처코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 거래처명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ *    09. [계정코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 계정코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 계정코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ * 2. 입력
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 02.01. [공통버튼] 입력 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnAdd = function()
+{
+}
+
+/***********************************************************************************************
+ * 02.MF0.01. [Master Freeform 공통] 입력항목 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [부서]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 부서 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 부서코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ *    02. [사용자]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 사용자 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 사원코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ *    03. [계약번호]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+  
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 이전 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 이전 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+
+
+/***********************************************************************************************
+ *    04. [프로젝트]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 프로젝트 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 프로젝트 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+  
+/***********************************************************************************************
+ *    05. [거래처]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 거래처 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 거래처코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ *    06. [사업장]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 사업장 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 사업장코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+  
+/***********************************************************************************************
+ *    07. [W/O]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] W/O 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] W/O 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+  
+/***********************************************************************************************
+ *    08. [품목코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 품목코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 품목코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+  
+/***********************************************************************************************
+ *    09. [계정코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 계정코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 계정코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+
+/***********************************************************************************************
+ *    10. [비고]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 비고 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_MasterInput_tab_Master_tpg_01_btn_RemkPop_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+};
+
+/***********************************************************************************************
+ * 02.MF0.02. [Master Freeform 일반] 입력항목 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [고객]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 고객 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 고객코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/   
+
+
+/***********************************************************************************************
+ * 02.MF0.03. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    01. [데이터셋-ds_Master10] 데이터 Row 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.ds_Master10_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	trace("ddd --> " + this.ds_Master10.rowcount);
+	
+	if (e.newrow > -1) {
+	
+		var RESULT_TABLE = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "GUBN1");
+		this.ds_Input.setColumn(0, "RESULT_TABLE", RESULT_TABLE);
+		
+		trace(this.ds_Input.getColumn(0, "RESULT_TABLE"));
+		
+		//[공통]서비스정보 초기화
+		this.gfn_InitComService(this);	
+		var selectedTabIdx = this.Tab00.tabindex;
+		var sSqlId = "";
+		var sOutDatset = "";
+		
+		if (selectedTabIdx == 0) { // 결산기초
+			sSqlId = "ca:M_CA_1510_D_SL10";
+			sOutDatset = "ds_Detail10=ds_Detail10";
+			this.ds_Detail10.clearData();
+		}	
+
+		
+		
+		//[공통]서비스정보 추가
+		var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sSelectSql = sSqlId;
+		this.gfn_AddComSearchService(this, svcAddObj);
+		
+		//[공통]서비스 호출 변수
+		var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		svcCallObj.sTrid = "DTL_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+		svcCallObj.sActionName = this.G_SV_CA;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+		svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+		//svcCallObj.sOutDatset = "ds_Master"+callPageNumber+"=ds_Master"+callPageNumber;//출력 데이터셋
+		svcCallObj.sOutDatset = sOutDatset;//출력 데이터셋
+		svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+		svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+		svcCallObj.sComBtnDst = "SEARCH";//공통버튼구분-조회버튼
+		svcCallObj.sPrgmId = this.fvComPrgmId;//프로그램ID	svcCallObj.sOutDatset = "ds_Master10=ds_Master10 ds_Master20=ds_Master20 ds_Master30=ds_Master30 ds_Master40=ds_Master40 ds_Master50=ds_Master50 ds_Master60=ds_Master60 ds_Master70=ds_Master70";//출력 데이터셋
+		
+
+		//[공통]서비스 호출
+		this.gfn_CallComService(this, svcCallObj);
+		
+		this.gfn_SetGridSelectRowColor(this.Tab00.tpg_01.form.grd_Master10, this.ds_Master10.rowposition);//선택한 Row BackgroundColor 설정
+		
+	}
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    02. [데이터셋-ds_Master10] Row 변경전 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.ds_Master10_canrowposchange = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+
+	
+
+};  
+
+/***********************************************************************************************
+ * 02.MG0.01. [Master그리드-버튼] 복사 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01Copy = function()
+{
+
+//     //선택된 Row
+// 	var arrRows = this. div_MasterInput.form.tab_Master.tpg_01.form.grd_Master10.getSelectedRows();
+// 	var iAddRow = 0;
+// 	//var sToDay = this.gfn_GetCommDate("toDay");//현재일자
+// 
+// 	for (var iLoop=0; iLoop < arrRows.length; iLoop++) {
+// 	iAddRow = this.ds_Master10.addRow();
+// 	this.ds_Master10.copyRow(iAddRow, this.ds_Master10, arrRows[iLoop]);
+// 		
+// 	this.ds_Master10.setColumn(iAddRow, "crudType", "I");
+// 	//this.ds_Master10.setColumn(iAddRow, "DISC_DD", sToDay); //발생일자
+// 	this.ds_Master10.setColumn(iAddRow, "REMK_NM", ""); //비고(복사후 null으로 셋팅)	
+// 
+// 	} 
+
+};
+
+/***********************************************************************************************
+ * 02.MG0.02. [Master그리드-버튼] 행추가 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01AddRow = function()
+{
+// 	var sToDay = this.gfn_GetCommDate("toDay");//현재일자
+// 	var iAddRow = this.gfn_GridInsertProcess(this, this.ds_Master10);//crud_flag 변경-입력(I)
+// 	this.ds_Master10.setColumn(iAddRow,"DEDD_YN", "0"); //공제여부
+// 	this.ds_Master10.setColumn(iAddRow,"USED_YN", "1"); //사용여부
+// 	this.div_MasterInput.form.tab_Master.tpg_01.form.grd_Master10.setCellPos(1); 
+// 	this.div_MasterInput.form.tab_Master.tpg_01.form.grd_Master10.showEditor(true);
+};
+
+/***********************************************************************************************
+ * 02.MG0.03. [Master그리드-버튼] 행삽입 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01InsertRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.04. [Master그리드-버튼] 행삭제 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01DeleteRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.05. [Master그리드-버튼] 취소 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01Cancel = function()
+{
+	this.gfn_UndoColumn(this.div_MasterInput.form.tab_Master.tpg_01.form.grd_Master10);
+};
+ 
+/***********************************************************************************************
+ * 02.MG0.06. [Master그리드] 셀 클릭 이벤트
+ ***********************************************************************************************/ 
+  /*---------------------------------------------------------------------------------------------
+ *    01. [그리드-grd_Master10] 셀클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+ this.div_MasterInput_grd_Master10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+
+	
+};
+
+  /*---------------------------------------------------------------------------------------------
+ *    01. [그리드-grd_Master10] 셀더블클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_MasterInput_tab_Master_tpg_01_grd_Master10_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	
+// 	if(e.col == 1 || e.col == 2 || e.col == 3 || e.col == 4 ){
+// 	// 당기(좌/우), 전기(좌/우)
+// 			var inputYn = this.ds_Master10.getColumn(e.row, "INPU_YN")
+// 		
+// 			//trace("inputYn===" + inputYn);
+// 			if (inputYn =="1"){
+// 		
+// 				var sPrgmId = "M_FA_1230";//호출프로그램ID
+// 				var sCallFunc = "fn_FormCall";//호출함수
+// 				//[공통]특정화면 호출 파라메타 정보 Object
+// 				var oParam = new Object();
+// 				oParam.commCd = this.ds_Master10.getColumn(e.row, "COMM_CD");
+// 				if(e.col == 1 || e.col == 2){
+// 					//당기
+// 					oParam.fromDd = this.ds_Master10.getColumn(e.row, "FROM_DD");
+// 					oParam.closDd = this.ds_Master10.getColumn(e.row, "CLOS_DD");
+// 				}else{
+// 					//전기
+// 					oParam.fromDd = this.ds_Master10.getColumn(e.row, "PFROM_DD");
+// 					oParam.closDd = this.ds_Master10.getColumn(e.row, "PCLOS_DD");
+// 				}
+// 				oParam.acumCd = this.ds_Master10.getColumn(e.row, "ACUM_CD");
+// 				oParam.acumNm = this.ds_Master10.getColumn(e.row, "ACUM_NM");
+// 				oParam.acomCd = this.ds_Master10.getColumn(e.row, "ACOM_CD");
+// 				oParam.acomNm = this.ds_Master10.getColumn(e.row, "ACOM_PNM");
+// 
+// 			    //trace("inputYn==2=" + inputYn);
+// 				this.gfn_CallScrn(sPrgmId, sCallFunc, oParam, "");
+// 				
+// 			}
+// 	
+// 	}
+
+};
+/***********************************************************************************************
+ * 02.MG0.07. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+ /*---------------------------------------------------------------------------------------------
+ *    01. [데이터셋-ds_Master10] 데이터변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+this.ds_Master10_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{	
+
+};
+
+/***********************************************************************************************
+ * 02.DG0.01. [Detail그리드-버튼] 복사 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01Copy = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.DG0.02. [Detail그리드-버튼] 행추가 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01AddRow = function()
+{		
+
+};
+
+/***********************************************************************************************
+ * 02.DG0.03. [Detail그리드-버튼] 행삽입 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01InsertRow = function()
+{
+};
+
+
+/***********************************************************************************************
+ * 02.DG0.04. [Detail그리드-버튼] 행삭제 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01DeleteRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.DG0.05. [Detail그리드-버튼] 취소 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01Cancel = function()
+{
+};
+ 
+/***********************************************************************************************
+ * 02.DG0.06. [Detail그리드] 셀 클릭 이벤트
+ ***********************************************************************************************/ 
+
+/*---------------------------------------------------------------------------------------------
+ *    01. [그리드-grd_Detail10] 셀클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_DetailInput_grd_Detail10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+
+};
+
+/***********************************************************************************************
+ * 02.DG0.07. [Detail 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    01. [데이터셋-ds_Detail10] 데이터변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+this.ds_Detail10_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+};
+
+/***********************************************************************************************
+ * 02.DG0.08. [Detail Tab] 변경 이벤트
+ ***********************************************************************************************/
+this.div_DetailInput_tab_Detail_onchanged = function(obj:nexacro.Tab,e:nexacro.TabIndexChangeEventInfo)
+{
+};
+
+/***********************************************************************************************
+ * 02.DG1.01. [Detail그리드2-버튼] 전체선택 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd02AllCheck = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.DG1.02. [Detail그리드2-버튼] 전체해지 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd02AllUnCheck = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.DG1.03. [Detail그리드2-버튼] 부분선택 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd02SomeCheck = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.DG1.04. [Detail그리드2-버튼] 부분해지 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd02SomeUnCheck = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.DG1.05. [Detail그리드2-버튼] 적용 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd02Choice = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.DG1.06. [Detail그리드2-버튼] 취소 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd02Cancel = function()
+{
+};
+
+
+/***********************************************************************************************
+ * 02.DG1.05. 검색조건 클릭/변경 이벤트
+ ***********************************************************************************************/ 
+/***********************************************************************************************
+ *    01. [부서]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [검색영역-Button] 부서 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/ 
+/*---------------------------------------------------------------------------------------------
+ *    [검색영역-Edit] 부서코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+/*---------------------------------------------------------------------------------------------
+ *    [검색영역-Edit] 부서명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ *    02. [계약번호]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [검색영역-Button] 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ *    [검색영역-Edit] 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+
+
+/***********************************************************************************************
+ *    03. [거래처]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [검색영역-Button] 거래처 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ *    [검색영역-Edit] 거래처 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+/*---------------------------------------------------------------------------------------------
+ *    [검색영역-Edit] 거래처명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+
+
+/***********************************************************************************************
+ *    04. [검색]
+ ***********************************************************************************************/
+this.div_DetailInput_tab_Detail_tpg_02_div_Search_btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+};
+
+/***********************************************************************************************
+ * 02.DG1.06. [첨부 파일 그리드-버튼] 파일추가 클릭 이벤트
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 02.DG1.07. [첨부 파일 그리드-버튼] 파일삭제 클릭 이벤트
+ ***********************************************************************************************/
+ 
+/***********************************************************************************************
+ * 3. 복사
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 03.01. [공통버튼] 복사 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCopy = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 4. 취소
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 04.01. [공통버튼] 취소 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCancel = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 5. 저장
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 05.01. [공통버튼] 저장 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnSave = function()
+{ 
+	
+}
+
+/***********************************************************************************************
+ * 05.02. [Vaildation] Master 저장 필수값 체크 - 입력항목 
+ ***********************************************************************************************/ 
+this.fn_VaildMasterSave = function()
+{
+
+}
+
+/***********************************************************************************************
+ * 05.03. [Vaildation] Detail 저장 필수값 체크 - 그리드항목
+ ***********************************************************************************************/ 
+this.fn_VaildDetailSave = function()
+{
+}
+ 
+/***********************************************************************************************
+ * 6. 삭제
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 06.01. [공통버튼] 삭제 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnDelete = function()
+{ 
+	this.gfn_Confirm("SM004", "", "CONF.DELETE", "fn_MsgCallback");//삭제 하시겠습니까?
+}
+
+/***********************************************************************************************
+ * 06.02. [서비스] 삭제처리
+ ***********************************************************************************************/  
+this.fn_SvcDelete = function() 
+{ 
+
+
+}
+
+/***********************************************************************************************
+ * 06.03. [Vaildation] 삭제항목 체크
+ ***********************************************************************************************/  
+this.fn_VaildMasterDelete = function()
+{
+}
+
+/***********************************************************************************************
+ * 7. 엑셀
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 07.01. [공통버튼] 엑셀저장 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnExcel = function()
+{ 
+	//출력 그리드 정보 설정
+	var objGridList;
+	switch(this.div_MasterInput.form.tab_Master.tabindex){
+		case 1 :	objGridList = ["this.div_MasterInput.form.tab_Master.tpg_01.form.grd_Master20|" + this.div_MasterInput.form.tab_Master.tpg_02.text]; break;
+		case 2 :	objGridList = ["this.div_MasterInput.form.tab_Master.tpg_01.form.grd_Master30|" + this.div_MasterInput.form.tab_Master.tpg_03.text]; break;
+		case 3 :	objGridList = ["this.div_MasterInput.form.tab_Master.tpg_01.form.grd_Master40|" + this.div_MasterInput.form.tab_Master.tpg_04.text]; break;
+		case 4 :	objGridList = ["this.div_MasterInput.form.tab_Master.tpg_01.form.grd_Master50|" + this.div_MasterInput.form.tab_Master.tpg_05.text]; break;
+		case 5 :	objGridList = ["this.div_MasterInput.form.tab_Master.tpg_01.form.grd_Master60|" + this.div_MasterInput.form.tab_Master.tpg_06.text]; break;
+		case 6 :	objGridList = ["this.div_MasterInput.form.tab_Master.tpg_01.form.grd_Master70|" + this.div_MasterInput.form.tab_Master.tpg_07.text]; break;
+		case 7 :	objGridList = ["this.div_MasterInput.form.tab_Master.tpg_01.form.grd_Master80|" + this.div_MasterInput.form.tab_Master.tpg_08.text]; break;
+		default :	objGridList = ["this.div_MasterInput.form.tab_Master.tpg_01.form.grd_Master10|" + this.div_MasterInput.form.tab_Master.tpg_01.text]; break;
+	}
+	var sFileName = "결산기초자료집계현황(제조)";//출력파일명
+	this.gfn_ExcelExport(this, objGridList, sFileName);
+}
+
+/***********************************************************************************************
+ * 8. 인쇄
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 08.01. [공통버튼] 인쇄 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnPrint = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 9. 결재요청
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 09.01. [공통버튼] 결재요청 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnDecide = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 10. 결재현황
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.01. [공통버튼] 결재현황 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnProcess = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 11. 재기안
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 11.01. [공통버튼] 재기안 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnRecide = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 12. 닫기
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 12.01. [공통버튼] 닫기 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnClose = function()
+{ 
+	return true;
+}
+
+/***********************************************************************************************
+ * 13. [CallBack] 함수
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 13.01. [서비스] CallBack 함수 처리
+ ***********************************************************************************************/ 
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "COMBO_SEARCH":					
+			if (this.ds_FaSaum.getRowCount() > 0) {
+				this.ds_FaSaum.insertRow();
+				this.ds_FaSaum.setColumn(0, "SAUM_NM", "ALL");
+				//this.div_Search.form.cbo_SaumCd.set_index(0);  
+			}
+			break;
+		case "MST_SEARCH": //조회
+			var selectedTabIdx = this.Tab00.tabindex;
+			if(selectedTabIdx == 0) {
+				if (this.ds_Master10.getRowCount() > 0) {
+					
+					//[공통]그리드NoData Text 초기화 설정
+					this.gfn_InitGridNoDataText(this.Tab00.tpg_01.form.grd_Master10);
+					this.ds_Master10.set_rowposition(0);
+					
+					var selectedTabIdx = this.Tab00.tabindex;
+					var sSqlId = "";
+					var sOutDatset = "";
+			
+				} else {
+					this.gfn_SetGridNoDataText(this.Tab00.tpg_01.form.grd_Master10);
+				}
+			} else if(selectedTabIdx == 1) {
+				if (this.ds_Master20.getRowCount() > 0) {
+					
+					//[공통]그리드NoData Text 초기화 설정
+					this.gfn_InitGridNoDataText(this.Tab00.Tabpage2.form.grd_Master20);
+					this.ds_Master20.set_rowposition(0);
+					
+					var selectedTabIdx = this.Tab00.tabindex;
+					var sSqlId = "";
+					var sOutDatset = "";
+			
+				} else {
+					this.gfn_SetGridNoDataText(this.Tab00.Tabpage2.form.grd_Master20);
+				}
+			} else if(selectedTabIdx == 2) {
+				if (this.ds_Master30.getRowCount() > 0) {
+					
+					//[공통]그리드NoData Text 초기화 설정
+					this.gfn_InitGridNoDataText(this.Tab00.Tabpage3.form.grd_Master30);
+					this.ds_Master30.set_rowposition(0);
+					
+					var selectedTabIdx = this.Tab00.tabindex;
+					var sSqlId = "";
+					var sOutDatset = "";
+					
+					this.fn_tab3();
+			
+				} else {
+					this.gfn_SetGridNoDataText(this.Tab00.Tabpage3.form.grd_Master30);
+				}
+			}
+	
+			break;
+		case "MST_SEARCH3":
+			if (this.ds_Master31.getRowCount() > 0) {
+				this.gfn_InitGridNoDataText(this.Tab00.Tabpage3.form.grd_Master31);
+				this.ds_Master31.set_rowposition(0);		
+				this.fn_tab3_1();
+			} else {
+				this.gfn_SetGridNoDataText(this.Tab00.Tabpage3.form.grd_Master31);
+			}
+		break;
+		case "MST_SEARCH3_1":
+			if (this.ds_Master32.getRowCount() > 0) {
+				this.gfn_InitGridNoDataText(this.Tab00.Tabpage3.form.grd_Master32);
+				this.ds_Master32.set_rowposition(0);
+			} else {
+				this.gfn_SetGridNoDataText(this.Tab00.Tabpage3.form.grd_Master32);
+			}
+		break;		
+		case "SAVE":   //저장
+// 			this.fvSchKeyYn = true;//저장후 재조회여부 
+// 			this.fn_ComBtnSearch();
+			
+			break;	
+		case "DTL_SEARCH": //조회		
+// 			this.ds_Master10.addColumn("s_chk", "string");
+// 			this.ds_Master10.addColumn("crudType", "string");
+
+			break;			
+			
+		case "DTLS_SEARCH": //미출고검색		
+			//this.ds_Detail20.addColumn("s_chk", "string");		
+			//this.ds_Detail20.addColumn("s_conf", "string");
+			break;			
+			
+		case "DELETE": //삭제		
+			this.fn_ComBtnSearch();//조회
+			break;							
+	}
+};
+
+/***********************************************************************************************
+ * 13.02. [팝업] CallBack 함수 처리
+          strId : 팝업호출시 지정한 팝업ID
+	      rtnValue : 팝업창에서 close시 지정한 반환값
+          주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/ 
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+    //[조회영역]
+	//회계단위
+	if(strId == "S_ACUM_CD_01"){
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);	
+			
+			if (!this.gfn_IsNull(arrRtnVal.ACUM_CD)) {
+				this.div_Search.form.edt_AcumCd.set_value(arrRtnVal.ACUM_CD);
+				this.div_Search.form.edt_AcumNm.set_value(arrRtnVal.ACUM_NM);
+			}
+		} else {
+			this.div_Search.form.edt_AcumCd.set_value("");
+			this.div_Search.form.edt_AcumNm.set_value("");
+		}
+	}
+};
+ 
+/***********************************************************************************************
+ * 13.03. [메세지] CallBack 함수 처리
+ ***********************************************************************************************/  
+this.fn_MsgCallback = function (strId, strVal)
+{
+	//삭제여부
+	if (strId == "CONF.DELETE") {
+		if(strVal )
+		{
+			this.fn_SvcDelete();//삭제 서비스 호출
+		}
+	//MASTER 변경사항 저장여부
+	} else if (strId == "CONF.MAST_CHANGE") {
+		if(strVal )
+		{
+			this.fn_ComBtnSave();//저장 서비스 호출
+		} else {
+			//데이터 변경여부 체크
+			if (this.fn_IsUpdateDataset(this.ds_Master10)) {
+				this.gfn_UndoColumn(this.div_MasterInput.form.tab_Master.tpg_01.form.grd_Master10);
+			}						
+		}
+	}
+}; 
+ 
+/***********************************************************************************************
+ * 14. [화면 사이즈] 조정 버튼 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 14.01. [조회영역-▲] 화면 사이즈조정 버튼 이벤트
+ ***********************************************************************************************/ 
+this.btn_DivMoveMi_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통] 버튼 변수
+	var btnObj = new Object();//[공통] 버튼 변수 정보 Object
+	btnObj.DivSearch = "this.div_Search";//조회영역 Div
+	btnObj.DivMstLeft = "this.div_MasterInput";//Master영역 Left Div : Master영역이 하나인경우에는 Left에 설정
+	btnObj.DivMstRight = "";//Master영역 Right Div
+	//btnObj.DivDetail = "this.div_DetailInput";//Detail영역 Div
+	btnObj.MstLeft = 434;//Master영역 Div Left
+	btnObj.MstTop = 90;//Master영역 Div Top
+	btnObj.MstHeight = "";//Master영역 Div Height : Height가 없는경우 ""로 입력
+	//btnObj.MoveBtnDtl = "this.div_DetailInput.form.btn_DivMoveDi";//Detail영역 Move 버튼 : 없으면 ""로 입력
+	this.gfn_MoveSeBtn(obj, btnObj);//Master영역 접고/펼치기 버튼 이벤트
+};
+
+/***********************************************************************************************
+ * 14.02. [Master영역-▶] 화면 사이즈조정 버튼 이벤트
+ ***********************************************************************************************/ 
+this.div_MasterView_btn_DivMoveMv_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+/***********************************************************************************************
+ * 14.03. [Detail영역-▲] 화면 사이즈조정 버튼 이벤트
+ ***********************************************************************************************/ 
+this.div_DetailInput_btn_DivMoveDi_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+			
+};
+
+/***********************************************************************************************
+ * 15. [사용자정의 함수]
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 15.01. [Vaildation] 데이터셋 변경여부 체크
+ ***********************************************************************************************/ 
+this.fn_IsUpdateDataset = function()
+{
+	if (this.gfn_DsIsUpdated(this.ds_Master10)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+/***********************************************************************************************
+ * 15.02. [공통 그리드 버튼] 입력 버튼 설정
+ ***********************************************************************************************/ 
+this.fn_SetGridInputButton = function()
+{
+	//그리드 공통 버튼 권한이 있으면
+	if (this.fvFormComBtnAuthYn)
+	{
+		//마스터 버튼 설정 : 버튼ID|권한(Y/N)|호출함수명
+		this.gfn_SetGridInputBtnUrl(this.div_MasterInput.form.div_ComGrdBtn);//[공통] 그리드 입력 버튼 URL 설정
+		
+		var objBtnInfo01List = ["COPY|N|fn_MasterGrd01Copy"
+							 ,"ADD|N|fn_MasterGrd01AddRow"
+							 ,"INSERT|N|fn_MasterGrd01InsertRow"
+							 ,"DELETE|N|fn_MasterGrd01DeleteRow"
+							 ,"CANCEL|N|fn_MasterGrd01Cancel"];
+		this.div_MasterInput.form.div_ComGrdBtn.form.fn_SetGrdButtonFunc(this, objBtnInfo01List);	
+		
+	}
+}
+
+/***********************************************************************************************
+ * 15.03. [공통 그리드 버튼] 검색 Tab 버튼 설정
+ ***********************************************************************************************/ 
+this.fn_SetGridChoiceButton = function()
+{
+
+}
+
+/***********************************************************************************************
+ * 15.04. [공통 첨부파일] 화면 설정
+ ***********************************************************************************************/ 
+this.fn_SetTabComAttachFile = function()
+{
+}
+
+/***********************************************************************************************
+ * 15.05. [공통 그리드 버튼] 파일 버튼 설정
+ ***********************************************************************************************/ 
+this.fn_SetGridFileButton = function()
+{
+
+}
+
+
+
+
+
+
+
+this.div_MasterInput_tab_Master_tpg_01_grd_Master10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfn_SetGridSelectRowColor(obj, e.row);//선택한 Row BackgroundColor 설정
+};
+
+this.div_MasterInput_tab_Master_tpg_02_grd_Master20_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfn_SetGridSelectRowColor(obj, e.row);//선택한 Row BackgroundColor 설정
+};
+
+this.div_MasterInput_tab_Master_tpg_03_grd_Master30_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfn_SetGridSelectRowColor(obj, e.row);//선택한 Row BackgroundColor 설정
+};
+
+this.div_MasterInput_tab_Master_tpg_04_grd_Master40_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfn_SetGridSelectRowColor(obj, e.row);//선택한 Row BackgroundColor 설정
+};
+
+this.div_MasterInput_tab_Master_tpg_05_grd_Master50_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfn_SetGridSelectRowColor(obj, e.row);//선택한 Row BackgroundColor 설정
+};
+
+this.div_MasterInput_tab_Master_tpg_06_grd_Master60_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfn_SetGridSelectRowColor(obj, e.row);//선택한 Row BackgroundColor 설정
+};
+
+this.div_MasterInput_tab_Master_tpg_07_grd_Master70_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfn_SetGridSelectRowColor(obj, e.row);//선택한 Row BackgroundColor 설정
+};
+
+this.div_MasterInput_tab_Master_tpg_08_grd_Master80_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfn_SetGridSelectRowColor(obj, e.row);//선택한 Row BackgroundColor 설정
+
+	//상세보기
+	if(e.col == 11){
+ 	   var sPopupId = "B_SNAS_01";//팝업ID
+	   var oArg = {Ym:this.ds_Master80.getColumn(e.row, "COST_MM")//결산년월
+				 , CnthNo:this.ds_Master80.getColumn(e.row, "CNTH_NO")//계약번호
+				 , CnthNm:this.ds_Master80.getColumn(e.row, "CNTH_NM")//계약명
+				 , DepmCd:this.ds_Master80.getColumn(e.row, "DEPM_CD")//부서코드
+				 , DepmNm:this.ds_Master80.getColumn(e.row, "DEPM_NM")//부서명
+				 , AcomCd:this.ds_Master80.getColumn(e.row, "ACOM_CD")//계정코드
+				 , AcomNm:this.ds_Master80.getColumn(e.row, "ACOM_NM")//계정명
+				 , PalmCd:this.ds_Master80.getColumn(e.row, "PALM_CD1")//회계기준코드
+				 , AcumCd:this.ds_Master80.getColumn(e.row, "ACUM_CD")//회계단위
+				 , PrgmId:this.fvComPrgmId
+				  };//Argument처리
+	   this.gfn_SnasPop(sPopupId, oArg); 
+	}
+};
+
+this.Tab00_tpg_01_grd_Master10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfn_SetGridSelectRowColor(obj, e.row);//선택한 Row BackgroundColor 설정
+};
+
+this.Tab00_tpg_01_grd_Detail10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfn_SetGridSelectRowColor(obj, e.row);//선택한 Row BackgroundColor 설정
+};
+
+this.ds_Master20_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	
+	if (e.newrow > -1) {
+	
+		var RESULT_TABLE = this.ds_Master20.getColumn(this.ds_Master20.rowposition, "GUBN2");
+		this.ds_Input.setColumn(0, "RESULT_TABLE", RESULT_TABLE);
+		
+		trace("RESULT_TABLE --> " + this.ds_Input.getColumn(0, "RESULT_TABLE"));
+		
+		//[공통]서비스정보 초기화
+		this.gfn_InitComService(this);	
+		var selectedTabIdx = this.Tab00.tabindex;
+		var sSqlId = "";
+		var sOutDatset = "";
+		
+		if (selectedTabIdx == 1) { // 결산결과
+			sSqlId = "ca:M_CA_1510_D_SL20";
+			sOutDatset = "ds_Detail20=ds_Detail20";
+			this.ds_Detail20.clearData();
+		}	
+
+		
+		
+		//[공통]서비스정보 추가
+		var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sSelectSql = sSqlId;
+		this.gfn_AddComSearchService(this, svcAddObj);
+		
+		//[공통]서비스 호출 변수
+		var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		svcCallObj.sTrid = "DTL_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+		svcCallObj.sActionName = this.G_SV_CA;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+		svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+		//svcCallObj.sOutDatset = "ds_Master"+callPageNumber+"=ds_Master"+callPageNumber;//출력 데이터셋
+		svcCallObj.sOutDatset = sOutDatset;//출력 데이터셋
+		svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+		svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+		svcCallObj.sComBtnDst = "SEARCH";//공통버튼구분-조회버튼
+		svcCallObj.sPrgmId = this.fvComPrgmId;//프로그램ID	svcCallObj.sOutDatset = "ds_Master10=ds_Master10 ds_Master20=ds_Master20 ds_Master30=ds_Master30 ds_Master40=ds_Master40 ds_Master50=ds_Master50 ds_Master60=ds_Master60 ds_Master70=ds_Master70";//출력 데이터셋
+		
+
+		//[공통]서비스 호출
+		this.gfn_CallComService(this, svcCallObj);
+		
+		this.gfn_SetGridSelectRowColor(this.Tab00.Tabpage2.form.grd_Master20, this.ds_Master20.rowposition);//선택한 Row BackgroundColor 설정
+		
+	}
+};
+
+this.Tab00_Tabpage2_grd_Daster20_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfn_SetGridSelectRowColor(obj, e.row);//선택한 Row BackgroundColor 설정
+};
+
+this.ds_Master30_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+
+	if (e.newrow > -1) {
+	
+		this.Tab00.Tabpage3.form.grd_Detail30.set_visible(true);
+		this.Tab00.Tabpage3.form.grd_Detail31.set_visible(false);
+		
+		this.ds_Master31.set_rowposition(-1);
+	
+		var RESULT_TABLE = this.ds_Master30.getColumn(this.ds_Master30.rowposition, "GUBN1");
+		this.ds_Input.setColumn(0, "RESULT_TABLE", RESULT_TABLE);
+		
+		trace("RESULT_TABLE --> " + this.ds_Input.getColumn(0, "RESULT_TABLE"));
+		
+		//[공통]서비스정보 초기화
+		this.gfn_InitComService(this);	
+		var selectedTabIdx = this.Tab00.tabindex;
+		var sSqlId = "";
+		var sOutDatset = "";
+		
+		if (selectedTabIdx == 2) { // 손익
+			sSqlId = "ca:M_CA_1510_D_SL30";
+			sOutDatset = "ds_Detail30=ds_Detail30";
+			this.ds_Detail30.clearData();
+		}	
+
+		
+		
+		//[공통]서비스정보 추가
+		var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sSelectSql = sSqlId;
+		this.gfn_AddComSearchService(this, svcAddObj);
+		
+		//[공통]서비스 호출 변수
+		var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		svcCallObj.sTrid = "DTL_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+		svcCallObj.sActionName = this.G_SV_CA;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+		svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+		//svcCallObj.sOutDatset = "ds_Master"+callPageNumber+"=ds_Master"+callPageNumber;//출력 데이터셋
+		svcCallObj.sOutDatset = sOutDatset;//출력 데이터셋
+		svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+		svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+		svcCallObj.sComBtnDst = "SEARCH";//공통버튼구분-조회버튼
+		svcCallObj.sPrgmId = this.fvComPrgmId;//프로그램ID	svcCallObj.sOutDatset = "ds_Master10=ds_Master10 ds_Master20=ds_Master20 ds_Master30=ds_Master30 ds_Master40=ds_Master40 ds_Master50=ds_Master50 ds_Master60=ds_Master60 ds_Master70=ds_Master70";//출력 데이터셋
+		
+
+		//[공통]서비스 호출
+		this.gfn_CallComService(this, svcCallObj);
+		
+		this.gfn_SetGridSelectRowColor(this.Tab00.Tabpage3.form.grd_Master30, this.ds_Master30.rowposition);//선택한 Row BackgroundColor 설정
+		
+	}
+};
+
+this.ds_Master31_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	if (e.newrow > -1) {
+	
+		this.Tab00.Tabpage3.form.grd_Detail30.set_visible(false);
+		this.Tab00.Tabpage3.form.grd_Detail31.set_visible(true);
+		
+		this.ds_Master30.set_rowposition(-1);
+	
+		var RESULT_TABLE = this.ds_Master31.getColumn(this.ds_Master31.rowposition, "GUBN3");
+		this.ds_Input.setColumn(0, "RESULT_TABLE", RESULT_TABLE);
+		
+		trace("RESULT_TABLE --> " + this.ds_Input.getColumn(0, "RESULT_TABLE"));
+		
+		//[공통]서비스정보 초기화
+		this.gfn_InitComService(this);	
+		var selectedTabIdx = this.Tab00.tabindex;
+		var sSqlId = "";
+		var sOutDatset = "";
+		
+		if (selectedTabIdx == 2) { // 손익
+			sSqlId = "ca:M_CA_1510_D_SL31";
+			sOutDatset = "ds_Detail31=ds_Detail31";
+			this.ds_Detail31.clearData();
+		}	
+
+		
+		
+		//[공통]서비스정보 추가
+		var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sSelectSql = sSqlId;
+		this.gfn_AddComSearchService(this, svcAddObj);
+		
+		//[공통]서비스 호출 변수
+		var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		svcCallObj.sTrid = "DTL_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+		svcCallObj.sActionName = this.G_SV_CA;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+		svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+		//svcCallObj.sOutDatset = "ds_Master"+callPageNumber+"=ds_Master"+callPageNumber;//출력 데이터셋
+		svcCallObj.sOutDatset = sOutDatset;//출력 데이터셋
+		svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+		svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+		svcCallObj.sComBtnDst = "SEARCH";//공통버튼구분-조회버튼
+		svcCallObj.sPrgmId = this.fvComPrgmId;//프로그램ID	svcCallObj.sOutDatset = "ds_Master10=ds_Master10 ds_Master20=ds_Master20 ds_Master30=ds_Master30 ds_Master40=ds_Master40 ds_Master50=ds_Master50 ds_Master60=ds_Master60 ds_Master70=ds_Master70";//출력 데이터셋
+		
+
+		//[공통]서비스 호출
+		this.gfn_CallComService(this, svcCallObj);
+		
+		this.gfn_SetGridSelectRowColor(this.Tab00.Tabpage3.form.grd_Master31, this.ds_Master31.rowposition);//선택한 Row BackgroundColor 설정
+		
+	}
+};
+
+this.Tab00_Tabpage3_grd_Detail31_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfn_SetGridSelectRowColor(obj, e.row);//선택한 Row BackgroundColor 설정
+};
+
+this.Tab00_Tabpage3_grd_Detail30_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfn_SetGridSelectRowColor(obj, e.row);//선택한 Row BackgroundColor 설정
+};
+
+this.Tab00_Tabpage3_grd_Master32_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfn_SetGridSelectRowColor(obj, e.row);//선택한 Row BackgroundColor 설정
+};
+]]></Script>
+  </Form>
+</FDL>

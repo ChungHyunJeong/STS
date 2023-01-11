@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="sam02" width="1680" height="790" titletext="New Form">
+    <Layouts>
+      <Layout height="790" mobileorientation="landscape" width="1680">
+        <Calendar id="Calendar00" taborder="0" left="64" top="40" width="172" height="36"/>
+        <Calendar id="Calendar00_00" taborder="1" left="280" top="42" width="172" height="36" editformat="yyyy-MM" dateformat="yyyy-MM" showyearspin="true" type="spin"/>
+        <Calendar id="cal_FromDt" taborder="2" left="61" top="126" width="100" height="24" type="normal" popuptype="none" ondropdown="fn_CalOndropdown" value="20201010"/>
+        <PopupDiv id="pdv_MultiCalendar2" visible="false" left="650" top="370" width="161" height="94" border="1px solid"/>
+        <Calendar id="cal_ToDt" taborder="3" left="171" top="126" width="100" height="24" type="normal" popuptype="none" ondropdown="fn_CalOndropdown"/>
+        <Calendar id="cal_FromDt1" taborder="4" left="560" top="123" width="100" height="24" type="normal" popuptype="none" ondropdown="fn_CalOndropdown" onchanged="cal_FromDt1_onchanged"/>
+        <Calendar id="cal_ToDt1" taborder="5" left="670" top="123" width="100" height="24" type="normal" popuptype="none" ondropdown="fn_CalOndropdown"/>
+        <Div id="Div00" taborder="6" text="Div00" left="665" top="210" width="270" height="98">
+          <Layouts>
+            <Layout>
+              <Button id="Button00" taborder="0" text="Button00" left="77" top="24" width="104" height="41" onclick="Div00_Button00_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div01" taborder="7" text="Div01" left="58" top="168" width="451" height="76" background="aqua">
+          <Layouts>
+            <Layout>
+              <Calendar id="cal_FromDt" taborder="0" left="21" top="16" width="120" height="24" type="normal" popuptype="none" ondropdown="fn_CalOndropdown2" value="20201011" dateformat="yyyy-MM-dd"/>
+              <Calendar id="cal_ToDt" taborder="1" left="152" top="16" width="120" height="24" type="normal" popuptype="none" ondropdown="fn_CalOndropdown" dateformat="yyyy-MM-dd"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include "comLib::ComSvcUtil.xjs";
+
+this.pdv_MultiCalendar_btn_Confirm_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sFromDate = this.pdv_MultiCalendar.form.cal_FromDate.value;
+	var sToDate   = this.pdv_MultiCalendar.form.cal_ToDate.value;
+	
+	if (sFromDate > sToDate) {
+		this.alert("시작일자가 종료일자 보다 큽니다.");
+		return;
+	}
+	
+	this.cal_FromDt.set_value(sFromDate);
+	this.cal_ToDt.set_value(sToDate);
+	
+	this.pdv_MultiCalendar.closePopup();
+	
+};
+
+this.pdv_MultiCalendar_btn_Cancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.pdv_MultiCalendar.closePopup();
+};
+
+this.fn_CalOndropdown = function() {
+	//this.gfn_CallMultiCalendar(this, "this.cal_FromDt", "this.cal_ToDt", "fn_MultiCallBack");
+	//this.gfn_CallMultiCalendar(this, "this.cal_FromDt", "this.cal_ToDt", "fn_MultiCallBack", "D:30");
+	this.gfn_CallMultiCalendar(this, "this.cal_FromDt", "this.cal_ToDt", "fn_MultiCallBack", "M:2");
+	//objPopupDiv.trackPopupByComponent(this.cal_FromDt, 0, parseInt(this.cal_FromDt.height) + 4);
+	
+}
+
+this.fn_MultiCallBack = function() {
+	trace("fn_MultiCallBack===");
+}
+
+this.fn_CalOndropdown2 = function() {
+	this.gfn_CallMultiCalendar(this, "this.Div01.form.cal_FromDt", "this.Div01.form.cal_ToDt", "fn_MultiCallBack");
+}
+
+
+this.cal_FromDt1_onchanged = function(obj:nexacro.Calendar,e:nexacro.ChangeEventInfo)
+{
+	
+};
+]]></Script>
+  </Form>
+</FDL>

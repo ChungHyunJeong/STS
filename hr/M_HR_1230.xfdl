@@ -1,0 +1,1663 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_HR_1230" width="1542" height="695" titletext="조직도" onload="fn_FormOnload" onclose="fn_FormClose">
+    <Layouts>
+      <Layout height="695" width="1542">
+        <Div id="div_Search" taborder="0" left="14" top="12" height="66" cssclass="div_WF_Search" formscrollbartype="none none" right="14" text="">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="2" text="출력크기" left="16" top="6" width="80" height="24" cssclass="sta_WF_SLabel" DomainID="S00002"/>
+              <Static id="sta_DepmCd" taborder="3" text="출력레벨" left="16" top="34" width="80" height="24" cssclass="sta_WF_SLabel" DomainID="S00003"/>
+              <Radio id="rdo_ScrnSize" taborder="0" left="96" top="6" width="160" height="24" innerdataset="ds_OrgSize" codecolumn="code" datacolumn="value" index="0" text="크게" value="B" direction="vertical" onitemchanged="div_Search_rdo_ScrnSize_onitemchanged"/>
+              <Combo id="cbo_DrawLevel" taborder="1" text="3" left="96" top="34" width="132" height="24" innerdataset="ds_DrawLevel" codecolumn="code" datacolumn="value" value="3" index="1" onitemchanged="div_Search_cbo_DrawLevel_onitemchanged"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_DetailInput" taborder="1" left="14" right="14" bottom="5" top="378" text="">
+          <Layouts>
+            <Layout>
+              <Div id="div_ComGrdBtn" taborder="0" top="15" height="20" right="0" width="435" async="false" enable="false"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btn_DivMoveMi" taborder="2" top="78" height="10" width="40" visible="true" onclick="btn_DivMoveMi_onclick" cssclass="bt_TF_FoldA" left="700" cursor="pointer"/>
+        <Div id="div_OrgChart" taborder="3" left="14" top="100" background="white" right="14" bottom="14"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="FROM_DD" type="STRING" size="256" description="조회시작일자"/>
+          <Column id="CLOS_DD" type="STRING" size="256" description="조회종료일자"/>
+          <Column id="CNTH_NO" type="STRING" size="256" description="계약번호"/>
+          <Column id="CUSM_CD" type="STRING" size="256" description="거래처코드"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256" description="부서코드(조직코드)"/>
+          <Column id="SESU_ID" type="STRING" size="256" description="시스템사용자ID"/>
+          <Column id="ITEM_CD" type="STRING" size="256"/>
+          <Column id="CT01_CD" type="STRING" size="256"/>
+          <Column id="TEMH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_YN" type="STRING" size="256"/>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+          <Column id="MAIH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="DEDH_DD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Depm">
+        <ColumnInfo>
+          <Column id="LEV" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="DEDH_DD" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="BFDP_NM" type="STRING" size="256"/>
+          <Column id="DEPS_NM" type="STRING" size="256"/>
+          <Column id="DEPE_NM" type="STRING" size="256"/>
+          <Column id="DEPM_GU" type="STRING" size="256"/>
+          <Column id="APPO_CD" type="STRING" size="256"/>
+          <Column id="DEPM_LV" type="STRING" size="256"/>
+          <Column id="TDEP_CD" type="STRING" size="256"/>
+          <Column id="ACUM_CD" type="STRING" size="256"/>
+          <Column id="SAUM_CD" type="STRING" size="256"/>
+          <Column id="PALM_CD" type="STRING" size="256"/>
+          <Column id="TMSU_ID" type="STRING" size="256"/>
+          <Column id="DEPM_PATH" type="STRING" size="256"/>
+          <Column id="SORT" type="STRING" size="256"/>
+          <Column id="DEPM_CDPH" type="STRING" size="256"/>
+          <Column id="DEPM_PH" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_OrgSize">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">B</Col>
+            <Col id="value">대</Col>
+          </Row>
+          <Row>
+            <Col id="code">M</Col>
+            <Col id="value">중</Col>
+          </Row>
+          <Row>
+            <Col id="value">소</Col>
+            <Col id="code">S</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_DepmTmp">
+        <ColumnInfo>
+          <Column id="LEV" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="DEDH_DD" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="BFDP_NM" type="STRING" size="256"/>
+          <Column id="DEPS_NM" type="STRING" size="256"/>
+          <Column id="DEPE_NM" type="STRING" size="256"/>
+          <Column id="DEPM_GU" type="STRING" size="256"/>
+          <Column id="APPO_CD" type="STRING" size="256"/>
+          <Column id="DEPM_LV" type="STRING" size="256"/>
+          <Column id="TDEP_CD" type="STRING" size="256"/>
+          <Column id="ACUM_CD" type="STRING" size="256"/>
+          <Column id="SAUM_CD" type="STRING" size="256"/>
+          <Column id="PALM_CD" type="STRING" size="256"/>
+          <Column id="TMSU_ID" type="STRING" size="256"/>
+          <Column id="DEPM_PATH" type="STRING" size="256"/>
+          <Column id="SORT" type="STRING" size="256"/>
+          <Column id="DEPM_CDPH" type="STRING" size="256"/>
+          <Column id="DEPM_PH" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_DrawLevel">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">2</Col>
+            <Col id="value">2</Col>
+          </Row>
+          <Row>
+            <Col id="code">3</Col>
+            <Col id="value">3</Col>
+          </Row>
+          <Row>
+            <Col id="code">4</Col>
+            <Col id="value">4</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : M_HR_1230
+*  @화면설명 : 조직도
+*  @시스템명 : (HR) 인사관리
+*  @작성자   : 최석목
+*  @작성일   : 2022.01.21
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2022.01.21     	    최석목 	           최초 생성 
+*************************************************************************************************
+*/
+
+/***********************************************************************************************
+ * 0. 폼로드
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.01. Form Include 선언
+ ***********************************************************************************************/
+//include "comLib::CommonUtil.xjs";//공통함수
+
+/***********************************************************************************************
+ * 00.02. Form 변수 선언
+ ***********************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+this.fvReDrawYn = false;//다시그리기 여부
+this.fvReSearchYn = false;//재조회 여부
+this.fvBaseYm = "";//기준년월
+
+/***********************************************************************************************
+ * 00.03. Form Onload 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+
+}
+
+/***********************************************************************************************
+ * 00.04. Form [공통] 초기설정 함수 - 필수
+ ***********************************************************************************************/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.fvComPrgmId = this.gfn_CommLoadFormPrgmId(this);//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+
+}
+
+/***********************************************************************************************
+ * 00.05. Form [업무] 초기설정 함수
+ ***********************************************************************************************/
+this.fn_FormBizInit = function() 
+{
+	//[업무] 일반콤보조회
+	this.fn_ComboSearch();
+	
+	this.fn_ComBtnSearch();
+}
+
+/***********************************************************************************************
+ * 00.06. Form [업무] 일반콤보 조회 함수
+ ***********************************************************************************************/
+this.fn_ComboSearch = function() 
+{
+
+}
+
+/***********************************************************************************************
+ * 00.07. Form OnClose 이벤트
+ ***********************************************************************************************/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/***********************************************************************************************
+ * 1. 조회 영역
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 01.01. [공통버튼] 조회 버튼 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_ComBtnSearch = function(sWofhNo)
+{ 
+	//조직도 재생성여부
+	if (!this.fvReDrawYn) {
+		
+		if (this.gfn_IsNull(this.fvBaseYm)) {
+			
+			var sToDay = this.gfn_GetCommDate("toDay");//현재일자
+			this.fvBaseYm = sToDay.substring(0,6);//기준년월
+		}
+		
+		//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+		this.ds_Input.clearData();
+		this.ds_Depm.clearData();	
+		
+		//[업무] 조회조건 입력
+		this.ds_Input.addRow();
+		this.ds_Input.setColumn(0, "DEDH_DD", this.fvBaseYm);	
+		
+		//[공통]서비스정보 초기화
+		this.gfn_InitComService(this);
+		
+		//[공통]서비스정보 추가
+		var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sSelectSql = "hr:M_HR_DEPM_SL00";
+		this.gfn_AddComSearchService(this, svcAddObj);
+		
+		//[공통]서비스 호출 변수
+		var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		svcCallObj.sTrid 		= "DEPM_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+		svcCallObj.sActionName 	= this.G_SV_HR;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+		svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+		svcCallObj.sOutDatset 	= "ds_Depm=ds_Depm";//출력 데이터셋
+		svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+		svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+		svcCallObj.isSync = true;//동기식으로 설정할지 여부
+
+		//[공통]서비스 호출
+		this.gfn_CallComService(this, svcCallObj);		
+	}
+	
+	if (this.ds_Depm.getRowCount() > 0) {
+		//조직도 재생성여부
+		if (!this.fvReDrawYn) {
+			this.ds_Depm.addColumn("LV01", "INT");
+			this.ds_Depm.addColumn("LV02", "INT");
+			this.ds_Depm.addColumn("LV03", "INT");
+			this.ds_Depm.addColumn("LV04", "INT");
+			this.ds_Depm.addColumn("LV05", "INT");
+			this.ds_Depm.addColumn("LV06", "INT");
+			this.ds_Depm.addColumn("LV07", "INT");
+			this.ds_Depm.addColumn("LV08", "INT");
+			this.ds_Depm.addColumn("LV09", "INT");	
+			this.ds_Depm.addColumn("LEFT", "INT");
+			this.ds_Depm.addColumn("TOP", "INT");
+			this.ds_Depm.addColumn("LEFT_N", "INT");
+			this.ds_Depm.addColumn("LEFT_S", "INT");
+			this.ds_Depm.addColumn("LEFT_E", "INT");
+			this.ds_Depm.addColumn("DRAW_YN", "STRING");
+			this.ds_Depm.addColumn("RE_DRAW_YN", "STRING");
+		}
+		
+		var sLEV = "";//레벨
+		var sBefLEV = "";//이전레벨
+		var iLev = 0;//레벨
+		var sDEPM_CDPH = "";//메뉴Depth
+		var iCnt = 0;
+		var iMaxLev = this.ds_Depm.getMax("LEV");//Max 레벨
+		var iLeftMargin = 10;
+		var iTopMargin = 50;
+		var iLeftGap = 0;
+		var iTopGap = 0;
+		var iWidth = 0;
+		var iHeight = 0;
+		var iLev01Left = 0;
+		var iLev02Left = 0;
+		var iLev03Left = 0;
+		var iLev04Left = 0;
+		var iLev05Left = 0;
+		var iLev06Left = 0;
+		var iLev07Left = 0;
+		var iLev08Left = 0;
+		var iLev09Left = 0;	
+		var iCheckLev = 0;
+		var sFont = 'bold 12px/normal "Malgun Gothic"';
+		var sFontColor = "#FFFFFF";
+		var sLv01BgColor = "#2684DC";
+		var sLv02BgColor = "#47749E";
+		var sLv03BgColor = "#809BB0";
+		var sLineColor = "#808080";
+		
+		if (this.div_Search.form.rdo_ScrnSize.value == "B") {
+		
+			//대/중/소
+			iLeftGap = 10;
+			iTopGap = 60;
+			iWidth = 100;
+			iHeight = 40;		
+		} else if (this.div_Search.form.rdo_ScrnSize.value == "M") {
+		
+			//대/중/소
+			iLeftGap = 8;
+			iTopGap = 60;
+			iWidth = 80;
+			iHeight = 38;		
+			sFont = 'bold 11px/normal "Malgun Gothic"';
+		} else {
+			iLeftMargin = 5;
+			iLeftGap = 5;
+			iTopGap = 60;
+			iWidth = 66;
+			iHeight = 36;			
+			sFont = '10px/normal "Malgun Gothic"';
+		}
+				
+		if (this.gfn_IsNull(this.div_Search.form.cbo_DrawLevel.value)) {
+			iCheckLev = 3;
+		} else {
+			iCheckLev = nexacro.toNumber(this.div_Search.form.cbo_DrawLevel.value);
+		}
+			
+		//조직도 재생성여부
+		if (!this.fvReDrawYn) {
+			//하위 레벨 건수 체크
+			for (var iLoop=1; iLoop<this.ds_Depm.getRowCount(); iLoop++) {
+				sLEV = this.ds_Depm.getColumn(iLoop, "LEV");//레벨
+				sDEPM_CDPH = this.ds_Depm.getColumn(iLoop, "DEPM_CDPH");//메뉴Depth			
+				iLev = nexacro.toNumber(sLEV);//레벨
+				
+				this.ds_Depm.setColumn(iLoop, "LV0" + sLEV, 1);//자기레벨인경우 1로 설정
+				
+				for (var jLoop = iLev; jLoop < iMaxLev; jLoop++) {
+					iCnt = this.ds_Depm.getCaseCount("String(DEPM_CDPH).indexOf('" + sDEPM_CDPH.replace("'","\\'") + "') >= 0 && LEV=='" + (jLoop + 1) + "'");
+					this.ds_Depm.setColumn(iLoop, "LV0" + (jLoop + 1), iCnt);
+				}						
+			}
+		}
+		
+		var arrComList = this.div_OrgChart.form.components;//Div 생성된 전체 컴폰넌트
+
+		if (!this.gfn_IsNull(arrComList)) {
+
+			for (var iLoop = arrComList.length-1; iLoop >= 0; iLoop--) {
+				var rObj = this.div_OrgChart.removeChild(arrComList[iLoop].id);
+				rObj.destroy();
+				rObj = null;
+			}
+		}		
+		
+		this.ds_Depm.setColumn(0, "DRAW_YN", "Y");
+		
+		var sDRAW_YN = "";//조직도 생성여부
+		
+		//컴포넌트 좌표 설정
+		for (var iLoop=1; iLoop<this.ds_Depm.getRowCount(); iLoop++) {
+			sLEV = this.ds_Depm.getColumn(iLoop, "LEV");//레벨
+			iLev = nexacro.toNumber(sLEV);//레벨	
+			
+			//조직도 재생성여부
+			if (!this.fvReDrawYn) {
+				//체크레벨 이하 일경우에만 생성
+				if (iCheckLev >= iLev) {
+					this.ds_Depm.setColumn(iLoop, "DRAW_YN", "Y");
+					//첫번째 행인경우
+					if (this.gfn_IsNull(sBefLEV)) {
+						iLev02Left = iLeftMargin;
+						this.ds_Depm.setColumn(iLoop, "LEFT", iLev02Left);
+						this.ds_Depm.setColumn(iLoop, "TOP", iTopMargin + (iHeight + iTopGap) * (iLev - 1));					
+					} else {
+						//레벨변경이 없는경우
+						if (sLEV == sBefLEV) {
+							for (var jLoop = 2; jLoop <= iLev; jLoop++) {
+								if (jLoop == 2) {
+									iLev02Left = iLev02Left + iWidth + iLeftGap;
+								} else if (jLoop == 3) {
+									iLev03Left = iLev03Left + iWidth + iLeftGap;
+								} else if (jLoop == 4) {
+									iLev04Left = iLev04Left + iWidth + iLeftGap;
+								} else if (jLoop == 5) {
+									iLev05Left = iLev05Left + iWidth + iLeftGap;
+								} else if (jLoop == 6) {
+									iLev06Left = iLev06Left + iWidth + iLeftGap;
+								} else if (jLoop == 7) {
+									iLev07Left = iLev07Left + iWidth + iLeftGap;
+								} else if (jLoop == 8) {
+									iLev08Left = iLev08Left + iWidth + iLeftGap;
+								} else if (jLoop == 9) {
+									iLev09Left = iLev09Left + iWidth + iLeftGap;							
+								}
+							}						
+						} else {
+
+							if (sLEV < sBefLEV) {
+								for (var jLoop = 2; jLoop <= iLev; jLoop++) {
+									if (jLoop == 2) {
+										iLev02Left = iLev02Left + iWidth + iLeftGap;
+									} else if (jLoop == 3) {
+										iLev03Left = iLev03Left + iWidth + iLeftGap;
+									} else if (jLoop == 4) {
+										iLev04Left = iLev04Left + iWidth + iLeftGap;
+									} else if (jLoop == 5) {
+										iLev05Left = iLev05Left + iWidth + iLeftGap;
+									} else if (jLoop == 6) {
+										iLev06Left = iLev06Left + iWidth + iLeftGap;
+									} else if (jLoop == 7) {
+										iLev07Left = iLev07Left + iWidth + iLeftGap;
+									} else if (jLoop == 8) {
+										iLev08Left = iLev08Left + iWidth + iLeftGap;
+									} else if (jLoop == 9) {
+										iLev09Left = iLev09Left + iWidth + iLeftGap;							
+									}
+								}						
+							} else {
+								if (iLev == 2) {
+									iLev02Left = iLev02Left + iWidth + iLeftGap;
+								} else if (iLev == 3) {
+									iLev03Left = iLev02Left;														
+								} else if (iLev == 4) {
+									iLev04Left = iLev03Left;						
+								} else if (iLev == 5) {
+									iLev05Left = iLev04Left;							
+								} else if (iLev == 6) {
+									iLev06Left = iLev05Left;
+								} else if (iLev == 7) {
+									iLev07Left = iLev06Left;
+								} else if (iLev == 8) {
+									iLev08Left = iLev07Left;
+								} else if (iLev == 9) {
+									iLev09Left = iLev08Left;							
+								}
+							}
+						}
+
+						this.ds_Depm.setColumn(iLoop, "LEFT", eval("iLev0" + sLEV + "Left"));
+						this.ds_Depm.setColumn(iLoop, "TOP", iTopMargin + (iHeight + iTopGap) * (iLev - 1));
+					}
+								
+					sBefLEV = sLEV;//이전레벨
+				} else {
+					this.ds_Depm.setColumn(iLoop, "DRAW_YN", "N");
+				}
+			} else {
+				sDRAW_YN = this.ds_Depm.getColumn(iLoop, "DRAW_YN");//조직도 생성여부
+				
+				//조직도 생성일 경우
+				if (sDRAW_YN == "Y") {
+				
+					//첫번째 행인경우
+					if (this.gfn_IsNull(sBefLEV)) {
+						iLev02Left = iLeftMargin;
+						this.ds_Depm.setColumn(iLoop, "LEFT", iLev02Left);
+						this.ds_Depm.setColumn(iLoop, "TOP", iTopMargin + (iHeight + iTopGap) * (iLev - 1));					
+					} else {
+						//레벨변경이 없는경우
+						if (sLEV == sBefLEV) {
+							for (var jLoop = 2; jLoop <= iLev; jLoop++) {
+								if (jLoop == 2) {
+									iLev02Left = iLev02Left + iWidth + iLeftGap;
+								} else if (jLoop == 3) {
+									iLev03Left = iLev03Left + iWidth + iLeftGap;
+								} else if (jLoop == 4) {
+									iLev04Left = iLev04Left + iWidth + iLeftGap;
+								} else if (jLoop == 5) {
+									iLev05Left = iLev05Left + iWidth + iLeftGap;
+								} else if (jLoop == 6) {
+									iLev06Left = iLev06Left + iWidth + iLeftGap;
+								} else if (jLoop == 7) {
+									iLev07Left = iLev07Left + iWidth + iLeftGap;
+								} else if (jLoop == 8) {
+									iLev08Left = iLev08Left + iWidth + iLeftGap;
+								} else if (jLoop == 9) {
+									iLev09Left = iLev09Left + iWidth + iLeftGap;							
+								}
+							}						
+						} else {
+
+							if (sLEV < sBefLEV) {
+								for (var jLoop = 2; jLoop <= iLev; jLoop++) {
+									if (jLoop == 2) {
+										iLev02Left = iLev02Left + iWidth + iLeftGap;
+									} else if (jLoop == 3) {
+										iLev03Left = iLev03Left + iWidth + iLeftGap;
+									} else if (jLoop == 4) {
+										iLev04Left = iLev04Left + iWidth + iLeftGap;
+									} else if (jLoop == 5) {
+										iLev05Left = iLev05Left + iWidth + iLeftGap;
+									} else if (jLoop == 6) {
+										iLev06Left = iLev06Left + iWidth + iLeftGap;
+									} else if (jLoop == 7) {
+										iLev07Left = iLev07Left + iWidth + iLeftGap;
+									} else if (jLoop == 8) {
+										iLev08Left = iLev08Left + iWidth + iLeftGap;
+									} else if (jLoop == 9) {
+										iLev09Left = iLev09Left + iWidth + iLeftGap;							
+									}
+								}						
+							} else {
+								if (iLev == 2) {
+									iLev02Left = iLev02Left + iWidth + iLeftGap;
+								} else if (iLev == 3) {
+									iLev03Left = iLev02Left;														
+								} else if (iLev == 4) {
+									iLev04Left = iLev03Left;						
+								} else if (iLev == 5) {
+									iLev05Left = iLev04Left;							
+								} else if (iLev == 6) {
+									iLev06Left = iLev05Left;
+								} else if (iLev == 7) {
+									iLev07Left = iLev06Left;
+								} else if (iLev == 8) {
+									iLev08Left = iLev07Left;
+								} else if (iLev == 9) {
+									iLev09Left = iLev08Left;							
+								}
+							}
+						}
+
+						this.ds_Depm.setColumn(iLoop, "LEFT", eval("iLev0" + sLEV + "Left"));
+						this.ds_Depm.setColumn(iLoop, "TOP", iTopMargin + (iHeight + iTopGap) * (iLev - 1));
+					}
+								
+					sBefLEV = sLEV;//이전레벨
+				}			
+			}
+		}		
+		
+		var iCheckLeftLev = nexacro.toNumber(this.ds_Depm.getMax("LEV")) - 1;//좌표 재정리 할 레벨
+		var iNowLev = 0;//현재레벨
+		var sBeLevCol = "";//하위레벨컬럼
+		var sBeLev = "";//하위레벨
+		var sDepmPath = "";//레벨Path
+		var sStartEnd = "";//시작끝좌표
+		var arrStartEnd;
+		var iStart = 0;
+		var iEnd = 0;
+		var iMid = 0;
+		
+		for (var iLoop=iCheckLeftLev; iLoop>=2; iLoop--) {
+			for (var jLoop=0; jLoop < this.ds_Depm.getRowCount(); jLoop++) {
+				iNowLev = this.ds_Depm.getColumn(jLoop, "LEV");//현재레벨
+				
+				//체크할 레벨과 현재레벨이 같을경우
+				if (iLoop == iNowLev) {
+					sBeLevCol = "LV0" + (iLoop + 1);//하위레벨
+					sBeLev = this.ds_Depm.getColumn(jLoop, sBeLevCol);//하위레벨
+					
+					//하위레벨건수가 있을경우
+					if (!this.gfn_IsNull(sBeLev) && sBeLev != "0") {
+						sDepmPath = this.ds_Depm.getColumn(jLoop, "DEPM_PH");//레벨Path
+						sStartEnd = this.fn_GetBeLevStartEnd(jLoop+1, sDepmPath, nexacro.toNumber(iNowLev) + 1);//시작끝좌표
+
+						if (!this.gfn_IsNull(sStartEnd)) {
+							arrStartEnd = sStartEnd.split(";");
+							
+							//시작과 끝좌표가 다른경우
+							if (arrStartEnd[0] != arrStartEnd[1]) {
+								iStart = nexacro.toNumber(arrStartEnd[0]);
+								iEnd = nexacro.toNumber(arrStartEnd[1]);
+								iMid = iStart + nexacro.round(((iEnd + iWidth) - iStart) /2) - nexacro.round(iWidth/2);			
+								this.ds_Depm.setColumn(jLoop, "LEFT", iMid);//Left 좌표 재정의
+								this.ds_Depm.setColumn(jLoop, "LEFT_S", iStart);//Left 좌표 시작
+								this.ds_Depm.setColumn(jLoop, "LEFT_E", iEnd + nexacro.round(iWidth/2));//Left 좌표 끝
+							} else {
+								iStart = nexacro.toNumber(arrStartEnd[0]);
+								this.ds_Depm.setColumn(jLoop, "LEFT", iStart);//Left 좌표 재정의							
+							}
+						}
+					}
+				}
+			}
+		}		
+		
+		//1레벨 좌표설정
+		sDepmPath = this.ds_Depm.getColumn(0, "DEPM_PH");//레벨Path
+		sStartEnd = this.fn_GetBeLevStartEnd(1, sDepmPath, 2);//시작끝좌표
+
+		if (!this.gfn_IsNull(sStartEnd)) {
+			arrStartEnd = sStartEnd.split(";");
+			
+			//시작과 끝좌표가 다른경우
+			if (arrStartEnd[0] != arrStartEnd[1]) {
+				iStart = nexacro.toNumber(arrStartEnd[0]);
+				iEnd = nexacro.toNumber(arrStartEnd[1]);
+				iMid = iStart + nexacro.round(((iEnd + iWidth) - iStart) /2) - nexacro.round(iWidth/2);			
+				this.ds_Depm.setColumn(0, "LEFT", iMid);//Left 좌표 재정의
+				
+				this.ds_Depm.setColumn(0, "LEFT_S", iStart);//Left 좌표 시작
+				this.ds_Depm.setColumn(0, "LEFT_E", iEnd + nexacro.round(iWidth/2));//Left 좌표 끝				
+			} else {
+				iStart = nexacro.toNumber(arrStartEnd[0]);
+				this.ds_Depm.setColumn(0, "LEFT", iStart);//Left 좌표 재정의							
+			}
+			
+			this.ds_Depm.setColumn(0, "TOP", 50);
+		}		
+		
+		var iLeft = 0;
+		var iCheckLeft = 0;
+		var iLowCnt = 0;//하위건수
+		var iLowLineCnt = 0;//하위라인수
+		var iRst = 0;//몫
+		var iRem = 0;//나머지
+		var iMidLeft = 0;//중앙좌표값
+		var sCheckTdepCd = "";//상위코드
+		var sLeftStart = "";//Left시작
+		var sLeftEnd = "";//Left끝
+		var sDrawYn = "";//Draw여부
+		var sRE_DRAW_YN = "";//다시그리기 여부
+		var sChkDepmPath = "";//체크레벨Path
+		
+		for (var iLoop=0; iLoop<this.ds_Depm.getRowCount(); iLoop++) {
+
+			sLEV = this.ds_Depm.getColumn(iLoop, "LEV");//레벨
+			iLev = nexacro.toNumber(sLEV);//레벨				
+			iLowCnt = this.fn_CheckLowLevelCnt(iLoop, iLev);//하위건수	
+			sDrawYn = this.ds_Depm.getColumn(iLoop, "DRAW_YN");//Draw여부
+			sRE_DRAW_YN = this.ds_Depm.getColumn(iLoop, "RE_DRAW_YN");//다시그리기 여부
+			iLowLineCnt = this.fn_CheckLowLevelCnt(iLoop, iLev, iCheckLev, sRE_DRAW_YN);//하위라인수		
+			sChkDepmPath = this.ds_Depm.getColumn(iLoop, "DEPM_PH");//레벨Path
+
+			iLeft = this.ds_Depm.getColumn(iLoop, "LEFT");
+
+			//체크레벨 이하 일경우에만 생성
+			if (sDrawYn == "Y") {
+			//if (iCheckLev >= iLev) {
+				//조직도 그리기
+				var staLabel = new Static("sta_Ma0" + iLoop, iLeft, this.ds_Depm.getColumn(iLoop, "TOP"), iWidth, iHeight, null, null);
+				//staLabel.set_cssclass("sta_WF_DLabel");	
+				
+				if (iLev == 1) {
+					//staLabel.set_background("lavender");
+					staLabel.set_background(sLv01BgColor);
+				} else if (iLev == 2) {
+					staLabel.set_background(sLv02BgColor);
+				} else {
+					staLabel.set_background(sLv03BgColor);
+				}
+				staLabel.set_color(sFontColor);
+				staLabel.set_borderRadius("6px");
+	
+				if (iLowCnt > 0) {					
+					if (sDrawYn == "Y") {
+						if (sRE_DRAW_YN == "Y") {
+							/*
+							if (iLev == iCheckLev) {
+								staLabel.set_text("<b v='true'><fc v='#25aae1'>- </fc></b>" + this.ds_Depm.getColumn(iLoop, "DEPM_NM"));//라벨명
+								staLabel.LABEL = "-";
+							} else {
+								staLabel.set_text("<b v='true'><fc v='#25aae1'>+ </fc></b>" + this.ds_Depm.getColumn(iLoop, "DEPM_NM"));//라벨명
+								staLabel.LABEL = "+";							
+							}
+							*/
+							staLabel.set_text("<b v='true'><fc v='" + sFontColor + "'>- </fc></b>" + this.ds_Depm.getColumn(iLoop, "DEPM_NM"));//라벨명
+							staLabel.LABEL = "-";									
+						} else {
+							if (!this.fvReDrawYn) {
+								if (iLev == iCheckLev) {
+									staLabel.set_text("<b v='true'><fc v='" + sFontColor + "'>+ </fc></b>" + this.ds_Depm.getColumn(iLoop, "DEPM_NM"));//라벨명
+									staLabel.LABEL = "+";
+								} else {
+									staLabel.set_text("<b v='true'><fc v='" + sFontColor + "'>- </fc></b>" + this.ds_Depm.getColumn(iLoop, "DEPM_NM"));//라벨명
+									staLabel.LABEL = "-";							
+								}	
+							} else {														
+								if (this.ds_Depm.getCaseCount("String(DEPM_PH).indexOf('" + sChkDepmPath + "') >= 0 && RE_DRAW_YN=='Y'") > 0) {
+									staLabel.set_text("<b v='true'><fc v='" + sFontColor + "'>- </fc></b>" + this.ds_Depm.getColumn(iLoop, "DEPM_NM"));//라벨명
+									staLabel.LABEL = "-";								
+								} else {
+									if (iLev == iCheckLev) {
+										staLabel.set_text("<b v='true'><fc v='" + sFontColor + "'>- </fc></b>" + this.ds_Depm.getColumn(iLoop, "DEPM_NM"));//라벨명
+										staLabel.LABEL = "-";
+									} else {
+										staLabel.set_text("<b v='true'><fc v='" + sFontColor + "'>+ </fc></b>" + this.ds_Depm.getColumn(iLoop, "DEPM_NM"));//라벨명
+										staLabel.LABEL = "+";							
+									}	
+								}
+							}
+						}
+					} else {
+						staLabel.set_text("<b v='true'><fc v='" + sFontColor + "'>- </fc></b>" + this.ds_Depm.getColumn(iLoop, "DEPM_NM"));//라벨명
+						staLabel.LABEL = "-";
+					}
+				} else {
+					staLabel.set_text(this.ds_Depm.getColumn(iLoop, "DEPM_NM"));//라벨명
+				}				
+
+				staLabel.DEPM_CD = this.ds_Depm.getColumn(iLoop, "DEPM_CD");
+				staLabel.DEPM_PH = this.ds_Depm.getColumn(iLoop, "DEPM_PH");//레벨Path
+				staLabel.CHEK_NO = iLoop;
+				staLabel.CHEK_LV = iLev + 1;
+				staLabel.iWidth = iWidth;
+				staLabel.iHeight = iHeight;
+				staLabel.iTopGap = iTopGap;
+				staLabel.iCheckLev = iCheckLev;
+				staLabel.sFont = sFont;			
+				staLabel.iCheckLeftLev = iCheckLeftLev;
+				
+				
+				staLabel.addEventHandler("onclick", this.fn_OnClickEvent, this);
+				staLabel.set_textAlign("center");
+				staLabel.set_font(sFont);
+				staLabel.set_usedecorate(true);
+				staLabel.set_wordWrap("char");				
+				
+				this.div_OrgChart.addChild(staLabel.name, staLabel);		
+				staLabel.show();	
+				
+				//상위라인
+				if ( iLev > 1) {
+					var staLabelLineHt = new Static("sta_Liht0" + iLoop, (iLeft + iWidth/2),  (nexacro.toNumber(this.ds_Depm.getColumn(iLoop, "TOP"))- (iTopGap / 2)), 1, (iTopGap / 2), null, null);	
+					staLabelLineHt.set_background(sLineColor);
+					staLabelLineHt.set_textAlign("center");
+					this.div_OrgChart.addChild(staLabelLineHt.name, staLabelLineHt);		
+					staLabelLineHt.show();	
+				} else {
+					var staLabelLineHt = new Static("sta_Liht0" + iLoop, (iLeft + iWidth/2),  (nexacro.toNumber(this.ds_Depm.getColumn(iLoop, "TOP")) + iHeight), 1, (iTopGap / 2), null, null);	
+					staLabelLineHt.set_background(sLineColor);
+					staLabelLineHt.set_textAlign("center");
+					this.div_OrgChart.addChild(staLabelLineHt.name, staLabelLineHt);		
+					staLabelLineHt.show();	
+					
+					sLeftStart = this.ds_Depm.getColumn(iLoop, "LEFT_S");//Left시작
+					sLeftEnd = this.ds_Depm.getColumn(iLoop, "LEFT_E");//Left끝
+					
+					if (!this.gfn_IsNull(sLeftStart)) {
+						var staLabelLineWb = new Static("sta_Liwb0" + iLoop, nexacro.toNumber(sLeftStart + (iWidth/2)),  (nexacro.toNumber(this.ds_Depm.getColumn(iLoop, "TOP")) + iHeight + (iTopGap/2)), (nexacro.toNumber(sLeftEnd) - nexacro.toNumber(sLeftStart) - (iWidth/2)), 1, null, null);	
+						staLabelLineWb.set_background(sLineColor);
+						staLabelLineWb.set_textAlign("center");
+						this.div_OrgChart.addChild(staLabelLineWb.name, staLabelLineWb);		
+						staLabelLineWb.show();							
+					}					
+				}
+				
+				//하위라인
+				//if ( iLev <= iCheckLeftLev && iLowLineCnt > 0) {
+				if (sDrawYn == "Y" && iLowLineCnt > 0) {
+					var staLabelLineHb = new Static("sta_Lihb0" + iLoop, (iLeft + iWidth/2),  (nexacro.toNumber(this.ds_Depm.getColumn(iLoop, "TOP")) + iHeight), 1, (iTopGap / 2), null, null);	
+					staLabelLineHb.set_background(sLineColor);
+					staLabelLineHb.set_textAlign("center");
+					this.div_OrgChart.addChild(staLabelLineHb.name, staLabelLineHb);		
+					staLabelLineHb.show();	
+					
+					sLeftStart = this.ds_Depm.getColumn(iLoop, "LEFT_S");//Left시작
+					sLeftEnd = this.ds_Depm.getColumn(iLoop, "LEFT_E");//Left끝
+					
+					if (!this.gfn_IsNull(sLeftStart)) {
+						var staLabelLineWb = new Static("sta_Liwb0" + iLoop, nexacro.toNumber(sLeftStart + (iWidth/2)),  (nexacro.toNumber(this.ds_Depm.getColumn(iLoop, "TOP")) + iHeight + (iTopGap/2)), (nexacro.toNumber(sLeftEnd) - nexacro.toNumber(sLeftStart) - (iWidth/2)), 1, null, null);	
+						staLabelLineWb.set_background(sLineColor);
+						staLabelLineWb.set_textAlign("center");
+						this.div_OrgChart.addChild(staLabelLineWb.name, staLabelLineWb);		
+						staLabelLineWb.show();							
+					}
+				}
+			}
+		}
+		
+		this.div_OrgChart.form.resetScroll();
+		
+	}
+
+}
+
+/***********************************************************************************************
+ * 01.02. [Vaildation] 조회 필수값 체크
+ ***********************************************************************************************/
+this.fn_VaildSearch = function()
+{
+	return true;
+}
+
+/***********************************************************************************************
+ * 01.03. [공통] 조회조건 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [부서]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 부서 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 부서코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 부서명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ *    02. [사용자]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 사용자 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사원코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사원명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ *    03. [계약번호]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 계약번호 Killfocus 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 계약번호 SetFocus 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/***********************************************************************************************
+ *    04. [프로젝트]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 프로젝트 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 프로젝트 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ *    05. [거래처]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 거래처 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 거래처코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 거래처명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/***********************************************************************************************
+ *    06. [사업장]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 사업장 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사업장 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+  
+/***********************************************************************************************
+ *    07. [W/O]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] W/O 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] W/O 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ *    08. [품목코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-팝업버튼] 품목코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 품목코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+
+/***********************************************************************************************
+ *    09. [계정코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 계정코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 계정코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+
+/***********************************************************************************************
+ * 2. 입력
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 02.01. [공통버튼] 입력 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnAdd = function()
+{
+}
+
+/***********************************************************************************************
+ * 02.MF0.01. [Master Freeform 공통] 입력항목 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [부서]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 부서 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 부서코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ *    02. [사용자]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 사용자 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 사원코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ *    03. [계약번호]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 계약번호 Killfocus 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 계약번호 SetFocus 이벤트
+  ---------------------------------------------------------------------------------------------*/
+  
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 이전 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 이전 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 이전 계약번호 Killfocus 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 이전 계약번호 SetFocus 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ *    04. [프로젝트]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 프로젝트 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 프로젝트 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+  
+/***********************************************************************************************
+ *    05. [거래처]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 거래처 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 거래처코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+
+/***********************************************************************************************
+ *    06. [사업장]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 사업장 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 사업장코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+  
+/***********************************************************************************************
+ *    07. [W/O]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] W/O 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] W/O 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+  
+/***********************************************************************************************
+ *    08. [품목코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 품목코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 품목코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+
+/***********************************************************************************************
+ *    09. [계정코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 계정코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 계정코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+
+/***********************************************************************************************
+ *    10. [비고]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 비고 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ * 02.MF0.02. [Master Freeform 일반] 입력항목 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [고객]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 고객 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 고객코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/   
+
+/***********************************************************************************************
+ * 02.MF0.03. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    01. [데이터셋-ds_Master10] 데이터 Row 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    02. [데이터셋-ds_Master10] Row 변경전 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/***********************************************************************************************
+ * 02.MG0.01. [Master그리드-버튼] 복사 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01Copy = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.02. [Master그리드-버튼] 행추가 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01AddRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.03. [Master그리드-버튼] 행삽입 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01InsertRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.04. [Master그리드-버튼] 행삭제 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01DeleteRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.05. [Master그리드-버튼] 취소 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01Cancel = function()
+{
+};
+ 
+/***********************************************************************************************
+ * 02.MG0.06. [Master그리드] 셀 클릭 이벤트
+ ***********************************************************************************************/ 
+ 
+/***********************************************************************************************
+ * 02.MG0.07. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+ 
+
+/***********************************************************************************************
+ * 02.DG0.01. [Detail그리드-버튼] 복사 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01Copy = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.DG0.02. [Detail그리드-버튼] 행추가 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01AddRow = function()
+{
+	
+};
+
+/***********************************************************************************************
+ * 02.DG0.03. [Detail그리드-버튼] 행삽입 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01InsertRow = function()
+{
+};
+
+
+/***********************************************************************************************
+ * 02.DG0.04. [Detail그리드-버튼] 행삭제 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01DeleteRow = function()
+{
+
+};
+
+/***********************************************************************************************
+ * 02.DG0.05. [Detail그리드-버튼] 취소 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01Cancel = function()
+{
+
+};
+ 
+/***********************************************************************************************
+ * 02.DG0.06. [Detail그리드] 셀 클릭 이벤트
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ *    01. [그리드-grd_Detail10] 셀클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ * 02.DG0.07. [Detail 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    01. [데이터셋-ds_Detail10] 데이터변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+
+/***********************************************************************************************
+ * 02.DG0.08. [Detail Tab] 변경 이벤트
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 02.DG1.01. [Detail그리드2-버튼] 전체선택 클릭 이벤트
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 02.DG1.02. [Detail그리드2-버튼] 전체해지 클릭 이벤트
+ ***********************************************************************************************/
+
+
+/***********************************************************************************************
+ * 02.DG1.03. [Detail그리드2-버튼] 부분선택 클릭 이벤트
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 02.DG1.04. [Detail그리드2-버튼] 부분해지 클릭 이벤트
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 02.DG1.05. [Detail그리드2-버튼] 적용 클릭 이벤트
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 02.DG1.06. [Detail그리드2-버튼] 취소 클릭 이벤트
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 02.DG1.05. 검색조건 클릭/변경 이벤트
+ ***********************************************************************************************/ 
+/***********************************************************************************************
+ *    01. [부서]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [검색영역-Button] 부서 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [검색영역-Edit] 부서코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/*---------------------------------------------------------------------------------------------
+ *    [검색영역-Edit] 부서명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ *    02. [계약번호]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [검색영역-Button] 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [검색영역-Edit] 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+
+/***********************************************************************************************
+ *    03. [거래처]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [검색영역-Button] 거래처 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [검색영역-Edit] 거래처 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [검색영역-Edit] 거래처명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+
+/***********************************************************************************************
+ *    04. [검색]
+ ***********************************************************************************************/
+
+
+/***********************************************************************************************
+ * 02.DG1.06. [첨부 파일 그리드-버튼] 파일추가 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_FileGrd01AddRow = function()
+{
+
+};
+
+/***********************************************************************************************
+ * 02.DG1.07. [첨부 파일 그리드-버튼] 파일삭제 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_FileGrd01DeleteRow = function()
+{
+
+};
+
+ 
+/***********************************************************************************************
+ * 3. 복사
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 03.01. [공통버튼] 복사 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCopy = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 4. 취소
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 04.01. [공통버튼] 취소 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCancel = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 5. 저장
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 05.01. [공통버튼] 저장 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnSave = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 05.02. [Vaildation] Master 저장 필수값 체크 - 입력항목 
+ ***********************************************************************************************/ 
+this.fn_VaildMasterSave = function()
+{
+	return true;
+}
+
+/***********************************************************************************************
+ * 05.03. [Vaildation] Detail 저장 필수값 체크 - 그리드항목
+ ***********************************************************************************************/ 
+this.fn_VaildDetailSave = function()
+{
+
+	return true;
+}
+ 
+/***********************************************************************************************
+ * 6. 삭제
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 06.01. [공통버튼] 삭제 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnDelete = function()
+{ 
+
+}
+
+/***********************************************************************************************
+ * 06.02. [서비스] 삭제처리
+ ***********************************************************************************************/  
+this.fn_SvcDelete = function() 
+{ 
+}
+
+/***********************************************************************************************
+ * 06.03. [Vaildation] 삭제항목 체크
+ ***********************************************************************************************/  
+this.fn_VaildMasterDelete = function()
+{
+
+}
+
+/***********************************************************************************************
+ * 7. 엑셀
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 07.01. [공통버튼] 엑셀저장 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnExcel = function()
+{ 
+
+}
+
+/***********************************************************************************************
+ * 8. 인쇄
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 08.01. [공통버튼] 인쇄 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnPrint = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 9. 결재요청
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 09.01. [공통버튼] 결재요청 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnDecide = function()
+{ 
+	
+}
+
+/***********************************************************************************************
+ * 09.02. [공통버튼] 결재요청 유효성체크
+ ***********************************************************************************************/  
+this.fn_VaildWfDecide = function() {
+	
+	return true;
+}
+
+/***********************************************************************************************
+ * 10. 결재현황
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.01. [공통버튼] 결재현황 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnProcess = function()
+{ 
+
+}
+
+
+/***********************************************************************************************
+ * 11. 재기안
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 11.01. [공통버튼] 재기안 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnRecide = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 11.02. [공통버튼] 재기안 유효성체크
+ ***********************************************************************************************/  
+this.fn_VaildWfRecide = function() {
+	
+	return true;
+}
+
+/***********************************************************************************************
+ * 11.03. [공통버튼] 재기안 서비스
+ ***********************************************************************************************/ 
+this.fn_ComBtnRecideProc = function()
+{ 
+	
+}
+
+/***********************************************************************************************
+ * 12. 닫기
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 12.01. [공통버튼] 닫기 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnClose = function()
+{ 
+	return true;
+}
+
+/***********************************************************************************************
+ * 13. [CallBack] 함수
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 13.01. [서비스] CallBack 함수 처리
+ ***********************************************************************************************/ 
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST_SEARCH": //조회		
+			break;					
+			
+	}
+};
+
+/***********************************************************************************************
+ * 13.02. [팝업] CallBack 함수 처리
+          strId : 팝업호출시 지정한 팝업ID
+	      rtnValue : 팝업창에서 close시 지정한 반환값
+          주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/ 
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+
+
+	//[Detail영역-검색]
+};
+ 
+/***********************************************************************************************
+ * 13.03. [메세지] CallBack 함수 처리
+ ***********************************************************************************************/  
+this.fn_MsgCallback = function (strId, strVal)
+{
+	
+}; 
+ 
+/***********************************************************************************************
+ * 14. [화면 사이즈] 조정 버튼 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 14.01. [조회영역-▲] 화면 사이즈조정 버튼 이벤트
+ ***********************************************************************************************/ 
+this.btn_DivMoveMi_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통] 버튼 변수
+	var btnObj = new Object();//[공통] 버튼 변수 정보 Object
+	btnObj.DivSearch = "this.div_Search";//조회영역 Div
+	btnObj.DivMstLeft = "this.div_OrgChart";//Master영역 Left Div : Master영역이 하나인경우에는 Left에 설정
+	btnObj.DivMstRight = "";//Master영역 Right Div
+	btnObj.DivDetail = "";//Detail영역 Div
+	btnObj.MstLeft = 14;//Master영역 Div Left
+	btnObj.MstTop = 100;//Master영역 Div Top
+	btnObj.MstHeight = "";//Master영역 Div Height : Height가 없는경우 ""로 입력
+	btnObj.MoveBtnDtl = "";//Detail영역 Move 버튼 : 없으면 ""로 입력
+	this.gfn_MoveSeBtn(obj, btnObj);//Master영역 접고/펼치기 버튼 이벤트
+};
+
+/***********************************************************************************************
+ * 14.02. [Master영역-▶] 화면 사이즈조정 버튼 이벤트
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 14.03. [Detail영역-▲] 화면 사이즈조정 버튼 이벤트
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 15. [사용자정의 함수]
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 15.1 하위레벨건수 체크
+ ***********************************************************************************************/
+this.fn_CheckLowLevelCnt = function(iRow, iLev, iCheckLev, sReDrawYn) {
+	
+	var iCnt = 0;
+	
+	if (this.gfn_IsNull(iCheckLev) || sReDrawYn == "Y") {
+		iCnt = this.ds_Depm.getColumn(iRow, "LV0" + (iLev + 1));
+	} else {
+		if (iCheckLev > iLev) {
+			iCnt = this.ds_Depm.getColumn(iRow, "LV0" + (iLev + 1));
+		}
+	}
+	
+	return iCnt;
+
+}
+
+/***********************************************************************************************
+ * 15.2 중간레벨 체크
+ ***********************************************************************************************/
+this.fn_GetMidLev = function(iLev, iCnt, sTdepCd) {
+	var sLEV = "";
+	var iCheckCnt = 0;
+	var sCheckTdepCd = "";//상위코드
+	for (var iLoop=0; iLoop<this.ds_Depm.getRowCount(); iLoop++) {
+		sLEV = this.ds_Depm.getColumn(iLoop, "LEV");//레벨
+		sCheckTdepCd = this.ds_Depm.getColumn(iLoop, "TDEP_CD");//상위코드
+		if (sCheckTdepCd == sTdepCd) {
+			iCheckCnt++;
+			if (iCheckCnt == iCnt) {
+				if (this.gfn_IsNull(this.ds_Depm.getColumn(iLoop, "LEFT"))) {
+					return 0;
+				} else {
+					return nexacro.toNumber(this.ds_Depm.getColumn(iLoop, "LEFT"));
+				}
+			}
+		}
+	}
+}
+
+/***********************************************************************************************
+ * 15.3 하위레벨 시작과 끝좌표 체크
+ ***********************************************************************************************/
+this.fn_GetBeLevStartEnd = function(iRow, sDepmPath, iCheckLev) {
+
+	var iCnt = 0;
+	var sChkDepmPath = "";
+	var sStart = "";//시작좌표
+	var sEnd = "";//끝좌표
+	var sCheckLev = "";//체크레벨
+	
+	for (var iLoop=iRow; iLoop<this.ds_Depm.getRowCount(); iLoop++) {
+		sChkDepmPath = this.ds_Depm.getColumn(iLoop, "DEPM_PH");
+		sCheckLev = this.ds_Depm.getColumn(iLoop, "LEV");//체크레벨
+		
+		if (sChkDepmPath.indexOf(sDepmPath) > -1) {
+		//if (sChkDepmPath.indexOf(sDepmPath) > -1 && iCheckLev == sCheckLev) {
+			if (iCnt == 0) {
+				sStart = this.ds_Depm.getColumn(iLoop, "LEFT");//시작좌표
+			} else {
+				if (iCheckLev == sCheckLev) {
+					sEnd = this.ds_Depm.getColumn(iLoop, "LEFT");//끝좌표
+				}
+			}
+			
+			iCnt++
+		} else {
+			break;
+		}
+	}
+	
+	if (this.gfn_IsNull(sEnd)) {
+		return sStart + ";" + sStart;
+	} else {
+		return sStart + ";" + sEnd;
+	}
+	
+}
+
+/***********************************************************************************************
+ * 15.4 라벨 클릭이벤트
+ ***********************************************************************************************/
+this.fn_OnClickEvent = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	var sTitle = obj.LABEL;
+	
+	if (!this.gfn_IsNull(sTitle)) {
+		if (sTitle == "+") {
+			this.fn_SetBelowCheck(obj.CHEK_NO, obj.CHEK_LV, obj.DEPM_PH, "Y");
+			this.ds_Depm.setColumn(nexacro.toNumber(obj.CHEK_NO), "RE_DRAW_YN", "Y");
+			this.fvReDrawYn = true;
+			this.fn_ComBtnSearch();
+			this.fvReDrawYn = false;	
+		} else if (sTitle == "-") {
+			this.fn_SetBelowCheck(obj.CHEK_NO, obj.CHEK_LV, obj.DEPM_PH, "N");
+			this.ds_Depm.setColumn(nexacro.toNumber(obj.CHEK_NO), "RE_DRAW_YN", "");
+			this.fvReDrawYn = false;
+			this.fn_ComBtnSearch();	
+			this.fvReDrawYn = false;
+		}
+
+	}
+};
+
+/***********************************************************************************************
+ * 15.5 하위레벨 그릴지 여부 설정
+ ***********************************************************************************************/
+this.fn_SetBelowCheck = function(iRow, iLev, sDepmPath, sCheckYn) {
+
+	var sChkDepmPath = "";	
+
+	for (var iLoop=iRow; iLoop<this.ds_Depm.getRowCount(); iLoop++) {
+		sChkDepmPath = this.ds_Depm.getColumn(iLoop, "DEPM_PH");
+		sCheckLev = this.ds_Depm.getColumn(iLoop, "LEV");//체크레벨
+		
+		if (sChkDepmPath.indexOf(sDepmPath) > -1) {
+			if (iLev == sCheckLev) {
+				this.ds_Depm.setColumn(iLoop, "DRAW_YN", sCheckYn);
+			}
+		}
+	}
+	
+}
+
+/***********************************************************************************************
+ * 15.6 출력크기 변경시
+ ***********************************************************************************************/
+this.div_Search_rdo_ScrnSize_onitemchanged = function(obj:nexacro.Radio,e:nexacro.ItemChangeEventInfo)
+{
+	this.fn_ComBtnSearch();
+};
+
+/***********************************************************************************************
+ * 15.7 출력레벨 변경서
+ ***********************************************************************************************/
+this.div_Search_cbo_DrawLevel_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	this.fn_ComBtnSearch();
+};
+]]></Script>
+  </Form>
+</FDL>

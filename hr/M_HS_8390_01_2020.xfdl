@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_HS_8390_01_2020" width="800" height="300" titletext="부양가족" onload="fn_FormOnload" onclose="fn_FormClose">
+    <Layouts>
+      <Layout height="300" width="800">
+        <Grid id="grd_Buya" taborder="0" left="0" top="0" binddataset="ds_GrdBuya" autofittype="col" right="0" bottom="0">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="30" band="left"/>
+                <Column size="35" band="left"/>
+                <Column size="35" band="left"/>
+                <Column size="150"/>
+                <Column size="80"/>
+                <Column size="100"/>
+                <Column size="120"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="22" band="head"/>
+                <Row size="22" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell rowspan="2" text=""/>
+                <Cell col="1" rowspan="2" text="No."/>
+                <Cell col="2" rowspan="2" text="선택" edittype="none" displaytype="normal"/>
+                <Cell col="3" rowspan="2" text="관계"/>
+                <Cell col="4" rowspan="2" text="성명"/>
+                <Cell col="5" rowspan="2" text="내외구분"/>
+                <Cell col="6" rowspan="2" text="주민등록번호"/>
+                <Cell col="7" rowspan="2" text="세대주"/>
+                <Cell col="8" colspan="4" text="기본공제"/>
+                <Cell col="12" colspan="4" text="추가공제"/>
+                <Cell col="16" colspan="2" text="세액공제"/>
+                <Cell row="1" col="8" text="기본"/>
+                <Cell row="1" col="9" text="배우자"/>
+                <Cell row="1" col="10" text="20세↓"/>
+                <Cell row="1" col="11" text="60세↑"/>
+                <Cell row="1" col="12" text="경로"/>
+                <Cell row="1" col="13" text="장애인"/>
+                <Cell row="1" col="14" text="부녀자"/>
+                <Cell row="1" col="15" text="한부모"/>
+                <Cell row="1" col="16" text="자녀"/>
+                <Cell row="1" col="17" text="출산입양"/>
+              </Band>
+              <Band id="body">
+                <Cell cssclass="expr:comp.parent.gfn_Decode(crudType, &quot;I&quot;,&quot;cell_WF_Insert&quot;, &quot;U&quot;,&quot;cell_WF_Modify&quot;, &quot;D&quot;,&quot;cell_WF_Delete01&quot;, &quot;&quot;)"/>
+                <Cell col="1" text="" displaytype="text" expr="currow+1" textAlign="center"/>
+                <Cell col="2" text="bind:s_chk" displaytype="checkboxcontrol" edittype="checkbox"/>
+                <Cell col="3" text="bind:BUYA_RELA" displaytype="combocontrol" edittype="combo" textAlign="center" combodataset="ds_Pr125" combodatacol="CODM_NM" combocodecol="CODM_CD"/>
+                <Cell col="4" text="bind:BUYA_NAME" displaytype="normal" edittype="normal" textAlign="center" combodataset="ds_GrdBuya" combodatacol="BUYA_NAME" combocodecol="BUYA_JUMI"/>
+                <Cell col="5" text="bind:BUYA_INOT" displaytype="combocontrol" edittype="combo" textAlign="center" combodataset="ds_Pr125" combodatacol="CODM_NM" combocodecol="CODM_CD"/>
+                <Cell col="6" text="bind:BUYA_JUMI" displaytype="mask" edittype="normal" textAlign="center" maskeditformat="######-#######" maskedittype="string"/>
+                <Cell col="7" text="bind:BUYA_SEID" displaytype="checkboxcontrol" edittype="checkbox" textAlign="center"/>
+                <Cell col="8" text="bind:BUYA_GIBO" displaytype="checkboxcontrol" edittype="checkbox" textAlign="center"/>
+                <Cell col="9" text="bind:BUYA_WIFE" displaytype="expr:BUYA_RELA == '3' ?'checkboxcontrol' : 'none'" edittype="checkbox" textAlign="center"/>
+                <Cell col="10" text="bind:BUYA_AG20" displaytype="checkboxcontrol" edittype="checkbox" textAlign="center"/>
+                <Cell col="11" text="bind:BUYA_AG60" displaytype="checkboxcontrol" edittype="checkbox" textAlign="center"/>
+                <Cell col="12" text="bind:BUYA_NOIN" displaytype="checkboxcontrol" edittype="checkbox" textAlign="center"/>
+                <Cell col="13" text="bind:BUYA_JANG" displaytype="combocontrol" edittype="combo" textAlign="center" combodatacol="CODM_NM" combocodecol="CODM_CD" combodataset="ds_Pr139"/>
+                <Cell col="14" text="bind:BUYA_BUIN" displaytype="expr:comp.parent.gfn_Decode(BUYA_RELA, &quot;0&quot;,comp.parent.gfn_Decode(BUYA_JUMI.substr(6,1), &quot;2&quot;,&quot;checkboxcontrol&quot;, &quot;4&quot;,&quot;checkboxcontrol&quot;, &quot;6&quot;,&quot;checkboxcontrol&quot;,&quot;none&quot;),&quot;none&quot;)" edittype="expr:comp.parent.gfn_Decode(BUYA_RELA, &quot;0&quot;,comp.parent.gfn_Decode(BUYA_JUMI.substr(6,1), &quot;2&quot;,&quot;checkbox&quot;, &quot;4&quot;,&quot;checkbox&quot;, &quot;6&quot;,&quot;checkbox&quot;,&quot;none&quot;),&quot;none&quot;)" textAlign="center"/>
+                <Cell col="15" text="bind:BUYA_HANB" displaytype="expr:comp.parent.gfn_Decode(BUYA_RELA, &quot;0&quot;,comp.parent.gfn_Decode(BUYA_JUMI.substr(6,1), &quot;1&quot;,&quot;checkboxcontrol&quot;, &quot;2&quot;,&quot;checkboxcontrol&quot;, &quot;5&quot;,&quot;checkboxcontrol&quot;, &quot;6&quot;,&quot;checkboxcontrol&quot;,&quot;none&quot;),&quot;none&quot;)" edittype="expr:expr:comp.parent.gfn_Decode(BUYA_RELA, &quot;0&quot;,expr:comp.parent.gfn_Decode(BUYA_JUMI.substr(,6,1), '1','checkbox', '2','checkbox', '5','checkbox', '6','checkbox','none'),'none')" textAlign="center"/>
+                <Cell col="16" text="bind:BUYA_MCHD" displaytype="checkboxcontrol" edittype="checkbox" textAlign="center"/>
+                <Cell col="17" text="bind:BUYA_CHIP" displaytype="checkboxcontrol" edittype="checkbox" textAlign="center"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : M_HS_8390_01_2020
+*  @화면설명 : 소득공제 - 부양가족
+*  @시스템명 : (HR) 인사관리
+*  @작성자   : 안병호
+*  @작성일   : 2021.08.31
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.08.31    	    안병호 	           최초 생성 
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * 1. Form Include 선언 영역
+ ************************************************************************************************/
+ 
+ /************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+
+
+/***********************************************************************************************
+ * 3. Form 이벤트 영역
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 3.1. Form Onload 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.2. Form [공통] 초기설정 함수 - 필수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.3. Form [업무] 초기설정 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormBizInit = function() 
+{
+	//[업무] 일반콤보조회
+	//this.fn_ComboSearch();
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.4. Form OnClose 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	//현재 이벤트를 상위컴포넌트로 전파하지 않게 중지시키는 메소드
+	e.stopPropagation(); 
+};
+
+/*---------------------------------------------------------------------------------------------
+ * 3.5. Form [업무] 일반콤보 조회 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_ComboSearch = function(sFILM_GU) 
+{
+	
+}
+
+
+]]></Script>
+    <Objects/>
+  </Form>
+</FDL>

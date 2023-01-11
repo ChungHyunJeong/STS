@@ -1,0 +1,1561 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_MS_8430_P1" width="670" height="300" titletext="신고서류 출력" scrollbartype="none" onclose="fn_FormClose" onload="fn_FormOnload">
+    <Layouts>
+      <Layout height="300" width="670">
+        <Div id="div_PopupTitle" taborder="1" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Close" taborder="0" text="닫기" top="9" width="70" height="26" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+              <Static id="sta_PopupTitle" taborder="1" text="신고서류 출력" left="20" top="10" height="24" cssclass="sta_WF_PopupTitle" width="300"/>
+              <Button id="btn_Print" taborder="2" text="인쇄" top="9" width="70" right="90" visible="true" cssclass="bt_TF_Print" height="26" onclick="div_PopupTitle_btn_Print_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Tab id="tab_MasterView" taborder="1" tabindex="0" left="10" top="55" right="340" bottom="6" cssclass="tab_WF_MasterList" onchanged="div_MasterInput_tab_Master_onchanged">
+          <Tabpages>
+            <Tabpage id="tpg_01" text="인사 기본정보" enable="true">
+              <Layouts>
+                <Layout>
+                  <Static id="sta_Line17" tabstop="false" cssclass="sta_WF_DBg" taborder="0" left="0" top="2" height="30" right="0"/>
+                  <Static id="sta_Line17_00" tabstop="false" cssclass="sta_WF_DBg" taborder="1" left="0" top="31" height="30" right="0"/>
+                  <Static id="sta_Line17_00_00" tabstop="false" cssclass="sta_WF_DBg" taborder="2" left="0" top="89" height="30" right="0"/>
+                  <Static id="sta_Line17_01" tabstop="false" cssclass="sta_WF_DBg" taborder="3" left="0" top="60" height="30" right="0"/>
+                  <Static id="sta_Line17_00_00_00" tabstop="false" cssclass="sta_WF_DBg" taborder="4" left="0" top="147" height="30" right="0"/>
+                  <Static id="sta_Line17_01_00" tabstop="false" cssclass="sta_WF_DBg" taborder="5" left="0" top="118" height="30" right="0"/>
+                  <Static id="sta_DepmNm" tabstop="false" text="부서" cssclass="sta_WF_DLabel" taborder="6" left="1" top="2" width="100" height="30"/>
+                  <Edit id="edt_DepmNm" taborder="7" maxlength="5" left="104" top="5" width="130" height="24" readonly="true"/>
+                  <Edit id="edt_EmpmCd" taborder="8" maxlength="5" left="104" top="34" width="130" height="24" readonly="true"/>
+                  <Static id="sta_EmpmCd" tabstop="false" text="사번" cssclass="sta_WF_DLabel" taborder="9" left="1" top="31" width="100" height="30"/>
+                  <Static id="sta_EmpmNm" tabstop="false" text="성명" cssclass="sta_WF_DLabel" taborder="10" left="1" top="60" width="100" height="30"/>
+                  <Edit id="edt_EmpmNm" taborder="11" maxlength="5" left="104" top="63" width="130" height="24" readonly="true"/>
+                  <Static id="sta_DmpmJw" tabstop="false" text="직위" cssclass="sta_WF_DLabel" taborder="12" left="1" top="89" width="100" height="30"/>
+                  <Static id="sta_EntrDd" tabstop="false" text="입사일자" cssclass="sta_WF_DLabel" taborder="13" left="1" top="118" width="100" height="30"/>
+                  <Static id="sta_RetiDd" tabstop="false" text="퇴사일자" cssclass="sta_WF_DLabel" taborder="14" left="1" top="147" width="100" height="30"/>
+                  <Edit id="edt_DmpmJw" taborder="15" maxlength="5" left="104" top="92" width="130" height="24" readonly="true"/>
+                  <Calendar id="cal_EntrDd" taborder="16" maxlength="" left="104" top="121" height="24" dateformat="yyyy-MM-dd " width="130" readonly="true"/>
+                  <Calendar id="cal_RetiDd" taborder="17" maxlength="" left="104" top="150" height="24" dateformat="yyyy-MM-dd " width="130" readonly="true"/>
+                  <Static id="sta_Line17_00_00_00_00" tabstop="false" cssclass="sta_WF_DBg" taborder="18" left="0" top="176" height="30" right="0"/>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+          </Tabpages>
+        </Tab>
+        <Tab id="tab_Master" taborder="2" tabindex="0" left="340" top="55" right="10" bottom="6" cssclass="tab_WF_MasterList" onchanged="div_MasterInput_tab_Master_onchanged">
+          <Tabpages>
+            <Tabpage id="tpg_01" text="정산 신고서류" enable="true">
+              <Layouts>
+                <Layout>
+                  <Static id="sta_Line17" tabstop="false" cssclass="sta_WF_DBg" taborder="0" left="0" top="2" height="175" right="0"/>
+                  <Static id="sta_Line17_00_00_00" tabstop="false" cssclass="sta_WF_DBg" taborder="1" left="0" top="176" height="30" right="0"/>
+                  <Radio id="rdo_ReptTy" taborder="2" innerdataset="ds_Type" codecolumn="CODM_CD" datacolumn="CODM_NM" position="absolute" value="M" left="13" width="287" top="10" height="167"/>
+                  <Radio id="rdo_PrntGu" taborder="3" innerdataset="ds_TypeGu" codecolumn="CODM_CD" datacolumn="CODM_NM" position="absolute" value="M" left="13" width="287" top="180" height="26" columncount="3"/>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+          </Tabpages>
+        </Tab>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Master10">
+        <ColumnInfo>
+          <Column id="SRCH_YY" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="DMPM_JW" type="STRING" size="256"/>
+          <Column id="ENTR_DD" type="STRING" size="256"/>
+          <Column id="RETI_DD" type="STRING" size="256"/>
+          <Column id="REPT_TY" type="STRING" size="256"/>
+          <Column id="PRNT_GU" type="STRING" size="256"/>
+          <Column id="JSMT_GUBN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Type">
+        <ColumnInfo>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="USER_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="CODM_NM">소득공제 신고서</Col>
+            <Col id="CODM_CD">10</Col>
+            <Col id="USER_YN">1</Col>
+          </Row>
+          <Row>
+            <Col id="CODM_NM">연금,저축 등 소득공제 명세서</Col>
+            <Col id="CODM_CD">20</Col>
+            <Col id="USER_YN">1</Col>
+          </Row>
+          <Row>
+            <Col id="CODM_NM">의료비 지급 명세서</Col>
+            <Col id="CODM_CD">30</Col>
+            <Col id="USER_YN">1</Col>
+          </Row>
+          <Row>
+            <Col id="CODM_NM">기부금 명세서</Col>
+            <Col id="CODM_CD">40</Col>
+            <Col id="USER_YN">1</Col>
+          </Row>
+          <Row>
+            <Col id="CODM_NM">근로소득 원천징수 영수증</Col>
+            <Col id="CODM_CD">50</Col>
+            <Col id="USER_YN">1</Col>
+          </Row>
+          <Row>
+            <Col id="CODM_NM">퇴직소득 원천징수 영수증</Col>
+            <Col id="CODM_CD">60</Col>
+            <Col id="USER_YN">0</Col>
+          </Row>
+          <Row>
+            <Col id="CODM_NM">월세.거주자간주택임차 명세서</Col>
+            <Col id="CODM_CD">70</Col>
+            <Col id="USER_YN">1</Col>
+          </Row>
+          <Row>
+            <Col id="CODM_NM">근로소득 원천징수부</Col>
+            <Col id="CODM_CD">00</Col>
+            <Col id="USER_YN">1</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_TypeGu">
+        <ColumnInfo>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="CODM_NM">소득자보관용</Col>
+            <Col id="CODM_CD">10</Col>
+          </Row>
+          <Row>
+            <Col id="CODM_NM">발행자보관용</Col>
+            <Col id="CODM_CD">20</Col>
+          </Row>
+          <Row>
+            <Col id="CODM_NM">발행자보고용</Col>
+            <Col id="CODM_CD">33</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_RptInput">
+        <ColumnInfo>
+          <Column id="SRCH_YY" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="USEM_ID" type="STRING" size="256"/>
+          <Column id="USEM_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="ENTR_DD" type="STRING" size="256"/>
+          <Column id="RETI_DD" type="STRING" size="256"/>
+          <Column id="JUMN_NO" type="STRING" size="256"/>
+          <Column id="ADDR_NM" type="STRING" size="256"/>
+          <Column id="HTEL_NO" type="STRING" size="256"/>
+          <Column id="CORP_NM" type="STRING" size="256"/>
+          <Column id="REPR_NM" type="STRING" size="256"/>
+          <Column id="SAUM_NO" type="STRING" size="256"/>
+          <Column id="ADD1_NM" type="STRING" size="256"/>
+          <Column id="PRNT_GU" type="STRING" size="256"/>
+          <Column id="BOKW_GU" type="STRING" size="256"/>
+          <Column id="PRNT_DY" type="STRING" size="256"/>
+          <Column id="POSI_CD" type="STRING" size="256"/>
+          <Column id="DUTY_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="SRCH_YY" type="STRING" size="256"/>
+          <Column id="SESU_ID" type="STRING" size="256"/>
+          <Column id="JSMT_GUBN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report50">
+        <ColumnInfo>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="JIKW_NM" type="STRING" size="256"/>
+          <Column id="JIKW_CD" type="STRING" size="256"/>
+          <Column id="JSMT_GUBN" type="STRING" size="256"/>
+          <Column id="GRJU_GUBN" type="STRING" size="256"/>
+          <Column id="COUN_GUBN" type="STRING" size="256"/>
+          <Column id="COUN_SYUL" type="STRING" size="256"/>
+          <Column id="HR17_GJNM" type="STRING" size="256"/>
+          <Column id="HR17_GJCD" type="STRING" size="256"/>
+          <Column id="BUYA_SEID" type="STRING" size="256"/>
+          <Column id="JUNG_GUBN" type="STRING" size="256"/>
+          <Column id="CORP_NM" type="STRING" size="256"/>
+          <Column id="REPR_NM" type="STRING" size="256"/>
+          <Column id="SAUM_NO" type="STRING" size="256"/>
+          <Column id="CORP_NO" type="STRING" size="256"/>
+          <Column id="ADD1_NM" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="JUMN_NO" type="STRING" size="256"/>
+          <Column id="ADDR_NM" type="STRING" size="256"/>
+          <Column id="CORP_NM1" type="STRING" size="256"/>
+          <Column id="SAUM_NO1" type="STRING" size="256"/>
+          <Column id="JUGN_GGAN" type="STRING" size="256"/>
+          <Column id="JSMT_GR01" type="STRING" size="256"/>
+          <Column id="JSMT_GR02" type="STRING" size="256"/>
+          <Column id="JSMT_GR03" type="STRING" size="256"/>
+          <Column id="JSMT_GR28" type="STRING" size="256"/>
+          <Column id="JSMT_GR29" type="STRING" size="256"/>
+          <Column id="JUGN_TOTL" type="STRING" size="256"/>
+          <Column id="JSMT_GR04" type="STRING" size="256"/>
+          <Column id="JSMT_GR05" type="STRING" size="256"/>
+          <Column id="ZNG1_GGA1" type="STRING" size="256"/>
+          <Column id="JSMT_GR06" type="STRING" size="256"/>
+          <Column id="JSMT_GR07" type="STRING" size="256"/>
+          <Column id="JSMT_GR08" type="STRING" size="256"/>
+          <Column id="ZNG1_TOTL" type="STRING" size="256"/>
+          <Column id="JSMT_GR09" type="STRING" size="256"/>
+          <Column id="JSMT_GR10" type="STRING" size="256"/>
+          <Column id="ZNG1_GGA2" type="STRING" size="256"/>
+          <Column id="JSMT_GR11" type="STRING" size="256"/>
+          <Column id="JSMT_GR12" type="STRING" size="256"/>
+          <Column id="JSMT_GR13" type="STRING" size="256"/>
+          <Column id="ZNG2_TOTL" type="STRING" size="256"/>
+          <Column id="JSMT_GR21" type="STRING" size="256"/>
+          <Column id="JSMT_GR22" type="STRING" size="256"/>
+          <Column id="ZNG1_GGA3" type="STRING" size="256"/>
+          <Column id="JSMT_GR23" type="STRING" size="256"/>
+          <Column id="JSMT_GR24" type="STRING" size="256"/>
+          <Column id="JSMT_GR25" type="STRING" size="256"/>
+          <Column id="ZNG3_TOTL" type="STRING" size="256"/>
+          <Column id="KEUB_TOTL" type="STRING" size="256"/>
+          <Column id="SANG_TOTL" type="STRING" size="256"/>
+          <Column id="INJN_TOTL" type="STRING" size="256"/>
+          <Column id="GUNM_TSUM" type="STRING" size="256"/>
+          <Column id="JSMT_BG01" type="STRING" size="256"/>
+          <Column id="JSMT_BG02" type="STRING" size="256"/>
+          <Column id="JSMT_BG03" type="STRING" size="256"/>
+          <Column id="JSMT_BG05" type="STRING" size="256"/>
+          <Column id="JSMT_BG06" type="STRING" size="256"/>
+          <Column id="JSMT_BG07" type="STRING" size="256"/>
+          <Column id="BIGA_TOTL" type="STRING" size="256"/>
+          <Column id="JSJO_BG11" type="STRING" size="256"/>
+          <Column id="JSJO_BG12" type="STRING" size="256"/>
+          <Column id="JSJO_BG15" type="STRING" size="256"/>
+          <Column id="JSJO_BG13" type="STRING" size="256"/>
+          <Column id="JSJO_BG16" type="STRING" size="256"/>
+          <Column id="JSJO_BG17" type="STRING" size="256"/>
+          <Column id="JSJO_BG19" type="STRING" size="256"/>
+          <Column id="JSJO_BGT1" type="STRING" size="256"/>
+          <Column id="JSJO_BG21" type="STRING" size="256"/>
+          <Column id="JSJO_BG22" type="STRING" size="256"/>
+          <Column id="JSJO_BG25" type="STRING" size="256"/>
+          <Column id="JSJO_BG23" type="STRING" size="256"/>
+          <Column id="JSJO_BG26" type="STRING" size="256"/>
+          <Column id="JSJO_BG27" type="STRING" size="256"/>
+          <Column id="JSJO_BG29" type="STRING" size="256"/>
+          <Column id="JSJO_BGT2" type="STRING" size="256"/>
+          <Column id="JSJO_BG31" type="STRING" size="256"/>
+          <Column id="JSJO_BG32" type="STRING" size="256"/>
+          <Column id="JSJO_BG35" type="STRING" size="256"/>
+          <Column id="JSJO_BG33" type="STRING" size="256"/>
+          <Column id="JSJO_BG36" type="STRING" size="256"/>
+          <Column id="JSJO_BG37" type="STRING" size="256"/>
+          <Column id="JSJO_BG39" type="STRING" size="256"/>
+          <Column id="JSJO_BGT3" type="STRING" size="256"/>
+          <Column id="BIGA_TOT1" type="STRING" size="256"/>
+          <Column id="BIGA_TOT2" type="STRING" size="256"/>
+          <Column id="BIGA_TOT3" type="STRING" size="256"/>
+          <Column id="BIGA_TOT7" type="STRING" size="256"/>
+          <Column id="BIGA_TOT6" type="STRING" size="256"/>
+          <Column id="BIGA_TOT9" type="STRING" size="256"/>
+          <Column id="BIGA_TOT4" type="STRING" size="256"/>
+          <Column id="BIGA_TOT5" type="STRING" size="256"/>
+          <Column id="BIGA_TSUM" type="STRING" size="256"/>
+          <Column id="JSBA_SG16" type="STRING" size="256"/>
+          <Column id="JSJO_SG131" type="STRING" size="256"/>
+          <Column id="JSJO_SG132" type="STRING" size="256"/>
+          <Column id="JSJO_SG133" type="STRING" size="256"/>
+          <Column id="JSMT_GJ01" type="STRING" size="256"/>
+          <Column id="JSMT_GJ02" type="STRING" size="256"/>
+          <Column id="JSMT_GJ03" type="STRING" size="256"/>
+          <Column id="GULJ_TOTL" type="STRING" size="256"/>
+          <Column id="JSJO_GN11" type="STRING" size="256"/>
+          <Column id="JSJO_GN12" type="STRING" size="256"/>
+          <Column id="JSJO_GN13" type="STRING" size="256"/>
+          <Column id="JSJO_GNT1" type="STRING" size="256"/>
+          <Column id="JSJO_GN21" type="STRING" size="256"/>
+          <Column id="JSJO_GN22" type="STRING" size="256"/>
+          <Column id="JSJO_GN23" type="STRING" size="256"/>
+          <Column id="JSJO_GNT2" type="STRING" size="256"/>
+          <Column id="JSJO_GN31" type="STRING" size="256"/>
+          <Column id="JSJO_GN32" type="STRING" size="256"/>
+          <Column id="JSJO_GN33" type="STRING" size="256"/>
+          <Column id="JSJO_GNT3" type="STRING" size="256"/>
+          <Column id="JSMT_GN01" type="STRING" size="256"/>
+          <Column id="JSMT_GN02" type="STRING" size="256"/>
+          <Column id="JSMT_GN03" type="STRING" size="256"/>
+          <Column id="GNJU_TOTL" type="STRING" size="256"/>
+          <Column id="JSMT_CG01" type="STRING" size="256"/>
+          <Column id="JSMT_CG02" type="STRING" size="256"/>
+          <Column id="JSMT_CG03" type="STRING" size="256"/>
+          <Column id="CGAM_TOTL" type="STRING" size="256"/>
+          <Column id="JSMT_GR14" type="STRING" size="256"/>
+          <Column id="JSMT_GRGJ" type="STRING" size="256"/>
+          <Column id="JSMT_GRAM" type="STRING" size="256"/>
+          <Column id="JSMT_IG01" type="STRING" size="256"/>
+          <Column id="JSMT_IG02" type="STRING" size="256"/>
+          <Column id="JSMT_IG03" type="STRING" size="256"/>
+          <Column id="JSMT_IG04" type="STRING" size="256"/>
+          <Column id="JSMT_IG05" type="STRING" size="256"/>
+          <Column id="JSMT_IG06" type="STRING" size="256"/>
+          <Column id="JSMT_IG07" type="STRING" size="256"/>
+          <Column id="JSMT_IG11" type="STRING" size="256"/>
+          <Column id="JSMT_IG12" type="STRING" size="256"/>
+          <Column id="JSMT_IG09" type="STRING" size="256"/>
+          <Column id="JSMT_IG19" type="STRING" size="256"/>
+          <Column id="BUYA_CONT" type="STRING" size="256"/>
+          <Column id="JSBA_IG10" type="STRING" size="256"/>
+          <Column id="JSBA_IG06" type="STRING" size="256"/>
+          <Column id="JSBA_IG08" type="STRING" size="256"/>
+          <Column id="JSBA_IG12" type="STRING" size="256"/>
+          <Column id="JSBA_IG13" type="STRING" size="256"/>
+          <Column id="JSBA_IG11" type="STRING" size="256"/>
+          <Column id="JSMT_GG05" type="STRING" size="256"/>
+          <Column id="JSMT_GG12" type="STRING" size="256"/>
+          <Column id="JSMT_TG01" type="STRING" size="256"/>
+          <Column id="JSMT_GG13" type="STRING" size="256"/>
+          <Column id="JSMT_GG14" type="STRING" size="256"/>
+          <Column id="JSMT_GG15" type="STRING" size="256"/>
+          <Column id="JSMT_TG02" type="STRING" size="256"/>
+          <Column id="JSMT_TG03" type="STRING" size="256"/>
+          <Column id="JSMT_TG08" type="STRING" size="256"/>
+          <Column id="JSMT_TG09" type="STRING" size="256"/>
+          <Column id="JSMT_TG11" type="STRING" size="256"/>
+          <Column id="JSMT_TG12" type="STRING" size="256"/>
+          <Column id="JSMT_TG13" type="STRING" size="256"/>
+          <Column id="JSMT_TG14" type="STRING" size="256"/>
+          <Column id="JSMT_TG15" type="STRING" size="256"/>
+          <Column id="JSMT_TG27" type="STRING" size="256"/>
+          <Column id="JSMT_TG28" type="STRING" size="256"/>
+          <Column id="JSMT_TG29" type="STRING" size="256"/>
+          <Column id="JSMT_TG30" type="STRING" size="256"/>
+          <Column id="JSMT_TG26" type="STRING" size="256"/>
+          <Column id="JSMT_TG05" type="STRING" size="256"/>
+          <Column id="JSMT_TG16" type="STRING" size="256"/>
+          <Column id="JSMT_TG17" type="STRING" size="256"/>
+          <Column id="JSMT_TG18" type="STRING" size="256"/>
+          <Column id="JSMT_TG19" type="STRING" size="256"/>
+          <Column id="JSMT_TG06" type="STRING" size="256"/>
+          <Column id="JSMT_TG21" type="STRING" size="256"/>
+          <Column id="JSMT_TG23" type="STRING" size="256"/>
+          <Column id="JSMT_TG24" type="STRING" size="256"/>
+          <Column id="JSMT_TG25" type="STRING" size="256"/>
+          <Column id="PYOJ_GTOT" type="STRING" size="256"/>
+          <Column id="CGAM_STOT" type="STRING" size="256"/>
+          <Column id="JSMT_GG01" type="STRING" size="256"/>
+          <Column id="JSMT_GG07" type="STRING" size="256"/>
+          <Column id="JSMT_GG09" type="STRING" size="256"/>
+          <Column id="JSMT_GG16" type="STRING" size="256"/>
+          <Column id="JSMT_GG17" type="STRING" size="256"/>
+          <Column id="JSMT_GG18" type="STRING" size="256"/>
+          <Column id="JSMT_GG03" type="STRING" size="256"/>
+          <Column id="JSMT_GG04" type="STRING" size="256"/>
+          <Column id="JSMT_GG08" type="STRING" size="256"/>
+          <Column id="JSMT_GG10" type="STRING" size="256"/>
+          <Column id="JSMT_GG06" type="STRING" size="256"/>
+          <Column id="JSMT_GG19" type="STRING" size="256"/>
+          <Column id="JSMT_GG20" type="STRING" size="256"/>
+          <Column id="JSMT_GG21" type="STRING" size="256"/>
+          <Column id="JSMT_SG15" type="STRING" size="256"/>
+          <Column id="JSMT_STAX" type="STRING" size="256"/>
+          <Column id="JSMT_TAXA" type="STRING" size="256"/>
+          <Column id="JSMT_SG08" type="STRING" size="256"/>
+          <Column id="JSMT_SG09" type="STRING" size="256"/>
+          <Column id="JSMT_SG10" type="STRING" size="256"/>
+          <Column id="SYAK_GAMN" type="STRING" size="256"/>
+          <Column id="JSMT_SG01" type="STRING" size="256"/>
+          <Column id="JSMT_SG13" type="STRING" size="256"/>
+          <Column id="JSMT_SG03" type="STRING" size="256"/>
+          <Column id="JSMT_SG14" type="STRING" size="256"/>
+          <Column id="JSMT_SG04" type="STRING" size="256"/>
+          <Column id="SYAK_GOJE" type="STRING" size="256"/>
+          <Column id="JSMT_SG18" type="STRING" size="256"/>
+          <Column id="JSMT_SG19" type="STRING" size="256"/>
+          <Column id="JSMT_SG20" type="STRING" size="256"/>
+          <Column id="JSMT_SG21" type="STRING" size="256"/>
+          <Column id="JSMT_SG22" type="STRING" size="256"/>
+          <Column id="JSMT_SG23" type="STRING" size="256"/>
+          <Column id="JSMT_SG24" type="STRING" size="256"/>
+          <Column id="JSMT_SG25" type="STRING" size="256"/>
+          <Column id="JSMT_SG26" type="STRING" size="256"/>
+          <Column id="JSMT_SG27" type="STRING" size="256"/>
+          <Column id="JSMT_SG28" type="STRING" size="256"/>
+          <Column id="JSMT_SG29" type="STRING" size="256"/>
+          <Column id="JSMT_SG30" type="STRING" size="256"/>
+          <Column id="JSMT_SG31" type="STRING" size="256"/>
+          <Column id="JSMT_SG32" type="STRING" size="256"/>
+          <Column id="JSMT_SG33" type="STRING" size="256"/>
+          <Column id="JSMT_SG34" type="STRING" size="256"/>
+          <Column id="JSMT_SG35" type="STRING" size="256"/>
+          <Column id="JSMT_SG37" type="STRING" size="256"/>
+          <Column id="JSMT_SG38" type="STRING" size="256"/>
+          <Column id="JSMT_SG39" type="STRING" size="256"/>
+          <Column id="JSMT_SG40" type="STRING" size="256"/>
+          <Column id="JSMT_SG41" type="STRING" size="256"/>
+          <Column id="JSMT_SG42" type="STRING" size="256"/>
+          <Column id="JSMT_SG43" type="STRING" size="256"/>
+          <Column id="JSMT_SG44" type="STRING" size="256"/>
+          <Column id="JSMT_SG16" type="STRING" size="256"/>
+          <Column id="SPEC_SEAC" type="STRING" size="256"/>
+          <Column id="JSMT_SGTS" type="STRING" size="256"/>
+          <Column id="JSMT_SG36" type="STRING" size="256"/>
+          <Column id="JSMT_TG10" type="STRING" size="256"/>
+          <Column id="GULJ_STOT" type="STRING" size="256"/>
+          <Column id="JSMT_GJ04" type="STRING" size="256"/>
+          <Column id="PRNT_DDAY" type="STRING" size="256"/>
+          <Column id="TOT_TG01" type="STRING" size="256"/>
+          <Column id="TOT_TG02" type="STRING" size="256"/>
+          <Column id="TOT_TG03" type="STRING" size="256"/>
+          <Column id="TOT_TG04" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report10">
+        <ColumnInfo>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="JUMN_NO" type="STRING" size="256"/>
+          <Column id="GUBN" type="STRING" size="256"/>
+          <Column id="GIGAN" type="STRING" size="256"/>
+          <Column id="CORP_NM" type="STRING" size="256"/>
+          <Column id="REPR_NM" type="STRING" size="256"/>
+          <Column id="SAUM_NO" type="STRING" size="256"/>
+          <Column id="CORP_NO" type="STRING" size="256"/>
+          <Column id="ADD1_NM" type="STRING" size="256"/>
+          <Column id="PRT_YEAR" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_BOH1" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_GIB1" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_BOH2" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_BOH5" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_CRD2" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_CRD3" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_GIB2" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_CRD1" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_CRD1_G1" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_CRD1_G2" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_CRD1_G3" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_DIR1" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_DIR1_G1" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_DIR1_G2" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_DIR1_G3" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_CSH1" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_CSH1_G1" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_CSH1_G2" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_CSH1_G3" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_SHOW" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_SHOW_G1" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_SHOW_G2" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_SHOW_G3" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_MARK" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_MARK_G1" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_MARK_G2" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_MARK_G3" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_PUBL" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_PUBL_G1" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_PUBL_G2" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_PUBL_G3" type="STRING" size="256"/>
+          <Column id="BUYA_PTOT" type="STRING" size="256"/>
+          <Column id="DAJAN" type="STRING" size="256"/>
+          <Column id="CNT_BUIN" type="STRING" size="256"/>
+          <Column id="CNT_HANB" type="STRING" size="256"/>
+          <Column id="CNT_NOIN" type="STRING" size="256"/>
+          <Column id="CNT_CHIP" type="STRING" size="256"/>
+          <Column id="CNT_JANG" type="STRING" size="256"/>
+          <Column id="CNT_YANG" type="STRING" size="256"/>
+          <Column id="SEID" type="STRING" size="256"/>
+          <Column id="CHGE" type="STRING" size="256"/>
+          <Column id="COUN" type="STRING" size="256"/>
+          <Column id="JJSIN" type="STRING" size="256"/>
+          <Column id="BUNAB" type="STRING" size="256"/>
+          <Column id="JSMT_GG13" type="STRING" size="256"/>
+          <Column id="JSMT_GG14" type="STRING" size="256"/>
+          <Column id="BUYA_HP1A" type="STRING" size="256"/>
+          <Column id="BUYA_HP1B" type="STRING" size="256"/>
+          <Column id="BUYA_HP1C" type="STRING" size="256"/>
+          <Column id="BUYA_HP1D" type="STRING" size="256"/>
+          <Column id="BUYA_HP2A" type="STRING" size="256"/>
+          <Column id="BUYA_HP2B" type="STRING" size="256"/>
+          <Column id="BUYA_HP2C" type="STRING" size="256"/>
+          <Column id="BUYA_HP2D" type="STRING" size="256"/>
+          <Column id="SELF_NAT_HSP" type="STRING" size="256"/>
+          <Column id="SELF_NONAT_HSP" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_EDU1" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_EDU1_JANG" type="STRING" size="256"/>
+          <Column id="TOT_BUYA_EDU2" type="STRING" size="256"/>
+          <Column id="TOT_EDU_JANG" type="STRING" size="256"/>
+          <Column id="TOT_EDU_ILBAN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report11">
+        <ColumnInfo>
+          <Column id="BUYA_RELA" type="STRING" size="256"/>
+          <Column id="BUYA_INOT" type="STRING" size="256"/>
+          <Column id="BUYA_NAME" type="STRING" size="256"/>
+          <Column id="BUYA_JUMI" type="STRING" size="256"/>
+          <Column id="BUYA_GIBO" type="STRING" size="256"/>
+          <Column id="BUYA_BUIN" type="STRING" size="256"/>
+          <Column id="BUYA_HANB" type="STRING" size="256"/>
+          <Column id="BUYA_NOIN" type="STRING" size="256"/>
+          <Column id="BUYA_CHIP" type="STRING" size="256"/>
+          <Column id="BUYA_JANG" type="STRING" size="256"/>
+          <Column id="BUYA_YANG" type="STRING" size="256"/>
+          <Column id="JSMT_GG13" type="STRING" size="256"/>
+          <Column id="JSMT_GG14" type="STRING" size="256"/>
+          <Column id="BUYA_BOH2" type="STRING" size="256"/>
+          <Column id="BUYA_BOH5" type="STRING" size="256"/>
+          <Column id="BUYA_HSP1" type="STRING" size="256"/>
+          <Column id="BUYA_HSP2" type="STRING" size="256"/>
+          <Column id="BUYA_EDU1" type="STRING" size="256"/>
+          <Column id="BUYA_EDU1_JANG" type="STRING" size="256"/>
+          <Column id="BUYA_EDU2" type="STRING" size="256"/>
+          <Column id="BUYA_GIB1" type="STRING" size="256"/>
+          <Column id="BUYA_BOH3" type="STRING" size="256"/>
+          <Column id="BUYA_BOH4" type="STRING" size="256"/>
+          <Column id="BUYA_CRD2" type="STRING" size="256"/>
+          <Column id="BUYA_GIB2" type="STRING" size="256"/>
+          <Column id="BUYA_CRD3" type="STRING" size="256"/>
+          <Column id="BUYA_CRD1" type="STRING" size="256"/>
+          <Column id="BUYA_CRD1_G1" type="STRING" size="256"/>
+          <Column id="BUYA_CRD1_G2" type="STRING" size="256"/>
+          <Column id="BUYA_CRD1_G3" type="STRING" size="256"/>
+          <Column id="BUYA_DIR1" type="STRING" size="256"/>
+          <Column id="BUYA_DIR1_G1" type="STRING" size="256"/>
+          <Column id="BUYA_DIR1_G2" type="STRING" size="256"/>
+          <Column id="BUYA_DIR1_G3" type="STRING" size="256"/>
+          <Column id="BUYA_CSH1" type="STRING" size="256"/>
+          <Column id="BUYA_CSH1_G1" type="STRING" size="256"/>
+          <Column id="BUYA_CSH1_G2" type="STRING" size="256"/>
+          <Column id="BUYA_CSH1_G3" type="STRING" size="256"/>
+          <Column id="BUYA_MARK" type="STRING" size="256"/>
+          <Column id="BUYA_MARK_G1" type="STRING" size="256"/>
+          <Column id="BUYA_MARK_G2" type="STRING" size="256"/>
+          <Column id="BUYA_MARK_G3" type="STRING" size="256"/>
+          <Column id="BUYA_PUBL" type="STRING" size="256"/>
+          <Column id="BUYA_PUBL_G1" type="STRING" size="256"/>
+          <Column id="BUYA_PUBL_G2" type="STRING" size="256"/>
+          <Column id="BUYA_PUBL_G3" type="STRING" size="256"/>
+          <Column id="BUYA_SHOW" type="STRING" size="256"/>
+          <Column id="BUYA_SHOW_G1" type="STRING" size="256"/>
+          <Column id="BUYA_SHOW_G2" type="STRING" size="256"/>
+          <Column id="BUYA_SHOW_G3" type="STRING" size="256"/>
+          <Column id="BUYA_HP1A" type="STRING" size="256"/>
+          <Column id="BUYA_HP1B" type="STRING" size="256"/>
+          <Column id="BUYA_HP1C" type="STRING" size="256"/>
+          <Column id="BUYA_HP1D" type="STRING" size="256"/>
+          <Column id="BUYA_HP2A" type="STRING" size="256"/>
+          <Column id="BUYA_HP2B" type="STRING" size="256"/>
+          <Column id="BUYA_HP2C" type="STRING" size="256"/>
+          <Column id="BUYA_HP2D" type="STRING" size="256"/>
+          <Column id="JSMT_GR14" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report12">
+        <ColumnInfo>
+          <Column id="JSBA_YEAR" type="STRING" size="256"/>
+          <Column id="JSMT_GR14" type="STRING" size="256"/>
+          <Column id="JSJO_TG01" type="STRING" size="256"/>
+          <Column id="JSJO_TG02" type="STRING" size="256"/>
+          <Column id="JSJO_BG04" type="STRING" size="256"/>
+          <Column id="JSJO_TG04" type="STRING" size="256"/>
+          <Column id="JSJU_TG01" type="STRING" size="256"/>
+          <Column id="JSJU_TG02" type="STRING" size="256"/>
+          <Column id="JSJU_TG03" type="STRING" size="256"/>
+          <Column id="JSJU_TG05" type="STRING" size="256"/>
+          <Column id="JSBA_GG02" type="STRING" size="256"/>
+          <Column id="JSBA_GG17" type="STRING" size="256"/>
+          <Column id="TG_KUKMIN_TOT" type="STRING" size="256"/>
+          <Column id="JSBA_TG01" type="STRING" size="256"/>
+          <Column id="JSBA_GG09" type="STRING" size="256"/>
+          <Column id="TG_GUNGO_TOT" type="STRING" size="256"/>
+          <Column id="TG_BOHUM_TOT" type="STRING" size="256"/>
+          <Column id="JSBA_TG03" type="STRING" size="256"/>
+          <Column id="JSBA_TG02" type="STRING" size="256"/>
+          <Column id="JSBA_TG5342" type="STRING" size="256"/>
+          <Column id="JSBA_TG43" type="STRING" size="256"/>
+          <Column id="JSBA_TG54" type="STRING" size="256"/>
+          <Column id="JSBA_TG64" type="STRING" size="256"/>
+          <Column id="JSBA_TG65" type="STRING" size="256"/>
+          <Column id="JSBA_TG0203" type="STRING" size="256"/>
+          <Column id="JSBA_TG04" type="STRING" size="256"/>
+          <Column id="JSBA_TG25" type="STRING" size="256"/>
+          <Column id="JSBA_TG_EDU_1_C" type="STRING" size="256"/>
+          <Column id="JSBA_TG_EDU_2_C" type="STRING" size="256"/>
+          <Column id="JSBA_TG_EDU_3_C" type="STRING" size="256"/>
+          <Column id="JSBA_TG_EDU_4" type="STRING" size="256"/>
+          <Column id="JSBA_TG_EDU_1" type="STRING" size="256"/>
+          <Column id="JSBA_TG_EDU_2" type="STRING" size="256"/>
+          <Column id="JSBA_TG_EDU_3" type="STRING" size="256"/>
+          <Column id="JSBA_EDU_TOT" type="STRING" size="256"/>
+          <Column id="JSBA_TG16" type="STRING" size="256"/>
+          <Column id="JSBA_TG50" type="STRING" size="256"/>
+          <Column id="JSBA_TG46" type="STRING" size="256"/>
+          <Column id="JSBA_TG26" type="STRING" size="256"/>
+          <Column id="JSBA_TG27" type="STRING" size="256"/>
+          <Column id="JSBA_TG37" type="STRING" size="256"/>
+          <Column id="JSBA_TG51" type="STRING" size="256"/>
+          <Column id="JSBA_TG52" type="STRING" size="256"/>
+          <Column id="JSBA_TG_JU_TOT" type="STRING" size="256"/>
+          <Column id="JSBA_TG30" type="STRING" size="256"/>
+          <Column id="JSBA_TG20" type="STRING" size="256"/>
+          <Column id="JSBA_TG21" type="STRING" size="256"/>
+          <Column id="JSBA_TG39" type="STRING" size="256"/>
+          <Column id="JSBA_TG38" type="STRING" size="256"/>
+          <Column id="JSBA_TG36" type="STRING" size="256"/>
+          <Column id="JSBA_TG44_45" type="STRING" size="256"/>
+          <Column id="JSBA_TG_KIBUJI_TOT" type="STRING" size="256"/>
+          <Column id="JSBA_TG_KIBU_TOT" type="STRING" size="256"/>
+          <Column id="JSBA_GG01" type="STRING" size="256"/>
+          <Column id="JSBA_GG08" type="STRING" size="256"/>
+          <Column id="JABA_YUNK_TOT" type="STRING" size="256"/>
+          <Column id="JSBA_GG42" type="STRING" size="256"/>
+          <Column id="JSBA_TG15" type="STRING" size="256"/>
+          <Column id="JSBA_TG47" type="STRING" size="256"/>
+          <Column id="JSBA_TG49" type="STRING" size="256"/>
+          <Column id="JSBA_TG48" type="STRING" size="256"/>
+          <Column id="JSBA_JUTK_TOT" type="STRING" size="256"/>
+          <Column id="JSBA_GG18" type="STRING" size="256"/>
+          <Column id="JSBA_GG1925" type="STRING" size="256"/>
+          <Column id="JSBA_GG2627" type="STRING" size="256"/>
+          <Column id="JSBA_GG3335" type="STRING" size="256"/>
+          <Column id="JSBA_4335" type="STRING" size="256"/>
+          <Column id="JSBA_GG26" type="STRING" size="256"/>
+          <Column id="JSBA_GG27" type="STRING" size="256"/>
+          <Column id="JSBA_GG33" type="STRING" size="256"/>
+          <Column id="JSBA_GG34" type="STRING" size="256"/>
+          <Column id="JSBA_GG35" type="STRING" size="256"/>
+          <Column id="JSBA_GG43" type="STRING" size="256"/>
+          <Column id="JSBA_TUJA_TOT" type="STRING" size="256"/>
+          <Column id="JSBA_GG07" type="STRING" size="256"/>
+          <Column id="JSBA_GG22" type="STRING" size="256"/>
+          <Column id="JSBA_GG13" type="STRING" size="256"/>
+          <Column id="JSBA_GG12" type="STRING" size="256"/>
+          <Column id="JSBA_GG23" type="STRING" size="256"/>
+          <Column id="JSBA_GG24" type="STRING" size="256"/>
+          <Column id="JSBA_GG_JONG" type="STRING" size="256"/>
+          <Column id="JSBA_GG49" type="STRING" size="256"/>
+          <Column id="JSBA_TG_SIN_TOT" type="STRING" size="256"/>
+          <Column id="JSBA_TG_NOW_TOT" type="STRING" size="256"/>
+          <Column id="JSBA_TG_BEF_TOT" type="STRING" size="256"/>
+          <Column id="JSBA_TG_BEFOF_TOT" type="STRING" size="256"/>
+          <Column id="JSBA_TG_NOWOF_TOT" type="STRING" size="256"/>
+          <Column id="CARD_6" type="STRING" size="256"/>
+          <Column id="CARD_7" type="STRING" size="256"/>
+          <Column id="CARD_8" type="STRING" size="256"/>
+          <Column id="CARD_9" type="STRING" size="256"/>
+          <Column id="CARD_10" type="STRING" size="256"/>
+          <Column id="CARD_11" type="STRING" size="256"/>
+          <Column id="CARD_12" type="STRING" size="256"/>
+          <Column id="JSBA_GG14" type="STRING" size="256"/>
+          <Column id="JSBA_GG15" type="STRING" size="256"/>
+          <Column id="JSBA_GG16" type="STRING" size="256"/>
+          <Column id="LONG_SUSIK" type="STRING" size="256"/>
+          <Column id="JSBA_GG28" type="STRING" size="256"/>
+          <Column id="JSBA_GG41" type="STRING" size="256"/>
+          <Column id="JSBA_SG02" type="STRING" size="256"/>
+          <Column id="JSBA_SG08" type="STRING" size="256"/>
+          <Column id="JSBA_SG11" type="STRING" size="256"/>
+          <Column id="JSBA_SG12" type="STRING" size="256"/>
+          <Column id="JSBA_TG56" type="STRING" size="256"/>
+          <Column id="JSBA_TG57" type="STRING" size="256"/>
+          <Column id="JSBA_TG58" type="STRING" size="256"/>
+          <Column id="JSBA_TG59" type="STRING" size="256"/>
+          <Column id="IOMOK_CHKBOX" type="STRING" size="256"/>
+          <Column id="PRT_YEAR" type="STRING" size="256"/>
+          <Column id="PRT_KYRO_YEAR1" type="STRING" size="256"/>
+          <Column id="PRT_KYRO_YEAR2" type="STRING" size="256"/>
+          <Column id="PRT_KYRO_YEAR3" type="STRING" size="256"/>
+          <Column id="PRT_DATE" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="JSBA_TG34" type="STRING" size="256"/>
+          <Column id="JSBA_TG35" type="STRING" size="256"/>
+          <Column id="HSPT_GAMT_TOT" type="STRING" size="256"/>
+          <Column id="JSJO_COMM" type="STRING" size="256"/>
+          <Column id="JSJO_COMP" type="STRING" size="256"/>
+          <Column id="JSJO_JECH" type="STRING" size="256"/>
+          <Column id="JSJO_AMT_TOT" type="STRING" size="256"/>
+          <Column id="JSJO_GN01" type="STRING" size="256"/>
+          <Column id="GAMM_FMDT" type="STRING" size="256"/>
+          <Column id="GAMM_TODT" type="STRING" size="256"/>
+          <Column id="JECH_SEOR" type="STRING" size="256"/>
+          <Column id="SUM_HSPT" type="STRING" size="256"/>
+          <Column id="SUM_GIBU" type="STRING" size="256"/>
+          <Column id="JECH_YEON" type="STRING" size="256"/>
+          <Column id="JECH_RENT" type="STRING" size="256"/>
+          <Column id="JSBA_GG11" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report20">
+        <ColumnInfo>
+          <Column id="SAVE_YEAR" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="SAVE_SEQN" type="STRING" size="256"/>
+          <Column id="SAVE_GUBN" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="SAVE_BKCD" type="STRING" size="256"/>
+          <Column id="BANK_NAME" type="STRING" size="256"/>
+          <Column id="SAVE_BKNM" type="STRING" size="256"/>
+          <Column id="SAVE_BKAC" type="STRING" size="256"/>
+          <Column id="SAVE_PAYY" type="STRING" size="256"/>
+          <Column id="SAVE_BAMT" type="STRING" size="256"/>
+          <Column id="SAVE_GAMT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report21">
+        <ColumnInfo>
+          <Column id="SAVE_YEAR" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="SAVE_SEQN" type="STRING" size="256"/>
+          <Column id="SAVE_GUBN" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="SAVE_BKCD" type="STRING" size="256"/>
+          <Column id="BANK_NAME" type="STRING" size="256"/>
+          <Column id="SAVE_BKNM" type="STRING" size="256"/>
+          <Column id="SAVE_BKAC" type="STRING" size="256"/>
+          <Column id="SAVE_PAYY" type="STRING" size="256"/>
+          <Column id="SAVE_BAMT" type="STRING" size="256"/>
+          <Column id="SAVE_GAMT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report22">
+        <ColumnInfo>
+          <Column id="SAVE_YEAR" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="SAVE_SEQN" type="STRING" size="256"/>
+          <Column id="SAVE_GUBN" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="SAVE_BKCD" type="STRING" size="256"/>
+          <Column id="BANK_NAME" type="STRING" size="256"/>
+          <Column id="SAVE_BKNM" type="STRING" size="256"/>
+          <Column id="SAVE_BKAC" type="STRING" size="256"/>
+          <Column id="SAVE_PAYY" type="STRING" size="256"/>
+          <Column id="SAVE_BAMT" type="STRING" size="256"/>
+          <Column id="SAVE_GAMT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report23">
+        <ColumnInfo>
+          <Column id="SAVE_YEAR" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="SAVE_SEQN" type="STRING" size="256"/>
+          <Column id="SAVE_GUBN" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="SAVE_BKCD" type="STRING" size="256"/>
+          <Column id="BANK_NAME" type="STRING" size="256"/>
+          <Column id="SAVE_BKNM" type="STRING" size="256"/>
+          <Column id="SAVE_BKAC" type="STRING" size="256"/>
+          <Column id="SAVE_PAYY" type="STRING" size="256"/>
+          <Column id="SAVE_BAMT" type="STRING" size="256"/>
+          <Column id="SAVE_GAMT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report24">
+        <ColumnInfo>
+          <Column id="SAVE_YEAR" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="SAVE_SEQN" type="STRING" size="256"/>
+          <Column id="SAVE_GUBN" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="SAVE_BKCD" type="STRING" size="256"/>
+          <Column id="BANK_NAME" type="STRING" size="256"/>
+          <Column id="SAVE_BKNM" type="STRING" size="256"/>
+          <Column id="SAVE_BKAC" type="STRING" size="256"/>
+          <Column id="SAVE_PAYY" type="STRING" size="256"/>
+          <Column id="SAVE_BAMT" type="STRING" size="256"/>
+          <Column id="SAVE_GAMT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report30">
+        <ColumnInfo>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="JUMN_NO" type="STRING" size="256"/>
+          <Column id="ADDR_NM" type="STRING" size="256"/>
+          <Column id="HTEL_NO" type="STRING" size="256"/>
+          <Column id="OTEL_NO" type="STRING" size="256"/>
+          <Column id="SAUM_NO" type="STRING" size="256"/>
+          <Column id="CORP_NM" type="STRING" size="256"/>
+          <Column id="ADD1_NM" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_1" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_2" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_3" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_4" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_5" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_6" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_7" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_8" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_9" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_10" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_11" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_12" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_13" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_1" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_2" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_3" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_4" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_5" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_6" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_7" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_8" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_9" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_10" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report31">
+        <ColumnInfo>
+          <Column id="HSPT_JUMI" type="STRING" size="256"/>
+          <Column id="HSPT_NAME" type="STRING" size="256"/>
+          <Column id="BUYA_GUBN" type="STRING" size="256"/>
+          <Column id="HSPT_GUN2" type="STRING" size="256"/>
+          <Column id="HSPT_GAMT" type="STRING" size="256"/>
+          <Column id="HSPT_CODE" type="STRING" size="256"/>
+          <Column id="RECORD_CNT" type="STRING" size="256"/>
+          <Column id="REPT_PAGE_MK" type="STRING" size="256"/>
+          <Column id="REPT_PAGE_NA" type="STRING" size="256"/>
+          <Column id="HSPT_COMM" type="STRING" size="256"/>
+          <Column id="HSPT_COMP" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_1" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_2" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_3" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_4" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_5" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_6" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_7" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_8" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_9" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_10" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_11" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_12" type="STRING" size="256"/>
+          <Column id="JUMI_NUM_13" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_1" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_2" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_3" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_4" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_5" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_6" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_7" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_8" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_9" type="STRING" size="256"/>
+          <Column id="DEPT_S_NO_10" type="STRING" size="256"/>
+          <Column id="HSPT_NANI" type="STRING" size="256"/>
+          <Column id="REPT_TITL" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report32">
+        <ColumnInfo>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="HSPT_GUN2" type="STRING" size="256"/>
+          <Column id="HSPT_GAMT" type="STRING" size="256"/>
+          <Column id="PRNT_DY" type="STRING" size="256"/>
+          <Column id="CORP_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report40">
+        <ColumnInfo>
+          <Column id="GIBU_CODE" type="STRING" size="256"/>
+          <Column id="GIBU_NAME" type="STRING" size="256"/>
+          <Column id="GIBU_COMM" type="STRING" size="256"/>
+          <Column id="GIBU_COMP" type="STRING" size="256"/>
+          <Column id="GIBU_GAMT" type="STRING" size="256"/>
+          <Column id="BUYA_RELA" type="STRING" size="256"/>
+          <Column id="GIBU_RELA" type="STRING" size="256"/>
+          <Column id="BUYA_NAME" type="STRING" size="256"/>
+          <Column id="GIBU_JUMI" type="STRING" size="256"/>
+          <Column id="GIBU_NOTE" type="STRING" size="256"/>
+          <Column id="GIBU_GUNS" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report41">
+        <ColumnInfo>
+          <Column id="GUBUN" type="STRING" size="256"/>
+          <Column id="CODE_NAME" type="STRING" size="256"/>
+          <Column id="GIBU_GAMT_10" type="STRING" size="256"/>
+          <Column id="GIBU_GAMT_20" type="STRING" size="256"/>
+          <Column id="GIBU_GAMT_21" type="STRING" size="256"/>
+          <Column id="GIBU_GAMT_30" type="STRING" size="256"/>
+          <Column id="GIBU_GAMT_31" type="STRING" size="256"/>
+          <Column id="GIBU_GAMT_40" type="STRING" size="256"/>
+          <Column id="GIBU_GAMT_41" type="STRING" size="256"/>
+          <Column id="GIBU_GAMT_42" type="STRING" size="256"/>
+          <Column id="GIBU_GAMT_50" type="STRING" size="256"/>
+          <Column id="GIBU_GAMT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report42">
+        <ColumnInfo>
+          <Column id="GBCH_CODE" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="GBCH_YEAR" type="STRING" size="256"/>
+          <Column id="GBCH_GBYY" type="STRING" size="256"/>
+          <Column id="GBCH_NUMB" type="STRING" size="256"/>
+          <Column id="GBCH_GAMT" type="STRING" size="256"/>
+          <Column id="GBCH_PRAM" type="STRING" size="256"/>
+          <Column id="GBCH_GDAM" type="STRING" size="256"/>
+          <Column id="GBCH_GJAM" type="STRING" size="256"/>
+          <Column id="GBCH_SOAM" type="STRING" size="256"/>
+          <Column id="GBCH_IWAM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report70">
+        <ColumnInfo>
+          <Column id="RENT_NAME1" type="STRING" size="256"/>
+          <Column id="RENT_JUMI1" type="STRING" size="256"/>
+          <Column id="RENT_DATE" type="STRING" size="256"/>
+          <Column id="RENT_FDAY1" type="STRING" size="256"/>
+          <Column id="RENT_TDAY1" type="STRING" size="256"/>
+          <Column id="RENT_RATE" type="STRING" size="256"/>
+          <Column id="RENT_WSUM" type="STRING" size="256"/>
+          <Column id="RENT_WONA" type="STRING" size="256"/>
+          <Column id="RENT_IISA" type="STRING" size="256"/>
+          <Column id="RENT_GONG2" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report71">
+        <ColumnInfo>
+          <Column id="RENT_NAME1" type="STRING" size="256"/>
+          <Column id="RENT_JUMI1" type="STRING" size="256"/>
+          <Column id="RENT_FDAY1" type="STRING" size="256"/>
+          <Column id="RENT_TDAY1" type="STRING" size="256"/>
+          <Column id="RENT_RATE" type="STRING" size="256"/>
+          <Column id="RENT_WSUM" type="STRING" size="256"/>
+          <Column id="RENT_WONA" type="STRING" size="256"/>
+          <Column id="RENT_IISA" type="STRING" size="256"/>
+          <Column id="RENT_GONG2" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report72">
+        <ColumnInfo>
+          <Column id="RENT_NAME2" type="STRING" size="256"/>
+          <Column id="RENT_JUMI2" type="STRING" size="256"/>
+          <Column id="RENT_ADDR1" type="STRING" size="256"/>
+          <Column id="RENT_FDAY2" type="STRING" size="256"/>
+          <Column id="RENT_TDAY2" type="STRING" size="256"/>
+          <Column id="RENT_JSBO" type="STRING" size="256"/>
+          <Column id="RENT_ITYP" type="STRING" size="256"/>
+          <Column id="RENT_IARE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report03">
+        <ColumnInfo>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="JSMT_GUBN" type="STRING" size="256"/>
+          <Column id="GRJU_GUBN" type="STRING" size="256"/>
+          <Column id="COUN_GUBN" type="STRING" size="256"/>
+          <Column id="COUN_SYUL" type="STRING" size="256"/>
+          <Column id="HR17_GJNM" type="STRING" size="256"/>
+          <Column id="HR17_GJCD" type="STRING" size="256"/>
+          <Column id="NATM_CD" type="STRING" size="256"/>
+          <Column id="NATM_NM" type="STRING" size="256"/>
+          <Column id="BUYA_SEID" type="STRING" size="256"/>
+          <Column id="JUNG_GUBN" type="STRING" size="256"/>
+          <Column id="CORP_NM" type="STRING" size="256"/>
+          <Column id="REPR_NM" type="STRING" size="256"/>
+          <Column id="SAUM_NO" type="STRING" size="256"/>
+          <Column id="CORP_NO" type="STRING" size="256"/>
+          <Column id="ADD1_NM" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="JUMN_NO" type="STRING" size="256"/>
+          <Column id="ADDR_NM" type="STRING" size="256"/>
+          <Column id="ENTR_DD" type="STRING" size="256"/>
+          <Column id="RETI_DD" type="STRING" size="256"/>
+          <Column id="JSMT_YEAR" type="STRING" size="256"/>
+          <Column id="BUYA_CONT" type="STRING" size="256"/>
+          <Column id="JSBA_IG02" type="STRING" size="256"/>
+          <Column id="JSBA_IG10" type="STRING" size="256"/>
+          <Column id="JSBA_IG06" type="STRING" size="256"/>
+          <Column id="JSBA_IG08" type="STRING" size="256"/>
+          <Column id="JSBA_IG12" type="STRING" size="256"/>
+          <Column id="JSBA_IG11" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report04">
+        <ColumnInfo>
+          <Column id="JSJU_JMON" type="STRING" size="256"/>
+          <Column id="JSJU_JDAY" type="STRING" size="256"/>
+          <Column id="JSJU_GR01" type="STRING" size="256"/>
+          <Column id="SANG_GMAK" type="STRING" size="256"/>
+          <Column id="JSJU_GR05" type="STRING" size="256"/>
+          <Column id="JSJU_GR06" type="STRING" size="256"/>
+          <Column id="GR_TOTL" type="STRING" size="256"/>
+          <Column id="JSJU_GN01" type="STRING" size="256"/>
+          <Column id="JSJU_GN03" type="STRING" size="256"/>
+          <Column id="JSJU_GN02" type="STRING" size="256"/>
+          <Column id="JSJU_OU01" type="STRING" size="256"/>
+          <Column id="JSJU_OU03" type="STRING" size="256"/>
+          <Column id="JSJU_OU02" type="STRING" size="256"/>
+          <Column id="JSJU_BG02" type="STRING" size="256"/>
+          <Column id="BIGY_GMAK" type="STRING" size="256"/>
+          <Column id="JSJU_TG01" type="STRING" size="256"/>
+          <Column id="JSJU_TG02" type="STRING" size="256"/>
+          <Column id="JSJU_TG03" type="STRING" size="256"/>
+          <Column id="JSJU_TG04" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Report25">
+        <ColumnInfo>
+          <Column id="SAVE_YEAR" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="SAVE_SEQN" type="STRING" size="256"/>
+          <Column id="SAVE_GUBN" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="SAVE_BKCD" type="STRING" size="256"/>
+          <Column id="BANK_NAME" type="STRING" size="256"/>
+          <Column id="SAVE_BKNM" type="STRING" size="256"/>
+          <Column id="SAVE_BKAC" type="STRING" size="256"/>
+          <Column id="SAVE_PAYY" type="STRING" size="256"/>
+          <Column id="SAVE_BAMT" type="STRING" size="256"/>
+          <Column id="SAVE_GAMT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : M_HS_8430_P1
+*  @화면설명 : 신고서류 출력
+*  @시스템명 : (SM) 시스템
+*  @작성자   : 안병호
+*  @작성일   : 2021.11.12
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.11.12     	    안병호 	           최초 생성 
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * 1. Form Include 선언 영역
+ ************************************************************************************************/
+
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-화면로드시 메뉴정보 기준으로 재설정됨.
+this.paramPopupGu = "";		//팝업대상 true
+this.paramSrchYy  = "";		//귀속년도
+this.paramSystId  = "";		//시스템사용자ID
+this.paramDepmNm  = "";		//부서
+this.paramEmpmCd  = "";		//사번
+this.paramEmpmNm  = "";		//성명
+this.paramDmpmJw  = "";		//직위
+this.paramEntrDd  = "";		//입사일자
+this.paramRetiDd  = "";		//퇴사일자
+this.paramJsmtGu  = "";		//정산구분
+//this.paramReptTy  = ""; 	//서류 구분
+
+/***********************************************************************************************
+ * 3. Form 이벤트 영역
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 3.1. Form Onload 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+
+	//부모창 파라메타 처리
+	 this.paramPopupGu = this.getOwnerFrame().paramPopupGu;		//팝업대상 true
+	 this.paramSrchYy  = this.getOwnerFrame().paramSrchYy; 		//귀속년도
+	 this.paramSystId  = this.getOwnerFrame().paramSystId; 		//시스템사용자ID
+	 this.paramDepmNm  = this.getOwnerFrame().paramDepmNm; 		//부서
+	 this.paramEmpmCd  = this.getOwnerFrame().paramEmpmCd; 		//사번
+	 this.paramEmpmNm  = this.getOwnerFrame().paramEmpmNm; 		//성명
+	 this.paramDmpmJw  = this.getOwnerFrame().paramDmpmJw; 		//직위
+	 this.paramEntrDd  = this.getOwnerFrame().paramEntrDd; 		//입사일자
+	 this.paramRetiDd  = this.getOwnerFrame().paramRetiDd; 		//퇴사일자
+	 this.paramJsmtGu  = this.getOwnerFrame().paramJsmtGu; 		//정산구분
+	 
+	 //this.paramReptTy  = this.getOwnerFrame().paramReptTy; 		//서류 구분
+
+	this.fn_FormInit();//화면로드시 초기 설정 함수 
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.2. Form 초기설정 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.fvComPrgmId = this.gfn_CommLoadFormPrgmId(this);//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+	
+	this.ds_Type.filter("USER_YN =='1'");	//퇴직소득 원천징수 제외
+	this.ds_Master10.clearData();
+	var iAddRow = 0;
+	
+	iAddRow = this.ds_Master10.addRow();
+	this.ds_Master10.setColumn(iAddRow, "SRCH_YY", this.paramSrchYy);
+	this.ds_Master10.setColumn(iAddRow, "SYST_ID", this.paramSystId);
+	this.ds_Master10.setColumn(iAddRow, "DEPM_NM", this.paramDepmNm);
+	this.ds_Master10.setColumn(iAddRow, "EMPM_CD", this.paramEmpmCd);
+	this.ds_Master10.setColumn(iAddRow, "EMPM_NM", this.paramEmpmNm);
+	this.ds_Master10.setColumn(iAddRow, "DMPM_JW", this.paramDmpmJw);
+	this.ds_Master10.setColumn(iAddRow, "ENTR_DD", this.paramEntrDd);
+	this.ds_Master10.setColumn(iAddRow, "RETI_DD", this.paramRetiDd);
+	this.ds_Master10.setColumn(iAddRow, "JSMT_GUBN", this.paramJsmtGu);
+	
+	this.ds_Master10.setColumn(iAddRow, "REPT_TY", "50");	//신고서류(근로소득 원천징수 영수증)
+	this.ds_Master10.setColumn(iAddRow, "PRNT_GU", "10");	//프린트 구분(소득자보관용)
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.3. Form OnClose 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/***********************************************************************************************
+ * 4. 버튼 이벤트 영역
+ -----------------------------------------------------------------------------------------------
+   4.1.엑셀출력 : btn_ExcelExport
+
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 4.1. 출력 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Print_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+	
+		
+	
+	//조회전 유효성 체크
+	if (!this.fn_VaildSearch()) return;	
+	
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	//this.ds_Detail10.clearData();
+	//this.ds_Detail20.clearData();
+	this.ds_Input.clearData();
+	this.ds_RptInput.clearData();	//인사기본정보
+	
+	this.ds_Input.addRow();
+	trace(this.ds_Master10.rowposition);
+	trace(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "SRCH_YY"));
+	trace(this.ds_Input.getColumn(this.ds_Input.rowposition, "SRCH_YY"));
+	this.ds_Input.setColumn(0, "SRCH_YY", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "SRCH_YY"));
+	this.ds_Input.setColumn(0, "SESU_ID", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "SYST_ID"));
+	this.ds_Input.setColumn(0, "JSMT_GUBN", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "JSMT_GUBN"));
+	//this.ds_Input.setColumn(0, "PRGM_ID", this.fvComPrgmId);
+	//alert(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "JSMT_GUBN"));
+			
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	
+	//[공통]서비스 호출 변수
+	var sInputDaset = "" //입력 데이터셋
+	var sOutDatset = "";//출력 데이터셋
+			
+	if (this.ds_Master10.getRowCount() > 0) {
+	
+		svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL00";	//인사기본정보
+		this.gfn_AddComSearchService(this, svcAddObj);
+		sInputDaset = "ds_Input=ds_Input";
+		sOutDatset = "ds_RptInput=ds_RptInput";
+	
+		switch(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "REPT_TY")){
+			/* 근로소득 원천징수부 */
+			case "00" : 
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL03";	/* 근로소득원천징수부 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL04";	/* 근로소득원천징수부- 상세*/
+				this.gfn_AddComSearchService(this, svcAddObj);
+				
+				sOutDatset = sOutDatset  + " ds_Report03=ds_Report03"
+										 + " ds_Report04=ds_Report04"
+										 ;
+										 
+			break;
+			/* 소득공제신고서 */
+			case "10" : 
+				
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL10_" + this.paramSrchYy;	/* 소득공제신고서(1쪽)_마스터 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL11_" + this.paramSrchYy;	/* 소득공제신고서(1쪽)_상세 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL12";	/* 소득공제신고서(2,3쪽) */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				
+				sOutDatset = sOutDatset  + " ds_Report10=ds_Report10"
+										 + " ds_Report11=ds_Report11"
+										 + " ds_Report12=ds_Report12"
+										 ;
+										 
+			break;
+			/* 연금,저축 등 소득공제 명세서 */
+			case "20" : 
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL20";	/* 퇴직연금공제 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL21";	/* 연금저축공제 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL22";	/* 주택마련저축공제 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL23";	/* 장기주식형저축공제 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL24";	/* 장기집합투자증권저축 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				if(this.paramSrchYy >= "2021"){
+					svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL25";	/* ISA 만기시 연금계좌 */
+					this.gfn_AddComSearchService(this, svcAddObj);
+				}
+				sOutDatset = sOutDatset  + " ds_Report20=ds_Report20" 	// 퇴직연금공제
+										 + " ds_Report21=ds_Report21"  	// 연금저축공제
+										 + " ds_Report22=ds_Report22"	// 주택마련저축공제  
+										 + " ds_Report23=ds_Report23"	// 장기주식형저축공제
+										 + " ds_Report24=ds_Report24";	// 장기집합투자증권저축
+				if(this.paramSrchYy >= "2021"){
+					sOutDatset = sOutDatset  + " ds_Report25=ds_Report25";	// ISA 만기시 연금계좌
+				}
+			break;
+			/* 의료비 지급 명세서 */
+			case "30" : 
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL30";	/* 의료비 상단 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL31";	/* 의료비 중간 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL32";	/* 의료비 하단 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				
+				sOutDatset = sOutDatset  + " ds_Report30=ds_Report30" 
+										 + " ds_Report31=ds_Report31"  
+										 + " ds_Report32=ds_Report32"  
+										 ;
+										 
+			break;
+			/* 기부금 명세서 */
+			case "40" : 
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL40";	/*  */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL41";	/* 해당연도 기부명세 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL42";	/* 기부금 조정 명세 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				sOutDatset = sOutDatset  + " ds_Report40=ds_Report40" 
+										 + " ds_Report41=ds_Report41"  
+										 + " ds_Report42=ds_Report42"  
+										 ;
+										 
+			break;
+			/* 근로소득 원천징수영수증 */
+			case "50" : 
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL50_" + this.paramSrchYy;	/* 근로소득 원천징수영수증 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL10_" + this.paramSrchYy;	/* 소득공제신고서(1쪽)_마스터 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL11_" + this.paramSrchYy;	/* 소득공제신고서(1쪽)_상세 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL20";	/* 퇴직연금공제 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL21";	/* 연금저축공제 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL22";	/* 주택마련저축공제 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL23";	/* 장기주식형저축공제 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL24";	/* 장기집합투자증권저축 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				if(this.paramSrchYy >= "2021"){
+					svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL25";	/* ISA 만기시 연금계좌 */
+					this.gfn_AddComSearchService(this, svcAddObj);
+				}
+				
+				sOutDatset = sOutDatset  + " ds_Report50=ds_Report50"
+										 + " ds_Report10=ds_Report10"
+										 + " ds_Report11=ds_Report11"
+										 + " ds_Report20=ds_Report20" 
+										 + " ds_Report21=ds_Report21"  
+										 + " ds_Report22=ds_Report22"  
+										 + " ds_Report23=ds_Report23"
+										 + " ds_Report24=ds_Report24";
+										
+				if(this.paramSrchYy >= "2021"){
+					sOutDatset = sOutDatset  + " ds_Report25=ds_Report25";	// ISA 만기시 연금계좌
+				}				
+			break;
+			/* 퇴직소득 원천징수 영수증 */
+			case "60" : 
+				
+				alert("2019.08.27 퇴직금 사용하지 않음");
+				return;
+				/*
+				svcAddObj.sSelectSql = "hr:M_HS_8430M_SL60";
+				this.gfn_AddComSearchService(this, svcAddObj);
+				*/
+			break;
+			/* 월세.거주자간주택임차 명세서 */
+			case "70" : 
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL70";	/* 월세액 소득공제 명세 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL71";	/* 윈리금 상환액 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				svcAddObj.sSelectSql = "hr:M_HS_8430_P_SL72";	/* 임대차 계약내용 */
+				this.gfn_AddComSearchService(this, svcAddObj);
+				
+				sOutDatset = sOutDatset  + " ds_Report70=ds_Report70"
+										 + " ds_Report71=ds_Report71"
+										 + " ds_Report72=ds_Report72"
+														
+			break;
+		
+		
+		}
+
+		
+		//[공통]서비스 호출 변수
+		var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		svcCallObj.sTrid 		= "MST_SEARCH";			//Transaction ID 등 callback에서 넘겨  String을 지정
+		svcCallObj.sActionName 	= this.G_SV_HR;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+		svcCallObj.sInputDaset 	= sInputDaset; 			//입력 데이터셋
+		svcCallObj.sOutDatset 	= sOutDatset;			//출력 데이터셋
+		svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+		svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback  Function 명
+
+		//[공통]서비스 호출
+		this.gfn_CallComService(this, svcCallObj);			
+	}
+}
+
+/***********************************************************************************************
+ *  4.02. [Vaildation] 조회 필수값 체크
+ ***********************************************************************************************/
+this.fn_VaildSearch = function()
+{
+	
+	//조회조건 필수입력값 있으면 체크
+	return true;
+}
+
+
+/*---------------------------------------------------------------------------------------------
+ *  4.3. 닫기 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_PopClose();
+};
+
+/***********************************************************************************************
+ * 5. [CallBack] 함수
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 5.01. [서비스] CallBack 함수 처리
+ ***********************************************************************************************/ 
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+	
+		case "COMBO_SEARCH" : // 공통코드 조회
+			//this.ds_PpRadd.filter("RADM_CD == ''");
+		break;
+		case "MST_SEARCH": //조회		
+	
+			if (this.ds_RptInput.getRowCount() > 0) {
+
+				var sPrintGu = "";
+				
+				//report_06_근로소득원청징수영수증_V10
+				if (this.tab_Master.tpg_01.form.rdo_PrntGu.value == "10")
+					sPrintGu = "10";
+				else if (this.tab_Master.tpg_01.form.rdo_PrntGu.value == "20")
+					sPrintGu = "20";
+				else
+					sPrintGu = "30";
+
+// 				//report_06_근로소득원청징수영수증_V10
+// 				if (this.tab_Master.tpg_01.form.rdo_PrntGu.value == "10")
+// 					sPrintGu = "( ▣소득자보관용  □발행자 보관용  □발행자 보고용 )";
+// 				else if (this.tab_Master.tpg_01.form.rdo_PrntGu.value == "20")
+// 					sPrintGu = "( □소득자보관용  ▣발행자 보관용  □발행자 보고용 )";
+// 				else
+// 					sPrintGu = "( □소득자보관용  □발행자 보관용  ▣발행자 보고용 )";
+// 					
+
+				
+				
+				this.ds_RptInput.setColumn(0, "PRNT_GU", sPrintGu);	//프린트 구분 TEXT
+				this.ds_RptInput.setColumn(0, "BOKW_GU", this.tab_Master.tpg_01.form.rdo_PrntGu.value);	//프린트 구분값
+				
+			}				
+			
+			//alert("레포트는 추후 연결 데이터셋 생성완료") ;
+			this.fn_Print();
+		
+			break;
+		case "DTL_SEARCH": //조회			
+		
+			break;			
+		
+	}
+};
+
+/***********************************************************************************************
+ *  6.0. 레포트 출력
+ ***********************************************************************************************/
+this.fn_Print = function() {
+
+	//10 : 소득공제 신고서
+	//20 : 연금,저축 등 소득공제 명세서
+	//30 : 의료비 지급 명세서
+	//40 : 기부금 명세서
+	//50 : 근로소득 원천징수 영수증
+	//60 : 퇴직소득 원천징수 영수증(X-사용하지 않음)
+	//70 : 월세.거주자간주택임차 명세서
+	//00 : 근로소득 원천징수부
+	var sPrintType = this.tab_Master.tpg_01.form.rdo_ReptTy.value;//출력물 종류
+	var sReportFile = "";//레포트파일ID	
+	var paObj = new Object();//출력 파라메타 정보		
+	var dsObj = new Object();//출력 데이터셋 정보
+	var iSelRow = this.ds_Report10.rowposition;//선택한Row	
+	var sPrt_Year = this.ds_Report10.getColumn(iSelRow, "PRT_YEAR").substr(0,4);//귀속년도
+
+	
+	//소득공제 신고서
+	if (sPrintType == 10) {
+	    if ( sPrt_Year >= "2021" ) {										
+				sReportFile = "M_HS_8430_02_2021";//레포트파일ID(2021년도 부터 양식 변경)
+			} else {
+			    sReportFile = "M_HS_8430_02";//레포트파일ID	
+			}
+		//sReportFile = "M_HS_8430_02";//레포트파일ID
+		if (this.ds_Report10.getRowCount() > 0) {			
+			dsObj.ds_Report10 = this.ds_Report10;
+			dsObj.ds_Report11 = this.ds_Report11;
+			dsObj.ds_Report12 = this.ds_Report12;
+		} else {
+			this.gfn_Alert("SM083");//출력할 정보가 없습니다.
+			return;
+		}
+	 //연금,저축 등 소득공제 명세서
+	} else if (sPrintType == 20) {
+		sReportFile = "M_HS_8430_03";//레포트파일ID
+		if (this.ds_RptInput.getRowCount() > 0) {			
+			dsObj.ds_RptInput = this.ds_RptInput;
+			dsObj.ds_Report20 = this.ds_Report20;
+			dsObj.ds_Report21 = this.ds_Report21;
+			dsObj.ds_Report22 = this.ds_Report22;
+			dsObj.ds_Report23 = this.ds_Report23;
+			dsObj.ds_Report24 = this.ds_Report24;
+		} else {
+			this.gfn_Alert("SM083");//출력할 정보가 없습니다.
+			return;
+		}		
+	//의료비 지급 명세서
+	} else if (sPrintType == 30) {
+		sReportFile = "M_HS_8430_04";//레포트파일ID
+		if (this.ds_Report30.getRowCount() > 0) {			
+			dsObj.ds_Report30 = this.ds_Report30;
+			dsObj.ds_Report31 = this.ds_Report31;
+			dsObj.ds_Report32 = this.ds_Report32;
+		} else {
+			this.gfn_Alert("SM083");//출력할 정보가 없습니다.
+			return;
+		}		
+	//기부금 명세서
+	} else if (sPrintType == 40) {
+		sReportFile = "M_HS_8430_05";//레포트파일ID
+		if (this.ds_Report40.getRowCount() > 0) {	
+			dsObj.ds_RptInput = this.ds_RptInput;
+			dsObj.ds_Report40 = this.ds_Report40;
+			dsObj.ds_Report41 = this.ds_Report41;
+			dsObj.ds_Report42 = this.ds_Report42;
+		} else {
+			this.gfn_Alert("SM083");//출력할 정보가 없습니다.
+			return;
+		}		
+	// 근로소득 원천징수 영수증
+	} else if (sPrintType == 50) {
+	
+		 if ( sPrt_Year >= "2021" ) {										
+				sReportFile = "M_HS_8430_06_2021";//레포트파일ID(2021년도 부터 양식 변경)
+			} else {
+			    sReportFile = "M_HS_8430_06";//레포트파일ID	
+			}	
+	
+		if (this.ds_Report50.getRowCount() > 0) {	
+			dsObj.ds_RptInput = this.ds_RptInput;
+			dsObj.ds_Report50 = this.ds_Report50;
+			dsObj.ds_Report10 = this.ds_Report10;
+			dsObj.ds_Report11 = this.ds_Report11;
+			dsObj.ds_Report20 = this.ds_Report20;
+			dsObj.ds_Report21 = this.ds_Report21;
+			dsObj.ds_Report22 = this.ds_Report22;
+			dsObj.ds_Report23 = this.ds_Report23;
+			dsObj.ds_Report24 = this.ds_Report24;			
+		
+		} else {
+			this.gfn_Alert("SM083");//출력할 정보가 없습니다.
+			return;
+		}	
+	} else if (sPrintType == 60) {
+		this.gfn_Alert("SM083");//출력할 정보가 없습니다.
+		return;
+	
+	} else if (sPrintType == 70) {
+		sReportFile = "M_HS_8430_07";//레포트파일ID
+		if (this.ds_Report70.getRowCount() > 0) {	
+			dsObj.ds_RptInput = this.ds_RptInput;
+			dsObj.ds_Report70 = this.ds_Report70;
+			dsObj.ds_Report71 = this.ds_Report71;
+			dsObj.ds_Report72 = this.ds_Report72;
+		} else {
+			this.gfn_Alert("SM083");//출력할 정보가 없습니다.
+			return;
+		}	
+	//근로소득 원천징수부
+	} else if (sPrintType == 00) {
+		sReportFile = "M_HS_8430_01";//레포트파일ID
+		if (this.ds_Report03.getRowCount() > 0) {	
+			dsObj.ds_Report03 = this.ds_Report03;
+			dsObj.ds_Report04 = this.ds_Report04;
+		} else {
+			this.gfn_Alert("SM083");//출력할 정보가 없습니다.
+			return;
+		}			
+	}
+
+	paObj.SEAL_UL = this.gfn_GetReportImageUrl("SIGN_UL_01");//회사직인
+	paObj.PRNT_NM = this.gfn_GetSessionValue("USEM_NM");//출력자
+	paObj.LOGO_UL = this.gfn_GetReportImageUrl("LOGO_UL_01");//이미지-로고
+	   
+	var oArg = {ProjectFolder:"HR"        //레포트저장 폴더
+			  , ReportFile:sReportFile //레포트파일명
+			  , ReportDs:dsObj            //레포트파라메타 - 데이터셋
+			  , ReportParam:paObj         //레포트파라메타 - 변수
+			   };                         //Popup화면 전달 파라메터
+			   
+	this.gfn_ReportPop("REPORT", oArg, "fn_PopupCallback");//레포트 팝업 호출		
+
+
+}
+]]></Script>
+    <Bind>
+      <BindItem id="item01" compid="tab_MasterView.tpg_01.form.edt_DepmNm" propid="value" datasetid="ds_Master10" columnid="DEPM_NM"/>
+      <BindItem id="item02" compid="tab_MasterView.tpg_01.form.edt_EmpmCd" propid="value" datasetid="ds_Master10" columnid="EMPM_CD"/>
+      <BindItem id="item03" compid="tab_MasterView.tpg_01.form.edt_EmpmNm" propid="value" datasetid="ds_Master10" columnid="EMPM_NM"/>
+      <BindItem id="item04" compid="tab_MasterView.tpg_01.form.edt_DmpmJw" propid="value" datasetid="ds_Master10" columnid="DMPM_JW"/>
+      <BindItem id="item05" compid="tab_MasterView.tpg_01.form.cal_EntrDd" propid="value" datasetid="ds_Master10" columnid="ENTR_DD"/>
+      <BindItem id="item06" compid="tab_MasterView.tpg_01.form.cal_RetiDd" propid="value" datasetid="ds_Master10" columnid="RETI_DD"/>
+      <BindItem id="item07" compid="tab_Master.tpg_01.form.rdo_ReptTy" propid="value" datasetid="ds_Master10" columnid="REPT_TY"/>
+      <BindItem id="item08" compid="tab_Master.tpg_01.form.rdo_PrntGu" propid="value" datasetid="ds_Master10" columnid="PRNT_GU"/>
+    </Bind>
+  </Form>
+</FDL>

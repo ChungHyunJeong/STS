@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="cmmTitlePopup" width="1240" height="895" titletext="레포트팝업" onload="form_onload" onkeydown="form_onkeydown">
+    <Layouts>
+      <Layout height="895" width="1240">
+        <Div id="div_PopupTitle" taborder="1" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Close" taborder="0" text="닫기" top="9" width="70" height="26" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+              <Static id="sta_PopupTitle" taborder="1" left="20" top="10" height="24" cssclass="sta_WF_PopupTitle" width="300" text="Report"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <WebBrowser id="web_ContNm" taborder="1" left="0" top="44" right="0" enable="true" tabstop="true" bottom="0" onloadcompleted="web_ContNm_onloadcompleted" onusernotify="web_ContNm_onusernotify"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  컨설팅 표준화 작업
+*  @MenuPath    cmm > cmmReportPopup.xfdl (레포트 팝업)
+*  @FileName 	cmmReportPopup.xfdl 
+*  @Creator 	공통
+*  @CreateDate 	2021.11.22
+*  @Desction         스크립트 표준 및 주석 표준 정의
+************** 소스 수정 이력 ***************************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2021.11.22     	공통 	                최초 생성 
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.fvProjectFolder = ""; //레포트저장 폴더
+this.fvReportFile = "";    //레포트파일명 
+this.fvReportDs;      //레포트파라메타 - 데이터셋
+this.fvReportParam;   //레포트파라메타 - 변수
+this.fvMultiPrintYn = "";//멀티건출력여부
+this.fvMultiParam;//멀티건 파라메터
+
+/***********************************************************************************************
+* FORM EVENT 영역(onload)
+/***********************************************************************************************/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	//this.gfn_FormOnLoad(this); //초기화[필수]
+	//trace("paramTitle : " + this.getOwnerFrame().paramTitle);	
+	//trace("paramUrl : " + this.getOwnerFrame().paramUrl);	
+
+	//타이틀세팅
+	//if( !this.gfnIsNull(this.getOwnerFrame().paramTitle)){
+	//	this.set_titletext(this.getOwnerFrame().paramTitle);
+	//}
+	//divForm url 세팅
+
+	//팝업 타이틀 설정
+	if( !this.gfn_IsNull(this.getOwnerFrame().paramTitle)){
+		this.div_PopupTitle.form.sta_PopupTitle.set_text(this.getOwnerFrame().paramTitle);
+	}	
+	
+	this.fvProjectFolder = this.getOwnerFrame().ProjectFolder; //레포트저장 폴더
+	this.fvReportFile = this.getOwnerFrame().ReportFile;    //레포트파일명 
+	this.fvReportDs = this.getOwnerFrame().ReportDs;      //레포트파라메타 - 데이터셋
+	this.fvReportParam = this.getOwnerFrame().ReportParam;   //레포트파라메타 - 변수	
+	this.fvMultiPrintYn = this.getOwnerFrame().MultiPrintYn;//멀티건출력여부
+	this.fvMultiParam = this.getOwnerFrame().MultiParam;//멀티건 파라메터
+
+	//[업무] 내용 Web컴포넌트 Url설정
+	this.web_ContNm.set_url(this.gfn_GetServerUrl("Report"));//레포트 Url 설정	
+	//this.web_ContNm.set_url("http://ierp.synustech.biz:8083/UBIFORM/PDF_print.jsp");
+	//this.web_ContNm.set_url("http://ierp.synustech.biz:8083/UBIFORM/drawReport.html");
+	
+};
+
+/************************************************************************************************
+* TRANSACTION 서비스 호출 처리
+************************************************************************************************/
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분
+ ************************************************************************************************/
+
+ /************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+ 
+ /************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/
+
+this.div_PopupTitle_btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_PopClose();
+};
+
+/**
+ * @description 각 화면에서 디버그창을 호출할 수 있도록 단축키 지정
+*/
+this.form_onkeydown = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{
+	// 공통 키다운 이벤트 호출
+	this.gfn_Onkeydown(obj, e);
+};
+
+this.web_ContNm_onloadcompleted = function(obj:nexacro.WebBrowser,e:nexacro.WebLoadCompEventInfo)
+{
+	//내용 Web컴포넌트에 값 세팅
+	var oWeb = this.web_ContNm.getProperty("window");
+		//var sContNm = this.gfn_Nvl(this.ds_Detail10.getColumn(0, "CONT_NM"), "");
+		
+	if (this.fvMultiPrintYn == "Y") {
+
+		var _params = "";//파라메타 설정
+		var sReportUrl = "";//레포트서버 URL	
+		var sUrl = nEnv.services["svcUrl"].url;
+		var arrUrl = sUrl.split(":");
+		sReportUrl = arrUrl[0] + ":" + arrUrl[1];
+
+		
+		if (!this.gfn_IsNull(this.fvMultiParam)) {
+			for (var iLoop=0; iLoop<this.fvMultiParam.length; iLoop++) {
+			
+				if (this.gfn_IsNull(_params)) {
+					_params = nexacro.replaceAll(JSON.stringify(this.fvMultiParam[iLoop]), "\"", "'");
+				} else {
+					_params = _params + "@^&|" + nexacro.replaceAll(JSON.stringify(this.fvMultiParam[iLoop]), "\"", "'");
+				}
+			}
+		}
+		//trace(_params);
+		oWeb.callMethod("fn_reportPrint", _params, sReportUrl);	
+	} else {
+			//oWeb.callMethod("fn_setData", sContNm.replace(/"/gi,"'"));		
+		var reportObject = new Object();//리포트 Object
+		var paramObject = new Object();//파라메타 Object
+
+		//reportObject.projectName = "RPT//" + this.fvProjectFolder;//프로젝트명
+		reportObject.projectName = this.fvProjectFolder;//프로젝트명
+		reportObject.formName = this.fvReportFile;//레포트명
+		//reportObject.useDatasetYn = "N";//파라메타 사용여부
+		reportObject.useDatasetYn = "Y";//파라메타 사용여부
+
+		/*
+		var objKey;
+		
+		trace("this.fvReportDs==" + this.fvReportDs);
+		//레포트파라메타 - 데이터셋
+		if (!this.gfn_IsNull(this.fvReportDs)) {
+			objKey = Object.keys(this.fvReportDs);
+			trace("objKey==" + objKey);
+			for (var iLoop=0; iLoop < objKey.length; iLoop++) {
+				paramObject[objKey[iLoop]] = this.fvReportDs[objKey[iLoop]];
+			}
+		}
+		
+		//레포트파라메타 - 변수
+		if (!this.gfn_IsNull(this.fvReportParam)) {
+			objKey = Object.keys(this.fvReportParam);
+			for (var iLoop=0; iLoop < objKey.length; iLoop++) {
+				paramObject[objKey[iLoop]] = this.fvReportParam[objKey[iLoop]];
+			}
+		}	
+		*/
+
+		var _projectNm = "RPT^" + this.fvProjectFolder;//프로젝트명
+		var _formNm = this.fvReportFile;//레포트명
+		var _datasetList = this.fvReportDs;//데이터셋
+		var _paramList = this.fvReportParam;//파라미터
+
+		var _params = this.fn_getPostData(_projectNm, _formNm, _datasetList, _paramList);//파라메타 설정
+
+		var sReportUrl = "";//레포트서버 URL	
+		var sUrl = nEnv.services["svcUrl"].url;
+		var arrUrl = sUrl.split(":");
+		sReportUrl = arrUrl[0] + ":" + arrUrl[1];
+		
+		//trace("_params==" +  nexacro.replaceAll(JSON.stringify(_params), "\"", "'"));
+		//oWeb.callMethod("fn_reportView", nexacro.replaceAll(JSON.stringify(reportObject), "\"", "'"), nexacro.replaceAll(JSON.stringify(paramObject), "\"", "'"));	
+		oWeb.callMethod("fn_reportView", nexacro.replaceAll(JSON.stringify(_params), "\"", "'"), sReportUrl);	
+		//oWeb.callMethod("fn_reportPrint", nexacro.replaceAll(JSON.stringify(_params), "\"", "'"), sReportUrl);		
+	}
+	
+};
+
+/*
+// UBIFORM Viewer 호출 후 리턴 되는 값에 따른 이벤트 생성
+this.web_ContNm_onusernotify = function(obj:nexacro.WebBrowser,e:nexacro.WebUserNotifyEventInfo)
+{
+	//리턴 값 변수에 담아 처리
+	var _loadType = e.userdata.toString();
+   	if (_loadType == "UBIForm HTML5 Viewer") {
+		//var projectNm = this.parent.projectName;	//프로젝트명
+		//var formNm = this.parent.formName;			//서식명
+		//var datasetList = this.parent.datasets; 	//데이터셋 List
+		//var paramList = this.parent.params;		 	//파라미터 List
+		var projectNm = "sample";	//프로젝트명
+		var formNm = "test";			//서식명
+		var datasetList = ""; 	//데이터셋 List
+		var paramList = "";		 	//파라미터 List		
+		
+		// post Data set
+		var _params = this.fn_getPostData(projectNm,formNm,datasetList, paramList);
+trace("_params==" + _params);
+		//index.jsp의 common.js의 fn_setReport 함수 호출
+		//내용 Web컴포넌트에 값 세팅
+		var oWeb = this.web_ContNm.getProperty("window");		
+		this.oWeb.callMethod("fn_setReport",_params);
+		//this.CommonBrowser.callMethod("fn_setReport",_params);
+		return;
+ 	} 	
+};
+*/
+//post Data set
+this.fn_getPostData = function(_projectNm, _formNm, _datasetList, _paramList) {
+
+	//서식 호출시 필요한 데이터를 key, value값으로 지정
+	var params = {"projectName": _projectNm
+				 ,"formName": _formNm
+	};
+	
+	var dataset = new Object();  // xml구조의 DataSet을 json 데이터 구조로 변경하는 Object
+	var dsArr = new Array();   //다건의 DataSet을 전달하기 위한 Array
+
+	//XML구조의 DataSet을 JSON데이터로 변환하여 params에 입력
+	for(var dslKey in _datasetList) {
+		dsArr = new Array();
+		
+		var ds = _datasetList[dslKey];
+
+		for( var i = 0; i < ds.getRowCount(); i++ ){
+			dataset = new Object();
+			for( var j = 0; j < ds.colcount; j++ ){
+				var dsKey = ds.getColID(j);
+				//trace(dsKey + "/" + ds.getColumn(i,j));
+				if (ds.getColumnInfo(j).type.toUpperCase() == "BIGDECIMAL") {
+					dataset[dsKey] = nexacro.toNumber(ds.getColumn(i,j));
+				} else {
+					
+					if (this.gfn_IsNull(ds.getColumn(i,j)) || ds.getColumn(i,j) == "undefined") {
+						dataset[dsKey] = "";
+					} else {
+						if (this.gfn_IsDigit(ds.getColumn(i,j))) {
+							dataset[dsKey] = ds.getColumn(i,j);
+						} else {
+							dataset[dsKey] = nexacro.replaceAll(ds.getColumn(i,j), "\'", "");
+						}
+					}
+					
+				}
+			}			
+			dsArr.push(JSON.stringify(dataset));
+		}
+		
+		dsArr = '[' + dsArr + ']';
+		params[dslKey] = encodeURIComponent(dsArr);
+	}
+
+	//paramList를 params에 입력
+	for(var paramKey in _paramList) {
+		params[paramKey] = _paramList[paramKey];
+	}
+
+	return params;
+	
+}
+]]></Script>
+  </Form>
+</FDL>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include "comLib::ComMessageUtil.xjs";//[공통]메세지Util
+
+/**
+ * @class 품목검색 팝업
+ * @param {arg} oArg - 형식에 맞는 조건 Array
+   ex )
+	var oArg = {paramCode:"abcd", paramNum:12345, paramDataset:this.ds_Test.saveXML()};
+ * @return 품목리스트 return
+ */
+this.gfn_SearchItemPopup = function(arg) {
+	var sPopupId = "ITEM_SEARCH"; //Popup화면 타이틀
+	var sPopupTitle = "품목검색팝업"; //Popup화면 타이틀
+	var sPopupFormUrl  = "poup::ITEM.xfdl"; //Popup화면 URL
+	var oArg = {}; 		//Popup화면 전달 파라메터
+	
+	if ( ! this.gfn_IsNull(arg) ) {
+		oArg = arg
+	}
+	
+	var oOption = {title:sPopupTitle, width:"800", height:"546"}; //Popup화면 옵션
+	var sPopupCallBack = "fn_PopupCallback"; //Popup화면 호출후 Callback 처리 함수
+	this.gfn_OpenPopup(sPopupId, sPopupFormUrl, oArg, sPopupCallBack, oOption); //Popup화면 호출 함수
+};
+
+/**
+ * @class 매장검색 팝업
+ * @param {arg} oArg - 형식에 맞는 조건 Array
+   ex )
+	var oArg = {paramCode:"abcd", paramNum:12345, paramDataset:this.ds_Test.saveXML()};
+ * @return 품목리스트 return
+ */
+this.gfn_SearchStorePopup = function(arg) {
+	var sPopupId = "SHOP_SEARCH"; //Popup화면 타이틀
+	var sPopupTitle = "매장검색팝업"; //Popup화면 타이틀
+	var sPopupFormUrl  = "poup::STORE.xfdl"; //Popup화면 URL
+	var oArg = {}; 		//Popup화면 전달 파라메터
+	
+	if ( ! this.gfn_IsNull(arg) ) {
+		oArg = arg
+	}
+	
+	var oOption = {title:sPopupTitle, width:"800", height:"546"}; //Popup화면 옵션
+	var sPopupCallBack = "fn_PopupCallback"; //Popup화면 호출후 Callback 처리 함수
+	this.gfn_OpenPopup(sPopupId, sPopupFormUrl, oArg, sPopupCallBack, oOption); //Popup화면 호출 함수
+};
+
+]]></Script>

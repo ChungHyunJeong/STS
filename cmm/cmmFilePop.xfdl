@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="cmmFilePop" width="830" height="463" titletext="파일정보" scrollbartype="none" onclose="fn_FormClose" onload="fn_FormOnload">
+    <Layouts>
+      <Layout height="463" width="830">
+        <Div id="div_CommFile" taborder="0" left="12" top="54" right="12" bottom="12" url="cmm::cmmFileList.xfdl"/>
+        <Div id="div_PopupTitle" taborder="1" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Static id="sta_PopupTitle" taborder="1" text="첨부파일" left="20" top="10" height="24" cssclass="sta_WF_PopupTitle" width="300"/>
+              <Button id="btn_Save" taborder="1" text="저장" top="8" width="65" right="90" visible="false" cssclass="bt_TF_Save" height="28" onclick="div_PopupTitle_btn_Save_onclick"/>
+              <Button id="btn_Close" taborder="2" text="닫기" top="9" width="70" height="26" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master">
+        <ColumnInfo>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="value" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">202110001</Col>
+            <Col id="value">계약1</Col>
+          </Row>
+          <Row>
+            <Col id="code">202110002</Col>
+            <Col id="value">계약2</Col>
+          </Row>
+          <Row>
+            <Col id="code">202110003</Col>
+            <Col id="value">계약3</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : 
+*  @화면설명 : 첨부파일 팝업
+*  @시스템명 : (SM) 시스템
+*  @작성자   : 최석목
+*  @작성일   : 2021.03.02
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.01.27     	    최석목 	           최초 생성 
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * 1. Form Include 선언 영역
+ ************************************************************************************************/
+include "comLib::CommonUtil.xjs";//공통함수
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvFormId = "M_SM_9999";//화면ID
+this.fvAUTH_YN = "";//[부모창파라메타] 권한유무
+this.fvPRGM_ID = "";//[부모창파라메타] 프로그램ID
+this.fvFILH_GU = "";//[부모창파라메타] 첨부파일위치구분 : H-Head, B-상세(그리드Row), E-기타
+this.fvPATH_NM = "";//업무파일경로
+this.fvPK01_NO = "";//[부모창파라메타] PK번호1
+this.fvPK02_NO = "";//[부모창파라메타] PK번호2
+this.fvPK03_NO = "";//[부모창파라메타] PK번호3
+this.fvPK04_NO = "";//[부모창파라메타] PK번호4
+this.fvPK05_NO = "";//[부모창파라메타] PK번호5
+this.fvPK06_NO = "";//[부모창파라메타] PK번호6
+this.fvPK07_NO = "";//[부모창파라메타] PK번호7
+this.fvPK08_NO = "";//[부모창파라메타] PK번호8
+this.fvPK09_NO = "";//[부모창파라메타] PK번호9
+this.fvPK10_NO = "";//[부모창파라메타] PK번호10
+this.fvFileDiv = this.div_CommFile.form;//첨부파일Div
+
+/***********************************************************************************************
+ * 3. Form 이벤트 영역
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 3.1. Form Onload 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	//부모창 파라메타 처리
+	this.fvAUTH_YN = this.getOwnerFrame().AUTH_YN;//[부모창파라메타] 권한유무
+	this.fvPRGM_ID = this.getOwnerFrame().PRGM_ID;//[부모창파라메타] 프로그램ID
+	this.fvFILH_GU = this.getOwnerFrame().FILH_GU;//[부모창파라메타] 첨부파일위치구분 : H-Head, B-상세(그리드Row), E-기타
+	this.fvPATH_NM = this.getOwnerFrame().PATH_NM;//업무파일경로
+	this.fvPK01_NO = this.getOwnerFrame().PK01_NO;//[부모창파라메타] PK번호1
+	this.fvPK02_NO = this.getOwnerFrame().PK02_NO;//[부모창파라메타] PK번호2
+	this.fvPK03_NO = this.getOwnerFrame().PK03_NO;//[부모창파라메타] PK번호3
+	this.fvPK04_NO = this.getOwnerFrame().PK04_NO;//[부모창파라메타] PK번호4
+	this.fvPK05_NO = this.getOwnerFrame().PK05_NO;//[부모창파라메타] PK번호5
+	this.fvPK06_NO = this.getOwnerFrame().PK06_NO;//[부모창파라메타] PK번호6
+	this.fvPK07_NO = this.getOwnerFrame().PK07_NO;//[부모창파라메타] PK번호7
+	this.fvPK08_NO = this.getOwnerFrame().PK08_NO;//[부모창파라메타] PK번호8
+	this.fvPK09_NO = this.getOwnerFrame().PK09_NO;//[부모창파라메타] PK번호9
+	this.fvPK10_NO = this.getOwnerFrame().PK10_NO;//[부모창파라메타] PK번호10	
+
+	this.fn_FormInit();//화면로드시 초기 설정 함수 
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.2. Form 초기설정 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormInit = function() 
+{
+	//첨부파일정보 권한설정
+	var oScrnAuth = new Object();//[공통] 첨부파일 권한정보
+	oScrnAuth.POPUP_YN = "Y";//팝업화면 유무
+	if (this.fvAUTH_YN == "Y") {
+		oScrnAuth.AUTH_YN = "Y";//권한 유무
+		this.div_PopupTitle.form.btn_Save.set_visible(true);
+	} else {
+		oScrnAuth.AUTH_YN = "N";//권한 유무
+	}
+	oScrnAuth.PRGM_ID = this.fvPRGM_ID;//프로그램ID
+	oScrnAuth.FILM_GU = "B";//첨부파일구분-Head
+		
+	this.fvFileDiv.fn_SetCommFileScrnAuth(oScrnAuth);
+	
+	//첨부파일 정보 조회
+	var oFileInfo = new Object();//[공통] 첨부파일정보
+	oFileInfo.PRGM_ID = this.fvPRGM_ID;//프로그램ID
+	oFileInfo.FILH_GU = this.fvFILH_GU;//첨부파일위치구분 : H-Head, D-상세(그리드Row), E-기타
+	oFileInfo.PATH_NM = this.fvPATH_NM;//업무파일경로
+	oFileInfo.PK01_NO = this.fvPK01_NO;//PK번호1
+	oFileInfo.PK02_NO = this.fvPK02_NO;//PK번호2
+	oFileInfo.PK03_NO = this.fvPK03_NO;//PK번호3
+	oFileInfo.PK04_NO = this.fvPK04_NO;//PK번호4
+	oFileInfo.PK05_NO = this.fvPK05_NO;//PK번호5
+	oFileInfo.PK06_NO = this.fvPK06_NO;//PK번호6
+	oFileInfo.PK07_NO = this.fvPK07_NO;//PK번호7
+	oFileInfo.PK08_NO = this.fvPK08_NO;//PK번호8
+	oFileInfo.PK09_NO = this.fvPK09_NO;//PK번호9
+	oFileInfo.PK10_NO = this.fvPK10_NO;//PK번호10	
+	
+	this.fvFileDiv.fn_AtchFileSearch(oFileInfo);	
+	
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.3. Form OnClose 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/***********************************************************************************************
+ * 4. 버튼 이벤트 영역
+ -----------------------------------------------------------------------------------------------
+   4.1.조회 : fn_Search
+   4.2.확인 : fn_Confirm
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 4.1. 조회 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_Search = function()
+{ 
+	
+}
+
+/***********************************************************************************************
+ * 5. [조회영역] 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 5.1. [조회영역-공통] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.1.1. [조회영역-팝업버튼] 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_SbpBtn_Do01 = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 5.2. [조회영역-업무] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.2.1. [조회영역-Edit] 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_SeEdt_Do01 = function()
+{ 
+}
+
+
+/***********************************************************************************************
+ * 6. [컴포넌트] 이벤트
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 7. [서비스] CallBack 함수 처리부분
+ ***********************************************************************************************/
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST_SEARCH": //조회		
+			if (this.ds_AuthGrpList.getRowCount() > 0) {
+			
+			}
+			break;						
+	}
+};
+
+/***********************************************************************************************
+ * 8. [팝업] CallBack 함수 처리부분
+      strId : 팝업호출시 지정한 팝업ID
+	  rtnValue : 팝업창에서 close시 지정한 반환값
+      주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+	trace(" strId : " + strId + " strVal : " + rtnValue);
+	
+	//프로그램ID
+	if (strId == "ADMN1010_P1") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = rtnValue.split(";;");	
+			
+			if (arrRtnVal.length > 0) {
+				//this.div_Detail.form.edt_PrgmId.set_value(arrRtnVal[0]);
+				//this.div_Detail.form.edt_PrgmNm.set_value(arrRtnVal[1]);
+			}
+		}
+	}
+};
+
+/***********************************************************************************************
+ * 9. [메세지] CallBack 함수 처리부분
+ ***********************************************************************************************/
+/**
+ * @description 메세지 CallBack 함수
+*/
+this.fn_MsgCallback = function (strId, strVal)
+{
+
+	if(strId == "CONF.DELETE"){
+		if(strVal )
+		{
+			this.fn_SvcDelete();//삭제 서비스 호출
+		}
+	}
+};
+
+
+
+/***********************************************************************************************
+ * 10. [사용자함수]
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.1. [사용자함수] 확인시 Vaildation 체크
+ ***********************************************************************************************/ 
+this.fn_VaildConfirm = function()
+{
+
+}  
+
+
+
+
+this.div_PopupTitle_btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_PopClose();
+};
+
+this.div_PopupTitle_btn_Save_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.div_CommFile.form.fn_FileSave();	
+};
+]]></Script>
+  </Form>
+</FDL>

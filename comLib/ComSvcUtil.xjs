@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[
+/**
+ * @class 공통코드 Dataset 가져오기
+ * @param {objForm} dataset이 속해있는 form object
+ * @param {array} objCondList - 형식에 맞는 조건 Array
+   ex ) 
+	var objCondList = ["A001|ds_ComCombo1"
+					  ,"A002|ds_ComCombo2|Y|전체"
+	                   ];
+ * @return 공통코드 dataset
+ */
+this.gfn_GetCommCode = function(objForm, objCondList)
+{
+	if ( this.gfn_IsNull(objCondList)) return;	
+
+	var arrGroupCond;
+	var sGroupList = "";
+	var arrGroupId = [];
+	var arrGroupDs = [];
+	var arrGroupAll = [];
+	var arrGroupAllTxt = []; 
+	for ( i=0; i<objCondList.length; i++ )
+	{
+		arrGroupCond = objCondList[i].split("|");
+		if ( i == 0) {
+			sGroupList = arrGroupCond[0];
+		} else {
+			sGroupList += ";;" + arrGroupCond[0];
+		}
+		arrGroupId.push(arrGroupCond[0]);		//Group Key
+		arrGroupDs.push(arrGroupCond[1]);		//Dataset Name
+		arrGroupAll.push(arrGroupCond[2]);		//first row추가 여부
+		arrGroupAllTxt.push(arrGroupCond[3]);	//first row추가시 Text
+	}
+	
+	/*
+	nexaApp.gdsCommCode.clearData();
+	var sArgs = "CDGR_CODE=" + nexacro.wrapQuote(sGroupList); 		//그룹코드 : 결재상태(WF01,WF02...)
+	nexup.AddService(this, "COMM.MS_COMM010_SL00", "", "gdsCommCode=dsComCode", sArgs);
+
+	//Call Service
+	nexup.CallService(this, "gfnGetDsCommCode", "_gfnComCodeCallback", false);	//Async : false
+	*/
+	nexacro.getApplication().gds_ComCode.clearData();
+	nexacro.getApplication().gds_ComCodeList.clearData();	
+	nexacro.getApplication().gds_ComCode.addRow();
+	nexacro.getApplication().gds_ComCode.setColumn(0, "commGrpCd", sGroupList);	
+
+	var strSvcId    = "GROUP_CODE";
+	var strSvcUrl   = "cmm/selectComCodeList.do";
+	var inData      = "gds_ComCode=gds_ComCode";
+	var outData     = "gds_ComCodeList=gds_ComCodeList";	
+	var strArg      = "";
+	var callBackFnc = "gfn_Callback_GroupCd";
+
+	this.gfn_Transaction(strSvcId, 	  // transaction을 구분하기 위한 svc id값
+						 strSvcUrl,   // trabsaction을 요청할 주소
+						 inData, 	  // 입력값으로 보낼 dataset id, ds_Name(서버)=ds_Name(로컬)형태로 실제이름과 입력이름을 매칭
+						 outData, 	  // 처리결과값으로 받을 dataset id, ds_Name(로컬)=ds_Name(서버)형태로 실제이름과 입력이름을 매칭
+						 strArg, 	  // 입력값으로 보낼 arguments, strFormData="20120607"
+						 callBackFnc, // transaction의 결과를 받을 Function 이름
+						 false);  // 통신방법 정의 [생략가능]	 - sync	
+	
+	//Groupkey별 dataset설정
+	var sFilter = "";
+	var objCommDs = nexacro.getApplication().gds_ComCodeList;
+	var objComboDs;
+	var nRow;
+	for ( k=0; k<arrGroupId.length; k++ )
+	{
+
+		sFilter   = "commGrpCd==" + nexacro.wrapQuote(arrGroupId[k]);
+		objCommDs.filter( sFilter );
+		objComboDs = objForm.objects[arrGroupDs[k]];
+		objComboDs.copyData(objCommDs, true);
+		
+		//First Row추가 여부
+		if ( arrGroupAll[k] == "Y" ) {
+			nRow = objComboDs.insertRow(0);
+			objComboDs.setColumn(nRow, "commGrpCd", arrGroupId[k]);
+			objComboDs.setColumn(nRow, "commCd", "");
+			if (this.gfn_IsNull(arrGroupAllTxt[k]))
+			{
+				objComboDs.setColumn(nRow, "commCdNm", "");
+			} else {
+				objComboDs.setColumn(nRow, "commCdNm", arrGroupAllTxt[k]);
+			}
+		}
+	}
+	return true;
+}
+
+
+this.gfn_GetGroupCd = function(arrInCodeList, arrOutDsList, callbackFunc) {
+
+	var sGroupCd = "";
+	if (arrInCodeList.length > 0) {
+		for (var iLoop=0; iLoop<arrInCodeList.length; iLoop++) {
+			if (iLoop < 1) {
+				sGroupCd = arrInCodeList[iLoop];
+			} else {
+				sGroupCd = sGroupCd + ";;" + arrInCodeList[iLoop];
+			}
+		}
+	}
+	
+	nexacro.getApplication().gds_ComCode.clearData();
+	nexacro.getApplication().gds_ComCodeList.clearData();	
+	nexacro.getApplication().gds_ComCode.addRow();
+	nexacro.getApplication().gds_ComCode.setColumn(0, "groupCd", sGroupCd);	
+
+	var strSvcId    = "GROUP_CODE";
+	var strSvcUrl   = "cmm/selectComCodeList.do";
+	var inData      = "gds_ComCode=gds_ComCode";
+	var outData     = "gds_ComCodeList=gds_ComCodeList";	
+	var strArg      = "";
+	var callBackFnc = "gfn_Callback_GroupCd";
+
+	this.gfn_Transaction(strSvcId, 	  // transaction을 구분하기 위한 svc id값
+						 strSvcUrl,   // trabsaction을 요청할 주소
+						 inData, 	  // 입력값으로 보낼 dataset id, ds_Name(서버)=ds_Name(로컬)형태로 실제이름과 입력이름을 매칭
+						 outData, 	  // 처리결과값으로 받을 dataset id, ds_Name(로컬)=ds_Name(서버)형태로 실제이름과 입력이름을 매칭
+						 strArg, 	  // 입력값으로 보낼 arguments, strFormData="20120607"
+						 callBackFnc, // transaction의 결과를 받을 Function 이름
+						 false);  // 통신방법 정의 [생략가능]	 - sync	
+						 
+	//COM_GROUP_CODE		
+	trace("=========gfn_Callback_GroupCd22222================");
+	trace(nexacro.getApplication().gds_ComCodeList.saveXML());
+	
+	if (nexacro.getApplication().gds_ComCodeList.getRowCount() > 0) {
+		for (var iLoop=0; iLoop <arrInCodeList.length; iLoop++) {
+		
+				trace("=========arrOutDsList[iLoop]]================" + arrOutDsList[iLoop]);
+			if (!this.gfn_IsNull(this.lookup(arrOutDsList[iLoop]))) {
+				nexacro.getApplication().gds_ComCodeList.filter("");
+				nexacro.getApplication().gds_ComCodeList.filter("groupCd=='" + arrInCodeList[iLoop] + "'");				
+				this.lookup(arrOutDsList[iLoop]).copyData(nexacro.getApplication().gds_ComCodeList, true);
+			} else {
+				trace("[ " +  arrOutDsList[iLoop] + " ] 데이터셋 정보가 없습니다.");
+			}
+		}
+	}
+		trace("=========gfn_Callback_GroupCd22222================");
+	this.lookupFunc(callbackFunc).call("COM_GROUP_CODE", 0, "");	
+	
+};
+
+/************************************************************************************************
+ * CALLBACK 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/**
+ * @description Transaction CallBack 함수(선택)
+*/
+this.gfn_Callback_GroupCd = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "GROUP_CODE":		
+			trace("=========gfn_Callback_GroupCd================");
+			break;
+		case "LINE_STATUS":		
+			break;			
+	}
+};
+
+
+this.gfn_CallMultiCalendar2 = function(formObj, objFromCal, objToCal, sCallBackFunc) {
+
+
+	if (this.gfn_IsNull(formObj.all["pdv_ComMultiCalendar"])) {
+
+		// Create Object  
+		var objPopupDiv = new PopupDiv("pdv_ComMultiCalendar", 10, 10, 390, 230, null, null);
+		 
+		// Add Object to Parent Form  
+		eval(formObj).addChild("pdv_ComMultiCalendar", objPopupDiv); 
+		
+		objPopupDiv.set_url("FrameBase::Form_MulitCalendar.xfdl");
+		objPopupDiv.set_visible(true);
+		objPopupDiv.form.set_text(objFromCal + ";;" + objToCal);
+
+		// Show Object  
+		objPopupDiv.show(); 
+		//this.pdv_00.userprop = obj.name;
+		objPopupDiv.trackPopupByComponent(eval(objFromCal), 0, parseInt(eval(objFromCal).height) + 4, 390, 230, sCallBackFunc, false);
+		
+	} else {	
+		eval(formObj.all["pdv_ComMultiCalendar"]).trackPopupByComponent(eval(objFromCal), 0, parseInt(eval(objFromCal).height) + 4, 390, 230, sCallBackFunc, false);
+	}
+
+}
+]]></Script>

@@ -1,0 +1,3187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_WF_0500" width="1000" height="550" titletext="결재요청" scrollbartype="none" onclose="fn_FormClose" onload="fn_FormOnload">
+    <Layouts>
+      <Layout height="550" width="1000">
+        <Div id="div_Search" taborder="0" left="14" top="54" height="38" cssclass="div_WF_Search" right="14" formscrollbartype="none none">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="결재선 선택" left="16" top="6" width="90" height="26" cssclass="sta_WF_SLabel"/>
+              <Combo id="cbo_Usrm" taborder="1" left="106" top="6" width="350" height="24" innerdataset="ds_Usrm" codecolumn="USRM_NO" datacolumn="USRM_NM" index="-1" value="" onitemchanged="div_Search_cbo_Usrm_onitemchanged" enable="false"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static00" taborder="1" text="기안자 첨언" left="648" top="97" width="220" height="30" cssclass="sta_WF_Title"/>
+        <TextArea id="txt_MemoNm" taborder="2" left="648" top="132" height="294" onkeyup="txt_MemoNm_onkeyup" onkeydown="txt_MemoNm_onkeydown" maxlength="2000" right="14" readonly="true"/>
+        <Static id="Static01" taborder="3" text="글자수 확인(2,000자 이내)" left="757" top="106" width="148" height="15"/>
+        <MaskEdit id="mse_MemoCnt" taborder="4" left="924" top="101" height="24" enable="false" right="14"/>
+        <Static id="Static00_00" taborder="5" text="결재선 정보" left="14" top="97" width="220" height="30" cssclass="sta_WF_Title"/>
+        <Static id="Static02" taborder="6" text="Notice" left="648" top="434" height="42" background="whitesmoke" right="14"/>
+        <CheckBox id="chk_UrgeYn" taborder="7" text="긴급결재" left="647" top="474" width="150" height="24" color="red" font="bold 12px/normal &quot;Malgun Gothic&quot;" falsevalue="0" truevalue="1" visible="false"/>
+        <CheckBox id="chk_SmsnYn" taborder="8" text="다음 결재자 SMS전송" left="647" top="494" width="150" height="24" falsevalue="0" truevalue="1" visible="false"/>
+        <CheckBox id="chk_EmalYn" taborder="9" text="다음 결재자 이메일 전송" left="647" top="514" width="157" height="24" falsevalue="0" truevalue="1" visible="false"/>
+        <Button id="btn_WfRequest" taborder="10" text="결재요청" left="813" top="506" width="80" height="30" cssclass="bt_WF_InputArea_Blue" onclick="btn_WfRequest_onclick" enable="false" cursor="pointer"/>
+        <Button id="btn_WfCancel" taborder="11" text="결재취소" left="899" top="506" width="80" height="30" cssclass="bt_WF_InputArea_White" onclick="btn_WfCancel_onclick" enable="false" visible="false" cursor="pointer"/>
+        <Grid id="grd_Master10" taborder="12" left="14" top="132" binddataset="ds_Master10" autofittype="col" bottom="14" width="618" ondrag="grd_Master10_ondrag" ondrop="grd_Master10_ondrop" oncellclick="grd_Master10_oncellclick" selecttype="cell">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="40"/>
+                <Column size="40"/>
+                <Column size="60"/>
+                <Column size="90"/>
+                <Column size="80"/>
+                <Column size="90"/>
+                <Column size="90"/>
+                <Column size="160"/>
+              </Columns>
+              <Rows>
+                <Row size="26" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="No."/>
+                <Cell col="1" text="선택"/>
+                <Cell col="2" text="필수여부"/>
+                <Cell col="3" text="결재구분"/>
+                <Cell col="4" text="결재자"/>
+                <Cell col="5" text="직책"/>
+                <Cell col="6" text="직위"/>
+                <Cell col="7" text="부서"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:USRD_SE" displaytype="normal" textAlign="center"/>
+                <Cell col="1" displaytype="expr:(REQU_YN == '1')?'normal':'checkboxcontrol'" edittype="expr:(REQU_YN == '1')?'none':'checkbox'" text="bind:s_chk"/>
+                <Cell col="2" expr="(REQU_YN == '1')?'O':''" textAlign="center"/>
+                <Cell col="3" text="bind:WFGU_CD" displaytype="combotext" textAlign="center" combodataset="ds_Wf105" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                <Cell col="4" text="bind:EMPM_NM" displaytype="normal" textAlign="center"/>
+                <Cell col="5" text="bind:DUTY_NM" textAlign="center"/>
+                <Cell col="6" text="bind:POSI_NM" displaytype="normal" textAlign="center"/>
+                <Cell col="7" text="bind:DEPM_NM" displaytype="normal" textAlign="left"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Div id="div_PopupTitle" taborder="13" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Button id="btn_SignLine" taborder="0" text="결재선관리" left="811" top="8" width="100" height="28" cssclass="bt_WF_PopupSelect" onclick="div_PopupTitle_btn_SignLine_onclick" visible="false"/>
+              <Button id="btn_Close" taborder="1" text="닫기" top="8" width="70" height="28" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+              <Static id="sta_PopupTitle" taborder="2" text="결재요청" left="20" top="10" width="700" height="24" cssclass="sta_WF_PopupTitle"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btn_Up" taborder="14" text="▲" left="589" top="107" width="20" height="20" cssclass="bt_WF_InputArea_White" cursor="pointer" onclick="btn_Up_onclick" enable="false"/>
+        <Button id="btn_Down" taborder="15" text="▼" left="613" top="107" width="20" height="20" cssclass="bt_WF_InputArea_White" cursor="pointer" onclick="btn_Down_onclick" enable="false"/>
+        <Button id="btn_AddRow" taborder="16" text="결재선추가" top="107" width="80" height="20" right="505" onclick="btn_AddRow_onclick" visible="true" cssclass="bt_WF_LineAdd" cursor="pointer" enable="false"/>
+        <Button id="btn_DeleteRow" taborder="17" text="결재선삭제" top="107" width="80" height="20" onclick="btn_DeleteRow_onclick" visible="true" cssclass="bt_WF_LineDel" cursor="pointer" enable="false" left="499"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="WCTM_ID" type="STRING" size="256" description="결재업무ID"/>
+          <Column id="DEPM_CD" type="STRING" size="256" description="조직코드"/>
+          <Column id="SYST_ID" type="STRING" size="256" description="시스템사용자ID"/>
+          <Column id="USRM_NO" type="STRING" size="256" description="결재라인번호"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WCAD_AM" type="STRING" size="256"/>
+          <Column id="SYST_IDS" type="STRING" size="256"/>
+          <Column id="INNR_GB" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Wctm">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WCTM_ID" type="STRING" size="256"/>
+          <Column id="WCTM_NM" type="STRING" size="256"/>
+          <Column id="WCDS_ID" type="STRING" size="256"/>
+          <Column id="MODM_CD" type="STRING" size="256"/>
+          <Column id="WFCL_CD" type="STRING" size="256"/>
+          <Column id="ESSE_CD" type="STRING" size="256"/>
+          <Column id="WFAB_YN" type="STRING" size="256"/>
+          <Column id="WFSA_YN" type="STRING" size="256"/>
+          <Column id="WFCH_YN" type="STRING" size="256"/>
+          <Column id="WFAT_YN" type="STRING" size="256"/>
+          <Column id="DIUS_YN" type="STRING" size="256"/>
+          <Column id="UPDT_NM" type="STRING" size="256"/>
+          <Column id="UPDC_NM" type="STRING" size="256"/>
+          <Column id="UPSC_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Wcad">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="WFCR_CD" type="STRING" size="256"/>
+          <Column id="USRM_NO" type="STRING" size="256"/>
+          <Column id="USRD_SE" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WFSU_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="WCAD_AM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Wcld">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="WFCR_CD" type="STRING" size="256"/>
+          <Column id="USRM_NO" type="STRING" size="256"/>
+          <Column id="USRD_SE" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WFSU_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Usrm">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="USRM_NO" type="STRING" size="256"/>
+          <Column id="USRM_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Usrd">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="WFCR_CD" type="STRING" size="256"/>
+          <Column id="USRM_NO" type="STRING" size="256"/>
+          <Column id="USRD_SE" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WFSU_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Wf105">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Empm">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="WFCR_CD" type="STRING" size="256"/>
+          <Column id="USRM_NO" type="STRING" size="256"/>
+          <Column id="USRD_SE" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WFSU_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="EMAD_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="WFCR_CD" type="STRING" size="256"/>
+          <Column id="USRM_NO" type="STRING" size="256"/>
+          <Column id="USRD_SE" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WFSU_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="REQU_YN" type="STRING" size="256"/>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="WOFH_ST" type="STRING" size="256"/>
+          <Column id="WFST_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_WfIn">
+        <ColumnInfo>
+          <Column id="GUBN" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="MODU_CD" type="STRING" size="256"/>
+          <Column id="WCTM_ID" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="USRM_NO" type="STRING" size="256"/>
+          <Column id="MEMO_NM" type="STRING" size="256"/>
+          <Column id="WOFH_NM" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="INNR_GB" type="STRING" size="256"/>
+          <Column id="CHAR_SYST_ID" type="STRING" size="256"/>
+          <Column id="CHAR_WFGU_CD" type="STRING" size="256"/>
+          <Column id="SWORQ_VR" type="STRING" size="256"/>
+          <Column id="WFAM_AMTR" type="BIGDECIMAL" size="256"/>
+          <Column id="WFAM_OPID" type="STRING" size="256"/>
+          <Column id="URGE_YN" type="STRING" size="256"/>
+          <Column id="SMSN_YN" type="STRING" size="256"/>
+          <Column id="EMAL_YN" type="STRING" size="256"/>
+          <Column id="DIRT_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Wfrt">
+        <ColumnInfo>
+          <Column id="O_RET_CODE" type="STRING" size="256"/>
+          <Column id="O_RET_CMSG" type="STRING" size="256"/>
+          <Column id="O_RET_PIID" type="STRING" size="256"/>
+          <Column id="O_WOFH_ST" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Memo">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="MODU_CD" type="STRING" size="256"/>
+          <Column id="WCTM_ID" type="STRING" size="256"/>
+          <Column id="WOFH_NM" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="WOFH_DT" type="STRING" size="256"/>
+          <Column id="WOFH_ST" type="STRING" size="256"/>
+          <Column id="WORQ_VR" type="STRING" size="256"/>
+          <Column id="WCLD_SE" type="STRING" size="256"/>
+          <Column id="WOFB_ID" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="WFCO_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="WFLO_CD" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WAIT_GU" type="STRING" size="256"/>
+          <Column id="WFRE_CD" type="STRING" size="256"/>
+          <Column id="MEMO_NM" type="STRING" size="256"/>
+          <Column id="AGSU_ID" type="STRING" size="256"/>
+          <Column id="BFWF_NO" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_WfUpt">
+        <ColumnInfo>
+          <Column id="WCTM_ID" type="STRING" size="256"/>
+          <Column id="UPDT_NM" type="STRING" size="256"/>
+          <Column id="UPDC_NM" type="STRING" size="256"/>
+          <Column id="UPSC_NM" type="STRING" size="256"/>
+          <Column id="WOFH_ST" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="DIRT_YN" type="STRING" size="256"/>
+          <Column id="ARGU_01" type="STRING" size="256"/>
+          <Column id="ARGU_02" type="STRING" size="256"/>
+          <Column id="ARGU_03" type="STRING" size="256"/>
+          <Column id="ARGU_04" type="STRING" size="256"/>
+          <Column id="ARGU_05" type="STRING" size="256"/>
+          <Column id="ARGU_06" type="BIGDECIMAL" size="256"/>
+          <Column id="ARGU_07" type="STRING" size="256"/>
+          <Column id="ARGU_08" type="STRING" size="256"/>
+          <Column id="ARGU_09" type="STRING" size="256"/>
+          <Column id="AUTM_CD" type="STRING" size="256"/>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+          <Column id="MANA_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="ATOB_01" type="STRING" size="256"/>
+          <Column id="ATOB_02" type="STRING" size="256"/>
+          <Column id="ATOB_03" type="STRING" size="256"/>
+          <Column id="ATOB_04" type="STRING" size="256"/>
+          <Column id="ATOB_05" type="STRING" size="256"/>
+          <Column id="ATOB_06" type="STRING" size="256"/>
+          <Column id="ATOB_07" type="STRING" size="256"/>
+          <Column id="ATOB_08" type="STRING" size="256"/>
+          <Column id="ATOB_09" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_WofhNo">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master11">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256" description="결재PID"/>
+          <Column id="WCTM_ID" type="STRING" size="256" description="결재업무ID"/>
+          <Column id="MODU_CD" type="STRING" size="256" description="모듈구분"/>
+          <Column id="WOFH_NM" type="STRING" size="256" description="결재명"/>
+          <Column id="SYST_ID" type="STRING" size="256" description="기안자"/>
+          <Column id="URGE_YN" type="STRING" size="256"/>
+          <Column id="SMSN_YN" type="STRING" size="256"/>
+          <Column id="WOFH_ST" type="STRING" size="256"/>
+          <Column id="EMAL_YN" type="STRING" size="256"/>
+          <Column id="SWORQ_VR" type="STRING" size="256"/>
+          <Column id="ORWF_NO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master12">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WCLD_NO" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="RANK_NM" type="STRING" size="256"/>
+          <Column id="WFLO_CD" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WAIT_GU" type="STRING" size="256"/>
+          <Column id="WFRE_CD" type="STRING" size="256"/>
+          <Column id="MEMO_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_WfCancel">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_BizWfUser">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="WFCR_CD" type="STRING" size="256"/>
+          <Column id="USRM_NO" type="STRING" size="256"/>
+          <Column id="USRD_SE" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WFSU_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="REQU_YN" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="INT" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail10">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="USRM_NO" type="STRING" size="256"/>
+          <Column id="USRD_SE" type="INT" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WFSU_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="WFCR_CD" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="RANK_NM" type="STRING" size="256"/>
+          <Column id="REQU_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Emad">
+        <ColumnInfo>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_WcadEmad">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="WFCR_CD" type="STRING" size="256"/>
+          <Column id="USRM_NO" type="STRING" size="256"/>
+          <Column id="USRD_SE" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WFSU_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="WCAD_AM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_WfProc">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="AGSU_ID" type="STRING" size="256"/>
+          <Column id="WFLO_CD" type="STRING" size="256"/>
+          <Column id="WFRE_CD" type="STRING" size="256"/>
+          <Column id="MEMO_NM" type="STRING" size="256"/>
+          <Column id="WOFH_IP" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_SendUser">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_NM" type="STRING" size="256"/>
+          <Column id="SEND_ID" type="STRING" size="256"/>
+          <Column id="SEND_NM" type="STRING" size="256"/>
+          <Column id="SEND_MT" type="STRING" size="256"/>
+          <Column id="SEND_EM" type="STRING" size="256"/>
+          <Column id="RECV_ID" type="STRING" size="256"/>
+          <Column id="RECV_NM" type="STRING" size="256"/>
+          <Column id="RECV_MT" type="STRING" size="256"/>
+          <Column id="RECV_EM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_SendAlarm">
+        <ColumnInfo>
+          <Column id="WOFH_NM" type="STRING" size="256"/>
+          <Column id="WOFH_DT" type="STRING" size="256"/>
+          <Column id="WFRQ_NM" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="EMAL_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10Tmp">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="WFCR_CD" type="STRING" size="256"/>
+          <Column id="USRM_NO" type="STRING" size="256"/>
+          <Column id="USRD_SE" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WFSU_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="REQU_YN" type="STRING" size="256"/>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="WOFH_ST" type="STRING" size="256"/>
+          <Column id="WFST_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_DeleteM">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+          <Column id="DELE_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_DeleteD">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+          <Column id="DELE_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : 
+*  @화면설명 : 결재요청
+*  @시스템명 : (WF) 결재관리
+*  @작성자   : 최석목
+*  @작성일   : 2021.03.18
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.03.18     	    최석목 	           최초 생성 
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * 1. Form Include 선언 영역
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+this.fvCommCd = "";//[부모창파라메타] 회사코드
+this.fvModuCd = "";//[부모창파라메타] 모듈구분
+this.fvWctmId = "";//[부모창파라메타] 결재업무ID
+this.fvSystId = "";//[부모창파라메타] 결재자_시스템사번
+this.fvWofhNm = "";//[부모창파라메타] 결재명
+this.fvWofhNo = "";//[부모창파라메타] 결재PID
+this.fvInnrGb = "";//[부모창파라메타] 내부결재구분(1:신규, 2:내부)
+this.fvCharSystId = "";//[부모창파라메타] 담당자_시스템사번
+this.fvCharWfguCd = "";//[부모창파라메타] 담당자 결재구분
+this.fvSworqVr = "";//[부모창파라메타] 결재요청버전(1,2,3)
+this.fvWfamAmtr = "";//[부모창파라메타] 금액
+this.fvWfamOpid = "";//[부모창파라메타] 원천PIID
+this.fvWfPkvl = "";//[부모창파라메타] Pk 컬럼
+this.fvDragRow = 0;//결재선Drag Row
+//this.fvWofhNo = "";//결재PID
+this.fvWfUser = "";//업무결재자
+this.fvGrdOndragYn = false;//그리드 Drag 사용여부
+this.fvRtnWofhNo = "";//[리턴값] 결재PID
+this.fvRtnDirtYn = "";//[리턴값] 직송여부
+this.fvWfCancelDst = "";//결재취소구분:S-결재중단,C-결재취소
+
+//자동전표관련 파라메타
+this.fvAutmCd = "";//분류코드-자동전표환경설정 테이블에 등록된 데이터
+this.fvPrgmId = "";//프로그램ID
+this.fvManaNo = "";//관리번호-자동전표상세테이블에 사용하는 업무Key
+this.fvWofhSq = "";//결재차수-자동전표상세테이블에 사용하는 업무Key
+this.fvAtobKey = "";//자동전표쿼리 Key정보
+
+/***********************************************************************************************
+ * 3. Form 이벤트 영역
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 3.1. Form Onload 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	//부모창 파라메타 처리
+	this.fvCommCd = this.getOwnerFrame().CommCd;//[부모창파라메타] 회사코드
+	this.fvModuCd = this.getOwnerFrame().ModuCd;//[부모창파라메타] 모듈구분
+	this.fvWctmId = this.getOwnerFrame().WctmId;//[부모창파라메타] 결재업무ID
+	this.fvSystId = this.getOwnerFrame().SystId;//[부모창파라메타] 결재자_시스템사번
+	this.fvWofhNm = this.getOwnerFrame().WofhNm;//[부모창파라메타] 결재명
+	this.fvWofhNo = this.getOwnerFrame().WofhNo;//[부모창파라메타] 결재PID
+	this.fvInnrGb = this.getOwnerFrame().InnrGb;//[부모창파라메타] 내부결재구분(1:신규, 2:내부)
+	this.fvCharSystId = this.getOwnerFrame().CharSystId;//[부모창파라메타] 담당자_시스템사번
+	this.fvCharWfguCd = this.getOwnerFrame().CharWfguCd;//[부모창파라메타] 담당자 결재구분
+	this.fvSworqVr = this.getOwnerFrame().SworqVr;//[부모창파라메타] 결재요청버전(1,2,3)
+	this.fvWfamAmtr = this.getOwnerFrame().WfamAmtr;//[부모창파라메타] 금액
+	this.fvWfamOpid = this.getOwnerFrame().WfamOpid;//[부모창파라메타] 원천PIID	
+	this.fvWfPkvl = this.getOwnerFrame().WfPkvl;//[부모창파라메타] Pk 컬럼
+	this.fvWfUser = this.getOwnerFrame().WfUser;//업무결재자
+
+	this.div_PopupTitle.form.sta_PopupTitle.set_text("결재요청 - " + this.gfn_Nvl(this.fvWofhNm, ""));
+
+	//자동전표관련 파라메타
+	this.fvAutmCd = this.getOwnerFrame().AutmCd;//분류코드-자동전표환경설정 테이블에 등록된 데이터
+	this.fvPrgmId = this.getOwnerFrame().PrgmId;//프로그램ID
+	this.fvManaNo = this.getOwnerFrame().ManaNo;//관리번호-자동전표상세테이블에 사용하는 업무Key
+	this.fvWofhSq = this.getOwnerFrame().WofhSq;//결재차수-자동전표상세테이블에 사용하는 업무Key
+	this.fvAtobKey = this.getOwnerFrame().AtobKey;//자동전표쿼리 Key정보	
+	
+	this.fvComPrgmId = this.fvPrgmId;//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.2. Form [공통] 초기설정 함수 - 필수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	//this.gfn_SetGrid(this.grd_Master10);//[공통]그리드 이벤트 설정
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.3. Form [업무] 초기설정 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormBizInit = function() 
+{	
+	//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+	var objCondList = ["WF105|ds_Wf105"];
+	//공통코드 설정함수 호출				   
+	this.gfn_GetCommCode(this, objCondList, "");
+
+	//결재환경설정관리 조회
+	this.fn_SearchWctm();
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.4. Form OnClose 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/***********************************************************************************************
+ * 4. [화면] 버튼 이벤트 영역
+ -----------------------------------------------------------------------------------------------
+   4.1.조회 : btn_Search_onclick
+   4.2.선택 : btn_Choice_onclick
+   4.3.닫기 : fn_Close
+ ***********************************************************************************************/
+
+/*---------------------------------------------------------------------------------------------
+ * 4.1. 조회 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+/*---------------------------------------------------------------------------------------------
+ *  4.2. 닫기 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_PopClose();
+};
+
+
+/***********************************************************************************************
+ * 5. [조회영역] 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 5.1. [조회영역-공통] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.1.1. [조회영역-팝업버튼] 
+  ---------------------------------------------------------------------------------------------*/
+this.fn_SbpBtn_Do01 = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 5.2. [조회영역-업무] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.2.1. [조회영역-Edit] 
+  ---------------------------------------------------------------------------------------------*/
+this.fn_SeEdt_Do01 = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 6. [컴포넌트] 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 6.1. [결재선선택] 콤보변경 이벤트
+ ***********************************************************************************************/ 
+this.div_Search_cbo_Usrm_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{ 			
+	//결재선선택 : 자동결재선 사용이나 직송이 아니면
+	if (!this.gfn_IsNull(obj.value) && (obj.value != "A" && obj.value != "D")) { 
+		//자동결재선-겸직부서 김남수테스트
+		if (obj.value == "B") {
+			//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+			this.ds_Input.clearData();
+			this.ds_WcadEmad.clearData();
+			var iRow = obj.index;
+			var sDEPM_CD = this.ds_Usrm.getColumn(iRow, "DEPM_CD");//부서코드
+			
+			//[업무] 조회조건 입력
+			this.ds_Input.addRow();
+			this.ds_Input.setColumn(0, "WCTM_ID", this.fvWctmId);//결재업무ID
+			this.ds_Input.setColumn(0, "DEPM_CD", sDEPM_CD);//조직코드
+			this.ds_Input.setColumn(0, "SYST_ID", this.fvSystId);//시스템사용자ID
+			if (!this.gfn_IsNull(this.fvWfamAmtr) && this.fvWfamAmtr != "0") {
+				this.ds_Input.setColumn(0, "WCAD_AM", this.fvWfamAmtr);//전결금액
+			} else {
+				this.ds_Input.setColumn(0, "WCAD_AM", "100");//전결금액이 없는 화면은 100을 고정해서 체크함
+			}			
+						
+			//[공통]서비스정보 초기화
+			this.gfn_InitComService(this);
+			
+			//[공통]서비스정보 추가 - 결재환경설정(전결규정) 포함 자동결재선 조회 
+			var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+			svcAddObj.sSelectSql = "wf:M_WF_0500_M_SL11";
+			this.gfn_AddComSearchService(this, svcAddObj);
+			
+			//[공통]서비스 호출 변수
+			var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+			svcCallObj.sTrid 		= "USRD_SEARCH_EMAD";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+			svcCallObj.sActionName 	= this.G_SV_WF;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+			svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+			svcCallObj.sOutDatset 	= "ds_WcadEmad=ds_Wcad";//출력 데이터셋
+			svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+			svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+			//[공통]서비스 호출
+			this.gfn_CallComService(this, svcCallObj);				
+		} else {
+			//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+			this.ds_Input.clearData();
+			this.ds_Usrd.clearData();//사용자별결재라인지정관리(상세) 정보	
+			
+			//[업무] 조회조건 입력
+			this.ds_Input.addRow();
+			this.ds_Input.setColumn(0, "SYST_ID", this.fvSystId);//시스템사용자ID	
+			this.ds_Input.setColumn(0, "USRM_NO", obj.value);//결재라인번호
+			
+			//[공통]서비스정보 초기화
+			this.gfn_InitComService(this);
+			
+			//[공통]서비스정보 추가
+			var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+			svcAddObj.sSelectSql = "wf:M_WF_0500_M_SL14";
+			this.gfn_AddComSearchService(this, svcAddObj);
+			
+			//[공통]서비스 호출 변수
+			var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+			svcCallObj.sTrid 		= "USRD_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+			svcCallObj.sActionName 	= this.G_SV_WF;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+			svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+			svcCallObj.sOutDatset 	= "ds_Usrd=ds_Usrd";//출력 데이터셋
+			svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+			svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+			//[공통]서비스 호출
+			this.gfn_CallComService(this, svcCallObj);		
+		}
+	} else {
+		if (obj.value == "A") {
+			this.ds_Master10.clearData();//사용자별결재라인지정관리(상세) 정보	
+			this.ds_Master10.copyData(this.ds_Wcad);
+		} else if (obj.value == "D") {
+			this.ds_Master10.clearData();//사용자별결재라인지정관리(상세) 정보	
+			this.ds_Master10.copyData(this.ds_Empm);		
+		}
+		this.ds_Master10.addColumn("s_chk", "string");
+	
+		this.fn_SetUsrdSe(this.ds_Master10);//결재순서 설정
+	}
+};
+
+/***********************************************************************************************
+ * 6.2. [메모] Key down 이벤트
+ ***********************************************************************************************/ 
+this.txt_MemoNm_onkeydown = function(obj:nexacro.TextArea,e:nexacro.KeyEventInfo)
+{
+	var iByteLength  = this.gfn_LengthByte(this.txt_MemoNm.value) + 1;
+	
+	if(iByteLength > 2000)
+	{
+		var chkLength=this.txt_MemoNm.value.length;
+		this.txt_MemoNm.set_maxlength(chkLength);
+		if(e.keycode == 8)
+		{
+			this.txt_MemoNm.set_maxlength("");
+		}
+	} else {
+		this.txt_MemoNm.set_maxlength(2000);
+	}
+};
+
+/***********************************************************************************************
+ * 6.3. [메모] Key up 이벤트
+ ***********************************************************************************************/ 
+this.txt_MemoNm_onkeyup = function(obj:nexacro.TextArea,e:nexacro.KeyEventInfo)
+{
+	var iByteLength  = this.gfn_LengthByte(this.txt_MemoNm.value);
+	if (iByteLength == -1) {	
+		iByteLength = 0;
+	}
+	if (iByteLength > 2000) {
+		this.txt_MemoNm.set_value(this.gfn_SliceByByte(this.txt_MemoNm.value, 2000));
+		this.mse_MemoCnt.set_value(2000);
+	} else {	
+		this.mse_MemoCnt.set_value(iByteLength);
+	}
+};
+
+ 
+/***********************************************************************************************
+ * 6.3. [결재요청] 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.btn_WfRequest_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+
+
+	//결재선유효성체크
+	//직송인경우
+	if (this.div_Search.form.cbo_Usrm.value == "D") {
+		//결재선이 있을경우에만 결재요청 가능
+		if (this.ds_Master10.getRowCount() < 1) {
+			this.gfn_Alert("WF031");//결재선 정보가 없습니다.\n결재선을 선택하신 후 결재요청 하시기바랍니다.
+			return;
+		}
+	} else {
+		//결재선이 있을경우에만 결재요청 가능
+		if (this.ds_Master10.getRowCount() < 2) {
+			this.gfn_Alert("WF031");//결재선 정보가 없습니다.\n결재선을 선택하신 후 결재요청 하시기바랍니다.
+			return;
+		}	
+	}
+
+	//결재선 동시성 체크 - 결재진행상태 체크	
+	//내부결재구분(1:신규, 2:내부) - 신규결재이면
+	if (this.fvInnrGb != "2") {
+	
+		//[업무] 업무테이블 업데이트 정보
+		//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+		this.ds_WfUpt.clearData();
+
+		//[업무] 조건 입력
+		this.ds_WfUpt.addRow();
+		this.ds_WfUpt.setColumn(0, "WCTM_ID", this.fvWctmId);//결재업무ID
+		this.ds_WfUpt.setColumn(0, "UPDT_NM", this.ds_Wctm.getColumn(0, "UPDT_NM"));//업데이트테이블명
+		this.ds_WfUpt.setColumn(0, "UPDC_NM", this.ds_Wctm.getColumn(0, "UPDC_NM"));//업데이트칼럼명
+		this.ds_WfUpt.setColumn(0, "UPSC_NM", this.ds_Wctm.getColumn(0, "UPSC_NM"));//업데이트상태칼럼명
+		this.ds_WfUpt.setColumn(0, "WOFH_NO", this.fvWofhNo);//결재PID
+		this.ds_WfUpt.setColumn(0, "SYST_ID", this.fvSystId);//결재자_시스템사번
+		
+		if (this.div_Search.form.cbo_Usrm.value == "D") {
+			this.ds_WfUpt.setColumn(0, "DIRT_YN", "1");//직송여부(1: 직송, 0: 직송아님)
+			this.fvRtnDirtYn = "1";//[리턴값] 직송여부
+			this.ds_WfUpt.setColumn(0, "WOFH_ST", "0040");//결재상태(WF110)
+		} else {
+			this.ds_WfUpt.setColumn(0, "DIRT_YN", "0");//직송여부(1: 직송, 0: 직송아님)
+			this.fvRtnDirtYn = "0";//[리턴값] 직송여부
+			this.ds_WfUpt.setColumn(0, "WOFH_ST", "0020");//결재상태(WF110)
+		}
+		
+		this.ds_Wfrt.clearData();//결재요청 리턴값 정보	
+		
+
+		this.fn_SetBizKey();//업무결재Key설정
+	//}
+	
+		//[공통]서비스정보 초기화
+		this.gfn_InitComService(this);
+		
+		//[공통]서비스정보 추가
+		var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sSelectSql = "wf:M_WF_0500_M_SL23"; // WFS..S_WF_0500_02
+		this.gfn_AddComSearchService(this, svcAddObj);	
+		
+		//[공통]서비스 호출 변수
+		var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		svcCallObj.sTrid = "WOFH_ST_CHECK";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+		svcCallObj.sActionName = "";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+		svcCallObj.sInputDaset = "ds_WfUpt=ds_WfUpt" //입력 데이터셋
+		svcCallObj.sOutDatset = "ds_Wfrt=ds_Wfrt";//출력 데이터셋
+		svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+		svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+		svcCallObj.isSync = true;//동기식으로 설정할지 여부
+
+		//[공통]서비스 호출
+		this.gfn_CallComService(this, svcCallObj);	
+		
+		if (this.ds_Wfrt.getRowCount() > 0) {
+			var sWofhSt = this.ds_Wfrt.getColumn(0, "O_WOFH_ST");//결재진행상태
+			
+			//한건 결재인경우
+			if (sWofhSt.indexOf(";") < 0) {
+				if (sWofhSt != "0010") {
+					this.gfn_Alert("WF033");//결재진행 상태가 [등록] 상태일 경우에만 결재요청 하실 수 있습니다.
+					return;
+				}
+			} else {
+				var arrWofhSt = sWofhSt.split(";");
+				
+				if (arrWofhSt.length > 0) {
+				
+					var sChkWofhSt = "";
+					var sMsgRow = "";
+					for (var iLoop=0; iLoop<arrWofhSt.length; iLoop++) {
+						
+						sChkWofhSt = arrWofhSt[iLoop];
+						
+						if (sChkWofhSt != "0010") {
+							if (this.gfn_IsNull(sMsgRow)) {
+								sMsgRow = (iLoop + 1);
+							} else {
+								sMsgRow += "," + (iLoop + 1);
+							}
+						}
+					}
+					
+					if (!this.gfn_IsNull(sMsgRow)) {
+						var arrMsgArg = [sMsgRow];
+						this.gfn_Alert("WF036", arrMsgArg);//결재진행 상태가 [등록] 상태일 경우에만 결재요청 하실 수 있습니다.\n[&ITM0] 번째 정보가 [등록] 상태가 아닙니다.
+						return;
+					}
+				}
+			}
+		} else {
+			this.gfn_Alert("WF033");//결재진행 상태가 [등록] 상태일 경우에만 결재요청 하실 수 있습니다.
+			return;
+		}
+	}
+
+	//[결재PID]생성 및 조회
+	this.ds_WofhNo.clearData();
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "wf:M_WF_0500_M_SL18"; // SELECT CONCAT('W', NEXT VALUE FOR WFS..Q_WF_0500) WOFH_NO
+	this.gfn_AddComSearchService(this, svcAddObj);
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "WOFH_NO";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_WF;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_WofhNo=ds_WofhNo";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+	svcCallObj.isSync = true;//동기식으로 설정할지 여부
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);		
+
+	if (this.ds_WofhNo.getRowCount() < 1) return;
+	
+	var sWOFH_NO = this.ds_WofhNo.getColumn(0, "WOFH_NO");//결재PID
+	this.fvRtnWofhNo = sWOFH_NO;//[리턴값] 결재PID
+	
+	if (this.gfn_IsNull(sWOFH_NO)) {
+		this.gfn_Alert("WF002");//결재ID 생성에 실패했습니다.
+		return;
+	}
+
+	this.fvWofhNo = sWOFH_NO;//결재PID
+	
+	//[결재마스터 데이터] 생성
+	this.ds_Master11.clearData();
+	this.ds_Master11.addRow();
+	this.ds_Master11.setColumn(0, "WOFH_NO", sWOFH_NO);//결재PID	
+	this.ds_Master11.setColumn(0, "WCTM_ID", this.fvWctmId);//결재업무ID
+	this.ds_Master11.setColumn(0, "MODU_CD", this.fvModuCd);//모듈구분
+	this.ds_Master11.setColumn(0, "WOFH_NM", this.fvWofhNm);//결재명
+	this.ds_Master11.setColumn(0, "SYST_ID", this.fvSystId);//결재자_시스템사번
+	this.ds_Master11.setColumn(0, "URGE_YN", this.chk_UrgeYn.value);//긴급결재여부
+	this.ds_Master11.setColumn(0, "SMSN_YN", this.chk_SmsnYn.value);//SMS알림여부
+	this.ds_Master11.setColumn(0, "EMAL_YN", this.chk_EmalYn.value);//이메일 전송여부	
+	this.ds_Master11.setColumn(0, "SWORQ_VR", this.fvSworqVr);//결재요청버전(1,2,3)
+	
+	var bWfGuCnt = false;//내부결재인경우 - 결재/협조 자가 있는지 여부체크
+	
+	//내부결재구분(1:신규, 2:내부)
+	if (this.fvInnrGb == "2") {
+		this.ds_Master11.setColumn(0, "ORWF_NO", this.fvWfamOpid);//원천 결재PID
+		var sWFGU_CD = "";//결재구분
+		
+		for (var iLoop=0; iLoop<this.ds_Master10.getRowCount(); iLoop++) {
+			sWFGU_CD = this.ds_Master10.getColumn(iLoop, "WFGU_CD");//결재구분
+			
+			//결재구분이 결재/협조/결재(주관부서) 인경우
+			if (sWFGU_CD == "0010" || sWFGU_CD == "0020" || sWFGU_CD == "0070") {
+				bWfGuCnt = true;//내부결재인경우 - 결재/협조 자가 있는지 여부체크
+				break;
+			}
+		}
+		
+	} else {
+		this.ds_Master11.setColumn(0, "ORWF_NO", "");//원천 결재PID
+	}
+	
+	//결재구분(WF105) - 기안만 있는경우 : 직송인경우
+	if (this.ds_Master10.getRowCount() == 1 && this.ds_Master10.getColumn(0, "WFGU_CD") == "0060") {
+		this.ds_Master11.setColumn(0, "WOFH_ST", "0040");//결재상태 - 직송일때 : 0040-승인, 아니면 0020-신청
+	} else {
+		//내부결재이면서 결재/협조자가 없는경우
+		if (this.fvInnrGb == "2" && !bWfGuCnt) {
+			this.ds_Master11.setColumn(0, "WOFH_ST", "0040");//결재상태 - 직송일때 : 0040-승인, 아니면 0020-신청
+		} else {
+			this.ds_Master11.setColumn(0, "WOFH_ST", "0020");//결재상태 - 직송일때 : 0040-승인, 아니면 0020-신청
+		}
+	}
+	
+	//[결재상세 데이터] 생성
+	//최종결재자 체크
+	this.ds_Master10.addColumn("LAST_AP", "string");
+	var iChkRow = 0;//최종결재자 체크Row
+	var sWFGU_CD = "";//결재구분
+	for (var iLoop=0; iLoop < this.ds_Master10.getRowCount(); iLoop++) {
+		sWFGU_CD = this.ds_Master10.getColumn(iLoop, "WFGU_CD");//결재구분
+		//결재/협조/결재(주관부서)
+		if (sWFGU_CD == "0010" || sWFGU_CD == "0020" || sWFGU_CD == "0070") {
+			iChkRow = iLoop;//최종결재자 체크Row
+		}
+	}
+	
+	this.ds_Master10.setColumn(iChkRow, "LAST_AP", "Y");//최종결재자
+
+	this.ds_Master12.clearData();
+	var iAddRow = 0;
+	
+	for (var iLoop=0; iLoop < this.ds_Master10.getRowCount(); iLoop++) {
+		iAddRow = this.ds_Master12.addRow();
+		this.ds_Master12.setColumn(iAddRow, "WOFH_NO", sWOFH_NO);//결재PID		
+		this.ds_Master12.setColumn(iAddRow, "WCLD_NO", this.ds_Master10.getColumn(iLoop, "USRD_SE"));//결재순서
+		this.ds_Master12.setColumn(iAddRow, "SYST_ID", this.ds_Master10.getColumn(iLoop, "SYST_ID"));//결재자사번
+		this.ds_Master12.setColumn(iAddRow, "EMPM_NM", this.ds_Master10.getColumn(iLoop, "EMPM_NM"));//결재자성명
+		this.ds_Master12.setColumn(iAddRow, "COMM_CD", this.ds_Master10.getColumn(iLoop, "COMM_CD"));//결재자회사코드		
+		this.ds_Master12.setColumn(iAddRow, "DEPM_NM", this.ds_Master10.getColumn(iLoop, "DEPM_NM"));//결재자부서명
+		this.ds_Master12.setColumn(iAddRow, "POSI_NM", this.ds_Master10.getColumn(iLoop, "POSI_NM"));//결재자직위명
+		this.ds_Master12.setColumn(iAddRow, "DUTY_NM", this.ds_Master10.getColumn(iLoop, "DUTY_NM"));//결재자직책명
+		this.ds_Master12.setColumn(iAddRow, "RANK_NM", this.ds_Master10.getColumn(iLoop, "RANK_NM"));//결재자직급명
+		
+		if (iLoop == 0) {
+			this.ds_Master12.setColumn(iAddRow, "WFLO_CD", "0010");//결재자위치(WF120) - 기안/중간/최종
+			this.ds_Master12.setColumn(iAddRow, "WFRE_CD", "0010");//결재결과(WF115) - 승인/기각/확인
+		} else {
+			if (this.ds_Master10.getColumn(iLoop, "LAST_AP") == "Y") {
+				this.ds_Master12.setColumn(iAddRow, "WFLO_CD", "0030");//결재자위치(WF120)
+			} else {
+				sWFGU_CD = this.ds_Master10.getColumn(iLoop, "WFGU_CD");//결재구분
+				//결재/협조/결재(주관부서)
+				if (sWFGU_CD == "0010" || sWFGU_CD == "0020" || sWFGU_CD == "0070") {			
+					this.ds_Master12.setColumn(iAddRow, "WFLO_CD", "0020");//결재자위치(WF120)
+				} else {
+					this.ds_Master12.setColumn(iAddRow, "WFLO_CD", "");//결재자위치(WF120)
+				}
+			}
+			this.ds_Master12.setColumn(iAddRow, "WFRE_CD", "");//결재결과(WF115)
+		}
+		
+		this.ds_Master12.setColumn(iAddRow, "WFGU_CD", this.ds_Master10.getColumn(iLoop, "WFGU_CD"));//결재구분(WF105)
+		
+		if (iLoop == 0) {
+			this.ds_Master12.setColumn(iAddRow, "WAIT_GU", "2");//결재대기여부
+		} else if (iLoop == 1) {
+			this.ds_Master12.setColumn(iAddRow, "WAIT_GU", "1");//결재대기여부
+		} else {
+			this.ds_Master12.setColumn(iAddRow, "WAIT_GU", "0");//결재대기여부
+		}		
+		
+		if (!this.gfn_IsNull(this.txt_MemoNm.value)) {
+			if (iLoop == 0) {
+				this.ds_Master12.setColumn(iAddRow, "MEMO_NM", this.txt_MemoNm.value);//첨언
+			} else {
+				this.ds_Master12.setColumn(iAddRow, "MEMO_NM", "");//첨언
+			}
+		} else {
+			this.ds_Master12.setColumn(iAddRow, "MEMO_NM", "");//첨언
+		}
+		this.ds_Master12.setColumn(iAddRow, "SORT_NO", this.ds_Master10.getColumn(iLoop, "USRD_SE"));//정렬순서
+	}
+	
+	//결재구분(WF105) - 기안만 있는경우 : 직송인경우 => 기안자가 승인자해서 Row 추가해야함.
+	if (this.ds_Master10.getRowCount() == 1 && this.ds_Master10.getColumn(0, "WFGU_CD") == "0060") {
+		for (var iLoop=0; iLoop < this.ds_Master10.getRowCount(); iLoop++) {
+			iAddRow = this.ds_Master12.addRow();
+			this.ds_Master12.setColumn(iAddRow, "WOFH_NO", sWOFH_NO);//결재PID		
+			this.ds_Master12.setColumn(iAddRow, "WCLD_NO", "2");//결재순서
+			this.ds_Master12.setColumn(iAddRow, "SYST_ID", this.ds_Master10.getColumn(iLoop, "SYST_ID"));//결재자사번
+			this.ds_Master12.setColumn(iAddRow, "EMPM_NM", this.ds_Master10.getColumn(iLoop, "EMPM_NM"));//결재자성명
+			this.ds_Master12.setColumn(iAddRow, "COMM_CD", this.ds_Master10.getColumn(iLoop, "COMM_CD"));//결재자회사코드		
+			this.ds_Master12.setColumn(iAddRow, "DEPM_NM", this.ds_Master10.getColumn(iLoop, "DEPM_NM"));//결재자부서명
+			this.ds_Master12.setColumn(iAddRow, "POSI_NM", this.ds_Master10.getColumn(iLoop, "POSI_NM"));//결재자직위명
+			this.ds_Master12.setColumn(iAddRow, "DUTY_NM", this.ds_Master10.getColumn(iLoop, "DUTY_NM"));//결재자직책명
+			this.ds_Master12.setColumn(iAddRow, "RANK_NM", this.ds_Master10.getColumn(iLoop, "RANK_NM"));//결재자직급명
+
+			this.ds_Master12.setColumn(iAddRow, "WFLO_CD", "0030");//결재자위치(WF120)
+			this.ds_Master12.setColumn(iAddRow, "WFRE_CD", "0010");//결재결과(WF115) - 승인/기각/확인						
+			this.ds_Master12.setColumn(iAddRow, "WFGU_CD", "0010");//결재구분(WF105)
+			this.ds_Master12.setColumn(iAddRow, "WAIT_GU", "2");//결재대기여부
+
+			this.ds_Master12.setColumn(iAddRow, "SORT_NO", "2");//정렬순서
+		}
+	}
+	
+	//내부결재이면서 결재/협조자가 없는경우
+	if (this.fvInnrGb == "2" && !bWfGuCnt) {
+		iAddRow = this.ds_Master12.insertRow(1);
+		this.ds_Master12.setColumn(iAddRow, "WOFH_NO", sWOFH_NO);//결재PID		
+		this.ds_Master12.setColumn(iAddRow, "WCLD_NO", "2");//결재순서
+		this.ds_Master12.setColumn(iAddRow, "SYST_ID", this.ds_Master10.getColumn(0, "SYST_ID"));//결재자사번
+		this.ds_Master12.setColumn(iAddRow, "EMPM_NM", this.ds_Master10.getColumn(0, "EMPM_NM"));//결재자성명
+		this.ds_Master12.setColumn(iAddRow, "COMM_CD", this.ds_Master10.getColumn(0, "COMM_CD"));//결재자회사코드		
+		this.ds_Master12.setColumn(iAddRow, "DEPM_NM", this.ds_Master10.getColumn(0, "DEPM_NM"));//결재자부서명
+		this.ds_Master12.setColumn(iAddRow, "POSI_NM", this.ds_Master10.getColumn(0, "POSI_NM"));//결재자직위명
+		this.ds_Master12.setColumn(iAddRow, "DUTY_NM", this.ds_Master10.getColumn(0, "DUTY_NM"));//결재자직책명
+		this.ds_Master12.setColumn(iAddRow, "RANK_NM", this.ds_Master10.getColumn(0, "RANK_NM"));//결재자직급명
+
+		this.ds_Master12.setColumn(iAddRow, "WFLO_CD", "0030");//결재자위치(WF120)
+		this.ds_Master12.setColumn(iAddRow, "WFRE_CD", "0010");//결재결과(WF115) - 승인/기각/확인						
+		this.ds_Master12.setColumn(iAddRow, "WFGU_CD", "0010");//결재구분(WF105)
+		this.ds_Master12.setColumn(iAddRow, "WAIT_GU", "2");//결재대기여부
+
+		this.ds_Master12.setColumn(iAddRow, "SORT_NO", "2");//정렬순서
+		
+		var iRowRCnt = 0;
+		for (var iLoop = 2; iLoop < this.ds_Master12.getRowCount(); iLoop++) {
+			iRowRCnt = iLoop + 1;
+			this.ds_Master12.setColumn(iLoop, "SORT_NO", iRowRCnt);//정렬순서			
+		}
+	}	
+	
+	//내부결재구분(1:신규, 2:내부) - 신규결재이면
+	if (this.fvInnrGb != "2") {
+		//[업무] 업무테이블 업데이트 정보
+		//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+		this.ds_WfUpt.clearData();
+
+		//[업무] 조건 입력
+		this.ds_WfUpt.addRow();
+		this.ds_WfUpt.setColumn(0, "WCTM_ID", this.fvWctmId);//결재업무ID
+		this.ds_WfUpt.setColumn(0, "UPDT_NM", this.ds_Wctm.getColumn(0, "UPDT_NM"));//업데이트테이블명
+		
+		this.ds_WfUpt.setColumn(0, "UPDC_NM", this.ds_Wctm.getColumn(0, "UPDC_NM"));//업데이트칼럼명
+		this.ds_WfUpt.setColumn(0, "UPSC_NM", this.ds_Wctm.getColumn(0, "UPSC_NM"));//업데이트상태칼럼명
+		
+		this.ds_WfUpt.setColumn(0, "WOFH_NO", this.fvWofhNo);//결재PID
+		this.ds_WfUpt.setColumn(0, "SYST_ID", this.fvSystId);//결재자_시스템사번
+		
+		//자동전표관련 파라메타
+		this.ds_WfUpt.setColumn(0, "AUTM_CD", this.fvAutmCd);//분류코드-자동전표환경설정 테이블에 등록된 데이터
+		this.ds_WfUpt.setColumn(0, "PRGM_ID", this.fvPrgmId);//프로그램ID
+		this.ds_WfUpt.setColumn(0, "MANA_NO", this.fvManaNo);//관리번호-자동전표상세테이블에 사용하는 업무Key
+		this.ds_WfUpt.setColumn(0, "WOFH_SQ", this.fvWofhSq);//결재차수-자동전표상세테이블에 사용하는 업무Key		
+		
+		if (this.div_Search.form.cbo_Usrm.value == "D") {
+			this.ds_WfUpt.setColumn(0, "DIRT_YN", "1");//직송여부(1: 직송, 0: 직송아님)
+			this.fvRtnDirtYn = "1";//[리턴값] 직송여부
+			this.ds_WfUpt.setColumn(0, "WOFH_ST", "0040");//결재상태(WF110)
+		} else {
+			this.ds_WfUpt.setColumn(0, "DIRT_YN", "0");//직송여부(1: 직송, 0: 직송아님)
+			this.fvRtnDirtYn = "0";//[리턴값] 직송여부
+			this.ds_WfUpt.setColumn(0, "WOFH_ST", "0020");//결재상태(WF110)
+		}
+		
+		this.ds_Wfrt.clearData();//결재요청 리턴값 정보	
+		
+		this.fn_SetBizKey();//업무결재Key설정
+		this.fn_SetAtobKey();//자동전표Key설정
+		
+	}
+	
+	//결재구분(WF105) - 기안만 & 접수만 있는경우 : 직송인경우 => 기안자가 승인자해서 Row 추가해야함. => 로직추가 2022.05.04
+	if (iChkRow == 0 && this.ds_Master10.getColumn(0, "WFGU_CD") == "0060" && this.div_Search.form.cbo_Usrm.value != "D") {
+		
+		iAddRow = this.ds_Master12.insertRow(1);
+		this.ds_Master12.setColumn(iAddRow, "WOFH_NO", sWOFH_NO);//결재PID		
+		this.ds_Master12.setColumn(iAddRow, "WCLD_NO", "2");//결재순서
+		this.ds_Master12.setColumn(iAddRow, "SYST_ID", this.ds_Master10.getColumn(0, "SYST_ID"));//결재자사번
+		this.ds_Master12.setColumn(iAddRow, "EMPM_NM", this.ds_Master10.getColumn(0, "EMPM_NM"));//결재자성명
+		this.ds_Master12.setColumn(iAddRow, "COMM_CD", this.ds_Master10.getColumn(0, "COMM_CD"));//결재자회사코드		
+		this.ds_Master12.setColumn(iAddRow, "DEPM_NM", this.ds_Master10.getColumn(0, "DEPM_NM"));//결재자부서명
+		this.ds_Master12.setColumn(iAddRow, "POSI_NM", this.ds_Master10.getColumn(0, "POSI_NM"));//결재자직위명
+		this.ds_Master12.setColumn(iAddRow, "DUTY_NM", this.ds_Master10.getColumn(0, "DUTY_NM"));//결재자직책명
+		this.ds_Master12.setColumn(iAddRow, "RANK_NM", this.ds_Master10.getColumn(0, "RANK_NM"));//결재자직급명
+
+		this.ds_Master12.setColumn(iAddRow, "WFLO_CD", "0030");//결재자위치(WF120)
+		this.ds_Master12.setColumn(iAddRow, "WFRE_CD", "0010");//결재결과(WF115) - 승인/기각/확인						
+		this.ds_Master12.setColumn(iAddRow, "WFGU_CD", "0010");//결재구분(WF105)
+		this.ds_Master12.setColumn(iAddRow, "WAIT_GU", "2");//결재대기여부
+
+		this.ds_Master12.setColumn(iAddRow, "SORT_NO", "2");//정렬순서
+		
+		//직송처리
+		this.ds_WfUpt.setColumn(0, "DIRT_YN", "1");//직송여부(1: 직송, 0: 직송아님)
+		this.fvRtnDirtYn = "1";//[리턴값] 직송여부
+		this.ds_WfUpt.setColumn(0, "WOFH_ST", "0040");//결재상태(WF110)
+		
+		this.ds_Master11.setColumn(0, "WOFH_ST", "0040");//결재상태 - 직송일때 : 0040-승인, 아니면 0020-신청
+	
+		for (var iLoop=2; iLoop < this.ds_Master12.getRowCount(); iLoop++) {
+	
+			this.ds_Master12.setColumn(iLoop, "SORT_NO", iLoop+1);//정렬순서
+			this.ds_Master12.setColumn(iLoop, "WCLD_NO", iLoop+1);//결재순서
+		}
+			//trace(this.ds_Master12.saveXML());
+	}		
+	
+	//기안자가 바로 승인시 접수자가 2명이상인경우 예외처리
+	if (this.ds_Master11.getColumn(0, "WOFH_ST") == "0040") {
+		if (this.ds_Master12.getCaseCount("WFGU_CD == '0030'") > 1) {
+			var sWFGU_CD = "";//결재구분
+			for (var iLoop=0; iLoop<this.ds_Master12.getRowCount(); iLoop++) {
+				sWFGU_CD = this.ds_Master12.getColumn(iLoop, "WFGU_CD");//결재구분
+				
+				//결재구분이 접수인경우
+				if (sWFGU_CD == "0030"){
+					this.ds_Master12.setColumn(iLoop, "WAIT_GU", "1");//결재대기여부
+				}
+			}
+		}
+	}
+ 
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+
+	//[공통]서비스 정보 추가 - 결재마스터
+	svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object				 
+	svcAddObj.sInsertSql = "wf:M_WF_0500_M_IN10";//저장Sql INSERT INTO WFS..T_WF_WOFH
+	svcAddObj.sUpdateSql = "";//수정Sql
+	svcAddObj.sDeleteSql = "";//삭제Sql
+	svcAddObj.sSaveFlagColumn = "";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+							 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+
+	this.gfn_AddComSaveService(this, svcAddObj);	
+	
+	//[공통]서비스 정보 추가 - 결재상세
+	svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object				 
+	svcAddObj.sInsertSql = "wf:M_WF_0500_M_IN11";//저장Sql INSERT INTO WFS..T_WF_WOFB
+	svcAddObj.sUpdateSql = "";//수정Sql
+	svcAddObj.sDeleteSql = "";//삭제Sql
+	svcAddObj.sSaveFlagColumn = "";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+							 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+
+	this.gfn_AddComSaveService(this, svcAddObj);		
+	
+	//내부결재구분(1:신규, 2:내부) - 신규결재이면
+	if (this.fvInnrGb != "2") {	
+		//[공통]서비스정보 추가 - 업무테이블 업데이트
+		svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sSelectSql = "wf:M_WF_0500_M_UP10"; // WFS..S_WF_0500_01
+		this.gfn_AddComSearchService(this, svcAddObj);	
+	}
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	//svcCallObj.sTrid 		= "WOFH_REQ";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sTrid 		= "WOFH_UPT";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	//svcCallObj.sActionName 	= this.G_SV_WF;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sActionName 	= "";			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	
+	//내부결재구분(1:신규, 2:내부) - 신규결재이면
+	if (this.fvInnrGb != "2") {		
+		svcCallObj.sInputDaset 	= "ds_Master11=ds_Master11:U ds_Master12=ds_Master12:U ds_WfUpt=ds_WfUpt:U" 	//입력 데이터셋
+		svcCallObj.sOutDatset 	= "ds_Wfrt=ds_Wfrt";//출력 데이터셋
+	} else {
+		svcCallObj.sInputDaset 	= "ds_Master11=ds_Master11:U ds_Master12=ds_Master12:U" 	//입력 데이터셋
+		svcCallObj.sOutDatset 	= "";//출력 데이터셋
+	}
+	
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+};
+
+/***********************************************************************************************
+ * 6.3. [결재취소] 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.btn_WfCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//결재진행상태 체크
+	if (!this.fn_SearchWofhSt(this.fvWfCancelDst)) return;
+	
+	//결재취소구분-결재취소인경우
+	if (this.fvWfCancelDst == "C") {
+		//[결재취소] 결재마스터/결재상세 정보 삭제처리
+		//[결재취소] 데이터셋 설정
+		this.ds_WfCancel.clearData();
+		this.ds_WfCancel.addRow();
+		this.ds_WfCancel.setColumn(0, "WOFH_NO", this.fvWofhNo);//결재PID
+		this.ds_WfCancel.setColumn(0, "crudType", "D");//삭제-Flag
+		
+		//[업무] 업무테이블 업데이트 정보
+		//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+		this.ds_WfUpt.clearData();
+		this.ds_Wfrt.clearData();//결재요청 리턴값 정보	
+		
+		var sUPDT_NM = "";// 업데이트테이블명
+		var sUPDC_NM = "";//업데이트칼럼명
+		var sUPSC_NM = "";//업데이트상태칼럼명
+		var sWCTM_ID = "";//결재업무ID
+		
+		//결재정보
+		if (this.ds_Wctm.getRowCount() > 0) {
+			sUPDT_NM = this.ds_Wctm.getColumn(0, "UPDT_NM");// 업데이트테이블명
+			sUPDC_NM = this.ds_Wctm.getColumn(0, "UPDC_NM");//업데이트칼럼명
+			sUPSC_NM = this.ds_Wctm.getColumn(0, "UPSC_NM");//업데이트상태칼럼명
+			sWCTM_ID = this.ds_Wctm.getColumn(0, "WCTM_ID");//결재업무ID
+		}	
+
+		//[업무] 조건 입력
+		this.ds_WfUpt.addRow();
+		this.ds_WfUpt.setColumn(0, "WCTM_ID", sWCTM_ID);//결재업무ID
+		this.ds_WfUpt.setColumn(0, "UPDT_NM", sUPDT_NM);//업데이트테이블명
+		
+		this.ds_WfUpt.setColumn(0, "UPDC_NM", sUPDC_NM);//업데이트칼럼명
+		this.ds_WfUpt.setColumn(0, "UPSC_NM", sUPSC_NM);//업데이트상태칼럼명
+		this.ds_WfUpt.setColumn(0, "WOFH_ST", "0010");//결재상태(WF110)
+		this.ds_WfUpt.setColumn(0, "WOFH_NO", this.fvWofhNo);//결재PID
+		this.ds_WfUpt.setColumn(0, "SYST_ID", this.gfn_GetSessionValue("SYST_ID"));//결재자_시스템사번	
+		
+		//[공통]서비스 정보 초기화
+		this.gfn_InitComService(this);
+		
+		//결재상세 삭제
+		//[공통]서비스 정보 추가
+		var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sInsertSql = "";//저장Sql
+		svcAddObj.sUpdateSql = "";//수정Sql
+		svcAddObj.sDeleteSql = "wf:M_WF_0500_M_DL11";//삭제Sql
+		svcAddObj.sSaveFlagColumn = "crudType";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+								 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+
+		this.gfn_AddComSaveService(this, svcAddObj);
+
+		//결재마스터 삭제
+		//[공통]서비스 정보 추가
+		svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sInsertSql = "";//저장Sql
+		svcAddObj.sUpdateSql = "";//수정Sql
+		svcAddObj.sDeleteSql = "wf:M_WF_0500_M_DL10";//삭제Sql
+		svcAddObj.sSaveFlagColumn = "crudType";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+								 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+		
+		this.gfn_AddComSaveService(this, svcAddObj);
+		
+		//[공통]서비스정보 추가
+		svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sSelectSql = "wf:M_WF_1100_M_UP11";
+		this.gfn_AddComSearchService(this, svcAddObj);	
+		
+		//[공통]서비스 호출 변수
+		var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		//svcCallObj.sTrid = "WOFH_CANCEL";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+		svcCallObj.sTrid = "WOFH_CANCEL_UPT";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+		//svcCallObj.sActionName = this.G_SV_WF;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+		svcCallObj.sActionName = "";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+		svcCallObj.sInputDaset = "ds_WfCancel=ds_WfCancel ds_WfUpt=ds_WfUpt" //입력 데이터셋
+		svcCallObj.sOutDatset = "ds_Wfrt=ds_Wfrt";//출력 데이터셋
+		svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+		svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+		
+		//[공통]서비스 호출
+		this.gfn_CallComService(this, svcCallObj);		
+		
+	//결재취소구분-결재중지인경우
+	} else {
+		//[공통] 결재중지 Vaildation 체크
+		if (!this.fn_VaildWfCancel()) return;
+
+		//[결재중단] 시 결재상태 업데이트
+		var rtnValue = this.fn_WfApprStatusUpdate("0060");
+		
+		//처리실패시
+		if (!rtnValue) {
+			this.gfn_Alert("WF007");//결재상태 저장 시 오류가 발생했습니다.\nIT혁신팀에 문의하세요.		
+			return false;			
+		}
+		
+		this.fn_WfApprProc("0040");//결재처리-기각		
+	}
+};
+
+/***********************************************************************************************
+ * 06.01. 결재중지 유효성체크
+ ***********************************************************************************************/  
+this.fn_VaildWfCancel = function() {
+	
+	//첨언등록 여부 체크
+	if (this.gfn_IsNull(this.txt_MemoNm.value)) {
+		this.gfn_Alert("WF009");//첨언은 필수입력 항목입니다.
+		this.txt_MemoNm.setFocus();
+		return false;
+	}
+
+	return true;
+}
+
+/***********************************************************************************************
+ * 6.02. [사용자함수] 업무테이블의 결재 상태값 업데이트
+ ***********************************************************************************************/ 
+this.fn_WfApprStatusUpdate = function(statCode)
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_WfUpt.clearData();
+	this.ds_Wfrt.clearData();
+	
+	var sUPDT_NM = "";// 업데이트테이블명
+	var sUPDC_NM = "";//업데이트칼럼명
+	var sUPSC_NM = "";//업데이트상태칼럼명
+	var sWCTM_ID = "";//결재업무ID
+	
+	if (this.ds_Wctm.getRowCount() > 0) {
+		sUPDT_NM = this.ds_Wctm.getColumn(0, "UPDT_NM");// 업데이트테이블명
+		sUPDC_NM = this.ds_Wctm.getColumn(0, "UPDC_NM");//업데이트칼럼명
+		sUPSC_NM = this.ds_Wctm.getColumn(0, "UPSC_NM");//업데이트상태칼럼명
+		sWCTM_ID = this.ds_Wctm.getColumn(0, "WCTM_ID");//결재업무ID
+	}	
+
+	//[업무] 조건 입력
+	this.ds_WfUpt.addRow();
+	this.ds_WfUpt.setColumn(0, "WCTM_ID", sWCTM_ID);//결재업무ID
+	this.ds_WfUpt.setColumn(0, "UPDT_NM", sUPDT_NM);//업데이트테이블명
+	
+	this.ds_WfUpt.setColumn(0, "UPDC_NM", sUPDC_NM);//업데이트칼럼명
+	this.ds_WfUpt.setColumn(0, "UPSC_NM", sUPSC_NM);//업데이트상태칼럼명
+	this.ds_WfUpt.setColumn(0, "WOFH_ST", statCode);//결재상태(WF110)
+	this.ds_WfUpt.setColumn(0, "WOFH_NO", this.ds_Master10.getColumn(0, "WOFH_NO"));//결재PID
+	this.ds_WfUpt.setColumn(0, "SYST_ID", this.gfn_GetSessionValue("SYST_ID"));//결재자_시스템사번
+
+	//trace(this.ds_WfUpt.saveXML());
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "wf:M_WF_1100_M_UP11";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "WOFH_UPT_REQ";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= "";			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_WfUpt=ds_WfUpt" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "ds_Wfrt=ds_Wfrt";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+	svcCallObj.isSync = true;//동기식으로 설정할지 여부
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+	
+	//trace(this.ds_Wfrt.saveXML());//결재선정보 설정
+	
+	//결재상태업데이트 결과값 정보가 있으면
+	if (this.ds_Wfrt.getRowCount() > 0) {
+		return true;
+	} else {
+		return false;
+	}
+
+}
+
+/***********************************************************************************************
+ * 6.03. [사용자함수] 결재처리
+ ***********************************************************************************************/ 
+this.fn_WfApprProc = function(procCode)
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_WfProc.clearData();
+	
+	var sWFLO_CD  = "0010";//결재자위치(WF120) - 기안
+
+	//[업무] 조건 입력
+	this.ds_WfProc.addRow();
+	this.ds_WfProc.setColumn(0, "WOFH_NO", this.ds_Master10.getColumn(0, "WOFH_NO"));//결재PID
+	this.ds_WfProc.setColumn(0, "COMM_CD", this.gfn_GetSessionValue("COMM_CD"));//회사코드
+	this.ds_WfProc.setColumn(0, "SYST_ID", this.gfn_GetSessionValue("SYST_ID"));//결재자_시스템사번
+	this.ds_WfProc.setColumn(0, "AGSU_ID", "");//대행자_시스템사번
+	
+	this.ds_WfProc.setColumn(0, "WFLO_CD", sWFLO_CD);//결재자위치(WF120)
+	this.ds_WfProc.setColumn(0, "WFRE_CD", procCode);//결재결과(WF115)	
+	this.ds_WfProc.setColumn(0, "MEMO_NM", this.txt_MemoNm.value);//결재자_첨언
+	this.ds_WfProc.setColumn(0, "WOFH_IP", this.gfn_GetSessionValue("LOGN_IP"));//결재승인IP
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "wf:M_WF_1100_M_UP10";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "WOFH_PROC";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= "";			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_WfProc=ds_WfProc" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "ds_Wfrt=ds_Wfrt";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+}
+
+/***********************************************************************************************
+ * 7. [서비스] CallBack 함수 처리부분
+ ***********************************************************************************************/
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "WCTM_SEARCH": //결재환경설정관리조회		
+			if (this.ds_Wctm.getRowCount() > 0) {
+
+				//[부모창파라메타] 결재PID
+				if (this.gfn_IsNull(this.fvWofhNo)) {	
+					this.btn_WfRequest.set_enable(true);
+					this.chk_UrgeYn.set_visible(true);
+					this.chk_SmsnYn.set_visible(true);
+					this.chk_EmalYn.set_visible(true);
+					
+					//내부결재인경우 - 결재선 선택불가
+					if (this.fvInnrGb == "2") {
+						//this.div_Search.form.cbo_Usrm.set_enable(false);
+						this.div_Search.form.cbo_Usrm.set_enable(true);
+					} else {					
+						this.div_Search.form.cbo_Usrm.set_enable(true);
+					}
+					this.btn_AddRow.set_enable(true);
+					this.btn_DeleteRow.set_enable(true);
+					this.btn_Up.set_enable(true);
+					this.btn_Down.set_enable(true);
+					this.txt_MemoNm.set_readonly(false);
+					this.div_PopupTitle.form.btn_SignLine.set_visible(true);
+					this.fvGrdOndragYn = true;//그리드 Drag 사용여부
+					this.fn_SearchUsrm();//결재라인정보 조회
+				} else {				
+					this.btn_WfCancel.set_visible(true);
+					this.btn_WfCancel.set_enable(true);
+					
+					this.fn_SearchWofb();//결재상세 정보조회 - 결재라인
+				}
+			} else {
+				//결재정보가 존재하지 않습니다.		
+				this.gfn_Alert("WF004");
+			}
+			break;			
+		case "USRM_SEARCH": //결재라인정보 조회	
+			this.ds_Usrm.addColumn("DEPM_CD", "string");
+			
+			//내부결재가 아닌경우
+			if (this.fvInnrGb != "2") {
+				this.fn_SetUsrm();//결재선정보 설정
+			} else {
+				/*
+				this.ds_Master10.clearData();
+				this.ds_Master10.copyData(this.ds_Empm);
+				this.ds_Master10.addColumn("s_chk", "string");
+				
+				this.fn_SetUsrdSe(this.ds_Master10);//결재순서 설정
+				*/
+				this.fn_SetUsrmInner();
+			}
+			break;		
+			
+		case "USRD_SEARCH_EMAD": //결재라인정보 조회	- 겸직부서
+
+			//전결규정설정 정보가 있으면 - 자동 결재선정보
+			if (this.ds_WcadEmad.getRowCount() > 0) {
+				this.ds_WcadEmad.insertRow(0);
+			} else {
+				this.ds_WcadEmad.addRow();
+			}
+			
+			this.ds_WcadEmad.copyRow(0, this.ds_Empm, 0);//기안자정보 추가		
+			
+			//결재환경설정(결재라인) 정보가 있으면
+			if (this.ds_Wcld.getRowCount() > 0) {
+				var sWFCR_CD = "";//결재생성위치
+				var sWFGU_CD = "";//결재구분
+				var sSYST_ID = "";//시스템사용자
+				var iInsertRow = 0;//행삽입
+				var iAddRow = 0;//행추가
+			
+				for (var iLoop=0; iLoop < this.ds_Wcld.getRowCount(); iLoop++) {
+					sWFCR_CD = this.ds_Wcld.getColumn(iLoop, "WFCR_CD");//결재생성위치
+					sWFGU_CD = this.ds_Wcld.getColumn(iLoop, "WFGU_CD");//결재구분
+					sSYST_ID = this.ds_Wcld.getColumn(iLoop, "SYST_ID");//시스템사용자
+					
+					if (this.ds_WcadEmad.getCaseCount("WFGU_CD == '" + sWFGU_CD + "' && SYST_ID == '" + sSYST_ID + "'") < 1) {
+						//결재구분이 접수일때 접수자가 기안자와 같은사람이 있는지 체크
+						if (sWFGU_CD == "0030") {
+							if (this.ds_WcadEmad.getCaseCount("WFGU_CD == '0060' && SYST_ID == '" + sSYST_ID + "'") < 1) {
+								//자동생성결재선-앞
+								if (sWFCR_CD == "0010") {		
+									iInsertRow++;//행삽입
+									this.ds_WcadEmad.insertRow(iInsertRow);
+									this.ds_WcadEmad.copyRow(iInsertRow, this.ds_Wcld, iLoop);						
+								} else {
+									iAddRow = this.ds_WcadEmad.addRow();
+									this.ds_WcadEmad.copyRow(iAddRow, this.ds_Wcld, iLoop);	
+								}							
+							}
+						} else {
+							//자동생성결재선-앞
+							if (sWFCR_CD == "0010") {		
+								iInsertRow++;//행삽입
+								this.ds_WcadEmad.insertRow(iInsertRow);
+								this.ds_WcadEmad.copyRow(iInsertRow, this.ds_Wcld, iLoop);						
+							} else {
+								iAddRow = this.ds_WcadEmad.addRow();
+								this.ds_WcadEmad.copyRow(iAddRow, this.ds_Wcld, iLoop);	
+							}
+						}
+					}
+				}
+				
+			}				
+			
+			this.ds_Master10.clearData();//사용자별결재라인지정관리(상세) 정보	
+			this.ds_Master10.copyData(this.ds_WcadEmad);			
+
+			this.ds_Master10.addColumn("s_chk", "string");
+			this.fn_SetUsrdSe(this.ds_Master10);//결재순서 설정			
+			
+			break;				
+
+		case "WOFH_UPT": //결재업무 DB 업데이트
+			//trace(this.ds_Wfrt.saveXML());//결재선정보 설정
+			//return;
+			if (this.ds_Wfrt.getRowCount() > 0 && this.ds_Wfrt.getColumn(0, "O_RET_CODE") == "FALSE") {
+				//trace(this.ds_Wfrt.getColumn(0, "O_RET_CMSG"));
+				var arrMsgArg = [this.ds_Wfrt.getColumn(0, "O_RET_CMSG")];
+				//this.gfn_Alert("WF018", arrMsgArg);//결재처리중 오류가 발생하였습니다.\n&ITM0				
+				this.gfn_Alert("WF018", arrMsgArg, "WOFH_REQ_FAIL", "fn_PopupCallback");//결재처리중 오류가 발생하였습니다.\n&ITM0           
+			} else {	
+				var oArg = {};
+				this.gfn_Alert("WF003", oArg, "WOFH_REQ", "fn_PopupCallback");//결재요청 되었습니다.	
+			}
+			
+			//다음결재자에게 SMS/이메일 전송으로 체크된경우
+			if (this.chk_SmsnYn.value == "1" || this.chk_EmalYn.value == "1") {
+				//this.fn_SearchSendInfo(this.fvWofhNo);//메시지 전송대상 체크
+			}
+			
+			break;
+			
+		case "DELETE_WOFH_NO":
+			trace("DELETE_WOFH_NO");
+			//this.fvSchKeyYn = true;//저장후 재조회여부
+			//this.fn_ComBtnSearch();//저장후 재조회
+		break;
+			
+		case "USRD_SEARCH": //사용자별결재라인지정관리(상세) 정보 조회	
+			this.fn_SetUsrd(this.ds_Usrd, "COMBO");//결재선정보 설정 - 사용자별결재라인지정관리(상세)
+			break;		
+			
+		case "WOFB_SEARCH": //결재취소시 결재라인 정보 조회	
+
+			if (this.ds_Master10.getRowCount() > 0) {
+				if (!this.gfn_IsNull(this.ds_Master10.getColumn(0, "MEMO_NM"))) {
+					//this.txt_MemoNm.set_value(this.ds_Master10.getColumn(0, "MEMO_NM"));
+				}
+				
+				//기안자와 로그인사용자가 같은지 체크
+				var sWFST_ID = this.ds_Master10.getColumn(0, "WFST_ID");//기안자
+				var sSYST_ID = this.gfn_GetSessionValue("SYST_ID");//로그인 사용자
+				
+				if (sWFST_ID != sSYST_ID) {
+					var oArg = {};
+					this.gfn_Alert("WF026", oArg, "WOFH_WFST_ID", "fn_PopupCallback");//기안자만 결재취소 처리할 수 있습니다.			
+				} else {
+					var sWOFH_ST = this.ds_Master10.getColumn(0, "WOFH_ST");//결재상태
+					
+					//결재상태-신청
+					if (sWOFH_ST == "0020") {
+						this.fvWfCancelDst = "C";//결재취소구분:S-결재중단,C-결재취소
+					} else {
+						this.fvWfCancelDst = "S";//결재취소구분:S-결재중단,C-결재취소
+						this.btn_WfCancel.set_text("결재중단");
+						this.txt_MemoNm.set_readonly(false);
+					}
+				}
+			}
+			break;	
+		case "WOFH_CANCEL": //결재취소
+			this.fn_WfCancelBizUpdate();//결재취소-업무테이블 상태컬럼 업데이트 처리
+			break;				
+		case "WOFH_CANCEL_UPT": //결재취소-업무테이블 상태컬럼 업데이트
+			//trace(this.ds_Wfrt.saveXML());//결재선정보 설정
+			
+			if (this.ds_Wfrt.getRowCount() > 0 && this.ds_Wfrt.getColumn(0, "O_RET_CODE") == "FALSE") {
+				var arrMsgArg = [this.ds_Wfrt.getColumn(0, "O_RET_CMSG")];
+				this.gfn_Alert("WF018", arrMsgArg);//결재처리중 오류가 발생하였습니다.\n&ITM0				
+			} else {			
+				var oArg = {};
+				this.gfn_Alert("WF005", oArg, "WOFH_CANCEL", "fn_PopupCallback");//결재취소 되었습니다.
+			}
+			break;	
+			
+		case "WOFH_PROC": //결재처리
+			if (this.ds_Wfrt.getRowCount() > 0) {
+				//trace(this.ds_Wfrt.saveXML());//결재선정보 설정
+				if (this.ds_Wfrt.getRowCount() > 0 && this.ds_Wfrt.getColumn(0, "O_RET_CODE") == "FALSE") {
+					var arrMsgArg = [this.ds_Wfrt.getColumn(0, "O_RET_CMSG")];
+					this.gfn_Alert("WF018", arrMsgArg);//결재처리중 오류가 발생하였습니다.\n&ITM0				
+				} else {
+					var oArg = {};
+					this.gfn_Alert("WF027", oArg, "WOFH_STOP", "fn_PopupCallback");//결재중단 처리 되었습니다.
+				}
+			} else {
+				//결재처리중 오류가 발생하였습니다.
+				var arrMsgArg = [""];
+				this.gfn_Alert("WF018", arrMsgArg);//결재처리중 오류가 발생하였습니다.\n&ITM0		
+			}
+
+			break;	
+			
+		case "SEND_USER": //메세지 수신자 정보 조회
+			//메세지 전송정보가 있으면
+			if (this.ds_SendUser.getRowCount() > 0) {
+				this.fn_SendMsg();//메시지 전송
+			}
+			break;			
+		case "SEARCH_ALARMMSG": //알림 정보 조회
+			//메세지 전송정보가 있으면
+			if (this.ds_SendAlarm.getRowCount() > 0) {
+				this.fn_SendAlarmMsg();//알림메시지 전송
+			} else {
+				this.fn_WfReturn("REQ");//결재처리 리턴값
+			}
+			break;			
+	}
+};
+
+/***********************************************************************************************
+ * 8. [팝업] CallBack 함수 처리부분
+      strId : 팝업호출시 지정한 팝업ID
+	  rtnValue : 팝업창에서 close시 지정한 반환값
+      주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+	if (strId == "WOFH_REQ") {
+		//this.fn_WfReturn("REQ");//결재처리 리턴값
+		this.fn_GetAlarmMsg();//알림메세지 정보 조회
+	} else if (strId == "WOFH_CANCEL") {
+		this.fn_WfReturn("CANCEL");//결재처리 리턴값
+	} else if (strId == "WOFH_STOP") {
+		this.fn_WfReturn("WOFH_STOP");//결재처리 리턴값-결재중단				
+	} else if (strId == "WOFH_WFST_ID") {
+		this.fn_WfReturn("WOFH_WFST_ID");//기안자여부 체크		
+	//결재선관리
+	} else if (strId == "M_WF_0400_01") {		
+		this.fn_SearchUsrm();//결재라인정보 조회
+	} else if (strId == "M_WF_0400_02") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			this.ds_Detail10.clearData();
+			this.ds_Detail10.loadXML(rtnValue);
+			if (this.ds_Detail10.getRowCount() > 0) {
+				this.fn_SetUsrd(this.ds_Detail10, "");//기본결재라인에 추가
+			}
+			//trace(this.ds_Detail10.saveXML()); 
+		}
+	} else if (strId == "WOFH_REQ_FAIL") { // 프로시저 오류시 결재 테이블 삭제(업데이트) 처리
+		trace("this.fvRtnWofhNo ---------------> " + this.fvRtnWofhNo);
+		trace("this.fvPrgmId ---------------> " + this.fvPrgmId);
+		this.WfRequest_Error();
+		//this.gfn_PopClose();
+	}
+};
+
+/***********************************************************************************************
+ * 9. [메세지] CallBack 함수 처리부분
+ ***********************************************************************************************/
+/**
+ * @description 메세지 CallBack 함수
+*/
+this.fn_MsgCallback = function (strId, strVal)
+{
+
+};
+
+/***********************************************************************************************
+ * 10. [사용자함수]
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.1. [사용자함수] 결재환경설정관리 조회
+ ***********************************************************************************************/ 
+this.fn_SearchWctm = function()
+{ 
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+	this.ds_Wctm.clearData();//결재환경설정관리 정보	
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "WCTM_ID", this.fvWctmId);//결재업무ID
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "wf:M_WF_0500_M_SL10";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "WCTM_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= this.G_SV_WF;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "ds_Wctm=ds_Wctm";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+} 
+
+/***********************************************************************************************
+ * 10.2. [사용자함수] 결재라인정보 조회
+ ***********************************************************************************************/ 
+this.fn_SearchUsrm = function()
+{ 
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+	this.ds_Wcad.clearData();//결재환경설정(전결규정) 정보	
+	this.ds_Wcld.clearData();//결재환경설정(결재라인) 정보
+	this.ds_Usrm.clearData();//사용자별결재라인지정관리 정보	
+	this.ds_Empm.clearData();//기안자정보 
+	this.ds_BizWfUser.clearData();//업무결재자정보
+	this.ds_Emad.clearData();//겸직부서정보
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "WCTM_ID", this.fvWctmId);//결재업무ID
+	this.ds_Input.setColumn(0, "DEPM_CD", this.gfn_GetSessionValue("DEPM_CD"));//조직코드
+	this.ds_Input.setColumn(0, "SYST_ID", this.fvSystId);//시스템사용자ID
+	if (!this.gfn_IsNull(this.fvWfamAmtr) && this.fvWfamAmtr != "0") {
+		this.ds_Input.setColumn(0, "WCAD_AM", this.fvWfamAmtr);//전결금액
+	} else {
+		this.ds_Input.setColumn(0, "WCAD_AM", "100");//전결금액이 없는 화면은 100을 고정해서 체크함
+	}
+
+	this.ds_Input.setColumn(0, "INNR_GB", this.fvInnrGb);//내부결재구분(1:신규, 2:내부)
+		
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+		
+	var sESSE_CD = this.ds_Wctm.getColumn(0, "ESSE_CD");//결재라인설정(WF130)-0020:자동생성
+	var sWFAB_YN = this.ds_Wctm.getColumn(0, "WFAB_YN");//전결규정설정
+	var sDIUS_YN = this.ds_Wctm.getColumn(0, "DIUS_YN");//직송사용여부
+	var sOutDs = "ds_Empm=ds_Empm ds_Wcld=ds_Wcld ds_Usrm=ds_Usrm ds_Emad=ds_Emad";//출력데이터셋
+	
+	//[공통]서비스정보 추가 - 기안자 정보
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "wf:M_WF_0500_M_SL15";
+	this.gfn_AddComSearchService(this, svcAddObj);	
+	
+	//[공통]서비스정보 추가 - 결재환경설정(결재라인) 정보
+	svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "wf:M_WF_0500_M_SL12";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스정보 추가 - 사용자별결재라인지정관리(상세) 정보
+	svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "wf:M_WF_0500_M_SL13";
+	this.gfn_AddComSearchService(this, svcAddObj);	
+	
+	//[공통]서비스정보 추가 - 겸직부서정보 정보
+	svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "wf:M_WF_0500_M_SL21";
+	this.gfn_AddComSearchService(this, svcAddObj);		
+	
+	//업무결재자 정보가 있으면
+	if (!this.gfn_IsNull(this.fvWfUser)) {
+		var sSYST_IDS = "";//업무결재자 정보
+		
+		var arrWfUsers = this.fvWfUser.split("ⓐ");
+		var arrUser;
+		
+		if (arrWfUsers.length > 0) {
+			for (var iLoop=0; iLoop <arrWfUsers.length; iLoop++) {
+				arrUser = arrWfUsers[iLoop].split(";");
+				if (arrUser.length > 0) {
+					if (this.gfn_IsNull(sSYST_IDS)) {
+						sSYST_IDS = "'" + arrUser[1] + "'";
+					} else {
+						sSYST_IDS += ",'" + arrUser[1] + "'";
+					}
+				}
+			}
+		}		
+		
+		this.ds_Input.setColumn(0, "SYST_IDS", sSYST_IDS);//업무결재자 정보
+		//[공통]서비스정보 추가 - 업무결재자정보
+		svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sSelectSql = "wf:M_WF_0500_M_SL20";
+		this.gfn_AddComSearchService(this, svcAddObj);	
+		
+		sOutDs = sOutDs + " ds_BizWfUser=ds_BizWfUser";
+	}
+
+	
+	//전결규정설정-사용
+	if (sWFAB_YN == "1") {
+		//[공통]서비스정보 추가 - 결재환경설정(전결규정) 정보
+		svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sSelectSql = "wf:M_WF_0500_M_SL11";
+		this.gfn_AddComSearchService(this, svcAddObj);
+		sOutDs = sOutDs + " ds_Wcad=ds_Wcad";
+	}
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "USRM_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= this.G_SV_WF;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= sOutDs;//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+}  
+
+/***********************************************************************************************
+ * 10.3. [사용자함수] 결재선정보 설정
+ ***********************************************************************************************/ 
+this.fn_SetUsrm = function()
+{ 
+	var sWFAB_YN = this.ds_Wctm.getColumn(0, "WFAB_YN");//전결규정설정
+	var sDIUS_YN = this.ds_Wctm.getColumn(0, "DIUS_YN");//직송사용여부	
+	
+	//전결규정설정-자동생성인경우
+	if (sWFAB_YN == "1") {
+		this.ds_Usrm.insertRow(0);
+		this.ds_Usrm.setColumn(0, "USRM_NO", "A");//결재라인번호
+		this.ds_Usrm.setColumn(0, "USRM_NM", "자동결재선");//결재라인명
+	}
+	
+	//겸직부서정보가 있으면
+	if (this.ds_Emad.getRowCount() > 0) {
+		var sDEPM_CD = "";//부서코드
+		var sDEPM_NM = "";//부서명
+		
+		for (var iLoop=0; iLoop<this.ds_Emad.getRowCount(); iLoop++) {
+			sDEPM_CD = this.ds_Emad.getColumn(iLoop, "DEPM_CD");//부서코드
+			sDEPM_NM = this.ds_Emad.getColumn(iLoop, "DEPM_NM");//부서명
+			
+			//전결규정설정-자동생성인경우
+			if (sWFAB_YN == "1") {
+				this.ds_Usrm.insertRow(1);
+				this.ds_Usrm.setColumn(1, "USRM_NO", "B");//결재라인번호
+				this.ds_Usrm.setColumn(1, "USRM_NM", "자동결재선[겸직-" + sDEPM_NM+"]");//결재라인명	
+				this.ds_Usrm.setColumn(1, "DEPM_CD", sDEPM_CD);//부서코드			
+			} else {
+				this.ds_Usrm.insertRow(0);
+				this.ds_Usrm.setColumn(0, "USRM_NO", "B");//결재라인번호
+				this.ds_Usrm.setColumn(0, "USRM_NM", "자동결재선[겸직-" + sDEPM_NM+"]");//결재라인명	
+				this.ds_Usrm.setColumn(0, "DEPM_CD", sDEPM_CD);//부서코드
+			}
+		}
+	}	
+	
+	//직송사용여부
+	if (sDIUS_YN == "1") {
+		var iAddRow = this.ds_Usrm.addRow();
+		this.ds_Usrm.setColumn(iAddRow, "USRM_NO", "D");//결재라인번호
+		this.ds_Usrm.setColumn(iAddRow, "USRM_NM", "직송");//결재라인명	
+	}
+	
+	this.ds_Master10.clearData();//사용자별결재라인지정관리(상세) 정보		
+	
+	//전결규정설정 정보가 있으면 - 자동 결재선정보
+	if (this.ds_Wcad.getRowCount() > 0) {
+		this.ds_Wcad.insertRow(0);
+	} else {
+		this.ds_Wcad.addRow();
+	}
+	
+	this.ds_Wcad.copyRow(0, this.ds_Empm, 0);		
+	
+	//결재환경설정(결재라인) 정보가 있으면
+	if (this.ds_Wcld.getRowCount() > 0) {
+		var sWFCR_CD = "";//결재생성위치
+		var sWFGU_CD = "";//결재구분
+		var sSYST_ID = "";//시스템사용자
+		var iInsertRow = 0;//행삽입
+		var iAddRow = 0;//행추가
+	
+		for (var iLoop=0; iLoop < this.ds_Wcld.getRowCount(); iLoop++) {
+			sWFCR_CD = this.ds_Wcld.getColumn(iLoop, "WFCR_CD");//결재생성위치
+			sWFGU_CD = this.ds_Wcld.getColumn(iLoop, "WFGU_CD");//결재구분
+			sSYST_ID = this.ds_Wcld.getColumn(iLoop, "SYST_ID");//시스템사용자
+			
+			if (this.ds_Wcad.getCaseCount("WFGU_CD == '" + sWFGU_CD + "' && SYST_ID == '" + sSYST_ID + "'") < 1 ) {
+
+				//결재구분이 접수일때 접수자가 기안자와 같은사람이 있는지 체크
+				if (sWFGU_CD == "0030") {
+					if (this.ds_Wcad.getCaseCount("WFGU_CD == '0060' && SYST_ID == '" + sSYST_ID + "'") < 1 ) {
+						//자동생성결재선-앞
+						if (sWFCR_CD == "0010") {		
+							iInsertRow++;//행삽입
+							this.ds_Wcad.insertRow(iInsertRow);
+							this.ds_Wcad.copyRow(iInsertRow, this.ds_Wcld, iLoop);						
+						} else {
+							iAddRow = this.ds_Wcad.addRow();
+							this.ds_Wcad.copyRow(iAddRow, this.ds_Wcld, iLoop);	
+						}					
+					}
+				} else {
+					//자동생성결재선-앞
+					if (sWFCR_CD == "0010") {		
+						iInsertRow++;//행삽입
+						this.ds_Wcad.insertRow(iInsertRow);
+						this.ds_Wcad.copyRow(iInsertRow, this.ds_Wcld, iLoop);						
+					} else {
+						iAddRow = this.ds_Wcad.addRow();
+						this.ds_Wcad.copyRow(iAddRow, this.ds_Wcld, iLoop);	
+					}
+				}
+			}
+		}
+		
+	}								
+	
+	//업무결재자 정보가 있으면-업무화면에서 파라메타로 넘긴 데이터
+	if (this.ds_BizWfUser.getRowCount() > 0) {
+		this.ds_BizWfUser.addColumn("SORT_NO","INT");//정렬번호
+
+		if (!this.gfn_IsNull(this.fvWfUser)) {
+			var sSYST_IDS = "";//업무결재자 정보
+			var sWFGU_CD = ""//결재구분
+			
+			var arrWfUsers = this.fvWfUser.split("ⓐ");
+			var arrUser;
+			var iFindWfcuCdRow = 0;
+			
+			if (arrWfUsers.length > 0) {
+				for (var iLoop=0; iLoop <arrWfUsers.length; iLoop++) {
+					arrUser = arrWfUsers[iLoop].split(";");
+					if (arrUser.length > 0) {
+						sWFGU_CD = arrUser[0];
+						sSYST_IDS = arrUser[1];
+						if (!this.gfn_IsNull(sWFGU_CD)) {
+
+							iFindWfcuCdRow = this.ds_BizWfUser.findRowExpr("SYST_ID == '" + sSYST_IDS + "' && SORT_NO == undefined");
+							
+							if (iFindWfcuCdRow > -1) {
+								this.ds_BizWfUser.setColumn(iFindWfcuCdRow, "WFGU_CD", sWFGU_CD);
+								this.ds_BizWfUser.setColumn(iFindWfcuCdRow, "SORT_NO", (iLoop+1));
+							}								
+						}
+					}
+				}
+			}
+			this.ds_BizWfUser.set_keystring("S:SORT_NO");//정렬
+			
+		}		
+	
+		for (var iLoop=0; iLoop<this.ds_BizWfUser.getRowCount(); iLoop++) {
+
+			sWFGU_CD = this.ds_BizWfUser.getColumn(iLoop, "WFGU_CD");//결재구분
+			sSYST_ID = this.ds_BizWfUser.getColumn(iLoop, "SYST_ID");//시스템사용자
+			
+			if (this.ds_Wcad.getCaseCount("WFGU_CD == '" + sWFGU_CD + "' && SYST_ID == '" + sSYST_ID + "'") < 1 ) {
+
+				//결재구분이 접수일때 접수자가 기안자와 같은사람이 있는지 체크
+				if (sWFGU_CD == "0030") {
+					if (this.ds_Wcad.getCaseCount("WFGU_CD == '0060' && SYST_ID == '" + sSYST_ID + "'") < 1 ) {		
+						var iAddRow = this.ds_Wcad.addRow();
+						this.ds_Wcad.copyRow(iAddRow, this.ds_BizWfUser, iLoop);
+					}
+				} else {
+					var iAddRow = this.ds_Wcad.addRow();
+					this.ds_Wcad.copyRow(iAddRow, this.ds_BizWfUser, iLoop);				
+				}
+			} else {
+				if (this.ds_Wcad.getCaseCount("WFGU_CD == '0060' && SYST_ID == '" + sSYST_ID + "'") < 1 ) {		
+					var iAddRow = this.ds_Wcad.addRow();
+					this.ds_Wcad.copyRow(iAddRow, this.ds_BizWfUser, iLoop);
+				}			
+			}
+		}
+	}
+	
+	this.ds_Master10.copyData(this.ds_Wcad);
+	this.ds_Master10.addColumn("s_chk", "string");
+	
+	this.fn_SetUsrdSe(this.ds_Master10);//결재순서 설정
+	
+	//콤보 인덱스 설정
+	this.div_Search.form.cbo_Usrm.set_index(0);
+
+}
+
+/***********************************************************************************************
+ * 10.3.2 [사용자함수] 결재선정보 설정 - 내부결재용
+ ***********************************************************************************************/ 
+this.fn_SetUsrmInner = function()
+{ 
+
+	this.ds_Master10.clearData();//사용자별결재라인지정관리(상세) 정보		
+	
+	/*
+	//전결규정설정 정보가 있으면 - 자동 결재선정보
+	if (this.ds_Wcad.getRowCount() > 0) {
+		this.ds_Wcad.insertRow(0);
+	} else {
+		this.ds_Wcad.addRow();
+	}
+	*/
+	this.ds_Wcad.clearData();
+	this.ds_Wcad.addRow();
+	
+	this.ds_Wcad.copyRow(0, this.ds_Empm, 0);		
+	
+	//결재환경설정(결재라인) 정보가 있으면
+	if (this.ds_Wcld.getRowCount() > 0) {
+		var sWFCR_CD = "";//결재생성위치
+		var sWFGU_CD = "";//결재구분
+		var sSYST_ID = "";//시스템사용자
+		var iInsertRow = 0;//행삽입
+		var iAddRow = 0;//행추가
+	
+		for (var iLoop=0; iLoop < this.ds_Wcld.getRowCount(); iLoop++) {
+			sWFCR_CD = this.ds_Wcld.getColumn(iLoop, "WFCR_CD");//결재생성위치
+			sWFGU_CD = this.ds_Wcld.getColumn(iLoop, "WFGU_CD");//결재구분
+			sSYST_ID = this.ds_Wcld.getColumn(iLoop, "SYST_ID");//시스템사용자
+			
+			if (this.ds_Wcad.getCaseCount("WFGU_CD == '" + sWFGU_CD + "' && SYST_ID == '" + sSYST_ID + "'") < 1 ) {
+
+				//결재구분이 접수일때 접수자가 기안자와 같은사람이 있는지 체크
+				if (sWFGU_CD == "0030") {
+					if (this.ds_Wcad.getCaseCount("WFGU_CD == '0060' && SYST_ID == '" + sSYST_ID + "'") < 1 ) {
+						//자동생성결재선-앞
+						if (sWFCR_CD == "0010") {		
+							iInsertRow++;//행삽입
+							this.ds_Wcad.insertRow(iInsertRow);
+							this.ds_Wcad.copyRow(iInsertRow, this.ds_Wcld, iLoop);						
+						} else {
+							iAddRow = this.ds_Wcad.addRow();
+							this.ds_Wcad.copyRow(iAddRow, this.ds_Wcld, iLoop);	
+						}					
+					}
+				} else {
+					//자동생성결재선-앞
+					if (sWFCR_CD == "0010") {		
+						iInsertRow++;//행삽입
+						this.ds_Wcad.insertRow(iInsertRow);
+						this.ds_Wcad.copyRow(iInsertRow, this.ds_Wcld, iLoop);						
+					} else {
+						iAddRow = this.ds_Wcad.addRow();
+						this.ds_Wcad.copyRow(iAddRow, this.ds_Wcld, iLoop);	
+					}
+				}
+			}
+		}
+		
+	}								
+	
+	this.ds_Master10.copyData(this.ds_Wcad);
+	this.ds_Master10.addColumn("s_chk", "string");
+	
+	this.fn_SetUsrdSe(this.ds_Master10);//결재순서 설정
+	
+	//콤보 인덱스 설정
+	//this.div_Search.form.cbo_Usrm.set_index(0);
+	this.ds_Usrm.set_rowposition(0);
+}
+
+/***********************************************************************************************
+ * 10.4. [사용자함수] 결재선정보 설정 - 사용자별결재라인지정관리(상세)
+ ***********************************************************************************************/ 
+this.fn_SetUsrd = function(dsObj, sDst)
+{ 	
+	//전결규정설정 정보가 있으면 - 결재선정보
+	if (dsObj.getRowCount() > 0) {
+		
+		//결재선 선택시
+		if (sDst == "COMBO") {
+			this.ds_Master10.clearData();//사용자별결재라인지정관리(상세) 정보	
+			this.ds_Master10.copyData(this.ds_Wcad);//자동생성결재선 복사
+		}
+		
+		var sWFCR_CD = "";//결재생성위치
+		var sWFGU_CD = "";//결재구분
+		var sSYST_ID = "";//시스템사용자
+		var iInsertRow = 0;//행삽입
+		var iAddRow = 0;//행추가
+		var iInsertRowWfguCd = 0;//행삽입-접수
+		
+		//자동결재선 접수자 위치 찾기
+		var iFindRow = this.ds_Master10.findRow("WFGU_CD", "0030");//결재구분-접수
+		if (iFindRow > -1) {
+			iInsertRowWfguCd = iFindRow;//행삽입-접수
+		}
+
+		for (var iLoop=0; iLoop < dsObj.getRowCount(); iLoop++) {
+			sWFCR_CD = dsObj.getColumn(iLoop, "WFCR_CD");//결재생성위치
+			sWFGU_CD = dsObj.getColumn(iLoop, "WFGU_CD");//결재구분
+			sSYST_ID = dsObj.getColumn(iLoop, "SYST_ID");//시스템사용자
+			
+			//trace(sWFGU_CD + "/" + sSYST_ID + "/" + this.ds_Master10.getCaseCount("WFGU_CD == '" + sWFGU_CD + "' && SYST_ID == '" + sSYST_ID + "'"));
+			
+			if (this.ds_Master10.getCaseCount("WFGU_CD == '" + sWFGU_CD + "' && SYST_ID == '" + sSYST_ID + "'") < 1) {
+				//결재구분이 접수일때 접수자가 기안자와 같은사람이 있는지 체크
+				if (sWFGU_CD == "0030") {
+					if (this.ds_Master10.getCaseCount("WFGU_CD == '0060' && SYST_ID == '" + sSYST_ID + "'") < 1) {
+						//자동생성결재선-앞
+						if (sWFCR_CD == "0010") {
+						
+							//결재선정보가 없는 경우
+							if (this.ds_Master10.getRowCount() == 0) {
+								this.ds_Master10.insertRow(iInsertRow);
+								this.ds_Master10.copyRow(iInsertRow, dsObj, iLoop);	
+							} else {
+								iInsertRow++;//행삽입
+								this.ds_Master10.insertRow(iInsertRow);
+								this.ds_Master10.copyRow(iInsertRow, dsObj, iLoop);	
+							}
+						} else {
+							if (iFindRow > -1) {
+								iInsertRowWfguCd++;				
+								this.ds_Master10.insertRow(iInsertRowWfguCd);
+								this.ds_Master10.copyRow(iInsertRowWfguCd, dsObj, iLoop);	
+							} else {
+								iAddRow = this.ds_Master10.addRow();
+								this.ds_Master10.copyRow(iAddRow, dsObj, iLoop);					
+							}
+						}					
+					}
+				} else {
+					//자동생성결재선-앞
+					if (sWFCR_CD == "0010") {
+					
+						//결재선정보가 없는 경우
+						if (this.ds_Master10.getRowCount() == 0) {
+							this.ds_Master10.insertRow(iInsertRow);
+							this.ds_Master10.copyRow(iInsertRow, dsObj, iLoop);	
+						} else {
+							iInsertRow++;//행삽입
+							this.ds_Master10.insertRow(iInsertRow);
+							this.ds_Master10.copyRow(iInsertRow, dsObj, iLoop);	
+						}
+					} else {
+						if (iFindRow > -1) {
+							iInsertRowWfguCd++;				
+							this.ds_Master10.insertRow(iInsertRowWfguCd);
+							this.ds_Master10.copyRow(iInsertRowWfguCd, dsObj, iLoop);	
+						} else {
+							iAddRow = this.ds_Master10.addRow();
+							this.ds_Master10.copyRow(iAddRow, dsObj, iLoop);					
+						}
+					}
+				}
+			}
+		}
+		
+		this.ds_Master10.addColumn("s_chk", "string");
+		this.fn_SetUsrdSe(this.ds_Master10);//결재순서 설정
+		
+	}
+
+}
+
+/***********************************************************************************************
+ * 10.5. [사용자함수] 결재순서 설정
+ ***********************************************************************************************/ 
+this.fn_SetUsrdSe= function(objDs)
+{ 		
+	this.ds_Master10Tmp.clearData();
+	
+	if (objDs.getRowCount() > 0) {
+		
+		var sWFGU_CD = "";//결재구분
+		var iRowPos = -1;//접수Row
+		var iLastRow = objDs.getRowCount() - 1;
+		var iAddRow = 0;
+		for (var iLoop=0; iLoop < objDs.getRowCount(); iLoop++) {
+			sWFGU_CD = objDs.getColumn(iLoop, "WFGU_CD");//결재구분
+		
+			//결재구분-접수인경우
+			if (sWFGU_CD == "0030") {
+				
+				//objDs.moveRow(iLoop,iLastRow);
+				iAddRow = this.ds_Master10Tmp.addRow();
+				this.ds_Master10Tmp.copyRow(iAddRow, objDs,iLoop);				
+			}
+		}		
+		
+		if (this.ds_Master10Tmp.getRowCount() > 0) {
+			var iFindRow = 0;			
+			var sSYST_ID = "";
+			var sWFGU_CD = "";//결재구분
+			
+			for (var iLoop=this.ds_Master10Tmp.getRowCount(); iLoop >=0; iLoop--) {
+				sSYST_ID = this.ds_Master10Tmp.getColumn(iLoop, "SYST_ID");
+				sWFGU_CD = this.ds_Master10Tmp.getColumn(iLoop, "WFGU_CD");//결재구분
+				iFindRow = objDs.findRowExpr("SYST_ID == '" + sSYST_ID + "' && WFGU_CD == '" + sWFGU_CD + "'");
+				
+				if (iFindRow > -1) {
+					objDs.deleteRow(iFindRow);
+				}
+			}
+			
+			for (var iLoop=0; iLoop < this.ds_Master10Tmp.getRowCount(); iLoop++) {
+
+				iAddRow = this.ds_Master10.addRow();
+				this.ds_Master10.copyRow(iAddRow, this.ds_Master10Tmp,iLoop);				
+
+			}			
+		}
+				
+		for (var iLoop=0; iLoop < objDs.getRowCount(); iLoop++) {
+			sWFGU_CD = objDs.getColumn(iLoop, "WFGU_CD");//결재구분
+		
+			//결재구분-접수인경우
+			if (sWFGU_CD == "0030") {
+				if (iRowPos < 0) {
+					iRowPos = (iLoop + 1);
+				}
+				
+				objDs.setColumn(iLoop, "USRD_SE", iRowPos);
+			} else {
+				objDs.setColumn(iLoop, "USRD_SE", (iLoop + 1));
+			}
+		}
+	}
+
+	//내부결재이면서 기안자와 결재자 정보가 같은 내용이 있으면 삭제처리
+	if (this.fvInnrGb) {
+		var sSYST_ID = objDs.getColumn(0, "SYST_ID");//기안자 ID
+		var iFindRow = objDs.findRowExpr("(SYST_ID == '" + sSYST_ID + "' && WFGU_CD == '0010') || (SYST_ID == '" + sSYST_ID + "' && WFGU_CD == '0020') || (SYST_ID == '" + sSYST_ID + "' && WFGU_CD == '0070')");
+		if (iFindRow > 0) {
+			objDs.deleteRow(iFindRow);
+			
+			for (var iLoop=0; iLoop < objDs.getRowCount(); iLoop++) {
+				sWFGU_CD = objDs.getColumn(iLoop, "WFGU_CD");//결재구분
+			
+				//결재구분-접수인경우
+				if (sWFGU_CD == "0030") {
+					if (iRowPos < 0) {
+						iRowPos = (iLoop + 1);
+					}
+					
+					objDs.setColumn(iLoop, "USRD_SE", iRowPos);
+				} else {
+					objDs.setColumn(iLoop, "USRD_SE", (iLoop + 1));
+				}
+			}			
+		}
+	}
+
+}
+
+/***********************************************************************************************
+ * 10.5. [사용자함수] 결재순서 설정
+ ***********************************************************************************************/ 
+this.div_PopupTitle_btn_SignLine_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupTitle = "결재라인지정"; //Popup화면 타이틀
+	var sPopupFormUrl  = "wf::M_WF_0400_01.xfdl"; //Popup화면 URL
+	var oArg = {PrgmId:this.fvComPrgmId}; //Popup화면 전달 파라메터
+	var oOption = {title:sPopupTitle, width:"1242", height:"740"}; //Popup화면 옵션
+	var sPopupCallBack = "fn_PopupCallback"; //Popup화면 호출후 Callback 처리 함수
+	this.gfn_OpenPopup("M_WF_0400_01", sPopupFormUrl, oArg, sPopupCallBack, oOption); //Popup화면 호출 함수			
+};
+ 
+/***********************************************************************************************
+ * 10.5. [사용자함수] 결재순서 재설정 - ondrag
+ ***********************************************************************************************/ 
+this.grd_Master10_ondrag = function(obj:nexacro.Grid,e:nexacro.GridDragEventInfo)
+{
+	if (this.fvGrdOndragYn) {//그리드 Drag 사용여부
+		var sWFGU_CD = this.ds_Master10.getColumn(e.row, "WFGU_CD");
+		//결재구분 : 접수/기안인경우 - 결재선이동 못함.
+		if (sWFGU_CD == "0030" || sWFGU_CD == "0060") {
+			this.fvDragRow = -1;//결재선Drag Row
+		} else {
+			this.fvDragRow = e.row;//결재선Drag Row
+		}
+	}
+	return true;
+};
+
+/***********************************************************************************************
+ * 10.5. [사용자함수] 결재순서 재설정 - ondrop
+ ***********************************************************************************************/ 
+this.grd_Master10_ondrop = function(obj:nexacro.Grid,e:nexacro.GridDragEventInfo)
+{
+	if (this.fvGrdOndragYn) {//그리드 Drag 사용여부
+		var sWFGU_CD = this.ds_Master10.getColumn(e.row, "WFGU_CD");
+		//결재구분 : 접수/기안인경우 - 결재선이동 못함.
+		if (sWFGU_CD == "0030" || sWFGU_CD == "0060") {
+			this.fvDragRow = -1;//결재선Drag Row
+			return;
+		}
+		
+		this.ds_Master10.moveRow(this.fvDragRow, e.row);
+		for (var iLoop=0; iLoop < this.ds_Master10.getRowCount(); iLoop++) {
+			this.ds_Master10.setColumn(iLoop, "USRD_SE", iLoop+1);		
+		}
+	}
+};
+
+/***********************************************************************************************
+ * 10.1. [사용자함수] 결재상세 조회 - 결재라인
+ ***********************************************************************************************/ 
+this.fn_SearchWofb = function()
+{ 
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+	this.ds_Master10.clearData();//결재환경설정관리 정보	
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "WOFH_NO", this.fvWofhNo);//결재PID
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "wf:M_WF_0500_M_SL19";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "WOFB_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= this.G_SV_WF;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "ds_Master10=ds_Master10";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+} 
+
+/***********************************************************************************************
+ * 10.1. [사용자함수] 결재취소-업무테이블 상태컬럼 업데이트 처리
+ ***********************************************************************************************/ 
+this.fn_WfCancelBizUpdate = function()
+{ 
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_WfUpt.clearData();
+	
+	var sUPDT_NM = "";// 업데이트테이블명
+	var sUPDC_NM = "";//업데이트칼럼명
+	var sUPSC_NM = "";//업데이트상태칼럼명
+	var sWCTM_ID = "";//결재업무ID
+	
+	//결재정보
+	if (this.ds_Wctm.getRowCount() > 0) {
+		sUPDT_NM = this.ds_Wctm.getColumn(0, "UPDT_NM");// 업데이트테이블명
+		sUPDC_NM = this.ds_Wctm.getColumn(0, "UPDC_NM");//업데이트칼럼명
+		sUPSC_NM = this.ds_Wctm.getColumn(0, "UPSC_NM");//업데이트상태칼럼명
+		sWCTM_ID = this.ds_Wctm.getColumn(0, "WCTM_ID");//결재업무ID
+	}	
+
+	//[업무] 조건 입력
+	this.ds_WfUpt.addRow();
+	this.ds_WfUpt.setColumn(0, "WCTM_ID", sWCTM_ID);//결재업무ID
+	this.ds_WfUpt.setColumn(0, "UPDT_NM", sUPDT_NM);//업데이트테이블명
+	
+	this.ds_WfUpt.setColumn(0, "UPDC_NM", sUPDC_NM);//업데이트칼럼명
+	this.ds_WfUpt.setColumn(0, "UPSC_NM", sUPSC_NM);//업데이트상태칼럼명
+	this.ds_WfUpt.setColumn(0, "WOFH_ST", "0010");//결재상태(WF110)
+	this.ds_WfUpt.setColumn(0, "WOFH_NO", this.fvWofhNo);//결재PID
+	this.ds_WfUpt.setColumn(0, "SYST_ID", this.gfn_GetSessionValue("SYST_ID"));//결재자_시스템사번
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "wf:M_WF_1100_M_UP11";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "WOFH_CANCEL_UPT";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= "";			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_WfUpt=ds_WfUpt" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "ds_Wfrt=ds_Wfrt";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+}
+
+/***********************************************************************************************
+ * 10.1. [사용자함수] 결재처리 리턴값 처리
+ ***********************************************************************************************/ 
+this.fn_WfReturn = function(sWfDst) {
+
+	var sWOFH_ST = "";//결재상태(WF110)
+	
+	//직송여부-직송
+	if (this.fvRtnDirtYn == "1") {
+		sWOFH_ST = "0040";//결재상태(WF110)-승인
+	} else {
+		sWOFH_ST = "0020";//결재상태(WF110)
+	}
+
+	//결재요청
+	if (sWfDst == "REQ") {
+        var rtnValue = "({" +
+                        " MSG_CODE:'0'"+                        //0.메세지코드
+                        ",WOFH_NO:'" + this.fvRtnWofhNo + "'"+  //1.결재PID
+						",WOFH_ST:'" + sWOFH_ST + "'"+          //2.결재상태(WF110)
+						",DIRT_YN:'" + this.fvRtnDirtYn + "'"+  //3.직송여부 : 1-직송, 0-직송아님
+                "})";
+
+					
+		this.gfn_PopClose(rtnValue);
+	//기안자 여부 체크
+	} else if (sWfDst == "WOFH_WFST_ID") {
+        var rtnValue = "({" +
+                        " MSG_CODE:'0'"+  //0.메세지코드
+                        ",WOFH_NO:''"+     //1.결재PID
+                        ",WOFH_ST:'0010'"+  //2.결재상태(WF110)
+						",DIRT_YN:0"+  //3.직송여부 : 1-직송, 0-직송아님
+                "})";
+
+					
+		this.gfn_PopClose(rtnValue);	
+	} else {
+        var rtnValue = "({" +
+                        " MSG_CODE:'0'"+  //0.메세지코드
+                        ",WOFH_NO:''"+     //1.결재PID
+                        ",WOFH_ST:'0010'"+  //2.결재상태(WF110)
+						",DIRT_YN:'" + this.fvRtnDirtYn + "'"+  //3.직송여부 : 1-직송, 0-직송아님
+                "})";
+
+					
+		this.gfn_PopClose(rtnValue);	
+	}
+}
+
+/***********************************************************************************************
+ * 10.1. [사용자함수] 결재 진행상태 조회
+ ***********************************************************************************************/ 
+this.fn_SearchWofhSt = function(sDst)
+{ 
+	//결재선 동시성 체크 - 결재진행상태 체크	
+	//내부결재구분(1:신규, 2:내부) - 신규결재이면
+	if (this.fvInnrGb != "2") {
+		//[업무] 업무테이블 업데이트 정보
+		//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+		this.ds_WfUpt.clearData();
+
+		//[업무] 조건 입력
+		this.ds_WfUpt.addRow();
+		this.ds_WfUpt.setColumn(0, "WCTM_ID", this.fvWctmId);//결재업무ID
+		this.ds_WfUpt.setColumn(0, "UPDT_NM", this.ds_Wctm.getColumn(0, "UPDT_NM"));//업데이트테이블명
+		this.ds_WfUpt.setColumn(0, "UPDC_NM", this.ds_Wctm.getColumn(0, "UPDC_NM"));//업데이트칼럼명
+		this.ds_WfUpt.setColumn(0, "UPSC_NM", this.ds_Wctm.getColumn(0, "UPSC_NM"));//업데이트상태칼럼명
+		this.ds_WfUpt.setColumn(0, "WOFH_NO", this.fvWofhNo);//결재PID
+		this.ds_WfUpt.setColumn(0, "SYST_ID", this.fvSystId);//결재자_시스템사번
+		this.ds_WfUpt.setColumn(0, "DIRT_YN", "0");//직송여부(1: 직송, 0: 직송아님)
+		this.fvRtnDirtYn = "0";//[리턴값] 직송여부
+		this.ds_WfUpt.setColumn(0, "WOFH_ST", "");//결재상태(WF110)
+		
+		this.ds_Wfrt.clearData();//결재요청 리턴값 정보	
+		
+		this.fn_SetBizKey();//업무결재Key설정
+		
+		//[공통]서비스정보 초기화
+		this.gfn_InitComService(this);
+		
+		//[공통]서비스정보 추가
+		var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sSelectSql = "wf:M_WF_0500_M_SL23";
+		this.gfn_AddComSearchService(this, svcAddObj);	
+		
+		//[공통]서비스 호출 변수
+		var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		svcCallObj.sTrid = "WOFH_ST_CHECK";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+		svcCallObj.sActionName = "";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+		svcCallObj.sInputDaset = "ds_WfUpt=ds_WfUpt" //입력 데이터셋
+		svcCallObj.sOutDatset = "ds_Wfrt=ds_Wfrt";//출력 데이터셋
+		svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+		svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+		svcCallObj.isSync = true;//동기식으로 설정할지 여부
+
+		//[공통]서비스 호출
+		this.gfn_CallComService(this, svcCallObj);	
+
+		if (this.ds_Wfrt.getRowCount() > 0) {
+			var sWofhSt = this.ds_Wfrt.getColumn(0, "O_WOFH_ST");//결재진행상태
+			
+			//한건 결재인경우
+			if (sWofhSt.indexOf(";") < 0) {
+				//결재취소구분:S-결재중단,C-결재취소
+				if (sDst == "C") {
+					if (sWofhSt != "0020") {
+						this.gfn_Alert("WF034");//결재진행 상태가 [신청] 상태일 경우에만 결재취소 하실 수 있습니다.
+						return false;
+					}
+				} else {
+
+					if (sWofhSt != "0030") {
+						this.gfn_Alert("WF035");//결재진행 상태가 [진행] 상태일 경우에만 결재중단 하실 수 있습니다.
+						return false;
+					}		
+				}
+			} else {
+				var arrWofhSt = sWofhSt.split(";");
+				
+				if (arrWofhSt.length > 0) {
+				
+					var sChkWofhSt = "";
+					var sMsgRow = "";
+					for (var iLoop=0; iLoop<arrWofhSt.length; iLoop++) {
+						
+						sChkWofhSt = arrWofhSt[iLoop];
+						//결재취소구분:S-결재중단,C-결재취소
+						if (sDst == "C") {
+							if (sChkWofhSt != "0020") {
+								if (this.gfn_IsNull(sMsgRow)) {
+									sMsgRow = (iLoop + 1);
+								} else {
+									sMsgRow += "," + (iLoop + 1);
+								}
+							}
+						} else {
+							if (sChkWofhSt != "0030") {
+								if (this.gfn_IsNull(sMsgRow)) {
+									sMsgRow = (iLoop + 1);
+								} else {
+									sMsgRow += "," + (iLoop + 1);
+								}
+							}						
+						}
+												
+					}
+					
+					if (!this.gfn_IsNull(sMsgRow)) {
+						var arrMsgArg = [sMsgRow];
+						
+						//결재취소구분:S-결재중단,C-결재취소
+						if (sDst == "C") {
+							this.gfn_Alert("WF034");//결재진행 상태가 [신청] 상태일 경우에만 결재취소 하실 수 있습니다.
+							return false;
+						} else {
+							this.gfn_Alert("WF035");//결재진행 상태가 [진행] 상태일 경우에만 결재중단 하실 수 있습니다.
+							return false;	
+						}						
+						return false;
+					}
+				}			
+			}
+		} else {
+			//결재취소구분:S-결재중단,C-결재취소
+			if (sDst == "C") {
+				this.gfn_Alert("WF034");//결재진행 상태가 [신청] 상태일 경우에만 결재취소 하실 수 있습니다.
+				return false;
+			} else {
+				this.gfn_Alert("WF035");//결재진행 상태가 [진행] 상태일 경우에만 결재중단 하실 수 있습니다.
+				return false;	
+			}
+			return;
+		}
+	}
+	
+	return true;
+} 
+
+/***********************************************************************************************
+ * 10.2. [사용자함수] 메시지 전송대상 체크
+ ***********************************************************************************************/ 
+this.fn_SearchSendInfo = function(sWofhNo)
+{ 
+
+	this.ds_Input.clearData();
+
+	//[업무] 조건 입력
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "WOFH_NO", sWofhNo);//결재PID
+	
+	this.ds_SendUser.clearData();//메시지 수신자정보	
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "wf:M_WF_0500_M_SL24";
+	this.gfn_AddComSearchService(this, svcAddObj);	
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "SEND_USER";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_WF;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_SendUser=ds_SendUser";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+
+} 
+ 
+/***********************************************************************************************
+ * 10.3. [사용자함수] 메시지 전송
+ ***********************************************************************************************/ 
+this.fn_SendMsg = function()
+{ 
+	//이메일 전송
+	if (this.chk_EmalYn == "1") {
+		//[공통-메일] 메일정보 설정
+		var objMail = new Object();//메일정보
+		objMail.SUBJ_NM = this.ds_SendUser.getColumn(0, "WOFH_NM");//메일제목[필수]
+		objMail.CONT_NM = this.ds_SendUser.getColumn(0, "WOFH_NM");//메일내용[필수]
+		objMail.MAIL_TP = "";//메일타입 : HTML일경우에만 HTML로 입력
+		
+		var arrMailUserList = new Array();//메일 발/수신자 정보 배열
+		var objMailUser = new Object();//메일 발/수신자 정보
+
+		for (var iLoop=0; iLoop<this.ds_SendUser.getRowCount(); iLoop++) {
+			objMailUser = new Object();//메일 발/수신자 정보
+			objMailUser.MAIL_FR = this.ds_SendUser.getColumn(iLoop, "SEND_EM");//메일전송자[필수]
+			objMailUser.MAIL_TO = this.ds_SendUser.getColumn(iLoop, "RECV_EM");//메일수신자[필수]
+			objMailUser.MAIL_CC = "";//메일참조 - 필요한경우에만 입력
+			objMailUser.MAIL_BC = "";//메일숨은참조 - 필요한경우에만 입력
+			objMailUser.NOTI_TO = "";//수신확인을 리턴받을 메일주소 - 필요한경우에만 입력
+			arrMailUserList.push(objMailUser);//메일 발/수신자 정보 배열에 등록		
+		}
+
+		var arrMailAtchFileList = new Array();//첨부파일 정보 배열
+		/*
+		var objMailAtchFile = new Object();//첨부파일 정보
+		objMailAtchFile.PATH_NM = "SM";//파일경로
+		objMailAtchFile.FILE_ID = "test1.xlsx";//서버 저장된 파일명
+		objMailAtchFile.FILE_NM = "test1.xlsx";//원본파일명
+		arrMailAtchFileList.push(objMailAtchFile);//첨부파일 정보 배열에 등록
+		*/
+		//[공통-메일] 발송
+		var rtnValue = this.gfn_SendMail(this, objMail, arrMailUserList, arrMailAtchFileList);	
+	}
+}
+
+/***********************************************************************************************
+ * 10.4. [사용자함수] 업무결재Key설정
+ ***********************************************************************************************/ 
+this.fn_SetBizKey = function()
+{ 
+	//업무결재Key 설정
+	//복수건 결재시
+	if (this.fvWfPkvl.indexOf("ⓡ") > 0) {
+		var sARGU_01 = "";
+		var sARGU_02 = "";
+		var sARGU_03 = "";
+		var sARGU_04 = "";
+		var sARGU_05 = "";
+		var sARGU_06 = "";
+		var sARGU_07 = "";
+		var sARGU_08 = "";
+		var sARGU_09 = "";
+		var sPks = "";
+
+		var arrPks = this.fvWfPkvl.split("ⓡ");
+		if (arrPks.length > 0) {
+		
+			for (var iLoop=0; iLoop <arrPks.length; iLoop++) {
+			
+				sPks = arrPks[iLoop];
+				
+				var arrPk = sPks.split("ⓐ");
+				if (arrPk.length > 0) {
+					for (var jLoop=0; jLoop <arrPk.length; jLoop++) {
+						
+						if (jLoop == 0) {
+							if (this.gfn_IsNull(sARGU_01)) {
+								sARGU_01 = arrPk[jLoop];
+							} else {
+								sARGU_01 += ";" + arrPk[jLoop];
+							}
+						} else if (jLoop == 1) {
+							if (this.gfn_IsNull(sARGU_02)) {
+								sARGU_02 = arrPk[jLoop];
+							} else {
+								sARGU_02 += ";" + arrPk[jLoop];
+							}
+						} else if (jLoop == 2) {
+							if (this.gfn_IsNull(sARGU_03)) {
+								sARGU_03 = arrPk[jLoop];
+							} else {
+								sARGU_03 += ";" + arrPk[jLoop];
+							}
+						} else if (jLoop == 3) {
+							if (this.gfn_IsNull(sARGU_04)) {
+								sARGU_04 = arrPk[jLoop];
+							} else {
+								sARGU_04 += ";" + arrPk[jLoop];
+							}
+						} else if (jLoop == 4) {
+							if (this.gfn_IsNull(sARGU_05)) {
+								sARGU_05 = arrPk[jLoop];
+							} else {
+								sARGU_05 += ";" + arrPk[jLoop];
+							}
+						} else if (jLoop == 5) {
+							if (this.gfn_IsNull(sARGU_06)) {
+								sARGU_06 = arrPk[jLoop];
+							} else {
+								sARGU_06 += ";" + arrPk[jLoop];
+							}
+						} else if (jLoop == 6) {
+							if (this.gfn_IsNull(sARGU_07)) {
+								sARGU_07 = arrPk[jLoop];
+							} else {
+								sARGU_07 += ";" + arrPk[jLoop];
+							}
+						} else if (jLoop == 7) {
+							if (this.gfn_IsNull(sARGU_08)) {
+								sARGU_08 = arrPk[jLoop];
+							} else {
+								sARGU_08 += ";" + arrPk[jLoop];
+							}
+						} else if (jLoop == 8) {
+							if (this.gfn_IsNull(sARGU_09)) {
+								sARGU_09 = arrPk[jLoop];
+							} else {
+								sARGU_09 += ";" + arrPk[jLoop];
+							}								
+						}
+
+					}
+				}
+			}
+			
+			this.ds_WfUpt.setColumn(0, "ARGU_01", sARGU_01);//Pk01
+			this.ds_WfUpt.setColumn(0, "ARGU_02", sARGU_02);//Pk02
+			this.ds_WfUpt.setColumn(0, "ARGU_03", sARGU_03);//Pk03
+			this.ds_WfUpt.setColumn(0, "ARGU_04", sARGU_04);//Pk04
+			this.ds_WfUpt.setColumn(0, "ARGU_05", sARGU_05);//Pk05
+			this.ds_WfUpt.setColumn(0, "ARGU_06", sARGU_06);//Pk06
+			this.ds_WfUpt.setColumn(0, "ARGU_07", sARGU_07);//Pk07
+			this.ds_WfUpt.setColumn(0, "ARGU_08", sARGU_08);//Pk08
+			this.ds_WfUpt.setColumn(0, "ARGU_09", sARGU_09);//Pk09
+		}	
+	} else {
+		var arrPk = this.fvWfPkvl.split("ⓐ");
+		if (arrPk.length > 0) {
+			for (var iLoop=0; iLoop <arrPk.length; iLoop++) {
+				this.ds_WfUpt.setColumn(0, "ARGU_0" + (iLoop + 1), arrPk[iLoop]);//Pk
+			}
+		}			
+	}
+
+}
+
+/***********************************************************************************************
+ * 10.4. [사용자함수] 자동전표Key설정
+ ***********************************************************************************************/ 
+this.fn_SetAtobKey = function()
+{ 
+	if (this.gfn_IsNull(this.fvAtobKey)) return;
+	
+	//업무결재Key 설정
+	//복수건 결재시
+	if (this.fvAtobKey.indexOf("ⓡ") > 0) {
+		var sATOB_01 = "";
+		var sATOB_02 = "";
+		var sATOB_03 = "";
+		var sATOB_04 = "";
+		var sATOB_05 = "";
+		var sATOB_06 = "";
+		var sATOB_07 = "";
+		var sATOB_08 = "";
+		var sATOB_09 = "";
+		var sPks = "";
+		
+		var arrPks = this.fvAtobKey.split("ⓡ");
+		if (arrPks.length > 0) {
+		
+			for (var iLoop=0; iLoop <arrPks.length; iLoop++) {
+			
+				sPks = arrPks[iLoop];
+				
+				var arrPk = sPks.split("ⓐ");
+				if (arrPk.length > 0) {
+					for (var jLoop=0; jLoop <arrPk.length; jLoop++) {
+						
+						if (jLoop == 0) {
+							if (this.gfn_IsNull(sATOB_01)) {
+								sATOB_01 = arrPk[jLoop];
+							} else {
+								sATOB_01 += ";" + arrPk[jLoop];
+							}
+						} else if (jLoop == 1) {
+							if (this.gfn_IsNull(sATOB_02)) {
+								sATOB_02 = arrPk[jLoop];
+							} else {
+								sATOB_02 += ";" + arrPk[jLoop];
+							}
+						} else if (jLoop == 2) {
+							if (this.gfn_IsNull(sATOB_03)) {
+								sATOB_03 = arrPk[jLoop];
+							} else {
+								sATOB_03 += ";" + arrPk[jLoop];
+							}
+						} else if (jLoop == 3) {
+							if (this.gfn_IsNull(sATOB_04)) {
+								sATOB_04 = arrPk[jLoop];
+							} else {
+								sATOB_04 += ";" + arrPk[jLoop];
+							}
+						} else if (jLoop == 4) {
+							if (this.gfn_IsNull(sATOB_05)) {
+								sATOB_05 = arrPk[jLoop];
+							} else {
+								sATOB_05 += ";" + arrPk[jLoop];
+							}
+						} else if (jLoop == 5) {
+							if (this.gfn_IsNull(sATOB_06)) {
+								sATOB_06 = arrPk[jLoop];
+							} else {
+								sATOB_06 += ";" + arrPk[jLoop];
+							}
+						} else if (jLoop == 6) {
+							if (this.gfn_IsNull(sATOB_07)) {
+								sATOB_07 = arrPk[jLoop];
+							} else {
+								sATOB_07 += ";" + arrPk[jLoop];
+							}
+						} else if (jLoop == 7) {
+							if (this.gfn_IsNull(sATOB_08)) {
+								sATOB_08 = arrPk[jLoop];
+							} else {
+								sATOB_08 += ";" + arrPk[jLoop];
+							}
+						} else if (jLoop == 8) {
+							if (this.gfn_IsNull(sATOB_09)) {
+								sATOB_09 = arrPk[jLoop];
+							} else {
+								sATOB_09 += ";" + arrPk[jLoop];
+							}								
+						}
+
+					}
+				}
+			}
+			
+			this.ds_WfUpt.setColumn(0, "ATOB_01", sATOB_01);//Pk01
+			this.ds_WfUpt.setColumn(0, "ATOB_02", sATOB_02);//Pk02
+			this.ds_WfUpt.setColumn(0, "ATOB_03", sATOB_03);//Pk03
+			this.ds_WfUpt.setColumn(0, "ATOB_04", sATOB_04);//Pk04
+			this.ds_WfUpt.setColumn(0, "ATOB_05", sATOB_05);//Pk05
+			this.ds_WfUpt.setColumn(0, "ATOB_06", sATOB_06);//Pk06
+			this.ds_WfUpt.setColumn(0, "ATOB_07", sATOB_07);//Pk07
+			this.ds_WfUpt.setColumn(0, "ATOB_08", sATOB_08);//Pk08
+			this.ds_WfUpt.setColumn(0, "ATOB_09", sATOB_09);//Pk09
+		}	
+	} else {
+		var arrPk = this.fvAtobKey.split("ⓐ");
+		if (arrPk.length > 0) {
+			for (var iLoop=0; iLoop <arrPk.length; iLoop++) {
+				this.ds_WfUpt.setColumn(0, "ATOB_0" + (iLoop + 1), arrPk[iLoop]);//Pk
+			}
+		}			
+	}
+}
+
+
+this.grd_Master10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	/*
+	if (e.col == 7) {
+		var iRow = this.ds_Master10.rowposition;
+		var sRequYn = this.ds_Master10.getColumn(iRow, "REQU_YN");
+		//필수결재가 아닐경우 삭제가능
+		if (sRequYn != "1") {
+			this.ds_Master10.deleteRow(iRow);
+		}
+	}
+	*/
+};
+
+this.btn_Up_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var iRowNowPos = this.ds_Master10.rowposition;//현재Row
+	var iRowMovePos = iRowNowPos - 1;//이동할Row
+	
+	if (iRowMovePos == 0) return;
+	
+	var sWFGU_CD = this.ds_Master10.getColumn(iRowNowPos, "WFGU_CD");//결재구분
+	
+	if (sWFGU_CD == "0030") {
+		this.gfn_Alert("WF014");//접수자는 결재순서를 변경하실수 없습니다.
+		return;
+	} else if (sWFGU_CD == "0060") {
+		this.gfn_Alert("WF015");//기안자는 결재순서를 변경하실수 없습니다.
+		return;
+	}
+	
+	this.ds_Master10.moveRow(iRowNowPos, iRowMovePos);//행이동
+	for (var iLoop=0; iLoop < this.ds_Master10.getRowCount(); iLoop++) {
+		this.ds_Master10.setColumn(iLoop, "USRD_SE", iLoop+1);		
+	}
+	
+};
+
+this.btn_Down_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var iRowNowPos = this.ds_Master10.rowposition;//현재Row
+	var iRowMovePos = iRowNowPos + 1;//이동할Row
+
+	var sWFGU_CD = this.ds_Master10.getColumn(iRowNowPos, "WFGU_CD");//결재구분
+	var sWFGU_CD_Next = this.ds_Master10.getColumn(iRowMovePos, "WFGU_CD");//결재구분-Next
+
+	if (sWFGU_CD == "0030") {
+		this.gfn_Alert("WF014");//접수자는 결재순서를 변경하실수 없습니다.
+		return;
+	} else if (sWFGU_CD == "0060") {
+		this.gfn_Alert("WF015");//기안자는 결재순서를 변경하실수 없습니다.
+		return;
+	}
+	
+	if (sWFGU_CD_Next == "0030") return;
+	
+	this.ds_Master10.moveRow(iRowNowPos, iRowMovePos);//행이동
+	for (var iLoop=0; iLoop < this.ds_Master10.getRowCount(); iLoop++) {
+		this.ds_Master10.setColumn(iLoop, "USRD_SE", iLoop+1);		
+	}
+};
+
+//결재선 추가
+this.btn_AddRow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupTitle = "결재라인추가설정"; //Popup화면 타이틀
+	var sPopupFormUrl  = "wf::M_WF_0400_02.xfdl"; //Popup화면 URL
+	var oArg = {PrgmId:this.fvComPrgmId}; //Popup화면 전달 파라메터
+	var oOption = {title:sPopupTitle, width:"1242", height:"515"}; //Popup화면 옵션
+	var sPopupCallBack = "fn_PopupCallback"; //Popup화면 호출후 Callback 처리 함수
+	this.gfn_OpenPopup("M_WF_0400_02", sPopupFormUrl, oArg, sPopupCallBack, oOption); //Popup화면 호출 함수		
+};
+
+//행삭제
+this.btn_DeleteRow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (this.ds_Master10.getCaseCount("s_chk == '1'") > 0) {
+		var sCheckRow = "";
+		for (var iLoop = this.ds_Master10.getRowCount()-1; iLoop>=0; iLoop--) {
+			sCheckRow = this.ds_Master10.getColumn(iLoop, "s_chk");
+			
+			if (sCheckRow == "1") {
+				this.ds_Master10.deleteRow(iLoop);
+			}
+		}
+		
+		this.fn_SetUsrdSe(this.ds_Master10);//결재순서 설정
+	}
+};
+
+//알림메세지 정보 조회
+this.fn_GetAlarmMsg = function()
+{
+	//직송이 아닌경우
+	if (this.fvRtnDirtYn != "1") {
+		//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+		this.ds_Input.clearData();
+		this.ds_SendAlarm.clearData();
+
+		//[업무] 조회조건 입력
+		this.ds_Input.addRow();
+		this.ds_Input.setColumn(0, "WOFH_NO", this.fvWofhNo);//결재PID
+
+		//[공통]서비스정보 초기화
+		this.gfn_InitComService(this);
+		
+		//[공통]서비스정보 추가 - 결재환경설정(전결규정) 포함 자동결재선 조회 
+		var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sSelectSql = "wf:M_WF_0500_M_SL25";
+		this.gfn_AddComSearchService(this, svcAddObj);
+		
+		//[공통]서비스 호출 변수
+		var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		svcCallObj.sTrid 		= "SEARCH_ALARMMSG";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+		svcCallObj.sActionName 	= this.G_SV_WF;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+		svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+		svcCallObj.sOutDatset 	= "ds_SendAlarm=ds_SendAlarm";//출력 데이터셋
+		svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+		svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+		//[공통]서비스 호출
+		this.gfn_CallComService(this, svcCallObj);	
+	} else {
+		this.fn_WfReturn("REQ");//결재처리 리턴값
+	}
+}
+
+//알림메시지 전송
+this.fn_SendAlarmMsg = function()
+{
+	//메일주소가 있으면 알림메세지 전송
+	if (!this.gfn_IsNull(this.ds_SendAlarm.getColumn(0, "EMAL_NM"))) {
+		var sALRH_NM = "";//알람내용
+		sALRH_NM = "- 결재명 : " + this.gfn_Nvl(this.ds_SendAlarm.getColumn(0, "WOFH_NM")) + "\n"
+		sALRH_NM = sALRH_NM +  "- 기안일 : " + this.gfn_Nvl(this.ds_SendAlarm.getColumn(0, "WOFH_DT")) + "\n"
+		sALRH_NM = sALRH_NM +  "- 기안자 : " + this.gfn_Nvl(this.ds_SendAlarm.getColumn(0, "WFRQ_NM")) + "\n"
+		sALRH_NM = sALRH_NM +  "전자결재가 수신되었습니다.";
+		
+		var sTITL_NM = "";//알림제목
+		
+		//긴급일경우
+		if (this.chk_UrgeYn.value == "1") {
+			sTITL_NM = "[SynusTech-iERP] 전자결재[긴급].";//알림제목
+		} else {
+			sTITL_NM = "[SynusTech-iERP] 전자결재.";//알림제목
+		}
+		
+		var paramObj = new Object();//알람메세지 파라메타 Object
+		paramObj.PRGM_ID = "M_WF_1100";//프로그램ID
+		paramObj.SYST_ID = this.fvSystId;//보내는사람
+		paramObj.RECV_ID = this.gfn_Nvl(this.ds_SendAlarm.getColumn(0, "SYST_ID"));//받는사람
+		paramObj.EMAL_NM = this.gfn_Nvl(this.ds_SendAlarm.getColumn(0, "EMAL_NM"));//이메일
+		paramObj.TITL_NM = sTITL_NM;//알람제목
+		paramObj.ALRH_NM = sALRH_NM;//알람내용
+		this.gfn_AlrhMsgSave(paramObj);//알람메세지정보 저장			
+	}
+	
+	this.fn_WfReturn("REQ");//결재처리 리턴값
+	
+}
+
+// 예산체크 등에 의한 에러시 관련 결재정보 삭제처리 : 202209150402 by jch
+this.WfRequest_Error = function()
+{	
+
+	this.ds_DeleteD.clearData();
+	var k = this.ds_DeleteD.addRow();
+	this.ds_DeleteD.setColumn(k, "WOFH_NO", this.fvRtnWofhNo);
+	this.ds_DeleteD.setColumn(k, "DELE_ID",  this.fvPrgmId);
+	this.ds_DeleteD.setColumn(k, "crudType", 'U');
+	this.ds_DeleteD.updatecontrol = false;
+	this.ds_DeleteD.setRowType(k, 'U');
+	this.ds_DeleteD.updatecontrol = true;
+	
+
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sUpdateSql = "wf:M_WF_0500_D_UP20";//수정Sql
+	svcAddObj.sSaveFlagColumn = "crudType";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+								 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+	this.gfn_AddComSaveService(this, svcAddObj);
+	
+	this.ds_DeleteM.clearData();
+	var k = this.ds_DeleteM.addRow();
+	this.ds_DeleteM.setColumn(k, "WOFH_NO", this.fvRtnWofhNo);
+	this.ds_DeleteM.setColumn(k, "DELE_ID",  this.fvPrgmId);
+	this.ds_DeleteM.setColumn(k, "crudType", 'U');
+	this.ds_DeleteM.updatecontrol = false;
+	this.ds_DeleteM.setRowType(k, 'U');
+	this.ds_DeleteM.updatecontrol = true;		
+	
+	//[공통]서비스정보 추가
+	svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sUpdateSql = "wf:M_WF_0500_M_UP20";//수정Sql
+	svcAddObj.sSaveFlagColumn = "crudType";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+								 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+	this.gfn_AddComSaveService(this, svcAddObj);	
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "DELETE_WOFH_NO";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_WF;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조	
+	svcCallObj.sInputDaset = "ds_DeleteD=ds_DeleteD:U ds_DeleteM=ds_DeleteM:U" //입력 데이터셋
+	svcCallObj.sOutDatset = "";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "";//서버에서 처리가 완료된 후 Callback 받을 Function 명		
+	
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+	
+};
+]]></Script>
+  </Form>
+</FDL>

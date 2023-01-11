@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="sam01_01P" width="500" height="400" titletext="팝업1" onload="form_onload">
+    <Layouts>
+      <Layout height="400" width="500">
+        <Grid id="grd_List" taborder="0" left="30" top="190" height="150" width="430" binddataset="ds_ParamData" oncelldblclick="grd_List_oncelldblclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="207"/>
+                <Column size="191"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Column0"/>
+                <Cell col="1" text="Column1"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:Column0"/>
+                <Cell col="1" text="bind:Column1"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btn_Close" taborder="1" text="닫기" left="24" top="357" width="80" height="23" onclick="btn_Close_onclick"/>
+        <Button id="btn_Cancel" taborder="2" text="취소" left="108" top="357" width="80" height="23" onclick="btn_Cancel_onclick"/>
+        <Static id="sta_Title" taborder="3" text="[모달팝업 샘플]" left="30" top="20" width="254" height="24" font="normal 14pt/normal &quot;Arial&quot;"/>
+        <Edit id="edt00" taborder="4" left="127" top="97" width="150" height="26"/>
+        <Edit id="edt01" taborder="5" left="127" top="130" width="150" height="26"/>
+        <Static id="sta01" taborder="6" text="부모창에서 전달 받은 파라메터" left="30" top="57" width="205" height="33"/>
+        <Static id="sta02" taborder="7" text="paramCode :" left="30" top="94" width="80" height="26"/>
+        <Static id="sta03" taborder="8" text="paramNum :" left="30" top="130" width="80" height="26"/>
+        <Button id="btn_CallFunc" taborder="9" text="부모창 함수호출" left="193" top="357" width="128" height="23" onclick="btn_CallFunc_onclick"/>
+        <Button id="btn_CallComp" taborder="10" text="부모창 데이터셋 접근" left="325" top="357" width="149" height="23" onclick="btn_CallComp_onclick"/>
+        <Static id="Static00" taborder="11" text="Static00" left="30" top="88" width="440" height="1" color="black" background="darkgray"/>
+        <Static id="sta03_00" taborder="12" text="paramDataset :" left="30" top="162" width="101" height="26"/>
+        <Calendar id="cal_FromDt" taborder="13" left="277" top="330" width="100" height="24" type="normal" popuptype="none" ondropdown="fn_CalOndropdown" value="20201010"/>
+        <Calendar id="cal_ToDt" taborder="14" left="387" top="330" width="100" height="24" type="normal" popuptype="none" ondropdown="fn_CalOndropdown"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  script 표준
+*  @MenuPath    샘플 > script 표준
+*  @FileName 	ref00.xfdl 
+*  @Creator 	공통팀
+*  @CreateDate 	2018.05.01
+*  @Desction    스크립트 표준 및 주석 표준 정의
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2018.05.01     	공통팀 	                최초 생성 
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * include 영역
+ ************************************************************************************************/
+include "comLib::ComSvcUtil.xjs";
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+
+
+/************************************************************************************************
+ * FORM EVENT 영역(onload,fnClose 및 기타 폼관련 이벤트)
+ ************************************************************************************************/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	//this.gfnFormOnLoad(this);
+	
+	var paramCode = this.getOwnerFrame().paramCode;
+	var paramNum = this.getOwnerFrame().paramNum;
+	var paramDataset = this.getOwnerFrame().paramDataset;
+	
+	this.edt00.set_value(paramCode);
+	this.edt01.set_value(paramNum);
+	this.ds_ParamData.loadXML(paramDataset);
+};
+
+
+/************************************************************************************************
+ * CALLBACK 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/**
+ * @description Transaction CallBack 함수(선택)
+*/
+this.fnCallback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}
+	switch(sSvcId)
+	{
+		case "search":
+			break;
+	}
+};
+
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/
+this.grd_List_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if (e.row > -1) {
+		//부모창으로 리턴값은 문자열로만 가능
+		var rtnValue = this.ds_ParamData.getColumn(e.row, "Column0") +  ";;" + this.ds_ParamData.getColumn(e.row, "Column1");//1. (문자열) 리턴값을 ";;"구분자를 사용해서 리턴 : 부모창에서 var arrRtnVal = rtnValue.split(";;");		
+		
+		this.gfn_PopClose(rtnValue);		
+	}
+};
+
+this.btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//부모창으로 리턴값은 문자열로만 가능
+	var rtnValue = "11;;22";//1. (문자열) 리턴값을 ";;"구분자를 사용해서 리턴 : 부모창에서 var arrRtnVal = rtnValue.split(";;");
+	//var rtnValue = this.ds_ParamData.saveXML();//2. 데이터셋을 XML 문자열로 바꿔서 리턴 : 부모창에서는 loadXML을 이용해서 사용 ex) this.ds_Test2.loadXML(rtnValue);	
+	this.gfn_PopClose(rtnValue);	
+};
+
+this.btn_Cancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//팝업화면 닫기 : 리턴값 없음
+	this.gfn_PopClose("");
+};
+
+this.btn_CallFunc_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//부모화면 this.fn_test() 함수 호출
+	this.getOwnerFrame().form.opener.fn_test();
+};
+
+this.btn_CallComp_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//부모화면 ds_Test2 데이터셋에 팝업화면 ds_ParamData 내용을 복사
+	this.getOwnerFrame().form.opener.ds_Test2.copyData(this.ds_ParamData);
+};
+
+this.fn_CalOndropdown = function() {
+	this.gfn_CallMultiCalendar(this, "this.cal_FromDt", "this.cal_ToDt", "fn_MultiCallBack");
+	
+	//objPopupDiv.trackPopupByComponent(this.cal_FromDt, 0, parseInt(this.cal_FromDt.height) + 4);
+	
+}]]></Script>
+    <Objects>
+      <Dataset id="ds_ParamData">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

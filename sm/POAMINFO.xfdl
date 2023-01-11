@@ -1,0 +1,458 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="POAMINFO" width="700" height="600" titletext="우편번호팝업" scrollbartype="none" onclose="fn_FormClose" onload="fn_FormOnload" onsize="fn_FormOnsize">
+    <Layouts>
+      <Layout height="600" width="700">
+        <Div id="div_Search" taborder="0" left="12" top="50" height="90" cssclass="div_WF_Search" right="12" formscrollbartype="none none" text="">
+          <Layouts>
+            <Layout>
+              <Static id="sta_SidoNm" taborder="5" text="시/도" left="16" top="29" width="80" height="26" cssclass="sta_WF_SLabel"/>
+              <Static id="sta_SiggNm" taborder="6" text="시/군/구" left="354" top="29" width="80" height="24" cssclass="sta_WF_SLabel"/>
+              <Static id="sta_Opt1Nm" taborder="7" text="도로명(로,길)" left="16" top="57" width="80" height="24" cssclass="sta_WF_SLabel" DomainID="S00003"/>
+              <Static id="sta_Opt2Nm" taborder="8" text="건물번호" left="354" top="57" width="80" height="24" cssclass="sta_WF_SLabel"/>
+              <Edit id="edt_Opt1Nm" taborder="3" left="96" top="57" width="227" height="24" cssclass="essential" maxlength="100"/>
+              <Combo id="cbo_SidoNm" taborder="1" left="96" top="29" height="24" innerdataset="ds_SmPocm" codecolumn="CODM_CD" datacolumn="CODM_NM" width="227" cssclass="essential" onitemchanged="div_Search_cbo_SidoNm_onitemchanged"/>
+              <Combo id="cbo_SiggNm" taborder="2" left="434" top="29" height="24" innerdataset="ds_SmSigg" codecolumn="CODM_CD" datacolumn="CODM_NM" width="227" cssclass="essential"/>
+              <Edit id="edt_Opt2Nm" taborder="4" left="434" top="57" width="227" height="24" maxlength="50"/>
+              <Radio id="rdo_SrchGubn" taborder="0" left="16" top="6" width="350" height="22" innerdataset="ds_SrchGubn" codecolumn="CODM_CD" datacolumn="CODM_NM" direction="vertical" value="DORO" text="도로명+건물번호" index="0" onitemchanged="div_Search_rdo_SrchGubn_onitemchanged"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="grd_Master10" taborder="1" left="12" top="150" binddataset="ds_Master10" autofittype="col" right="12" oncelldblclick="grd_Master10_oncelldblclick" bottom="10" cellsizingtype="col" onkeydown="grd_Master10_onkeydown" selecttype="multiarea">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="595"/>
+              </Columns>
+              <Rows>
+                <Row size="26" band="head"/>
+                <Row size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="우편번호"/>
+                <Cell col="1" text="주소"/>
+              </Band>
+              <Band id="body">
+                <Cell rowspan="2" text="bind:POAM_CD" displaytype="normal" textAlign="center"/>
+                <Cell col="1" text="bind:POST_ADDR1" displaytype="normal" textAlign="left"/>
+                <Cell row="1" col="1" text="bind:POST_ADDR2"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Div id="div_PopupTitle" taborder="2" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Close" taborder="0" text="닫기" top="9" width="70" height="26" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+              <Static id="sta_PopupTitle" taborder="1" text="우편번호검색" left="20" top="10" height="24" cssclass="sta_WF_PopupTitle" width="300"/>
+              <Button id="btn_Search" taborder="2" text="조회" top="8" width="65" right="161" visible="true" cssclass="bt_WF_PopupSearch" height="28" onclick="div_PopupTitle_btn_Search_onclick"/>
+              <Button id="btn_Choice" taborder="3" text="선택" top="8" width="65" right="90" visible="true" cssclass="bt_WF_PopupSelect" height="28" onclick="div_PopupTitle_btn_Choice_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="SIDO_NM" type="STRING" size="256"/>
+          <Column id="SIGG_NM" type="STRING" size="256"/>
+          <Column id="OPT1_NM" type="STRING" size="256"/>
+          <Column id="SRCH_GUBN" type="STRING" size="256"/>
+          <Column id="OPT2_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10">
+        <ColumnInfo>
+          <Column id="POAM_CD" type="STRING" size="256"/>
+          <Column id="SIDO_NM" type="STRING" size="256"/>
+          <Column id="POST_ADDR1" type="STRING" size="256"/>
+          <Column id="POST_ADDR2" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_SrchGubn">
+        <ColumnInfo>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="CODM_CD">DORO</Col>
+            <Col id="CODM_NM">도로명+건물번호</Col>
+          </Row>
+          <Row>
+            <Col id="CODM_CD">DONG</Col>
+            <Col id="CODM_NM">동(읍/면/리)명+지번</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_SmPocm">
+        <ColumnInfo>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_SmSigg">
+        <ColumnInfo>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : 
+*  @화면설명 : 우편번호검색
+*  @시스템명 : (SM) 시스템
+*  @작성자   : 최석목
+*  @작성일   : 2021.01.27
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.01.27     	    최석목 	           최초 생성 
+*  2022.01.04           이충근				   검색 필수 체크 추가
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * 1. Form Include 선언 영역
+ ************************************************************************************************/
+//include "comLib::CommonUtil.xjs";//공통함수
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+
+/***********************************************************************************************
+ * 3. Form 이벤트 영역
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 3.1. Form Onload 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.2. Form [공통] 초기설정 함수 - 필수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.fvComPrgmId = this.getOwnerFrame().PrgmId;//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+	this.gfn_SetGrid(this.grd_Master10);//[공통]그리드 이벤트 설정 - 출력목록
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.3. Form [업무] 초기설정 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormBizInit = function() 
+{
+	this.fn_ComboSearch();//업무콤보조회
+}
+
+/***********************************************************************************************
+ * 00.06. Form [업무] 일반콤보 조회 함수
+ ***********************************************************************************************/
+this.fn_ComboSearch = function() 
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sm:M_SM_POAM_C_SL10";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "COMBO_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_SM;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_SmPocm=ds_SmPocm";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.4. Form OnClose 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/*---------------------------------------------------------------------------------------------
+ * 3.4. Form OnSize 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{
+};
+
+/***********************************************************************************************
+ * 4. [화면] 버튼 이벤트 영역
+ -----------------------------------------------------------------------------------------------
+   4.1.조회 : btn_Search_onclick
+   4.2.선택 : btn_Choice_onclick
+   4.3.닫기 : fn_Close
+ ***********************************************************************************************/
+
+/*---------------------------------------------------------------------------------------------
+ * 4.1. 조회 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+	//조회전 유효성 체크
+	if (!this.fn_VaildSearch()) return;	
+		
+
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	
+	this.ds_Input.clearData();
+	this.ds_Master10.clearData();
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+
+	this.ds_Input.setColumn(0, "SIDO_NM", this.div_Search.form.cbo_SidoNm.value);//시/도	
+	this.ds_Input.setColumn(0, "SIGG_NM", this.div_Search.form.cbo_SiggNm.value);//시/군/구
+	this.ds_Input.setColumn(0, "SRCH_GUBN", this.div_Search.form.rdo_SrchGubn.value);//조회조건
+	this.ds_Input.setColumn(0, "OPT1_NM", this.div_Search.form.edt_Opt1Nm.value);//도로명
+	this.ds_Input.setColumn(0, "OPT2_NM", this.div_Search.form.edt_Opt2Nm.value);//건물번호
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sm:M_SM_POAM_M_SL10";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "MST_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= this.G_SV_SM;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "ds_Master10=ds_Master10";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);		
+};
+/***********************************************************************************************
+ * 4.1. 조회 [Vaildation] 조회 필수값 체크
+ ***********************************************************************************************/
+this.fn_VaildSearch = function()
+{
+	//조회조건 필수입력값 있으면 체크
+	var arrArgs = ["this.div_Search.form.cbo_SidoNm^" + this.div_Search.form.sta_SidoNm.text + "|NULL" //시/도
+	              , "this.div_Search.form.cbo_SiggNm^" + this.div_Search.form.sta_SiggNm.text + "|NULL" //시/군/구
+				  , "this.div_Search.form.edt_Opt1Nm^" + this.div_Search.form.sta_Opt1Nm.text + "|NULL" //도로명(로,길)
+			      ]; 
+				  
+	var sCheckGroupTitle = "검색조건";//체크그룹 타이틀
+
+	//컴포넌트 Vaild 체크
+	if (!this.gfn_CheckFormCompValid(this, arrArgs, sCheckGroupTitle)) {
+		return false;
+	}
+	return true;
+}
+/*---------------------------------------------------------------------------------------------
+ *  4.2. 선택 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Choice_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_SelectRow(this.ds_Master10.rowposition);//선택한 행 리턴
+};
+
+/*---------------------------------------------------------------------------------------------
+ *  4.3. 닫기 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_PopClose();
+};
+
+
+/***********************************************************************************************
+ * 5. [조회영역] 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 5.1. [조회영역-공통] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.1.1. [조회영역-팝업버튼] 
+  ---------------------------------------------------------------------------------------------*/
+this.fn_SbpBtn_Do01 = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 5.2. [조회영역-업무] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.2.1. [조회영역-Edit] 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_SechVl_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	this.div_PopupTitle_btn_Search_onclick();//검색
+};
+
+/***********************************************************************************************
+ * 6. [컴포넌트] 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 6.1. [상세-그리드] 더블 클릭 이벤트
+ ***********************************************************************************************/ 
+this.grd_Master10_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.fn_SelectRow(e.row);//선택한 행 리턴
+};
+
+
+/***********************************************************************************************
+ * 6.1. [상세-그리드 enter key] 줄선택 이벤트
+ ***********************************************************************************************/ 
+this.grd_Master10_onkeydown = function(obj:nexacro.Grid,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == "13"){
+		this.fn_SelectRow(e.row);//선택한 행 리턴
+	}
+};
+
+/***********************************************************************************************
+ * 7. [서비스] CallBack 함수 처리부분
+ ***********************************************************************************************/
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST_SEARCH": //조회				
+			break;						
+	}
+};
+
+/***********************************************************************************************
+ * 8. [팝업] CallBack 함수 처리부분
+      strId : 팝업호출시 지정한 팝업ID
+	  rtnValue : 팝업창에서 close시 지정한 반환값
+      주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+};
+
+/***********************************************************************************************
+ * 9. [메세지] CallBack 함수 처리부분
+ ***********************************************************************************************/
+/**
+ * @description 메세지 CallBack 함수
+*/
+this.fn_MsgCallback = function (strId, strVal)
+{
+
+};
+
+/***********************************************************************************************
+ * 10. [사용자함수]
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 10.1. [사용자함수] 선택한 행 리턴
+ ***********************************************************************************************/ 
+this.fn_SelectRow = function(iRow)
+{
+	if (iRow > -1) {	
+	
+        var rtnValue = "({" +
+                        ' POAM_CD:"' + this.ds_Master10.getColumn(iRow, "POAM_CD") + '"'+  //0.구역번호(우편번호)
+                        ',SIDO_NM:"' + this.ds_Master10.getColumn(iRow, "SIDO_NM") + '"'+  //1.시도명
+                        ',POST_ADDR1:"' + this.ds_Master10.getColumn(iRow, "POST_ADDR1") + '"'+  //2.신주소
+                       ',POST_ADDR2:"' + this.ds_Master10.getColumn(iRow, "POST_ADDR2") + '"'+  //3.구주소
+                "})";
+
+					
+		this.gfn_PopClose(rtnValue);
+	} else {
+		this.gfn_Alert("SM046");//선택된 내용이 없습니다.
+		return;		
+	}
+}
+
+
+this.div_Search_cbo_SidoNm_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	this.fn_SmSiggSearch();
+};
+/***********************************************************************************************
+ * 00.06. Form [업무] 일반콤보 조회 함수
+ ***********************************************************************************************/
+this.fn_SmSiggSearch = function() 
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+	this.ds_SmSigg.clearData();
+	
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "SIDO_NM", this.div_Search.form.cbo_SidoNm.value);
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sm:M_SM_POAM_C_SL11";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "COMBO_SIGG";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_SM;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_SmSigg=ds_SmSigg";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+}
+
+this.div_Search_rdo_SrchGubn_onitemchanged = function(obj:nexacro.Radio,e:nexacro.ItemChangeEventInfo)
+{
+	//도로명인경우
+	if (obj.value == "DORO") {
+		this.div_Search.form.sta_Opt1Nm.set_text("도로명(로,길)");
+		this.div_Search.form.sta_Opt2Nm.set_text("건물번호");
+	} else {
+		this.div_Search.form.sta_Opt1Nm.set_text("동(읍/면/리)명");
+		this.div_Search.form.sta_Opt2Nm.set_text("지번");	
+	}
+	
+	this.div_Search.form.edt_Opt1Nm.set_value("");
+	this.div_Search.form.edt_Opt2Nm.set_value("");
+	
+};
+
+
+]]></Script>
+  </Form>
+</FDL>

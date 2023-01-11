@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_MS_8430_05_P1_2022" width="450" height="140" titletext="국세청 입력형식" scrollbartype="none" onclose="fn_FormClose" onload="fn_FormOnload">
+    <Layouts>
+      <Layout height="140" width="450">
+        <MaskEdit id="mae_JsmtGr01" taborder="0" textAlign="right" type="number" format="##,##0" trimtype="both" maxlength="10,0" left="342" top="29" width="104" height="24" readonly="true"/>
+        <Static id="sta_JsmtGr01" tabstop="false" text="① 난임시술비" cssclass="sta_WF_DLabel" taborder="1" left="4" top="29" width="336" height="24"/>
+        <Static id="sta_JsmtGr01_00" tabstop="false" text="항목" cssclass="sta_WF_DLabel" taborder="2" left="4" top="4" width="336" height="24" textAlign="center" background="#b1fae9"/>
+        <Static id="sta_JsmtGr01_01" tabstop="false" text="사용액" cssclass="sta_WF_DLabel" taborder="3" left="342" top="4" width="104" height="24" textAlign="center" background="#b1fae9"/>
+        <Static id="sta_JsmtGr01_02" tabstop="false" text="② 미숙아·선천성이상아" cssclass="sta_WF_DLabel" taborder="4" left="4" top="54" width="336" height="24"/>
+        <MaskEdit id="mae_JsmtGr01_00" taborder="5" textAlign="right" type="number" format="##,##0" trimtype="both" maxlength="10,0" left="342" top="54" width="104" height="24" readonly="true"/>
+        <Static id="sta_JsmtGr01_03" tabstop="false" text="③ 본인·65세이상자·장애인·건강보험산정특례자" cssclass="sta_WF_DLabel" taborder="6" left="4" top="79" width="336" height="24"/>
+        <MaskEdit id="mae_JsmtGr01_01" taborder="7" textAlign="right" type="number" format="##,##0" trimtype="both" maxlength="10,0" left="342" top="79" width="104" height="24" readonly="true"/>
+        <Static id="sta_JsmtGr01_03_00_00_00_00" tabstop="false" text="④ 그 밖의 공제대상자 의료비지출액" cssclass="sta_WF_DLabel" taborder="8" left="4" top="104" width="336" height="24"/>
+        <MaskEdit id="mae_JsmtGr01_01_00_00_00_00" taborder="9" textAlign="right" type="number" format="##,##0" trimtype="both" maxlength="10,0" left="342" top="104" width="104" height="24" readonly="true"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Master10">
+        <ColumnInfo>
+          <Column id="NANIM_AMT" type="STRING" size="256"/>
+          <Column id="BON_AMT" type="STRING" size="256"/>
+          <Column id="OTH_AMT" type="STRING" size="256"/>
+          <Column id="PREM_AMT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="SRCH_YY" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : M_HS_8390_05_P1_2022
+*  @화면설명 : 신용카드 국세청 입력형식
+*  @시스템명 : (HS) 연말정산
+*  @작성자   : 박명숙
+*  @작성일   : 2022.12.18
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2022.12.18     	    박명숙 	           최초 생성 
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * 1. Form Include 선언 영역
+ ************************************************************************************************/
+
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-화면로드시 메뉴정보 기준으로 재설정됨.
+this.paramPopupGu = "";		//팝업대상 true
+this.paramSrchYy  = "";		//귀속년도
+this.paramSystId  = "";		//시스템사용자ID
+
+
+/***********************************************************************************************
+ * 3. Form 이벤트 영역
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 3.1. Form Onload 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+
+	//부모창 파라메타 처리
+	 this.paramPopupGu = this.getOwnerFrame().paramPopupGu;		//팝업대상 true
+	 this.paramSrchYy  = this.getOwnerFrame().paramSrchYy; 		//귀속년도
+	 this.paramSystId  = this.getOwnerFrame().paramSystId; 		//시스템사용자ID
+
+	this.fn_FormInit();//화면로드시 초기 설정 함수 
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.2. Form 초기설정 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.fvComPrgmId = this.gfn_CommLoadFormPrgmId(this);//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+	
+	this.ds_Input.clearData();
+	this.ds_Master10.clearData();
+	var iAddRow = 0;
+	
+	iAddRow = this.ds_Input.addRow();
+	this.ds_Input.setColumn(iAddRow, "SRCH_YY", this.paramSrchYy);
+	this.ds_Input.setColumn(iAddRow, "SYST_ID", this.paramSystId);
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "hr:M_HS_8390_05_P1_2022_SL00";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "DTL_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= this.G_SV_HR;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "ds_Master10=ds_Master10";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);		
+	
+	
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.3. Form OnClose 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/***********************************************************************************************
+ * 4. 버튼 이벤트 영역
+ -----------------------------------------------------------------------------------------------
+   4.1.엑셀출력 : btn_ExcelExport
+
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 4.1. 출력 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Print_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+}
+
+/***********************************************************************************************
+ *  4.02. [Vaildation] 조회 필수값 체크
+ ***********************************************************************************************/
+this.fn_VaildSearch = function()
+{
+	
+	//조회조건 필수입력값 있으면 체크
+	return true;
+}
+
+
+/*---------------------------------------------------------------------------------------------
+ *  4.3. 닫기 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_PopClose();
+};
+
+/***********************************************************************************************
+ * 5. [CallBack] 함수
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 5.01. [서비스] CallBack 함수 처리
+ ***********************************************************************************************/ 
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+	
+		case "DTL_SEARCH": //조회		
+	
+			break;
+		
+	}
+};
+
+
+]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="mae_JsmtGr01" propid="value" datasetid="ds_Master10" columnid="NANIM_AMT"/>
+      <BindItem id="item1" compid="mae_JsmtGr01_00" propid="value" datasetid="ds_Master10" columnid="PREM_AMT"/>
+      <BindItem id="item2" compid="mae_JsmtGr01_01" propid="value" datasetid="ds_Master10" columnid="BON_AMT"/>
+      <BindItem id="item3" compid="mae_JsmtGr01_01_00_00_00_00" propid="value" datasetid="ds_Master10" columnid="OTH_AMT"/>
+    </Bind>
+  </Form>
+</FDL>

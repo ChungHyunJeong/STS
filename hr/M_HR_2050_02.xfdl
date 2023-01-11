@@ -1,0 +1,712 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_HR_2050_02" width="460" height="270" titletext="사진 이미지 관리" scrollbartype="none" onclose="fn_FormClose" onload="fn_FormOnload" onsize="fn_FormOnsize">
+    <Layouts>
+      <Layout height="270" width="460">
+        <Div id="div_PopupTitle" taborder="0" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Close" taborder="0" text="닫기" top="9" width="70" height="26" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+              <Static id="sta_PopupTitle" taborder="1" text="사진 이미지 관리" left="20" top="10" height="24" cssclass="sta_WF_PopupTitle" width="300"/>
+              <Button id="btn_Save" taborder="2" text="저장" top="8" width="65" right="89" visible="false" cssclass="bt_TF_Save" height="28" onclick="div_PopupTitle_btn_Save_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static00" taborder="1" text="사진 등록" left="12" top="51" width="220" height="32" cssclass="sta_WF_Title"/>
+        <Static id="Static01_03" taborder="2" top="81" height="160" cssclass="sta_WF_DBg" left="14" text="" right="14"/>
+        <Static id="Static01" taborder="3" text="사진 등록" top="81" width="150" height="160" cssclass="sta_WF_DLabel" left="14" DomainID="S00001" padding="0px 0px 0px 30px"/>
+        <ImageViewer id="img_Empo" taborder="4" left="169" top="86" width="140" height="150" stretch="fit" border="1px solid #bdbdbd" imagealign="left top"/>
+        <Button id="btn_AddRowEmpo" taborder="5" text="파일추가" top="88" width="77" height="26" right="26" visible="true" cssclass="bt_WF_LineAdd" onclick="btn_AddRowEmpo_onclick" cursor="pointer"/>
+        <Button id="btn_DeleteRowEmpo" taborder="6" text="파일삭제" top="118" width="77" height="26" right="26" visible="true" cssclass="bt_WF_LineDel" onclick="btn_DeleteRowEmpo_onclick" cursor="pointer"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Master10">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="PATH_NM" type="STRING" size="256"/>
+          <Column id="EMPO_ID" type="STRING" size="256"/>
+          <Column id="EMPO_NM" type="STRING" size="256"/>
+          <Column id="FILE_UL" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="uploadYn" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="SYST_ID" type="STRING" size="256" description="조회시작일자"/>
+        </ColumnInfo>
+      </Dataset>
+      <FileDialog id="fdl_FilePo" onclose="fdl_FilePo_onclose"/>
+      <FileUpTransfer id="fut_FilePo" onerror="fut_FilePo_onerror" onprogress="fut_FilePo_onprogress" onsuccess="fut_FilePo_onsuccess"/>
+      <Dataset id="ds_Master11">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="PATH_NM" type="STRING" size="256"/>
+          <Column id="EMSI_ID" type="STRING" size="256"/>
+          <Column id="EMSI_NM" type="STRING" size="256"/>
+          <Column id="FILE_UL" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="uploadYn" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <FileDialog id="fdl_FileSi" onclose="fdl_FileSi_onclose"/>
+      <FileUpTransfer id="fut_FileSi" onerror="fut_FileSi_onerror" onprogress="fut_FileSi_onprogress" onsuccess="fut_FileSi_onsuccess"/>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : M_HR_2050_01
+*  @화면설명 : 사진 및 서명 이미지 관리
+*  @시스템명 : (HR) 인사관리
+*  @작성자   : 최석목
+*  @작성일   : 2021.10.19
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.10.19     	    최석목 	           최초 생성 
+*  2022.05.03           박지용                서명 이미지 부분 제거
+*************************************************************************************************
+*/
+
+/***********************************************************************************************
+ * 0. 폼로드
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.01. Form Include 선언
+ ***********************************************************************************************/
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+this.fvSystId = "";//[부모창파라메타] 시스템사번
+this.fvFilePath = "EP/PHOTO";//파일경로(업무별)
+this._vFiles_idx_po = 0;
+this._vFiles_po = [];
+this._vFiles_idx_si = 0;
+this._vFiles_si = [];
+this.fvUsemId = "";//사번정보
+
+/***********************************************************************************************
+ * 00.02. Form 변수 선언
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.03. Form Onload 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	//부모창 파라메타 처리
+	this.fvSystId = this.getOwnerFrame().SystId;//[부모창파라메타] 시스템사번
+	this.fvComPrgmId = this.getOwnerFrame().PrgmId;//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+	this.fvUsemId = this.getOwnerFrame().EmpmCd;//[부모창파라메타] 사번정보
+	
+
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+}
+
+/***********************************************************************************************
+ * 00.04. Form [공통] 초기설정 함수 - 필수
+ ***********************************************************************************************/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+}
+
+/***********************************************************************************************
+ * 00.05. Form [업무] 초기설정 함수
+ ***********************************************************************************************/
+this.fn_FormBizInit = function() 
+{ 
+
+	//시스템사번이 있는경우
+	if (!this.gfn_IsNull(this.fvSystId)) {
+		this.div_PopupTitle_btn_Search_onclick();//조회
+	}
+
+}
+
+/***********************************************************************************************
+ * 00.06. Form [업무] 일반콤보 조회 함수
+ ***********************************************************************************************/
+this.fn_ComboSearch = function() 
+{
+}
+
+/***********************************************************************************************
+ * 00.07. Form OnClose 이벤트
+ ***********************************************************************************************/
+ 
+/***********************************************************************************************
+ * 00.08. Form OnSize 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{ 
+
+};
+
+/***********************************************************************************************
+ * 1. 조회 영역
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 01.01. [팝업버튼] 조회 버튼 클릭 이벤트
+ ***********************************************************************************************/
+this.div_PopupTitle_btn_Search_onclick = function()
+{ 
+
+	//조회전 유효성 체크
+	if (!this.fn_VaildSearch()) return;	
+	
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+	this.ds_Master10.clearData();
+	
+	this.img_Empo.set_image("");
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+
+	this.ds_Input.setColumn(0, "SYST_ID", this.fvSystId);//시스템사번	
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가 - 
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object - 사진이미지 조회
+	svcAddObj.sSelectSql = "hr:M_HR_2050_01_M_SL10";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "MST_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= this.G_SV_HR;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "ds_Master10=ds_Master10";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);			
+}
+
+/***********************************************************************************************
+ * 01.02. [Vaildation] 조회 필수값 체크
+ ***********************************************************************************************/
+this.fn_VaildSearch = function()
+{
+	//조회조건 필수입력값 있으면 체크
+	return true;
+}
+
+/***********************************************************************************************
+ * 01.03. [공통] 조회조건 클릭/변경 이벤트
+ ***********************************************************************************************/
+
+  
+/***********************************************************************************************
+ * 2. 입력
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 02.01. [공통버튼] 입력 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+ /***********************************************************************************************
+ * 02.MG0.01. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    01. [데이터셋-ds_Master10] 데이터 Row 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ * 3. 복사
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 03.01. [팝업버튼] 복사 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 4. 취소
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 04.01. [팝업버튼] 취소 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 5. 저장
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 05.01. [팝업버튼] 저장 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 05.02. [Vaildation] Master 저장 필수값 체크 - 입력항목 
+ ***********************************************************************************************/ 
+this.fn_VaildMasterSave = function()
+{
+	return true;
+}
+
+/***********************************************************************************************
+ * 05.03. [Vaildation] Detail 저장 필수값 체크 - 그리드항목
+ ***********************************************************************************************/ 
+this.fn_VaildDetailSave = function()
+{
+	return true;
+}
+ 
+/***********************************************************************************************
+ * 6. 삭제
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 06.01. [공통버튼] 삭제 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+/***********************************************************************************************
+ * 06.02. [서비스] 삭제처리
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 06.03. [Vaildation] 삭제항목 체크
+ ***********************************************************************************************/  
+this.fn_VaildMasterDelete = function()
+{
+}
+
+/***********************************************************************************************
+ * 7. 엑셀
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 07.01. [팝업버튼] 엑셀저장 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 8. 인쇄
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 08.01. [팝업버튼] 인쇄 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 9. 결재요청
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 09.01. [팝업버튼] 결재요청 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 10. 결재현황
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.01. [팝업버튼] 결재현황 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 11. 재기안
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 11.01. [팝업버튼] 재기안 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 12. 닫기
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 12.01. [팝업버튼] 닫기 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.div_PopupTitle_btn_Close_onclick = function()
+{ 
+	this.gfn_PopClose();
+}
+
+
+/***********************************************************************************************
+ * 14. [CallBack] 함수
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 14.01. [서비스] CallBack 함수 처리
+ ***********************************************************************************************/ 
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST_SEARCH": //조회	
+			this.ds_Master10.addColumn("uploadYn", "string");	
+			this.ds_Master10.addColumn("crudType", "string");	
+			
+			if (this.ds_Master10.getRowCount() > 0) {
+				var sEMPO_ID = this.ds_Master10.getColumn(0, "EMPO_ID");	
+				var sEncode = encodeURI(sEMPO_ID.replace(/\+/,"%2B"));
+				this.img_Empo.set_image(this.ds_Master10.getColumn(0, "FILE_UL") + sEncode);				
+			}
+			
+			break;		
+			
+		case "SAVE": //저장	
+			this.div_PopupTitle_btn_Search_onclick();//조회
+			break;			
+			
+		case "DELETE": //삭제	
+			this.div_PopupTitle_btn_Search_onclick();//조회
+			break;					
+	}
+};
+
+
+/***********************************************************************************************
+ * 14.02. [팝업] CallBack 함수 처리
+          strId : 팝업호출시 지정한 팝업ID
+	      rtnValue : 팝업창에서 close시 지정한 반환값
+          주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/ 
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+
+	
+};
+ 
+/***********************************************************************************************
+ * 14.03. [메세지] CallBack 함수 처리
+ ***********************************************************************************************/  
+this.fn_MsgCallback = function (strId, strVal)
+{
+	
+	//삭제여부-사진
+	if (strId == "CONF.DELETE.PO") {
+		if(strVal )
+		{
+			this.fn_SvcDeletePo();//삭제 서비스 호출
+		}	
+	}
+}; 
+
+/***********************************************************************************************
+ * 15. [사용자정의 함수]
+ ***********************************************************************************************/
+ 
+/**
+* 파일다이얼로그 VirtualFile 로드 성공 이벤트 - 사진
+*/
+this.fn_FileDialog_VirtualFilePo_onsuccess = function(obj, e) {
+
+	var size_table = ["KB", "MB", "GB", "TB", "PB"];
+	
+	function cutFileSize(filesize, rate, count) {
+		var ret = (filesize / (Math.pow(rate, count + 1))).toFixed(2);
+		if (ret < rate) {
+			if (size_table[count]) {
+				return ret + " " + size_table[count];
+			} else {
+				return filesize + " Byte";
+			}
+		} else {
+			return cutFileSize(filesize, rate, ++count);
+		}
+	};
+
+	var sFileName = obj.filename;
+	var iLastIndex = sFileName.lastIndexOf(".") + 1;
+	var sExt = sFileName.substring(iLastIndex);
+	var sSaveFileName = this.fvUsemId + "." + sExt;
+	this.fvFileName = sSaveFileName;
+	   
+	   trace("this.fvSystId==" + sSaveFileName);
+
+	if (e.reason == 1) {
+		if (this.ds_Master10.getRowCount() > 0) {
+			this.ds_Master10.setColumn(idx, "PATH_NM", this.fvFilePath);
+			/*this.ds_Master10.setColumn(idx, "EMPO_NM", obj.filename);*/
+			this.ds_Master10.setColumn(idx, "EMPO_NM", sSaveFileName);
+			this.ds_Master10.setColumn(idx, "uploadYn", "N");
+			this.ds_Master10.setColumn(idx, "SYST_ID", this.fvSystId);
+			this.ds_Master10.setColumn(idx, "FILE_UL", "");	
+			this.ds_Master10.setColumn(idx, "crudType", "U");//수정	
+		} else {
+			var idx = this.gfn_GridInsertProcess(this, this.ds_Master10);//crud_flag 변경-입력(I)
+
+			this.ds_Master10.setColumn(idx, "PATH_NM", this.fvFilePath);
+			//this.ds_Master10.setColumn(idx, "EMPO_NM", obj.filename);
+			this.ds_Master10.setColumn(idx, "EMPO_NM", sSaveFileName);
+			this.ds_Master10.setColumn(idx, "uploadYn", "N");
+			this.ds_Master10.setColumn(idx, "SYST_ID", this.fvSystId);
+			this.ds_Master10.setColumn(idx, "FILE_UL", "");
+		}
+		
+
+		this.fn_FileUploadPo();//파일업로드 및 저장 - 사진
+	}
+		
+};
+
+
+
+/**
+* 파일 업로드 처리 - 사진
+*/
+this.fn_FileUploadPo = function() {
+
+	if (this._vFiles_po.length > 0) {
+
+		var vfile = this._vFiles_po[this._vFiles_idx_po];
+		if (vfile)
+		{	
+			this.fut_FilePo.addFile("file00", vfile);	
+		}
+
+		//this.fut_FilePo.upload(nEnv.services["svcUrl"].url + "FileUploader?mode=upload&subDir=" + this.fvFilePath);
+		this.fut_FilePo.upload(nEnv.services["svcUrl"].url + "fileUpload?mode=upload&subDir=" + this.fvFilePath + "&sFileName=" + this.fvFileName);
+		
+	} else {
+
+		this.gfn_Alert("SM035");//파일을 선택하세요.
+	}
+	
+};
+
+
+
+/**
+* 파일다이얼로그 Close 이벤트 - 사진
+*/
+this.fdl_FilePo_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEventInfo)
+{
+
+	for (var i = 0, len = e.virtualfiles.length, vFile; i < len; i++) {
+		vFile = e.virtualfiles[i];
+		vFile.addEventHandler("onsuccess", this.fn_FileDialog_VirtualFilePo_onsuccess, this);
+		this._vFiles_po.push(vFile);
+		vFile.open(null, 1);
+		vFile.getFileSize();	
+			
+	}
+};
+
+
+/**
+* 파일 업로드 성공 이벤트 - 사진
+*/
+this.fut_FilePo_onsuccess = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferEventinfo)
+{	
+
+	this._vFiles_idx_po++; 
+    var vfile = this._vFiles_po[this._vFiles_idx_po];
+
+	if (vfile) {		
+		//초기화 해줘야됨
+		this.fut_FilePo.clearFileList();		
+		this.fut_FilePo.addFile("file00",vfile);
+		//this.fut_FilePo.upload(nEnv.services["svcUrl"].url+"FileUploader?mode=upload&subDir=" + this.fvFilePath);
+		this.fut_FilePo.upload(nEnv.services["svcUrl"].url+"FileUploader?mode=upload&subDir=" + this.fvFilePath + "&sFileName=" + this.fvFileName);
+
+	}
+	
+
+	trace("\n========FileUpTransfer00_onsuccess-Po========");
+	trace("\ne.eventid : "+e.eventid);
+	trace("\ne.fromobject : "+e.fromobject);
+	trace("\ne.fromreferenceobject : "+e.fromreferenceobject);
+	trace("\ne.url : "+e.url);
+	trace("\ne.code : "+e.code);
+	trace("\ne.message : "+e.message);
+	trace("\n==============================================");
+
+	//파일업로드 결과 데이셋이 있으면
+	if (e.code == 0 && e.datasets[0] !=null && e.datasets[0].getRowCount() > 0) {
+
+		var iFindRow = this.ds_Master10.findRowExpr("EMPO_NM == '" + e.datasets[0].getColumn(0, "FILE_CNAME") + "' && uploadYn == 'N'");
+
+		this.ds_Master10.setColumn(iFindRow, "EMPO_ID", e.datasets[0].getColumn(0, "FILE_NAME"));
+		this.ds_Master10.setColumn(iFindRow, "uploadYn", "Y");//파일업로드 성공여부
+		this.ds_Master10.setColumn(iFindRow, "PATH_NM", this.fvFilePath);
+	}
+
+	if (this.ds_Master10.getCaseCount("uploadYn=='N'") < 1) {
+	
+		this._vFiles_idx_po = 0;
+		this._vFiles_po = [];
+		this.fut_FilePo.clearFileList();
+		
+		this.fn_ComBtnSave("PO");//저장
+	}
+};
+
+
+
+/**
+* 파일 업로드 실패 이벤트 - 사진
+*/
+this.fut_FilePo_onerror = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferErrorEventInfo)
+{
+	trace("======================================== fut_FilePo_onerror ========================================");
+	trace("e.errormsg : " + e.errormsg);
+	trace("e.errortype : " + e.errortype);
+	trace("==================================================================================================");
+};
+
+
+
+/**
+* 파일 업로드 진행 이벤트 - 사진
+*/
+this.fut_FilePo_onprogress = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferProgressEventInfo)
+{
+	//this.ds_Smfilb.setColumn(this._vFiles_idx, "LOADED", (e.loaded / e.total)*100);
+};
+
+/**
+* 파일 업로드 진행 이벤트 - 서명
+*/
+this.fut_FileSi_onprogress = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferProgressEventInfo)
+{
+	//this.ds_Smfilb.setColumn(this._vFiles_idx, "LOADED", (e.loaded / e.total)*100);
+};
+
+/***********************************************************************************************
+ * 05.01. 파일추가 버튼 클릭 이벤트 - 사진
+ ***********************************************************************************************/ 
+this.btn_AddRowEmpo_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this._vFiles_idx_po = 0;
+	this._vFiles_po = [];	
+	this.fdl_FilePo.open("파일열기", FileDialog.MULTILOAD,"%MYDOCUMENT%");
+};
+
+/***********************************************************************************************
+ * 05.01. 파일추가 버튼 클릭 이벤트 - 서명
+ ***********************************************************************************************/ 
+/***********************************************************************************************
+ * 05.02. 파일삭제 버튼 클릭 이벤트 - 사진
+ ***********************************************************************************************/ 
+this.btn_DeleteRowEmpo_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_Confirm("SM004","", "CONF.DELETE.PO", "fn_MsgCallback");//삭제 하시겠습니까?	
+};
+
+/***********************************************************************************************
+ * 05.02. 파일삭제 버튼 클릭 이벤트 - 서명
+ ***********************************************************************************************/ 
+/***********************************************************************************************
+ * 5. 저장
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 05.01. [공통버튼] 저장 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnSave = function(sDst)
+{ 	
+	//사진
+	if (sDst == "PO") {
+		//변경여부 체크
+		if (!this.gfn_DsIsUpdated(this.ds_Master10)) {
+			this.gfn_Alert("SM036");//변경된 내용이 없습니다.
+			return;
+		}
+	}
+	
+	//사진
+	if (sDst == "PO") {
+		//저장전 유효성 체크
+		//Master 데이터 유효성 체크
+		if (this.gfn_DsIsUpdated(this.ds_Master10)) {
+			if (!this.fn_VaildMasterSave()) return;
+		}
+	}
+	
+	//[공통]서비스 정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	
+	//[공통]서비스 호출 변수
+	var sInputDaset = "" //입력 데이터셋
+		
+	//사진
+	if (sDst == "PO") {
+		
+		//[공통]서비스 정보 추가
+		svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object				 
+		svcAddObj.sInsertSql = "hr:M_HR_2050_01_M_IN10";//저장Sql
+		svcAddObj.sUpdateSql = "hr:M_HR_2050_01_M_UP10";//수정Sql
+		svcAddObj.sDeleteSql = "";//삭제Sql
+		svcAddObj.sSaveFlagColumn = "crudType";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+								 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+
+		this.gfn_AddComSaveService(this, svcAddObj);
+		sInputDaset = "ds_Master10=ds_Master10:U" //입력 데이터셋
+	}
+
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "SAVE";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_HR;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = sInputDaset //입력 데이터셋
+	svcCallObj.sOutDatset = "";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명		
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+
+}
+
+/***********************************************************************************************
+ * 06.02. [서비스] 삭제처리 - 사진
+ ***********************************************************************************************/  
+this.fn_SvcDeletePo = function() 
+{ 
+	//삭제전 유효성 체크
+	//Master 데이터 유효성 체크
+	//if (!this.fn_VaildMasterDelete()) return;
+	
+	//삭제키 정보 설정
+	this.ds_Master10.setColumn(0, "crudType", "D");//삭제-Flag
+	
+	//[공통]서비스 정보 초기화
+	this.gfn_InitComService(this);
+	
+	//Master 삭제
+	//[공통]서비스 정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sInsertSql = "";//저장Sql
+	svcAddObj.sUpdateSql = "";//수정Sql
+	svcAddObj.sDeleteSql = "hr:M_HR_2050_01_M_DL10";//삭제Sql
+	svcAddObj.sSaveFlagColumn = "crudType";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+							 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+
+	this.gfn_AddComSaveService(this, svcAddObj);
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "DELETE";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_HR;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Master10=ds_Master10" //입력 데이터셋
+	svcCallObj.sOutDatset = "";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+	
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+
+}
+
+/***********************************************************************************************
+ * 06.02. [서비스] 삭제처리 - 서명
+ ***********************************************************************************************/ ]]></Script>
+  </Form>
+</FDL>

@@ -1,0 +1,3178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_WF_1100" width="1442" height="695" titletext="결재함" onload="fn_FormOnload" onclose="fn_FormClose">
+    <Layouts>
+      <Layout height="695" width="1442">
+        <Div id="div_Search" taborder="0" left="14" top="12" height="66" cssclass="div_WF_Search" formscrollbartype="none none" right="14" text="">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="1" text="기안일자" left="16" top="6" width="80" height="24" cssclass="sta_WF_SLabel" DomainID="S00002"/>
+              <Static id="Static00_00" taborder="2" text="모듈구분" left="16" top="34" width="80" height="24" cssclass="sta_WF_SLabel" DomainID="S00003"/>
+              <Combo id="cbo_ModmCd" taborder="0" left="96" top="34" height="24" innerdataset="ds_ModmSch" codecolumn="MODM_CD" datacolumn="MOLM_NM" width="248"/>
+              <Calendar id="cal_TemhDtFr" taborder="3" left="96" top="6" width="110" height="24" dateformat="yyyy-MM-dd" cssclass="essential"/>
+              <Static id="Static03" taborder="4" text="~" left="211" top="5" width="20" height="26" cssclass="sta_WF_Dash"/>
+              <Calendar id="cal_TemhDtTo" taborder="5" left="234" top="6" width="110" height="24" dateformat="yyyy-MM-dd" cssclass="essential"/>
+              <Static id="Static01" taborder="6" text="기안자" left="376" top="6" width="80" height="24" cssclass="sta_WF_SLabel"/>
+              <Edit id="edt_EmpmCd" taborder="7" left="456" top="6" width="90" height="24" maxlength="10" onchanged="div_Search_edt_EmpmCd_onchanged"/>
+              <Edit id="edt_EmpmNm" taborder="8" left="548" top="6" width="130" height="24" enable="true" maxlength="50" onchanged="div_Search_edt_EmpmNm_onchanged"/>
+              <Button id="btn_SystId" taborder="9" left="680" top="6" width="24" height="24" cssclass="btn_WF_SmallSearch" tabstop="false" onclick="div_Search_btn_SystId_onclick" cursor="pointer" text=""/>
+              <Edit id="edt_SystId" taborder="10" left="705" top="6" width="10" height="24" maxlength="10" visible="false"/>
+              <Static id="Static01_00" taborder="11" text="결재함구분" left="376" top="34" width="80" height="24" cssclass="sta_WF_SLabel"/>
+              <Radio id="rdo_Wfcm" taborder="12" left="456" top="34" width="420" height="24" innerdataset="ds_Wf101" codecolumn="CODM_CD" datacolumn="CODM_NM" direction="vertical" value="" text="" index="-1" onitemchanged="div_Search_rdo_Wfcm_onitemchanged"/>
+              <Button id="btn_EmpoPopup" taborder="13" text="서명등록" top="35" width="70" height="24" right="6" cssclass="bt_WF_InputArea_Blue" cursor="pointer" enable="true" onclick="div_Search_btn_EmpoPopup_onclick"/>
+              <Button id="btn_Process" taborder="14" text="결재현황" top="35" width="80" right="79" visible="true" cssclass="bt_TF_DocumentGrey" onclick="btn_Process_onclick" height="24"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="sta_HSplitter" taborder="5" left="490" top="120" width="2" cssclass="sta_SP_Bg" bottom="216"/>
+        <Static id="sta_VSplitter" taborder="7" left="14" top="sta_HSplitter:0" height="2" right="14" cssclass="sta_SP_Bg"/>
+        <Div id="div_MasterView" taborder="1" left="14" top="88" bottom="sta_VSplitter:4" right="sta_HSplitter:0" onsize="div_MasterView_onsize">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="결재목록" left="0" top="0" width="220" height="32" cssclass="sta_WF_Title"/>
+              <Grid id="grd_Master10" taborder="1" left="0" top="32" autofittype="none" right="6" selecttype="cell" cellsizingtype="col" binddataset="ds_Master10" bottom="0">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="35"/>
+                      <Column size="290"/>
+                      <Column size="130"/>
+                      <Column size="30"/>
+                      <Column size="80"/>
+                      <Column size="100"/>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="26" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="No."/>
+                      <Cell col="1" text="결재명"/>
+                      <Cell col="2" text="기안일시"/>
+                      <Cell col="3" text="긴급" accessibilitydescription="S00001"/>
+                      <Cell col="4" text="기안자"/>
+                      <Cell col="5" text="결재번호" accessibilitydescription="S00003"/>
+                      <Cell col="6" text="모듈구분"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="" expr="currow+1" displaytype="text" textAlign="center"/>
+                      <Cell col="1" text="bind:WOFH_NM" textAlign="left"/>
+                      <Cell col="2" text="bind:WOFH_DT" textAlign="center"/>
+                      <Cell col="3" text="bind:URGE_YN" textAlign="center"/>
+                      <Cell col="4" text="bind:EMPM_NM" textAlign="center"/>
+                      <Cell col="5" text="bind:WOFH_NO" displaytype="text" calendardateformat="yyyy-MM-dd" textAlign="center"/>
+                      <Cell col="6" text="bind:MODU_CD" displaytype="combotext" calendardateformat="yyyy-MM-dd" textAlign="center" combodataset="ds_Modm" combocodecol="MODM_CD" combodatacol="MOLM_NM"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_DetailInput" taborder="2" left="14" right="14" bottom="10" text="" top="sta_VSplitter:0">
+          <Layouts>
+            <Layout>
+              <Div id="div_WfSign" taborder="0" left="0" top="2" width="570" bottom="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static01" taborder="0" text="결&#13;&#10;&#13;&#10;재" top="2" width="25" height="94" cssclass="sta_WF_DLabel" left="0" DomainID="S00001"/>
+                    <Static id="Static01_00" taborder="1" text="성명" top="2" width="40" height="19" cssclass="sta_WF_DLabel" left="24" DomainID="S00001" textAlign="center"/>
+                    <Static id="Static01_00_00_00" taborder="2" text="서명" top="20" width="40" height="41" cssclass="sta_WF_DLabel" left="24" DomainID="S00001"/>
+                    <Static id="Static01_00_00_00_00" taborder="3" text="일시" top="60" width="40" height="36" cssclass="sta_WF_DLabel" left="24" DomainID="S00001"/>
+                    <Static id="sta_ApprNm0" taborder="4" top="2" height="19" left="64" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprNm1" taborder="5" top="2" height="19" left="136" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprNm2" taborder="6" top="2" height="19" left="208" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprNm3" taborder="7" top="2" height="19" left="280" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprNm4" taborder="8" top="2" height="19" left="352" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprNm5" taborder="9" top="2" height="19" left="424" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprNm6" taborder="10" top="2" height="19" left="496" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <ImageViewer id="img_ApprSign0" taborder="11" left="64" top="20" width="73" height="41" border="1px solid #bdbdbd" background="white" stretch="fit"/>
+                    <ImageViewer id="img_ApprSign1" taborder="12" left="136" top="20" width="73" height="41" border="1px solid #bdbdbd" background="white" stretch="fit"/>
+                    <ImageViewer id="img_ApprSign2" taborder="13" left="208" top="20" width="73" height="41" border="1px solid #bdbdbd" background="white" stretch="fit"/>
+                    <ImageViewer id="img_ApprSign3" taborder="14" left="280" top="20" width="73" height="41" border="1px solid #bdbdbd" background="white" stretch="fit"/>
+                    <ImageViewer id="img_ApprSign4" taborder="15" left="352" top="20" width="73" height="41" border="1px solid #bdbdbd" background="white" stretch="fit"/>
+                    <ImageViewer id="img_ApprSign5" taborder="16" left="424" top="20" width="73" height="41" border="1px solid #bdbdbd" background="white" stretch="fit"/>
+                    <ImageViewer id="img_ApprSign6" taborder="17" left="496" top="20" width="73" height="41" border="1px solid #bdbdbd" background="white" stretch="fit"/>
+                    <Static id="sta_ApprDate0" taborder="18" top="60" height="18" left="64" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,0px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprDate1" taborder="19" top="60" height="18" left="136" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,0px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprDate2" taborder="20" top="60" height="18" left="208" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,0px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprDate3" taborder="21" top="60" height="18" left="280" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,0px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprDate4" taborder="22" top="60" height="18" left="352" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,0px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprDate5" taborder="23" top="60" height="18" left="424" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,0px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprDate6" taborder="24" top="60" height="18" left="496" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,0px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprTime0" taborder="25" top="77" height="18" left="64" text="" width="73" border="0px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprTime1" taborder="26" top="77" height="18" left="136" text="" width="73" border="0px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprTime2" taborder="27" top="77" height="18" left="208" text="" width="73" border="0px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprTime3" taborder="28" top="77" height="18" left="280" text="" width="73" border="0px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprTime4" taborder="29" top="77" height="18" left="352" text="" width="73" border="0px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprTime5" taborder="30" top="77" height="18" left="424" text="" width="73" border="0px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprTime6" taborder="31" top="77" height="18" left="496" text="" width="73" border="0px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="Static01_01" taborder="32" text="주&#13;&#10;관&#13;&#10;부&#13;&#10;서" top="105" width="25" height="94" cssclass="sta_WF_DLabel" left="0" DomainID="S00001"/>
+                    <Static id="Static01_00_01" taborder="33" text="성명" top="105" width="40" height="19" cssclass="sta_WF_DLabel" left="24" DomainID="S00001"/>
+                    <Static id="Static01_00_00_00_01" taborder="34" text="서명" top="123" width="40" height="41" cssclass="sta_WF_DLabel" left="24" DomainID="S00001"/>
+                    <Static id="Static01_00_00_00_00_01" taborder="35" text="일시" top="163" width="40" height="36" cssclass="sta_WF_DLabel" left="24" DomainID="S00001"/>
+                    <Static id="sta_ApprNmDir0" taborder="36" top="105" height="19" left="64" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprNmDir1" taborder="37" top="105" height="19" left="136" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprNmDir2" taborder="38" top="105" height="19" left="208" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprNmDir3" taborder="39" top="105" height="19" left="280" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <ImageViewer id="img_ApprSignDir0" taborder="40" left="64" top="123" width="73" height="41" border="1px solid #bdbdbd" background="white" stretch="fit"/>
+                    <ImageViewer id="img_ApprSignDir1" taborder="41" left="136" top="123" width="73" height="41" border="1px solid #bdbdbd" background="white" stretch="fit"/>
+                    <ImageViewer id="img_ApprSignDir2" taborder="42" left="208" top="123" width="73" height="41" border="1px solid #bdbdbd" background="white" stretch="fit"/>
+                    <ImageViewer id="img_ApprSignDir3" taborder="43" left="280" top="123" width="73" height="41" border="1px solid #bdbdbd" background="white" stretch="fit"/>
+                    <Static id="sta_ApprDateDir0" taborder="44" top="163" height="18" left="64" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,0px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprDateDir1" taborder="45" top="163" height="18" left="136" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,0px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprDateDir2" taborder="46" top="163" height="18" left="208" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,0px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprDateDir3" taborder="47" top="163" height="18" left="280" text="" width="73" border="1px solid #bdbdbd,1px solid #bdbdbd,0px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprTimeDir0" taborder="48" top="180" height="18" left="64" text="" width="73" border="0px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprTimeDir1" taborder="49" top="180" height="18" left="136" text="" width="73" border="0px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprTimeDir2" taborder="50" top="180" height="18" left="208" text="" width="73" border="0px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                    <Static id="sta_ApprTimeDir3" taborder="51" top="180" height="18" left="280" text="" width="73" border="0px solid #bdbdbd,1px solid #bdbdbd,1px solid #bdbdbd" background="white" textAlign="center"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Grid id="grd_Detail11Help" taborder="1" left="578" top="4" autofittype="none" bottom="0" selecttype="cell" cellsizingtype="col" width="234" binddataset="ds_Detail11Help">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="76"/>
+                      <Column size="76"/>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="20" band="head"/>
+                      <Row size="20" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell colspan="3" text="협조"/>
+                      <Cell row="1" text="성명"/>
+                      <Cell row="1" col="1" text="직위"/>
+                      <Cell row="1" col="2" text="확인일"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:EMPM_NM" textAlign="center"/>
+                      <Cell col="1" text="bind:POSI_NM" textAlign="center"/>
+                      <Cell col="2" text="bind:WOFH_DD" calendardateformat="yyyy-MM-dd" textAlign="center" calendardisplaynulltype="none"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Grid id="grd_Detail11Recv" taborder="2" left="820" top="4" autofittype="none" bottom="0" selecttype="cell" cellsizingtype="col" width="234" binddataset="ds_Detail11Recv">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="76"/>
+                      <Column size="76"/>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="20" band="head"/>
+                      <Row size="20" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell colspan="3" text="접수"/>
+                      <Cell row="1" text="성명"/>
+                      <Cell row="1" col="1" text="직위"/>
+                      <Cell row="1" col="2" text="확인일"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:EMPM_NM" textAlign="center"/>
+                      <Cell col="1" text="bind:POSI_NM" textAlign="center"/>
+                      <Cell col="2" text="bind:WOFH_DD" calendardateformat="yyyy-MM-dd" textAlign="center" calendardisplaynulltype="none"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Static id="sta_PreMemoNm" taborder="3" text="전결재자 첨언" top="4" height="26" cssclass="sta_WF_DLabel" left="1062" DomainID="S00001" right="0" minwidth="352" maxwidth=""/>
+              <TextArea id="txt_PreMemoNm" taborder="4" left="1062" top="31" height="68" readonly="true" right="0" minwidth="352" maxwidth=""/>
+              <Static id="sta_MemoNm" taborder="5" text="첨언" top="108" height="26" cssclass="sta_WF_DLabel" left="1062" DomainID="S00001" right="0" minwidth="352" maxwidth=""/>
+              <TextArea id="txt_MemoNm" taborder="6" left="1062" top="135" height="68" right="0" readonly="true" minwidth="352" maxwidth=""/>
+              <Button id="btn_PreMemoNmPop" taborder="7" top="4" height="24" cursor="pointer" cssclass="btn_WF_SmallSearch" onclick="div_DetailInput_btn_PreMemoNmPop_onclick" minwidth="24" maxwidth="" width="24" left="sta_PreMemoNm:-26"/>
+              <Button id="btn_MemoNmPop" taborder="8" top="108" height="24" cursor="pointer" cssclass="btn_WF_SmallSearch" onclick="div_DetailInput_btn_MemoNmPop_onclick" minwidth="24" maxwidth="" width="24" left="sta_MemoNm:-26"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_Appr" taborder="3" left="sta_HSplitter:2" top="88" text="결재내역" enable="true" right="14" bottom="sta_VSplitter:0" async="true"/>
+        <Button id="btn_DivMoveMi" taborder="4" top="78" height="10" width="40" visible="false" onclick="btn_DivMoveMi_onclick" cssclass="bt_TF_FoldA" left="700" cursor="pointer" text=""/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="FROM_DD" type="STRING" size="256" description="조회시작일자"/>
+          <Column id="CLOS_DD" type="STRING" size="256" description="조회종료일자"/>
+          <Column id="SESU_ID" type="STRING" size="256" description="시스템사용자ID"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="MODU_CD" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Modm">
+        <ColumnInfo>
+          <Column id="MODM_CD" type="STRING" size="256"/>
+          <Column id="MOLM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Wf101">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10" onrowposchanged="ds_Master10_onrowposchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WCLD_SE" type="STRING" size="256"/>
+          <Column id="URGE_YN" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="MODU_CD" type="STRING" size="256"/>
+          <Column id="WOFH_DT" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="WOFH_NM" type="STRING" size="256"/>
+          <Column id="SMSN_YN" type="STRING" size="256"/>
+          <Column id="WOFH_ST" type="STRING" size="256"/>
+          <Column id="EMAL_YN" type="STRING" size="256"/>
+          <Column id="WORQ_VR" type="STRING" size="256"/>
+          <Column id="SYST_WF" type="STRING" size="256"/>
+          <Column id="EMPM_WF" type="STRING" size="256"/>
+          <Column id="WFCO_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="RANK_NM" type="STRING" size="256"/>
+          <Column id="WFLO_CD" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WAIT_GU" type="STRING" size="256"/>
+          <Column id="WFRE_CD" type="STRING" size="256"/>
+          <Column id="MEMO_NM" type="STRING" size="256"/>
+          <Column id="AGSU_ID" type="STRING" size="256"/>
+          <Column id="WOFH_IP" type="STRING" size="256"/>
+          <Column id="WOFH_AP" type="STRING" size="256"/>
+          <Column id="BFWF_DT" type="STRING" size="256"/>
+          <Column id="BFWF_NO" type="STRING" size="256"/>
+          <Column id="s_chk" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_ModmSch">
+        <ColumnInfo>
+          <Column id="MODM_CD" type="STRING" size="256"/>
+          <Column id="MOLM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail10">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_NM" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WMAX_SE" type="STRING" size="256"/>
+          <Column id="APPR_CODE0" type="STRING" size="256"/>
+          <Column id="APPR_CODE1" type="STRING" size="256"/>
+          <Column id="APPR_CODE2" type="STRING" size="256"/>
+          <Column id="APPR_CODE3" type="STRING" size="256"/>
+          <Column id="APPR_CODE4" type="STRING" size="256"/>
+          <Column id="APPR_CODE5" type="STRING" size="256"/>
+          <Column id="APPR_CODE6" type="STRING" size="256"/>
+          <Column id="APPR_CODE7" type="STRING" size="256"/>
+          <Column id="APPR_CODE8" type="STRING" size="256"/>
+          <Column id="APPR_CODE9" type="STRING" size="256"/>
+          <Column id="APPR_CODE10" type="STRING" size="256"/>
+          <Column id="APPR_JIKW0" type="STRING" size="256"/>
+          <Column id="APPR_JIKW1" type="STRING" size="256"/>
+          <Column id="APPR_JIKW2" type="STRING" size="256"/>
+          <Column id="APPR_JIKW3" type="STRING" size="256"/>
+          <Column id="APPR_JIKW4" type="STRING" size="256"/>
+          <Column id="APPR_JIKW5" type="STRING" size="256"/>
+          <Column id="APPR_JIKW6" type="STRING" size="256"/>
+          <Column id="APPR_JIKW7" type="STRING" size="256"/>
+          <Column id="APPR_JIKW8" type="STRING" size="256"/>
+          <Column id="APPR_JIKW9" type="STRING" size="256"/>
+          <Column id="APPR_JIKW10" type="STRING" size="256"/>
+          <Column id="APPR_NAME0" type="STRING" size="256"/>
+          <Column id="APPR_NAME1" type="STRING" size="256"/>
+          <Column id="APPR_NAME2" type="STRING" size="256"/>
+          <Column id="APPR_NAME3" type="STRING" size="256"/>
+          <Column id="APPR_NAME4" type="STRING" size="256"/>
+          <Column id="APPR_NAME5" type="STRING" size="256"/>
+          <Column id="APPR_NAME6" type="STRING" size="256"/>
+          <Column id="APPR_NAME7" type="STRING" size="256"/>
+          <Column id="APPR_NAME8" type="STRING" size="256"/>
+          <Column id="APPR_NAME9" type="STRING" size="256"/>
+          <Column id="APPR_NAME10" type="STRING" size="256"/>
+          <Column id="APPR_DATE0" type="STRING" size="256"/>
+          <Column id="APPR_DATE1" type="STRING" size="256"/>
+          <Column id="APPR_DATE2" type="STRING" size="256"/>
+          <Column id="APPR_DATE3" type="STRING" size="256"/>
+          <Column id="APPR_DATE4" type="STRING" size="256"/>
+          <Column id="APPR_DATE5" type="STRING" size="256"/>
+          <Column id="APPR_DATE6" type="STRING" size="256"/>
+          <Column id="APPR_DATE7" type="STRING" size="256"/>
+          <Column id="APPR_DATE8" type="STRING" size="256"/>
+          <Column id="APPR_DATE9" type="STRING" size="256"/>
+          <Column id="APPR_DATE10" type="STRING" size="256"/>
+          <Column id="APPR_TIME0" type="STRING" size="256"/>
+          <Column id="APPR_TIME1" type="STRING" size="256"/>
+          <Column id="APPR_TIME2" type="STRING" size="256"/>
+          <Column id="APPR_TIME3" type="STRING" size="256"/>
+          <Column id="APPR_TIME4" type="STRING" size="256"/>
+          <Column id="APPR_TIME5" type="STRING" size="256"/>
+          <Column id="APPR_TIME6" type="STRING" size="256"/>
+          <Column id="APPR_TIME7" type="STRING" size="256"/>
+          <Column id="APPR_TIME8" type="STRING" size="256"/>
+          <Column id="APPR_TIME9" type="STRING" size="256"/>
+          <Column id="APPR_TIME10" type="STRING" size="256"/>
+          <Column id="USER_GUBN0" type="STRING" size="256"/>
+          <Column id="USER_GUBN1" type="STRING" size="256"/>
+          <Column id="USER_GUBN2" type="STRING" size="256"/>
+          <Column id="USER_GUBN3" type="STRING" size="256"/>
+          <Column id="USER_GUBN4" type="STRING" size="256"/>
+          <Column id="USER_GUBN5" type="STRING" size="256"/>
+          <Column id="USER_GUBN6" type="STRING" size="256"/>
+          <Column id="USER_GUBN7" type="STRING" size="256"/>
+          <Column id="USER_GUBN8" type="STRING" size="256"/>
+          <Column id="USER_GUBN9" type="STRING" size="256"/>
+          <Column id="USER_GUBN10" type="STRING" size="256"/>
+          <Column id="APPR_MEMO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail10Appr">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_NM" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WMAX_SE" type="STRING" size="256"/>
+          <Column id="APPR_CODE0" type="STRING" size="256"/>
+          <Column id="APPR_CODE1" type="STRING" size="256"/>
+          <Column id="APPR_CODE2" type="STRING" size="256"/>
+          <Column id="APPR_CODE3" type="STRING" size="256"/>
+          <Column id="APPR_CODE4" type="STRING" size="256"/>
+          <Column id="APPR_CODE5" type="STRING" size="256"/>
+          <Column id="APPR_CODE6" type="STRING" size="256"/>
+          <Column id="APPR_CODE7" type="STRING" size="256"/>
+          <Column id="APPR_CODE8" type="STRING" size="256"/>
+          <Column id="APPR_CODE9" type="STRING" size="256"/>
+          <Column id="APPR_CODE10" type="STRING" size="256"/>
+          <Column id="APPR_JIKW0" type="STRING" size="256"/>
+          <Column id="APPR_JIKW1" type="STRING" size="256"/>
+          <Column id="APPR_JIKW2" type="STRING" size="256"/>
+          <Column id="APPR_JIKW3" type="STRING" size="256"/>
+          <Column id="APPR_JIKW4" type="STRING" size="256"/>
+          <Column id="APPR_JIKW5" type="STRING" size="256"/>
+          <Column id="APPR_JIKW6" type="STRING" size="256"/>
+          <Column id="APPR_JIKW7" type="STRING" size="256"/>
+          <Column id="APPR_JIKW8" type="STRING" size="256"/>
+          <Column id="APPR_JIKW9" type="STRING" size="256"/>
+          <Column id="APPR_JIKW10" type="STRING" size="256"/>
+          <Column id="APPR_NAME0" type="STRING" size="256"/>
+          <Column id="APPR_NAME1" type="STRING" size="256"/>
+          <Column id="APPR_NAME2" type="STRING" size="256"/>
+          <Column id="APPR_NAME3" type="STRING" size="256"/>
+          <Column id="APPR_NAME4" type="STRING" size="256"/>
+          <Column id="APPR_NAME5" type="STRING" size="256"/>
+          <Column id="APPR_NAME6" type="STRING" size="256"/>
+          <Column id="APPR_NAME7" type="STRING" size="256"/>
+          <Column id="APPR_NAME8" type="STRING" size="256"/>
+          <Column id="APPR_NAME9" type="STRING" size="256"/>
+          <Column id="APPR_NAME10" type="STRING" size="256"/>
+          <Column id="APPR_DATE0" type="STRING" size="256"/>
+          <Column id="APPR_DATE1" type="STRING" size="256"/>
+          <Column id="APPR_DATE2" type="STRING" size="256"/>
+          <Column id="APPR_DATE3" type="STRING" size="256"/>
+          <Column id="APPR_DATE4" type="STRING" size="256"/>
+          <Column id="APPR_DATE5" type="STRING" size="256"/>
+          <Column id="APPR_DATE6" type="STRING" size="256"/>
+          <Column id="APPR_DATE7" type="STRING" size="256"/>
+          <Column id="APPR_DATE8" type="STRING" size="256"/>
+          <Column id="APPR_DATE9" type="STRING" size="256"/>
+          <Column id="APPR_DATE10" type="STRING" size="256"/>
+          <Column id="APPR_TIME0" type="STRING" size="256"/>
+          <Column id="APPR_TIME1" type="STRING" size="256"/>
+          <Column id="APPR_TIME2" type="STRING" size="256"/>
+          <Column id="APPR_TIME3" type="STRING" size="256"/>
+          <Column id="APPR_TIME4" type="STRING" size="256"/>
+          <Column id="APPR_TIME5" type="STRING" size="256"/>
+          <Column id="APPR_TIME6" type="STRING" size="256"/>
+          <Column id="APPR_TIME7" type="STRING" size="256"/>
+          <Column id="APPR_TIME8" type="STRING" size="256"/>
+          <Column id="APPR_TIME9" type="STRING" size="256"/>
+          <Column id="APPR_TIME10" type="STRING" size="256"/>
+          <Column id="USER_GUBN0" type="STRING" size="256"/>
+          <Column id="USER_GUBN1" type="STRING" size="256"/>
+          <Column id="USER_GUBN2" type="STRING" size="256"/>
+          <Column id="USER_GUBN3" type="STRING" size="256"/>
+          <Column id="USER_GUBN4" type="STRING" size="256"/>
+          <Column id="USER_GUBN5" type="STRING" size="256"/>
+          <Column id="USER_GUBN6" type="STRING" size="256"/>
+          <Column id="USER_GUBN7" type="STRING" size="256"/>
+          <Column id="USER_GUBN8" type="STRING" size="256"/>
+          <Column id="USER_GUBN9" type="STRING" size="256"/>
+          <Column id="USER_GUBN10" type="STRING" size="256"/>
+          <Column id="APPR_MEMO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail11">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_NM" type="STRING" size="256"/>
+          <Column id="SEQ" type="STRING" size="256"/>
+          <Column id="MODU_CD" type="STRING" size="256"/>
+          <Column id="WCTM_ID" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WFGU_NM" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WCLD_SE" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="WOFH_DT" type="STRING" size="256"/>
+          <Column id="BFWF_DT" type="STRING" size="256"/>
+          <Column id="WOFH_DD" type="STRING" size="256"/>
+          <Column id="WOFH_TM" type="STRING" size="256"/>
+          <Column id="PRE_MEMO_NM" type="STRING" size="256"/>
+          <Column id="MEMO_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail11Help">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_NM" type="STRING" size="256"/>
+          <Column id="SEQ" type="STRING" size="256"/>
+          <Column id="MODU_CD" type="STRING" size="256"/>
+          <Column id="WCTM_ID" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WFGU_NM" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WCLD_SE" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="WOFH_DT" type="STRING" size="256"/>
+          <Column id="BFWF_DT" type="STRING" size="256"/>
+          <Column id="WOFH_DD" type="STRING" size="256"/>
+          <Column id="WOFH_TM" type="STRING" size="256"/>
+          <Column id="PRE_MEMO_NM" type="STRING" size="256"/>
+          <Column id="MEMO_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail11Recv">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_NM" type="STRING" size="256"/>
+          <Column id="SEQ" type="STRING" size="256"/>
+          <Column id="MODU_CD" type="STRING" size="256"/>
+          <Column id="WCTM_ID" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WFGU_NM" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WCLD_SE" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="WOFH_DT" type="STRING" size="256"/>
+          <Column id="BFWF_DT" type="STRING" size="256"/>
+          <Column id="WOFH_DD" type="STRING" size="256"/>
+          <Column id="WOFH_TM" type="STRING" size="256"/>
+          <Column id="PRE_MEMO_NM" type="STRING" size="256"/>
+          <Column id="MEMO_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail12">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WCTM_ID" type="STRING" size="256"/>
+          <Column id="WCTM_NM" type="STRING" size="256"/>
+          <Column id="WCDS_ID" type="STRING" size="256"/>
+          <Column id="MODM_CD" type="STRING" size="256"/>
+          <Column id="WFCL_CD" type="STRING" size="256"/>
+          <Column id="ESSE_CD" type="STRING" size="256"/>
+          <Column id="WFAB_YN" type="STRING" size="256"/>
+          <Column id="WFSA_YN" type="STRING" size="256"/>
+          <Column id="WFCH_YN" type="STRING" size="256"/>
+          <Column id="WFAT_YN" type="STRING" size="256"/>
+          <Column id="DIUS_YN" type="STRING" size="256"/>
+          <Column id="UPDT_NM" type="STRING" size="256"/>
+          <Column id="UPDC_NM" type="STRING" size="256"/>
+          <Column id="UPSC_NM" type="STRING" size="256"/>
+          <Column id="EMAL_YN" type="STRING" size="256"/>
+          <Column id="WFSP_NM" type="STRING" size="256"/>
+          <Column id="RESP_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail13">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WCLD_SE" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="WFCO_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="RANK_NM" type="STRING" size="256"/>
+          <Column id="WFLO_CD" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WAIT_GU" type="STRING" size="256"/>
+          <Column id="WFRE_CD" type="STRING" size="256"/>
+          <Column id="MEMO_NM" type="STRING" size="256"/>
+          <Column id="AGSU_ID" type="STRING" size="256"/>
+          <Column id="WOFH_IP" type="STRING" size="256"/>
+          <Column id="WOFH_DT" type="STRING" size="256"/>
+          <Column id="BFWF_DT" type="STRING" size="256"/>
+          <Column id="BFWF_NO" type="STRING" size="256"/>
+          <Column id="APPR_MEMO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_WfUpt">
+        <ColumnInfo>
+          <Column id="WCTM_ID" type="STRING" size="256"/>
+          <Column id="UPDT_NM" type="STRING" size="256"/>
+          <Column id="UPDC_NM" type="STRING" size="256"/>
+          <Column id="UPSC_NM" type="STRING" size="256"/>
+          <Column id="WOFH_ST" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="DIRT_YN" type="STRING" size="256"/>
+          <Column id="ARGU_01" type="STRING" size="256"/>
+          <Column id="ARGU_02" type="STRING" size="256"/>
+          <Column id="ARGU_03" type="STRING" size="256"/>
+          <Column id="ARGU_04" type="STRING" size="256"/>
+          <Column id="ARGU_05" type="STRING" size="256"/>
+          <Column id="ARGU_06" type="BIGDECIMAL" size="256"/>
+          <Column id="ARGU_07" type="STRING" size="256"/>
+          <Column id="ARGU_08" type="STRING" size="256"/>
+          <Column id="ARGU_09" type="STRING" size="256"/>
+          <Column id="PROC_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Wfrt">
+        <ColumnInfo>
+          <Column id="O_RET_CODE" type="STRING" size="256"/>
+          <Column id="O_RET_CMSG" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_WfProc">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="AGSU_ID" type="STRING" size="256"/>
+          <Column id="WFLO_CD" type="STRING" size="256"/>
+          <Column id="WFRE_CD" type="STRING" size="256"/>
+          <Column id="MEMO_NM" type="STRING" size="256"/>
+          <Column id="WOFH_IP" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail10ApprDir">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_NM" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WMAX_SE" type="STRING" size="256"/>
+          <Column id="APPR_CODE0" type="STRING" size="256"/>
+          <Column id="APPR_CODE1" type="STRING" size="256"/>
+          <Column id="APPR_CODE2" type="STRING" size="256"/>
+          <Column id="APPR_CODE3" type="STRING" size="256"/>
+          <Column id="APPR_CODE4" type="STRING" size="256"/>
+          <Column id="APPR_CODE5" type="STRING" size="256"/>
+          <Column id="APPR_CODE6" type="STRING" size="256"/>
+          <Column id="APPR_CODE7" type="STRING" size="256"/>
+          <Column id="APPR_CODE8" type="STRING" size="256"/>
+          <Column id="APPR_CODE9" type="STRING" size="256"/>
+          <Column id="APPR_CODE10" type="STRING" size="256"/>
+          <Column id="APPR_JIKW0" type="STRING" size="256"/>
+          <Column id="APPR_JIKW1" type="STRING" size="256"/>
+          <Column id="APPR_JIKW2" type="STRING" size="256"/>
+          <Column id="APPR_JIKW3" type="STRING" size="256"/>
+          <Column id="APPR_JIKW4" type="STRING" size="256"/>
+          <Column id="APPR_JIKW5" type="STRING" size="256"/>
+          <Column id="APPR_JIKW6" type="STRING" size="256"/>
+          <Column id="APPR_JIKW7" type="STRING" size="256"/>
+          <Column id="APPR_JIKW8" type="STRING" size="256"/>
+          <Column id="APPR_JIKW9" type="STRING" size="256"/>
+          <Column id="APPR_JIKW10" type="STRING" size="256"/>
+          <Column id="APPR_NAME0" type="STRING" size="256"/>
+          <Column id="APPR_NAME1" type="STRING" size="256"/>
+          <Column id="APPR_NAME2" type="STRING" size="256"/>
+          <Column id="APPR_NAME3" type="STRING" size="256"/>
+          <Column id="APPR_NAME4" type="STRING" size="256"/>
+          <Column id="APPR_NAME5" type="STRING" size="256"/>
+          <Column id="APPR_NAME6" type="STRING" size="256"/>
+          <Column id="APPR_NAME7" type="STRING" size="256"/>
+          <Column id="APPR_NAME8" type="STRING" size="256"/>
+          <Column id="APPR_NAME9" type="STRING" size="256"/>
+          <Column id="APPR_NAME10" type="STRING" size="256"/>
+          <Column id="APPR_DATE0" type="STRING" size="256"/>
+          <Column id="APPR_DATE1" type="STRING" size="256"/>
+          <Column id="APPR_DATE2" type="STRING" size="256"/>
+          <Column id="APPR_DATE3" type="STRING" size="256"/>
+          <Column id="APPR_DATE4" type="STRING" size="256"/>
+          <Column id="APPR_DATE5" type="STRING" size="256"/>
+          <Column id="APPR_DATE6" type="STRING" size="256"/>
+          <Column id="APPR_DATE7" type="STRING" size="256"/>
+          <Column id="APPR_DATE8" type="STRING" size="256"/>
+          <Column id="APPR_DATE9" type="STRING" size="256"/>
+          <Column id="APPR_DATE10" type="STRING" size="256"/>
+          <Column id="APPR_TIME0" type="STRING" size="256"/>
+          <Column id="APPR_TIME1" type="STRING" size="256"/>
+          <Column id="APPR_TIME2" type="STRING" size="256"/>
+          <Column id="APPR_TIME3" type="STRING" size="256"/>
+          <Column id="APPR_TIME4" type="STRING" size="256"/>
+          <Column id="APPR_TIME5" type="STRING" size="256"/>
+          <Column id="APPR_TIME6" type="STRING" size="256"/>
+          <Column id="APPR_TIME7" type="STRING" size="256"/>
+          <Column id="APPR_TIME8" type="STRING" size="256"/>
+          <Column id="APPR_TIME9" type="STRING" size="256"/>
+          <Column id="APPR_TIME10" type="STRING" size="256"/>
+          <Column id="USER_GUBN0" type="STRING" size="256"/>
+          <Column id="USER_GUBN1" type="STRING" size="256"/>
+          <Column id="USER_GUBN2" type="STRING" size="256"/>
+          <Column id="USER_GUBN3" type="STRING" size="256"/>
+          <Column id="USER_GUBN4" type="STRING" size="256"/>
+          <Column id="USER_GUBN5" type="STRING" size="256"/>
+          <Column id="USER_GUBN6" type="STRING" size="256"/>
+          <Column id="USER_GUBN7" type="STRING" size="256"/>
+          <Column id="USER_GUBN8" type="STRING" size="256"/>
+          <Column id="USER_GUBN9" type="STRING" size="256"/>
+          <Column id="USER_GUBN10" type="STRING" size="256"/>
+          <Column id="APPR_MEMO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_UserChange">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WCLD_SE" type="STRING" size="256"/>
+          <Column id="SYST_ID_ORG" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="WFCO_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="POSI_NM" type="STRING" size="256"/>
+          <Column id="DUTY_NM" type="STRING" size="256"/>
+          <Column id="RANK_NM" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail14">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WCLD_SE" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail15">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WCLD_SE" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="PATH_NM" type="STRING" size="256"/>
+          <Column id="EMSI_ID" type="STRING" size="256"/>
+          <Column id="EMSI_NM" type="STRING" size="256"/>
+          <Column id="FILE_UL" type="STRING" size="256"/>
+          <Column id="WFRE_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_SendUser">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_NM" type="STRING" size="256"/>
+          <Column id="SEND_ID" type="STRING" size="256"/>
+          <Column id="SEND_NM" type="STRING" size="256"/>
+          <Column id="SEND_MT" type="STRING" size="256"/>
+          <Column id="SEND_EM" type="STRING" size="256"/>
+          <Column id="RECV_ID" type="STRING" size="256"/>
+          <Column id="RECV_NM" type="STRING" size="256"/>
+          <Column id="RECV_MT" type="STRING" size="256"/>
+          <Column id="RECV_EM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail10ApprDirTmp">
+        <ColumnInfo>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_NM" type="STRING" size="256"/>
+          <Column id="WFGU_CD" type="STRING" size="256"/>
+          <Column id="WMAX_SE" type="STRING" size="256"/>
+          <Column id="APPR_CODE0" type="STRING" size="256"/>
+          <Column id="APPR_CODE1" type="STRING" size="256"/>
+          <Column id="APPR_CODE2" type="STRING" size="256"/>
+          <Column id="APPR_CODE3" type="STRING" size="256"/>
+          <Column id="APPR_CODE4" type="STRING" size="256"/>
+          <Column id="APPR_CODE5" type="STRING" size="256"/>
+          <Column id="APPR_CODE6" type="STRING" size="256"/>
+          <Column id="APPR_CODE7" type="STRING" size="256"/>
+          <Column id="APPR_CODE8" type="STRING" size="256"/>
+          <Column id="APPR_CODE9" type="STRING" size="256"/>
+          <Column id="APPR_CODE10" type="STRING" size="256"/>
+          <Column id="APPR_JIKW0" type="STRING" size="256"/>
+          <Column id="APPR_JIKW1" type="STRING" size="256"/>
+          <Column id="APPR_JIKW2" type="STRING" size="256"/>
+          <Column id="APPR_JIKW3" type="STRING" size="256"/>
+          <Column id="APPR_JIKW4" type="STRING" size="256"/>
+          <Column id="APPR_JIKW5" type="STRING" size="256"/>
+          <Column id="APPR_JIKW6" type="STRING" size="256"/>
+          <Column id="APPR_JIKW7" type="STRING" size="256"/>
+          <Column id="APPR_JIKW8" type="STRING" size="256"/>
+          <Column id="APPR_JIKW9" type="STRING" size="256"/>
+          <Column id="APPR_JIKW10" type="STRING" size="256"/>
+          <Column id="APPR_NAME0" type="STRING" size="256"/>
+          <Column id="APPR_NAME1" type="STRING" size="256"/>
+          <Column id="APPR_NAME2" type="STRING" size="256"/>
+          <Column id="APPR_NAME3" type="STRING" size="256"/>
+          <Column id="APPR_NAME4" type="STRING" size="256"/>
+          <Column id="APPR_NAME5" type="STRING" size="256"/>
+          <Column id="APPR_NAME6" type="STRING" size="256"/>
+          <Column id="APPR_NAME7" type="STRING" size="256"/>
+          <Column id="APPR_NAME8" type="STRING" size="256"/>
+          <Column id="APPR_NAME9" type="STRING" size="256"/>
+          <Column id="APPR_NAME10" type="STRING" size="256"/>
+          <Column id="APPR_DATE0" type="STRING" size="256"/>
+          <Column id="APPR_DATE1" type="STRING" size="256"/>
+          <Column id="APPR_DATE2" type="STRING" size="256"/>
+          <Column id="APPR_DATE3" type="STRING" size="256"/>
+          <Column id="APPR_DATE4" type="STRING" size="256"/>
+          <Column id="APPR_DATE5" type="STRING" size="256"/>
+          <Column id="APPR_DATE6" type="STRING" size="256"/>
+          <Column id="APPR_DATE7" type="STRING" size="256"/>
+          <Column id="APPR_DATE8" type="STRING" size="256"/>
+          <Column id="APPR_DATE9" type="STRING" size="256"/>
+          <Column id="APPR_DATE10" type="STRING" size="256"/>
+          <Column id="APPR_TIME0" type="STRING" size="256"/>
+          <Column id="APPR_TIME1" type="STRING" size="256"/>
+          <Column id="APPR_TIME2" type="STRING" size="256"/>
+          <Column id="APPR_TIME3" type="STRING" size="256"/>
+          <Column id="APPR_TIME4" type="STRING" size="256"/>
+          <Column id="APPR_TIME5" type="STRING" size="256"/>
+          <Column id="APPR_TIME6" type="STRING" size="256"/>
+          <Column id="APPR_TIME7" type="STRING" size="256"/>
+          <Column id="APPR_TIME8" type="STRING" size="256"/>
+          <Column id="APPR_TIME9" type="STRING" size="256"/>
+          <Column id="APPR_TIME10" type="STRING" size="256"/>
+          <Column id="USER_GUBN0" type="STRING" size="256"/>
+          <Column id="USER_GUBN1" type="STRING" size="256"/>
+          <Column id="USER_GUBN2" type="STRING" size="256"/>
+          <Column id="USER_GUBN3" type="STRING" size="256"/>
+          <Column id="USER_GUBN4" type="STRING" size="256"/>
+          <Column id="USER_GUBN5" type="STRING" size="256"/>
+          <Column id="USER_GUBN6" type="STRING" size="256"/>
+          <Column id="USER_GUBN7" type="STRING" size="256"/>
+          <Column id="USER_GUBN8" type="STRING" size="256"/>
+          <Column id="USER_GUBN9" type="STRING" size="256"/>
+          <Column id="USER_GUBN10" type="STRING" size="256"/>
+          <Column id="APPR_MEMO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : M_WF_1100
+*  @화면설명 : 결재함
+*  @시스템명 : (WF) 결재
+*  @작성자   : 최석목
+*  @작성일   : 2021.05.13
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.05.13     	    최석목 	           최초 생성 
+*************************************************************************************************
+*/
+
+/***********************************************************************************************
+ * 0. 폼로드
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.01. Form Include 선언
+ ***********************************************************************************************/
+//include "comLib::CommonUtil.xjs";//공통함수
+include "comLib::lib_splitter.xjs";
+
+/***********************************************************************************************
+ * 00.02. Form 변수 선언
+ ***********************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+this.fvNowWofhNo = "";//현재진행중인 결재번호
+this.fvInnerWf = false;//내부결재여부
+this.fvWfMsg = "";//결재메시지
+this.fvEmalYn = false;//이메일전송여부
+this.fvWofhNo = "";//[부모창파라메타] 결재번호
+this.fvDtlSearchYn = false;//상세조회여부
+
+/***********************************************************************************************
+ * 00.03. Form Onload 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{
+	this.fvWofhNo = this.getOwnerFrame().WofhNo;//[부모창파라메타] 결재번호
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+
+}
+
+/***********************************************************************************************
+ * 00.04. Form [공통] 초기설정 함수 - 필수
+ ***********************************************************************************************/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	if (!this.gfn_IsNull(this.fvWofhNo)) {
+		this.fvComPrgmId = "M_WF_1100";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+	} else {
+		this.fvComPrgmId = this.gfn_CommLoadFormPrgmId(this);//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+	}
+	this.gfn_SetGrid(this.div_MasterView.form.grd_Master10);//[공통]그리드 이벤트 설정 - 출력목록
+}
+
+/***********************************************************************************************
+ * 00.05. Form [업무] 초기설정 함수
+ ***********************************************************************************************/
+this.fn_FormBizInit = function() 
+{ 
+
+	//[공통] 날짜정보 설정	
+	this.gfn_SetCommFromToDate(this.fvComPrgmId, "MS", this.div_Search.form.cal_TemhDtFr, this.div_Search.form.cal_TemhDtTo);//조회조건영역
+	//스플리터 초기화 함수 호출
+	this.gfn_InitSpliter(this.sta_HSplitter, "horizontal", -1, -1);
+	
+	//스플리터 초기화 함수 호출
+	this.gfn_InitSpliter(this.sta_VSplitter, "vertical", -1, -1);		
+	
+	//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+	var objCondList = ["WF101|ds_Wf101"];
+	//공통코드 설정함수 호출				   
+	this.gfn_GetCommCode(this, objCondList, "");
+	
+	this.div_Search.form.rdo_Wfcm.set_index(0);
+	
+	//[업무] 일반콤보조회
+	this.fn_ComboSearch();
+}
+
+/***********************************************************************************************
+ * 00.06. Form [업무] 일반콤보 조회 함수
+ ***********************************************************************************************/
+this.fn_ComboSearch = function() 
+{
+		
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sm:M_SM_MODM_C_SL10";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();					//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "COMBO_SEARCH";				//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_SM;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" 	//입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Modm=ds_Modm";	//출력 데이터셋
+	svcCallObj.sOtherArg = "";						//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+}
+
+/***********************************************************************************************
+ * 00.07. Form OnClose 이벤트
+ ***********************************************************************************************/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	//현재 이벤트를 상위컴포넌트로 전파하지 않게 중지시키는 메소드
+	e.stopPropagation(); 
+	//return true;
+};
+
+/***********************************************************************************************
+ * 1. 조회 영역
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 01.01. [공통버튼] 조회 버튼 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_ComBtnSearch = function()
+{ 
+
+	var sQueryId = "";//쿼리ID
+	this.fvInnerWf = false;//내부결재여부
+	this.fvDtlSearchYn = false;//상세조회여부
+	
+	//결재화면 초기화
+	this.div_Appr.set_url("");
+
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Master10.clearData();
+	this.ds_Detail10.clearData();
+	this.ds_Detail11.clearData();
+	this.ds_Detail12.clearData();
+	this.ds_Detail13.clearData();	
+	this.ds_Detail11Help.clearData();
+	this.ds_Detail11Recv.clearData();
+	this.ds_Input.clearData();
+	this.fn_ClearApprData();//결재상세 내역데이터 초기화	
+	
+	//팝업창으로 호출했을경우
+	if (!this.gfn_IsNull(this.fvWofhNo)) {
+		sQueryId = "wf:M_WF_1100_M_SL18";//쿼리ID
+		//[업무] 조회조건 입력
+		this.ds_Input.addRow();
+		this.ds_Input.setColumn(0, "WOFH_NO", this.fvWofhNo);		
+	} else {
+		//[결재버튼] Enable 설정
+		this.fn_SetComApprButtonAuthAll(false);
+		
+		//조회전 유효성 체크
+		if (!this.fn_VaildSearch()) return;	
+
+		//[업무] 조회조건 입력
+		this.ds_Input.addRow();
+		this.ds_Input.setColumn(0, "FROM_DD", this.div_Search.form.cal_TemhDtFr.value);
+		this.ds_Input.setColumn(0, "CLOS_DD", this.div_Search.form.cal_TemhDtTo.value);
+		this.ds_Input.setColumn(0, "SESU_ID", this.div_Search.form.edt_SystId.value);
+		this.ds_Input.setColumn(0, "MODU_CD", this.div_Search.form.cbo_ModmCd.value);
+		this.ds_Input.setColumn(0, "SYST_ID", this.gfn_GetSessionValue("SYST_ID"));//결재자ID
+	
+		var sWfDst = this.div_Search.form.rdo_Wfcm.value;//결재함구분
+		
+		//미결함
+		if (sWfDst == "0010") {
+			sQueryId = "wf:M_WF_1100_M_SL10";//쿼리ID
+		//진행함
+		} else if (sWfDst == "0020") {
+			sQueryId = "wf:M_WF_1100_M_SL11";//쿼리ID
+		//완료함
+		} else if (sWfDst == "0030") {
+			sQueryId = "wf:M_WF_1100_M_SL12";//쿼리ID		
+		//반려함
+		} else if (sWfDst == "0040") {
+			sQueryId = "wf:M_WF_1100_M_SL13";//쿼리ID
+		//결재함
+		} else if (sWfDst == "0050") {
+			sQueryId = "wf:M_WF_1100_M_SL14";//쿼리ID			
+		//대행함
+		} else if (sWfDst == "0060") {
+			sQueryId = "wf:M_WF_1100_M_SL15";//쿼리ID		
+		//취소함
+		} else if (sWfDst == "0070") {
+			sQueryId = "wf:M_WF_1100_M_SL17";//쿼리ID				
+		} else {
+			return;
+		}
+	}
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);	
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = sQueryId;
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "MST_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_WF;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Master10=ds_Master10";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+	svcCallObj.sComBtnDst = "SEARCH";//공통버튼구분-조회버튼
+	svcCallObj.sPrgmId = this.fvComPrgmId;//프로그램ID
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+}
+
+/***********************************************************************************************
+ * 01.02. [Vaildation] 조회 필수값 체크
+ ***********************************************************************************************/
+this.fn_VaildSearch = function()
+{
+	if (!this.gfn_CheckFromToDate(this.fvComPrgmId, this.div_Search.form.cal_TemhDtFr, this.div_Search.form.cal_TemhDtTo)) return false;//조회기간 범위 체크
+	//조회조건 필수입력값 있으면 체크
+	return true;
+}
+
+/***********************************************************************************************
+ * 01.03. [공통] 조회조건 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [부서]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 부서 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 부서코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 부서명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/***********************************************************************************************
+ *    02. [사용자]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 사용자 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_btn_SystId_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "S_SYST_ID_01";//팝업ID - 사용자정보
+	var oArg = {PrgmId:this.fvComPrgmId, AuthYn:"Y", EmpmNm:this.div_Search.form.edt_EmpmNm.value};//Argument처리-권한체크용	
+	this.gfn_UserPop(sPopupId, oArg);		
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사원코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_EmpmCd_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "S_SYST_ID_01";//팝업ID - 사원코드
+	this.gfn_GetCommAuEmpm(this.fvComPrgmId, "C", this.div_Search.form.edt_EmpmCd, this.div_Search.form.edt_EmpmNm, this.div_Search.form.edt_SystId, sPopupId, "", "", false);//코드로 검색-권한체크용		
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사원명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_EmpmNm_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "S_SYST_ID_01";//팝업ID - 사원코드
+	this.gfn_GetCommAuEmpm(this.fvComPrgmId, "N", this.div_Search.form.edt_EmpmCd, this.div_Search.form.edt_EmpmNm, this.div_Search.form.edt_SystId, sPopupId, "", "", false);//코드명으로 검색-권한체크용			
+};
+
+/***********************************************************************************************
+ *    03. [계약번호]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ *    04. [프로젝트]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 프로젝트 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 프로젝트 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ *    05. [거래처]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 거래처 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 거래처코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 거래처명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/***********************************************************************************************
+ *    06. [사업장]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 사업장 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사업장 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+  
+/***********************************************************************************************
+ *    07. [W/O]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] W/O 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] W/O 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ *    08. [품목코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-팝업버튼] 품목코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 품목코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+
+/***********************************************************************************************
+ *    09. [계정코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 계정코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 계정코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+
+/***********************************************************************************************
+ * 2. 입력
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 02.00. MasterView 사이즈 변경 이벤트
+ ***********************************************************************************************/  
+this.div_MasterView_onsize = function(obj:nexacro.Div,e:nexacro.SizeEventInfo)
+{
+	this.sta_HSplitter.set_height(this.div_MasterView.getOffsetHeight()-28);
+};
+/***********************************************************************************************
+ * 02.01. [공통버튼] 입력 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnAdd = function()
+{
+	
+}
+
+/***********************************************************************************************
+ * 02.MF0.01. [Master Freeform 공통] 입력항목 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [부서]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 부서 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 부서코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+
+/***********************************************************************************************
+ *    02. [사용자]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 사용자 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 사원코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+
+/***********************************************************************************************
+ *    03. [계약번호]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 이전 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 이전 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+
+
+/***********************************************************************************************
+ *    04. [프로젝트]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 프로젝트 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 프로젝트 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+  
+/***********************************************************************************************
+ *    05. [거래처]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 거래처 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 거래처코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ *    06. [사업장]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 사업장 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 사업장코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+  
+/***********************************************************************************************
+ *    07. [W/O]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] W/O 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] W/O 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+  
+/***********************************************************************************************
+ *    08. [품목코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 품목코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 품목코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+
+
+/***********************************************************************************************
+ *    09. [계정코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 계정코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 계정코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+
+/***********************************************************************************************
+ *    10. [비고]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 비고 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/***********************************************************************************************
+ * 02.MF0.02. [Master Freeform 일반] 입력항목 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [고객]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 고객 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 고객코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/   
+
+/***********************************************************************************************
+ * 02.MF0.03. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    01. [데이터셋-ds_Master10] 데이터 Row 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.ds_Master10_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	if (e.newrow > -1 && !this.fvDtlSearchYn) {
+	
+		//결재PID정보가 있으면 - 상세조회
+		if (!this.gfn_IsNull(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_NO"))) {
+			this.div_Appr.set_url("");
+			//[결재버튼] Enable 설정
+			this.fn_SetComApprButtonAuthAll(false);
+			
+			this.fvDtlSearchYn = true;//상세조회여부
+	
+			//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+			this.ds_Detail10.clearData();
+			this.ds_Detail11.clearData();
+			this.ds_Detail12.clearData();
+			this.ds_Detail13.clearData();
+			this.ds_Detail15.clearData();
+			this.ds_Input.clearData();
+			this.fn_ClearApprData();//결재상세 내역데이터 초기화
+			
+			this.ds_Input.addRow();
+			this.ds_Input.setColumn(0, "WOFH_NO", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_NO"));
+			this.ds_Input.setColumn(0, "SYST_ID", this.gfn_GetSessionValue("SYST_ID"));//결재자ID
+					
+			//[공통]서비스정보 초기화
+			this.gfn_InitComService(this);
+			
+			//[공통]서비스정보 추가
+			var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+			svcAddObj.sSelectSql = "wf:M_WF_1100_D_SL10";
+			this.gfn_AddComSearchService(this, svcAddObj);
+			
+			//[공통]서비스정보 추가
+			svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+			svcAddObj.sSelectSql = "wf:M_WF_1100_D_SL11";
+			this.gfn_AddComSearchService(this, svcAddObj);			
+			
+			//[공통]서비스정보 추가
+			svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+			svcAddObj.sSelectSql = "wf:M_WF_1100_D_SL12";
+			this.gfn_AddComSearchService(this, svcAddObj);			
+
+			//[공통]서비스정보 추가
+			svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+			svcAddObj.sSelectSql = "wf:M_WF_1100_D_SL13";
+			this.gfn_AddComSearchService(this, svcAddObj);	
+			
+			//[공통]서비스정보 추가 - 서명이미지
+			svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+			svcAddObj.sSelectSql = "wf:M_WF_1100_D_SL15";
+			this.gfn_AddComSearchService(this, svcAddObj);				
+			
+			//[공통]서비스 호출 변수
+			var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+			svcCallObj.sTrid = "DTL_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+			svcCallObj.sActionName = this.G_SV_WF;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+			svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+			svcCallObj.sOutDatset = "ds_Detail10=ds_Detail10 ds_Detail11=ds_Detail11 ds_Detail12=ds_Detail12 ds_Detail13=ds_Detail13 ds_Detail15=ds_Detail15";//출력 데이터셋
+			svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+			svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+			//[공통]서비스 호출
+			this.gfn_CallComService(this, svcCallObj);		
+		}
+	}
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    02. [데이터셋-ds_Master10] Row 변경전 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.ds_Master10_canrowposchange = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+
+};  
+
+/***********************************************************************************************
+ * 02.MG0.01. [Master그리드-버튼] 복사 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01Copy = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.02. [Master그리드-버튼] 행추가 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01AddRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.03. [Master그리드-버튼] 행삽입 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01InsertRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.04. [Master그리드-버튼] 행삭제 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01DeleteRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.05. [Master그리드-버튼] 취소 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01Cancel = function()
+{
+};
+ 
+/***********************************************************************************************
+ * 02.MG0.06. [Master그리드] 셀 클릭 이벤트
+ ***********************************************************************************************/ 
+ 
+/***********************************************************************************************
+ * 02.MG0.07. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+ 
+
+/***********************************************************************************************
+ * 02.DG0.01. [Detail그리드-버튼] 복사 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01Copy = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.DG0.02. [Detail그리드-버튼] 행추가 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01AddRow = function()
+{
+
+	
+};
+
+/***********************************************************************************************
+ * 02.DG0.03. [Detail그리드-버튼] 행삽입 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01InsertRow = function()
+{
+
+};
+
+
+/***********************************************************************************************
+ * 02.DG0.04. [Detail그리드-버튼] 행삭제 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01DeleteRow = function()
+{
+
+};
+
+/***********************************************************************************************
+ * 02.DG0.05. [Detail그리드-버튼] 취소 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01Cancel = function()
+{
+
+};
+ 
+/***********************************************************************************************
+ *    04. [검색]
+ ***********************************************************************************************/
+
+
+/***********************************************************************************************
+ * 02.DG1.06. [첨부 파일 그리드-버튼] 파일추가 클릭 이벤트
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 02.DG1.07. [첨부 파일 그리드-버튼] 파일삭제 클릭 이벤트
+ ***********************************************************************************************/
+
+ 
+/***********************************************************************************************
+ * 3. 복사
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 03.01. [공통버튼] 복사 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCopy = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 4. 취소
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 04.01. [공통버튼] 취소 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCancel = function()
+{ 
+
+}
+
+/***********************************************************************************************
+ * 5. 저장
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 05.01. [공통버튼] 저장 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnSave = function()
+{ 
+	
+}
+
+
+ 
+/***********************************************************************************************
+ * 6. 삭제
+ ***********************************************************************************************/
+
+
+/***********************************************************************************************
+ * 7. 엑셀
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 07.01. [공통버튼] 엑셀저장 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnExcel = function()
+{ 
+	//출력 그리드 정보 설정
+	var objGridList = ["this.div_MasterView.form.grd_Master10|결재 목록"
+	                  ];
+	 
+	var sFileName = "결재함정보";//출력파일명
+	this.gfn_ExcelExport(this, objGridList, sFileName);
+}
+
+/***********************************************************************************************
+ * 8. 인쇄
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 08.01. [공통버튼] 인쇄 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnPrint = function()
+{ 
+	if(this.gfn_IsNull(this.div_Appr.form.lookup("fn_ComBtnPrint")))
+	{
+		return;
+	} else {
+		this.div_Appr.form.fn_ComBtnPrint();
+	}		
+}
+
+/***********************************************************************************************
+ * 9. 결재요청
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 09.01. [공통버튼] 결재요청 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnDecide = function()
+{ 
+
+}
+
+/***********************************************************************************************
+ * 10. 결재현황
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.01. [공통버튼] 결재현황 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnProcess = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 11. 재기안
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 11.01. [공통버튼] 재기안 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnRecide = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 11. 승인
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 11.01. [공통버튼] 승인 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnAppr = function()
+{
+	//내부결재가 아닌경우 - 업무정보 호출
+	if (!this.fvInnerWf) {
+		var sWFLO_CD  = this.ds_Detail13.getColumn(0, "WFLO_CD");//결재자위치(WF120)
+		var sUPDT_NM = "";// 업데이트테이블명
+		var sUPDC_NM = "";//업데이트칼럼명
+		var sUPSC_NM = "";//업데이트상태칼럼명
+		
+		if (this.ds_Detail12.getRowCount() > 0) {
+			sUPDT_NM = this.ds_Detail12.getColumn(0, "UPDT_NM");// 업데이트테이블명
+			sUPDC_NM = this.ds_Detail12.getColumn(0, "UPDC_NM");//업데이트칼럼명
+			sUPSC_NM = this.ds_Detail12.getColumn(0, "UPSC_NM");//업데이트상태칼럼명
+		}
+		
+		//[결재] 결재버튼 비활성화-승인
+		this.fn_SetComApprButtonAuth("APPR", false);
+
+		var oWfParam = new Object();//[결재] 결재관련 파라메타 정보 Object
+		
+		// 결재재자 위치가 최종이면서, 신규결재일때만
+		if (sWFLO_CD == "0030") {
+			
+			//최종결재 [승인] 시 업무영역 전처리 함수 호출-업무영역 처리 성공시
+			if (this.fn_ComWfApprBizCall(oWfParam)) {
+				var rtnValue = this.fn_WfApprStatusUpdate("0040");
+				
+				//처리실패시
+				if (!rtnValue) {
+					this.gfn_Alert("WF007");//결재상태 저장 시 오류가 발생했습니다.\nIT혁신팀에 문의하세요.
+					//[결재] 결재버튼 비활성화-승인
+					this.fn_SetComApprButtonAuth("APPR", true);
+					return false;
+				}
+				
+			} else {
+				this.gfn_Alert("WF008");//[결재] 필수 입력 등록되지 않거나 프로시저 실행시 오류가 발생했습니다.
+				//[결재] 결재버튼 비활성화-승인
+				this.fn_SetComApprButtonAuth("APPR", true);			
+				return false;
+			}
+			
+		// 결재재자 위치가 중간이면서, 신규결재일때만
+		} else if (sWFLO_CD == "0020") {
+			//중간결재 [승인] 시 업무영역 전처리 함수 호출-업무영역 처리 성공시
+			if (this.fn_ComWfMidApprBizCall(oWfParam)) {
+				var rtnValue = this.fn_WfApprStatusUpdate("0030");
+				
+				//처리실패시
+				if (!rtnValue) {
+					this.gfn_Alert("WF007");//결재상태 저장 시 오류가 발생했습니다.\nIT혁신팀에 문의하세요.
+					//[결재] 결재버튼 비활성화-승인
+					this.fn_SetComApprButtonAuth("APPR", true);						
+					return false;
+				}
+				
+			} else {
+				this.gfn_Alert("WF008");//[결재] 필수 입력 등록되지 않거나 프로시저 실행시 오류가 발생했습니다.
+				//[결재] 결재버튼 비활성화-승인
+				this.fn_SetComApprButtonAuth("APPR", true);					
+				return false;
+			}
+		}	
+	}
+	
+	/*
+	var workFormId = this.ds_Detail12.getColumn(0, "WCDS_ID");//결재화면ID
+	switch(workFormId) {
+		case "M_SM_8200_W1": // HelpDesk - 요청등록
+			//if(this.div_Appr.form.lookupFunc("fn_VaildMasterSave")) { // function check
+			//	if(!this.div_Appr.form.fn_VaildMasterSave()) { return; }
+			//}
+		break;
+		default:
+			if(this.div_Appr.form.lookupFunc("fn_VaildMasterSave")) { // function check
+				if(!this.div_Appr.form.fn_VaildMasterSave()) { return; }
+			}
+		break;
+	}
+	*/
+	// 202211211023 jch (승인전 저장 valid 호출 추가)
+	
+
+	//저장여부
+	var sWFSA_YN = this.ds_Detail12.getColumn(0, "WFSA_YN");//저장가능여부
+	
+	trace("저장여부 --> " + sWFSA_YN);
+	
+	if (sWFSA_YN == "1") { // 저장버튼 활성화 됐을시에만...
+		var strFun = "fn_VaildMasterSave";
+		var sFun = this.div_Appr.form.lookup(strFun);
+		var sFlag = true;
+		if(typeof(sFun) == "function") {
+			trace("fn_VaildMasterSave --> " + this.gfn_IsNull(this.div_Appr.form.fn_VaildMasterSave()));
+			if(this.gfn_IsNull(this.div_Appr.form.fn_VaildMasterSave())) { // 함수내 결과가 없으면 ( 리턴값 없음 )
+				sFlag = true;
+			} else {
+				if(this.div_Appr.form.fn_VaildMasterSave()) { // 함수 결과가 true면
+					//변경건이 있으면
+					if(this.div_Appr.form.isValidObject("ds_Master10")) {
+						if (this.gfn_DsIsUpdated(this.div_Appr.form.ds_Master10)) {
+							this.gfn_Alert("SM099");
+							sFlag = false;
+						} else {
+							sFlag = true;
+						}
+					} else {
+						sFlag = true;
+					}
+				} else {
+					sFlag = false;
+				}
+			}
+			trace(sFlag);
+			if(!sFlag) {
+				this.fn_SetComApprButtonAuth("APPR", true); // 결재버튼 활성화
+				trace("1");
+				return; 
+			}
+		}	
+		
+		strFun = "fn_VaildDetailSave";
+		sFun = this.div_Appr.form.lookup(strFun);
+		sFlag = true;
+		if(typeof(sFun) == "function") {
+			trace("fn_VaildDetailSave --> " + this.gfn_IsNull(this.div_Appr.form.fn_VaildDetailSave()));
+			if(this.gfn_IsNull(this.div_Appr.form.fn_VaildDetailSave())) { // 함수내 결과가 없으면 ( 리턴값 없음 )
+				sFlag = true;
+			} else {
+				if(this.div_Appr.form.fn_VaildDetailSave()) { // 함수 결과가 true면
+					//변경건이 있으면
+					if(this.div_Appr.form.isValidObject("ds_Detail10")) {
+						if (this.gfn_DsIsUpdated(this.div_Appr.form.ds_Detail10)) {
+							this.gfn_Alert("SM099");
+							sFlag = false;
+						} else {
+							sFlag = true;
+						}
+					} else {
+						sFlag = true;
+					}
+				} else {
+					sFlag = false;
+				}
+			}
+			trace(sFlag);
+			if(!sFlag) {
+				this.fn_SetComApprButtonAuth("APPR", true); // 결재버튼 활성화
+				trace("1");
+				return; 
+			}
+		}
+		
+		strFun = "fn_VaildDetail20Save";
+		sFun = this.div_Appr.form.lookup(strFun);
+		sFlag = true;
+		if(typeof(sFun) == "function") {
+			trace("fn_VaildDetail20Save --> " + this.gfn_IsNull(this.div_Appr.form.fn_VaildDetail20Save()));
+			if(this.gfn_IsNull(this.div_Appr.form.fn_VaildDetail20Save())) { // 함수내 결과가 없으면 (리턴값 없음)
+				sFlag = true;
+			} else {
+				if(this.div_Appr.form.fn_VaildDetail20Save()) { // 함수 결과가 true면
+					//변경건이 있으면
+					if(this.div_Appr.form.isValidObject("ds_Detail20")) {
+						if (this.gfn_DsIsUpdated(this.div_Appr.form.ds_Detail20)) {
+							this.gfn_Alert("SM099");
+							sFlag = false;
+						} else {
+							sFlag = true;
+						}
+					} else {
+						sFlag = true;
+					}
+				} else {
+					sFlag = false;
+				}
+			}
+			trace(sFlag);
+			if(!sFlag) {
+				this.fn_SetComApprButtonAuth("APPR", true); // 결재버튼 활성화 
+				trace("2");
+				return; 
+			}
+		}	
+		
+		//return; 
+	}
+	//trace('ok');
+	
+	
+	//return;
+	
+
+	
+	this.fn_WfApprProc("0010");//결재처리-승인
+	
+}
+
+/***********************************************************************************************
+ * 11.02. [사용자함수] 중간결재 [승인] 시 업무영역 전처리 함수 호출
+ ***********************************************************************************************/ 
+this.fn_ComWfMidApprBizCall = function(oWfParam) {
+	if(this.gfn_IsNull(this.div_Appr.form.lookup("fn_ComWfMidAppr")))
+	{
+		return true;
+	} else {
+		var rtnValue = this.div_Appr.form.fn_ComWfMidAppr(oWfParam);
+		return rtnValue;
+	}	
+}
+
+/***********************************************************************************************
+ * 11.03. [사용자함수] 최종결재 [승인] 시 업무영역 전처리 함수 호출
+ ***********************************************************************************************/ 
+this.fn_ComWfApprBizCall = function(oWfParam) {
+
+	if(this.gfn_IsNull(this.div_Appr.form.lookup("fn_ComWfAppr")))
+	{
+		//return true;
+		return this.fn_ComWfApprBizProcCall();//업무영역 프로시저 호출
+	} else {
+		var rtnValue = this.div_Appr.form.fn_ComWfAppr(oWfParam);
+		
+		if (!rtnValue) {		
+			return rtnValue;
+		} else {
+			return this.fn_ComWfApprBizProcCall();//업무영역 프로시저 호출
+		}
+	}	
+	
+}
+
+/***********************************************************************************************
+ * 11.04. [사용자함수] 업무테이블의 결재 상태값 업데이트
+ ***********************************************************************************************/ 
+this.fn_WfApprStatusUpdate = function(statCode)
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_WfUpt.clearData();
+	this.ds_Wfrt.clearData();
+	
+	var sUPDT_NM = "";// 업데이트테이블명
+	var sUPDC_NM = "";//업데이트칼럼명
+	var sUPSC_NM = "";//업데이트상태칼럼명
+	var sWCTM_ID = "";//결재업무ID
+	
+	if (this.ds_Detail12.getRowCount() > 0) {
+		sUPDT_NM = this.ds_Detail12.getColumn(0, "UPDT_NM");// 업데이트테이블명
+		sUPDC_NM = this.ds_Detail12.getColumn(0, "UPDC_NM");//업데이트칼럼명
+		sUPSC_NM = this.ds_Detail12.getColumn(0, "UPSC_NM");//업데이트상태칼럼명
+		sWCTM_ID = this.ds_Detail12.getColumn(0, "WCTM_ID");//결재업무ID
+	}	
+
+	//[업무] 조건 입력
+	this.ds_WfUpt.addRow();
+	this.ds_WfUpt.setColumn(0, "WCTM_ID", sWCTM_ID);//결재업무ID
+	this.ds_WfUpt.setColumn(0, "UPDT_NM", sUPDT_NM);//업데이트테이블명
+	
+	this.ds_WfUpt.setColumn(0, "UPDC_NM", sUPDC_NM);//업데이트칼럼명
+	this.ds_WfUpt.setColumn(0, "UPSC_NM", sUPSC_NM);//업데이트상태칼럼명
+	this.ds_WfUpt.setColumn(0, "WOFH_ST", statCode);//결재상태(WF110)
+	this.ds_WfUpt.setColumn(0, "WOFH_NO", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_NO"));//결재PID
+	this.ds_WfUpt.setColumn(0, "SYST_ID", this.gfn_GetSessionValue("SYST_ID"));//결재자_시스템사번
+
+	//trace(this.ds_WfUpt.saveXML());
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "wf:M_WF_1100_M_UP11";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "WOFH_UPT";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= "";			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_WfUpt=ds_WfUpt" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "ds_Wfrt=ds_Wfrt";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+	svcCallObj.isSync = true;//동기식으로 설정할지 여부
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+	
+	//trace(this.ds_Wfrt.saveXML());//결재선정보 설정
+	
+	//결재상태업데이트 결과값 정보가 있으면
+	if (this.ds_Wfrt.getRowCount() > 0) {
+		return true;
+	} else {
+		return false;
+	}
+	
+	//O_RET_CODE
+}
+
+/***********************************************************************************************
+ * 11.05. [사용자함수] 결재처리
+ ***********************************************************************************************/ 
+this.fn_WfApprProc = function(procCode)
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_WfProc.clearData();
+	
+	var sWFLO_CD  = this.ds_Detail13.getColumn(0, "WFLO_CD");//결재자위치(WF120)
+
+	//[업무] 조건 입력
+	this.ds_WfProc.addRow();
+	this.ds_WfProc.setColumn(0, "WOFH_NO", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_NO"));//결재PID
+	this.ds_WfProc.setColumn(0, "COMM_CD", this.gfn_GetSessionValue("COMM_CD"));//회사코드
+	
+	//결재라인 정보가 있으면
+	if (this.ds_Detail13.getRowCount() > 0) {
+		var sSYST_ID = this.ds_Detail13.getColumn(0, "SYST_ID");//원결재자 시스템ID
+		//대행자인경우
+		if (this.gfn_GetSessionValue("SYST_ID") != sSYST_ID) {
+			this.ds_WfProc.setColumn(0, "SYST_ID", sSYST_ID);//결재자_시스템사번
+			this.ds_WfProc.setColumn(0, "AGSU_ID", this.gfn_GetSessionValue("SYST_ID"));//대행자_시스템사번			
+		} else {
+			this.ds_WfProc.setColumn(0, "SYST_ID", this.gfn_GetSessionValue("SYST_ID"));//결재자_시스템사번
+			this.ds_WfProc.setColumn(0, "AGSU_ID", "");//대행자_시스템사번		
+		}
+		
+	} else {
+		this.ds_WfProc.setColumn(0, "SYST_ID", this.gfn_GetSessionValue("SYST_ID"));//결재자_시스템사번
+		this.ds_WfProc.setColumn(0, "AGSU_ID", "");//대행자_시스템사번
+	}
+	
+	this.ds_WfProc.setColumn(0, "WFLO_CD", sWFLO_CD);//결재자위치(WF120)
+	this.ds_WfProc.setColumn(0, "WFRE_CD", procCode);//결재결과(WF115)	
+	this.ds_WfProc.setColumn(0, "MEMO_NM", this.div_DetailInput.form.txt_MemoNm.value);//결재자_첨언
+	this.ds_WfProc.setColumn(0, "WOFH_IP", this.gfn_GetSessionValue("LOGN_IP"));//결재승인IP
+
+	//trace(this.ds_WfProc.saveXML());
+	//결재프로세스에 따른 메시지
+	this.fvWfMsg = "";//결재메시지
+	if (procCode == "0010") {
+		this.fvWfMsg = "승인";//결재메시지
+	} else if (procCode == "0020") {
+		this.fvWfMsg = "기각";//결재메시지
+	} else if (procCode == "0030") {
+		this.fvWfMsg = "확인";//결재메시지
+	} else if (procCode == "0040") {
+		this.fvWfMsg = "취소";//결재메시지		
+	}	
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "wf:M_WF_1100_M_UP10";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "WOFH_PROC";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= "";			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_WfProc=ds_WfProc" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "ds_Wfrt=ds_Wfrt";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+}
+
+/***********************************************************************************************
+ * 11.06. [사용자함수] 최종결재 [승인] 시 업무영역 프로시저 호출
+ ***********************************************************************************************/ 
+this.fn_ComWfApprBizProcCall = function() {
+	
+	if (!this.gfn_IsNull(this.ds_Detail12.getColumn(0, "WFSP_NM"))) {
+		//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+		this.ds_WfUpt.clearData();
+		this.ds_Wfrt.clearData();
+
+		//[업무] 조건 입력
+		this.ds_WfUpt.addRow();
+		this.ds_WfUpt.setColumn(0, "WOFH_NO", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_NO"));//결재PID
+		this.ds_WfUpt.setColumn(0, "PROC_NM", this.ds_Detail12.getColumn(0, "WFSP_NM"));//호출프로시저명
+		//this.ds_WfUpt.setColumn(0, "SYST_ID", this.gfn_GetSessionValue("SYST_ID"));//결재자_시스템사번
+
+		//[공통]서비스정보 초기화
+		this.gfn_InitComService(this);
+		
+		//[공통]서비스정보 추가
+		var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sSelectSql = "wf:M_WF_1100_M_UP13";
+		this.gfn_AddComSearchService(this, svcAddObj);
+		
+		//[공통]서비스 호출 변수
+		var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		svcCallObj.sTrid 		= "BIZ_PROC";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+		svcCallObj.sActionName 	= "";			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+		svcCallObj.sInputDaset 	= "ds_WfUpt=ds_WfUpt" 	//입력 데이터셋
+		svcCallObj.sOutDatset 	= "ds_Wfrt=ds_Wfrt";//출력 데이터셋
+		svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+		svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+		svcCallObj.isSync = true;//동기식으로 설정할지 여부
+
+		//[공통]서비스 호출
+		this.gfn_CallComService(this, svcCallObj);	
+
+		//결재상태업데이트 결과값 정보가 있으면
+		if (this.ds_Wfrt.getRowCount() > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+		return true;
+	}
+	
+}
+
+
+/***********************************************************************************************
+ * 12. 기각
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 12.01. [공통버튼] 기각 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnReject = function()
+{
+	var oWfParam = new Object();//[결재] 결재관련 파라메타 정보 Object
+	
+	if (this.gfn_IsNull(this.div_DetailInput.form.txt_MemoNm.value)) {
+		this.gfn_Alert("WF009");//첨언은 필수입력 항목입니다.
+		return;
+	}
+	
+	//내부결재가 아닌경우 - 업무정보 호출
+	if (!this.fvInnerWf) {
+		//[결재] 결재버튼 비활성화-기각
+		this.fn_SetComApprButtonAuth("REJECT", false);		
+		
+		//[기각] 시 업무영역 전처리 함수 호출-업무영역 처리 성공시
+		if (this.fn_ComWfRejectizCall(oWfParam)) {
+			var rtnValue = this.fn_WfApprStatusUpdate("0050");
+			
+			//처리실패시
+			if (!rtnValue) {
+				this.gfn_Alert("WF007");//결재상태 저장 시 오류가 발생했습니다.\nIT혁신팀에 문의하세요.
+				//[결재] 결재버튼 비활성화-기각
+				this.fn_SetComApprButtonAuth("REJECT", true);				
+				return false;			
+			}
+			
+		} else {
+			this.gfn_Alert("WF008");//[결재] 필수 입력 등록되지 않거나 프로시저 실행시 오류가 발생했습니다.
+			//[결재] 결재버튼 비활성화-기각
+			this.fn_SetComApprButtonAuth("REJECT", true);			
+			return false;
+		}
+	}
+	
+	this.fn_WfApprProc("0020");//결재처리-기각
+	
+}
+
+/***********************************************************************************************
+ * 12.02. [사용자함수]  [기각] 시 업무영역 전처리 함수 호출
+ ***********************************************************************************************/ 
+this.fn_ComWfRejectizCall = function(oWfParam) {
+	if(this.gfn_IsNull(this.div_Appr.form.lookup("fn_ComWfReject")))
+	{
+		return true;
+	} else {
+		var rtnValue = this.div_Appr.form.fn_ComWfReject(oWfParam);
+		return rtnValue;
+	}	
+}
+
+/***********************************************************************************************
+ * 13. 확인
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 13.01. [공통버튼] 확인 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnConfirm = function()
+{
+
+	var oWfParam = new Object();//[결재] 결재관련 파라메타 정보 Object
+	
+	//내부결재가 아닌경우 - 업무정보 호출
+	if (!this.fvInnerWf) {
+		//[결재] 결재버튼 비활성화-확인
+		this.fn_SetComApprButtonAuth("CONFIRM", false);		
+		
+		//[확인] 시 업무영역 전처리 함수 호출-업무영역 처리 성공시
+		if (!this.fn_ComWfConfirmCall(oWfParam)) {
+
+			this.gfn_Alert("WF008");//[결재] 필수 입력 등록되지 않거나 프로시저 실행시 오류가 발생했습니다.
+			//[결재] 결재버튼 비활성화-확인
+			this.fn_SetComApprButtonAuth("CONFIRM", true);				
+			return false;
+		}
+	}
+	
+	this.fn_WfApprProc("0030");//결재처리-확인
+	
+}
+
+/***********************************************************************************************
+ * 13.02. [사용자함수]  [확인] 시 업무영역 전처리 함수 호출
+ ***********************************************************************************************/ 
+this.fn_ComWfConfirmCall = function(oWfParam) {
+	if(this.gfn_IsNull(this.div_Appr.form.lookup("fn_ComWfConfirm")))
+	{
+		return true;
+	} else {
+		var rtnValue = this.div_Appr.form.fn_ComWfConfirm(oWfParam);
+		return rtnValue;
+	}	
+}
+
+/***********************************************************************************************
+ * 14. 저장(결재)
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 14.01. [공통버튼] 저장 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnSaveWf = function()
+{
+	//내부결재가 아닌경우 - 업무정보 호출
+	if (!this.fvInnerWf) {
+		var oWfParam = new Object();//[결재] 결재관련 파라메타 정보 Object
+		
+		//[저장] 시 업무영역 전처리 함수 호출-업무영역 처리
+		this.fn_ComWfSaveCall(oWfParam);
+	}
+	
+}
+
+/***********************************************************************************************
+ * 14.02. [사용자함수]  [저장] 시 업무영역 전처리 함수 호출
+ ***********************************************************************************************/ 
+this.fn_ComWfSaveCall = function(oWfParam) {
+	if(this.gfn_IsNull(this.div_Appr.form.lookup("fn_ComBtnSave")))
+	{
+		return true;
+	} else {
+		var rtnValue = this.div_Appr.form.fn_ComBtnSave(oWfParam);
+		return rtnValue;
+	}	
+}
+
+/***********************************************************************************************
+ * 15. 결재선변경(결재)
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 15.01. [공통버튼] 결재선변경 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnWfLineChange = function()
+{
+	var iRow = this.ds_Master10.rowposition;
+	if (iRow > -1) {
+	
+		var sPopupId = "M_WF_1100_01";
+		var sPopupTitle = "결재선 변경"; //Popup화면 타이틀
+		var sPopupFormUrl  = "wf::M_WF_1100_01.xfdl"; //Popup화면 URL
+		var oArg = {paramTitle:sPopupTitle, WofhNo:this.ds_Master10.getColumn(iRow, "WOFH_NO"), PrgmId:this.fvComPrgmId}; //Popup화면 전달 파라메터
+		var oOption = {title:sPopupTitle, width:"1242", height:"515"}; //Popup화면 옵션
+		var sPopupCallBack = "fn_PopupCallback"; //Popup화면 호출후 Callback 처리 함수
+
+		this.gfn_OpenPopup(sPopupId, sPopupFormUrl, oArg, sPopupCallBack, oOption); //Popup화면 호출 함수			
+	}
+}
+
+/***********************************************************************************************
+ * 16. 결재자변경(결재)
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 16.01. [공통버튼] 결재자변경 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnWfSysIdChange = function()
+{
+	var sPopupId = "S_SYST_ID_02";//팝업ID - 사용자정보
+	var oArg = { EmpmNm:""};//Argument처리
+	this.gfn_UserPop(sPopupId, oArg);	
+
+}
+
+/***********************************************************************************************
+ * 16.02. [공통버튼] 결재자변경 사용자 결재선에 존재여부 체크 서비스
+ ***********************************************************************************************/ 
+this.fn_SvcUserChangeCheck = function()
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+	this.ds_Detail14.clearData();
+	
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "WOFH_NO", this.ds_UserChange.getColumn(0, "WOFH_NO"));//결재PID
+	this.ds_Input.setColumn(0, "SYST_ID", this.ds_UserChange.getColumn(0, "SYST_ID"));//결재자사번
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "wf:M_WF_1100_D_SL14";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "USER_CHANGE_CHK";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_WF;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Detail14=ds_Detail14";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+
+}
+
+/***********************************************************************************************
+ * 16.03. [공통버튼] 결재자변경 서비스
+ ***********************************************************************************************/ 
+this.fn_SvcUserChange = function()
+{
+	//[공통]서비스 정보 초기화
+	this.gfn_InitComService(this);
+	
+	//Master 삭제
+	//[공통]서비스 정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sInsertSql = "";//저장Sql
+	svcAddObj.sUpdateSql = "wf:M_WF_1100_D_UP10";//수정Sql
+	svcAddObj.sDeleteSql = "";//삭제Sql
+	svcAddObj.sSaveFlagColumn = "crudType";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+							 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+
+	this.gfn_AddComSaveService(this, svcAddObj);
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "USER_CHANGE";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_WF;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_UserChange=ds_UserChange" //입력 데이터셋
+	svcCallObj.sOutDatset = "";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+	
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+
+}
+
+/***********************************************************************************************
+ * 17. 내부결재(결재)
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 17.01. [공통버튼] 내부결재 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnInnerWf = function()
+{
+	var iRow = this.ds_Master10.rowposition;
+	
+	//원천PIID 정보가 없는 경우에만 내부결재 
+	if (this.gfn_IsNull(this.ds_Master10.getColumn(iRow, "ORWF_NO"))) {
+		var sPopupId = "C_WF_REQUEST";//팝업ID - 결재요청
+		var oArg = { CommCd:this.gfn_GetSessionValue("COMM_CD")//회사코드
+				   , ModuCd:this.ds_Master10.getColumn(iRow, "MODU_CD")//모듈구분
+				   , WctmId:this.ds_Detail12.getColumn(0, "WCTM_ID")//결재업무ID
+				   , SystId:this.gfn_GetSessionValue("SYST_ID")//결재자_시스템사번
+				   , WofhNm:this.ds_Master10.getColumn(iRow, "WOFH_NM")//결재명
+				   , WofhNo:""//결재PID
+				   , InnrGb:"2"//내부결재구분(1:신규, 2:내부)
+				   , CharSystId:""//담당자_시스템사번
+				   , CharWfguCd:""//담당자 결재구분
+				   , SworqVr:"3"//결재요청버전(1,2,3)
+				   , WfamAmtr:"0"//금액
+				   , WfamOpid:this.ds_Master10.getColumn(iRow, "WOFH_NO")//원천PIID
+				   , WfPkvl:""//PK값 정보 - PK 값을 순서대로 전달, Row구분자는 ⓡ, 조건 구분자는 ⓐ
+				   , PrgmId:this.fvComPrgmId
+				   };//Argument처리
+		this.gfn_WfRequestPop(sPopupId, oArg);	
+	} else {
+		this.gfn_Alert("WF028");//이미 존재하는 내부결재 정보가 있어서 내부결재를 하실수 없습니다.
+	}
+}
+
+/***********************************************************************************************
+ * 18. 취소
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 18.01. [공통버튼] 취소 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCancel = function()
+{
+
+	var oWfParam = new Object();//[결재] 결재관련 파라메타 정보 Object
+	
+	if (this.gfn_IsNull(this.div_DetailInput.form.txt_MemoNm.value)) {
+		this.gfn_Alert("WF009");//첨언은 필수입력 항목입니다.
+		return;
+	}
+	
+	//내부결재가 아닌경우 - 업무정보 호출
+	if (!this.fvInnerWf) {	
+		//[결재] 결재버튼 비활성화-취소
+		this.fn_SetComApprButtonAuth("CANCEL", false);		
+		
+		//[기각] 시 업무영역 전처리 함수 호출-업무영역 처리 성공시
+		if (this.fn_ComWfCancelCall(oWfParam)) {
+			var rtnValue = this.fn_WfApprStatusUpdate("0060");
+			
+			//처리실패시
+			if (!rtnValue) {
+				this.gfn_Alert("WF007");//결재상태 저장 시 오류가 발생했습니다.\nIT혁신팀에 문의하세요.
+				//[결재] 결재버튼 비활성화-취소
+				this.fn_SetComApprButtonAuth("CANCEL", true);				
+				return false;			
+			}
+			
+		} else {
+			this.gfn_Alert("WF008");//[결재] 필수 입력 등록되지 않거나 프로시저 실행시 오류가 발생했습니다.
+			//[결재] 결재버튼 비활성화-기각
+			this.fn_SetComApprButtonAuth("CANCEL", true);			
+			return false;
+		}
+	}
+	
+	this.fn_WfApprProc("0040");//결재처리-취소
+	
+}
+
+/***********************************************************************************************
+ * 18.02. [사용자함수]  [취소] 시 업무영역 전처리 함수 호출
+ ***********************************************************************************************/ 
+this.fn_ComWfCancelCall = function(oWfParam) {
+	if(this.gfn_IsNull(this.div_Appr.form.lookup("fn_ComWfCancel")))
+	{
+		return true;
+	} else {
+		var rtnValue = this.div_Appr.form.fn_ComWfCancel(oWfParam);
+		return rtnValue;
+	}	
+}
+
+/***********************************************************************************************
+ * 12. 닫기
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 12.01. [공통버튼] 닫기 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnClose = function()
+{ 
+	return true;
+}
+
+/***********************************************************************************************
+ * 13. [CallBack] 함수
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 13.01. [서비스] CallBack 함수 처리
+ ***********************************************************************************************/ 
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST_SEARCH": //조회		
+	
+			if (this.ds_Master10.getRowCount() > 0) {			
+				
+				//입력영역 활성화
+				
+				//[공통]그리드NoData Text 초기화 설정
+				this.gfn_InitGridNoDataText(this.div_MasterView.form.grd_Master10);
+				
+			} else {
+				
+				//[공통]그리드NoData Text설정
+				this.gfn_SetGridNoDataText(this.div_MasterView.form.grd_Master10);				
+			}
+			break;
+		case "SAVE":   //저장		
+
+			//첨부파일 추가건이 없으면
+			if (!this.fvFileDiv.fn_CheckFileAddYn()) {
+				this.fvSchKeyYn = true;//저장후 재조회여부
+				this.fn_ComBtnSearch();//저장후 재조회
+			} else {
+				this.fvFileDiv.fn_AtchFileSave(this, fvFileInfo);			
+			}
+			break;	
+		case "DTL_SEARCH": //상세조회		
+			
+			this.fvDtlSearchYn = false;//상세조회여부
+			
+			if (this.ds_Detail10.getRowCount() > 0) {
+				this.ds_Detail10Appr.clearData();
+				this.ds_Detail10.filter("");
+				this.ds_Detail10.filter("WFGU_CD=='0010'");
+				this.ds_Detail10Appr.copyData(this.ds_Detail10, true);	
+				
+				this.ds_Detail10ApprDir.clearData();
+				this.ds_Detail10ApprDirTmp.clearData();
+				this.ds_Detail10.filter("");
+				this.ds_Detail10.filter("WFGU_CD=='0070'");
+				//this.ds_Detail10ApprDir.copyData(this.ds_Detail10, true);	
+				this.ds_Detail10ApprDirTmp.copyData(this.ds_Detail10, true);	
+				this.ds_Detail10.filter("");
+				
+				if (this.ds_Detail10ApprDirTmp.getRowCount() > 0) {
+					this.ds_Detail10ApprDir.addRow();
+					var jIndex = 0;
+					var sAPPR_CODE = "";
+					for (var iLoop=0; iLoop < 11; iLoop++) {
+						sAPPR_CODE = this.ds_Detail10ApprDirTmp.getColumn(0, "APPR_CODE" + iLoop);
+						
+						if (!this.gfn_IsNull(sAPPR_CODE)) {
+							this.ds_Detail10ApprDir.setColumn(0, "APPR_NAME" + jIndex,  this.ds_Detail10ApprDirTmp.getColumn(0, "APPR_NAME" + iLoop));
+							this.ds_Detail10ApprDir.setColumn(0, "APPR_JIKW" + jIndex,  this.ds_Detail10ApprDirTmp.getColumn(0, "APPR_JIKW" + iLoop));
+							this.ds_Detail10ApprDir.setColumn(0, "APPR_DATE" + jIndex,  this.ds_Detail10ApprDirTmp.getColumn(0, "APPR_DATE" + iLoop));
+							this.ds_Detail10ApprDir.setColumn(0, "APPR_TIME" + jIndex,  this.ds_Detail10ApprDirTmp.getColumn(0, "APPR_TIME" + iLoop));
+							this.ds_Detail10ApprDir.setColumn(0, "APPR_CODE" + jIndex,  this.ds_Detail10ApprDirTmp.getColumn(0, "APPR_CODE" + iLoop));
+							jIndex++;
+						}
+						
+					}
+				}
+				
+				var sImgUrl = "";//서명이미지URL
+				var sApprCode = "";//결재자시스템사번
+				var sFindWfreCd = "";//결재결과
+				if (this.ds_Detail10Appr.getRowCount() > 0) {
+					var iIndex = 0;
+					
+					//for (var iLoop=0; iLoop < 9; iLoop++) {
+					for (var iLoop=0; iLoop < 11; iLoop++) {
+						if (!this.gfn_IsNull(this.ds_Detail10Appr.getColumn(0, "APPR_NAME" + iLoop))) {
+							if (iIndex < 7) {
+								eval("this.div_DetailInput.form.div_WfSign.form.sta_ApprNm" + iIndex).set_text(this.ds_Detail10Appr.getColumn(0, "APPR_NAME" + iLoop) + "(" + this.ds_Detail10Appr.getColumn(0, "APPR_JIKW" + iLoop) +")");//성명
+								//eval("this.div_DetailInput.form.div_WfSign.form.sta_ApprJikw" + iLoop).set_text(this.ds_Detail10Appr.getColumn(0, "APPR_JIKW" + iLoop));//직위
+								eval("this.div_DetailInput.form.div_WfSign.form.sta_ApprDate" + iIndex).set_text(this.ds_Detail10Appr.getColumn(0, "APPR_DATE" + iLoop));//일자
+								eval("this.div_DetailInput.form.div_WfSign.form.sta_ApprTime" + iIndex).set_text(this.ds_Detail10Appr.getColumn(0, "APPR_TIME" + iLoop));//시간
+								sApprCode = this.ds_Detail10Appr.getColumn(0, "APPR_CODE" + iLoop);//결재자시스템사번
+								sImgUrl = this.fn_FindImgUrl(sApprCode);//서명이미지URL							
+								//eval("this.div_DetailInput.form.div_WfSign.form.img_ApprSign" + iLoop).set_image(sImgUrl);//서명
+								eval("this.div_DetailInput.form.div_WfSign.form.img_ApprSign" + iIndex).set_image(sImgUrl);//서명
+								
+								sFindWfreCd = this.fn_FindWfreCd(sApprCode);//결재결과
+								//결재결과 - 기각이면
+								if (sFindWfreCd == "0020") {
+									eval("this.div_DetailInput.form.div_WfSign.form.sta_ApprNm" + iIndex).set_background("#c19feb");
+								}
+								
+								//iIndex++;
+							}
+							iIndex++;
+						}
+					}
+				}
+				
+				if (this.ds_Detail10ApprDir.getRowCount() > 0) {
+					var jIndex = 0;
+					for (var iLoop=0; iLoop < 4; iLoop++) {
+						if (!this.gfn_IsNull(this.ds_Detail10ApprDir.getColumn(0, "APPR_NAME" + iLoop))) {
+							eval("this.div_DetailInput.form.div_WfSign.form.sta_ApprNmDir" + jIndex).set_text(this.ds_Detail10ApprDir.getColumn(0, "APPR_NAME" + iLoop) + "(" + this.ds_Detail10ApprDir.getColumn(0, "APPR_JIKW" + iLoop) +")");//성명
+							//eval("this.div_DetailInput.form.div_WfSign.form.sta_ApprJikwDir" + iLoop).set_text(this.ds_Detail10ApprDir.getColumn(0, "APPR_JIKW" + iLoop));//직위
+							eval("this.div_DetailInput.form.div_WfSign.form.sta_ApprDateDir" + jIndex).set_text(this.ds_Detail10ApprDir.getColumn(0, "APPR_DATE" + iLoop));//일자
+							eval("this.div_DetailInput.form.div_WfSign.form.sta_ApprTimeDir" + jIndex).set_text(this.ds_Detail10ApprDir.getColumn(0, "APPR_TIME" + iLoop));//시간
+							sApprCode = this.ds_Detail10ApprDir.getColumn(0, "APPR_CODE" + iLoop);//결재자시스템사번
+							sImgUrl = this.fn_FindImgUrl(sApprCode);//서명이미지URL	
+							//eval("this.div_DetailInput.form.div_WfSign.form.img_ApprSignDir" + iLoop).set_image(sImgUrl);//서명
+							eval("this.div_DetailInput.form.div_WfSign.form.img_ApprSignDir" + jIndex).set_image(sImgUrl);//서명
+							
+							sFindWfreCd = this.fn_FindWfreCd(sApprCode);//결재결과
+							//결재결과 - 기각이면
+							if (sFindWfreCd == "0020") {
+								eval("this.div_DetailInput.form.div_WfSign.form.sta_ApprNmDir" + jIndex).set_background("#c19feb");
+							}
+							
+							jIndex++;
+						}
+					}
+				}				
+				
+				// 전결재자 첨언
+				var sMemo = "";
+				
+				if (this.ds_Detail11.getRowCount() > 0) {
+					this.ds_Detail11.set_keystring("");
+					this.ds_Detail11.set_keystring("S:WCLD_SE");
+				}
+				
+				for (var iLoop=0; iLoop < this.ds_Detail11.getRowCount(); iLoop++) {
+					if (!this.gfn_IsNull(this.ds_Detail11.getColumn(iLoop, "PRE_MEMO_NM"))) {
+						sMemo += this.ds_Detail11.getColumn(iLoop, "PRE_MEMO_NM") + "\n";
+					}
+				}
+		
+				this.div_DetailInput.form.txt_PreMemoNm.set_value(sMemo);				
+			}
+			
+			//협조선정보가 있으면
+			if (this.ds_Detail11.getRowCount() > 0) {
+				this.ds_Detail11Help.clearData();
+				this.ds_Detail11.filter("");
+				this.ds_Detail11.filter("WFGU_CD=='0020'");
+				this.ds_Detail11Help.copyData(this.ds_Detail11, true);
+				
+				this.ds_Detail11Recv.clearData();
+				this.ds_Detail11.filter("");
+				this.ds_Detail11.filter("WFGU_CD=='0030'");
+				this.ds_Detail11Recv.copyData(this.ds_Detail11, true);		
+				this.ds_Detail11.filter("");
+			}
+			
+			var sEMAL_YN = "";//메일전송여부
+			
+			//결재환경정보가 있으면
+			if (this.ds_Detail12.getRowCount() > 0) {
+				var sMODM_CD = this.ds_Detail12.getColumn(0, "MODM_CD");//모듈구분
+				sMODM_CD = sMODM_CD.toLowerCase();
+				var sWCDS_ID = this.ds_Detail12.getColumn(0, "WCDS_ID");//결재화면ID
+				this.fvNowWofhNo = "";//현재진행중인 결재번호
+				
+				var sORWF_NO = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "ORWF_NO");//원천 결재PID
+				
+				//원천 결재PID가 있는 경우-내부결재
+				if (!this.gfn_IsNull(sORWF_NO)) {
+					this.fvNowWofhNo = sORWF_NO;//현재진행중인 결재번호
+					this.fvInnerWf = true;//내부결재여부
+				} else {
+					this.fvNowWofhNo = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_NO");//현재진행중인 결재번호
+					this.fvInnerWf = false;//내부결재여부
+				}
+				this.div_Appr.set_url("");
+
+				this.div_Appr.set_url(sMODM_CD + "::" + sWCDS_ID + ".xfdl");
+				//this.div_Appr.form.fn_ComBtnSearch(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_NO"));
+				
+				sEMAL_YN = this.ds_Detail12.getColumn(0, "EMAL_YN");//메일전송여부
+				
+			}
+			
+			//이메일전송 여부
+			if (sEMAL_YN == "1") {
+				this.fvEmalYn = true;//이메일전송여부
+			} else {
+				this.fvEmalYn = false;//이메일전송여부
+			}
+
+			//결재라인정보 조회
+			if (this.ds_Detail13.getRowCount() > 0) {
+				var sWFLO_CD = this.ds_Detail13.getColumn(0, "WFLO_CD");//결재자위치(WF120)
+				var sWFGU_CD = this.ds_Detail13.getColumn(0, "WFGU_CD");//결재구분
+				
+				//[공통버튼] 버튼 Enable 설정 
+				var objComButton = new Object();
+				
+				
+				if (this.ds_Detail12.getRowCount() > 0) {
+					//저장여부
+					var sWFSA_YN = this.ds_Detail12.getColumn(0, "WFSA_YN");//저장가능여부
+					
+					if (sWFSA_YN == "1") {
+						objComButton.SAVE_Enable = true;//[저장]버튼 Enable 설정
+					} else {
+						objComButton.SAVE_Enable = false;//[저장]버튼 Enable 설정
+					}
+				} else {
+					objComButton.SAVE_Enable = false;//[저장]버튼 Enable 설정
+				}
+				
+				var sWOFH_ST = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_ST");//결재진행상태
+			
+				if (!this.gfn_IsNull(sWFLO_CD)) {
+					//결재진행상태가 신청/진행중일경우 - 승인/기각버튼 활성화
+					if ((sWOFH_ST == "0020" || sWOFH_ST == "0030")) {
+						objComButton.APPR_Enable = true;//[승인]버튼 Enable 설정
+						objComButton.REJECT_Enable = true;//[기각]버튼 Enable 설정
+						this.div_DetailInput.form.txt_MemoNm.set_readonly(false);//첨언
+					} else {
+						objComButton.APPR_Enable = false;//[승인]버튼 Enable 설정
+						objComButton.REJECT_Enable = false;//[기각]버튼 Enable 설정	
+						this.div_DetailInput.form.txt_MemoNm.set_readonly(true);//첨언					
+					}
+				} else {
+					objComButton.APPR_Enable = false;//[승인]버튼 Enable 설정
+					objComButton.REJECT_Enable = false;//[기각]버튼 Enable 설정	
+					/*
+					//결재구분 - 접수
+					if (sWFGU_CD == "0030") {						
+						objComButton.CONFIRM_Enable = true;//[확인]버튼 Enable 설정
+					} else {
+						objComButton.CONFIRM_Enable = false;//[확인]버튼 Enable 설정
+					}
+					*/
+					this.div_DetailInput.form.txt_MemoNm.set_readonly(true);//첨언
+				}
+				
+				//결재구분-접수, 완료확인, 기각확인, 취소확인인 경우
+				if (sWFGU_CD == "0030" || sWFGU_CD == "0040" || sWFGU_CD == "0050" || sWFGU_CD == "0090") {
+					objComButton.CONFIRM_Enable = true;//[확인]버튼 Enable 설정
+				} else {
+					objComButton.CONFIRM_Enable = false;//[확인]버튼 Enable 설정
+				}
+				
+				
+				
+				//결재진행상태-신청OR진행 && 결재구분-결재,협조,접수,결재(주관부서) 인경우 - 결재라인변경 버튼 활성화
+				if ((sWOFH_ST == "0020" || sWOFH_ST == "0030") && (sWFGU_CD == "0010" || sWFGU_CD == "0020" || sWFGU_CD == "0030" || sWFGU_CD == "0070")) {
+					
+					//최종결재자인경우
+					if (sWFLO_CD == "0030") {
+						objComButton.WFLINECHG_Enable = false;//[결재라인변경]버튼 Enable 설정
+					} else {
+						objComButton.WFLINECHG_Enable = true;//[결재라인변경]버튼 Enable 설정
+					}
+					objComButton.WFSYSCHG_Enable = true;//[결재자변경]버튼 Enable 설정					
+				} else {
+					objComButton.WFLINECHG_Enable = false;//[결재라인변경]버튼 Enable 설정
+					objComButton.WFSYSCHG_Enable = false;//[결재자변경]버튼 Enable 설정
+				}
+				
+				//내부결재인경우
+				if (this.fvInnerWf) {
+					objComButton.INNERWF_Enable = false;//[내부결재]버튼 Enable 설정
+				} else {
+					objComButton.INNERWF_Enable = true;//[내부결재]버튼 Enable 설정
+				}
+				
+				//팝업창으로 호출한 경우가 아닌 경우
+				if (this.gfn_IsNull(this.fvWofhNo)) {
+				
+					//[공통버튼]버튼 Enable 설정 공통함수 호출
+					this.gfn_SetWfComButtonEnable(objComButton, this);			
+				}
+				
+			} else {
+
+				var sSYST_ID = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "SYST_ID");//기안자
+				var sLOGIN_SYST_ID = this.gfn_GetSessionValue("SYST_ID");//로그인시스템사번
+				var sWOFH_ST = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_ST");//결재진행상태
+				
+				//[공통버튼] 버튼 Enable 설정 
+				var objComButton = new Object();
+
+				//결재진행상태가 진행이고 기안자와 사용자가 같을경우 취소 버튼 활성화
+				if (sWOFH_ST == "0030" && sLOGIN_SYST_ID == sSYST_ID) {
+					objComButton.CANCEL_Enable = true;//[취소]버튼 Enable 설정
+					this.div_DetailInput.form.txt_MemoNm.set_readonly(false);//첨언
+				} else {
+					objComButton.CANCEL_Enable = false;//[취소]버튼 Enable 설정
+					this.div_DetailInput.form.txt_MemoNm.set_readonly(true);//첨언
+				}
+				
+				//내부결재인경우
+				if (this.fvInnerWf) {
+					objComButton.INNERWF_Enable = false;//[내부결재]버튼 Enable 설정
+				} else {
+					objComButton.INNERWF_Enable = true;//[내부결재]버튼 Enable 설정
+				}				
+				
+				//팝업창으로 호출한 경우가 아닌 경우
+				if (this.gfn_IsNull(this.fvWofhNo)) {				
+					//[공통버튼]버튼 Enable 설정 공통함수 호출
+					this.gfn_SetWfComButtonEnable(objComButton, this);		
+				}
+			}
+			
+			//이메일전송인경우
+			if (this.fvEmalYn) {
+				//this.fn_SearchSendInfo(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_NO"));//메시지 전송대상 체크
+			}
+	
+			break;			
+			
+		case "COMBO_SEARCH": //콤보조회		
+
+			if (this.ds_Modm.getRowCount() > 0) {
+			
+				this.ds_ModmSch.copyData(this.ds_Modm);
+				this.ds_ModmSch.insertRow(0);
+				this.ds_ModmSch.setColumn(0, "MOLM_NM", "ALL");
+				
+				this.div_Search.form.cbo_ModmCd.set_index(0);
+			}
+			
+			//팝업창으로 호출했을경우
+			if (!this.gfn_IsNull(this.fvWofhNo)) {
+				this.div_Search.set_enable(false);				
+			}
+			
+			this.fn_ComBtnSearch();//자동조회
+			break;				
+			
+		case "WOFH_PROC": //결재처리
+			if (this.ds_Wfrt.getRowCount() > 0) {
+	
+				if (this.ds_Wfrt.getRowCount() > 0 && this.ds_Wfrt.getColumn(0, "O_RET_CODE") == "FALSE") {
+					var arrMsgArg = [this.ds_Wfrt.getColumn(0, "O_RET_CMSG")];
+					this.gfn_Alert("WF018", arrMsgArg);//결재처리중 오류가 발생하였습니다.\n&ITM0				
+				} else {
+					//this.gfn_Alert("WF006");//결재 처리 되었습니다.
+					if (this.fvWfMsg != "확인") {
+						var arrMsgArg = [this.fvWfMsg];
+						this.gfn_Alert("WF032", arrMsgArg);//결재&ITM0 처리 되었습니다.
+					}
+				}
+			} else {
+				//결재처리중 오류가 발생하였습니다.
+				var arrMsgArg = [""];
+				this.gfn_Alert("WF018", arrMsgArg);//결재처리중 오류가 발생하였습니다.\n&ITM0	
+			}
+			this.fn_ComBtnSearch();//재조회
+			break;					
+		case "WOFH_UPT": //결재상태업데이트		
+			
+			break;			
+			
+		case "USER_CHANGE_CHK": //결재자변경체크		
+			if (this.ds_Detail14.getRowCount() > 0) {
+				this.gfn_Alert("WF024");//해당 결재자가 결재라인에 존재해서 결재자 변경이 불가합니다.
+					return;
+			} else {
+				this.fn_SvcUserChange();//결재자변경 서비스 호출
+			}
+			break;		
+			
+		case "USER_CHANGE": //결재자변경		
+			this.fn_ComBtnSearch();//재조회
+			break;		
+			
+		case "SEND_USER": //메세지 수신자 정보 조회
+			//메세지 전송정보가 있으면
+			if (this.ds_SendUser.getRowCount() > 0) {
+				this.fn_SendMsg();//메시지 전송
+			}
+			break;				
+			
+	}
+};
+
+/***********************************************************************************************
+ * 13.02. [팝업] CallBack 함수 처리
+          strId : 팝업호출시 지정한 팝업ID
+	      rtnValue : 팝업창에서 close시 지정한 반환값
+          주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/ 
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+	//기안자
+	if (strId == "S_SYST_ID_01") {
+		
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);	
+			
+			if (!this.gfn_IsNull(arrRtnVal.EMPM_CD)) {
+				this.div_Search.form.edt_EmpmCd.set_value(arrRtnVal.EMPM_CD);
+				this.div_Search.form.edt_EmpmNm.set_value(arrRtnVal.EMPM_NM);
+				this.div_Search.form.edt_SystId.set_value(arrRtnVal.SYST_ID);				
+			}		
+		} else {
+			//조회조건영역 - 자신의자료 권한여부 체크		
+			if (this.gfn_CheckOwnAuth(this.fvComPrgmId)) {
+				this.div_Search.form.edt_EmpmCd.set_value(this.gfn_GetSessionValue("EMPM_CD"));
+				this.div_Search.form.edt_EmpmNm.set_value(this.gfn_GetSessionValue("EMPM_NM"));
+				this.div_Search.form.edt_SystId.set_value(this.gfn_GetSessionValue("SYST_ID"));	
+			} else {
+				this.div_Search.form.edt_EmpmCd.set_value("");
+				this.div_Search.form.edt_EmpmNm.set_value("");
+				this.div_Search.form.edt_SystId.set_value("");				
+			}		
+		}		
+	//결재자변경
+	} else if (strId == "S_SYST_ID_02") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);	
+			
+			if (!this.gfn_IsNull(arrRtnVal.EMPM_CD)) {
+				this.ds_UserChange.clearData();
+				this.ds_UserChange.addRow();
+				this.ds_UserChange.setColumn(0, "WOFH_NO", this.ds_Detail13.getColumn(0, "WOFH_NO"));//결재PID
+				this.ds_UserChange.setColumn(0, "WCLD_SE", this.ds_Detail13.getColumn(0, "WCLD_SE"));//결재순서
+				this.ds_UserChange.setColumn(0, "SYST_ID_ORG", this.ds_Detail13.getColumn(0, "SYST_ID"));//결재자사번-이전
+				this.ds_UserChange.setColumn(0, "SYST_ID", arrRtnVal.SYST_ID);//결재자사번
+				this.ds_UserChange.setColumn(0, "EMPM_NM", arrRtnVal.EMPM_NM);//결재자성명
+				this.ds_UserChange.setColumn(0, "WFCO_CD", arrRtnVal.COMM_CD);//결재자회사코드
+				this.ds_UserChange.setColumn(0, "DEPM_NM", arrRtnVal.DEPM_NM);//결재자부서명
+				this.ds_UserChange.setColumn(0, "POSI_NM", arrRtnVal.POSI_NM);//결재자직위명
+				this.ds_UserChange.setColumn(0, "DUTY_NM", arrRtnVal.DUTY_NM);//결재자직책명
+				this.ds_UserChange.setColumn(0, "RANK_NM", arrRtnVal.RANK_NM);//결재자직급명
+				this.ds_UserChange.setColumn(0, "crudType", "U");
+				
+				var arrMsgArg = [arrRtnVal.EMPM_NM];
+				this.gfn_Confirm("WF023", arrMsgArg, "CONF.USER_CHANGE", "fn_MsgCallback");//결재자를 [ &ITM0 ] (으)로 \n변경하시겠습니까? 
+			}
+		}	
+	//결재선변경
+	} else if (strId == "M_WF_1100_01") {	
+		this.fn_ComBtnSearch();//재조회
+	//내부결재
+	} else if (strId == "C_WF_REQUEST") {	
+		this.fn_ComBtnSearch();//재조회		
+	}
+
+	//[Detail영역-검색]
+};
+ 
+/***********************************************************************************************
+ * 13.03. [메세지] CallBack 함수 처리
+ ***********************************************************************************************/  
+this.fn_MsgCallback = function (strId, strVal)
+{
+	//결재자변경 여부
+	if (strId == "CONF.USER_CHANGE") {
+		if(strVal )
+		{
+			this.fn_SvcUserChangeCheck();//결재자변경-결재선에 존재여부체크 서비스 호출
+		} else {
+			this.ds_UserChange.clearData();//결재자변경정보
+		}
+	}
+}; 
+ 
+/***********************************************************************************************
+ * 14. [화면 사이즈] 조정 버튼 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 14.01. [조회영역-▲] 화면 사이즈조정 버튼 이벤트
+ ***********************************************************************************************/ 
+this.btn_DivMoveMi_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{ 
+	/*
+	//[공통] 버튼 변수
+	var btnObj = new Object();//[공통] 버튼 변수 정보 Object
+	btnObj.DivSearch = "this.div_Search";//조회영역 Div
+	btnObj.DivMstLeft = "this.div_MasterView";//Master영역 Left Div : Master영역이 하나인경우에는 Left에 설정
+	btnObj.DivMstRight = "this.div_Appr";//Master영역 Right Div
+	btnObj.DivDetail = "this.div_DetailInput";//Detail영역 Div
+	btnObj.MstLeft = 500;//Master영역 Div Left
+	btnObj.MstTop = 90;//Master영역 Div Top
+	btnObj.MstBottom = 220;//Master영역 Div Height : Height가 없는경우 ""로 입력
+	btnObj.MoveBtnDtl = "";//Detail영역 Move 버튼 : 없으면 ""로 입력
+	this.gfn_MoveSeBtnBaseBottom(obj, btnObj);//Master영역 접고/펼치기 버튼 이벤트-Master영역 높이를 Bottom기준으로 설정	
+	*/
+	//[공통] 버튼 변수
+	var btnObj = new Object();//[공통] 버튼 변수 정보 Object
+	btnObj.DivSearch = "this.div_Search";//조회영역 Div
+	btnObj.DivMstLeft = "this.div_MasterView";//Master영역 Left Div : Master영역이 하나인경우에는 Left에 설정
+	btnObj.DivMstRight = "this.div_Appr";//Master영역 Right Div
+	btnObj.DivDetail = "this.div_DetailInput";//Detail영역 Div
+	btnObj.MstLeft = this.sta_HSplitter.getOffsetLeft() + 6;//Master영역 Div Left
+	btnObj.MstTop = 90;//Master영역 Div Top
+	btnObj.MstBottom = 220;//Master영역 Div Height : Height가 없는경우 ""로 입력
+	btnObj.MoveBtnDtl = "";//Detail영역 Move 버튼 : 없으면 ""로 입력
+	this.gfn_MoveSeBtnBaseBottom(obj, btnObj);//Master영역 접고/펼치기 버튼 이벤트-Master영역 높이를 Bottom기준으로 설정	
+	
+};
+
+/***********************************************************************************************
+ * 14.02. [Master영역-▶] 화면 사이즈조정 버튼 이벤트
+ ***********************************************************************************************/ 
+this.div_MasterView_btn_DivMoveMv_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통] 버튼 변수
+	var btnObj = new Object();//[공통] 버튼 변수 정보 Object
+	btnObj.DivMstLeft = "this.div_MasterView";//Master영역 Left Div : Master영역이 하나인경우에는 Left에 설정
+	btnObj.DivMstRight = "this.div_Appr";//Master영역 Right Div
+	btnObj.MstWidth = 480;//Master Left 영역 Div Width
+	btnObj.MstBottom = 220;//Master Left영역 Div Height : Height가 없는경우 ""로 입력
+	btnObj.MoveBtnSch = "this.btn_DivMoveMi";//조회영역밑 Move 버튼
+	btnObj.MoveBtnDtl = "";//Detail영역 Move 버튼 : 없으면 ""로 입력
+	this.gfn_MoveMlBtnBaseBottom(obj, btnObj);//Master Left 영역 접고/펼치기 버튼 이벤트-Master영역 높이를 Bottom기준으로 설정	
+	
+	if (this.div_MasterView.getOffsetWidth() > 600) {
+		this.div_MasterView.form.grd_Master10.set_autofittype("col");
+	} else {
+		this.div_MasterView.form.grd_Master10.set_autofittype("none");
+	}
+	
+};
+
+/***********************************************************************************************
+ * 14.03. [Detail영역-▲] 화면 사이즈조정 버튼 이벤트
+ ***********************************************************************************************/ 
+this.div_DetailInput_btn_DivMoveDi_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+			
+};
+
+/***********************************************************************************************
+ * 15. [사용자정의 함수]
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 15.01. [공통 그리드 버튼] 입력 버튼 설정
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 15.02. [공통 그리드 버튼] 검색 Tab 버튼 설정
+ ***********************************************************************************************/ 
+
+
+/***********************************************************************************************
+ * 15.03. [공통 첨부파일] 화면 설정
+ ***********************************************************************************************/ 
+
+
+/***********************************************************************************************
+ * 15.04. [공통 그리드 버튼] 파일 버튼 설정
+ ***********************************************************************************************/ 
+this.fn_SetComApprButtonAuth = function(btnDst, enable) {
+	//[공통버튼] 버튼 Enable 설정 
+	var objComButton = new Object();
+
+	if (btnDst == "APPR") {
+		objComButton.APPR_Enable = enable;//[승인]버튼 Enable 설정
+	} else if (btnDst == "REJECT") {
+		objComButton.REJECT_Enable = enable;//[기각]버튼 Enable 설정
+	} else if (btnDst == "CONFIRM") {
+		objComButton.CONFIRM_Enable = enable;//[확인]버튼 Enable 설정
+	} else if (btnDst == "CANCEL") {
+		objComButton.CANCEL_Enable = enable;//[취소]버튼 Enable 설정		
+	} else if (btnDst == "INNER") {
+		objComButton.INNERWF_Enable = enable;//[내부결재]버튼 Enable 설정				
+	} else {
+		return;
+	}
+	
+	//[공통버튼]버튼 Enable 설정 공통함수 호출
+	this.gfn_SetWfComButtonEnable(objComButton, this);	
+}
+
+/***********************************************************************************************
+ * 15.5. [사용자함수] 메시지 전송대상 체크
+ ***********************************************************************************************/ 
+this.fn_SearchSendInfo = function(sWofhNo)
+{ 
+	this.ds_Input.clearData();
+
+	//[업무] 조건 입력
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "WOFH_NO", sWofhNo);//결재PID
+	
+	this.ds_SendUser.clearData();//메시지 수신자정보	
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "wf:M_WF_0500_M_SL24";
+	this.gfn_AddComSearchService(this, svcAddObj);	
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "SEND_USER";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_WF;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_SendUser=ds_SendUser";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+
+} 
+ 
+/***********************************************************************************************
+ * 15.6. [사용자함수] 메시지 전송
+ ***********************************************************************************************/ 
+this.fn_SendMsg = function()
+{ 
+	//[공통-메일] 메일정보 설정
+	var objMail = new Object();//메일정보
+	objMail.SUBJ_NM = this.ds_SendUser.getColumn(0, "WOFH_NM");//메일제목[필수]
+	objMail.CONT_NM = this.ds_SendUser.getColumn(0, "WOFH_NM");//메일내용[필수]
+	objMail.MAIL_TP = "";//메일타입 : HTML일경우에만 HTML로 입력
+	
+	var arrMailUserList = new Array();//메일 발/수신자 정보 배열
+	var objMailUser = new Object();//메일 발/수신자 정보
+
+	for (var iLoop=0; iLoop<this.ds_SendUser.getRowCount(); iLoop++) {
+		objMailUser = new Object();//메일 발/수신자 정보
+		objMailUser.MAIL_FR = this.ds_SendUser.getColumn(iLoop, "SEND_EM");//메일전송자[필수]
+		objMailUser.MAIL_TO = this.ds_SendUser.getColumn(iLoop, "RECV_EM");//메일수신자[필수]
+		objMailUser.MAIL_CC = "";//메일참조 - 필요한경우에만 입력
+		objMailUser.MAIL_BC = "";//메일숨은참조 - 필요한경우에만 입력
+		objMailUser.NOTI_TO = "";//수신확인을 리턴받을 메일주소 - 필요한경우에만 입력
+		arrMailUserList.push(objMailUser);//메일 발/수신자 정보 배열에 등록		
+	}
+
+	var arrMailAtchFileList = new Array();//첨부파일 정보 배열
+	/*
+	var objMailAtchFile = new Object();//첨부파일 정보
+	objMailAtchFile.PATH_NM = "SM";//파일경로
+	objMailAtchFile.FILE_ID = "test1.xlsx";//서버 저장된 파일명
+	objMailAtchFile.FILE_NM = "test1.xlsx";//원본파일명
+	arrMailAtchFileList.push(objMailAtchFile);//첨부파일 정보 배열에 등록
+	*/
+	//[공통-메일] 발송
+	var rtnValue = this.gfn_SendMail(this, objMail, arrMailUserList, arrMailAtchFileList);	
+
+}
+
+this.fn_SetComApprButtonAuthAll = function(enable) {
+	//[공통버튼] 버튼 Enable 설정 
+	var objComButton = new Object();
+
+	objComButton.APPR_Enable = enable;//[승인]버튼 Enable 설정
+	objComButton.REJECT_Enable = enable;//[기각]버튼 Enable 설정
+	objComButton.CONFIRM_Enable = enable;//[확인]버튼 Enable 설정
+	objComButton.CANCEL_Enable = enable;//[취소]버튼 Enable 설정
+	
+	objComButton.INNERWF_Enable = enable;//[내부결재]버튼 Enable 설정
+	
+	//팝업으로 결재함 호출시
+	if (this.gfn_IsNull(this.fvWofhNo)) {
+		//[공통버튼]버튼 Enable 설정 공통함수 호출
+		this.gfn_SetWfComButtonEnable(objComButton, this);	
+	}
+}
+
+this.fn_ClearApprData = function() {
+	for (var iLoop=0; iLoop < 7; iLoop++) {
+		eval("this.div_DetailInput.form.div_WfSign.form.sta_ApprNm" + iLoop).set_text("");//성명
+		eval("this.div_DetailInput.form.div_WfSign.form.sta_ApprDate" + iLoop).set_text("");//일자
+		eval("this.div_DetailInput.form.div_WfSign.form.sta_ApprTime" + iLoop).set_text("");//시간		
+		eval("this.div_DetailInput.form.div_WfSign.form.img_ApprSign" + iLoop).set_image("");//서명
+		eval("this.div_DetailInput.form.div_WfSign.form.sta_ApprNm" + iLoop).set_background("white");
+	}
+
+	for (var iLoop=0; iLoop < 4; iLoop++) {
+		eval("this.div_DetailInput.form.div_WfSign.form.sta_ApprNmDir" + iLoop).set_text("");//성명
+		eval("this.div_DetailInput.form.div_WfSign.form.sta_ApprDateDir" + iLoop).set_text("");//일자
+		eval("this.div_DetailInput.form.div_WfSign.form.sta_ApprTimeDir" + iLoop).set_text("");//시간		
+		eval("this.div_DetailInput.form.div_WfSign.form.img_ApprSignDir" + iLoop).set_image("");//서명
+		eval("this.div_DetailInput.form.div_WfSign.form.sta_ApprNmDir" + iLoop).set_background("white");
+	}	
+	
+	this.div_DetailInput.form.txt_PreMemoNm.set_value("");
+	this.div_DetailInput.form.txt_MemoNm.set_value("");
+}
+
+this.div_DetailInput_btn_PreMemoNmPop_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (!this.gfn_IsNull(this.div_DetailInput.form.txt_PreMemoNm.value)) {
+		var sPopupId = "M_REMK_PreMemoNm";//팝업ID - 전결자 첨언
+		var sTitle = this.div_DetailInput.form.sta_PreMemoNm.text;//팝업 타이틀
+		var oArg = {  Remk:this.div_DetailInput.form.txt_PreMemoNm.value};//Argument처리
+		this.gfn_RemkPop(sPopupId, sTitle, oArg);		
+	}
+	
+};
+
+this.div_DetailInput_btn_MemoNmPop_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (!this.gfn_IsNull(this.div_DetailInput.form.txt_MemoNm.value)) {
+		var sPopupId = "M_REMK_MemoNm";//팝업ID - 첨언
+		var sTitle = this.div_DetailInput.form.sta_MemoNm.text;//팝업 타이틀
+		var oArg = {  Remk:this.div_DetailInput.form.txt_MemoNm.value};//Argument처리
+		this.gfn_RemkPop(sPopupId, sTitle, oArg);		
+	}	
+};
+
+this.div_Search_btn_EmpoPopup_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+	var sSYST_ID = this.gfn_GetSessionValue("SYST_ID");
+	
+	if (!this.gfn_IsNull(sSYST_ID)) {
+		var sPopupFormUrl  = "hr::M_HR_2050_01.xfdl"; //Popup화면 URL
+		var oArg = {SystId:sSYST_ID,
+		            PrgmId:this.fvComPrgmId
+				   }; //Popup화면 전달 파라메터
+		var oOption = {width:"460", height:"450"}; //Popup화면 옵션
+
+		this.gfn_OpenPopup("M_HR_2050_01", sPopupFormUrl, oArg, "fn_PopupCallback", oOption); //Popup화면 호출 함수
+	} else {
+		var arrMsgArg = ["사용자"];
+		this.gfn_Alert("SM040", arrMsgArg);//&ITM0을(를) 선택하세요.
+		return;
+	}
+
+};
+
+//서명이미지 정보 찾기
+this.fn_FindImgUrl = function(sSYST_ID) 
+{
+	var rtnValue = "";
+	
+	if (this.ds_Detail15.getRowCount() > 0) {
+		var iFindRow = this.ds_Detail15.findRow("SYST_ID", sSYST_ID);
+		
+		if (iFindRow > -1) {
+			var sEMSI_ID = this.ds_Detail15.getColumn(iFindRow, "EMSI_ID");//저장파일명	
+			var sFILE_UL = this.ds_Detail15.getColumn(iFindRow, "FILE_UL");//URL
+
+			if (!this.gfn_IsNull(sEMSI_ID)) {
+				var sEncode = encodeURI(sEMSI_ID.replace(/\+/,"%2B"));
+				rtnValue = sFILE_UL + sEncode;
+			}
+		}
+	} 
+	
+	return rtnValue;
+}
+
+//결재결과 정보 찾기
+this.fn_FindWfreCd = function(sSYST_ID) 
+{
+	var rtnValue = "";
+	
+	if (this.ds_Detail15.getRowCount() > 0) {
+		var iFindRow = this.ds_Detail15.findRow("SYST_ID", sSYST_ID);
+		
+		if (iFindRow > -1) {
+			var sWFRE_CD = this.ds_Detail15.getColumn(iFindRow, "WFRE_CD");//결재결과	
+			rtnValue = sWFRE_CD;
+		}
+	} 
+	
+	return rtnValue;
+}
+
+//결재함구분 변경시
+this.div_Search_rdo_Wfcm_onitemchanged = function(obj:nexacro.Radio,e:nexacro.ItemChangeEventInfo)
+{
+
+	//[결재버튼] Enable 설정
+	this.fn_SetComApprButtonAuthAll(false);
+	
+	//결재화면 초기화
+	this.div_Appr.set_url("");
+
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Master10.clearData();
+	this.ds_Detail10.clearData();
+	this.ds_Detail11.clearData();
+	this.ds_Detail12.clearData();
+	this.ds_Detail13.clearData();	
+	this.ds_Detail11Help.clearData();
+	this.ds_Detail11Recv.clearData();
+	this.ds_Input.clearData();
+	this.fn_ClearApprData();//결재상세 내역데이터 초기화	
+};
+
+//결재현황
+this.btn_Process_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sWOFH_NO = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_NO");//결재번호
+	if (!this.gfn_IsNull(sWOFH_NO)) {
+		this.gfn_WfStatPop(sWOFH_NO);//결재진행현황 팝업호출
+	}
+};
+]]></Script>
+  </Form>
+</FDL>

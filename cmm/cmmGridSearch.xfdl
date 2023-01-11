@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="cmmGridSearch" width="328" height="24" titletext="그리드설정관련화면_검색">
+    <Layouts>
+      <Layout height="24" width="328">
+        <Edit id="edt_SearchText" taborder="0" left="80" top="0" width="221" height="24" maxlength="0" readonly="false" onkeydown="edt_SearchText_onkeydown"/>
+        <Button id="btn_Search" taborder="1" left="304" top="0" width="24" height="24" tabstop="false" cssclass="btn_WF_SmallSearch" cursor="pointer" onclick="btn_Search_onclick" enable="true"/>
+        <Static id="sta_Search" taborder="2" text="데이터검색" left="0" top="0" width="80" height="24" cssclass="sta_WF_SLabel"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[var objForm;//부모화면
+var objTab;//부모창 Tab Object 설정
+var bMultiGridYn = false;
+
+//그리드설정관련 화면 세팅
+this.fn_SetCmmGridProc = function(obj, pObjTab, bMulti) {
+	objForm = obj;//부모화면
+	objTab = pObjTab;
+	if (!this.gfn_IsNull(bMulti)) {
+		bMultiGridYn = true;
+	}
+	this.ds_GridCss.clearData();
+}
+
+//검색
+this.btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var f_row = 0;
+	var f_b = false;
+
+	//한Tab에 Multi 
+	if (bMultiGridYn) {
+		var oTobj = objTab.tabpages[objTab.tabindex].form;
+		var arrComp = oTobj.components;
+		var nLength = arrComp.length;
+
+		for (var i=0; i<nLength; i++) {
+			//그리드 인경우
+			if (arrComp[i] instanceof nexacro.Grid) {
+				var objGrd = arrComp[i];
+				var sFindData = this.edt_SearchText.value;	
+				var bToggle = true;
+				var bGrid = false;
+				var sGridName = objGrd.name;
+				var iAddRow = 0;
+				var sCss = "";
+				
+				if (this.ds_GridCss.findRow("grdName", sGridName) > -1) {
+					bGrid = true;
+				}
+				
+				/*
+				if (this.chk_Search.value) {
+					bToggle = true;
+				} else {
+					bToggle = false;
+				}
+				*/
+				if (!bGrid) {
+					for(var iLoop = 0 ; iLoop< objGrd.getCellCount("body"); iLoop++) {
+						iAddRow = this.ds_GridCss.addRow();
+						this.ds_GridCss.setColumn(iAddRow, "grdName", sGridName);
+						this.ds_GridCss.setColumn(iAddRow, "colIndex", iLoop);
+						this.ds_GridCss.setColumn(iAddRow, "cssValue", this.gfn_Nvl(objGrd.getCellProperty("body",iLoop,"cssclass")));
+					}	
+				}
+				
+				if(!bToggle) {
+					this.ds_GridCss.filter("grdName=='" + sGridName + "'");
+					this.ds_GridCssFilter.clearData();
+					this.ds_GridCssFilter.copyData(this.ds_GridCss, true);
+				}
+				
+				for(var iLoop = 0 ; iLoop< objGrd.getCellCount("body"); iLoop++) {
+					if(bToggle) {
+						//objGrd.setCellProperty("body",i,"cssclass","expr:String(comp.getCellValue(currow, " + i + ")).indexOf('" + sFindData + "')>-1?'cell_SchText':''");
+						if (this.gfn_IsNull(sFindData)) {
+							objGrd.setCellProperty("body",iLoop,"cssclass","");
+						} else {
+							objGrd.setCellProperty("body",iLoop,"cssclass","expr:String(comp.getCellText(currow, " + iLoop + ")).indexOf('" + sFindData + "')>-1?'cell_SchText':''");
+							if(!f_b) { f_row = iLoop; } f_b = true;
+						}
+					} else {
+						sCss = this.ds_GridCssFilter.getColumn(iLoop, "cssValue");
+						if (!this.gfn_IsNull(sCss)) {
+							objGrd.setCellProperty("body",iLoop,"cssclass",sCss);
+						} else {
+							objGrd.setCellProperty("body",iLoop,"cssclass","");
+						}
+					}
+				}				
+				
+			}
+			
+		}
+
+	} else {
+		var objGrd = this.gfn_FindGridObject(objTab.tabpages[objTab.tabindex].form);
+		var sFindData = this.edt_SearchText.value;	
+		var bToggle = true;
+		var bGrid = false;
+		var sGridName = objGrd.name;
+		var iAddRow = 0;
+		var sCss = "";
+		
+		if (this.ds_GridCss.findRow("grdName", sGridName) > -1) {
+			bGrid = true;
+		}
+		
+		/*
+		if (this.chk_Search.value) {
+			bToggle = true;
+		} else {
+			bToggle = false;
+		}
+		*/
+		if (!bGrid) {
+			for(var iLoop = 0 ; iLoop< objGrd.getCellCount("body"); iLoop++) {
+				iAddRow = this.ds_GridCss.addRow();
+				this.ds_GridCss.setColumn(iAddRow, "grdName", sGridName);
+				this.ds_GridCss.setColumn(iAddRow, "colIndex", iLoop);
+				this.ds_GridCss.setColumn(iAddRow, "cssValue", this.gfn_Nvl(objGrd.getCellProperty("body",iLoop,"cssclass")));
+			}	
+		}
+		
+		if(!bToggle) {
+			this.ds_GridCss.filter("grdName=='" + sGridName + "'");
+			this.ds_GridCssFilter.clearData();
+			this.ds_GridCssFilter.copyData(this.ds_GridCss, true);
+		}
+
+		for(var iLoop = 0 ; iLoop< objGrd.getCellCount("body"); iLoop++) {
+			if(bToggle) {
+				//objGrd.setCellProperty("body",i,"cssclass","expr:String(comp.getCellValue(currow, " + i + ")).indexOf('" + sFindData + "')>-1?'cell_SchText':''");
+				if (this.gfn_IsNull(sFindData)) {
+					objGrd.setCellProperty("body",iLoop,"cssclass","");
+				} else {
+					objGrd.setCellProperty("body",iLoop,"cssclass","expr:String(comp.getCellText(currow, " + iLoop + ")).indexOf('" + sFindData + "')>-1?'cell_SchText':''");
+					if(!f_b) { f_row = iLoop; } f_b = true;
+				}
+			} else {
+				sCss = this.ds_GridCssFilter.getColumn(iLoop, "cssValue");
+				if (!this.gfn_IsNull(sCss)) {
+					objGrd.setCellProperty("body",iLoop,"cssclass",sCss);
+				} else {
+					objGrd.setCellProperty("body",iLoop,"cssclass","");
+				}
+			}
+		}	
+	}
+	var pre_selecttype = objGrd.selecttype; // 이전 타입
+	var objDs = objGrd.getBindDataset();
+	
+	var findText = false;
+	var findRow = -1;
+	var findCell = -1;
+	
+	for(var z=0;z<objDs.rowcount;z++) {
+		for(var iLoop = 0 ; iLoop < objGrd.getCellCount("body"); iLoop++) {
+			if(!this.gfn_IsNull(objGrd.getCellText(z, iLoop))) {
+				if(objGrd.getCellText(z, iLoop).indexOf(sFindData) > -1) {
+					findText = true;
+					findRow = z;
+					findCell = iLoop;
+					iLoop = 99999;
+					continue;
+				}
+			}
+		}
+		if(findText) { z = 99999; continue; }
+	}
+	
+	if(findText) {
+		objGrd.set_selecttype('cell'); // 타입변경
+		objGrd.selectCell(findRow, findCell);
+		objGrd.set_selecttype(pre_selecttype); // 타입원위치
+	}
+	
+};
+
+//검색버튼 사용여부
+this.chk_Search_onclick = function(obj:nexacro.CheckBox,e:nexacro.ClickEventInfo)
+{
+
+	var objGrd = this.gfn_FindGridObject(objTab.tabpages[objTab.tabindex].form);
+	var sGridName = objGrd.name;
+		
+	this.edt_SearchText.set_readonly(true);
+	this.btn_Search.set_enable(false);	
+	this.edt_SearchText.set_value("");
+
+	var sCss = "";		
+	
+	this.ds_GridCss.filter("grdName=='" + sGridName + "'");
+	this.ds_GridCssFilter.clearData();
+	this.ds_GridCssFilter.copyData(this.ds_GridCss, true);
+	
+	for(var iLoop = 0 ; iLoop< objGrd.getCellCount("body"); iLoop++) {
+		sCss = this.ds_GridCssFilter.getColumn(iLoop, "cssValue");
+		if (!this.gfn_IsNull(sCss)) {
+			objGrd.setCellProperty("body",iLoop,"cssclass",sCss);
+		} else {
+			objGrd.setCellProperty("body",iLoop,"cssclass","");
+		}
+	}			
+
+};
+
+
+this.edt_SearchText_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if (e.keycode == 13) {
+	
+		if (this.gfn_IsNull(this.edt_SearchText.value)) {
+			var objGrd = this.gfn_FindGridObject(objTab.tabpages[objTab.tabindex].form);
+			var sGridName = objGrd.name;		
+			var sCss = "";		
+			
+			this.ds_GridCss.filter("grdName=='" + sGridName + "'");
+			this.ds_GridCssFilter.clearData();
+			this.ds_GridCssFilter.copyData(this.ds_GridCss, true);
+			
+			for(var iLoop = 0 ; iLoop< objGrd.getCellCount("body"); iLoop++) {
+				sCss = this.ds_GridCssFilter.getColumn(iLoop, "cssValue");
+				if (!this.gfn_IsNull(sCss)) {
+					objGrd.setCellProperty("body",iLoop,"cssclass",sCss);
+				} else {
+					objGrd.setCellProperty("body",iLoop,"cssclass","");
+				}
+			}	
+		} else {
+			this.btn_Search_onclick();
+		}
+	}
+};
+]]></Script>
+    <Objects>
+      <Dataset id="ds_GridCss">
+        <ColumnInfo>
+          <Column id="grdName" type="STRING" size="256"/>
+          <Column id="colIndex" type="STRING" size="256"/>
+          <Column id="cssValue" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_GridCssFilter">
+        <ColumnInfo>
+          <Column id="grdName" type="STRING" size="256"/>
+          <Column id="colIndex" type="STRING" size="256"/>
+          <Column id="cssValue" type="STRING" size="256"/>
+          <Column id="colRow" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

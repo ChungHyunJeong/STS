@@ -1,0 +1,653 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="CUSMINFO" width="1100" height="500" titletext="거래처정보" scrollbartype="none" onclose="fn_FormClose" onload="fn_FormOnload" onsize="fn_FormOnsize">
+    <Layouts>
+      <Layout height="500" width="1100">
+        <Div id="div_Search" taborder="0" left="12" top="50" height="66" cssclass="div_WF_Search" right="12" formscrollbartype="none none">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="3" text="거래처명" left="16" top="6" width="80" height="26" cssclass="sta_WF_SLabel"/>
+              <Edit id="edt_CusmNm" taborder="0" left="96" top="6" width="240" height="24" onchanged="div_Search_edt_SechVl_onchanged" maxlength="100"/>
+              <Static id="Static01" taborder="4" text="사업자등록번호" left="376" top="6" width="100" height="24" cssclass="sta_WF_SLabel"/>
+              <MaskEdit id="mae_saumNo" taborder="1" left="486" top="6" width="200" height="24" type="string" format="@@@-@@-@@@@@" onchanged="div_Search_mae_CnthNo_onchanged" trimtype="both"/>
+              <Static id="Static00_00" taborder="5" text="업체유형" left="16" top="34" width="80" height="24" cssclass="sta_WF_SLabel"/>
+              <CheckBox id="chk_Ty01Yn" taborder="6" left="99" top="34" width="80" height="24" text="고객사" falsevalue="0" truevalue="1"/>
+              <CheckBox id="chk_Ty02Yn" taborder="7" left="179" top="34" width="80" height="24" text="파트너사" falsevalue="0" truevalue="1"/>
+              <CheckBox id="chk_Ty03Yn" taborder="8" left="259" top="34" width="80" height="24" text="기타" falsevalue="0" truevalue="1"/>
+              <Static id="Static01_00" taborder="9" text="사용여부" left="376" top="34" width="80" height="24" cssclass="sta_WF_SLabel"/>
+              <Combo id="cbo_UsedYn" taborder="2" left="486" top="34" height="24" innerdataset="ds_Sm088" codecolumn="CODM_CD" datacolumn="CODM_NM" width="200"/>
+              <Static id="sts_Ct01Cd" taborder="10" text="파트너사유형" left="726" top="6" width="80" height="24" cssclass="sta_WF_SLabel" visible="false"/>
+              <Edit id="edt_Ct01Cd" taborder="11" left="817" top="6" width="240" height="24" readonly="true" visible="false"/>
+              <Button id="btn_Ct01Cd" taborder="12" text="▼" left="1031" top="6" width="24" height="24" visible="false"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="grd_Master10" taborder="1" left="12" top="126" binddataset="ds_Master10" autofittype="none" right="12" oncelldblclick="grd_Master10_oncelldblclick" bottom="14" cellsizingtype="col" onkeydown="grd_Master10_onkeydown" selecttype="multiarea">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="50" band="left"/>
+                <Column size="80" band="left"/>
+                <Column size="150" band="left"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="100"/>
+                <Column size="300"/>
+              </Columns>
+              <Rows>
+                <Row size="26" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="No."/>
+                <Cell col="1" text="거래처코드"/>
+                <Cell col="2" text="거래처명"/>
+                <Cell col="3" text="사업자번호"/>
+                <Cell col="4" text="법인등록번호"/>
+                <Cell col="5" text="대표자"/>
+                <Cell col="6" text="업태"/>
+                <Cell col="7" text="종목"/>
+                <Cell col="8" text="회사전화"/>
+                <Cell col="9" text="주소"/>
+              </Band>
+              <Band id="body">
+                <Cell expr="currow+1" textAlign="center"/>
+                <Cell col="1" text="bind:CUSM_CD" displaytype="normal" textAlign="center"/>
+                <Cell col="2" text="bind:CUSM_NM" displaytype="normal" textAlign="left"/>
+                <Cell col="3" text="bind:SAUM_NO" displaytype="mask" textAlign="center" maskedittype="string" maskedittrimtype="both" maskeditformat="expr:(SAUM_NO.length &gt; 0)?'@@@-@@-@@@@@':''"/>
+                <Cell col="4" text="bind:CORP_NO" displaytype="mask" textAlign="center" maskedittype="string" maskedittrimtype="both" maskeditformat="expr:(CORP_NO.length &gt; 0)?'@@@@@@-@@@@@@@':''"/>
+                <Cell col="5" text="bind:REPR_NM" displaytype="normal" textAlign="center"/>
+                <Cell col="6" text="bind:BUSI_CO" displaytype="normal" textAlign="left"/>
+                <Cell col="7" text="bind:ITEM_NM" displaytype="normal" textAlign="left"/>
+                <Cell col="8" text="bind:OTEL_NO" displaytype="normal" textAlign="center"/>
+                <Cell col="9" text="bind:ADDR_NM" displaytype="normal" textAlign="left"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Div id="div_PopupTitle" taborder="2" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Close" taborder="0" text="닫기" top="9" width="70" height="26" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+              <Static id="sta_PopupTitle" taborder="1" text="거래처정보" left="20" top="10" height="24" cssclass="sta_WF_PopupTitle" width="300"/>
+              <Button id="btn_Search" taborder="2" text="조회" top="8" width="65" right="161" visible="true" cssclass="bt_WF_PopupSearch" height="28" onclick="div_PopupTitle_btn_Search_onclick"/>
+              <Button id="btn_Choice" taborder="3" text="선택" top="8" width="65" right="90" visible="true" cssclass="bt_WF_PopupSelect" height="28" onclick="div_PopupTitle_btn_Choice_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="grd_Master11" taborder="3" left="12" top="126" binddataset="ds_Master10" autofittype="none" right="12" oncelldblclick="grd_Master10_oncelldblclick" bottom="14" cellsizingtype="col" onkeydown="grd_Master10_onkeydown" selecttype="multiarea" visible="false">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="50" band="left"/>
+                <Column size="80" band="left"/>
+                <Column size="150" band="left"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="100"/>
+                <Column size="300"/>
+                <Column size="60"/>
+                <Column size="60"/>
+                <Column size="60"/>
+                <Column size="60"/>
+                <Column size="60"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell rowspan="2" text="No."/>
+                <Cell col="1" rowspan="2" text="거래처코드"/>
+                <Cell col="2" rowspan="2" text="거래처명"/>
+                <Cell col="3" rowspan="2" text="사업자번호"/>
+                <Cell col="4" rowspan="2" text="법인등록번호"/>
+                <Cell col="5" rowspan="2" text="대표자"/>
+                <Cell col="6" rowspan="2" text="업태"/>
+                <Cell col="7" rowspan="2" text="종목"/>
+                <Cell col="8" rowspan="2" text="회사전화"/>
+                <Cell col="9" rowspan="2" text="주소"/>
+                <Cell col="10" colspan="5" text="파트너사유형"/>
+                <Cell row="1" col="10" text="기구외주"/>
+                <Cell row="1" col="11" text="제어외주"/>
+                <Cell row="1" col="12" text="S/W외주"/>
+                <Cell row="1" col="13" text="외주가공"/>
+                <Cell row="1" col="14" text="구매품"/>
+              </Band>
+              <Band id="body">
+                <Cell expr="currow+1" textAlign="center"/>
+                <Cell col="1" text="bind:CUSM_CD" displaytype="normal" textAlign="center"/>
+                <Cell col="2" text="bind:CUSM_NM" displaytype="normal" textAlign="left"/>
+                <Cell col="3" text="bind:SAUM_NO" displaytype="mask" textAlign="center" maskedittype="string" maskedittrimtype="both" maskeditformat="expr:(SAUM_NO.length &gt; 0)?'@@@-@@-@@@@@':''"/>
+                <Cell col="4" text="bind:CORP_NO" displaytype="mask" textAlign="center" maskedittype="string" maskedittrimtype="both" maskeditformat="expr:(CORP_NO.length &gt; 0)?'@@@@@@-@@@@@@@':''"/>
+                <Cell col="5" text="bind:REPR_NM" displaytype="normal" textAlign="center"/>
+                <Cell col="6" text="bind:BUSI_CO" displaytype="normal" textAlign="left"/>
+                <Cell col="7" text="bind:ITEM_NM" displaytype="normal" textAlign="left"/>
+                <Cell col="8" text="bind:OTEL_NO" displaytype="normal" textAlign="center"/>
+                <Cell col="9" text="bind:ADDR_NM" displaytype="normal" textAlign="left"/>
+                <Cell col="10" text="bind:PART_CD1" textAlign="center"/>
+                <Cell col="11" text="bind:PART_CD2" textAlign="center"/>
+                <Cell col="12" text="bind:PART_CD3" textAlign="center"/>
+                <Cell col="13" text="bind:PART_CD5" textAlign="center"/>
+                <Cell col="14" text="bind:PART_CD4" textAlign="center"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="CUSM_NM" type="STRING" size="256"/>
+          <Column id="SAUM_NO" type="STRING" size="256"/>
+          <Column id="TY01_YN" type="STRING" size="256"/>
+          <Column id="TY02_YN" type="STRING" size="256"/>
+          <Column id="TY03_YN" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="PART_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="CUSM_CD" type="STRING" size="256"/>
+          <Column id="CUSM_NM" type="STRING" size="256"/>
+          <Column id="CUSE_NM" type="STRING" size="256"/>
+          <Column id="CUTY_CD" type="STRING" size="256"/>
+          <Column id="SAUM_NO" type="STRING" size="256"/>
+          <Column id="JUMN_NO" type="STRING" size="256"/>
+          <Column id="CORP_NO" type="STRING" size="256"/>
+          <Column id="TY01_YN" type="STRING" size="256"/>
+          <Column id="TY02_YN" type="STRING" size="256"/>
+          <Column id="TY03_YN" type="STRING" size="256"/>
+          <Column id="NATM_CD" type="STRING" size="256"/>
+          <Column id="GROU_CD" type="STRING" size="256"/>
+          <Column id="TCOM_CD" type="STRING" size="256"/>
+          <Column id="BUSI_CO" type="STRING" size="256"/>
+          <Column id="ITEM_NM" type="STRING" size="256"/>
+          <Column id="REPR_NM" type="STRING" size="256"/>
+          <Column id="ESTA_DD" type="STRING" size="256"/>
+          <Column id="HDOF_YN" type="STRING" size="256"/>
+          <Column id="OTEL_NO" type="STRING" size="256"/>
+          <Column id="OFAX_NO" type="STRING" size="256"/>
+          <Column id="HOME_NM" type="STRING" size="256"/>
+          <Column id="TAXB_GU" type="STRING" size="256"/>
+          <Column id="CLOS_DD" type="STRING" size="256"/>
+          <Column id="CLOS_NM" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_ST" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="ADDR_NM" type="STRING" size="256"/>
+          <Column id="PART_CD" type="STRING" size="256"/>
+          <Column id="PART_CD1" type="STRING" size="256"/>
+          <Column id="PART_CD2" type="STRING" size="256"/>
+          <Column id="PART_CD3" type="STRING" size="256"/>
+          <Column id="PART_CD4" type="STRING" size="256"/>
+          <Column id="PART_CD5" type="STRING" size="256"/>
+          <Column id="ACNO_GU" type="STRING" size="256"/>
+          <Column id="ACNO_GU_NM" type="STRING" size="256"/>
+          <Column id="BANM_CD" type="STRING" size="256"/>
+          <Column id="BANM_NM" type="STRING" size="256"/>
+          <Column id="ACNM_NO" type="STRING" size="256"/>
+          <Column id="ACEM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Sm088">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Mm035">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : 
+*  @화면설명 : 부서정보
+*  @시스템명 : (SM) 시스템
+*  @작성자   : 최석목
+*  @작성일   : 2021.01.27
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.01.27     	    최석목 	           최초 생성 
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * 1. Form Include 선언 영역
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+var fvCusmTp;
+ 
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+this.fvCusmNm = "";//[부모창파라메타] 거래처명
+this.fvCusmTp = "";//[부모창파라메타] 업체유형 - C : 고객사, H : 협력사, E - 기타, A - 전체선택
+
+/***********************************************************************************************
+ * 3. Form 이벤트 영역
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 3.1. Form Onload 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	//부모창 파라메타 처리
+	this.fvCusmNm = this.getOwnerFrame().CusmNm;//[부모창파라메타] 거래처명
+	this.fvCusmTp = this.getOwnerFrame().CusmTp;//[부모창파라메타] 업체유형
+	this.fvComPrgmId = this.getOwnerFrame().PrgmId;//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+	
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.2. Form [공통] 초기설정 함수 - 필수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.gfn_SetGrid(this.grd_Master10);//[공통]그리드 이벤트 설정 - 출력목록
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.3. Form [업무] 초기설정 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormBizInit = function() 
+{
+	//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+	var objCondList = ["SM088|ds_Sm088", "MM035|ds_Mm035|Y|ALL"];
+	//공통코드 설정함수 호출				   
+	this.gfn_GetCommCode(this, objCondList, "");
+	
+	//콤보 인덱스 설정
+	this.div_Search.form.cbo_UsedYn.set_index(1);
+		
+	//업체유형 설정
+	if (!this.gfn_IsNull(this.fvCusmTp)) {
+		
+		this.div_Search.form.chk_Ty01Yn.set_enable(false);
+		this.div_Search.form.chk_Ty02Yn.set_enable(false);
+		this.div_Search.form.chk_Ty03Yn.set_enable(false);
+		
+		//업체유형 - 고객
+		if (this.fvCusmTp == "C") {
+			this.div_Search.form.chk_Ty01Yn.set_value("1");
+		//업체유형 - 협력사
+		} else if (this.fvCusmTp == "H") {
+			this.div_Search.form.chk_Ty02Yn.set_value("1");
+			//체크 콤보 설정값 만들기 - 협력사유형
+			var objConfig = {
+								dropbutton	 : this.div_Search.form.btn_Ct01Cd, //Button 컴포너트ID
+								innerdataset : this.ds_Mm035, //데이터셋
+								codecolumn	 : "CODM_CD",   //코드컬럼
+								datacolumn	 : "CODM_NM", //코드값컬럼
+								displayRowCount : 6 //화면표시건수
+							};
+
+			//체크 콤보 초기화 함수 호출
+			this.gfn_InitMultiCombo(this.div_Search.form.edt_Ct01Cd, objConfig);	
+			//체크 콤보의 Code 값을 입력하는 함수 실행
+			this.gfn_SetMultiComboCode(this.div_Search.form.edt_Ct01Cd, "ALL");//전체					
+			this.div_Search.form.sts_Ct01Cd.set_visible(true);
+			this.div_Search.form.edt_Ct01Cd.set_visible(true);
+			this.div_Search.form.btn_Ct01Cd.set_visible(true);
+			
+			this.grd_Master11.set_visible(true);//업체유형-파트너사인경우 그리드 변경
+			
+		//업체유형 - 기타
+		} else if (this.fvCusmTp == "E") {
+			this.div_Search.form.chk_Ty03Yn.set_value("1");	
+		//업체유형 - 전체
+		} else if (this.fvCusmTp == "A") {
+			this.div_Search.form.chk_Ty01Yn.set_value("1");
+			this.div_Search.form.chk_Ty02Yn.set_value("1");
+			this.div_Search.form.chk_Ty03Yn.set_value("1");				
+			this.div_Search.form.chk_Ty01Yn.set_enable(true);
+			this.div_Search.form.chk_Ty02Yn.set_enable(true);
+			this.div_Search.form.chk_Ty03Yn.set_enable(true);
+		}
+	}
+	
+	this.div_Search.form.edt_CusmNm.setFocus();
+	
+	if (!this.gfn_IsNull(this.fvCusmNm)) {
+		this.div_Search.form.edt_CusmNm.set_value(this.fvCusmNm);
+		this.div_PopupTitle_btn_Search_onclick();//조회
+	}
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.4. Form OnClose 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/*---------------------------------------------------------------------------------------------
+ * 3.4. Form OnSize 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{
+	if (obj.width > 1100) {
+		this.grd_Master10.set_autofittype("col");
+	} else {
+		this.grd_Master10.set_autofittype("none");
+	}
+};
+
+/***********************************************************************************************
+ * 4. [화면] 버튼 이벤트 영역
+ -----------------------------------------------------------------------------------------------
+   4.1.조회 : btn_Search_onclick
+   4.2.선택 : btn_Choice_onclick
+   4.3.닫기 : fn_Close
+ ***********************************************************************************************/
+
+/*---------------------------------------------------------------------------------------------
+ * 4.1. 조회 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+	this.ds_Master10.clearData();
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+
+	this.ds_Input.setColumn(0, "CUSM_NM", this.div_Search.form.edt_CusmNm.value);//거래처명	
+	this.ds_Input.setColumn(0, "SAUM_NO", this.div_Search.form.mae_saumNo.value);//사업자등록번호
+	
+	if (this.div_Search.form.chk_Ty01Yn.value == "1" && this.div_Search.form.chk_Ty02Yn.value == "1" && this.div_Search.form.chk_Ty03Yn.value == "1") {
+		this.ds_Input.setColumn(0, "TY01_YN", "");//고객사
+		this.ds_Input.setColumn(0, "TY02_YN", "");//협력사
+		this.ds_Input.setColumn(0, "TY03_YN", "");//기타	
+	} else {
+		this.ds_Input.setColumn(0, "TY01_YN", this.div_Search.form.chk_Ty01Yn.value);//고객사
+		this.ds_Input.setColumn(0, "TY02_YN", this.div_Search.form.chk_Ty02Yn.value);//협력사
+		this.ds_Input.setColumn(0, "TY03_YN", this.div_Search.form.chk_Ty03Yn.value);//기타
+	}
+
+	//사용여부-사용
+	if (this.div_Search.form.cbo_UsedYn.value == "1") {
+		this.ds_Input.setColumn(0, "USED_YN", "1");//사용여부
+	} else if (this.div_Search.form.cbo_UsedYn.value == "0") {
+		this.ds_Input.setColumn(0, "USED_YN", "0");//사용여부
+	} else {
+		this.ds_Input.setColumn(0, "USED_YN", "");//사용여부
+	}
+	
+	//업체유형이 파트너사인경우
+	if (this.fvCusmTp == "H") {
+		var arrCode = this.div_Search.form.edt_Ct01Cd.code.split(",");//조건1
+		
+		if (arrCode.length > 0) {
+			if (this.gfn_IsNull(arrCode[0])) {
+				this.ds_Input.setColumn(0, "PART_CD", "");//조건1
+			} else {
+				var sCodes = "";
+				for (var iLoop=0; iLoop <arrCode.length; iLoop++) {
+					if (iLoop == 0) {
+						sCodes = "'" + arrCode[iLoop] + "'";
+					} else {
+						sCodes = sCodes + ",'" + arrCode[iLoop] + "'";
+					}
+				}
+				this.ds_Input.setColumn(0, "PART_CD", sCodes);//조건1
+			}
+		} else {
+			this.ds_Input.setColumn(0, "PART_CD", "");//조건1
+		}	
+	}  
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sd:M_SD_CUSM_M_SL10";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "MST_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= this.G_SV_SD;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "ds_Master10=ds_Master10";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);		
+};
+
+/*---------------------------------------------------------------------------------------------
+ *  4.2. 선택 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Choice_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_SelectRow(this.ds_Master10.rowposition);//선택한 행 리턴
+};
+
+/*---------------------------------------------------------------------------------------------
+ *  4.3. 닫기 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_PopClose();
+};
+
+
+/***********************************************************************************************
+ * 5. [조회영역] 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 5.1. [조회영역-공통] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.1.1. [조회영역-팝업버튼] 
+  ---------------------------------------------------------------------------------------------*/
+this.fn_SbpBtn_Do01 = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 5.2. [조회영역-업무] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.2.1. [조회영역-Edit] 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_SechVl_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	this.div_PopupTitle_btn_Search_onclick();//검색
+};
+
+/***********************************************************************************************
+ * 6. [컴포넌트] 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 6.1. [상세-그리드] 더블 클릭 이벤트
+ ***********************************************************************************************/ 
+this.grd_Master10_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.fn_SelectRow(e.row);//선택한 행 리턴
+};
+
+
+/***********************************************************************************************
+ * 6.2.  [enter key] 줄선택 이벤트
+ ***********************************************************************************************/  
+this.grd_Master10_onkeydown = function(obj:nexacro.Grid,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == "13"){
+		this.fn_SelectRow(e.row);//선택한 행 리턴
+	}
+};
+
+
+
+
+
+/***********************************************************************************************
+ * 7. [서비스] CallBack 함수 처리부분
+ ***********************************************************************************************/
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST_SEARCH": //조회	
+			//조회시 focus 이동
+			this.grd_Master10.setFocus(0);			
+			break;						
+	}
+};
+
+/***********************************************************************************************
+ * 8. [팝업] CallBack 함수 처리부분
+      strId : 팝업호출시 지정한 팝업ID
+	  rtnValue : 팝업창에서 close시 지정한 반환값
+      주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+};
+
+/***********************************************************************************************
+ * 9. [메세지] CallBack 함수 처리부분
+ ***********************************************************************************************/
+/**
+ * @description 메세지 CallBack 함수
+*/
+this.fn_MsgCallback = function (strId, strVal)
+{
+
+};
+
+/***********************************************************************************************
+ * 10. [사용자함수]
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 10.1. [사용자함수] 선택한 행 리턴
+ ***********************************************************************************************/ 
+this.fn_SelectRow = function(iRow)
+{
+	if (iRow > -1) {	
+	
+		var sTAXB_GU = "";//20.세금계산서발행구분	
+		var sADDR_NM = "";//21.주소
+		
+		if (!this.gfn_IsNull(this.ds_Master10.getColumn(iRow, "TAXB_GU"))) {
+			sTAXB_GU = this.ds_Master10.getColumn(iRow, "TAXB_GU").replace(/\n|\r|\s*/g, ""); //20.세금계산서발행구분
+		}
+		if (!this.gfn_IsNull(this.ds_Master10.getColumn(iRow, "ADDR_NM"))) {
+			sADDR_NM = this.ds_Master10.getColumn(iRow, "ADDR_NM").replace(/\n|\r|\s*/g, ""); //21.주소
+		}		
+	
+        var rtnValue = "({" +
+                        ' CUSM_CD:"' + this.ds_Master10.getColumn(iRow, "CUSM_CD") + '"'+  //0.거래처코드
+                        ',CUSM_NM:"' + this.ds_Master10.getColumn(iRow, "CUSM_NM") + '"'+  //1.거래처명(한글)
+                        ',CUSE_NM:"' + this.ds_Master10.getColumn(iRow, "CUSE_NM") + '"'+  //2.거래처명(영문)
+                        ',CUTY_CD:"' + this.ds_Master10.getColumn(iRow, "CUTY_CD") + '"'+  //3.회사형태
+                        ',SAUM_NO:"' + this.ds_Master10.getColumn(iRow, "SAUM_NO") + '"'+  //4.사업자등록번호
+                        ',CORP_NO:"' + this.ds_Master10.getColumn(iRow, "CORP_NO") + '"'+  //5.법인등록번호
+                        ',TY01_YN:"' + this.ds_Master10.getColumn(iRow, "TY01_YN") + '"'+  //6.거래처유형_고객사여부
+                        ',TY02_YN:"' + this.ds_Master10.getColumn(iRow, "TY02_YN") + '"'+  //8.거래처유형_협력사여부
+                        ',TY03_YN:"' + this.ds_Master10.getColumn(iRow, "TY03_YN") + '"'+  //8.거래처유형_기타여부
+                        ',NATM_CD:"' + this.ds_Master10.getColumn(iRow, "NATM_CD") + '"'+  //9.국가코드
+                        ',GROU_CD:"' + this.ds_Master10.getColumn(iRow, "GROU_CD") + '"'+  //10.그룹코드
+                        ',TCOM_CD:"' + this.ds_Master10.getColumn(iRow, "TCOM_CD") + '"'+  //11.모회사코드
+                        ',BUSI_CO:"' + this.ds_Master10.getColumn(iRow, "BUSI_CO") + '"'+  //12.업태
+                        ',ITEM_NM:"' + this.ds_Master10.getColumn(iRow, "ITEM_NM") + '"'+  //13.종목
+                        ',REPR_NM:"' + this.ds_Master10.getColumn(iRow, "REPR_NM") + '"'+  //14.대표자명
+                        ',ESTA_DD:"' + this.ds_Master10.getColumn(iRow, "ESTA_DD") + '"'+  //15.설립일자
+                        ',HDOF_YN:"' + this.ds_Master10.getColumn(iRow, "HDOF_YN") + '"'+  //16.본사여부
+                        ',OTEL_NO:"' + this.ds_Master10.getColumn(iRow, "OTEL_NO") + '"'+  //17.전화번호
+                        ',OFAX_NO:"' + this.ds_Master10.getColumn(iRow, "OFAX_NO") + '"'+  //18.팩스번호
+                        ',HOME_NM:"' + this.ds_Master10.getColumn(iRow, "HOME_NM") + '"'+  //19.홈페이지
+						',TAXB_GU:"' + sTAXB_GU + '"'+  //20.세금계산서발행구분
+						',ADDR_NM:"' + sADDR_NM + '"'+  //21.주소
+						',PART_CD:"' + this.ds_Master10.getColumn(iRow, "PART_CD") + '"'+  //21.협력사유형(MM035)
+						
+						
+						',ACNO_GU:"' + this.ds_Master10.getColumn(iRow, "ACNO_GU") + '"'+  //22.계좌구분
+						',ACNO_GU_NM:"' + this.ds_Master10.getColumn(iRow, "ACNO_GU_NM") + '"'+  //23.계좌구분
+						',BANM_CD:"' + this.ds_Master10.getColumn(iRow, "BANM_CD") + '"'+  //24.은행코드
+						',BANM_NM:"' + this.ds_Master10.getColumn(iRow, "BANM_NM") + '"'+  //25.은행명
+						',ACNM_NO:"' + this.ds_Master10.getColumn(iRow, "ACNM_NO") + '"'+  //26.예금주
+						',ACEM_NM:"' + this.ds_Master10.getColumn(iRow, "ACEM_NM") + '"'+  //27.예금주명
+						
+                "})";
+				
+		this.gfn_PopClose(rtnValue);
+	} else {
+		this.gfn_Alert("SM046");//선택된 내용이 없습니다.
+		return;		
+	}
+}
+
+
+
+
+]]></Script>
+  </Form>
+</FDL>

@@ -1,0 +1,585 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="FrameLeft_Accordion_Menu" width="1020" height="620" titletext="Accordion 메뉴" initvalueid="iv_Form0" onload="form_onload">
+    <Layouts>
+      <Layout height="620" width="1020">
+        <Div id="div_left" taborder="0" text="div_left" left="10" top="48" width="266" background="aliceblue" bottom="6">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Button id="btn_create" taborder="1" text="accrodion메뉴 생성" left="143" top="2" width="133" height="38" onclick="fn_createLeftMenu" background=""/>
+        <Static id="sta_00" taborder="2" text="&#13;&#10;o 대,중,소 가능한 Accordion메뉴 o&#13;&#10;&#13;&#10; * 간략설명 (가장중요한건 2가지)&#13;&#10;    1. 대메뉴, 중메뉴 div생성시  위치상   위쪽 div 관리 및 연결&#13;&#10;        - 이 연결로 accordion기능 구현&#13;&#10;        - 내_div.set_top(&quot;상위.div.id&quot; + &quot;:0&quot;);  //내_div의 heigh가 줄어들때 하위 div가 자동으로 .. 위쪽으로 이동하도록 처리&#13;&#10;   2. 버튼 생성시 마지막버튼 관리&#13;&#10;       - 이 마지막 생성된 버튼을 기준으로 div height 처리&#13;&#10;       - 이 마지막 생성된 버튼을 가지고, 다음 버튼을 만들때 top 위치 얻음" left="286" top="49" width="714" height="295" background="antiquewhite" verticalAlign="top"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_menu">
+        <ColumnInfo>
+          <Column id="menuId" type="STRING" size="20"/>
+          <Column id="menuNm" type="STRING" size="100"/>
+          <Column id="upMenuId" type="STRING" size="20"/>
+          <Column id="menuLvl" type="BIGDECIMAL" size="45"/>
+          <Column id="pgmUrl" type="STRING" size="50"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="menuId">A</Col>
+            <Col id="menuNm">농촌관리</Col>
+            <Col id="menuLvl">0</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">A1</Col>
+            <Col id="upMenuId">A</Col>
+            <Col id="menuNm">농촌정보관리</Col>
+            <Col id="menuLvl">1</Col>
+            <Col id="pgmUrl"/>
+          </Row>
+          <Row>
+            <Col id="menuId">A11</Col>
+            <Col id="upMenuId">A1</Col>
+            <Col id="menuNm">   ▪ 농촌정보</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">A12</Col>
+            <Col id="menuNm">   ▪ 농촌정보이력</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="upMenuId">A1</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">A13</Col>
+            <Col id="upMenuId">A1</Col>
+            <Col id="menuNm">   ▪ 씨앗등록정보</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">A2</Col>
+            <Col id="upMenuId">A</Col>
+            <Col id="menuNm">영업관리</Col>
+            <Col id="menuLvl">1</Col>
+            <Col id="pgmUrl"/>
+          </Row>
+          <Row>
+            <Col id="menuId">A21</Col>
+            <Col id="menuNm">   ▪ 농촌사담당자</Col>
+            <Col id="upMenuId">A2</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">A22</Col>
+            <Col id="menuNm">   ▪ 영업현황</Col>
+            <Col id="upMenuId">A2</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">A23</Col>
+            <Col id="menuNm">   ▪ 농촌현황리스트</Col>
+            <Col id="upMenuId">A2</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">A3</Col>
+            <Col id="menuNm">문서관리</Col>
+            <Col id="upMenuId">A</Col>
+            <Col id="menuLvl">1</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">A31</Col>
+            <Col id="menuNm">   ▪ 문서서관리</Col>
+            <Col id="upMenuId">A3</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">A32</Col>
+            <Col id="menuNm">   ▪ 문서만기일조회</Col>
+            <Col id="upMenuId">A3</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">A33</Col>
+            <Col id="menuNm">   ▪ 구하늘문서정보</Col>
+            <Col id="upMenuId">A3</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">B</Col>
+            <Col id="menuNm">서비스관리</Col>
+            <Col id="menuLvl">0</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">B1</Col>
+            <Col id="menuNm">옆집서비스관리</Col>
+            <Col id="upMenuId">B</Col>
+            <Col id="menuLvl">1</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">B11</Col>
+            <Col id="menuNm">   ▪ 옆집사종합설정</Col>
+            <Col id="upMenuId">B1</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">B12</Col>
+            <Col id="menuNm">   ▪ 마늘설정</Col>
+            <Col id="upMenuId">B1</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">B13</Col>
+            <Col id="menuNm">   ▪ 종자설정</Col>
+            <Col id="upMenuId">B1</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">B14</Col>
+            <Col id="menuNm">   ▪ 양파설정</Col>
+            <Col id="upMenuId">B1</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">B15</Col>
+            <Col id="menuNm">   ▪ 파종사관리</Col>
+            <Col id="upMenuId">B1</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">B7</Col>
+            <Col id="menuNm">주문자서비스관리</Col>
+            <Col id="upMenuId">B</Col>
+            <Col id="menuLvl">1</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">B71</Col>
+            <Col id="menuNm">   ▪ 주문자종합설정</Col>
+            <Col id="upMenuId">B7</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">B72</Col>
+            <Col id="menuNm">   ▪ 로그인관리</Col>
+            <Col id="upMenuId">B7</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">B73</Col>
+            <Col id="menuNm">   ▪ 일괄처리</Col>
+            <Col id="upMenuId">B7</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">B74</Col>
+            <Col id="menuNm">   ▪ 웹프레임설정</Col>
+            <Col id="upMenuId">B7</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">B75</Col>
+            <Col id="menuNm">   ▪ 건당가일괄등록</Col>
+            <Col id="upMenuId">B7</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">C</Col>
+            <Col id="menuNm">호출자관리</Col>
+            <Col id="menuLvl">0</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">C1</Col>
+            <Col id="menuNm">호출자정보</Col>
+            <Col id="upMenuId">C</Col>
+            <Col id="menuLvl">1</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">C2</Col>
+            <Col id="menuNm">상품별상세설정</Col>
+            <Col id="upMenuId">C</Col>
+            <Col id="menuLvl">1</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">C3</Col>
+            <Col id="menuNm">호출리스트</Col>
+            <Col id="upMenuId">C</Col>
+            <Col id="menuLvl">1</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">C4</Col>
+            <Col id="menuNm">호출자설정</Col>
+            <Col id="upMenuId">C</Col>
+            <Col id="menuLvl">1</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">C5</Col>
+            <Col id="menuNm">호출자유효기간</Col>
+            <Col id="upMenuId">C</Col>
+            <Col id="menuLvl">1</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">C6</Col>
+            <Col id="menuNm">호출자해지</Col>
+            <Col id="upMenuId">C</Col>
+            <Col id="menuLvl">1</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">D</Col>
+            <Col id="menuNm">청구관리</Col>
+            <Col id="menuLvl">0</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">D1</Col>
+            <Col id="menuNm">자료집계</Col>
+            <Col id="upMenuId">D</Col>
+            <Col id="menuLvl">1</Col>
+            <Col id="pgmUrl"/>
+          </Row>
+          <Row>
+            <Col id="menuId">D11</Col>
+            <Col id="menuNm">   ▪ 수확적용기간</Col>
+            <Col id="upMenuId">D1</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">D12</Col>
+            <Col id="menuNm">   ▪ 일간량집계</Col>
+            <Col id="upMenuId">D1</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">D13</Col>
+            <Col id="menuNm">   ▪ 월간집계</Col>
+            <Col id="upMenuId">D1</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">D14</Col>
+            <Col id="menuNm">   ▪ 년간집계</Col>
+            <Col id="upMenuId">D1</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">D6</Col>
+            <Col id="menuNm">요금집계</Col>
+            <Col id="upMenuId">D</Col>
+            <Col id="menuLvl">1</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">D61</Col>
+            <Col id="menuNm">   ▪ 주문자별상품요금</Col>
+            <Col id="upMenuId">D6</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">D8</Col>
+            <Col id="menuNm">호출자별상품요금</Col>
+            <Col id="upMenuId">D</Col>
+            <Col id="menuLvl">1</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">D81</Col>
+            <Col id="menuNm">   ▪ 상품요금조정</Col>
+            <Col id="upMenuId">D8</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">D82</Col>
+            <Col id="menuNm">   ▪ 요금조정액반영</Col>
+            <Col id="upMenuId">D8</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">D83</Col>
+            <Col id="menuNm">   ▪ 건별청구등록</Col>
+            <Col id="upMenuId">D8</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">D84</Col>
+            <Col id="menuNm">   ▪ 건별청구집계</Col>
+            <Col id="upMenuId">D8</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">D85</Col>
+            <Col id="menuNm">   ▪ 청구(영수)생성</Col>
+            <Col id="upMenuId">D8</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">D9</Col>
+            <Col id="menuNm">청구조회</Col>
+            <Col id="upMenuId">D</Col>
+            <Col id="menuLvl">1</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">D91</Col>
+            <Col id="menuNm">   ▪ 호출자별청구내역</Col>
+            <Col id="upMenuId">D9</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">D92</Col>
+            <Col id="menuNm">   ▪ 상품별청구내역</Col>
+            <Col id="upMenuId">D9</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="menuId">D93</Col>
+            <Col id="menuNm">   ▪ 개별청구서조회</Col>
+            <Col id="upMenuId">D9</Col>
+            <Col id="menuLvl">2</Col>
+            <Col id="pgmUrl">x.xfdl</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.fv_TopBtnHeight  = 35;  //대메뉴 버튼 height
+this.fv_MidBtnHeight  = 30;  //중메뉴 버튼 height
+this.fv_LowBtnHeight  = 25;  //소메뉴 버튼 height
+
+
+/**
+* @class accrodion메뉴 생성
+*/
+this.fn_createLeftMenu = function()
+{
+	var cnt = this.ds_menu.getRowCount();
+	var objTopDiv; //대메뉴 div
+	var objMidDiv; //중메뉴 div
+	var top;
+	
+	for(var row=0; row<cnt; row++)
+	{
+		var menuLvl    = this.ds_menu.getColumn(row, "menuLvl");
+ 		var menuId     = this.ds_menu.getColumn(row, "menuId");
+		var objWorkDiv; //현재 row의 메뉴버튼이 위치할 div
+		
+		//1. 대메뉴
+		if (menuLvl == "0")
+		{
+			objTopDiv  = this.fn_createSubDiv(row, this.div_left);
+			objWorkDiv = objTopDiv;
+			
+		}
+		//2. 중메뉴면 하위메뉴가 있는지 검증
+		else if (menuLvl == "1")
+		{
+			var upMenuId = this.ds_menu.getColumn(row+1, "upMenuId");
+			if (menuId == upMenuId)
+			{
+				objWorkDiv = this.fn_createSubDiv(row, objTopDiv);
+			}
+			else
+			{
+				objWorkDiv = objTopDiv;
+			}
+		}
+		else if (menuLvl == "2")
+		{
+			//skip
+		}
+		this.fn_createMenuBtn(row, objWorkDiv, objTopDiv);
+		
+		//3. 중메뉴 div의 height조절
+		var objLastComp = objWorkDiv.objLastComp;
+		var top    = (this.gfn_isNull(objLastComp) ? 0 : objLastComp.getOffsetTop() + objLastComp.getOffsetHeight());
+		objWorkDiv.setOffsetHeight(top);
+		
+		//4. 대메뉴 div의 height조절
+		var objLastComp = objTopDiv.objLastComp;
+		var top    = (this.gfn_isNull(objLastComp) ? 0 : objLastComp.getOffsetTop() + objLastComp.getOffsetHeight());
+		objTopDiv.setOffsetHeight(top);
+	}
+	
+	//5. 대메뉴만 보이도록 처리
+	this.ds_menu.set_filterstr("menuLvl==0");
+	var cnt = this.ds_menu.getRowCount();
+	for(var row=0; row<cnt; row++)
+	{
+		var menuId = this.ds_menu.getColumn(row, "menuId");
+		var objDiv = this.div_left.form.components["div_" + menuId];
+		objDiv.set_height(this.fv_TopBtnHeight);
+	}
+	this.div_left.form.resetScroll();
+};
+
+
+/**
+* @class 메뉴 버튼 생성
+*/
+this.fn_createSubDiv = function(row, objWorkDiv)
+{
+	var menuLvl = this.ds_menu.getColumn(row, "menuLvl");
+	var menuId  = this.ds_menu.getColumn(row, "menuId");
+	var objLastComp = objWorkDiv.objLastComp;
+	var background  = (menuLvl == "0" ? "cadetblue" :"antiquewhite");
+	
+	var divId  = "div_" + menuId;
+	var left   = 0;
+	var top    = (this.gfn_isNull(objLastComp) ? 0 : objLastComp.getOffsetTop() + objLastComp.getOffsetHeight());
+	var width  = null; //this.div_left.getOffsetWidth();
+	var height = (menuLvl == "0" ? this.fv_TopBtnHeight : this.fv_MidBtnHeight); 
+	var right  = 0;
+	
+	var objDiv = new Div(divId, left, top, null, height, 0); 
+	objWorkDiv.addChild(divId, objDiv); 
+	objDiv.show(); 
+	objDiv.set_background(background);
+	objDiv.set_formscrolltype("none");
+	objDiv.objParentDiv = objWorkDiv;     //내 상위 div
+	
+	if (this.gfn_isExist(objLastComp))
+	{
+		objDiv.setOffsetTop(objLastComp.id + ":0");
+	}
+	objWorkDiv.objLastComp = objDiv;  //마지막 div
+	
+	return objDiv;
+}
+
+/**
+* @class 메뉴 버튼 생성
+*/
+this.fn_createMenuBtn = function(row, objWorkDiv)
+{
+//trace("objWorkDiv->" + objWorkDiv.id);
+
+	var menuLvl     = this.ds_menu.getColumn(row, "menuLvl");
+	var menuId      = this.ds_menu.getColumn(row, "menuId");
+	var upMenuId    = this.ds_menu.getColumn(row, "upMenuId");
+	var menuNm      = this.ds_menu.getColumn(row, "menuNm");
+	var pgmUrl      = this.ds_menu.getColumn(row, "pgmUrl");
+	var objLastComp = objWorkDiv.objLastComp;
+	var background  = (menuLvl == "0" ? "thistle" : (menuLvl == "1" ? "antiquewhite" : ""));
+	var brank       = (menuLvl == "0" ? "     "   : (menuLvl == "1" ? "          " : "               "));
+		
+	var btnId  = "btn_" + menuId;
+	var left   = 0;
+	var top    = (this.gfn_isNull(objLastComp) ? 0 : objLastComp.getOffsetTop() + objLastComp.getOffsetHeight());
+	var width  = null; //this.div_left.getOffsetWidth();
+	var height = (menuLvl == "0" ? this.fv_TopBtnHeight : (menuLvl == "1" ? this.fv_MidBtnHeight : this.fv_LowBtnHeight)); 
+	var right  = 0;
+	
+	var divId   = "div_" + (menuLvl == "0" ? menuId : upMenuId);
+	var objButton = new Button(btnId, left, top, width, height, right); 
+	objWorkDiv.addChild(btnId, objButton);
+	objButton.show();
+	objButton.set_text(brank + menuNm);
+	objButton.set_textAlign("left");
+	objButton.menuRow  = row;
+	objButton.menuLvl  = menuLvl;
+	objButton.menuId   = menuId;
+	objButton.upMenuId = upMenuId;
+	objButton.menuNm   = menuNm;
+	objButton.pgmUrl   = pgmUrl;
+	objButton.objMenuDiv = objWorkDiv; //내 메뉴버튼이 위치하고 있는 div
+	objButton.addEventHandler("onclick", this._fn_menuBtn_onclick, this);
+	
+	objButton.set_background(background);
+	objWorkDiv.objLastComp = objButton;   //마지막 button
+}
+
+/**
+* @class 메뉴 버튼 생성
+*/
+this._fn_menuBtn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var menuRow     = obj.menuRow;
+	var menuLvl     = obj.menuLvl;
+	var menuId      = obj.menuId;
+	var upMenuId    = obj.upMenuId;
+	var menuNm      = obj.menuNm;
+	var pgmUrl      = obj.pgmUrl;
+	var objMenuDiv  = obj.objMenuDiv;              //메뉴 버튼이 속한 div
+	var objParentDiv = objMenuDiv.objParentDiv;    //메뉴 버튼이 속한 div의 -> 상위 div
+	var objLastComp  = objMenuDiv.objLastComp;     //메뉴 버튼이 속한 div의 -> 마지막 component
+	
+	//1. 메뉴를 클릭시
+	if (this.gfn_isExist(pgmUrl))
+	{
+		//this.gfn_openMenu(menuRow, menuId, pgmUrl);
+		trace("화면이 존재 하는 메뉴 클릭")
+		return;
+	}
+	
+	//2. 대,중 메뉴 클릭 시 height resize
+	var btnHeight = (menuLvl == "0" ? this.fv_TopBtnHeight : (menuLvl == "1" ? this.fv_MidBtnHeight : this.fv_LowBtnHeight));
+	var maxHeight = objLastComp.getOffsetTop() + objLastComp.getOffsetHeight();
+	var divHeight = objMenuDiv.getOffsetHeight();
+	var appHeight = (btnHeight == divHeight ? maxHeight : btnHeight);
+	
+	objMenuDiv.setOffsetHeight(appHeight);
+	objParentDiv.form.resetScroll();
+	
+	//3. 중메뉴 클릭 시  대메뉴 resize
+	if (menuLvl == "1")
+	{
+		var objLastComp  = objParentDiv.objLastComp;     //메뉴 버튼이 속한 div의 -> 마지막 component	
+		var height = objLastComp.getOffsetTop() + objLastComp.getOffsetHeight();
+		objParentDiv.setOffsetHeight(height);
+		this.div_left.form.resetScroll();
+	}
+}
+
+
+
+this.gfn_isNull = function(sValue)
+{
+    if (sValue == undefined) {
+		return true;
+	}
+    if (sValue == null) {
+		return true;
+	}
+    var strValue = new String(sValue);
+    if (strValue.length == 0) {
+		return true;
+	}
+    return false;
+};
+
+this.gfn_isExist = function(sValue)
+{
+	if (this.gfn_isNull(sValue))
+		return false;
+	else
+		return true;
+}]]></Script>
+  </Form>
+</FDL>

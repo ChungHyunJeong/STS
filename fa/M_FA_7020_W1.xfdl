@@ -1,0 +1,1744 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_FA_7020" width="900" height="400" titletext="자금일보 - 결재" onload="fn_FormOnload" onclose="fn_FormClose">
+    <Layouts>
+      <Layout height="400" width="900">
+        <Div id="div_MasterInput" taborder="0" left="3" top="3" text="" enable="true" right="3" bottom="3">
+          <Layouts>
+            <Layout>
+              <Tab id="tab_Master" taborder="0" tabindex="0" left="0" top="0" right="0" bottom="0" cssclass="tab_WF_MasterList" onchanged="div_MasterInput_tab_Master_onchanged">
+                <Tabpages>
+                  <Tabpage id="tpg_01" text="자금일보내역" enable="true">
+                    <Layouts>
+                      <Layout>
+                        <Static id="sta_Line32" tabstop="false" cssclass="sta_WF_DBg" taborder="0" left="0" top="2" height="30" right="0"/>
+                        <Static id="sta_Line36" tabstop="false" cssclass="sta_WF_DBg" taborder="1" left="0" top="31" height="30" right="0"/>
+                        <Static id="sta_Line38" tabstop="false" cssclass="sta_WF_DBg" taborder="2" left="0" top="59" height="30" right="0"/>
+                        <Static id="sta_Line48" tabstop="false" cssclass="sta_WF_DBg" taborder="3" left="0" top="88" right="0" bottom="0"/>
+                        <Static id="sta_FunhNo" taborder="4" text="관리번호" top="2" width="100" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00001"/>
+                        <Static id="sta_DepmCd" taborder="5" text="등록부서" top="31" width="100" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00003"/>
+                        <Static id="sta_AcumCd" taborder="6" text="회계단위" top="59" width="100" height="30" cssclass="sta_WF_DLabel" left="0"/>
+                        <Static id="sta_RemkNm" taborder="7" text="비고" top="88" width="100" left="0" bottom="0" cssclass="sta_WF_DLabel"/>
+                        <TextArea id="txt_RemkNm" taborder="8" left="103" top="91" bottom="3" right="3" enable="false"/>
+                        <Edit id="edt_DepmCd" taborder="9" left="103" top="34" width="130" height="24" cssclass="essential" enable="false"/>
+                        <Edit id="edt_DepmNm" taborder="10" left="236" top="34" width="233" height="24" enable="false"/>
+                        <Static id="sta_FunhDd" taborder="11" text="기준일자" top="2" width="100" height="30" cssclass="sta_WF_DLabel" left="472" DomainID="S00002"/>
+                        <Static id="sta_EmpmCd" taborder="12" text="등록자" top="31" width="100" height="30" cssclass="sta_WF_DLabel" left="472"/>
+                        <Edit id="edt_EmpmNm" taborder="13" left="708" top="34" height="24" enable="false" right="3"/>
+                        <Edit id="edt_EmpmCd" taborder="14" left="575" top="34" width="130" height="24" maxlength="20" cssclass="essential" enable="false"/>
+                        <Edit id="edt_AcumNm" taborder="15" left="236" top="62" width="233" height="24" enable="false" tabstop="false"/>
+                        <Edit id="edt_AcumCd" taborder="16" left="103" top="62" width="130" height="24" cssclass="essential" autoselect="true" enable="false"/>
+                        <MaskEdit id="mae_FunhNo" taborder="17" left="103" top="5" width="366" height="24" format="@@@@@@-@@@@" type="string" enable="false" cssclass="essential"/>
+                        <Calendar id="cal_FunhDd" taborder="18" left="575" top="5" width="130" height="24" dateformat="yyyy-MM-dd" cssclass="essential" enable="false"/>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                  <Tabpage id="tpg_02" text="1.일일자금수지현황">
+                    <Layouts>
+                      <Layout>
+                        <Grid id="grd_Detail10" taborder="0" left="0" top="2" autofittype="col" right="0" bottom="0" autoenter="select" cellsizingtype="col" binddataset="ds_Detail10" selecttype="multiarea">
+                          <Formats>
+                            <Format id="default">
+                              <Columns>
+                                <Column size="35" band="left"/>
+                                <Column size="80" band="left"/>
+                                <Column size="150" band="left"/>
+                                <Column size="150" band="left"/>
+                                <Column size="150" band="left"/>
+                                <Column size="150" band="left"/>
+                                <Column size="200"/>
+                              </Columns>
+                              <Rows>
+                                <Row size="26" band="head"/>
+                                <Row size="24"/>
+                                <Row size="24" band="summ"/>
+                              </Rows>
+                              <Band id="head">
+                                <Cell text="No."/>
+                                <Cell col="1" text="과목"/>
+                                <Cell col="2" text="전일잔액"/>
+                                <Cell col="3" text="금일입금"/>
+                                <Cell col="4" text="금일출금"/>
+                                <Cell col="5" text="금일잔액"/>
+                                <Cell col="6" text="비고" cssclass="grdInput"/>
+                              </Band>
+                              <Band id="body">
+                                <Cell expr="currow + 1" textAlign="center"/>
+                                <Cell col="1" text="bind:FUNB_NM" textAlign="center"/>
+                                <Cell col="2" text="bind:PRED_AM" textAlign="right" displaytype="mask" maskeditformat="#,##0"/>
+                                <Cell col="3" text="bind:DEBI_AM" textAlign="right" displaytype="mask" maskeditformat="#,##0"/>
+                                <Cell col="4" text="bind:CRED_AM" textAlign="right" displaytype="mask" maskeditformat="#,##0"/>
+                                <Cell col="5" textAlign="right" displaytype="number" expr="PRED_AM + DEBI_AM - CRED_AM"/>
+                                <Cell col="6" text="bind:REMK_NM"/>
+                              </Band>
+                              <Band id="summary">
+                                <Cell colspan="2" text="합계" textAlign="center"/>
+                                <Cell col="2" expr="dataset.getSum(&quot;PRED_AM&quot;)" displaytype="number"/>
+                                <Cell col="3" displaytype="number" expr="dataset.getSum(&quot;DEBI_AM&quot;)"/>
+                                <Cell col="4" expr="dataset.getSum(&quot;CRED_AM&quot;)" displaytype="number"/>
+                                <Cell col="5" expr="dataset.getSum(&quot;PRED_AM&quot;) + dataset.getSum(&quot;DEBI_AM&quot;) - dataset.getSum(&quot;CRED_AM&quot;)" displaytype="number"/>
+                                <Cell col="6" expr="dataset.getSum(&quot;DEBI_AM&quot;) - dataset.getSum(&quot;CRED_AM&quot;)" displaytype="number"/>
+                              </Band>
+                            </Format>
+                          </Formats>
+                        </Grid>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                  <Tabpage id="tpg_03" text="2.어음및차입금현황">
+                    <Layouts>
+                      <Layout>
+                        <Grid id="grd_Detail20" taborder="0" left="0" top="2" autofittype="col" right="0" bottom="0" autoenter="select" cellsizingtype="col" oncellclick="div_DetailInput_tab_Detail_tpg_02_grd_Detail20_oncellclick" binddataset="ds_Detail20" selecttype="multiarea">
+                          <Formats>
+                            <Format id="default">
+                              <Columns>
+                                <Column size="35" band="left"/>
+                                <Column size="200" band="left"/>
+                                <Column size="150" band="left"/>
+                                <Column size="150" band="left"/>
+                                <Column size="150" band="left"/>
+                                <Column size="150" band="left"/>
+                                <Column size="200"/>
+                              </Columns>
+                              <Rows>
+                                <Row size="26" band="head"/>
+                                <Row size="24"/>
+                                <Row size="24" band="summ"/>
+                              </Rows>
+                              <Band id="head">
+                                <Cell text="No."/>
+                                <Cell col="1" text="계정명"/>
+                                <Cell col="2" text="전일잔액"/>
+                                <Cell col="3" text="금일(차용)입금"/>
+                                <Cell col="4" text="금일(상환)출금"/>
+                                <Cell col="5" text="금일잔액"/>
+                                <Cell col="6" text="비고" cssclass="grdInput"/>
+                              </Band>
+                              <Band id="body">
+                                <Cell expr="currow + 1" textAlign="center"/>
+                                <Cell col="1" text="bind:FUNC_NM" textAlign="left"/>
+                                <Cell col="2" text="bind:PRED_AM" textAlign="right" displaytype="mask" maskeditformat="#,##0"/>
+                                <Cell col="3" text="bind:DEBI_AM" textAlign="right" displaytype="mask" maskeditformat="#,##0"/>
+                                <Cell col="4" text="bind:CRED_AM" textAlign="right" displaytype="mask" maskeditformat="#,##0"/>
+                                <Cell col="5" textAlign="right" displaytype="number" expr="PRED_AM + DEBI_AM - CRED_AM"/>
+                                <Cell col="6" text="bind:REMK_NM"/>
+                              </Band>
+                              <Band id="summary">
+                                <Cell colspan="2" text="합계" textAlign="center"/>
+                                <Cell col="2" expr="dataset.getSum(&quot;PRED_AM&quot;)" displaytype="number"/>
+                                <Cell col="3" displaytype="number" expr="dataset.getSum(&quot;DEBI_AM&quot;)"/>
+                                <Cell col="4" expr="dataset.getSum(&quot;CRED_AM&quot;)" displaytype="number"/>
+                                <Cell col="5" expr="dataset.getSum(&quot;PRED_AM&quot;) + dataset.getSum(&quot;DEBI_AM&quot;) - dataset.getSum(&quot;CRED_AM&quot;)" displaytype="number"/>
+                                <Cell col="6" displaytype="number"/>
+                              </Band>
+                            </Format>
+                          </Formats>
+                        </Grid>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                  <Tabpage id="tpg_04" text="3.지급어음사용한도및할인현황">
+                    <Layouts>
+                      <Layout>
+                        <Grid id="grd_Detail30" taborder="0" left="0" top="2" autofittype="col" right="0" bottom="0" autoenter="select" cellsizingtype="col" oncellclick="div_DetailInput_tab_Detail_tpg_03_grd_Detail30_oncellclick" binddataset="ds_Detail30" selecttype="multiarea">
+                          <Formats>
+                            <Format id="default">
+                              <Columns>
+                                <Column size="35" band="left"/>
+                                <Column size="150" band="left"/>
+                                <Column size="150" band="left"/>
+                                <Column size="150" band="left"/>
+                                <Column size="150" band="left"/>
+                                <Column size="150" band="left"/>
+                                <Column size="150" band="left"/>
+                                <Column size="150" band="left"/>
+                                <Column size="200"/>
+                              </Columns>
+                              <Rows>
+                                <Row size="26" band="head"/>
+                                <Row size="24" band="head"/>
+                                <Row size="24"/>
+                                <Row size="24" band="summ"/>
+                              </Rows>
+                              <Band id="head">
+                                <Cell rowspan="2" text="No."/>
+                                <Cell col="1" rowspan="2" text="은행명"/>
+                                <Cell col="2" colspan="3" text="한도액"/>
+                                <Cell col="5" colspan="3" text="할인액"/>
+                                <Cell col="8" rowspan="2" cssclass="grdInput" text="비고"/>
+                                <Cell row="1" col="2" text="발행한도액"/>
+                                <Cell row="1" col="3" text="발행액" cssclass="grdInput"/>
+                                <Cell row="1" col="4" text="잔액"/>
+                                <Cell row="1" col="5" text="할인한도액"/>
+                                <Cell row="1" col="6" text="업체할인액" cssclass="grdInput"/>
+                                <Cell row="1" col="7" text="잔액"/>
+                              </Band>
+                              <Band id="body">
+                                <Cell expr="currow + 1" textAlign="center"/>
+                                <Cell col="1" text="bind:FUND_NM" textAlign="center" combodataset="ds_Fa005" combodatacol="CODM_NM" combocodecol="CODM_CD"/>
+                                <Cell col="2" text="bind:FNLM_AM" textAlign="right" displaytype="mask" maskeditformat="#,##0"/>
+                                <Cell col="3" text="bind:FNAC_AM" textAlign="right" displaytype="mask" maskeditformat="#,##0"/>
+                                <Cell col="4" textAlign="right" displaytype="number" expr="FNLM_AM - FNAC_AM" suppressalign="middle"/>
+                                <Cell col="5" text="bind:DCLM_AM" textAlign="right" displaytype="mask" maskeditformat="#,##0"/>
+                                <Cell col="6" text="bind:DCCS_AM" textAlign="right" displaytype="mask" maskeditformat="#,##0"/>
+                                <Cell col="7" textAlign="right" displaytype="number" expr="DCLM_AM - DCCS_AM"/>
+                                <Cell col="8" text="bind:REMK_NM"/>
+                              </Band>
+                              <Band id="summary">
+                                <Cell colspan="2" text="지급어음한도현황" textAlign="center"/>
+                                <Cell col="2" expr="dataset.getSum(&quot;FNLM_AM&quot;)" displaytype="number"/>
+                                <Cell col="3" displaytype="number" expr="dataset.getSum(&quot;FNAC_AM&quot;)"/>
+                                <Cell col="4" expr="dataset.getSum(&quot;FNLM_AM&quot;) - dataset.getSum(&quot;FNAC_AM&quot;)" displaytype="number"/>
+                                <Cell col="5" displaytype="number" expr="dataset.getSum(&quot;DCLM_AM&quot;)"/>
+                                <Cell col="6" displaytype="number" expr="dataset.getSum(&quot;DCCS_AM&quot;)"/>
+                                <Cell col="7" displaytype="number" expr="dataset.getSum(&quot;DCLM_AM&quot;) - dataset.getSum(&quot;DCCS_AM&quot;)"/>
+                                <Cell col="8"/>
+                              </Band>
+                            </Format>
+                          </Formats>
+                        </Grid>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                  <Tabpage id="tpg_05" text="4.어음수지현황">
+                    <Layouts>
+                      <Layout>
+                        <Grid id="grd_Detail40" taborder="0" left="0" top="2" right="0" bottom="0" autoenter="select" cellsizingtype="col" binddataset="ds_Detail40" oncellclick="div_DetailInput_tab_Detail_tpg_04_grd_Detail40_oncellclick" autofittype="col" selecttype="multiarea">
+                          <Formats>
+                            <Format id="default">
+                              <Columns>
+                                <Column size="35" band="left"/>
+                                <Column size="90" band="left"/>
+                                <Column size="150"/>
+                                <Column size="150"/>
+                                <Column size="150"/>
+                                <Column size="150"/>
+                                <Column size="150"/>
+                                <Column size="540"/>
+                              </Columns>
+                              <Rows>
+                                <Row size="26" band="head"/>
+                                <Row size="24" band="head"/>
+                                <Row size="24"/>
+                                <Row size="24" band="summ"/>
+                              </Rows>
+                              <Band id="head">
+                                <Cell rowspan="2" text="No."/>
+                                <Cell col="1" rowspan="2" text="만기월"/>
+                                <Cell col="2" colspan="2" text="받을어음잔액현황"/>
+                                <Cell col="4" colspan="2" text="지급어음잔액현황"/>
+                                <Cell col="6" rowspan="2" text="수지잔액"/>
+                                <Cell col="7" rowspan="2" cssclass="grdInput" text="비고"/>
+                                <Cell row="1" col="2" text="증감"/>
+                                <Cell row="1" col="3" text="금액"/>
+                                <Cell row="1" col="4" text="증감"/>
+                                <Cell row="1" col="5" text="금액"/>
+                              </Band>
+                              <Band id="body">
+                                <Cell expr="currow + 1" textAlign="center"/>
+                                <Cell col="1" text="bind:FUNE_MM" textAlign="center" displaytype="expr:dataset.getRowLevel(currow)=='0'? 'mask': 'normal'" maskeditformat="@@@@년 @@월" maskedittype="string" expr="dataset.getRowLevel(currow)=='0' ? FUNE_MM: '소계'"/>
+                                <Cell col="2" text="bind:RCV1_AM" textAlign="right" displaytype="mask" maskeditformat="#,##0"/>
+                                <Cell col="3" text="bind:RCV2_AM" textAlign="right" displaytype="mask" maskeditformat="#,##0"/>
+                                <Cell col="4" text="bind:BIL1_AM" textAlign="right" displaytype="mask" maskeditformat="#,##0"/>
+                                <Cell col="5" text="bind:BIL2_AM" textAlign="right" displaytype="mask" maskeditformat="#,##0"/>
+                                <Cell col="6" expr="(RCV1_AM +RCV2_AM) - (BIL1_AM + BIL2_AM)" textAlign="right" displaytype="number"/>
+                                <Cell col="7" text="bind:REMK_NM"/>
+                              </Band>
+                              <Band id="summary">
+                                <Cell colspan="2" text="합계" textAlign="center"/>
+                                <Cell col="2" expr="dataset.getSum(&quot;RCV1_AM&quot;)" displaytype="number"/>
+                                <Cell col="3" expr="dataset.getSum(&quot;RCV2_AM&quot;)" displaytype="number"/>
+                                <Cell col="4" expr="dataset.getSum(&quot;BIL1_AM&quot;)" displaytype="number"/>
+                                <Cell col="5" expr="dataset.getSum(&quot;BIL2_AM&quot;)" displaytype="number"/>
+                                <Cell col="6" displaytype="number" expr="(dataset.getSum(&quot;RCV1_AM&quot;) + dataset.getSum(&quot;RCV2_AM&quot;)) - (dataset.getSum(&quot;BIL1_AM&quot;)+dataset.getSum(&quot;BIL2_AM&quot;))"/>
+                                <Cell col="7"/>
+                              </Band>
+                            </Format>
+                          </Formats>
+                        </Grid>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                  <Tabpage id="tpg_06" text="5.금일자금수지실적">
+                    <Layouts>
+                      <Layout>
+                        <Grid id="grd_Detail50" taborder="0" left="0" top="2" autofittype="col" bottom="0" autoenter="select" cellsizingtype="col" oncellclick="div_DetailInput_tab_Detail_tpg_05_grd_Detail50_oncellclick" binddataset="ds_Detail51" right="0" selecttype="multiarea">
+                          <Formats>
+                            <Format id="default">
+                              <Columns>
+                                <Column size="35" band="left"/>
+                                <Column size="60"/>
+                                <Column size="150"/>
+                                <Column size="200"/>
+                                <Column size="150"/>
+                                <Column size="60"/>
+                                <Column size="150"/>
+                                <Column size="200"/>
+                                <Column size="150"/>
+                              </Columns>
+                              <Rows>
+                                <Row size="26" band="head"/>
+                                <Row size="24" band="head"/>
+                                <Row size="24"/>
+                              </Rows>
+                              <Band id="head">
+                                <Cell rowspan="2" text="No."/>
+                                <Cell col="1" colspan="4" text="수입"/>
+                                <Cell col="5" colspan="4" text="지출"/>
+                                <Cell row="1" col="1" text="구분"/>
+                                <Cell row="1" col="2" text="항목"/>
+                                <Cell row="1" col="3" text="적요"/>
+                                <Cell row="1" col="4" text="금액"/>
+                                <Cell row="1" col="5" text="구분"/>
+                                <Cell row="1" col="6" text="항목"/>
+                                <Cell row="1" col="7" text="적요"/>
+                                <Cell row="1" col="8" text="금액"/>
+                              </Band>
+                              <Band id="body">
+                                <Cell expr="currow + 1" textAlign="center"/>
+                                <Cell col="1" textAlign="center" text="bind:GU" suppress="1" suppressalign="middle" cssclass="expr:(SOGE_GU==0)?'':'cell_Bold'"/>
+                                <Cell col="2" textAlign="left" text="bind:FUNF_NM" cssclass="expr:(SOGE_GU==0)?'':'cell_Bold'"/>
+                                <Cell col="3" textAlign="left" text="bind:REMK_NM" cssclass="expr:(SOGE_GU==0)?'':'cell_Bold'"/>
+                                <Cell col="4" textAlign="right" displaytype="mask" maskeditformat="#,##0" text="bind:FUNF_AM" cssclass="expr:(SOGE_GU==0)?'':'cell_Bold'"/>
+                                <Cell col="5" text="bind:GU1" suppress="1" suppressalign="middle" textAlign="center" cssclass="expr:(SOGE_GU1==0)?'':'cell_Bold'"/>
+                                <Cell col="6" textAlign="left" text="bind:FUNF_NM1" cssclass="expr:(SOGE_GU1==0)?'':'cell_Bold'"/>
+                                <Cell col="7" textAlign="left" text="bind:REMK_NM1" cssclass="expr:(SOGE_GU1==0)?'':'cell_Bold'"/>
+                                <Cell col="8" textAlign="right" displaytype="mask" maskeditformat="#,##0" text="bind:FUNF_AM1" cssclass="expr:(SOGE_GU1==0)?'':'cell_Bold'"/>
+                              </Band>
+                            </Format>
+                          </Formats>
+                        </Grid>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                  <Tabpage id="tpg_07" text="6.익일자금소요자금계획및재무대책">
+                    <Layouts>
+                      <Layout>
+                        <Grid id="grd_Detail60" taborder="0" left="0" top="2" autofittype="col" right="0" bottom="0" autoenter="select" cellsizingtype="col" oncellclick="div_DetailInput_tab_Detail_tpg_06_grd_Detail60_oncellclick" binddataset="ds_Detail61" selecttype="multiarea">
+                          <Formats>
+                            <Format id="default">
+                              <Columns>
+                                <Column size="35" band="left"/>
+                                <Column size="150"/>
+                                <Column size="200"/>
+                                <Column size="150"/>
+                                <Column size="150"/>
+                                <Column size="200"/>
+                                <Column size="150"/>
+                              </Columns>
+                              <Rows>
+                                <Row size="26" band="head"/>
+                                <Row size="24" band="head"/>
+                                <Row size="24"/>
+                              </Rows>
+                              <Band id="head">
+                                <Cell rowspan="2" text="No."/>
+                                <Cell col="1" colspan="3" text="소요자금"/>
+                                <Cell col="4" colspan="3" text="재무대책"/>
+                                <Cell row="1" col="1" text="항목"/>
+                                <Cell row="1" col="2" text="적요"/>
+                                <Cell row="1" col="3" text="금액"/>
+                                <Cell row="1" col="4" text="항목"/>
+                                <Cell row="1" col="5" text="적요"/>
+                                <Cell row="1" col="6" text="금액"/>
+                              </Band>
+                              <Band id="body">
+                                <Cell expr="currow + 1" textAlign="center"/>
+                                <Cell col="1" textAlign="left" text="bind:FUNG_NM" cssclass="expr:(SOGE_GU==0)?'':'cell_Bold'"/>
+                                <Cell col="2" textAlign="left" text="bind:REMK_NM" cssclass="expr:(SOGE_GU==0)?'':'cell_Bold'"/>
+                                <Cell col="3" textAlign="right" displaytype="expr: FUNG_NM!=''?'mask':'none'" maskeditformat="#,##0" text="bind:FUNG_AM" cssclass="expr:(SOGE_GU==0)?'':'cell_Bold'"/>
+                                <Cell col="4" textAlign="left" text="bind:FUNG_NM1" cssclass="expr:(SOGE_GU1==0)?'':'cell_Bold'"/>
+                                <Cell col="5" textAlign="left" text="bind:REMK_NM1" cssclass="expr:(SOGE_GU1==0)?'':'cell_Bold'"/>
+                                <Cell col="6" textAlign="right" displaytype="mask" maskeditformat="#,##0" text="bind:FUNG_AM1" cssclass="expr:(SOGE_GU1==0)?'':'cell_Bold'"/>
+                              </Band>
+                            </Format>
+                          </Formats>
+                        </Grid>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                  <Tabpage id="tpg_08" text="7.계좌현황">
+                    <Layouts>
+                      <Layout>
+                        <Grid id="grd_Detail70" taborder="0" left="0" top="2" autofittype="col" right="0" bottom="0" autoenter="select" cellsizingtype="col" binddataset="ds_Detail70" oncellclick="div_DetailInput_tab_Detail_tpg_07_grd_Detail70_oncellclick" selecttype="multiarea">
+                          <Formats>
+                            <Format id="default">
+                              <Columns>
+                                <Column size="35" band="left"/>
+                                <Column size="300"/>
+                                <Column size="150"/>
+                                <Column size="150"/>
+                                <Column size="150"/>
+                                <Column size="150"/>
+                                <Column size="200"/>
+                                <Column size="48"/>
+                              </Columns>
+                              <Rows>
+                                <Row size="26" band="head"/>
+                                <Row size="24"/>
+                                <Row size="24" band="summ"/>
+                              </Rows>
+                              <Band id="head">
+                                <Cell text="No."/>
+                                <Cell col="1" text="계좌"/>
+                                <Cell col="2" text="전일잔고"/>
+                                <Cell col="3" text="금일증가"/>
+                                <Cell col="4" text="금일감소"/>
+                                <Cell col="5" text="잔액"/>
+                                <Cell col="6" text="비고" cssclass="grdInput"/>
+                                <Cell col="7"/>
+                              </Band>
+                              <Band id="body">
+                                <Cell expr="currow + 1" textAlign="center"/>
+                                <Cell col="1" text="bind:FUNG_CD" textAlign="left" expr="dataset.getRowLevel(currow)==0?FUNG_CD:(dataset.getRowLevel(currow)==1?'소계':'')"/>
+                                <Cell col="2" text="bind:PRED_AM" textAlign="right" displaytype="mask" maskeditformat="#,##0"/>
+                                <Cell col="3" text="bind:DEBI_AM" textAlign="right" displaytype="mask" maskeditformat="#,##0"/>
+                                <Cell col="4" text="bind:CRED_AM" textAlign="right" displaytype="mask" maskeditformat="#,##0"/>
+                                <Cell col="5" textAlign="right" displaytype="number" expr="PRED_AM + DEBI_AM - CRED_AM"/>
+                                <Cell col="6" text="bind:REMK_NM"/>
+                                <Cell col="7" expr="dataset.getRowLevel(currow)"/>
+                              </Band>
+                              <Band id="summary">
+                                <Cell textAlign="center"/>
+                                <Cell col="1" text="합계" textAlign="center"/>
+                                <Cell col="2" expr="dataset.getSum(&quot;PRED_AM&quot;)" displaytype="number"/>
+                                <Cell col="3" displaytype="number" expr="dataset.getSum(&quot;DEBI_AM&quot;)"/>
+                                <Cell col="4" expr="dataset.getSum(&quot;CRED_AM&quot;)" displaytype="number"/>
+                                <Cell col="5" expr="dataset.getSum(&quot;PRED_AM&quot;) + dataset.getSum(&quot;DEBI_AM&quot;) - dataset.getSum(&quot;CRED_AM&quot;)" displaytype="number"/>
+                                <Cell col="6" expr="dataset.getSum(&quot;DEBI_AM&quot;) - dataset.getSum(&quot;CRED_AM&quot;)" displaytype="number"/>
+                                <Cell col="7"/>
+                              </Band>
+                            </Format>
+                          </Formats>
+                        </Grid>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                  <Tabpage id="tpg_09" text="첨부파일">
+                    <Layouts>
+                      <Layout>
+                        <Div id="div_CommFile" taborder="0" left="0" top="0" right="0" bottom="2" url="cmm::cmmFileList.xfdl" async="false"/>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                </Tabpages>
+              </Tab>
+              <Button id="btn_CallMainScrn" taborder="1" text="상세보기" width="70" height="24" cssclass="bt_WF_PopupBlue" top="2" right="5" onclick="div_MasterInput_btn_CallMainScrn_onclick" cursor="pointer"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="FUNH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Wf110">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Fa005">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Fa046">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10" canrowposchange="ds_Master10_canrowposchange" oncolumnchanged="ds_Master10_oncolumnchanged" onrowposchanged="ds_Master10_onrowposchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="FUNH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="WOFH_YN" type="STRING" size="256"/>
+          <Column id="FUNH_DD" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="ACUM_CD" type="STRING" size="256"/>
+          <Column id="ACUM_NM" type="STRING" size="256"/>
+          <Column id="DELE_YN" type="STRING" size="256"/>
+          <Column id="WOFH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_ST" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DELE_ID" type="STRING" size="256"/>
+          <Column id="DELE_NM" type="STRING" size="256"/>
+          <Column id="DELE_DT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail10" oncolumnchanged="ds_Detail10_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="FUNH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="FUNB_CD" type="STRING" size="256"/>
+          <Column id="FUNB_NM" type="STRING" size="256"/>
+          <Column id="PRED_AM" type="STRING" size="256"/>
+          <Column id="DEBI_AM" type="STRING" size="256"/>
+          <Column id="CRED_AM" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail20" oncolumnchanged="ds_Detail20_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="FUNH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="FUNC_CD" type="STRING" size="256"/>
+          <Column id="FUNC_NM" type="STRING" size="256"/>
+          <Column id="ACOM_GU" type="STRING" size="256"/>
+          <Column id="PRED_AM" type="STRING" size="256"/>
+          <Column id="DEBI_AM" type="STRING" size="256"/>
+          <Column id="CRED_AM" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DELE_ID" type="STRING" size="256"/>
+          <Column id="DELE_NM" type="STRING" size="256"/>
+          <Column id="DELE_DT" type="STRING" size="256"/>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail30" oncolumnchanged="ds_Detail30_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="FUNH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="FUND_CD" type="STRING" size="256"/>
+          <Column id="FUND_NM" type="STRING" size="256"/>
+          <Column id="FNLM_AM" type="STRING" size="256"/>
+          <Column id="FNAC_AM" type="STRING" size="256"/>
+          <Column id="DCLM_AM" type="STRING" size="256"/>
+          <Column id="DCCS_AM" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DELE_ID" type="STRING" size="256"/>
+          <Column id="DELE_NM" type="STRING" size="256"/>
+          <Column id="DELE_DT" type="STRING" size="256"/>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail40" oncolumnchanged="ds_Detail40_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="FUNH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="FUNE_YY" type="STRING" size="256"/>
+          <Column id="FUNE_MM" type="STRING" size="256"/>
+          <Column id="RCV1_AM" type="STRING" size="256"/>
+          <Column id="RCV2_AM" type="STRING" size="256"/>
+          <Column id="BIL1_AM" type="STRING" size="256"/>
+          <Column id="BIL2_AM" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DELE_ID" type="STRING" size="256"/>
+          <Column id="DELE_NM" type="STRING" size="256"/>
+          <Column id="DELE_DT" type="STRING" size="256"/>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail50" oncolumnchanged="ds_Detail50_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="FUNH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="FUNF_GU" type="STRING" size="256"/>
+          <Column id="FUNF_SE" type="STRING" size="256"/>
+          <Column id="FUNF_NM" type="STRING" size="256"/>
+          <Column id="FUNF_AM" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DELE_ID" type="STRING" size="256"/>
+          <Column id="DELE_NM" type="STRING" size="256"/>
+          <Column id="DELE_DT" type="STRING" size="256"/>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail60" oncolumnchanged="ds_Detail60_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="FUNH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="FUNG_GU" type="STRING" size="256"/>
+          <Column id="FUNG_SE" type="STRING" size="256"/>
+          <Column id="FUNG_NM" type="STRING" size="256"/>
+          <Column id="FUNG_AM" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DELE_ID" type="STRING" size="256"/>
+          <Column id="DELE_NM" type="STRING" size="256"/>
+          <Column id="DELE_DT" type="STRING" size="256"/>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail70" oncolumnchanged="ds_Detail70_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="FUNH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="FUNG_CD" type="STRING" size="256"/>
+          <Column id="FUNG_NM" type="STRING" size="256"/>
+          <Column id="PRED_AM" type="STRING" size="256"/>
+          <Column id="DEBI_AM" type="STRING" size="256"/>
+          <Column id="CRED_AM" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DELE_ID" type="STRING" size="256"/>
+          <Column id="DELE_NM" type="STRING" size="256"/>
+          <Column id="DELE_DT" type="STRING" size="256"/>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail51" oncolumnchanged="ds_Detail50_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="FUNH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="FUNF_GU" type="STRING" size="256"/>
+          <Column id="FUNF_SE" type="STRING" size="256"/>
+          <Column id="FUNF_NM" type="STRING" size="256"/>
+          <Column id="FUNF_AM" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="GU" type="STRING" size="256"/>
+          <Column id="SOGE_GU" type="STRING" size="256"/>
+          <Column id="FUNF_NM1" type="STRING" size="256"/>
+          <Column id="FUNF_AM1" type="STRING" size="256"/>
+          <Column id="REMK_NM1" type="STRING" size="256"/>
+          <Column id="GU1" type="STRING" size="256"/>
+          <Column id="SOGE_GU1" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail61" oncolumnchanged="ds_Detail60_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="FUNH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="FUNG_GU" type="STRING" size="256"/>
+          <Column id="FUNG_SE" type="STRING" size="256"/>
+          <Column id="FUNG_NM" type="STRING" size="256"/>
+          <Column id="FUNG_AM" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="SOGE_GU" type="STRING" size="256"/>
+          <Column id="FUNG_NM1" type="STRING" size="256"/>
+          <Column id="FUNG_AM1" type="STRING" size="256"/>
+          <Column id="REMK_NM1" type="STRING" size="256"/>
+          <Column id="SOGE_GU1" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : M_FA_7020_W1
+*  @화면설명 : 자금일보-결재상세
+*  @시스템명 : (FA) 재무회계
+*  @작성자   : 박혜림
+*  @작성일   : 2021.09.06
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.09.06     	    박혜림 	           최초 생성 
+*************************************************************************************************
+*/
+
+/***********************************************************************************************
+ * 0. 폼로드
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.01. Form Include 선언
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 00.02. Form 변수 선언
+ ***********************************************************************************************/
+this.fvComPrgmId = "M_FA_7020";//[필수]프로그램ID-화면로드시 메뉴정보 기준으로 재설정됨.
+this.fvFormComBtnAuthYn = false;//그리드 공통버튼 권한 유무
+this.fvFileDiv = this.div_MasterInput.form.tab_Master.tpg_09.form.div_CommFile.form;//[첨부파일]Div
+this.fvPathNm = "FA";//[첨부파일]업무파일경로
+this.fvDsRowPosChange = true;//데이터셋 Row 변경이벤트-실행유무
+this.fvSchKeyYn = false;//저장후 재조회여부
+this.fvSchKey01 = "";//조회Key01
+this.fvSchKey02 = "";//조회Key02
+this.fvSchKey03 = "";//조회Key03
+this.fvInserMode = true; //입력상태여부 (입력상태-true : 최초저장, 입력상태-false : 기저장)
+
+var fvFileInfo = new Object();//[첨부파일]정보
+this.fvComWofhNo = "";//[결재]결재PID
+
+
+/***********************************************************************************************
+ * 00.03. Form Onload 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+}
+
+/***********************************************************************************************
+ * 00.04. Form [공통] 초기설정 함수 - 필수
+ ***********************************************************************************************/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this, false);//[공통] 화면로드시 처리 함수(다국어등)
+	// 그리드에서 오른쪽 마우스 버튼 사용
+					 
+	this.fn_SetTabComAttachFile();//[공통] 첨부파일 Tab 설정
+}
+
+/***********************************************************************************************
+ * 00.05. Form [업무] 초기설정 함수
+ ***********************************************************************************************/
+this.fn_FormBizInit = function() 
+{ 
+
+	//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+	var objCondList = ["WF110|ds_Wf110","FA005|ds_Fa005","FA046|ds_Fa046"];
+	//공통코드 설정함수 호출				   
+	this.gfn_GetCommCode(this, objCondList, "");
+
+	//[업무] 일반콤보조회
+	this.fn_ComboSearch();
+
+	//결재함 화면에 결재번호가 있는 경우 조회 호출 - 일반콤보조회 가 없는경우에는 이쪽에 조회 로직을 넣어야함., 일반콤보가 있으면 일반콤보및 기타 조회 마지막 콜백에서 넣어야 함.
+	if (!this.gfn_IsNull(this.parent.parent.fvNowWofhNo)) {
+		this.fn_ComBtnSearch(this.parent.parent.fvNowWofhNo); 
+	}
+	
+}
+
+/***********************************************************************************************
+ * 00.06. Form [업무] 일반콤보 조회 함수
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [일반콤보] 국가정보 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_ComboSearch = function() 
+{
+}
+
+/***********************************************************************************************
+ * 00.07. Form OnClose 이벤트
+ ***********************************************************************************************/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	//현재 이벤트를 상위컴포넌트로 전파하지 않게 중지시키는 메소드
+	e.stopPropagation(); 
+};
+
+/***********************************************************************************************
+ * 1. 조회 영역
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 01.01. [공통버튼] 조회 버튼 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_ComBtnSearch = function(sWofhNo)
+{ 
+	//조회전 유효성 체크
+	if (!this.fn_VaildSearch()) return;	
+
+	//저장후 재조회시-마스터 데이터셋 이벤트 비활성화
+	if (this.fvSchKeyYn) {
+		this.ds_Master10.set_enableevent(false);
+	}
+
+	this.fvComWofhNo = sWofhNo;//[결재]결재PID
+	
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Master10.clearData();
+	this.ds_Detail10.clearData();
+	this.ds_Detail20.clearData();
+	this.ds_Detail30.clearData();
+	this.ds_Detail40.clearData();
+	this.ds_Detail50.clearData();
+	this.ds_Detail60.clearData();
+	this.ds_Detail70.clearData();
+	this.ds_Input.clearData();
+	this.fvFileDiv.fn_ClearAtchFile();//첨부파일 정보 초기화
+	
+	//[업무] 조회조건 입력 : 거래처관리 대상(고객정보는 거래처 row 조회시)
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "WOFH_NO", sWofhNo);//결재PID
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "fa:M_FA_7020_M_SL11";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "MST10_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_FA;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Master10=ds_Master10";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+	svcCallObj.sComBtnDst = "SEARCH";//공통버튼구분-조회버튼
+	svcCallObj.sPrgmId = this.fvComPrgmId;//프로그램ID
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+	
+	//조회시 계약내역 Tab이동
+	this.div_MasterInput.form.tab_Master.set_tabindex(0);
+	
+	
+}
+
+/***********************************************************************************************
+ * 01.02. [Vaildation] 조회 필수값 체크
+ ***********************************************************************************************/
+this.fn_VaildSearch = function()
+{
+
+	return true;
+}
+
+/***********************************************************************************************
+ * 2. 입력
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 02.01. [공통버튼] 입력 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnAdd = function()
+{
+}
+
+/***********************************************************************************************
+ * 02.MF0.01. [Master Freeform 공통] 입력항목 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [부서]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 부서 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 부서코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 이관부서 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 이관부서코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+
+/***********************************************************************************************
+ *    02. [사용자]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 사용자 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 사원코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 이관사용자 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 이관사원코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ *    03. [계약번호]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+  
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 이전 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 이전 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+
+
+/***********************************************************************************************
+ *    04. [프로젝트]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 프로젝트 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 프로젝트 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+  
+/***********************************************************************************************
+ *    05. [거래처]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 거래처 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 거래처코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 납품처 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 납품처코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ *    06. [사업장]
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ *    07. [W/O]
+ ***********************************************************************************************/
+  
+/***********************************************************************************************
+ *    08. [품목코드]
+ ***********************************************************************************************/
+  
+/***********************************************************************************************
+ *    09. [계정코드]
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ *    10. [비고]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 비고 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+// this.div_MasterInput_tab_Master_tpg_03_btn_RemkPop_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+// {
+// 	if (!this.gfn_IsNull(this.div_MasterInput.form.tab_Master.tpg_03.form.txt_RemkNm.value)) {
+// 		var sPopupId = "M_REMK_01";//팝업ID - 비고상세
+// 		var sTitle = "비고";//팝업 타이틀
+// 		var oArg = {  Remk:this.div_MasterInput.form.tab_Master.tpg_03.form.txt_RemkNm.value};//Argument처리
+// 		this.gfn_RemkPop(sPopupId, sTitle, oArg);		
+// 	}
+// };
+
+
+
+/***********************************************************************************************
+ * 02.MF0.02. [Master Freeform 일반] 입력항목 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [고객]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 계약처담당 고객 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 계약처담당 고객코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/   
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 납품처담당 고객 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Edit] 납품처담당 고객코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/   
+
+/***********************************************************************************************
+ * 02.MF0.03. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    01. [데이터셋-ds_Master] 데이터 Row 변경 이벤트 - ds_Master10
+  ---------------------------------------------------------------------------------------------*/
+this.ds_Master10_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	if (e.newrow > -1) {
+		
+		//정보가 있으면 - 상세조회
+		if (!this.gfn_IsNull(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "FUNH_NO"))) {
+			//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+			this.ds_Detail10.clearData();
+			this.ds_Detail20.clearData();
+			this.ds_Detail30.clearData();
+			this.ds_Detail40.clearData();
+			this.ds_Detail50.clearData();
+			this.ds_Detail60.clearData();
+			this.ds_Detail70.clearData();
+			this.ds_Input.clearData();
+			
+			this.ds_Input.addRow();
+			this.ds_Input.setColumn(0, "FUNH_NO", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "FUNH_NO"));
+			this.ds_Input.setColumn(0, "WOFH_SQ", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_SQ"));
+					
+			//[공통]서비스정보 초기화
+			this.gfn_InitComService(this);
+			
+			//[공통]서비스정보 추가
+			var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+			
+			svcAddObj.sSelectSql = "fa:M_FA_7020_D_SL10";
+			this.gfn_AddComSearchService(this, svcAddObj);
+			
+			svcAddObj.sSelectSql = "fa:M_FA_7020_D_SL20";
+			this.gfn_AddComSearchService(this, svcAddObj);
+			
+			svcAddObj.sSelectSql = "fa:M_FA_7020_D_SL30";
+			this.gfn_AddComSearchService(this, svcAddObj);
+			
+			svcAddObj.sSelectSql = "fa:M_FA_7020_D_SL40";
+			this.gfn_AddComSearchService(this, svcAddObj);
+			
+			svcAddObj.sSelectSql = "fa:M_FA_7020_D_SL50";
+			this.gfn_AddComSearchService(this, svcAddObj);
+			
+			svcAddObj.sSelectSql = "fa:M_FA_7020_D_SL60";
+			this.gfn_AddComSearchService(this, svcAddObj);
+			
+			svcAddObj.sSelectSql = "fa:M_FA_7020_D_SL70";
+			this.gfn_AddComSearchService(this, svcAddObj);
+			
+			//[공통]서비스 호출 변수
+			var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+			svcCallObj.sTrid = "DTL_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+			svcCallObj.sActionName = this.G_SV_FA;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+			svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+			svcCallObj.sOutDatset = "ds_Detail10=ds_Detail10 ds_Detail20=ds_Detail20 ds_Detail30=ds_Detail30 ds_Detail40=ds_Detail40 ds_Detail50=ds_Detail50 ds_Detail60=ds_Detail60 ds_Detail70=ds_Detail70";//출력 데이터셋
+			svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+			svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+			//[공통]서비스 호출
+			this.gfn_CallComService(this, svcCallObj);		
+		
+		}
+	
+	}
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    02. [데이터셋-ds_Master] Row 변경전 이벤트 - ds_Master10
+  ---------------------------------------------------------------------------------------------*/
+this.ds_Master10_canrowposchange = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+};  
+
+/***********************************************************************************************
+ * 02.MG0.01. [Master그리드-버튼] 복사 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01Copy = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.02. [Master그리드-버튼] 행추가 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01AddRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.03. [Master그리드-버튼] 행삽입 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01InsertRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.04. [Master그리드-버튼] 행삭제 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01DeleteRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.05. [Master그리드-버튼] 취소 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01Cancel = function()
+{
+};
+ 
+/***********************************************************************************************
+ * 02.MG0.06. [Master그리드] 셀 클릭 이벤트
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 02.MG0.08. [Master Tab] 변경 이벤트
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 02.DG0.01. [Detail그리드-버튼] 복사 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01Copy = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.DG0.02. [Detail그리드-버튼] 행추가 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01AddRow = function()
+{
+
+};
+
+/***********************************************************************************************
+ * 02.DG0.03. [Detail그리드-버튼] 행삽입 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01InsertRow = function()
+{
+
+};
+
+
+/***********************************************************************************************
+ * 02.DG0.04. [Detail그리드-버튼] 행삭제 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01DeleteRow = function()
+{
+	
+};
+
+/***********************************************************************************************
+ * 02.DG0.05. [Detail그리드-버튼] 취소 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01Cancel = function()
+{
+
+};
+ 
+/***********************************************************************************************
+ * 02.DG0.06. [Detail그리드] 셀 클릭 이벤트
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ *    01. [그리드-grd_Detail] 셀클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+  
+
+/***********************************************************************************************
+ * 02.DG0.07. [Detail 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    01. [데이터셋-ds_Detail10] 데이터변경 이벤트
+  ---------------------------------------------------------------------------------------------*/ 
+/***********************************************************************************************
+ * 3. 복사
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 03.01. [공통버튼] 복사 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCopy = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 4. 취소
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 04.01. [공통버튼] 취소 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCancel = function()
+{ 
+	
+}
+
+/***********************************************************************************************
+ * 5. 저장
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 05.01. [공통버튼] 저장 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnSave = function()
+{ 		
+
+}
+
+/***********************************************************************************************
+ * 05.02. [Vaildation] Master 저장 필수값 체크 - 입력항목 
+ ***********************************************************************************************/ 
+this.fn_VaildMasterSave = function()
+{
+	
+}
+
+/***********************************************************************************************
+ * 05.03. [Vaildation] Detail 저장 필수값 체크 - 그리드항목
+ ***********************************************************************************************/ 
+this.fn_VaildDetailSave = function()
+{
+	
+}
+ 
+/***********************************************************************************************
+ * 6. 삭제
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 06.01. [공통버튼] 삭제 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnDelete = function()
+{ 
+	
+}
+
+/***********************************************************************************************
+ * 06.02. [서비스] 삭제처리
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 06.03. [Vaildation] 삭제항목 체크
+ ***********************************************************************************************/  
+
+
+/***********************************************************************************************
+ * 7. 엑셀
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 07.01. [공통버튼] 엑셀저장 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnExcel = function()
+{ 
+	
+}
+
+/***********************************************************************************************
+ * 8. 인쇄
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 08.01. [공통버튼] 인쇄 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnPrint = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 9. 결재요청
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 09.01. [공통버튼] 결재요청 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnDecide = function()
+{ 
+		
+}
+
+/***********************************************************************************************
+ * 10. 결재현황
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.01. [공통버튼] 결재현황 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnProcess = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 11. 재기안
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 11.01. [공통버튼] 재기안 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnRecide = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 12. 닫기
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 12.01. [공통버튼] 닫기 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnClose = function()
+{ 
+	return true;
+}
+
+/***********************************************************************************************
+ * 13. [CallBack] 함수
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 13.01. [서비스] CallBack 함수 처리
+ ***********************************************************************************************/ 
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST10_SEARCH": //조회		
+	
+			if (this.ds_Master10.getRowCount() > 0) {
+
+				//저장후 재조회여부-true
+				if (this.fvSchKeyYn) {
+					var iFvFindRow = this.ds_Master10.findRowExpr("FUNH_NO=='" + this.fvSchKey01 + "' && WOFH_SQ=='" + this.fvSchKey02 + "'");//업무Key Row 찾기
+
+					//마스터 데이터셋 이벤트가 비활성시 - 활성화
+					if (!this.ds_Master10.enableevent) {
+						this.ds_Master10.set_enableevent(true);
+					}
+				
+					if (iFvFindRow > -1) {
+						if (iFvFindRow == 0) {
+							this.ds_Master10.set_rowposition(-1);
+						} 
+						this.ds_Master10.set_rowposition(iFvFindRow);
+					} else {
+						this.ds_Master10.set_rowposition(0);
+					}
+				}				
+				
+				//입력영역 활성화
+				this.div_MasterInput.set_enable(true);
+					
+				//첨부파일정보 권한설정
+				var oScrnBtnAuth = new Object();//[공통] 첨부파일 권한정보
+				oScrnBtnAuth.BTN_ENABLE = true;//권한 유무	
+				this.fvFileDiv.fn_SetCommFileBtnAuth(oScrnBtnAuth);	
+
+				this.fvInserMode = false; //입력상태여부 : 조회
+
+			} else {
+				
+				//마스터 데이터셋 이벤트가 비활성시 - 활성화
+				if (!this.ds_Master10.enableevent) {
+					this.ds_Master10.set_enableevent(true);
+				}
+			
+				//입력영역 비활성화
+				this.div_MasterInput.set_enable(false);		
+	
+			}		
+		
+			break;
+		case "DTL_SEARCH": 		
+			//첨부파일 정보 조회
+			var oFileInfo = new Object();//[공통] 첨부파일정보
+			oFileInfo.PRGM_ID = this.fvComPrgmId;//프로그램ID
+			oFileInfo.FILH_GU = "H";//첨부파일위치구분 : H-Head, D-상세(그리드Row), E-기타
+			oFileInfo.PK01_NO = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "COMM_CD");//PK번호1-회사코드
+			oFileInfo.PK02_NO = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "FUNH_NO");//PK번호2-관리번호
+			oFileInfo.PK03_NO = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_SQ");//PK번호3-결재차수						
+			
+			this.fvFileDiv.fn_AtchFileSearch(oFileInfo);
+			
+			this.fn_SetDetail50();
+			this.fn_SetDetail60();
+
+			break;
+	}
+};
+
+
+/***********************************************************************************************
+ * 13.02. [팝업] CallBack 함수 처리
+          strId : 팝업호출시 지정한 팝업ID
+	      rtnValue : 팝업창에서 close시 지정한 반환값
+          주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/ 
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+	
+};
+ 
+/***********************************************************************************************
+ * 13.03. [메세지] CallBack 함수 처리
+ ***********************************************************************************************/  
+this.fn_MsgCallback = function (strId, strVal)
+{
+
+	//MASTER 변경사항 저장여부
+	if (strId == "CONF.MAST10_CHANGE") {
+		if(strVal )
+		{
+			this.fn_ComBtnSave();//저장 서비스 호출
+		} else {
+			//데이터 변경여부 체크
+			if (this.fn_IsUpdateDataset(this.ds_Master10)) {
+			}		
+		}
+	}
+}; 
+ 
+/***********************************************************************************************
+ * 14. [화면 사이즈] 조정 버튼 이벤트
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 15. [사용자정의 함수]
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 15.01. [Vaildation] 데이터셋 변경여부 체크
+ ***********************************************************************************************/ 
+this.fn_IsUpdateDataset = function()
+{
+	if (this.gfn_DsIsUpdated(this.ds_Master10)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+/***********************************************************************************************
+ * 15.04. [공통 첨부파일] 화면 설정
+ ***********************************************************************************************/ 
+this.fn_SetTabComAttachFile = function()
+{
+	//그리드 공통 버튼 권한이 있으면
+	if (this.fvFormComBtnAuthYn)
+	{
+		//첨부파일정보 권한설정
+		var oScrnAuth = new Object();//[공통] 첨부파일 권한정보
+		oScrnAuth.POPUP_YN = "N";//팝업화면 유무
+		oScrnAuth.AUTH_YN = "Y";//권한 유무
+		oScrnAuth.FILE_CHECK_YN = "Y";//첨부파일종류 체크유무
+		oScrnAuth.PRGM_ID = this.fvComPrgmId;//프로그램ID
+		oScrnAuth.FILM_GU = "H";//첨부파일구분-Head
+		
+		this.fvFileDiv.fn_SetCommFileScrnAuth(oScrnAuth);	
+	} else {
+		//첨부파일정보 권한설정
+		var oScrnAuth = new Object();//[공통] 첨부파일 권한정보
+		oScrnAuth.POPUP_YN = "N";//팝업화면 유무
+		oScrnAuth.AUTH_YN = "N";//권한 유무
+		oScrnAuth.FILE_CHECK_YN = "Y";//첨부파일종류 체크유무
+		oScrnAuth.PRGM_ID = this.fvComPrgmId;//프로그램ID
+		oScrnAuth.FILM_GU = "H";//첨부파일구분-Head		
+		
+		this.fvFileDiv.fn_SetCommFileScrnAuth(oScrnAuth);	
+	}
+}
+
+/***********************************************************************************************
+ * 15.06. [Clear] Mater 값
+ ***********************************************************************************************/ 
+this.fn_ClearMasterValue = function()
+{
+
+}
+
+
+/***********************************************************************************************
+ * 15.10. [상세보기] 결재PID로 메인 화면 호출
+ ***********************************************************************************************/ 
+this.div_MasterInput_btn_CallMainScrn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "WF_M_FA_7020";
+	var sPopupTitle = "자금일보"; //Popup화면 타이틀
+	var sPopupFormUrl  = "fa::M_FA_7020.xfdl"; //Popup화면 URL
+	var oArg = {paramTitle:sPopupTitle, paramWofhNo:this.fvComWofhNo, PrgmId:this.fvComPrgmId}; //Popup화면 전달 파라메터
+	var oOption = {title:sPopupTitle, width:"1400", height:"800", popuptype:"TitlePopup"}; //Popup화면 옵션
+	var sPopupCallBack = "fn_PopupCallback"; //Popup화면 호출후 Callback 처리 함수
+
+	this.gfn_OpenPopup(sPopupId, sPopupFormUrl, oArg, sPopupCallBack, oOption); //Popup화면 호출 함수			
+};
+
+/***********************************************************************************************
+ * WF. 결재처리 영역
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * WF.01. [결재처리] 중간결재 [승인] 시 업무영역 전처리 함수
+ ***********************************************************************************************/
+this.fn_ComWfMidAppr = function(oWfParam)
+{
+	return true;
+}
+
+/***********************************************************************************************
+ * WF.02. [결재처리] 최종결재 [승인] 시 업무영역 전처리 함수
+ ***********************************************************************************************/
+this.fn_ComWfAppr = function(oWfParam)
+{
+	return true;
+}
+
+/***********************************************************************************************
+ * WF.03. [결재처리] [기각] 시 업무영역 전처리 함수
+ ***********************************************************************************************/
+this.fn_ComWfReject = function(oWfParam)
+{
+	return true;
+}
+
+/***********************************************************************************************
+ * WF.04. [결재처리] [확인] 시 업무영역 전처리 함수
+ ***********************************************************************************************/
+this.fn_ComWfConfirm = function(oWfParam)
+{
+	return true;
+}
+
+/***********************************************************************************************
+ * WF.05. [결재처리] [저장] 시 업무영역 전처리 함수
+ ***********************************************************************************************/
+this.fn_ComWfSave = function(oWfParam)
+{
+	return true;
+}
+
+
+
+
+
+
+
+/***********************************************************************************************
+ * 15.06. [사용자함수] ds_Detail50 세팅작업
+ ***********************************************************************************************/ 
+this.fn_SetDetail50 = function ()
+{
+	var sWofhYn = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_YN");
+	var sWofhSt = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_ST");
+	var sCommcd = this.ds_Detail50.getColumn(0, "COMM_CD");
+	
+	this.ds_Detail51.clearData();
+	
+	if ((sWofhYn == "1" && (sWofhSt == "0010"|| this.gfn_IsNull(sWofhSt))) || (sWofhYn == "1" && sWofhSt!= "0010" && !this.gfn_IsNull(sCommcd))) {
+	} else {
+		return;
+	}
+	
+	this.ds_Detail50.addColumn("s_chk", "string");
+	this.ds_Detail50.addColumn("crudType", "string");
+	this.ds_Detail50.addColumn("FUNF_NM1", "string");
+	this.ds_Detail50.addColumn("FUNF_AM1", "string");
+	this.ds_Detail50.addColumn("REMK_NM1", "string");
+	this.ds_Detail50.addColumn("GU1", "string");
+	this.ds_Detail50.addColumn("SOGE_GU1", "string");
+	
+	for (var iLoop=0;iLoop<this.ds_Detail50.getRowCount();iLoop++) {
+		var sFunfGu = this.ds_Detail50.getColumn(iLoop, "FUNF_GU");
+		var sCommCd = this.ds_Detail50.getColumn(iLoop, "COMM_CD");
+		//지출
+		if (sFunfGu == "지출") {
+			this.ds_Detail50.setColumn(iLoop-38, "FUNF_NM1", this.ds_Detail50.getColumn(iLoop, "FUNF_NM"));
+			this.ds_Detail50.setColumn(iLoop-38, "FUNF_AM1", this.ds_Detail50.getColumn(iLoop, "FUNF_AM"));
+			this.ds_Detail50.setColumn(iLoop-38, "REMK_NM1", this.ds_Detail50.getColumn(iLoop, "REMK_NM"));
+			this.ds_Detail50.setColumn(iLoop-38, "GU1", this.ds_Detail50.getColumn(iLoop, "GU"));
+			this.ds_Detail50.setColumn(iLoop-38, "SOGE_GU1", this.ds_Detail50.getColumn(iLoop, "SOGE_GU"));
+		}
+	}
+	var jLoop = 0;//crudType 수정하기 위해
+	//38-75행까지 지우기
+	for (var iLoop=38;iLoop<76;iLoop++) {
+		this.ds_Detail50.deleteRow(38);
+		this.ds_Detail50.setColumn(jLoop, "crudType", "");
+		jLoop++;
+	}
+	
+	this.ds_Detail51.copyData(this.ds_Detail50);
+	this.ds_Detail50.reset();
+};
+
+
+/***********************************************************************************************
+ * 15.07. [사용자함수] ds_Detail60 세팅작업
+ ***********************************************************************************************/ 
+this.fn_SetDetail60 = function ()
+{
+
+	var sWofhYn = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_YN");
+	var sWofhSt = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "WOFH_ST");
+	var sCommcd = this.ds_Detail60.getColumn(0, "COMM_CD");
+	
+	this.ds_Detail61.clearData();
+	
+	if ((sWofhYn == "1" && (sWofhSt == "0010"|| this.gfn_IsNull(sWofhSt))) || (sWofhYn == "1" && sWofhSt!= "0010" && !this.gfn_IsNull(sCommcd))) {
+	} else {
+		return;
+	}
+	
+	this.ds_Detail60.addColumn("s_chk", "string");
+	this.ds_Detail60.addColumn("crudType", "string");
+	this.ds_Detail60.addColumn("FUNG_NM1", "string");
+	this.ds_Detail60.addColumn("FUNG_AM1", "string");
+	this.ds_Detail60.addColumn("REMK_NM1", "string");
+	this.ds_Detail60.addColumn("SOGE_GU1", "string");
+	
+	for (var iLoop=0;iLoop<this.ds_Detail60.getRowCount();iLoop++) {
+		var sFungGu = this.ds_Detail60.getColumn(iLoop, "FUNG_GU");
+		var sCommCd = this.ds_Detail60.getColumn(iLoop, "COMM_CD");
+		//재무대책
+		if (sFungGu == "재무대책") {
+			this.ds_Detail60.setColumn(iLoop-8, "FUNG_NM1", this.ds_Detail60.getColumn(iLoop, "FUNG_NM"));
+			this.ds_Detail60.setColumn(iLoop-8, "FUNG_AM1", this.ds_Detail60.getColumn(iLoop, "FUNG_AM"));
+			this.ds_Detail60.setColumn(iLoop-8, "REMK_NM1", this.ds_Detail60.getColumn(iLoop, "REMK_NM"));
+			this.ds_Detail60.setColumn(iLoop-8, "SOGE_GU1", this.ds_Detail60.getColumn(iLoop, "SOGE_GU"));
+
+			this.ds_Detail60.setColumn(iLoop, "FUNG_NM", "");
+			this.ds_Detail60.setColumn(iLoop, "FUNG_AM", "");
+			this.ds_Detail60.setColumn(iLoop, "REMK_NM", "");
+		}
+	}
+	var jLoop = 0;//crudType 수정하기 위해
+	//행 지우기
+	for (var iLoop=18;iLoop<26;iLoop++) {
+		this.ds_Detail60.deleteRow(18);
+		this.ds_Detail60.setColumn(jLoop, "crudType", "");
+		jLoop++;
+	}
+	
+	this.ds_Detail61.copyData(this.ds_Detail60);
+	this.ds_Detail60.reset();
+};
+
+
+]]></Script>
+    <Bind>
+      <BindItem id="item36" compid="div_MasterInput.form.tab_Master.tpg_03.form.cbo_Ct03Cd00_00" propid="value" datasetid="ds_Master" columnid="CT03_CD"/>
+      <BindItem id="item0" compid="div_MasterInput.form.tab_Master.tpg_01.form.txt_RemkNm" propid="value" datasetid="ds_Master10" columnid="REMK_NM"/>
+      <BindItem id="item4" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_DepmCd" propid="value" datasetid="ds_Master10" columnid="DEPM_CD"/>
+      <BindItem id="item5" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_DepmNm" propid="value" datasetid="ds_Master10" columnid="DEPM_NM"/>
+      <BindItem id="item6" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_EmpmNm" propid="value" datasetid="ds_Master10" columnid="EMPM_NM"/>
+      <BindItem id="item7" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_EmpmCd" propid="value" datasetid="ds_Master10" columnid="EMPM_CD"/>
+      <BindItem id="item1" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_AcumNm" propid="value" datasetid="ds_Master10" columnid="ACUM_NM"/>
+      <BindItem id="item2" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_AcumCd" propid="value" datasetid="ds_Master10" columnid="ACUM_CD"/>
+      <BindItem id="item3" compid="div_MasterInput.form.tab_Master.tpg_01.form.mae_FunhNo" propid="value" datasetid="ds_Master10" columnid="FUNH_NO"/>
+      <BindItem id="item8" compid="div_MasterInput.form.tab_Master.tpg_01.form.cal_FunhDd" propid="value" datasetid="ds_Master10" columnid="FUNH_DD"/>
+    </Bind>
+  </Form>
+</FDL>

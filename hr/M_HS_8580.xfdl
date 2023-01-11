@@ -1,0 +1,1015 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_HS_8580" width="1542" height="695" titletext="퇴직추계액개인별조회" onload="fn_FormOnload" onclose="fn_FormClose">
+    <Layouts>
+      <Layout height="695" width="1542">
+        <Div id="div_Search" taborder="0" left="14" top="12" height="66" cssclass="div_WF_Search" formscrollbartype="none none" right="14" text="">
+          <Layouts>
+            <Layout>
+              <Static id="sta_DepmCd" taborder="4" text="등록부서" left="16" top="34" width="80" height="24" cssclass="sta_WF_SLabel" DomainID="S00003"/>
+              <Edit id="edt_DepmNm" taborder="1" left="188" top="34" width="130" height="24" enable="true" maxlength="30" onchanged="div_Search_edt_DepmNm_onchanged"/>
+              <Button id="btn_DepmCd" taborder="6" left="320" top="34" width="24" height="24" onclick="div_Search_btn_DepmCd_onclick" tabstop="false" cssclass="btn_WF_SmallSearch" cursor="pointer"/>
+              <Static id="sta_EmpmCd" taborder="5" text="등록자" left="376" top="34" width="80" height="24" cssclass="sta_WF_SLabel"/>
+              <Edit id="edt_EmpmCd" taborder="2" left="456" top="34" width="90" height="24" maxlength="10" onchanged="div_Search_edt_EmpmCd_onchanged"/>
+              <Button id="btn_SystId" taborder="7" left="680" top="34" width="24" height="24" cssclass="btn_WF_SmallSearch" tabstop="false" onclick="div_Search_btn_SystId_onclick" cursor="pointer"/>
+              <Edit id="edt_EmpmNm" taborder="3" left="548" top="34" width="130" height="24" enable="true" maxlength="30" onchanged="div_Search_edt_EmpmNm_onchanged"/>
+              <Edit id="edt_DepmCd" taborder="0" left="96" top="34" width="90" height="24" maxlength="10" onchanged="div_Search_edt_DepmCd_onchanged" cssclass="essential"/>
+              <Edit id="edt_SystId" taborder="8" left="705" top="34" width="10" height="24" maxlength="10" visible="false"/>
+              <Static id="sta_JogmCd" taborder="9" text="직군" left="376" top="6" width="80" height="24" cssclass="sta_WF_SLabel"/>
+              <Combo id="cbo_JogmCd" taborder="10" left="456" top="6" width="248" height="24" innerdataset="ds_HrJogm" codecolumn="JOGM_CD" datacolumn="JOGM_NM"/>
+              <Static id="sts_QuthDd" taborder="11" text="추계년월" left="16" top="6" width="80" height="24" cssclass="sta_WF_SLabel" DomainID="S00002"/>
+              <Calendar id="cal_FromDd" taborder="12" left="96" top="6" width="110" height="24" dateformat="yyyy-MM" cssclass="essential" editformat="yyyy-MM" popuptype="none" ondropdown="div_Search_cal_FromDd_ondropdown"/>
+              <Calendar id="cal_ClosDd" taborder="13" left="234" top="6" width="110" height="24" dateformat="yyyy-MM" cssclass="essential" editformat="yyyy-MM" ondropdown="div_Search_cal_ClosDd_ondropdown" popuptype="none"/>
+              <Static id="Static03" taborder="14" text="~" left="211" top="5" width="20" height="26" cssclass="sta_WF_Dash"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_MasterView" taborder="1" left="14" top="90" width="807" bottom="5" text="">
+          <Layouts>
+            <Layout>
+              <Static id="sta_Master10" taborder="0" text="검색결과" left="0" top="0" width="220" height="32" cssclass="sta_WF_Title"/>
+              <Button id="btn_DivMoveMv" taborder="1" width="12" cssclass="bt_WF_FoldA_R" right="0" height="35" onclick="div_MasterView_btn_DivMoveMv_onclick" text="" top="133" cursor="pointer"/>
+              <Grid id="grd_Master10" taborder="2" left="0" top="32" autofittype="none" right="11" bottom="0" selecttype="cell" cellsizingtype="col" oncellclick="div_MasterView_grd_Master10_oncellclick" binddataset="ds_Master10">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="35"/>
+                      <Column size="85"/>
+                      <Column size="120"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="70"/>
+                      <Column size="70"/>
+                      <Column size="70"/>
+                      <Column size="100"/>
+                      <Column size="80"/>
+                      <Column size="60"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="26" band="head"/>
+                      <Row size="24" band="head"/>
+                      <Row size="24" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell rowspan="3" text="No."/>
+                      <Cell col="1" rowspan="2" colspan="7" text="사원정보" accessibilitydescription="S00001"/>
+                      <Cell col="8" rowspan="3" text="직무"/>
+                      <Cell col="9" rowspan="3" text="직계"/>
+                      <Cell col="10" rowspan="3" text="산정일수"/>
+                      <Cell col="11" rowspan="3" text="연봉"/>
+                      <Cell col="12" colspan="5" text="퇴직추계액"/>
+                      <Cell row="1" col="12" colspan="2" text="급여"/>
+                      <Cell row="1" col="14" colspan="2" text="상여"/>
+                      <Cell row="1" col="16" rowspan="2" text="당기추계액"/>
+                      <Cell row="2" col="1" text="추계년월" accessibilitydescription="S00001"/>
+                      <Cell row="2" col="2" text="부서"/>
+                      <Cell row="2" col="3" text="사번"/>
+                      <Cell row="2" col="4" text="성명"/>
+                      <Cell row="2" col="5" text="직위"/>
+                      <Cell row="2" col="6" text="직군"/>
+                      <Cell row="2" col="7" text="직렬"/>
+                      <Cell row="2" col="12" text="급여총액"/>
+                      <Cell row="2" col="13" text="월평균급여"/>
+                      <Cell row="2" col="14" text="상여총액"/>
+                      <Cell row="2" col="15" text="월평균상여"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="" expr="currow+1" displaytype="text" textAlign="center"/>
+                      <Cell col="1" text="bind:TJCH_MM" textAlign="center" displaytype="date" maskedittype="number" calendardateformat="yyyy-MM" calendardisplaynulltype="none" calendareditformat="yyyy-MM"/>
+                      <Cell col="2" displaytype="normal" text="bind:DEPM_NM" textAlign="left" editmaxlength="30"/>
+                      <Cell col="3" text="bind:EMPM_CD" textAlign="center" editmaxlength="10"/>
+                      <Cell col="4" text="bind:EMPM_NM" textAlign="center" editmaxlength="30"/>
+                      <Cell col="5" displaytype="combotext" text="bind:POSI_CD" combodataset="ds_Hr202" combodatacol="CODM_NM" combocodecol="CODM_CD" textAlign="center" editmaxlength="50"/>
+                      <Cell col="6" displaytype="combotext" text="bind:JOGM_CD" combodataset="ds_HrJogm" combodatacol="JOGM_NM" combocodecol="JOGM_CD" textAlign="center" editmaxlength="50"/>
+                      <Cell col="7" text="bind:SERM_CD" textAlign="center" displaytype="combotext" combodataset="ds_HrSerm" combocodecol="SERM_CD" combodatacol="SERM_NM" editmaxlength="50"/>
+                      <Cell col="8" text="bind:JOBM_NM" textAlign="center" displaytype="normal" editmaxlength="50"/>
+                      <Cell col="9" text="bind:LACO_CD" textAlign="center" combodataset="ds_Hr204" combodatacol="CODM_NM" combocodecol="CODM_CD" displaytype="combotext" editmaxlength="50"/>
+                      <Cell col="10" text="bind:ACCH_DD" textAlign="right" calendardateformat="yyyy-MM-dd" calendardisplaynulltype="none"/>
+                      <Cell col="11" text="bind:ANNU_AM" textAlign="right"/>
+                      <Cell col="12" text="bind:SALA_AM" textAlign="right"/>
+                      <Cell col="13" text="bind:PAVG_AM" textAlign="right"/>
+                      <Cell col="14" text="bind:BONU_AM" textAlign="right"/>
+                      <Cell col="15" text="bind:BAVG_AM" textAlign="right"/>
+                      <Cell col="16" text="bind:TJCB_AM" textAlign="right"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btn_DivMoveMi" taborder="2" top="78" height="10" width="40" visible="true" onclick="btn_DivMoveMi_onclick" cssclass="bt_TF_FoldA" left="700" cursor="pointer"/>
+        <Div id="div_MasterInput" taborder="3" left="841" top="90" text="" right="14" bottom="5">
+          <Layouts>
+            <Layout>
+              <Tab id="tab_Master" taborder="0" tabindex="0" left="0" top="0" right="0" bottom="0" cssclass="tab_WF_MasterList">
+                <Tabpages>
+                  <Tabpage id="tpg_01" text="퇴직추계기준" enable="true">
+                    <Layouts>
+                      <Layout>
+                        <Static id="sta_Line01" taborder="0" top="2" height="30" cssclass="sta_WF_DBg" left="0" text="" right="0"/>
+                        <Static id="sta_Line02" taborder="4" top="31" height="30" cssclass="sta_WF_DBg" right="0" left="0"/>
+                        <Static id="sta_TjchMm" taborder="1" text="추계년월" top="2" width="100" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00003"/>
+                        <Static id="sta_EmpmCd" taborder="2" text="산정기준일" top="2" width="100" height="30" cssclass="sta_WF_DLabel" left="339"/>
+                        <Static id="sta_Line03" taborder="5" top="59" height="30" cssclass="sta_WF_DBg" right="0" left="0" text=""/>
+                        <Static id="sta_CalcYn" taborder="3" text="급여적용종료월" top="59" width="100" height="30" cssclass="sta_WF_DLabel" left="0"/>
+                        <Static id="sta_Line05" taborder="7" top="88" height="30" cssclass="sta_WF_DBg" left="0" right="0" text="%" textAlign="right"/>
+                        <Static id="sta_Line06" taborder="8" top="167" height="30" cssclass="sta_WF_DBg" left="0" right="0"/>
+                        <Static id="sta_Line07" taborder="9" top="196" height="30" cssclass="sta_WF_DBg" left="0" right="0"/>
+                        <Static id="sta_EmplYn" taborder="10" text="상여적용율" top="88" width="100" height="30" cssclass="sta_WF_DLabel" left="339" DomainID="S00002"/>
+                        <Static id="sta_TjchMm1" taborder="11" text="추계년월" top="167" width="100" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00003"/>
+                        <Static id="sta_SaumCd" taborder="12" text="사업장" top="167" width="100" height="30" cssclass="sta_WF_DLabel" left="339" DomainID="S00003"/>
+                        <Static id="sta_EmpmCd1" taborder="13" text="사번" top="196" width="100" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00003"/>
+                        <Static id="sta_Line08" taborder="14" top="225" height="30" cssclass="sta_WF_DBg" left="0" right="0"/>
+                        <Static id="sta_Line09" taborder="15" top="254" height="30" cssclass="sta_WF_DBg" left="0" right="0"/>
+                        <Static id="sta_Line10" taborder="16" top="283" height="30" cssclass="sta_WF_DBg" left="0" right="0"/>
+                        <Static id="sta_Line11" taborder="17" top="312" height="30" cssclass="sta_WF_DBg" left="0" right="0" text=""/>
+                        <Static id="sta_EmpmNm1" taborder="18" text="성명" top="225" width="100" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00003"/>
+                        <Static id="sta_PosiCd" taborder="19" text="직위" top="225" width="100" height="30" cssclass="sta_WF_DLabel" left="339" DomainID="S00002"/>
+                        <Static id="sta_JumnNo" taborder="20" text="주민등록번호" top="254" width="100" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00003"/>
+                        <Static id="sta_LacoCd1" taborder="21" text="직계" top="283" width="100" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00003"/>
+                        <Static id="sta_NpmoAm" taborder="22" text="손익부문명" top="312" width="100" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00003"/>
+                        <Static id="sta_PalmCd" taborder="23" text="급여적용시작월" top="31" width="100" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00003"/>
+                        <Static id="sta_YendYn" taborder="24" text="일 이후 제외" top="88" width="81" height="30" cssclass="sta_WF_DLabel" left="259" DomainID="S00003"/>
+                        <MaskEdit id="mae_JumnNo" taborder="6" left="103" top="257" width="233" height="24" enable="true" format="@@@@@@-@@@@@@@" type="string" readonly="true"/>
+                        <Static id="sta_SpecT10" taborder="25" text="퇴직추계액" left="0" top="137" width="220" cssclass="sta_WF_Title" height="18"/>
+                        <Edit id="edt_EmpmCd" taborder="26" left="103" top="199" width="233" height="24" enable="true" readonly="true"/>
+                        <Edit id="edt_EmpmNm" taborder="27" left="103" top="228" width="233" height="24" enable="true" readonly="true"/>
+                        <Static id="sta_DepmNm1" taborder="28" text="부서" top="196" width="100" height="30" cssclass="sta_WF_DLabel" left="339" DomainID="S00003"/>
+                        <Static id="sta_EmplYn00" taborder="29" text="상여적용시작월" top="31" width="100" height="30" cssclass="sta_WF_DLabel" left="339" DomainID="S00002"/>
+                        <Static id="sta_JogmCd" taborder="30" text="직군" top="254" width="100" height="30" cssclass="sta_WF_DLabel" left="339" DomainID="S00002"/>
+                        <Static id="sta_EmplYn02" taborder="31" text="상여적용종료월" top="59" width="100" height="30" cssclass="sta_WF_DLabel" left="339" DomainID="S00002"/>
+                        <Static id="sta_SermCd1" taborder="32" text="직렬" top="283" width="100" height="30" cssclass="sta_WF_DLabel" left="339" DomainID="S00002"/>
+                        <Static id="sta_EmplYn04" taborder="33" text="직무" top="312" width="100" height="30" cssclass="sta_WF_DLabel" left="339" DomainID="S00002"/>
+                        <Edit id="edt_DepmNm" taborder="34" left="442" top="199" height="24" enable="true" right="4" readonly="true"/>
+                        <Static id="sta_Line11_00" taborder="35" top="341" height="30" cssclass="sta_WF_DBg" left="0" right="0" text=""/>
+                        <Static id="sta_Line11_00_00" taborder="36" top="370" height="30" cssclass="sta_WF_DBg" left="0" right="0" text=""/>
+                        <Static id="sta_Line11_00_00_00" taborder="37" top="399" height="30" cssclass="sta_WF_DBg" left="0" right="0" text=""/>
+                        <Static id="sta_Line11_00_00_00_00" taborder="38" top="428" height="30" cssclass="sta_WF_DBg" left="0" right="0" text=""/>
+                        <Static id="sta_EmplYn04_00" taborder="39" text="월급여" top="341" width="100" height="30" cssclass="sta_WF_DLabel" left="339" DomainID="S00002"/>
+                        <Static id="sta_NpmoAm00" taborder="40" text="산정일수" top="341" width="100" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00003"/>
+                        <Static id="sta_EmplYn04_00_00" taborder="41" text="상여총액" top="370" width="100" height="30" cssclass="sta_WF_DLabel" left="339" DomainID="S00002"/>
+                        <Static id="sta_NpmoAm00_00" taborder="42" text="급여총액" top="370" width="100" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00003"/>
+                        <Static id="sta_EmplYn04_00_00_00" taborder="43" text="월평균상여" top="399" width="100" height="30" cssclass="sta_WF_DLabel" left="339" DomainID="S00002"/>
+                        <Static id="sta_NpmoAm00_00_00" taborder="44" text="월평균급여" top="399" width="100" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00003"/>
+                        <Static id="sta_NpmoAm00_00_00_00" taborder="45" text="당기추계액" top="429" width="100" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00003"/>
+                        <Calendar id="cal_TjchMm1" taborder="46" left="103" top="170" width="233" height="24" dateformat="yyyy-MM" editformat="yyyy-MM" enable="true" readonly="true"/>
+                        <Combo id="cbo_SaumCd" taborder="47" left="442" top="170" height="24" innerdataset="ds_FaSaum" codecolumn="SAUM_CD" datacolumn="SAUM_NM" enable="true" right="4" readonly="true"/>
+                        <Combo id="cbo_LacoCd" taborder="48" left="103" top="286" width="233" height="24" innerdataset="ds_Hr204" codecolumn="CODM_CD" datacolumn="CODM_NM" enable="true" readonly="true"/>
+                        <Combo id="cbo_PosiCd" taborder="49" left="442" top="228" height="24" innerdataset="ds_Hr202" codecolumn="CODM_CD" datacolumn="CODM_NM" enable="true" right="4" readonly="true"/>
+                        <Combo id="cbo_JogmCd" taborder="50" left="442" top="257" height="24" innerdataset="ds_HrJogm" codecolumn="JOGM_CD" datacolumn="JOGM_NM" enable="true" right="4" readonly="true"/>
+                        <Combo id="cbo_SermCd" taborder="51" left="442" top="286" height="24" innerdataset="ds_HrSerm" codecolumn="SERM_CD" datacolumn="SERM_NM" enable="true" right="4" readonly="true"/>
+                        <Combo id="cbo_JobmNm" taborder="52" left="442" top="315" height="24" innerdataset="ds_HrJobm" codecolumn="JOBM_CD" datacolumn="JOBM_NM" enable="true" right="4" text="" readonly="true"/>
+                        <Edit id="edt_PalmNm" taborder="53" left="103" top="315" height="24" enable="true" width="233" readonly="true"/>
+                        <Edit id="edt_AcchDd" taborder="54" left="103" top="344" height="24" enable="true" width="233" textAlign="right" readonly="true"/>
+                        <Edit id="edt_PavgAm00" taborder="55" left="442" top="5" height="24" enable="true" right="4" readonly="true"/>
+                        <Calendar id="cal_TjchMm" taborder="56" left="103" top="5" width="233" height="24" dateformat="yyyy-MM" editformat="yyyy-MM" popuptype="none" ondropdown="div_MasterInput_tab_Master_tpg_01_cal_TjchMm_ondropdown" enable="true" readonly="true"/>
+                        <Calendar id="cal_PafrMm" taborder="57" left="103" top="34" width="233" height="24" dateformat="yyyy-MM" editformat="yyyy-MM" popuptype="none" ondropdown="div_MasterInput_tab_Master_tpg_01_cal_PafrMm_ondropdown" enable="true" readonly="true"/>
+                        <Calendar id="cal_PatoMm" taborder="58" left="103" top="62" width="233" height="24" dateformat="yyyy-MM" editformat="yyyy-MM" popuptype="none" ondropdown="div_MasterInput_tab_Master_tpg_01_cal_PatoMm_ondropdown" enable="true" readonly="true"/>
+                        <Calendar id="cal_BofrMm" taborder="59" left="442" top="34" height="24" dateformat="yyyy-MM" editformat="yyyy-MM" popuptype="none" ondropdown="div_MasterInput_tab_Master_tpg_01_cal_BofrMm_ondropdown" enable="true" right="4" readonly="true"/>
+                        <Calendar id="col_BotoMm" taborder="60" left="442" top="62" height="24" dateformat="yyyy-MM" editformat="yyyy-MM" popuptype="none" ondropdown="div_MasterInput_tab_Master_tpg_01_col_BotoMm_ondropdown" enable="true" right="4" readonly="true"/>
+                        <Calendar id="cal_RetiDd" taborder="61" left="103" top="91" width="153" height="24" dateformat="yyyy-MM-dd" headformat="yyyy-MM-dd" enable="true" readonly="true"/>
+                        <Static id="sta_EntrDd" taborder="62" text="퇴사적용일" top="88" width="100" height="30" cssclass="sta_WF_DLabel" left="0"/>
+                        <Edit id="edt_BonuRt" taborder="63" left="442" top="91" height="24" enable="true" right="28" textAlign="right" readonly="true"/>
+                        <MaskEdit id="mae_BonuAm" taborder="64" left="442" top="373" height="24" type="number" format="#,##0" enable="true" right="4" readonly="true"/>
+                        <MaskEdit id="mae_PavgAm" taborder="65" left="103" top="402" width="233" height="24" type="number" format="#,##0" enable="true" readonly="true"/>
+                        <MaskEdit id="mae_SalaAm" taborder="66" left="103" top="373" width="233" height="24" type="number" format="#,##0" enable="true" readonly="true"/>
+                        <MaskEdit id="mae_TjcbAm" taborder="67" left="103" top="431" height="24" type="number" format="#,##0" enable="true" width="233" readonly="true"/>
+                        <MaskEdit id="mae_AllmAm" taborder="68" left="442" top="344" height="24" type="number" format="#,##0" enable="true" right="4" readonly="true"/>
+                        <MaskEdit id="mae_BavgAm" taborder="69" left="442" top="402" height="24" type="number" format="#,##0" enable="true" right="4" readonly="true"/>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                </Tabpages>
+              </Tab>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="FROM_DD" type="STRING" size="256"/>
+          <Column id="CLOS_DD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="JOGM_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_HrJogm">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="JOGM_CD" type="STRING" size="256"/>
+          <Column id="JOGM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_HrSerm">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SERM_CD" type="STRING" size="256"/>
+          <Column id="SERM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_HrJobm">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="JOBM_CD" type="STRING" size="256"/>
+          <Column id="JOBM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Hr202">
+        <ColumnInfo>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Hr204">
+        <ColumnInfo>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_FaSaum">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="SAUM_CD" type="STRING" size="256"/>
+          <Column id="SAUM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_InputSerm">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="JOGM_CD" type="STRING" size="256"/>
+          <Column id="SERM_CD" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="JOBM_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_InputJogm">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="JOGM_CD" type="STRING" size="256"/>
+          <Column id="JOGM_NM" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="SERM_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="TJCH_MM" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+          <Column id="EMPM_CD" type="STRING" size="256"/>
+          <Column id="EMPM_NM" type="STRING" size="256"/>
+          <Column id="POSI_CD" type="STRING" size="256"/>
+          <Column id="JOGM_CD" type="STRING" size="256"/>
+          <Column id="SERM_CD" type="STRING" size="256"/>
+          <Column id="JOBM_NM" type="STRING" size="256"/>
+          <Column id="LACO_CD" type="STRING" size="256"/>
+          <Column id="ACCH_DD" type="STRING" size="256"/>
+          <Column id="ANNU_AM" type="STRING" size="256"/>
+          <Column id="SALA_AM" type="STRING" size="256"/>
+          <Column id="PAVG_AM" type="STRING" size="256"/>
+          <Column id="BONU_AM" type="STRING" size="256"/>
+          <Column id="BAVG_AM" type="STRING" size="256"/>
+          <Column id="TJCB_AM" type="STRING" size="256"/>
+          <Column id="PAFR_MM" type="STRING" size="256"/>
+          <Column id="PATO_MM" type="STRING" size="256"/>
+          <Column id="BOFR_MM" type="STRING" size="256"/>
+          <Column id="BOTO_MM" type="STRING" size="256"/>
+          <Column id="ENTR_DD" type="STRING" size="256"/>
+          <Column id="RETI_DD" type="STRING" size="256"/>
+          <Column id="SAUM_CD" type="STRING" size="256"/>
+          <Column id="JUMN_NO" type="STRING" size="256"/>
+          <Column id="PALM_NM" type="STRING" size="256"/>
+          <Column id="ALLM_AM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : M_HS_8580
+*  @화면설명 : 퇴직추계액개인별조회
+*  @시스템명 : (HS) 시스템
+*  @작성자   : 임재원
+*  @작성일   : 2021.12.03
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.12.03     	    임재원 	           최초 생성 
+*************************************************************************************************
+*/
+
+/***********************************************************************************************
+ * 0. 폼로드
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.01. Form Include 선언
+ ***********************************************************************************************/
+//include "comLib::CommonUtil.xjs";//공통함수
+
+/***********************************************************************************************
+ * 00.02. Form 변수 선언
+ ***********************************************************************************************/
+this.fvFormId = "M_HS_8580";//[필수]프로그램ID-화면로드시 메뉴정보 기준으로 재설정됨.
+
+/***********************************************************************************************
+ * 00.03. Form Onload 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+}
+
+/***********************************************************************************************
+ * 00.04. Form [공통] 초기설정 함수 - 필수
+ ***********************************************************************************************/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.gfn_SetGrid(this.div_MasterView.form.grd_Master10);//[공통]그리드 이벤트 설정 - 출력목록
+	
+	//권한체크 할 컴포넌트 : 컴포넌트 Full Path
+	var objCompCheckList = [""];		
+	if (this.gfn_CommCompAuthCheck(this, objCompCheckList))
+	{
+		this.fvFormComBtnAuthYn = true;//그리드 공통버튼 권한 유무
+	}
+}
+/***********************************************************************************************
+ * 00.05. Form [업무] 초기설정 함수
+ ***********************************************************************************************/
+this.fn_FormBizInit = function() 
+{ 
+	//[공통] 날짜정보 설정	
+	var rtnValue = this.gfn_GetCommDateObj();
+	var toDay = rtnValue.toDay;
+	this.div_Search.form.cal_ClosDd.set_value(toDay.substr(0,6));
+	this.div_Search.form.cal_FromDd.set_value(this.gfn_GetCommDate("priorMonth1"));
+	this.div_Search.form.cal_FromDd.set_value(toDay.substr(0,4));
+	
+	//[공통] 부서정보 설정
+	var arrComp = ["this.div_Search.form.edt_DepmCd^this.div_Search.form.edt_DepmNm"
+				  ];
+	this.gfn_SetCommDepmCd(this.fvFormId, arrComp);
+	
+	//[공통] 사원정보 설정
+	var arrComp = ["this.div_Search.form.edt_EmpmCd^this.div_Search.form.edt_EmpmNm^this.div_Search.form.edt_SystId"
+                  ];
+	this.gfn_SetCommEmpmCd(this.fvFormId, arrComp);
+
+	//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+	var objCondList = ["HR202|ds_Hr202","HR204|ds_Hr204"];
+	
+	//공통코드 설정함수 호출				   
+	this.gfn_GetCommCode(this, objCondList, "");
+	
+	//콤보 인덱스 설정
+	//this.div_Search.form.cbo_Ct01Cd.set_index(0);
+	
+	//[업무] 일반콤보조회
+	this.fn_ComboSearch();
+	
+	//[공통-Pivot] 그리드 검색/Pivot 설정
+// 	this.div_Search.form.div_ComGridSearch.form.fn_SetCmmGridProc(this, this.div_MasterView.form.tab_Master);
+// 	this.div_ComGridProc.form.fn_SetCmmGridProc(this, this.div_MasterView.form.tab_Master);
+}
+
+/***********************************************************************************************
+ * 00.06. Form [업무] 일반콤보 조회 함수
+ ***********************************************************************************************/
+this.fn_ComboSearch = function() 
+{
+
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "fa:M_FA_SAUM_C_SL00";	// 사업장 ds_FaSaum
+	this.gfn_AddComSearchService(this, svcAddObj);	
+	
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "hr:M_HR_2100_C_SL00";	// 직군 ds_HrJogm
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "hr:M_HR_0110_C_SL00" // 직렬 ds_HrSerm
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "hr:M_HR_2100_C_SL02" //직무 ds_HrJobm
+	this.gfn_AddComSearchService(this, svcAddObj);	
+	
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "COMBO_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_FA;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_FaSaum=ds_FaSaum ds_HrJogm=ds_HrJogm ds_HrSerm=ds_HrSerm ds_HrJobm=ds_HrJobm" ;//출력 데이터셋   
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+
+}
+
+/***********************************************************************************************
+ * 00.07. Form OnClose 이벤트
+ ***********************************************************************************************/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/***********************************************************************************************
+ * 1. 조회 영역
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 01.01. [공통버튼] 조회 버튼 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_ComBtnSearch = function()
+{ 
+	//조회전 유효성 체크
+	if (!this.fn_VaildSearch()) return;	
+
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Master10.clearData();
+	this.ds_Input.clearData();
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "FROM_DD", this.div_Search.form.cal_FromDd.value.substr(0,6));
+	this.ds_Input.setColumn(0, "CLOS_DD", this.div_Search.form.cal_ClosDd.value.substr(0,6));
+	this.ds_Input.setColumn(0, "DEPM_CD", this.div_Search.form.edt_DepmCd.value);
+	this.ds_Input.setColumn(0, "SYST_ID", this.div_Search.form.edt_SystId.value);
+    this.ds_Input.setColumn(0, "JOGM_CD", this.div_Search.form.cbo_JogmCd.value);
+	
+	this.ds_Input.setColumn(0, "PRGM_ID", "M_HS_8580");//프로그램ID
+	
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "hr:" + this.fvFormId + "_M_SL10";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "MST_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_HR;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Master10=ds_Master10";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+	svcCallObj.sComBtnDst = "SEARCH";//공통버튼구분-조회버튼
+	svcCallObj.sPrgmId = this.fvFormId;//프로그램ID
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+}
+
+/***********************************************************************************************
+ * 01.02. [Vaildation] 조회 필수값 체크
+ ***********************************************************************************************/
+this.fn_VaildSearch = function()
+{
+
+		if (!this.gfn_CheckFromToDate(this.fvFormId, this.div_Search.form.cal_FromDd, this.div_Search.form.cal_ClosDd)) return false;//조회기간 범위 체크
+		//조회조건 필수입력값 있으면 체크
+			// Validation 설정
+		var arrArgs = ["this.div_Search.form.edt_DepmCd^" + this.div_Search.form.sta_DepmCd.text + "|NULL"
+		
+					  ]; 
+					  
+		var sCheckGroupTitle = "검색조건";//체크그룹 타이틀
+
+		//컴포넌트 Vaild 체크
+		if (!this.gfn_CheckFormCompValid(this, arrArgs, sCheckGroupTitle)) {
+			return false;
+		}
+	return true;
+}
+
+/***********************************************************************************************
+ * 01.03. [공통] 조회조건 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [부서]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 부서 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_btn_DepmCd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "S_DEPM_CD_01";//팝업ID - 부서코드
+	var oArg = {PrgmId:this.fvComPrgmId, AuthYn:"Y", DepmNm:this.div_Search.form.edt_DepmNm.value };//Argument처리-권한체크용	
+	this.gfn_DeptPop(sPopupId, oArg);
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 부서코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_DepmCd_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "S_DEPM_CD_01";//팝업ID - 부서코드
+	this.gfn_GetCommAuDepm(this.fvComPrgmId,"C", this.div_Search.form.edt_DepmCd, this.div_Search.form.edt_DepmNm, sPopupId);//코드로 검색-권한체크용	
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 부서명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_DepmNm_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "S_DEPM_CD_01";//팝업ID - 부서코드
+	this.gfn_GetCommAuDepm(this.fvComPrgmId,"N", this.div_Search.form.edt_DepmCd, this.div_Search.form.edt_DepmNm, sPopupId);//코드명으로 검색-권한체크용	
+};
+/***********************************************************************************************
+ *    02. [사용자]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 사용자 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_btn_SystId_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "S_SYST_ID_01";//팝업ID - 사용자정보
+	var oArg = {PrgmId:this.fvComPrgmId, AuthYn:"Y", EmpmNm:this.div_Search.form.edt_EmpmNm.value};//Argument처리-권한체크용	
+	this.gfn_UserPop(sPopupId, oArg);		
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사원코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_EmpmCd_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "S_SYST_ID_01";//팝업ID - 사원코드
+	this.gfn_GetCommAuEmpm(this.fvComPrgmId, "C", this.div_Search.form.edt_EmpmCd, this.div_Search.form.edt_EmpmNm, this.div_Search.form.edt_SystId, sPopupId, "", "", false);//코드로 검색-권한체크용		
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사원명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_EmpmNm_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "S_SYST_ID_01";//팝업ID - 사원코드
+	this.gfn_GetCommAuEmpm(this.fvComPrgmId, "N", this.div_Search.form.edt_EmpmCd, this.div_Search.form.edt_EmpmNm, this.div_Search.form.edt_SystId, sPopupId, "", "", false);//코드명으로 검색-권한체크용			
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-년월달력] dropdown 이벤트
+  ---------------------------------------------------------------------------------------------*/ // 이곳
+ this.div_Search_cal_FromDd_ondropdown = function(obj:nexacro.Calendar,e:nexacro.EventInfo)
+{
+	this.gfn_CallYmCalendar(this, "this.div_Search.form.cal_FromDd", "fn_YmCallBack");	
+};
+
+this.div_Search_cal_ClosDd_ondropdown = function(obj:nexacro.Calendar,e:nexacro.EventInfo)
+{
+	this.gfn_CallYmCalendar(this, "this.div_Search.form.cal_ClosDd", "fn_YmCallBack");		
+};
+
+ this.div_MasterInput_tab_Master_tpg_01_cal_TjchMm_ondropdown = function(obj:nexacro.Calendar,e:nexacro.EventInfo)
+{
+	this.gfn_CallYmCalendar(this, "this.div_MasterInput.form.tab_Master.tpg_01.form.cal_TjchMm", "fn_YmCallBack");	
+};
+
+this.div_MasterInput_tab_Master_tpg_01_cal_PafrMm_ondropdown = function(obj:nexacro.Calendar,e:nexacro.EventInfo)
+{
+	this.gfn_CallYmCalendar(this, "this.div_MasterInput.form.tab_Master.tpg_01.form.cal_PafrMm", "fn_YmCallBack");
+};
+
+this.div_MasterInput_tab_Master_tpg_01_cal_PatoMm_ondropdown = function(obj:nexacro.Calendar,e:nexacro.EventInfo)
+{
+	this.gfn_CallYmCalendar(this, "this.div_MasterInput.form.tab_Master.tpg_01.form.cal_PatoMm", "fn_YmCallBack");	
+};
+
+this.div_MasterInput_tab_Master_tpg_01_cal_TjchMm1_ondropdown = function(obj:nexacro.Calendar,e:nexacro.EventInfo)
+{
+	this.gfn_CallYmCalendar(this, "this.div_MasterInput.form.tab_Master.tpg_01.form.cal_TjchMm1", "fn_YmCallBack");
+};
+
+this.div_MasterInput_tab_Master_tpg_01_cal_BofrMm_ondropdown = function(obj:nexacro.Calendar,e:nexacro.EventInfo)
+{
+	this.gfn_CallYmCalendar(this, "this.div_MasterInput.form.tab_Master.tpg_01.form.cal_BofrMm", "fn_YmCallBack");	
+};
+
+this.div_MasterInput_tab_Master_tpg_01_col_BotoMm_ondropdown = function(obj:nexacro.Calendar,e:nexacro.EventInfo)
+{
+	this.gfn_CallYmCalendar(this, "this.div_MasterInput.form.tab_Master.tpg_01.form.col_BotoMm", "fn_YmCallBack");	
+};
+
+/***********************************************************************************************
+ *    03. [계약번호]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ *    04. [프로젝트]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 프로젝트 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 프로젝트 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ *    05. [거래처]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 거래처 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 거래처코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 거래처명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ *    06. [사업장]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 사업장 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사업장 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+  
+/***********************************************************************************************
+ *    07. [W/O]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] W/O 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] W/O 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ *    08. [품목코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-팝업버튼] 품목코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 품목코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ *    09. [계정코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 계정코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 계정코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+
+/***********************************************************************************************
+ * 2. 입력
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 02.01. [공통버튼] 입력 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnAdd = function()
+{
+
+}
+
+/***********************************************************************************************
+ * 3. 복사
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 03.01. [공통버튼] 복사 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCopy = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 4. 취소
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 04.01. [공통버튼] 취소 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCancel = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 5. 저장
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 05.01. [공통버튼] 저장 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnSave = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 05.02. [Vaildation] Master 저장 필수값 체크 - 입력항목 
+ ***********************************************************************************************/ 
+this.fn_VaildMasterSave = function()
+{
+	return true;
+}
+ 
+/***********************************************************************************************
+ * 6. 삭제
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 06.01. [공통버튼] 삭제 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnDelete = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 7. 엑셀
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 07.01. [공통버튼] 엑셀저장 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnExcel = function()
+{ 
+	//출력 그리드 정보 설정
+	var objGridList = ["this.div_MasterView.form.grd_Master10|" + this.div_MasterView.form.sta_Master10.text
+					  ];
+	 
+	var sFileName = "퇴직추계액개인별조회";//출력파일명
+	this.gfn_ExcelExport(this, objGridList, sFileName);
+}
+
+/***********************************************************************************************
+ * 8. 인쇄
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 08.01. [공통버튼] 인쇄 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnPrint = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 9. 결재요청
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 09.01. [공통버튼] 결재요청 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnDecide = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 10. 결재현황
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.01. [공통버튼] 결재현황 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnProcess = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 11. 재기안
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 11.01. [공통버튼] 재기안 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnRecide = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 12. 닫기
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 12.01. [공통버튼] 닫기 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnClose = function()
+{ 
+	return true;
+}
+
+/***********************************************************************************************
+ * 13. [CallBack] 함수
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 13.01. [서비스] CallBack 함수 처리
+ ***********************************************************************************************/ 
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST_SEARCH": //조회		
+			if (this.ds_Master10.getRowCount() > 0) {
+
+				//[공통]그리드NoData Text 초기화 설정
+				this.gfn_InitGridNoDataText(this.div_MasterView.form.grd_Master10);
+				
+			} else {
+				
+				//[공통]그리드NoData Text설정
+				this.gfn_SetGridNoDataText(this.div_MasterView.form.grd_Master10);
+		
+			}		
+			break;
+		case "COMBO_SEARCH": //콤보조회		
+			if (this.ds_FaSaum.getRowCount() > 0 && this.ds_HrSerm.getRowCount() && this.ds_HrJobm.getRowCount()) {
+				this.ds_FaSaum.insertRow();
+				this.ds_HrSerm.insertRow();
+				this.ds_HrJobm.insertRow();
+
+			}
+			break;
+	}
+};
+
+/***********************************************************************************************
+ * 13.02. [팝업] CallBack 함수 처리
+          strId : 팝업호출시 지정한 팝업ID
+	      rtnValue : 팝업창에서 close시 지정한 반환값
+          주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/ 
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+	//[조회영역]
+	//출고부서
+	 if (strId == "S_DEPM_CD_01") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);
+			
+			if (!this.gfn_IsNull(arrRtnVal.DEPM_CD)) {
+				this.div_Search.form.edt_DepmCd.set_value(arrRtnVal.DEPM_CD);
+				this.div_Search.form.edt_DepmNm.set_value(arrRtnVal.DEPM_NM);
+			}
+		} else {
+			//조회조건영역 - 전체권한여부 체크
+			if (this.gfn_CheckAllAuth(this.fvComPrgmId)) {
+				this.div_Search.form.edt_DepmCd.set_value("");
+				this.div_Search.form.edt_DepmNm.set_value("");		
+			} else {
+				this.div_Search.form.edt_DepmCd.set_value(this.gfn_GetSessionValue("DEPM_CD"));
+				this.div_Search.form.edt_DepmNm.set_value(this.gfn_GetSessionValue("DEPM_NM"));					
+			}			
+		}	
+	
+	//출고자
+	} else if (strId == "S_SYST_ID_01") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);	
+			
+			if (!this.gfn_IsNull(arrRtnVal.EMPM_CD)) {
+				this.div_Search.form.edt_EmpmCd.set_value(arrRtnVal.EMPM_CD);
+				this.div_Search.form.edt_EmpmNm.set_value(arrRtnVal.EMPM_NM);
+				this.div_Search.form.edt_SystId.set_value(arrRtnVal.SYST_ID);
+			}
+		} else {
+			//조회조건영역 - 자신의자료 권한여부 체크		
+			if (this.gfn_CheckOwnAuth(this.fvComPrgmId)) {
+				this.div_Search.form.edt_EmpmCd.set_value(this.gfn_GetSessionValue("EMPM_CD"));
+				this.div_Search.form.edt_EmpmNm.set_value(this.gfn_GetSessionValue("EMPM_NM"));
+				this.div_Search.form.edt_SystId.set_value(this.gfn_GetSessionValue("SYST_ID"));	
+			} else {
+				this.div_Search.form.edt_EmpmCd.set_value("");
+				this.div_Search.form.edt_EmpmNm.set_value("");
+				this.div_Search.form.edt_SystId.set_value("");				
+		}
+		}
+
+	
+	}
+
+};
+ 
+/***********************************************************************************************
+ * 13.03. [메세지] CallBack 함수 처리
+ ***********************************************************************************************/  
+this.fn_MsgCallback = function (strId, strVal)
+{
+}; 
+ 
+/***********************************************************************************************
+* 13.04. [년월달력] CallBack 함수 처리
+***********************************************************************************************/  
+this.fn_YmCallBack = function() {
+}
+
+
+/***********************************************************************************************
+ * 14. [화면 사이즈] 조정 버튼 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 14.01. [조회영역-▲] 화면 사이즈조정 버튼 이벤트
+ ***********************************************************************************************/ 
+this.btn_DivMoveMi_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+};
+
+/***********************************************************************************************
+ * 14.02. [Master영역-▶] 화면 사이즈조정 버튼 이벤트
+ ***********************************************************************************************/ 
+this.div_MasterView_btn_DivMoveMv_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통] 버튼 변수
+	var btnObj = new Object();//[공통] 버튼 변수 정보 Object
+	btnObj.DivMstLeft = "this.div_MasterView";//Master영역 Left Div : Master영역이 하나인경우에는 Left에 설정
+	btnObj.DivMstRight = "this.div_MasterInput";//Master영역 Right Div
+	btnObj.MstWidth = 810;//Master Left 영역 Div Width	
+	btnObj.MstHeight = "";//Master Left영역 Div Height : Height가 없는경우 ""로 입력
+	btnObj.MoveBtnSch = "this.div_Search";//조회영역밑 Move 버튼
+	btnObj.MoveBtnDtl = "";//Detail영역 Move 버튼 : 없으면 ""로 입력
+	this.gfn_MoveMlBtnBaseBottom(obj, btnObj);//Master Left 영역 접고/펼치기 버튼 이벤트
+	/* ↑Detailt 이 없으면 이걸 사용 */
+};
+/***********************************************************************************************
+ * 15. [사용자정의 함수]
+ ***********************************************************************************************/
+ /***********************************************************************************************
+ * 15.01. [공통 그리드 버튼] 입력 버튼 설정
+ ***********************************************************************************************/ 
+this.fn_SetGridInputButton = function()
+{
+	//그리드 공통 버튼 권한이 있으면
+	if (this.fvFormComBtnAuthYn)
+	{
+		this.gfn_SetGridInputBtnUrl(this.div_MasterInput.form.div_ComGrdBtn);//[공통] 그리드 입력 버튼 URL 설정
+		
+		//상세 그리드버튼 설정 : 버튼ID|권한(Y/N)|호출함수명
+		var objBtnInfo01List = ["COPY|N|fn_MasterGrd01Copy"
+							 ,"ADD|Y|fn_MasterGrd01AddRow"
+							 ,"INSERT|N|fn_MasterGrd01InsertRow"
+							 ,"DELETE|N|fn_MasterGrd01DeleteRow"
+							 ,"CANCEL|Y|fn_MasterGrd01Cancel"];
+		this.div_MasterInput.form.div_ComGrdBtn.form.fn_SetGrdButtonFunc(this, objBtnInfo01List);	
+	}
+}]]></Script>
+    <Bind>
+      <BindItem id="item10" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_EmpmCd" propid="value" datasetid="ds_Master10" columnid="EMPM_CD"/>
+      <BindItem id="item8" compid="div_MasterInput.form.tab_Master.tpg_01.form.cbo_SaumCd" propid="value" datasetid="ds_Master10" columnid="SAUM_CD"/>
+      <BindItem id="item16" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_DepmNm" propid="value" datasetid="ds_Master10" columnid="DEPM_NM"/>
+      <BindItem id="item9" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_EmpmNm" propid="value" datasetid="ds_Master10" columnid="EMPM_NM"/>
+      <BindItem id="item11" compid="div_MasterInput.form.tab_Master.tpg_01.form.cbo_PosiCd" propid="value" datasetid="ds_Master10" columnid="POSI_CD"/>
+      <BindItem id="item12" compid="div_MasterInput.form.tab_Master.tpg_01.form.mae_JumnNo" propid="value" datasetid="ds_Master10" columnid="JUMN_NO"/>
+      <BindItem id="item13" compid="div_MasterInput.form.tab_Master.tpg_01.form.cbo_JogmCd" propid="value" datasetid="ds_Master10" columnid="JOGM_CD"/>
+      <BindItem id="item14" compid="div_MasterInput.form.tab_Master.tpg_01.form.cbo_LacoCd" propid="value" datasetid="ds_Master10" columnid="LACO_CD"/>
+      <BindItem id="item17" compid="div_MasterInput.form.tab_Master.tpg_01.form.cbo_SermCd" propid="value" datasetid="ds_Master10" columnid="SERM_CD"/>
+      <BindItem id="item15" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_PalmNm" propid="value" datasetid="ds_Master10" columnid="PALM_NM"/>
+      <BindItem id="item18" compid="div_MasterInput.form.tab_Master.tpg_01.form.cbo_JobmNm" propid="value" datasetid="ds_Master10" columnid="JOBM_NM"/>
+      <BindItem id="item19" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_AcchDd" propid="value" datasetid="ds_Master10" columnid="ACCH_DD"/>
+      <BindItem id="item0" compid="div_MasterInput.form.tab_Master.tpg_01.form.cal_TjchMm" propid="value" datasetid="ds_Master10" columnid="TJCH_MM"/>
+      <BindItem id="item1" compid="div_MasterInput.form.tab_Master.tpg_01.form.cal_PafrMm" propid="value" datasetid="ds_Master10" columnid="PAFR_MM"/>
+      <BindItem id="item2" compid="div_MasterInput.form.tab_Master.tpg_01.form.cal_PatoMm" propid="value" datasetid="ds_Master10" columnid="PATO_MM"/>
+      <BindItem id="item4" compid="div_MasterInput.form.tab_Master.tpg_01.form.cal_BofrMm" propid="value" datasetid="ds_Master10" columnid="BOFR_MM"/>
+      <BindItem id="item5" compid="div_MasterInput.form.tab_Master.tpg_01.form.col_BotoMm" propid="value" datasetid="ds_Master10" columnid="BOTO_MM"/>
+      <BindItem id="item3" compid="div_MasterInput.form.tab_Master.tpg_01.form.cal_RetiDd" propid="value" datasetid="ds_Master10" columnid="RETI_DD"/>
+      <BindItem id="item6" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_BonuRt" propid="value" datasetid="ds_Master10" columnid="BONU_RT"/>
+      <BindItem id="item7" compid="div_MasterInput.form.tab_Master.tpg_01.form.cal_TjchMm1" propid="value" datasetid="ds_Master10" columnid="TJCH_MM"/>
+      <BindItem id="item30" compid="div_MasterInput.form.tab_Master.tpg_01.form.mae_TjcbAm" propid="value" datasetid="ds_Master10" columnid="TJCB_AM"/>
+      <BindItem id="item20" compid="div_MasterInput.form.tab_Master.tpg_01.form.mae_SalaAm" propid="value" datasetid="ds_Master10" columnid="SALA_AM"/>
+      <BindItem id="item21" compid="div_MasterInput.form.tab_Master.tpg_01.form.mae_PavgAm" propid="value" datasetid="ds_Master10" columnid="PAVG_AM"/>
+      <BindItem id="item22" compid="div_MasterInput.form.tab_Master.tpg_01.form.mae_AllmAm" propid="value" datasetid="ds_Master10" columnid="ALLM_AM"/>
+      <BindItem id="item23" compid="div_MasterInput.form.tab_Master.tpg_01.form.mae_BonuAm" propid="value" datasetid="ds_Master10" columnid="BONU_AM"/>
+      <BindItem id="item24" compid="div_MasterInput.form.tab_Master.tpg_01.form.mae_BavgAm" propid="value" datasetid="ds_Master10" columnid="BAVG_AM"/>
+      <BindItem id="item25" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_PavgAm00" propid="value" datasetid="ds_Master10" columnid="ACCH_DD"/>
+    </Bind>
+  </Form>
+</FDL>

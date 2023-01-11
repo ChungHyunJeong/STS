@@ -1,0 +1,578 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[//쿼리생성
+this.fn_TempQueryMake = function() {
+	if (this.ds_ColumnList.getRowCount() > 0) {
+	
+		var sSelectHeadQuery = "";//쿼리헤더-조회
+		var sInsertHeadQuery = "";//쿼리헤더-저장
+		var sUpdateHeadQuery = "";//쿼리헤더-수정
+		var sDeleteHeadQuery = "";//쿼리헤더-삭제
+		var sSelectComtQuery = "";//쿼리Comment-조회
+		var sInsertComtQuery = "";//쿼리Comment-저장
+		var sUpdateComtQuery = "";//쿼리Comment-수정
+		var sDeleteComtQuery = "";//쿼리Comment-삭제		
+		var sTableId = "";//테이블ID
+		var sTableIdAs = "";//테이블ID-별칭
+		var sTableNm = "";//테이블명
+		var sReturn = "\n";
+		var sOwnner = this.tab_TableInfo.tab_Page01.form.div_TableInfo.form.cbo_Owner.value;
+		var sSOwnner = sOwnner.toLowerCase();
+		//var sDaoName = this.tab_TableInfo.tab_Page01.form.div_Query.form.edt_Namespace.value + "Dao";
+		//var sQureyIdName = this.tab_TableInfo.tab_Page01.form.div_Query.form.edt_QueryContent.value;
+		var sSelectQuery = "";//쿼리-조회
+		var sInsertQuery = "";//쿼리-저장
+		var sUpdateQuery = "";//쿼리-수정
+		var sDeleteQuery = "";//쿼리-삭제
+		var iQueryIndex = 0;//쿼리Id 인덱스
+		var bSelect = false;//쿼리시작-조회
+		var bInsert = false;//쿼리시작-저장
+		var bUpdate = false;//쿼리시작-수정
+		var bUpdateSet = false;//쿼리시작-수정
+		var bDelete = false;//쿼리시작-삭제
+		var sSelectQueryDetail = "";//쿼리상세-조회
+		var sInsertQueryDetail = "";//쿼리상세-저장
+		var sUpdateQueryDetail = "";//쿼리상세-수정
+		var sDeleteQueryDetail = "";//쿼리상세-삭제
+		var sCnstNotNull = " != null and ";
+		var sCnstNotEmpty = " != '' " + '">';
+		var sColumnId = "";//컬럼ID
+		var sPkColumnYn = "";//PK컬럼
+		var sColumnNm = "";//컬럼명-주석처리용
+		var sSpace = "    ";//공백처리
+		
+		var sInDataset = this.tab_TableInfo.tab_Page01.form.div_Query.form.edt_InDataset.value;//입력 데이터셋명
+		var sOutDataset = this.tab_TableInfo.tab_Page01.form.div_Query.form.edt_OutDataset.value;//출력 력데이터셋명
+		var sSaveDataset = this.tab_TableInfo.tab_Page01.form.div_Query.form.edt_SaveDataset.value;//저장 데이터셋명
+		
+		if (this.ds_ColumnList.getCaseCount("S_CHK == '1'") > 0)  {
+		
+			sTableId = this.ds_ColumnList.getColumn(0, "TABLE_ID");//테이블ID
+			sTableNm = this.ds_ColumnList.getColumn(0, "TABLE_NM");//테이블명
+			sTableIdAs = this.gfn_Right(sTableId,4);//테이블ID-별칭
+			
+			//조회헤더
+			if (sSelectHeadQuery == "") {
+				sSelectComtQuery = sTableNm + " 조회";
+				sSelectHeadQuery = '<?xml version="1.0" encoding="utf-8"?>' + sReturn;
+				sSelectHeadQuery = sSelectHeadQuery + '<query>' + sReturn;				
+				sSelectHeadQuery = sSelectHeadQuery + '    <type>select</type>' + sReturn;				
+				sSelectHeadQuery = sSelectHeadQuery + '    <description><![CDATA[ ' + sSelectComtQuery  + ' ]]]]><![CDATA[></description>' + sReturn;
+				sSelectHeadQuery = sSelectHeadQuery + '    <reload>true</reload>' + sReturn;
+				sSelectHeadQuery = sSelectHeadQuery + '    <monitoring>true</monitoring>' + sReturn;
+				sSelectHeadQuery = sSelectHeadQuery + '    <result-count>1</result-count>' + sReturn;
+				sSelectHeadQuery = sSelectHeadQuery + '    <statement>' + sReturn;	
+				sSelectHeadQuery = sSelectHeadQuery + '    <![CDATA[' + sReturn + sReturn;						
+			}	
+			
+			//저장헤더
+			if (sInsertHeadQuery == "") {
+				sInsertComtQuery = sTableNm + " 저장";
+				sInsertHeadQuery = '<?xml version="1.0" encoding="utf-8"?>' + sReturn;
+				sInsertHeadQuery = sInsertHeadQuery + '<query>' + sReturn;				
+				sInsertHeadQuery = sInsertHeadQuery + '    <type>insert</type>' + sReturn;				
+				sInsertHeadQuery = sInsertHeadQuery + '    <description><![CDATA[ ' + sInsertComtQuery  + ' ]]]]><![CDATA[></description>' + sReturn;
+				sInsertHeadQuery = sInsertHeadQuery + '    <reload>true</reload>' + sReturn;
+				sInsertHeadQuery = sInsertHeadQuery + '    <monitoring>true</monitoring>' + sReturn;
+				sInsertHeadQuery = sInsertHeadQuery + '    <result-count>1</result-count>' + sReturn;
+				sInsertHeadQuery = sInsertHeadQuery + '    <statement>' + sReturn;	
+				sInsertHeadQuery = sInsertHeadQuery + '    <![CDATA[' + sReturn + sReturn;						
+			}			
+			
+			//수정헤더
+			if (sUpdateHeadQuery == "") {
+				sUpdateComtQuery = sTableNm + " 수정";
+				sUpdateHeadQuery = '<?xml version="1.0" encoding="utf-8"?>' + sReturn;
+				sUpdateHeadQuery = sUpdateHeadQuery + '<query>' + sReturn;				
+				sUpdateHeadQuery = sUpdateHeadQuery + '    <type>update</type>' + sReturn;				
+				sUpdateHeadQuery = sUpdateHeadQuery + '    <description><![CDATA[ ' + sUpdateComtQuery  + ' ]]]]><![CDATA[></description>' + sReturn;
+				sUpdateHeadQuery = sUpdateHeadQuery + '    <reload>true</reload>' + sReturn;
+				sUpdateHeadQuery = sUpdateHeadQuery + '    <monitoring>true</monitoring>' + sReturn;
+				sUpdateHeadQuery = sUpdateHeadQuery + '    <result-count>1</result-count>' + sReturn;
+				sUpdateHeadQuery = sUpdateHeadQuery + '    <statement>' + sReturn;	
+				sUpdateHeadQuery = sUpdateHeadQuery + '    <![CDATA[' + sReturn + sReturn;						
+			}	
+			
+			//삭제헤더
+			if (sDeleteHeadQuery == "") {
+				sDeleteComtQuery = sTableNm + " 삭제"; 
+				sDeleteHeadQuery = '<?xml version="1.0" encoding="utf-8"?>' + sReturn;
+				sDeleteHeadQuery = sDeleteHeadQuery + '<query>' + sReturn;				
+				sDeleteHeadQuery = sDeleteHeadQuery + '    <type>update</type>' + sReturn;				
+				sDeleteHeadQuery = sDeleteHeadQuery + '    <description><![CDATA[ ' + sDeleteComtQuery  + ' ]]]]><![CDATA[></description>' + sReturn;
+				sDeleteHeadQuery = sDeleteHeadQuery + '    <reload>true</reload>' + sReturn;
+				sDeleteHeadQuery = sDeleteHeadQuery + '    <monitoring>true</monitoring>' + sReturn;
+				sDeleteHeadQuery = sDeleteHeadQuery + '    <result-count>1</result-count>' + sReturn;
+				sDeleteHeadQuery = sDeleteHeadQuery + '    <statement>' + sReturn;	
+				sDeleteHeadQuery = sDeleteHeadQuery + '    <![CDATA[' + sReturn + sReturn;						
+			}										
+		} else {
+			return;
+		}
+		
+		var iMaxLengthRow = this.ds_ColumnList.findMaxLengthRow("COLUMN_ID");
+		var sMaxLengthCol = this.ds_ColumnList.getColumn(iMaxLengthRow, "COLUMN_ID");
+		var iLength = sMaxLengthCol.length;
+		var sColumnTemp = "";
+
+		for (var iLoop = 0; iLoop < this.ds_ColumnList.getRowCount(); iLoop++) {
+			if (this.ds_ColumnList.getCaseCount("S_CHK == '1'") > 0)  {
+			
+				sColumnId = this.ds_ColumnList.getColumn(iLoop, "COLUMN_ID");//컬럼ID
+				sColumnNm = this.ds_ColumnList.getColumn(iLoop, "COLUMN_NM");//컬럼명-주석처리용
+				sPkColumnYn = this.ds_ColumnList.getColumn(iLoop, "PK_YN");//PK컬럼	
+								
+				
+				//쿼리-조회
+				if (this.tab_TableInfo.tab_Page01.form.div_Query.form.chk_Select.value) {
+					if (sSelectQuery == "") {
+						iQueryIndex++;//쿼리Id 인덱스
+						sSelectQuery = "    /* " + sSelectComtQuery + " */" + sReturn;
+						sSelectQuery = sSelectQuery + "    SELECT " + sReturn;
+					}
+					
+					if (this.ds_ColumnList.getColumn(iLoop, "S_CHK") == "1") {
+						if (!bSelect) {
+							
+							if (this.fn_CheckSkipColumn("R", sColumnId)) {
+								if (sColumnId == "REGI_DT" || sColumnId == "MODI_DT") {
+									sSelectQuery = sSelectQuery  + "       , CONVERT(CHAR(19), " + sTableIdAs + "." + sColumnId + ", 20) AS " + sColumnId + sSpace + "/* " + sColumnNm + " */";
+								} else {
+									if (!this.gfn_IsNull(sColumnNm)) {
+										sSelectQuery = sSelectQuery  + "         " + sTableIdAs + "." + sColumnId + sSpace + "/* " + sColumnNm + " */";
+									} else {
+										sSelectQuery = sSelectQuery  + "         " + sTableIdAs + "." + sColumnId;
+									}
+								}
+	
+								if (!this.gfn_IsNull(sColumnNm)) {
+									if (sColumnId == "COMM_CD") {
+										sSelectQueryDetail = sSelectQueryDetail  + "   WHERE " + sTableIdAs + "." + sColumnId +  " = #G_COMM#" + sSpace + "/* " + sColumnNm + " */" + sReturn;
+									} else {
+										sSelectQueryDetail = sSelectQueryDetail  + "   WHERE " + sTableIdAs + "." + sColumnId +  " = #" + sColumnId + "#" + sSpace + "/* " + sColumnNm + " */" + sReturn;									
+									}
+								} else {
+									if (sColumnId == "COMM_CD") {
+										sSelectQueryDetail = sSelectQueryDetail  + "      AND " + sTableIdAs + "." + sColumnId +  " = #G_COMM#" + sReturn;
+									} else {
+										sSelectQueryDetail = sSelectQueryDetail  + "      AND " + sTableIdAs + "." + sColumnId +  " = #" + sColumnId + "#" + sReturn;
+									}
+								}
+
+							}
+							
+							bSelect = true;//쿼리시작-조회
+							
+						} else {
+							if (this.fn_CheckSkipColumn("R", sColumnId)) {
+								if (sColumnId == "REGI_DT" || sColumnId == "MODI_DT") {
+									sSelectQuery = sSelectQuery  + sReturn + "       , CONVERT(CHAR(19), " + sTableIdAs + "." + sColumnId + ", 20) AS " + sColumnId + sSpace + "/* " + sColumnNm + " */";
+								} else {
+									if (!this.gfn_IsNull(sColumnNm)) {
+										sSelectQuery = sSelectQuery + sReturn + "       , " + sTableIdAs + "." + sColumnId + sSpace + "/* " + sColumnNm + " */";
+									} else {
+										sSelectQuery = sSelectQuery + sReturn + "       , " + sTableIdAs + "." + sColumnId;
+									}
+								}								
+
+								if (sPkColumnYn == "PK") {	
+									if (!this.gfn_IsNull(sColumnNm)) {
+										if (sColumnId == "COMM_CD") {
+											sSelectQueryDetail = sSelectQueryDetail  + "     AND " + sTableIdAs + "." + sColumnId +  " = #G_COMM#" + sSpace + "/* " + sColumnNm + " */" + sReturn;
+										} else {
+											sSelectQueryDetail = sSelectQueryDetail  + "     AND " + sTableIdAs + "." + sColumnId +  " = #" + sColumnId + "#" + sSpace + "/* " + sColumnNm + " */" + sReturn;										
+										}
+									} else {
+										if (sColumnId == "COMM_CD") {
+											sSelectQueryDetail = sSelectQueryDetail  + "     AND " + sTableIdAs + "." + sColumnId +  " = #G_COMM#" + sReturn;
+										} else {
+											sSelectQueryDetail = sSelectQueryDetail  + "     AND " + sTableIdAs + "." + sColumnId +  " = #" + sColumnId + "#" + sReturn;
+										}
+									}								
+								}
+	
+							}
+						}
+					}				
+				}				
+		
+				//쿼리-저장
+				if (this.tab_TableInfo.tab_Page01.form.div_Query.form.chk_Insert.value) {
+					if (sInsertQuery == "") {
+						iQueryIndex++;//쿼리Id 인덱스
+						sInsertQuery = "    /* " + sInsertComtQuery + " */" + sReturn;
+						sInsertQuery = sInsertQuery + "    INSERT INTO " + sTableId + sReturn;
+						sInsertQuery = sInsertQuery + "    (";				
+						sInsertQueryDetail = sInsertQueryDetail + "    )";
+						sInsertQueryDetail = sInsertQueryDetail + sReturn + "    VALUES";
+						sInsertQueryDetail = sInsertQueryDetail + sReturn + "    (";
+					}
+					
+					if (this.ds_ColumnList.getColumn(iLoop, "S_CHK") == "1") {
+						if (!bInsert) {
+							if (this.fn_CheckSkipColumn("C", sColumnId)) {
+								sInsertQuery = sInsertQuery + sReturn  + "        " + sColumnId.padRight(iLength, ' ') + " /* " + sColumnNm + " */";
+								
+								if (sColumnId == "REGI_DT") {
+									sInsertQueryDetail = sInsertQueryDetail + sReturn  + "        GETDATE()";		
+								} else {
+									if (sColumnId == "REGI_ID") {
+										sColumnTemp = "#G_SUID#";
+									} else {
+										if (sColumnId == "COMM_CD") {
+											sColumnTemp = "#G_COMM#";
+										} else if (sColumnId == "WOFH_NO") {
+											sColumnTemp = "ISNULL(#WOFH_NO#, '')";												
+										} else if (sColumnId == "WOFH_ST") {
+											sColumnTemp = "ISNULL(#WOFH_ST#, '')";
+										} else if (sColumnId == "DELE_YN") {
+											sColumnTemp = "ISNULL(#DELE_YN#, '0')";		
+										} else if (sColumnId == "EXPT_YN") {
+											sColumnTemp = "ISNULL(#EXPT_YN#, '0')";		
+										} else if (sColumnId == "EXPT_RE") {
+											sColumnTemp = "ISNULL(#EXPT_RE#, '')";												
+										} else {
+											sColumnTemp = "#" + sColumnId + "#";
+										}
+									}
+									sInsertQueryDetail = sInsertQueryDetail  + sReturn +  "        " + sColumnTemp.padRight(iLength+2, ' ') + " /* " + sColumnNm + " */";					
+								}
+								
+								bInsert = true;//쿼리시작-저장
+							}
+						} else {
+							if (this.fn_CheckSkipColumn("C", sColumnId)) {
+								sInsertQuery = sInsertQuery + sReturn  + "      , " + sColumnId.padRight(iLength, ' ') + " /* " + sColumnNm + " */";					
+								
+								if (sColumnId == "REGI_DT") {
+									sInsertQueryDetail = sInsertQueryDetail + sReturn + "      , GETDATE() /* " + sColumnNm + " */";	
+								} else {
+									if (sColumnId == "REGI_ID") {
+										sColumnTemp = "#G_SUID#";
+									} else {
+										if (sColumnId == "COMM_CD") {
+											sColumnTemp = "#G_COMM#";
+										} else if (sColumnId == "WOFH_NO") {
+											sColumnTemp = "ISNULL(#WOFH_NO#, '')";												
+										} else if (sColumnId == "WOFH_ST") {
+											sColumnTemp = "ISNULL(#WOFH_ST#, '')";
+										} else if (sColumnId == "DELE_YN") {
+											sColumnTemp = "ISNULL(#DELE_YN#, '0')";		
+										} else if (sColumnId == "EXPT_YN") {
+											sColumnTemp = "ISNULL(#EXPT_YN#, '0')";		
+										} else if (sColumnId == "EXPT_RE") {
+											sColumnTemp = "ISNULL(#EXPT_RE#, '')";												
+										} else {
+											sColumnTemp = "#" + sColumnId + "#";
+										}
+									}
+									sInsertQueryDetail = sInsertQueryDetail  + sReturn + "      , " + sColumnTemp.padRight(iLength+2, ' ') + " /* " + sColumnNm + " */";					
+								}
+							}
+						}
+					}					
+				}				
+				
+				//쿼리-수정
+				if (this.tab_TableInfo.tab_Page01.form.div_Query.form.chk_Update.value) {
+					if (sUpdateQuery == "") {
+						iQueryIndex++;//쿼리Id 인덱스
+						sUpdateQuery = "    /* " + sUpdateComtQuery + "  */" + sReturn;
+						sUpdateQuery = sUpdateQuery + "    UPDATE " + sTableId + " SET" + sReturn;
+					}
+					
+					if (this.ds_ColumnList.getColumn(iLoop, "S_CHK") == "1") {
+						if (!bUpdate) {
+							if (this.fn_CheckSkipColumn("U", sColumnId)) {
+								if (sPkColumnYn != "PK") {
+									if (sColumnId == "MODI_DT") {
+										sUpdateQuery = sUpdateQuery  + "       , " + sColumnId +  " = GETDATE()"+  "        " + sColumnTemp.padRight(iLength+2, ' ') + " /* " + sColumnNm + " */";	
+									} else {
+										sUpdateQuery = sUpdateQuery  + "        " + sColumnId +  " = " + sColumnTemp.padRight(iLength+2, ' ') + " /* " + sColumnNm + " */" + sReturn;								
+									}
+								}
+								
+								if (sPkColumnYn == "PK") {	
+									if (sColumnId == "COMM_CD") {
+										sColumnTemp = "#G_COMM#";
+									} else {
+										sColumnTemp = "#" + sColumnId + "#";
+									}
+									sUpdateQueryDetail = sUpdateQueryDetail  + "    WHERE " + sColumnId +  " = " + sColumnTemp.padRight(iLength+2, ' ') + " /* " + sColumnNm + " */" + sReturn;
+								}
+								
+								bUpdate = true;//쿼리시작-수정
+							}
+						} else {
+							if (this.fn_CheckSkipColumn("U", sColumnId)) {		
+								if (sPkColumnYn != "PK") {
+									if (sColumnId == "MODI_DT") {
+										sUpdateQuery = sUpdateQuery  + "        , " + sColumnId +  " = GETDATE() /* " + sColumnNm + " */" + sReturn;								
+									} else {
+
+										if (!bUpdateSet) {
+											if (sColumnId == "MODI_ID") {
+												sUpdateQuery = sUpdateQuery  + "          " + sColumnId +  " = #G_SUID# /* " + sColumnNm + " */" + sReturn;	
+											} else {
+												sUpdateQuery = sUpdateQuery  + "          " + sColumnId +  " = " + sColumnTemp.padRight(iLength+2, ' ') + " /* " + sColumnNm + " */" + sReturn;	
+											}
+										} else {
+											//sUpdateQuery = sUpdateQuery + sReturn  + '    <isNotNull col="' + sColumnId + '">'+ sReturn;
+											sUpdateQuery = sUpdateQuery  + "        , " + sColumnId +  " = " + sColumnTemp.padRight(iLength+2, ' ') + " /* " + sColumnNm + " */" + sReturn;
+											//sUpdateQuery = sUpdateQuery  + "    </isNotNull>";											
+										}
+										bUpdateSet = true;
+									}
+								}
+								
+								if (sPkColumnYn == "PK") {
+									//sUpdateQueryDetail = sUpdateQueryDetail + sReturn  + '    <isNotNull col="' + sColumnId + '">'+ sReturn;
+									sUpdateQueryDetail = sUpdateQueryDetail  + "      AND " + sColumnId +  " = " + sColumnTemp.padRight(iLength+2, ' ') + " /* " + sColumnNm + " */" + sReturn;
+									//sUpdateQueryDetail = sUpdateQueryDetail  + "    </isNotNull>";			
+								}
+							}
+						}
+					}					
+				}
+				
+				//쿼리-삭제
+				if (this.tab_TableInfo.tab_Page01.form.div_Query.form.chk_Delete.value) {
+					if (sDeleteQuery == "") {
+						iQueryIndex++;//쿼리Id 인덱스
+						sDeleteQuery = "    /* " + sDeleteComtQuery + " */" + sReturn;
+						sDeleteQuery = sDeleteQuery + "    UPDATE " + sTableId + " SET" + sReturn;
+						sDeleteQuery = sDeleteQuery + "           USED_YN = '0'" + sReturn;
+						sDeleteQuery = sDeleteQuery + "         , DELE_ID = #G_SUID#" + sReturn;
+						sDeleteQuery = sDeleteQuery + "         , DELE_DT = GETDATE()";
+					}
+					
+					if (this.ds_ColumnList.getColumn(iLoop, "S_CHK") == "1") {
+						if (!bDelete) {
+							if (this.fn_CheckSkipColumn("D", sColumnId)) {			
+								if (sPkColumnYn == "PK") {
+									if (sColumnId == "COMM_CD") {
+										sColumnTemp = "#G_COMM#";
+									} else {
+										sColumnTemp = "#" + sColumnId + "#";
+									}
+									sDeleteQueryDetail = sDeleteQueryDetail  + "     WHERE " + sColumnId +  " = " + sColumnTemp.padRight(iLength+2, ' ') + " /* " + sColumnNm + " */" + sReturn;						
+									bDelete = true;//쿼리시작-삭제
+								}
+							}
+						} else {
+							if (this.fn_CheckSkipColumn("D", sColumnId)) {				
+								if (sPkColumnYn == "PK") {
+									sDeleteQueryDetail = sDeleteQueryDetail  + "       AND " + sColumnId +  " = " + sColumnTemp.padRight(iLength+2, ' ') + " /* " + sColumnNm + " */" + sReturn;
+								}
+							}
+						}
+					}				
+				}
+
+			}
+		} // End - For
+		
+		//해당 쿼리 ID의 닫기 구분 추가
+		if (this.ds_ColumnList.getCaseCount("S_CHK == '1'") > 0)  {
+		
+			//쿼리-조회
+			if (this.tab_TableInfo.tab_Page01.form.div_Query.form.chk_Select.value) {
+				sSelectQuery = sSelectQuery + sReturn + "    FROM " + sOwnner + "S.." + sTableId + " " + sTableIdAs + "    /* (테이블) " + sTableNm + " */" + sReturn;		
+				sSelectQuery = sSelectQuery + sSelectQueryDetail;		
+				sSelectQuery = sSelectQuery + sReturn + '    ]]]]><![CDATA[>'; 
+				sSelectQuery = sSelectQuery + sReturn + '    </statement>';
+				sSelectQuery = sSelectQuery + sReturn + '    <input default-name="' + sInDataset + '">';
+				sSelectQuery = sSelectQuery + sReturn + '    </input>';
+				sSelectQuery = sSelectQuery + sReturn + '    <output default-name="' + sOutDataset + '">';
+				sSelectQuery = sSelectQuery + sReturn + '    </output>';
+				sSelectQuery = sSelectQuery + sReturn + '</query>';
+			}		
+
+			//쿼리-저장
+			if (this.tab_TableInfo.tab_Page01.form.div_Query.form.chk_Insert.value) {
+				sInsertQuery = sInsertQuery + sReturn + sInsertQueryDetail;
+				sInsertQuery = sInsertQuery + sReturn + '    )' + sReturn;
+				sInsertQuery = sInsertQuery + sReturn + '    ]]]]><![CDATA[>'; 
+				sInsertQuery = sInsertQuery + sReturn + '    </statement>';
+				sInsertQuery = sInsertQuery + sReturn + '    <input default-name="' + sSaveDataset + '">';
+				sInsertQuery = sInsertQuery + sReturn + '    </input>';
+				sInsertQuery = sInsertQuery + sReturn + '    <output default-name="_none">';
+				sInsertQuery = sInsertQuery + sReturn + '    </output>';
+				sInsertQuery = sInsertQuery + sReturn + '</query>';
+			}	
+			
+			//쿼리-수정
+			if (this.tab_TableInfo.tab_Page01.form.div_Query.form.chk_Update.value) {
+				sUpdateQuery = sUpdateQuery + sUpdateQueryDetail;
+				sUpdateQuery = sUpdateQuery + sReturn + '    ]]]]><![CDATA[>'; 
+				sUpdateQuery = sUpdateQuery + sReturn + '    </statement>';
+				sUpdateQuery = sUpdateQuery + sReturn + '    <input default-name="' + sSaveDataset + '">';
+				sUpdateQuery = sUpdateQuery + sReturn + '    </input>';
+				sUpdateQuery = sUpdateQuery + sReturn + '    <output default-name="_none">';
+				sUpdateQuery = sUpdateQuery + sReturn + '    </output>';
+				sUpdateQuery = sUpdateQuery + sReturn + '</query>';
+			}	
+			
+			//쿼리-삭제
+			if (this.tab_TableInfo.tab_Page01.form.div_Query.form.chk_Delete.value) {
+				sDeleteQuery = sDeleteQuery + sReturn + sDeleteQueryDetail;
+				sDeleteQuery = sDeleteQuery + sReturn + '    ]]]]><![CDATA[>'; 
+				sDeleteQuery = sDeleteQuery + sReturn + '	</statement>';
+				sDeleteQuery = sDeleteQuery + sReturn + '	<input default-name="' + sSaveDataset + '">';
+				sDeleteQuery = sDeleteQuery + sReturn + '	</input>';
+				sDeleteQuery = sDeleteQuery + sReturn + '	<output default-name="_none">';
+				sDeleteQuery = sDeleteQuery + sReturn + '	</output>';
+				sDeleteQuery = sDeleteQuery + sReturn + '</query>';
+			}				
+		}
+		
+		//미리보기 출력
+		if (this.gfn_IsNull(sInsertQuery)) {
+			this.tab_TableInfo.tab_Page01.form.div_Query.form.tab_Query.tpg_q1.form.txt_Query.set_value("");
+		} else {
+			this.tab_TableInfo.tab_Page01.form.div_Query.form.tab_Query.tpg_q1.form.txt_Query.set_value(sInsertHeadQuery+sInsertQuery);
+		}
+		if (this.gfn_IsNull(sUpdateQuery)) {
+			this.tab_TableInfo.tab_Page01.form.div_Query.form.tab_Query.tpg_q2.form.txt_Query.set_value("");
+		} else {		
+			this.tab_TableInfo.tab_Page01.form.div_Query.form.tab_Query.tpg_q2.form.txt_Query.set_value(sUpdateHeadQuery+sUpdateQuery);
+		}
+		if (this.gfn_IsNull(sDeleteQuery)) {
+			this.tab_TableInfo.tab_Page01.form.div_Query.form.tab_Query.tpg_q3.form.txt_Query.set_value("");
+		} else {		
+			this.tab_TableInfo.tab_Page01.form.div_Query.form.tab_Query.tpg_q3.form.txt_Query.set_value(sDeleteHeadQuery+sDeleteQuery);
+		}
+		if (this.gfn_IsNull(sSelectQuery)) {
+			this.tab_TableInfo.tab_Page01.form.div_Query.form.tab_Query.tpg_q4.form.txt_Query.set_value("");	
+		} else {		
+			this.tab_TableInfo.tab_Page01.form.div_Query.form.tab_Query.tpg_q4.form.txt_Query.set_value(sSelectHeadQuery+sSelectQuery);	
+		}
+	}
+}
+
+//컬럼적용
+this.fn_FindTableColumn = function()
+{
+	this.ds_ColumnFindList2.clearData();
+	
+	if (this.ds_TableSch.getRowCount() > 0) {
+		var sTableId = "";
+		var sTabPreNow = "";
+		var sOwnners = "";
+		
+		for (var iLoop=0; iLoop<this.ds_TableSch.getRowCount(); iLoop++) {
+			sTableId = this.ds_TableSch.getColumn(iLoop, "TABLE_ID");
+			sTabPreNow = sTableId.substr(0,4);			
+			sOwnners = sTabPreNow.substr(2,4);
+			
+			if (sOwnners == "RE" || sOwnners == "RM" || sOwnners == "RP") {
+				sOwnners = "RD";
+			} else if (sOwnners == "MT") {
+				sOwnners = "MM";
+			} else if (sOwnners == "HD" || sOwnners == "HE" || sOwnners == "HG" || sOwnners == "HS" || sOwnners == "HU") {
+				sOwnners = "HR";				
+			} else if (sOwnners == "SE") {
+				sOwnners = "SD";		
+			} else if (sOwnners == "QE") {
+				sOwnners = "QM";					
+			}
+			
+			this.fn_TableSchemaInfo(sOwnners, "'" + sTableId + "'");
+		
+		}
+
+		if (this.ds_ColumnFindList2.getRowCount() > 0) {
+			this.fn_ReplaceColumn();
+		}
+	} else {
+		alert("변환할 테이블 정보가 없습니다.");
+		return;
+	}
+		
+};
+
+this.fn_GetOwnner = function(sTableId) {
+	var sTabPreNow = sTableId.substr(0,4);			
+	var sOwnners = sTabPreNow.substr(2,4);
+	
+	if (sOwnners == "RE" || sOwnners == "RM" || sOwnners == "RP") {
+		sOwnners = "RD";
+	} else if (sOwnners == "MT") {
+		sOwnners = "MM";
+	} else if (sOwnners == "SE") {
+		sOwnners = "SD";	
+	} else if (sOwnners == "HD") {
+		sOwnners = "HR";
+	} else if (sOwnners == "QE") {
+		sOwnners = "QM";		
+	}	
+	
+	return sOwnners;
+}
+
+//테이블 스키마정보
+this.fn_TableSchemaInfo = function(sOwnner, sTableIds) {
+
+	this.ds_Where.clearData();
+	this.ds_ColumnFindList.clearData();	
+	this.ds_Where.addRow();
+	this.ds_Where.setColumn(0, "TABLE_ID", sTableIds);
+	var sSOwnner = sOwnner.toLowerCase();
+	
+	this.gfn_InitComService(this);
+
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = sSOwnner + ":M_" + sOwnner.substr(0,2) + "_COLM_SL01";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "REP_COL_LIST2";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = sOwnner;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Where=ds_Where" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_ColumnFindList=ds_ColumnFindList";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+	svcCallObj.isSync = true;//동기식으로 설정할지 여부
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+	
+	var iAddRow = 0;
+	if (this.ds_ColumnFindList.getRowCount() > 0) {
+		for (var iLoop=0; iLoop < this.ds_ColumnFindList.getRowCount(); iLoop++) {
+			iAddRow = this.ds_ColumnFindList2.addRow();
+			this.ds_ColumnFindList2.copyRow(iAddRow, this.ds_ColumnFindList, iLoop);
+		}
+	}
+}
+
+//컬럼명 변경
+this.fn_ReplaceColumn = function() {
+
+	if (this.tab_TableInfo.tabindex == 2) {
+		if (this.ds_MakeInputData.getRowCount() > 0) {
+			var sColumnId = "";
+			for (var iLoop=0; iLoop <this.ds_MakeInputData.getRowCount(); iLoop++) {
+				sColumnId = this.ds_MakeInputData.getColumn(iLoop, "COLUMN_ID");
+				var iFindRow = this.ds_ColumnFindList2.findRow("COLUMN_ID", sColumnId);
+				if (iFindRow > -1) {
+					this.ds_MakeInputData.setColumn(iLoop, "COLUMN_NM", this.ds_ColumnFindList2.getColumn(iFindRow, "COLUMN_NM"));
+					this.ds_MakeInputData.setColumn(iLoop, "MAX_LENGTH", this.ds_ColumnFindList2.getColumn(iFindRow, "DATA_LENGTH"));
+				}
+			}
+		}
+	} else {
+		if (this.ds_MakeGridData.getRowCount() > 0) {
+			var sColumnId = "";
+			for (var iLoop=0; iLoop <this.ds_MakeGridData.getRowCount(); iLoop++) {
+				sColumnId = this.ds_MakeGridData.getColumn(iLoop, "COLUMN_ID");
+				var iFindRow = this.ds_ColumnFindList2.findRow("COLUMN_ID", sColumnId);
+				if (iFindRow > -1) {
+					this.ds_MakeGridData.setColumn(iLoop, "COLUMN_NM", this.ds_ColumnFindList2.getColumn(iFindRow, "COLUMN_NM"));
+					this.ds_MakeGridData.setColumn(iLoop, "MAX_LENGTH", this.ds_ColumnFindList2.getColumn(iFindRow, "DATA_LENGTH"));
+				}
+			}
+		}	
+	}
+}]]></Script>

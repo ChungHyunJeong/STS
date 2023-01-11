@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="cmmTitlePopup" width="512" height="384" titletext="타이틀팝업" onload="form_onload" onkeydown="form_onkeydown">
+    <Layouts>
+      <Layout height="384" width="512">
+        <Div id="divForm" taborder="1" left="0" top="44" right="0" bottom="0" async="false"/>
+        <Div id="div_PopupTitle" taborder="1" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Close" taborder="0" text="닫기" top="9" width="70" height="26" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+              <Static id="sta_PopupTitle" taborder="1" left="20" top="10" height="24" cssclass="sta_WF_PopupTitle" width="300"/>
+              <Button id="btn_Print" taborder="2" text="인쇄" top="9" width="70" right="88" visible="false" cssclass="bt_TF_Print" onclick="btn_Print_onclick" height="27"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  컨설팅 표준화 작업
+*  @MenuPath    cmm > cmmPopup.xfdl (공통 팝업페이지)
+*  @FileName 	cmmPopup.xfdl 
+*  @Creator 	consulting
+*  @CreateDate 	2017.10.19
+*  @Desction         스크립트 표준 및 주석 표준 정의
+************** 소스 수정 이력 ***************************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2017.03.09     	consulting 	                최초 생성 
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.fvComPopPrgmId = "";//타이틀팝업의 프로그램ID
+
+/***********************************************************************************************
+* FORM EVENT 영역(onload)
+/***********************************************************************************************/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	//this.gfn_FormOnLoad(this); //초기화[필수]
+	//trace("paramTitle : " + this.getOwnerFrame().paramTitle);	
+	//trace("paramUrl : " + this.getOwnerFrame().paramUrl);	
+
+	//타이틀세팅
+	//if( !this.gfnIsNull(this.getOwnerFrame().paramTitle)){
+	//	this.set_titletext(this.getOwnerFrame().paramTitle);
+	//}
+	//divForm url 세팅
+	if( !this.gfn_IsNull(this.getOwnerFrame().paramUrl)){
+		
+		this.fvComPopPrgmId = this.getOwnerFrame().PrgmId;//타이틀팝업의 프로그램ID
+		
+		this.divForm.set_url(this.getOwnerFrame().paramUrl);
+		
+		var sWofhNo = this.getOwnerFrame().paramWofhNo;//결재PID
+		if (!this.gfn_IsNull(sWofhNo)) {
+			this.divForm.form.fn_ComBtnSearch(sWofhNo);//조회
+		}
+		
+		if(this.getOwnerFrame().ParamPrtYn=="Y"){
+			this.div_PopupTitle.form.btn_Print.set_visible(true);
+		}
+	}
+	
+	//팝업 타이틀 설정
+	if( !this.gfn_IsNull(this.getOwnerFrame().paramTitle)){
+		this.div_PopupTitle.form.sta_PopupTitle.set_text(this.getOwnerFrame().paramTitle);
+	}	
+
+	//trace(this.getOwnerFrame().getOffsetHeight() + "/" +  this.getOwnerFrame().getOffsetWidth());
+	
+	//this.set_width(this.getOwnerFrame().getOffsetWidth());
+	//this.set_height(this.getOwnerFrame().getOffsetHeight())
+	
+	//화면해상도 체크해서 팝업사이즈 재조정
+	var orgWidth = this.getOffsetWidth();//원래화면 너비
+	var orgHeight = this.getOffsetHeight();//원래화면 높이
+	var nWidth = nexacro.getApplication().mainframe.width;//화면해상도 너비
+	var nHeight = nexacro.getApplication().mainframe.height;//화면해상도 높이
+
+	if (orgWidth > nWidth || orgHeight > nHeight) {
+		this.getOwnerFrame().set_width(nWidth);
+		this.getOwnerFrame().set_height(nHeight);
+		this.set_width(nWidth);
+		this.set_height(nHeight);	
+		this.getOwnerFrame().set_left(0);
+		this.getOwnerFrame().set_top(0);		
+		this.resetScroll();
+	}
+	
+};
+
+/************************************************************************************************
+* TRANSACTION 서비스 호출 처리
+************************************************************************************************/
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분
+ ************************************************************************************************/
+
+ /************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+ 
+ /************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/
+
+this.div_PopupTitle_btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_PopClose();
+};
+
+/**
+ * @description 각 화면에서 디버그창을 호출할 수 있도록 단축키 지정
+*/
+this.form_onkeydown = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{
+	// 공통 키다운 이벤트 호출
+	this.gfn_Onkeydown(obj, e);
+};
+this.btn_Print_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.divForm.form.fn_ComBtnPrint();//인쇄
+};
+]]></Script>
+  </Form>
+</FDL>

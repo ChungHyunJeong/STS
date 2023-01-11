@@ -1,0 +1,671 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="DEPTCODE" width="800" height="463" titletext="부서정보" scrollbartype="none" onclose="fn_FormClose" onload="fn_FormOnload">
+    <Layouts>
+      <Layout height="463" width="800">
+        <Div id="div_Search" taborder="0" left="12" top="50" height="38" cssclass="div_WF_Search" right="12" formscrollbartype="none none">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="부서명" left="16" top="6" width="80" height="26" cssclass="sta_WF_SLabel"/>
+              <Edit id="edt_DepmNm" taborder="1" left="96" top="6" width="200" height="24" onkeydown="div_Search_edt_DepmNm_onkeydown" maxlength="50"/>
+              <Static id="sta_DepmDd" taborder="2" text="기준년월" left="571" top="6" width="80" height="26" cssclass="sta_WF_SLabel" visible="true"/>
+              <Calendar id="cal_DepmDd" taborder="3" left="651" top="6" width="113" height="24" dateformat="yyyy-MM" visible="true" onchanged="div_Search_cal_DepmDd_onchanged" editformat="yyyy-MM" popuptype="none" ondropdown="div_Search_cal_DepmDd_ondropdown"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="grd_Master" taborder="1" top="98" left="12" autofittype="col" oncelldblclick="grd_Master_oncelldblclick" binddataset="ds_Depm" oncellclick="grd_Master_oncellclick" bottom="14" width="324">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="541"/>
+              </Columns>
+              <Rows>
+                <Row size="26" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="부서명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:DEPM_NM" displaytype="treeitemcontrol" treelevel="bind:LEV" treestartlevel="1" edittype="tree"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Grid id="grd_Detail" taborder="2" top="98" right="12" left="350" autofittype="col" binddataset="ds_DepmDtl" bottom="14" oncelldblclick="grd_Detail_oncelldblclick" cellsizingtype="col" selecttype="multiarea">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="50"/>
+                <Column size="100"/>
+                <Column size="280"/>
+              </Columns>
+              <Rows>
+                <Row size="26" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="NO"/>
+                <Cell col="1" text="부서코드"/>
+                <Cell col="2" text="부서명"/>
+              </Band>
+              <Band id="body">
+                <Cell expr="currow+1" textAlign="center"/>
+                <Cell col="1" text="bind:DEPM_CD" textAlign="center"/>
+                <Cell col="2" text="bind:DEPM_NM"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Div id="div_PopupTitle" taborder="3" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Close" taborder="0" text="닫기" top="9" width="70" height="26" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+              <Static id="sta_PopupTitle" taborder="1" text="부서정보" left="20" top="10" width="300" height="24" cssclass="sta_WF_PopupTitle"/>
+              <Button id="btn_Search" taborder="2" text="조회" top="8" width="65" right="161" visible="true" cssclass="bt_WF_PopupSearch" height="28" onclick="div_PopupTitle_btn_Search_onclick"/>
+              <Button id="btn_Choice" taborder="3" text="선택" top="8" width="65" right="90" visible="true" cssclass="bt_WF_PopupSelect" height="28" onclick="div_PopupTitle_btn_Choice_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="DEDH_DD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Depm">
+        <ColumnInfo>
+          <Column id="LEV" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="DEDH_DD" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="BFDP_NM" type="STRING" size="256"/>
+          <Column id="DEPS_NM" type="STRING" size="256"/>
+          <Column id="DEPE_NM" type="STRING" size="256"/>
+          <Column id="DEPM_GU" type="STRING" size="256"/>
+          <Column id="APPO_CD" type="STRING" size="256"/>
+          <Column id="DEPM_LV" type="STRING" size="256"/>
+          <Column id="TDEP_CD" type="STRING" size="256"/>
+          <Column id="ACUM_CD" type="STRING" size="256"/>
+          <Column id="SAUM_CD" type="STRING" size="256"/>
+          <Column id="PALM_CD" type="STRING" size="256"/>
+          <Column id="TMSU_ID" type="STRING" size="256"/>
+          <Column id="DEPM_PATH" type="STRING" size="256"/>
+          <Column id="SORT" type="STRING" size="256"/>
+          <Column id="DEPM_CDPH" type="STRING" size="256"/>
+          <Column id="DEPM_PH" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_DepmDtl">
+        <ColumnInfo>
+          <Column id="LEV" type="STRING" size="256"/>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="DEDH_DD" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="BFDP_NM" type="STRING" size="256"/>
+          <Column id="DEPS_NM" type="STRING" size="256"/>
+          <Column id="DEPE_NM" type="STRING" size="256"/>
+          <Column id="DEPM_GU" type="STRING" size="256"/>
+          <Column id="APPO_CD" type="STRING" size="256"/>
+          <Column id="DEPM_LV" type="STRING" size="256"/>
+          <Column id="TDEP_CD" type="STRING" size="256"/>
+          <Column id="ACUM_CD" type="STRING" size="256"/>
+          <Column id="SAUM_CD" type="STRING" size="256"/>
+          <Column id="PALM_CD" type="STRING" size="256"/>
+          <Column id="TMSU_ID" type="STRING" size="256"/>
+          <Column id="DEPM_PATH" type="STRING" size="256"/>
+          <Column id="SORT" type="STRING" size="256"/>
+          <Column id="DEPM_PH" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Fa100">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : 
+*  @화면설명 : 부서정보
+*  @시스템명 : (SM) 시스템
+*  @작성자   : 최석목
+*  @작성일   : 2021.01.27
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.01.27     	    최석목 	           최초 생성 
+*  2022.08.30           박지용                기준일자를 부모창에서 받도록 수정
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * 1. Form Include 선언 영역
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+this.fvAuthYn = "";//[부모창파라메타] 권한체크여부
+this.fvDepmDdViewYn = "";//[부모창파라메타] 기준일자 View여부
+this.fvDepmNm = "";//[부모창파라메타] 부서명
+this.fvDepmDd = "";//[부모창파라메타] 기준일자
+
+/***********************************************************************************************
+ * 3. Form 이벤트 영역
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 3.1. Form Onload 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	//부모창 파라메타 처리
+	this.fvDepmDdViewYn = this.getOwnerFrame().DepmDdViewYn;//[부모창파라메타] 기준일자 View여부
+	this.fvDepmNm = this.getOwnerFrame().DepmNm;//[부모창파라메타] 부서명	
+	this.fvComPrgmId = this.getOwnerFrame().PrgmId;//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+	this.fvAuthYn = this.getOwnerFrame().AuthYn;//[부모창파라메타] 권한체크여부
+	this.fvDepmDd = this.getOwnerFrame().DepmDd;//[부모창파라메타] 기준일자
+
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.2. Form [공통] 초기설정 함수 - 필수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.gfn_SetGrid(this.grd_Master);//[공통]그리드 이벤트 설정
+	this.gfn_SetGrid(this.grd_Detail);//[공통]그리드 이벤트 설정
+	
+
+	
+	
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.3. Form [업무] 초기설정 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormBizInit = function() 
+{
+	//[공통] 날짜설정
+	var sNowDay = this.gfn_GetCommDate("toDay");//현재일자		
+	this.div_Search.form.cal_DepmDd.set_value(sNowDay);
+	
+	if (this.fvDepmDdViewYn == "Y") {
+		this.div_Search.form.sta_DepmDd.set_visible(true);
+		this.div_Search.form.cal_DepmDd.set_visible(true);
+		this.div_Search.form.cal_DepmDd.set_value(this.fvDepmDd);
+	}
+	
+	//부모창에서 전달 받은 파라메터 세팅
+	if (!this.gfn_IsNull(this.fvDepmNm)) {
+		this.div_Search.form.edt_DepmNm.set_value(this.fvDepmNm);
+	}
+	
+	var objCondList = ["FA100|ds_Fa100"];
+	//공통코드 설정함수 호출				   
+	this.gfn_GetCommCode(this, objCondList, "");
+	
+	
+	/*
+	  일시적으로 기준년월 은
+	      재무팀, IT사업부만 보이게 함
+	*/
+	var findRow = this.ds_Fa100.findRowExpr("CODM_CD == '"+this.gfn_GetSessionValue("DEPM_CD")+"'");
+	trace("findRow == " + findRow + "    " +  this.gfn_GetSessionValue("DEPM_CD"));
+	
+	if(findRow > -1){
+		this.div_Search.form.sta_DepmDd.set_visible(true);
+		this.div_Search.form.cal_DepmDd.set_visible(true);
+	}else{
+		this.div_Search.form.sta_DepmDd.set_visible(false);
+		this.div_Search.form.cal_DepmDd.set_visible(false);
+	}
+	
+	//조직조회
+	this.fn_Search();
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.4. Form OnClose 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/***********************************************************************************************
+ * 4. [화면] 버튼 이벤트 영역
+ -----------------------------------------------------------------------------------------------
+   4.1.조회 : btn_Search_onclick
+   4.2.선택 : btn_Choice_onclick
+   4.3.닫기 : fn_Close
+ ***********************************************************************************************/
+
+/*---------------------------------------------------------------------------------------------
+ * 4.1. 조회 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+	this.ds_DepmDtl.clearData();
+	this.ds_DepmDtl.filter("");
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "DEPM_NM", this.div_Search.form.edt_DepmNm.value);
+	this.ds_Input.setColumn(0, "DEDH_DD", this.div_Search.form.cal_DepmDd.value.substr(0,6));	
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "hr:M_HR_DEPM_SL00";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "DTL_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= this.G_SV_HR;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "ds_DepmDtl=ds_Depm";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);		
+};
+
+/*---------------------------------------------------------------------------------------------
+ *  4.2. 선택 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Choice_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+	var iRow = this.ds_DepmDtl.rowposition;
+	
+	if (iRow > -1) {	
+	
+		this.fn_SelectRow(this.ds_DepmDtl, iRow);
+
+	} else {
+		this.gfn_Alert("SM046");//선택된 내용이 없습니다.
+		return;	
+	}
+};
+
+/*---------------------------------------------------------------------------------------------
+ *  4.3. 닫기 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_PopupTitle_btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_PopClose();
+};
+
+/***********************************************************************************************
+ * 5. [조회영역] 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 5.1. [조회영역-공통] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.1.1. [조회영역-팝업버튼] 
+  ---------------------------------------------------------------------------------------------*/
+this.fn_SbpBtn_Do01 = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 5.2. [조회영역-업무] 이벤트 영역
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ * 5.2.1. [조회영역-부서명] Key 다운 이벤트 
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_DepmNm_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	//엔터키
+	if (e.keycode == 13) {
+		this.div_PopupTitle_btn_Search_onclick ();//조회
+	}
+
+};
+
+/***********************************************************************************************
+ * 6. [컴포넌트] 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 6.1. [Tree-그리드] 더블 클릭 이벤트
+ ***********************************************************************************************/ 
+this.grd_Master_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if (e.row > -1) {
+
+		this.fn_SelectRow(this.ds_Depm, e.row);
+	}
+};  
+
+/***********************************************************************************************
+ * 6.2. [상세-그리드] 더블 클릭 이벤트
+ ***********************************************************************************************/ 
+this.grd_Detail_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if (e.row > -1) {	
+	
+		this.fn_SelectRow(this.ds_DepmDtl, e.row);
+	}
+};
+
+/***********************************************************************************************
+ * 6.3. [Tree-그리드] 클릭 이벤트
+ ***********************************************************************************************/ 
+this.grd_Master_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	var iRow = this.ds_Depm.rowposition;
+	var sDepmCd = this.ds_Depm.getColumn(iRow, "DEPM_CD");
+	this.ds_DepmDtl.filter("");
+	this.ds_DepmDtl.clearData();
+	this.ds_DepmDtl.copyData(this.ds_Depm);
+	this.ds_DepmDtl.filter("TDEP_CD == '" + sDepmCd + "'");
+	this.ds_DepmDtl.insertRow(0);
+	this.ds_DepmDtl.copyRow(0, this.ds_Depm, iRow);
+};
+
+/***********************************************************************************************
+ * 6.4. 선택된 내역 부모창으로 리턴
+ ***********************************************************************************************/ 
+this.fn_SelectRow = function(objDs, iRow)
+{
+   if (objDs.getRowCount() < 1) {
+      this.gfn_Alert("SM046");//선택된 내용이 없습니다.
+      return;
+   }
+   
+   if (iRow > -1) {   
+      var sDEPM_CD = objDs.getColumn(iRow, "DEPM_CD"); //조직코드
+       var sDEPM_NM = objDs.getColumn(iRow, "DEPM_NM"); //조직명
+      var sBFDP_NM = objDs.getColumn(iRow, "BFDP_NM"); //조직명(변경전)
+      var sDEPS_NM = objDs.getColumn(iRow, "DEPS_NM"); //조직명(약어)
+      var sDEPE_NM = objDs.getColumn(iRow, "DEPE_NM"); //조직명(영어)
+      var sDEPM_GU = objDs.getColumn(iRow, "DEPM_GU"); //조직구분(HR110)      
+      var sAPPO_CD = objDs.getColumn(iRow, "APPO_CD"); //조직변경구분(HR115)
+      var sDEPM_LV = objDs.getColumn(iRow, "DEPM_LV"); //조직레벨
+      var sTDEP_CD = objDs.getColumn(iRow, "TDEP_CD"); //상위조직코드
+      var sACUM_CD = objDs.getColumn(iRow, "ACUM_CD"); //회계단위
+      var sSAUM_CD = objDs.getColumn(iRow, "SAUM_CD"); //사업장코드
+      var sPALM_CD = objDs.getColumn(iRow, "PALM_CD"); //손익코드
+      var sTMSU_ID = objDs.getColumn(iRow, "TMSU_ID"); //조직장사번
+   
+      //권한체크인경우
+      if (this.fvAuthYn == "Y") {
+         //조회권한정보체크
+         var authObj = this.gfn_CheckDepmAuth(this.fvComPrgmId);
+         var sChkSERA_CD = authObj.SERA_CD;//조회구분
+         var sChkDEPM_CD = authObj.DEPM_CD;//부서코드
+         var sChkTMDE_CD = authObj.TMDE_CD;//부서팀코드
+         
+         var sDEPM_PH = objDs.getColumn(iRow, "DEPM_PH");//부서경로
+         //trace("sChkSERA_CD --> " + sChkSERA_CD);
+         //trace("sDEPM_PH --> " + sDEPM_PH);
+         
+         //조회구분에 따른 부서코드 검색 제한         
+         //조회구분-본부, 사업부
+         if (sChkSERA_CD == "M" || sChkSERA_CD == "B") {
+             
+            var sDepmMa = this.gfn_GetSessionValue("DEPM_MA");//겸직부서정보
+            
+            
+
+            //겸직부서 정보가 있으면
+            if (sDepmMa.indexOf(",") > 0) {
+            
+               var arrDepm = sDepmMa.split(",");
+               var iCheckCnt = 0;
+               
+               for (var iLoop=0; iLoop < arrDepm.length; iLoop++) {
+                  sChkDEPM_CD = arrDepm[iLoop];
+                  
+                  if (sDEPM_PH.indexOf(sChkDEPM_CD) >= 0 ) {                                 
+                     iCheckCnt++;
+                  } 
+               }
+               
+               if (iCheckCnt < 1) {                                 
+                  var arrMsgArg = ["부서코드"];
+                  this.gfn_Alert("SM082", arrMsgArg);//[&ITM0] 조회권한이 없습니다.                   
+                  return;
+               }                
+            } else {             
+               if (sDEPM_PH.indexOf(sChkDEPM_CD) < 0 ) {            
+                  var arrMsgArg = ["부서코드"];
+                  this.gfn_Alert("SM082", arrMsgArg);//[&ITM0] 조회권한이 없습니다.    
+                  return;
+               }
+            }
+         } else {
+            //조회구분-전체 가 아니면
+            if (sChkSERA_CD != "T") {
+            
+               if (sChkSERA_CD == "C") { //조회구분-팀이면
+                  var sTmdeCd = sChkTMDE_CD;//로그인사용자 팀코드
+                  var sDepmMa = this.gfn_GetSessionValue("DEPM_MA");//겸직부서정보                  
+                  
+                  //trace("sTmdeCd --> " + sTmdeCd);
+                  
+                  //겸직부서 정보가 있으면
+                  if (sDepmMa.indexOf(",") > 0) {
+                     var iCheckCnt = 0;
+                     var arrDepm = sDepmMa.split(",");
+                     
+                     for (var iLoop=0; iLoop < arrDepm.length; iLoop++) {
+                        sTmdeCd = arrDepm[iLoop];
+
+                        if (sDEPM_PH.indexOf(sTmdeCd) >= 0 ) {                                 
+                           iCheckCnt++;
+                        }   
+                     }
+                     
+                     if (iCheckCnt < 1 ) {                                 
+                        var arrMsgArg = ["부서코드"];
+                        this.gfn_Alert("SM082", arrMsgArg);//[&ITM0] 조회권한이 없습니다.                   
+                        return;
+                     }   
+                        
+                  } else {
+                     if (sDEPM_PH.indexOf(sTmdeCd) < 0 ) {                                 
+                        var arrMsgArg = ["부서코드"];
+                        this.gfn_Alert("SM082", arrMsgArg);//[&ITM0] 조회권한이 없습니다.                   
+                        return;
+                     }                  
+                  }                  
+                  
+               } else {
+                  var sLognDepmCd = this.gfn_GetSessionValue("DEPM_CD");//로그인사용자 부서코드
+                  var sDepmMa = this.gfn_GetSessionValue("DEPM_MA");//겸직부서정보
+
+                  //겸직부서 정보가 있으면
+                  if (sDepmMa.indexOf(",") > 0) {
+                     var iCheckCnt = 0;
+                     var arrDepm = sDepmMa.split(",");
+                     
+                     for (var iLoop=0; iLoop < arrDepm.length; iLoop++) {
+                        sLognDepmCd = arrDepm[iLoop];
+
+                        if (sDEPM_PH.indexOf(sLognDepmCd) >= 0 ) {                                 
+                           iCheckCnt++;
+                        }   
+                     }
+                     
+                     if (iCheckCnt < 1 ) {                                 
+                        var arrMsgArg = ["부서코드"];
+                        this.gfn_Alert("SM082", arrMsgArg);//[&ITM0] 조회권한이 없습니다.                   
+                        return;
+                     }   
+                        
+                  } else {
+                     if (sDEPM_PH.indexOf(sLognDepmCd) < 0 ) {                                 
+                        var arrMsgArg = ["부서코드"];
+                        this.gfn_Alert("SM082", arrMsgArg);//[&ITM0] 조회권한이 없습니다.                   
+                        return;
+                     }                  
+                  }
+               }
+               
+            }
+         }      
+      }
+      
+      /*
+      부모창으로 리턴값은 문자열로만 가능
+      (문자열) 리턴값을 "JSONText" 사용해서 리턴 : 부모창에서 
+      var arrRtnVal = eval(rtnValue);      
+      arrRtnVal.SYST_ID
+      */
+      rtnValue = "({" +
+                  ' DEPM_CD:"' + sDEPM_CD + '"' +
+                  ',DEPM_NM:"' + sDEPM_NM + '"' +
+                  ',BFDP_NM:"' + sBFDP_NM + '"' +
+                  ',DEPS_NM:"' + sDEPS_NM + '"' +
+                  ',DEPE_NM:"' + sDEPE_NM + '"' +
+                  ',DEPM_GU:"' + sDEPM_GU + '"' +
+                  ',APPO_CD:"' + sAPPO_CD + '"' +
+                  ',DEPM_LV:"' + sDEPM_LV + '"' +
+                  ',TDEP_CD:"' + sTDEP_CD + '"' +                     
+                  ',ACUM_CD:"' + sACUM_CD + '"' +
+                  ',SAUM_CD:"' + sSAUM_CD + '"' +
+                  ',PALM_CD:"' + sPALM_CD + '"' +
+                  ',TMSU_ID:"' + sTMSU_ID + '"' +            
+               "})"; 
+               
+      this.gfn_PopClose(rtnValue);
+   } else {
+      this.gfn_Alert("SM046");//선택된 내용이 없습니다.
+      return;   
+   }
+};
+
+/***********************************************************************************************
+ * 7. [서비스] CallBack 함수 처리부분
+ ***********************************************************************************************/
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST_SEARCH": //조회		
+			if (this.ds_Depm.getRowCount() > 0) {
+				this.grd_Master.setTreeStatus(0,true);
+			}
+			
+			//부모창에서 전달 받은 데이터가 있으면 상세조회
+			if (!this.gfn_IsNull(this.fvDepmNm)) {
+				this.div_PopupTitle_btn_Search_onclick();
+			}
+			break;
+		case "DTL_SEARCH": //상세조회
+		    break;
+	}
+};
+
+/***********************************************************************************************
+ * 8. [팝업] CallBack 함수 처리부분
+      strId : 팝업호출시 지정한 팝업ID
+	  rtnValue : 팝업창에서 close시 지정한 반환값
+      주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+};
+
+/***********************************************************************************************
+ * 9. [메세지] CallBack 함수 처리부분
+ ***********************************************************************************************/
+/**
+ * @description 메세지 CallBack 함수
+*/
+this.fn_MsgCallback = function (strId, strVal)
+{
+
+};
+
+/***********************************************************************************************
+ * 10. [사용자함수]
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.1. [사용자함수] Tree 조회
+ ***********************************************************************************************/ 
+this.fn_Search = function()
+{ 
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+	this.ds_Depm.clearData();	
+	this.ds_DepmDtl.clearData();
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "DEPM_NM", "");
+	this.ds_Input.setColumn(0, "DEDH_DD", this.div_Search.form.cal_DepmDd.value.substr(0,6));	
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "hr:M_HR_DEPM_SL00";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "MST_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= this.G_SV_HR;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "ds_Depm=ds_Depm";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+} 
+
+this.div_Search_cal_DepmDd_onchanged = function(obj:nexacro.Calendar,e:nexacro.ChangeEventInfo)
+{
+	this.fn_Search()
+};
+
+this.div_Search_cal_DepmDd_ondropdown = function(obj:nexacro.Calendar,e:nexacro.EventInfo)
+{
+	this.gfn_CallYmCalendar(this, "this.div_Search.form.cal_DepmDd", "fn_YmCallBack");	
+};
+]]></Script>
+  </Form>
+</FDL>

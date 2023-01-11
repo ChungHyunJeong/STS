@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.0">
+  <Form id="ref04_02" width="400" height="300" titletext="팝업2" onload="form_onload">
+    <Layouts>
+      <Layout height="300" mobileorientation="landscape" width="400">
+        <Grid id="grd00" taborder="0" left="0" top="142" height="104" width="380"/>
+        <Button id="btn00" taborder="1" text="닫기" left="104" top="255" width="88" height="25" onclick="btn00_onclick"/>
+        <Button id="btn01" taborder="2" text="취소" left="200" top="255" width="88" height="25" onclick="btn01_onclick"/>
+        <Static id="sta00" taborder="3" text="팝업2" left="38" top="57" width="254" height="18"/>
+        <Edit id="edt00" taborder="4" left="245" top="80" width="110" height="26"/>
+        <Edit id="edt01" taborder="5" left="245" top="114" width="110" height="26"/>
+        <Static id="sta01" taborder="6" text="파라미터 수신" left="36" top="75" width="108" height="33"/>
+        <Static id="sta02" taborder="7" text="paramCode :" left="158" top="80" width="80" height="26"/>
+        <Static id="sta03" taborder="8" text="paramNum :" left="158" top="114" width="80" height="26"/>
+        <Static id="sta05" taborder="9" text="여백 20" width="227" height="20" background="green" left="100" top="280" visible="false"/>
+        <Static id="sta04" taborder="10" text="여백&#13;&#10;20" top="27" width="20" height="178" background="green" left="380" visible="false"/>
+        <Div id="divSearch" taborder="11" left="0" top="0" height="43" cssclass="div_WF_SearchBg" width="380">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  script 표준
+*  @MenuPath    샘플 > script 표준
+*  @FileName 	ref00.xfdl 
+*  @Creator 	공통팀
+*  @CreateDate 	2018.05.01
+*  @Desction    스크립트 표준 및 주석 표준 정의
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2018.05.01     	공통팀 	                최초 생성 
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * include 영역
+ ************************************************************************************************/
+include "lib::libCommon.xjs";
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.fvTest = "폼변수";	// 폼변수는 반드시 this.변수명으로 기술한다.
+
+/************************************************************************************************
+ * FORM EVENT 영역(onload,fnClose 및 기타 폼관련 이벤트)
+ ************************************************************************************************/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.gfnFormOnLoad(this);
+	
+	var paramCode = this.getOwnerFrame().paramCode;
+	var paramNum = this.getOwnerFrame().paramNum;
+	
+	this.edt00.set_value(paramCode);
+	this.edt01.set_value(paramNum);
+};
+
+/************************************************************************************************
+ * CALLBACK 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/**
+ * @description Transaction CallBack 함수(선택)
+*/
+this.fnCallback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}
+	switch(sSvcId)
+	{
+		case "search":
+			break;
+	}
+};
+
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/
+
+
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	/* open창 제약사항
+		창닫기시
+		1. PopupCallback을 지원하지 않음
+		2. PopupCallback을 호출하지 못함으로 반환값을 전달 할 수 없음
+	*/
+	this.gfnPopClose();
+};
+
+this.btn01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	/* open창 제약사항
+		창닫기시
+		1. PopupCallback을 지원하지 않음
+		2. PopupCallback을 호출하지 못함으로 반환값을 전달 할 수 없음
+	*/
+	this.gfnPopClose();
+};
+
+]]></Script>
+  </Form>
+</FDL>

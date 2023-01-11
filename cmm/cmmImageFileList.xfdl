@@ -1,0 +1,1138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="cmmImageFileList" width="900" height="300" titletext="이미지파일정보" onload="fn_FormOnload" onclose="fn_FormClose">
+    <Layouts>
+      <Layout height="300" width="900">
+        <Button id="btn_AddFile" taborder="1" text="파일추가" top="5" width="90" height="24" visible="true" right="173" onclick="btn_AddFile_onclick" cssclass="bt_WF_InputArea_White_Plus" enable="false"/>
+        <Button id="btn_DelFile" taborder="0" text="파일삭제" top="5" width="90" height="24" visible="true" right="80" onclick="btn_DelFile_onclick" cssclass="bt_WF_InputArea_White_Minus" enable="false"/>
+        <Button id="btn_Save" taborder="2" text="저장" top="5" width="90" height="24" visible="false" right="266" cssclass="bt_WF_InputArea_Blue" onclick="btn_Save_onclick"/>
+        <Button id="btn_Close" taborder="3" text="닫기" top="4" width="70" height="26" right="8" cssclass="bt_WF_PopupClose2" onclick="btn_Close_onclick"/>
+        <Grid id="grd_CmmFileList" taborder="4" left="0" top="0" bottom="0" right="0" binddataset="ds_Master10" autosizingtype="none" autofittype="col" oncellclick="grd_CmmFileList_oncellclick" autoenter="select" autoupdatetype="comboselect" cellsizingtype="col" selecttype="cell" ondrop="grd_CmmFileList_ondrop">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="20"/>
+                <Column size="25"/>
+                <Column size="25"/>
+                <Column size="160"/>
+                <Column size="24"/>
+                <Column size="130"/>
+                <Column size="190"/>
+                <Column size="330"/>
+                <Column size="70"/>
+                <Column size="100"/>
+                <Column size="60"/>
+              </Columns>
+              <Rows>
+                <Row size="26" band="head"/>
+                <Row size="140"/>
+              </Rows>
+              <Band id="head">
+                <Cell/>
+                <Cell col="1" text="No."/>
+                <Cell col="2" text="선택"/>
+                <Cell col="3" colspan="2" text="이미지"/>
+                <Cell col="5" text="파일종류" cssclass="essential"/>
+                <Cell col="6" text="파일명"/>
+                <Cell col="7" text="비고"/>
+                <Cell col="8" text="등록자"/>
+                <Cell col="9" text="등록일시"/>
+                <Cell col="10" text="파일보기"/>
+              </Band>
+              <Band id="body">
+                <Cell cssclass="expr:comp.parent.gfn_Decode(crudType, &quot;I&quot;,&quot;cell_WF_Insert&quot;, &quot;U&quot;,&quot;cell_WF_Modify&quot;, &quot;D&quot;,&quot;cell_WF_Delete01&quot;, &quot;&quot;)"/>
+                <Cell col="1" text="bind:PICH_SE" textAlign="center"/>
+                <Cell col="2" text="bind:S_CHK" displaytype="checkboxcontrol" edittype="checkbox" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                <Cell col="3" text="bind:FILE_UL" displaytype="imagecontrol" imagestretch="fit"/>
+                <Cell col="4" expandsize="24" expandshow="show" cursor="pointer"/>
+                <Cell col="5" displaytype="combotext" edittype="combo" combodataset="ds_Film" combocodecol="FILM_CD" combodatacol="FILM_NM" text="bind:ATTA_CD"/>
+                <Cell col="6" text="bind:FILE_NM"/>
+                <Cell col="7" displaytype="textareacontrol" edittype="textarea" text="bind:REMK_NM" textareamaxlength="1000" verticalAlign="middle" padding="0px"/>
+                <Cell col="8" textAlign="center" text="bind:REGI_NM"/>
+                <Cell col="9" textAlign="center" text="bind:REGI_DT"/>
+                <Cell col="10" displaytype="buttoncontrol" edittype="button" text="Down" cursor="pointer"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : cmmImageFileList
+*  @화면설명 : 파일정보
+*  @시스템명 : (SM) 시스템
+*  @작성자   : 최석목
+*  @작성일   : 2021.08.18
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.08.18     	    최석목 	           최초 생성 
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * 1. Form Include 선언 영역
+ ************************************************************************************************/
+ 
+ /************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvFilePath = "temp";//파일경로(업무별)
+this._vFiles_idx = 0;
+this._vFiles = [];
+this.oCallFormId;//호출한 화면ID
+this.fvCallBackFunc = "";//호출할 콜백함수
+
+this.fvFileCheckYn = false;//첨부파일종류 체크유무
+
+//팝업화면용 변수
+this.fvPRGM_ID = "";//프로그램ID
+this.fvPICH_NO = "";//관리번호
+
+/***********************************************************************************************
+ * 3. Form 이벤트 영역
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 3.1. Form Onload 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.2. Form [공통] 초기설정 함수 - 필수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.gfn_SetGrid(this.grd_CmmFileList);//[공통]그리드 이벤트 설정
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.3. Form [업무] 초기설정 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormBizInit = function() 
+{
+	//[업무] 일반콤보조회
+	//this.fn_ComboSearch();
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.4. Form OnClose 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/*---------------------------------------------------------------------------------------------
+ * 3.5. Form [업무] 일반콤보 조회 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_ComboSearch = function() 
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "FILM_GU", "H");
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sm:M_SM_FILM_SL00";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "COMBO_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_SM;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Film=ds_Film";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+}
+
+/************************************************************************************************
+* TRANSACTION 서비스 호출 처리
+************************************************************************************************/
+
+
+/************************************************************************************************
+ * CALLBACK 처리부분(Transaction)
+ ************************************************************************************************/
+/**
+ * @description Transaction CallBack 함수
+*/
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "FILE_SEARCH": //조회		
+			this.ds_Master10.addColumn("S_CHK", "string");
+			this.ds_Master10.addColumn("uploadYn", "string");		
+			this.ds_Master10.addColumn("crudType", "string");
+			this.ds_Master10.addColumn("CHECK_FILE_NM", "string");
+			
+			this.ds_Master10.set_enableevent(false);
+			if (this.ds_Master10.getRowCount() > 0) {
+				for (var iLoop = 0; iLoop<this.ds_Master10.getRowCount(); iLoop++) {
+					var sFILE_EL = this.ds_Master10.getColumn(iLoop, "FILE_EL");
+					var sFILE_ID = this.ds_Master10.getColumn(iLoop, "FILE_ID");
+					var sEncode = encodeURI(sFILE_ID.replace(/\+/,"%2B"));
+					this.ds_Master10.setColumn(iLoop, "FILE_UL", sFILE_EL + sEncode);
+					this.ds_Master10.setRowType(iLoop, Dataset.ROWTYPE_NORMAL);
+				}
+			}
+			this.ds_Master10.set_enableevent(true);
+
+			//콜백함수가 있으면
+			if (!this.gfn_IsNull(this.fvCallBackFunc)) {
+				this.lookupFunc(this.fvCallBackFunc).call();
+			}
+			
+			break;
+			
+		case "COMBO_SEARCH": //조회		
+			//trace(this.ds_Film.saveXML());
+			if (this.ds_Film.getRowCount() > 0) {
+				this.ds_Film.filter("");
+				this.ds_Film.filter("PRGM_ID=='" + this.fvPRGM_ID + "'");
+			}
+			break;			
+						
+		case "FILE_SAVE":   //저장		
+			this.fn_FileSearch();//조회
+			break;	
+			
+		case "COM_FILE_SEARCH": //파일조회		
+			this.ds_Master10.addColumn("S_CHK", "string");
+			this.ds_Master10.addColumn("uploadYn", "string");	
+			this.ds_Master10.addColumn("crudType", "string");	
+			this.ds_Master10.addColumn("CHECK_FILE_NM", "string");
+			
+			this.ds_Master10.set_enableevent(false);
+			if (this.ds_Master10.getRowCount() > 0) {
+				for (var iLoop = 0; iLoop<this.ds_Master10.getRowCount(); iLoop++) {
+					var sFILE_EL = this.ds_Master10.getColumn(iLoop, "FILE_EL");
+					var sFILE_ID = this.ds_Master10.getColumn(iLoop, "FILE_ID");
+					var sEncode = encodeURI(sFILE_ID.replace(/\+/,"%2B"));
+					this.ds_Master10.setColumn(iLoop, "FILE_UL", sFILE_EL + sEncode);
+					this.ds_Master10.setRowType(iLoop, Dataset.ROWTYPE_NORMAL);
+				}
+			}
+			this.ds_Master10.set_enableevent(true);			
+
+			break;			
+			
+		case "FILE_DELETE": //삭제		
+			this.fn_FileSearch();//조회
+			break;		
+		case "FILE_MST_DELETE": //마스터정보 삭제		
+			//콜백함수가 있으면
+			if (!this.gfn_IsNull(this.fvCallBackFunc)) {
+				this.lookupFunc(this.fvCallBackFunc).call();
+			}
+			break;				
+	}
+};
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+/**
+* 파일다이얼로그 VirtualFile 로드 성공 이벤트
+*/
+this.fn_FileDialog_VirtualFile_onsuccess = function(obj, e) {
+
+	var size_table = ["KB", "MB", "GB", "TB", "PB"];
+	
+	function cutFileSize(filesize, rate, count) {
+		var ret = (filesize / (Math.pow(rate, count + 1))).toFixed(2);
+		if (ret < rate) {
+			if (size_table[count]) {
+				return ret + " " + size_table[count];
+			} else {
+				return filesize + " Byte";
+			}
+		} else {
+			return cutFileSize(filesize, rate, ++count);
+		}
+	};
+
+	if (e.reason == 1) {
+		var idx = this.gfn_GridInsertProcess(this, this.ds_Master10);//crud_flag 변경-입력(I)
+		var sFileName = obj.filename;
+		var iLength = sFileName.length;
+		var sFileNameLeft = this.gfn_Left(sFileName, (iLength-4));
+		var sFileNameRight = this.gfn_Right(sFileName, 4);
+		var sCheckFileName = nexacro.replaceAll(sFileNameLeft, ".", "_") + sFileNameRight;	
+		
+		this.ds_Master10.setColumn(idx, "PATH_NM", this.fvFilePath);
+		this.ds_Master10.setColumn(idx, "FILE_NM", obj.filename);
+		this.ds_Master10.setColumn(idx, "CHECK_FILE_NM", sCheckFileName);
+		this.ds_Master10.setColumn(idx, "uploadYn", "N");
+		//첨부파일종류 체크유무
+		//if (!this.fvFileCheckYn) {
+			this.ds_Master10.setColumn(idx, "ATTA_CD", "0010");
+		//}
+		
+	}
+	
+	
+};
+
+/**
+* 파일 업로드 처리
+*/
+this.fn_FileUpload = function() {
+
+	if (this._vFiles.length > 0) {
+		var vfile = this._vFiles[this._vFiles_idx];
+		if (vfile)
+		{	
+			this.fut_File.addFile("file00", vfile);	
+		}
+
+		this.fut_File.upload(nEnv.services["svcUrl"].url + "FileUploader?mode=upload&subDir=" + this.fvFilePath);
+
+		
+	} else {
+		//Master 변경건이 있으면
+		if (this.gfn_DsIsUpdated(this.ds_Master10)) {
+			this.fn_UpdateFileData();//첨부파일 정보 수정
+		} else {
+			this.gfn_Alert("SM035");//파일을 선택하세요.
+		}
+	}
+	
+};
+
+/************************************************************************************************************
+ * 파일 추가여부 체크 함수
+ ************************************************************************************************************/ 
+this.fn_CheckFileAddYn = function()
+{
+
+	if (this.ds_Master10.getCaseCount("PICH_SE == '' || PICH_SE == null") > 0)
+	{
+		return true;
+	}
+	
+	if (this.gfn_DsIsUpdated(this.ds_Master10)) {
+		return true;
+	}
+	
+	return false;
+}
+
+/************************************************************************************************************
+ * 파일건수 체크 함수
+ ************************************************************************************************************/ 
+this.fn_GetFileCount = function()
+{
+	return this.ds_Master10.getRowCount();
+}
+
+/************************************************************************************************************
+ * 화면권한 설정
+ ************************************************************************************************************/ 
+this.fn_SetCommFileScrnAuth = function(oScrnAuth)
+{
+	if (!this.gfn_IsNull(oScrnAuth)) {
+		//팝업유무
+		if (!this.gfn_IsNull(oScrnAuth.POPUP_YN) && oScrnAuth.POPUP_YN == "Y") {
+			if (!this.gfn_IsNull(oScrnAuth.AUTH_YN) && oScrnAuth.AUTH_YN == "Y") {
+				this.btn_Save.set_visible(true);
+				this.btn_AddFile.set_enable(true);
+				this.btn_DelFile.set_enable(true);				
+				this.grd_CmmFileList.setOffsetTop(34);
+			}
+		} else {
+			if (!this.gfn_IsNull(oScrnAuth.AUTH_YN) && oScrnAuth.AUTH_YN == "Y") {
+				//this.grd_CmmFileList.setOffsetTop(34);
+			}		
+		}
+		//첨부파일종류 체크유무
+		if (!this.gfn_IsNull(oScrnAuth.FILE_CHECK_YN) && oScrnAuth.FILE_CHECK_YN == "Y") {
+			this.fvFileCheckYn = true;//첨부파일종류 체크유무
+		} else {
+			this.fvFileCheckYn = false;//첨부파일종류 체크유무
+		}
+		
+		var sPrgmId = oScrnAuth.PRGM_ID;//프로그램ID
+		this.fvPRGM_ID = sPrgmId;//프로그램ID
+		
+		this.fn_ComboSearch();//첨부파일 종류조회
+		
+		//읽기전용 권한인 경우
+		if (!this.gfn_IsNull(oScrnAuth.READ_YN) && oScrnAuth.READ_YN == "Y") {
+			this.grd_CmmFileList.set_readonly(true);
+		}
+
+	}
+}
+
+/************************************************************************************************************
+ * 버튼권한 설정
+ ************************************************************************************************************/ 
+this.fn_SetCommFileBtnAuth = function(oScrnBtnAuth)
+{
+	if (!this.gfn_IsNull(oScrnBtnAuth)) {
+		if (!this.gfn_IsNull(oScrnBtnAuth.BTN_ENABLE) && oScrnBtnAuth.BTN_ENABLE) {
+			this.btn_AddFile.set_enable(true);
+			this.btn_DelFile.set_enable(true);
+		} else {	
+			this.btn_AddFile.set_enable(false);
+			this.btn_DelFile.set_enable(false);		
+		}
+	}
+}
+
+/************************************************************************************************************
+ * 첨부파일 정보 초기화
+ ************************************************************************************************************/ 
+this.fn_ClearAtchFile = function()
+{
+	this.ds_Master10.clearData();
+	//this.ds_Master10Save.clearData();
+	this._vFiles_idx = 0;
+	this._vFiles = [];	
+}
+
+
+/************************************************************************************************************
+ * 조회
+ ************************************************************************************************************/ 
+this.fn_AtchFileSearch = function(oFileInfo) 
+{
+	//첨부파일 조회조건 체크
+	if (this.gfn_IsNull(oFileInfo)) {		
+		var arrMsgArg = ["파라메터"];
+		this.gfn_Alert("SM033", arrMsgArg);//첨부파일 조회 정보가 유효하지 않습니다.
+		return;
+	}
+	
+	//첨부파일 조회조건 체크-프로그램ID
+	if (this.gfn_IsNull(oFileInfo.PRGM_ID)) {		
+		var arrMsgArg = ["프로그램ID"];
+		this.gfn_Alert("SM033", arrMsgArg);//첨부파일 조회 정보가 유효하지 않습니다.
+		return;
+	}	
+
+	//첨부파일 조회조건 체크-관리번호
+	if (this.gfn_IsNull(oFileInfo.PICH_NO)) {	
+		var arrMsgArg = ["관리번호"];
+		this.gfn_Alert("SM033", arrMsgArg);//첨부파일 조회 정보가 유효하지 않습니다.
+		return;
+	}			
+
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Master10.clearData();
+	//this.ds_Master10Save.clearData();
+	this.ds_Input.clearData();
+	this.ds_Input.addRow();
+	
+	this.ds_Input.setColumn(0, "PRGM_ID", oFileInfo.PRGM_ID);//프로그램ID
+	this.ds_Input.setColumn(0, "PICH_NO", oFileInfo.PICH_NO);//관리번호
+
+	//팝업화면용 변수
+	this.fvPRGM_ID = oFileInfo.PRGM_ID;//프로그램ID
+	this.fvPICH_NO= oFileInfo.PICH_NO;//관리번호
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sm:M_SM_PICH_M_SL10";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "COM_FILE_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = "";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Master10=ds_Master10";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+}
+
+/**
+* 첨부파일  조회
+*/
+this.fn_FileSearch = function() 
+{
+	
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Master10.clearData();
+	//this.ds_Master10Save.clearData();
+	this.ds_Input.clearData();
+	this.ds_Input.addRow();
+	
+	this.ds_Input.setColumn(0, "PRGM_ID", this.fvPRGM_ID);//프로그램ID
+	this.ds_Input.setColumn(0, "PICH_NO", this.fvPICH_NO);//관리번호
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sm:M_SM_PICH_M_SL10";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "FILE_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = "";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Master10=ds_Master10";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+}
+
+/************************************************************************************************************
+ * 저장
+ ************************************************************************************************************/ 
+this.fn_AtchFileSave = function(oFormId, oFileInfo) 
+{
+	this.oCallFormId = oFormId;//호출한 화면ID	
+	
+	//첨부파일 조회조건 체크
+	if (this.gfn_IsNull(oFileInfo)) {	
+		var arrMsgArg = ["파라메터"];
+		this.gfn_Alert("SM034", arrMsgArg);//첨부파일 저장 정보가 유효하지 않습니다.
+		return;
+	}
+
+	//첨부파일 조회조건 체크-프로그램ID
+	if (this.gfn_IsNull(oFileInfo.PRGM_ID)) {	
+		var arrMsgArg = ["프로그램ID"];
+		this.gfn_Alert("SM034", arrMsgArg);//첨부파일 저장 정보가 유효하지 않습니다.
+		return;
+	}	
+
+	//첨부파일 조회조건 체크-관리번호
+	if (this.gfn_IsNull(oFileInfo.PICH_NO)) {		
+		var arrMsgArg = ["관리번호"];
+		this.gfn_Alert("SM034", arrMsgArg);//첨부파일 저장 정보가 유효하지 않습니다.
+		return;
+	}	
+
+	//첨부파일 조회조건 체크-파일경로
+	if (this.gfn_IsNull(oFileInfo.PATH_NM)) {		
+		var arrMsgArg = ["파일경로"];
+		this.gfn_Alert("SM034", arrMsgArg);//첨부파일 저장 정보가 유효하지 않습니다.
+		return;
+	}		
+	
+	if (!this.gfn_IsNull(oFileInfo.CALLBACK_FUNC)) {		
+		this.fvCallBackFunc = oFileInfo.CALLBACK_FUNC;//호출할 콜백함수
+	} else {
+		this.fvCallBackFunc = "";//호출할 콜백함수
+	}
+	
+	this.fvFilePath = oFileInfo.PATH_NM;//파일경로(업무별)
+
+	this.ds_Input.clearData();
+
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "PRGM_ID", oFileInfo.PRGM_ID);//프로그램ID
+	this.ds_Input.setColumn(0, "PICH_NO", oFileInfo.PICH_NO);//관리번호
+	
+	this.fvPRGM_ID = oFileInfo.PRGM_ID;//프로그램ID
+	this.fvPICH_NO = oFileInfo.PICH_NO;//관리번호
+	
+	//저장시 유효성 체크
+	if (!this.fn_VaildMasterSave()) return;
+	
+	//파일업로드
+	this.fn_FileUpload();
+
+}
+
+/**
+* 파일정보 데이터생성
+*/
+this.fn_SetFileData = function()
+{
+	var sFilbSaveQury = "";//첨부파일 상세 저장쿼리
+	
+	//파일저장Temp 저장건만 Filter
+	this.ds_Master10Temp.filter("");
+	this.ds_Master10Temp.filter("PICH_SE==null");
+	
+	this.ds_Master10TempFilter.clearData();
+	this.ds_Master10TempFilter.copyData(this.ds_Master10Temp, true);
+
+	this.ds_Master10Save.clearData();
+
+	sFilbSaveQury = "sm:M_SM_PICH_M_IN10";//첨부파일 상세 저장쿼리
+
+	//신규저장건
+	if (this.ds_Master10TempFilter.getRowCount() > 0) {
+		for (var iLoop=0; iLoop<this.ds_Master10TempFilter.getRowCount(); iLoop++) {
+			this.ds_Master10Save.addRow();
+			this.ds_Master10Save.copyRow(iLoop, this.ds_Master10TempFilter, iLoop);				
+			this.ds_Master10Save.setColumn(iLoop, "PRGM_ID", this.fvPRGM_ID);//프로그램ID
+			this.ds_Master10Save.setColumn(iLoop, "PICH_NO", this.fvPICH_NO);//관리번호
+			this.ds_Master10Save.setColumn(iLoop, "crudType", "I");//저장구분
+		}
+	}
+
+	//수정건
+	for (var iLoop=0; iLoop<this.ds_Master10.getRowCount(); iLoop++) {
+		var nRowType = this.ds_Master10.getRowType(iLoop);
+		//수정건이 있으면
+		//if (nRowType == "4") {
+		if (this.ds_Master10.getColumn(iLoop, "crudType") == "U") {
+		
+			var iAddRow = this.ds_Master10Save.addRow();
+	
+			this.ds_Master10Save.copyRow(iAddRow, this.ds_Master10, iLoop);
+			this.ds_Master10Save.setColumn(iLoop, "crudType", "U");//저장구분
+		}
+	}
+
+	//[공통]서비스 정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+
+	//[공통]서비스 정보 추가
+	svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object	
+	svcAddObj.sInsertSql = sFilbSaveQury;//저장Sql
+	svcAddObj.sUpdateSql = "sm:M_SM_PICH_M_UP10";//수정Sql
+	svcAddObj.sDeleteSql = "";//삭제Sql
+	svcAddObj.sSaveFlagColumn = "crudType";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+							 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+	
+	this.gfn_AddComSaveService(this, svcAddObj);
+	
+	//trace(this.ds_Master10Save.saveXML());
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "FILE_SAVE";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = "";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Action이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Master10Save=ds_Master10Save:U" //입력 데이터셋
+	svcCallObj.sOutDatset = "";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명		
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);		
+}
+
+/**
+* 파일정보 수정
+*/
+this.fn_UpdateFileData = function()
+{
+		
+	this.ds_Master10Temp.filter("");
+	this.ds_Master10Temp.clearData();
+	this.ds_Master10Temp.copyData(this.ds_Master10);
+	
+	//파일저장Temp 저장건만 Filter
+	this.ds_Master10Temp.filter("");
+	this.ds_Master10Temp.filter("crudType=='U'");
+	
+	this.ds_Master10TempFilter.clearData();
+	this.ds_Master10TempFilter.copyData(this.ds_Master10Temp, true);
+
+	this.ds_Master10Save.clearData();
+
+	if (this.ds_Master10TempFilter.getRowCount() > 0) {
+		for (var iLoop=0; iLoop<this.ds_Master10TempFilter.getRowCount(); iLoop++) {
+			this.ds_Master10Save.addRow();
+			this.ds_Master10Save.copyRow(iLoop, this.ds_Master10TempFilter, iLoop);				
+		}
+	}
+	
+	this.fvPRGM_ID  = this.ds_Master10Save.getColumn(0, "PRGM_ID");//프로그램ID
+	this.fvPICH_NO  = this.ds_Master10Save.getColumn(0, "PICH_NO");//관리번호	
+
+	//[공통]서비스 정보 초기화
+	this.gfn_InitComService(this);
+
+	//[공통]서비스 정보 추가
+	svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object	
+	svcAddObj.sInsertSql = "";//저장Sql
+	svcAddObj.sUpdateSql = "sm:M_SM_PICH_M_UP10";//수정Sql
+	svcAddObj.sDeleteSql = "";//삭제Sql
+	svcAddObj.sSaveFlagColumn = "crudType";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+							 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+	
+	this.gfn_AddComSaveService(this, svcAddObj);
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "FILE_SAVE";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = "";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Master10Save=ds_Master10Save:U" //입력 데이터셋
+	svcCallObj.sOutDatset = "";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명		
+	
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);		
+}
+
+ 
+/************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/
+/**
+* 파일추가 버튼 이벤트
+*/
+this.btn_AddFile_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_ComFileAdd();//파일추가
+};
+
+/**
+* 파일삭제 버튼 이벤트
+*/
+this.btn_DelFile_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_ComFileDelete();//파일삭제	
+}
+
+/***********************************************************************************************
+ * 10. [메세지] CallBack 함수 처리부분
+ ***********************************************************************************************/
+/**
+ * @description 메세지 CallBack 함수
+*/
+this.fn_MsgCallback = function (strId, strVal)
+{
+
+	if(strId == "CONF.DELETE"){
+
+		if(strVal)
+		{
+			this.fn_SvcDelete();//삭제 서비스 호출
+		}
+	}
+};
+
+/**
+* 저장 서비스 호출
+*/
+this.btn_Save_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//첨부파일정보 저장
+	var oFileInfo = new Object();//[공통] 첨부파일정보
+	oFileInfo.PRGM_ID = this.fvPRGM_ID;//프로그램ID
+	oFileInfo.PICH_NO = this.fvPICH_NO;//관리번호
+	oFileInfo.PATH_NM = this.fvPATH_NM;//업무파일경로
+	
+	this.fn_AtchFileSave(this, oFileInfo);	
+
+};
+
+/**
+* 삭제 서비스 호출
+*/
+this.fn_SvcDelete = function()
+{
+	for (var iLoop=this.ds_Master10.getRowCount() -1; iLoop >=0; iLoop--) {
+
+		if (this.ds_Master10.getColumn(iLoop, "S_CHK") == "1") {
+			if (this.gfn_IsNull(this.ds_Master10.getColumn(iLoop, "PICH_SE"))) {
+				var sFileName = this.ds_Master10.getColumn(iLoop, "FILE_NM");
+
+				for (var jLoop=this._vFiles.length-1; jLoop >=0 ; jLoop--) {
+					var vfile = this._vFiles[jLoop];
+					var sChkFileName = vfile.filename;
+		
+					if (!this.gfn_IsNull(sFileName) && (sFileName == sChkFileName)) {
+						this._vFiles.splice(jLoop,1);
+						this.ds_Master10.deleteRow(iLoop);
+					}
+				}
+			}
+		}
+	}
+
+	this.ds_Master10Save.clearData();
+	
+	for (var iLoop =0; iLoop < this.ds_Master10.getRowCount(); iLoop++) {
+		if (this.ds_Master10.getColumn(iLoop, "S_CHK") == "1") {
+			var iAddRow = this.ds_Master10Save.addRow();
+			this.ds_Master10Save.copyRow(iAddRow, this.ds_Master10, iLoop);
+			this.ds_Master10Save.setColumn(iAddRow, "crudType", "D");
+		}
+	}
+
+	if (this.ds_Master10Save.getRowCount() > 0) {
+	
+		this.fvPRGM_ID = this.ds_Master10Save.getColumn(0, "PRGM_ID");//프로그램ID
+		this.fvPICH_NO = this.ds_Master10Save.getColumn(0, "PICH_NO");//관리번호
+
+		//[공통]서비스 정보 초기화
+		this.gfn_InitComService(this);
+		
+		//[공통]서비스정보 추가
+		var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+			
+		//Detail 변경건이 있으면 Detail 저장
+		if (this.gfn_DsIsUpdated(this.ds_Master10Save)) {
+			
+			//[공통]서비스 정보 추가
+			svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object	
+			svcAddObj.sInsertSql = "";//저장Sql
+			svcAddObj.sUpdateSql = "";//수정Sql
+			svcAddObj.sDeleteSql = "sm:M_SM_PICH_M_DL10";//삭제Sql
+			svcAddObj.sSaveFlagColumn = "crudType";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+									 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+			
+			this.gfn_AddComSaveService(this, svcAddObj);
+		}		
+		
+		//[공통]서비스 호출 변수
+		var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+		svcCallObj.sTrid = "FILE_DELETE";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+		svcCallObj.sActionName = "";//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+		svcCallObj.sInputDaset = "ds_Master10Save=ds_Master10Save:U" //입력 데이터셋
+		svcCallObj.sOutDatset = "";//출력 데이터셋
+		svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+		svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명		
+		
+		//[공통]서비스 호출
+		this.gfn_CallComService(this, svcCallObj);			
+	}
+
+}
+
+/**
+* 파일다이얼로그 Close 이벤트
+*/
+this.fdl_File_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEventInfo)
+{
+
+	for (var i = 0, len = e.virtualfiles.length, vFile; i < len; i++) {
+		vFile = e.virtualfiles[i];
+		vFile.addEventHandler("onsuccess", this.fn_FileDialog_VirtualFile_onsuccess, this);
+		vFile.open(null, 1);
+		vFile.getFileSize();	
+
+		this._vFiles.push(vFile);		
+	}
+};
+
+/**
+* 파일 업로드 성공 이벤트
+*/
+this.fut_File_onsuccess = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferEventinfo)
+{	
+
+	this._vFiles_idx++; 
+    var vfile = this._vFiles[this._vFiles_idx];
+
+	if (vfile) {		
+		//초기화 해줘야됨
+		this.fut_File.clearFileList();		
+		this.fut_File.addFile("file00",vfile);
+		this.fut_File.upload(nEnv.services["svcUrl"].url+"FileUploader?mode=upload&subDir=" + this.fvFilePath);
+
+	}
+	
+	trace("\n========FileUpTransfer00_onsuccess========");
+	trace("\ne.eventid : "+e.eventid);
+	trace("\ne.fromobject : "+e.fromobject);
+	trace("\ne.fromreferenceobject : "+e.fromreferenceobject);
+	trace("\ne.url : "+e.url);
+	trace("\ne.code : "+e.code);
+	trace("\ne.message : "+e.message);
+	trace("\n==============================================");
+	//trace(e.datasets[0].saveXML());
+	//trace(this.ds_Master10.saveXML());
+	trace("\n=======================22=======================");
+	//파일업로드 결과 데이셋이 있으면
+	if (e.code == 0 && e.datasets[0] !=null && e.datasets[0].getRowCount() > 0) {
+
+		//var iFindRow = this.ds_Master10.findRowExpr("FILE_NM == '" + e.datasets[0].getColumn(0, "FILE_CNAME") + "' && uploadYn == 'N'");
+		var iFindRow = this.ds_Master10.findRowExpr("CHECK_FILE_NM == '" + e.datasets[0].getColumn(0, "FILE_CNAME") + "' && uploadYn == 'N'");
+
+		if (iFindRow > -1) {
+			this.ds_Master10.setColumn(iFindRow, "FILE_ID", e.datasets[0].getColumn(0, "FILE_NAME"));
+			//this.ds_Master10.setColumn(iFindRow, "fileSize", e.datasets[0].getColumn(0, "FILE_SIZE"));
+			//this.ds_Master10.setColumn(iFindRow, "fileExt", e.datasets[0].getColumn(0, "fileExt"));
+			this.ds_Master10.setColumn(iFindRow, "uploadYn", "Y");//파일업로드 성공여부
+			this.ds_Master10.setColumn(iFindRow, "PATH_NM", this.fvFilePath);
+		}
+	}
+
+		//trace(this.ds_Master10.saveXML());
+	
+	if (this.ds_Master10.getCaseCount("uploadYn=='N'") < 1) {
+	
+		this._vFiles_idx = 0;
+		this._vFiles = [];
+		this.fut_File.clearFileList();
+
+		this.ds_Master10Temp.filter("");
+		this.ds_Master10Temp.clearData();
+		this.ds_Master10Temp.copyData(this.ds_Master10);
+
+		//저장정보 설정
+		this.fn_SetFileData();
+	}
+};
+
+/**
+* 파일 업로드 실패 이벤트
+*/
+this.fut_File_onerror = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferErrorEventInfo)
+{
+	trace("======================================== fut_File_onerror ========================================");
+	trace("e.errormsg : " + e.errormsg);
+	trace("e.errortype : " + e.errortype);
+	trace("==================================================================================================");
+};
+
+/**
+* 파일 업로드 진행 이벤트
+*/
+this.fut_File_onprogress = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferProgressEventInfo)
+{
+	//this.ds_Master10.setColumn(this._vFiles_idx, "LOADED", (e.loaded / e.total)*100);
+};
+
+
+
+this.grd_CmmFileList_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//그리드 콤보 클릭시 펼치기
+	obj.dropdownCombo();
+	
+	if (e.col == 4) {
+		if (!this.gfn_IsNull(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "PICH_SE"))) {
+			var sPopupId = "F_IMGD_01";//팝업ID - 비고상세
+			var sTitle = "이미지 상세";//팝업 타이틀
+			var oArg = {ImgUrl:this.ds_Master10.getColumn(this.ds_Master10.rowposition, "FILE_UL")};//Argument처리
+			this.gfn_ImagePop(sPopupId, sTitle, oArg);		
+		}
+	} else if (e.col == 10) {
+		try {
+
+			var sPathNm = this.ds_Master10.getColumn(e.row, "PATH_NM");
+			var sFileNm = this.ds_Master10.getColumn(e.row, "FILE_NM");
+			var sFileId = this.ds_Master10.getColumn(e.row, "FILE_ID");
+			
+			/*
+			var sUrl = nEnv.services["svcUrl"].url+"FileUploader?mode=download&subDir=" + sPathNm;
+				sUrl += "&fileName="+encodeURI(sFileId.replace(/\+/,"%2B"));	
+			*/
+			
+			sFileNm = nexacro.replaceAll(nexacro.replaceAll(sFileNm, "+", "xtP1a"), "&","xtP2a");
+			sFileId = nexacro.replaceAll(nexacro.replaceAll(sFileId, "+", "xtP1a"), "&","xtP2a");
+			var sDownFileNm = nexacro.replaceAll(nexacro.replaceAll(sFileNm, "+", ""), "&","");			
+			
+			var sUrl = nEnv.services["svcUrl"].url+"fileDownloader?filePath=" + sPathNm;			
+				sUrl += "&fileName="+encodeURIComponent(sFileId.replace(/\+/,"%2B"));					
+				sUrl += "&orgFileName="+encodeURIComponent(sFileNm.replace(/\+/,"%2B"));	
+				sUrl += "&drmYn=" + this.gfn_CheckDrmYn();//DRM적용여부
+				
+			/*
+			var sUrl = nEnv.services["svcUrl"].url+"fileDownloader?filePath=" + sPathNm;			
+				sUrl += "&fileName="+encodeURI(sFileId.replace(/\+/,"%2B"));					
+				sUrl += "&orgFileName="+encodeURI(sFileNm.replace(/\+/,"%2B"));				
+			*/
+			this.fdt_File.set_downloadfilename(sDownFileNm);
+			this.fdt_File.set_url(sUrl);
+
+			this.fdt_File.download();
+		} catch (e) {
+			trace(e);
+		}
+	}
+};
+
+/*---------------------------------------------------------------------------------------------
+ * 12.1.3. [사용자함수 - Vaildation] 저장 필수값 체크 - 입력항목
+  ---------------------------------------------------------------------------------------------*/
+this.fn_VaildMasterSave = function()
+{
+	//[저장] Validation 설정
+	var arrArgs = ["ATTA_CD^NULL"
+	              ,"FILE_NM^NULL"
+			      ]; 
+				  
+	//Grid Vaild 체크
+	if (!this.gfn_CheckGridValid(this.grd_CmmFileList, arrArgs) ) {
+		return false;
+	}
+	
+	return true;
+}
+
+this.ds_Master10_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	this.gfn_GridUpdateProcess(this, obj, e);//crudType 변경-수정(U)		
+};
+
+/*---------------------------------------------------------------------------------------------
+ * 12.1.3. [사용자함수 - 파일처리] 추가
+  ---------------------------------------------------------------------------------------------*/
+this.fn_ComFileAdd = function()
+{
+	this.fdl_File.open("파일열기", FileDialog.MULTILOAD,"%MYDOCUMENT%");
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 12.1.3. [사용자함수 - 파일처리] 삭제
+  ---------------------------------------------------------------------------------------------*/
+this.fn_ComFileDelete = function()
+{
+
+	if (this.ds_Master10.getCaseCount("S_CHK == '1'") > 0) {
+		this.gfn_Confirm("SM004","", "CONF.DELETE", "fn_MsgCallback");//삭제 하시겠습니까?
+	} else {
+		this.gfn_Alert("SM006");//삭제할 대상을 선택하세요.
+	}
+	
+}
+this.btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfn_PopClose();
+};
+
+
+this.grd_CmmFileList_ondrop = function(obj:nexacro.Grid,e:nexacro.GridDragEventInfo)
+{
+	if (e.datatype != "file") {
+		return;
+	}
+
+	for (var i = 0, len = e.filelist.length, vFile; i < len; i++) {
+		vFile = e.filelist[i];
+		vFile.addEventHandler("onsuccess", this.fn_FileDialog_VirtualFile_onsuccess, this);
+		vFile.open(null, 1);
+		vFile.getFileSize();	
+
+		this._vFiles.push(vFile);		
+	}	
+};
+]]></Script>
+    <Objects>
+      <FileDialog id="fdl_File" onclose="fdl_File_onclose"/>
+      <FileDownTransfer id="fdt_File"/>
+      <FileUpTransfer id="fut_File" onerror="fut_File_onerror" onprogress="fut_File_onprogress" onsuccess="fut_File_onsuccess"/>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+          <Column id="PICH_NO" type="STRING" size="256"/>
+          <Column id="PICH_SE" type="STRING" size="256"/>
+          <Column id="FILM_GU" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10" oncolumnchanged="ds_Master10_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+          <Column id="PICH_NO" type="STRING" size="256"/>
+          <Column id="PICH_SE" type="STRING" size="256"/>
+          <Column id="ATTA_CD" type="STRING" size="256"/>
+          <Column id="PATH_NM" type="STRING" size="256"/>
+          <Column id="FILE_ID" type="STRING" size="256"/>
+          <Column id="FILE_NM" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="FILE_UL" type="STRING" size="256"/>
+          <Column id="S_CHK" type="STRING" size="256"/>
+          <Column id="uploadYn" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+          <Column id="FILE_EL" type="STRING" size="256"/>
+          <Column id="CHECK_FILE_NM" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Film">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="FILM_CD" type="STRING" size="256"/>
+          <Column id="FILM_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+          <Column id="FILM_GU" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10Save" oncolumnchanged="ds_Smfilb_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+          <Column id="PICH_NO" type="STRING" size="256"/>
+          <Column id="PICH_SE" type="STRING" size="256"/>
+          <Column id="ATTA_CD" type="STRING" size="256"/>
+          <Column id="PATH_NM" type="STRING" size="256"/>
+          <Column id="FILE_ID" type="STRING" size="256"/>
+          <Column id="FILE_NM" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="FILE_UL" type="STRING" size="256"/>
+          <Column id="S_CHK" type="STRING" size="256"/>
+          <Column id="uploadYn" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+          <Column id="FILE_EL" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10Temp" oncolumnchanged="ds_Smfilb_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+          <Column id="PICH_NO" type="STRING" size="256"/>
+          <Column id="PICH_SE" type="STRING" size="256"/>
+          <Column id="ATTA_CD" type="STRING" size="256"/>
+          <Column id="PATH_NM" type="STRING" size="256"/>
+          <Column id="FILE_ID" type="STRING" size="256"/>
+          <Column id="FILE_NM" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="FILE_UL" type="STRING" size="256"/>
+          <Column id="S_CHK" type="STRING" size="256"/>
+          <Column id="uploadYn" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+          <Column id="FILE_EL" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10TempFilter" oncolumnchanged="ds_Smfilb_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="PRGM_ID" type="STRING" size="256"/>
+          <Column id="PICH_NO" type="STRING" size="256"/>
+          <Column id="PICH_SE" type="STRING" size="256"/>
+          <Column id="ATTA_CD" type="STRING" size="256"/>
+          <Column id="PATH_NM" type="STRING" size="256"/>
+          <Column id="FILE_ID" type="STRING" size="256"/>
+          <Column id="FILE_NM" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="FILE_UL" type="STRING" size="256"/>
+          <Column id="S_CHK" type="STRING" size="256"/>
+          <Column id="uploadYn" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+          <Column id="FILE_EL" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

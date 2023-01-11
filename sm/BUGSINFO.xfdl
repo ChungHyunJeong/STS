@@ -1,0 +1,804 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="BUGSINFO" width="1040" height="600" titletext="예산통제정보" scrollbartype="none" onclose="fn_FormClose" onload="fn_FormOnload" onsize="fn_FormOnsize">
+    <Layouts>
+      <Layout height="600" width="1040">
+        <Div id="div_PopupTitle" taborder="0" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Close" taborder="0" text="닫기" top="9" width="70" height="26" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+              <Static id="sta_PopupTitle" taborder="1" text="예산통제정보" left="20" top="10" height="24" cssclass="sta_WF_PopupTitle" width="300"/>
+              <Button id="btn_Search" taborder="2" text="조회" top="8" width="65" right="90" visible="true" cssclass="bt_WF_PopupSearch" height="28" onclick="div_PopupTitle_btn_Search_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_Search" taborder="1" left="12" top="54" height="38" cssclass="div_WF_Search" right="12" formscrollbartype="none none">
+          <Layouts>
+            <Layout>
+              <Static id="sta_FromYy" taborder="0" text="편성년도" left="16" top="6" width="80" height="24" cssclass="sta_WF_SLabel" DomainID="S00002"/>
+              <Static id="sta_DepmCd" taborder="1" text="부서" left="244" top="6" width="80" height="24" cssclass="sta_WF_SLabel"/>
+              <Spin id="spn_FromYy" taborder="2" left="sta_FromYy:0" top="6" width="90" height="24" max="2099" min="1950" value="" cssclass="essential" readonly="true"/>
+              <Edit id="edt_DepmCd" taborder="3" left="sta_DepmCd:0" top="6" width="90" height="24" maxlength="10" onchanged="div_Search_edt_DepmCd_onchanged" cssclass="essential" readonly="true"/>
+              <Edit id="edt_DepmNm" taborder="4" left="edt_DepmCd:2" top="6" width="130" height="24" enable="true" maxlength="30" onchanged="div_Search_edt_DepmNm_onchanged" readonly="true"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="grd_Master10" taborder="2" left="12" top="102" binddataset="ds_Master10" autofittype="none" cellsizingtype="col" right="12" bottom="10" selecttype="multiarea">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="35" band="left"/>
+                <Column size="120" band="left"/>
+                <Column size="100" band="left"/>
+                <Column size="200" band="left"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="26" band="head"/>
+                <Row size="24"/>
+                <Row size="24" band="summ"/>
+              </Rows>
+              <Band id="head">
+                <Cell rowspan="2" text="No."/>
+                <Cell col="1" rowspan="2" text="부서"/>
+                <Cell col="2" colspan="2" text="계정"/>
+                <Cell col="4" colspan="3" text="합계"/>
+                <Cell col="7" colspan="3" text="1분기"/>
+                <Cell col="10" colspan="3" text="2분기"/>
+                <Cell col="13" colspan="3" text="3분기"/>
+                <Cell col="16" colspan="3" text="4분기"/>
+                <Cell row="1" col="2" text="코드"/>
+                <Cell row="1" col="3" text="과목명"/>
+                <Cell row="1" col="4" text="계획"/>
+                <Cell row="1" col="5" text="실적"/>
+                <Cell row="1" col="6" text="비율(%)"/>
+                <Cell row="1" col="7" text="계획"/>
+                <Cell row="1" col="8" text="실적"/>
+                <Cell row="1" col="9" text="비율(%)"/>
+                <Cell row="1" col="10" text="계획"/>
+                <Cell row="1" col="11" text="실적"/>
+                <Cell row="1" col="12" text="비율(%)"/>
+                <Cell row="1" col="13" text="계획"/>
+                <Cell row="1" col="14" text="실적"/>
+                <Cell row="1" col="15" text="비율(%)"/>
+                <Cell row="1" col="16" text="계획"/>
+                <Cell row="1" col="17" text="실적"/>
+                <Cell row="1" col="18" text="비율(%)"/>
+              </Band>
+              <Band id="body">
+                <Cell expr="currow+1" textAlign="center"/>
+                <Cell col="1" text="bind:DEPM_NM" displaytype="normal" textAlign="left" suppress="1"/>
+                <Cell col="2" textAlign="center" text="bind:ACOM_CD"/>
+                <Cell col="3" text="bind:ACOM_NM" textAlign="left"/>
+                <Cell col="4" textAlign="right" displaytype="number" text="bind:SUM_SU"/>
+                <Cell col="5" textAlign="right" displaytype="number" text="bind:SUM_SL"/>
+                <Cell col="6" maskeditformat="#,##0.00" displaytype="mask" textAlign="right" text="bind:SUM_RT"/>
+                <Cell col="7" textAlign="right" displaytype="number" text="bind:SU_01"/>
+                <Cell col="8" textAlign="right" displaytype="number" text="bind:SL_01"/>
+                <Cell col="9" maskeditformat="#,##0.00" displaytype="mask" textAlign="right" text="bind:B01_RT"/>
+                <Cell col="10" textAlign="right" displaytype="number" text="bind:SU_02"/>
+                <Cell col="11" textAlign="right" displaytype="number" text="bind:SL_02"/>
+                <Cell col="12" maskeditformat="#,##0.00" displaytype="mask" textAlign="right" text="bind:B02_RT"/>
+                <Cell col="13" textAlign="right" displaytype="number" text="bind:SU_03"/>
+                <Cell col="14" textAlign="right" displaytype="number" text="bind:SL_03"/>
+                <Cell col="15" maskeditformat="#,##0.00" displaytype="mask" textAlign="right" text="bind:B03_RT"/>
+                <Cell col="16" textAlign="right" displaytype="number" text="bind:SU_04"/>
+                <Cell col="17" textAlign="right" displaytype="number" text="bind:SL_04"/>
+                <Cell col="18" maskeditformat="#,##0.00" displaytype="mask" textAlign="right" text="bind:B04_RT"/>
+              </Band>
+              <Band id="summary">
+                <Cell colspan="4" text="합계" textAlign="center"/>
+                <Cell col="4" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SUM_SU&quot;)"/>
+                <Cell col="5" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SUM_SL&quot;)"/>
+                <Cell col="6" textAlign="right" displaytype="mask" expr="dataset.getSum(&quot;SUM_SL&quot;) / dataset.getSum(&quot;SUM_SU&quot;) * 100" maskeditformat="#,##0.00"/>
+                <Cell col="7" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SU_01&quot;)"/>
+                <Cell col="8" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SL_01&quot;)"/>
+                <Cell col="9" textAlign="right" displaytype="mask" maskeditformat="#,##0.00" expr="dataset.getSum(&quot;SL_01&quot;) / dataset.getSum(&quot;SU_01&quot;) * 100"/>
+                <Cell col="10" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SU_02&quot;)"/>
+                <Cell col="11" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SL_02&quot;)"/>
+                <Cell col="12" textAlign="right" displaytype="mask" maskeditformat="#,##0.00" expr="dataset.getSum(&quot;SL_02&quot;) / dataset.getSum(&quot;SU_02&quot;) * 100"/>
+                <Cell col="13" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SU_03&quot;)"/>
+                <Cell col="14" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SL_03&quot;)"/>
+                <Cell col="15" textAlign="right" displaytype="mask" maskeditformat="#,##0.00" expr="dataset.getSum(&quot;SL_03&quot;) / dataset.getSum(&quot;SU_03&quot;) * 100"/>
+                <Cell col="16" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SU_04&quot;)"/>
+                <Cell col="17" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SL_04&quot;)"/>
+                <Cell col="18" textAlign="right" displaytype="mask" maskeditformat="#,##0.00" expr="dataset.getSum(&quot;SL_04&quot;) / dataset.getSum(&quot;SU_04&quot;) * 100"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Grid id="grd_Master20" taborder="3" left="12" top="102" binddataset="ds_Master20" autofittype="none" cellsizingtype="col" right="12" bottom="10" selecttype="multiarea">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="35" band="left"/>
+                <Column size="120" band="left"/>
+                <Column size="100" band="left"/>
+                <Column size="200" band="left"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="26" band="head"/>
+                <Row size="24"/>
+                <Row size="24" band="summ"/>
+              </Rows>
+              <Band id="head">
+                <Cell rowspan="2" text="No."/>
+                <Cell col="1" rowspan="2" text="부서"/>
+                <Cell col="2" colspan="2" text="계정"/>
+                <Cell col="4" colspan="3" text="합계"/>
+                <Cell col="7" colspan="3" text="1월"/>
+                <Cell col="10" colspan="3" text="2월"/>
+                <Cell col="13" colspan="3" text="3월"/>
+                <Cell col="16" colspan="3" text="4월"/>
+                <Cell col="19" colspan="3" text="5월"/>
+                <Cell col="22" colspan="3" text="6월"/>
+                <Cell col="25" colspan="3" text="7월"/>
+                <Cell col="28" colspan="3" text="8월"/>
+                <Cell col="31" colspan="3" text="9월"/>
+                <Cell col="34" colspan="3" text="10월"/>
+                <Cell col="37" colspan="3" text="11월"/>
+                <Cell col="40" colspan="3" text="12월"/>
+                <Cell row="1" col="2" text="코드"/>
+                <Cell row="1" col="3" text="과목명"/>
+                <Cell row="1" col="4" text="계획"/>
+                <Cell row="1" col="5" text="실적"/>
+                <Cell row="1" col="6" text="비율(%)"/>
+                <Cell row="1" col="7" text="계획"/>
+                <Cell row="1" col="8" text="실적"/>
+                <Cell row="1" col="9" text="비율(%)"/>
+                <Cell row="1" col="10" text="계획"/>
+                <Cell row="1" col="11" text="실적"/>
+                <Cell row="1" col="12" text="비율(%)"/>
+                <Cell row="1" col="13" text="계획"/>
+                <Cell row="1" col="14" text="실적"/>
+                <Cell row="1" col="15" text="비율(%)"/>
+                <Cell row="1" col="16" text="계획"/>
+                <Cell row="1" col="17" text="실적"/>
+                <Cell row="1" col="18" text="비율(%)"/>
+                <Cell row="1" col="19" text="계획"/>
+                <Cell row="1" col="20" text="실적"/>
+                <Cell row="1" col="21" text="비율(%)"/>
+                <Cell row="1" col="22" text="계획"/>
+                <Cell row="1" col="23" text="실적"/>
+                <Cell row="1" col="24" text="비율(%)"/>
+                <Cell row="1" col="25" text="계획"/>
+                <Cell row="1" col="26" text="실적"/>
+                <Cell row="1" col="27" text="비율(%)"/>
+                <Cell row="1" col="28" text="계획"/>
+                <Cell row="1" col="29" text="실적"/>
+                <Cell row="1" col="30" text="비율(%)"/>
+                <Cell row="1" col="31" text="계획"/>
+                <Cell row="1" col="32" text="실적"/>
+                <Cell row="1" col="33" text="비율(%)"/>
+                <Cell row="1" col="34" text="계획"/>
+                <Cell row="1" col="35" text="실적"/>
+                <Cell row="1" col="36" text="비율(%)"/>
+                <Cell row="1" col="37" text="계획"/>
+                <Cell row="1" col="38" text="실적"/>
+                <Cell row="1" col="39" text="비율(%)"/>
+                <Cell row="1" col="40" text="계획"/>
+                <Cell row="1" col="41" text="실적"/>
+                <Cell row="1" col="42" text="비율(%)"/>
+              </Band>
+              <Band id="body">
+                <Cell expr="currow+1" textAlign="center"/>
+                <Cell col="1" text="bind:DEPM_NM" displaytype="normal" textAlign="left" suppress="1"/>
+                <Cell col="2" textAlign="center" text="bind:ACOM_CD"/>
+                <Cell col="3" text="bind:ACOM_NM" textAlign="left"/>
+                <Cell col="4" textAlign="right" displaytype="number" text="bind:SUM_SU"/>
+                <Cell col="5" textAlign="right" displaytype="number" text="bind:SUM_SL"/>
+                <Cell col="6" maskeditformat="#,##0.00" displaytype="mask" textAlign="right" text="bind:SUM_RT"/>
+                <Cell col="7" textAlign="right" displaytype="number" text="bind:SU_01"/>
+                <Cell col="8" textAlign="right" displaytype="number" text="bind:SL_01"/>
+                <Cell col="9" maskeditformat="#,##0.00" displaytype="mask" textAlign="right" text="bind:B01_RT"/>
+                <Cell col="10" textAlign="right" displaytype="number" text="bind:SU_02"/>
+                <Cell col="11" textAlign="right" displaytype="number" text="bind:SL_02"/>
+                <Cell col="12" maskeditformat="#,##0.00" displaytype="mask" textAlign="right" text="bind:B02_RT"/>
+                <Cell col="13" textAlign="right" displaytype="number" text="bind:SU_03"/>
+                <Cell col="14" textAlign="right" displaytype="number" text="bind:SL_03"/>
+                <Cell col="15" maskeditformat="#,##0.00" displaytype="mask" textAlign="right" text="bind:B03_RT"/>
+                <Cell col="16" textAlign="right" displaytype="number" text="bind:SU_04"/>
+                <Cell col="17" textAlign="right" displaytype="number" text="bind:SL_04"/>
+                <Cell col="18" maskeditformat="#,##0.00" displaytype="mask" textAlign="right" text="bind:B04_RT"/>
+                <Cell col="19" textAlign="right" displaytype="number" text="bind:SU_05"/>
+                <Cell col="20" textAlign="right" displaytype="number" text="bind:SL_05"/>
+                <Cell col="21" maskeditformat="#,##0.00" displaytype="mask" textAlign="right" text="bind:B05_RT"/>
+                <Cell col="22" textAlign="right" displaytype="number" text="bind:SU_06"/>
+                <Cell col="23" textAlign="right" displaytype="number" text="bind:SL_06"/>
+                <Cell col="24" maskeditformat="#,##0.00" displaytype="mask" textAlign="right" text="bind:B06_RT"/>
+                <Cell col="25" textAlign="right" displaytype="number" text="bind:SU_07"/>
+                <Cell col="26" textAlign="right" displaytype="number" text="bind:SL_07"/>
+                <Cell col="27" maskeditformat="#,##0.00" displaytype="mask" textAlign="right" text="bind:B07_RT"/>
+                <Cell col="28" textAlign="right" displaytype="number" text="bind:SU_08"/>
+                <Cell col="29" textAlign="right" displaytype="number" text="bind:SL_08"/>
+                <Cell col="30" maskeditformat="#,##0.00" displaytype="mask" textAlign="right" text="bind:B08_RT"/>
+                <Cell col="31" textAlign="right" displaytype="number" text="bind:SU_09"/>
+                <Cell col="32" textAlign="right" displaytype="number" text="bind:SL_09"/>
+                <Cell col="33" maskeditformat="#,##0.00" displaytype="mask" textAlign="right" text="bind:B09_RT"/>
+                <Cell col="34" textAlign="right" displaytype="number" text="bind:SU_10"/>
+                <Cell col="35" textAlign="right" displaytype="number" text="bind:SL_10"/>
+                <Cell col="36" maskeditformat="#,##0.00" displaytype="mask" textAlign="right" text="bind:B10_RT"/>
+                <Cell col="37" textAlign="right" displaytype="number" text="bind:SU_11"/>
+                <Cell col="38" textAlign="right" displaytype="number" text="bind:SL_11"/>
+                <Cell col="39" maskeditformat="#,##0.00" displaytype="mask" textAlign="right" text="bind:B11_RT"/>
+                <Cell col="40" textAlign="right" displaytype="number" text="bind:SU_12"/>
+                <Cell col="41" textAlign="right" displaytype="number" text="bind:SL_12"/>
+                <Cell col="42" maskeditformat="#,##0.00" displaytype="mask" textAlign="right" text="bind:B12_RT"/>
+              </Band>
+              <Band id="summary">
+                <Cell colspan="4" text="합계" textAlign="center"/>
+                <Cell col="4" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SUM_SU&quot;)"/>
+                <Cell col="5" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SUM_SL&quot;)"/>
+                <Cell col="6" textAlign="right" displaytype="mask" expr="dataset.getSum(&quot;SUM_SL&quot;) / dataset.getSum(&quot;SUM_SU&quot;) * 100" maskeditformat="#,##0.00"/>
+                <Cell col="7" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SU_01&quot;)"/>
+                <Cell col="8" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SL_01&quot;)"/>
+                <Cell col="9" textAlign="right" displaytype="mask" maskeditformat="#,##0.00" expr="dataset.getSum(&quot;SL_01&quot;) / dataset.getSum(&quot;SU_01&quot;) * 100"/>
+                <Cell col="10" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SU_02&quot;)"/>
+                <Cell col="11" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SL_02&quot;)"/>
+                <Cell col="12" textAlign="right" displaytype="mask" maskeditformat="#,##0.00" expr="dataset.getSum(&quot;SL_02&quot;) / dataset.getSum(&quot;SU_02&quot;) * 100"/>
+                <Cell col="13" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SU_03&quot;)"/>
+                <Cell col="14" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SL_03&quot;)"/>
+                <Cell col="15" textAlign="right" displaytype="mask" maskeditformat="#,##0.00" expr="dataset.getSum(&quot;SL_03&quot;) / dataset.getSum(&quot;SU_03&quot;) * 100"/>
+                <Cell col="16" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SU_04&quot;)"/>
+                <Cell col="17" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SL_04&quot;)"/>
+                <Cell col="18" textAlign="right" displaytype="mask" maskeditformat="#,##0.00" expr="dataset.getSum(&quot;SL_04&quot;) / dataset.getSum(&quot;SU_04&quot;) * 100"/>
+                <Cell col="19" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SU_05&quot;)"/>
+                <Cell col="20" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SL_05&quot;)"/>
+                <Cell col="21" textAlign="right" displaytype="mask" maskeditformat="#,##0.00" expr="dataset.getSum(&quot;SL_05&quot;) / dataset.getSum(&quot;SU_05&quot;) * 100"/>
+                <Cell col="22" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SU_06&quot;)"/>
+                <Cell col="23" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SL_06&quot;)"/>
+                <Cell col="24" textAlign="right" displaytype="mask" maskeditformat="#,##0.00" expr="dataset.getSum(&quot;SL_06&quot;) / dataset.getSum(&quot;SU_06&quot;) * 100"/>
+                <Cell col="25" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SU_07&quot;)"/>
+                <Cell col="26" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SL_07&quot;)"/>
+                <Cell col="27" textAlign="right" displaytype="mask" maskeditformat="#,##0.00" expr="dataset.getSum(&quot;SL_07&quot;) / dataset.getSum(&quot;SU_07&quot;) * 100"/>
+                <Cell col="28" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SU_08&quot;)"/>
+                <Cell col="29" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SL_08&quot;)"/>
+                <Cell col="30" textAlign="right" displaytype="mask" maskeditformat="#,##0.00" expr="dataset.getSum(&quot;SL_08&quot;) / dataset.getSum(&quot;SU_08&quot;) * 100"/>
+                <Cell col="31" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SU_09&quot;)"/>
+                <Cell col="32" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SL_09&quot;)"/>
+                <Cell col="33" textAlign="right" displaytype="mask" maskeditformat="#,##0.00" expr="dataset.getSum(&quot;SL_09&quot;) / dataset.getSum(&quot;SU_09&quot;) * 100"/>
+                <Cell col="34" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SU_10&quot;)"/>
+                <Cell col="35" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SL_10&quot;)"/>
+                <Cell col="36" textAlign="right" displaytype="mask" maskeditformat="#,##0.00" expr="dataset.getSum(&quot;SL_10&quot;) / dataset.getSum(&quot;SU_10&quot;) * 100"/>
+                <Cell col="37" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SU_11&quot;)"/>
+                <Cell col="38" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SL_11&quot;)"/>
+                <Cell col="39" textAlign="right" displaytype="mask" maskeditformat="#,##0.00" expr="dataset.getSum(&quot;SL_11&quot;) / dataset.getSum(&quot;SU_11&quot;) * 100"/>
+                <Cell col="40" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SU_12&quot;)"/>
+                <Cell col="41" textAlign="right" displaytype="number" expr="dataset.getSum(&quot;SL_12&quot;)"/>
+                <Cell col="42" textAlign="right" displaytype="mask" maskeditformat="#,##0.00" expr="dataset.getSum(&quot;SL_12&quot;) / dataset.getSum(&quot;SU_12&quot;) * 100"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="FROM_YY" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="ACOM_CD" type="STRING" size="256"/>
+          <Column id="ACOM_NM" type="STRING" size="256"/>
+          <Column id="SUM_SU" type="STRING" size="256"/>
+          <Column id="SUM_SL" type="STRING" size="256"/>
+          <Column id="SUM_RT" type="STRING" size="256"/>
+          <Column id="SU_01" type="STRING" size="256"/>
+          <Column id="SL_01" type="STRING" size="256"/>
+          <Column id="B01_RT" type="STRING" size="256"/>
+          <Column id="SU_02" type="STRING" size="256"/>
+          <Column id="SL_02" type="STRING" size="256"/>
+          <Column id="B02_RT" type="STRING" size="256"/>
+          <Column id="SU_03" type="STRING" size="256"/>
+          <Column id="SL_03" type="STRING" size="256"/>
+          <Column id="B03_RT" type="STRING" size="256"/>
+          <Column id="SU_04" type="STRING" size="256"/>
+          <Column id="SL_04" type="STRING" size="256"/>
+          <Column id="B04_RT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master20">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_CD" type="STRING" size="256"/>
+          <Column id="DEPM_NM" type="STRING" size="256"/>
+          <Column id="ACOM_CD" type="STRING" size="256"/>
+          <Column id="ACOM_NM" type="STRING" size="256"/>
+          <Column id="SUM_SU" type="STRING" size="256"/>
+          <Column id="SUM_SL" type="STRING" size="256"/>
+          <Column id="SUM_RT" type="STRING" size="256"/>
+          <Column id="SU_01" type="STRING" size="256"/>
+          <Column id="SL_01" type="STRING" size="256"/>
+          <Column id="B01_RT" type="STRING" size="256"/>
+          <Column id="SU_02" type="STRING" size="256"/>
+          <Column id="SL_02" type="STRING" size="256"/>
+          <Column id="B02_RT" type="STRING" size="256"/>
+          <Column id="SU_03" type="STRING" size="256"/>
+          <Column id="SL_03" type="STRING" size="256"/>
+          <Column id="B03_RT" type="STRING" size="256"/>
+          <Column id="SU_04" type="STRING" size="256"/>
+          <Column id="SL_04" type="STRING" size="256"/>
+          <Column id="B04_RT" type="STRING" size="256"/>
+          <Column id="SU_05" type="STRING" size="256"/>
+          <Column id="SL_05" type="STRING" size="256"/>
+          <Column id="B05_RT" type="STRING" size="256"/>
+          <Column id="SU_06" type="STRING" size="256"/>
+          <Column id="SL_06" type="STRING" size="256"/>
+          <Column id="B06_RT" type="STRING" size="256"/>
+          <Column id="SU_07" type="STRING" size="256"/>
+          <Column id="SL_07" type="STRING" size="256"/>
+          <Column id="B07_RT" type="STRING" size="256"/>
+          <Column id="SU_08" type="STRING" size="256"/>
+          <Column id="SL_08" type="STRING" size="256"/>
+          <Column id="B08_RT" type="STRING" size="256"/>
+          <Column id="SU_09" type="STRING" size="256"/>
+          <Column id="SL_09" type="STRING" size="256"/>
+          <Column id="B09_RT" type="STRING" size="256"/>
+          <Column id="SU_10" type="STRING" size="256"/>
+          <Column id="SL_10" type="STRING" size="256"/>
+          <Column id="B10_RT" type="STRING" size="256"/>
+          <Column id="SU_11" type="STRING" size="256"/>
+          <Column id="SL_11" type="STRING" size="256"/>
+          <Column id="B11_RT" type="STRING" size="256"/>
+          <Column id="SU_12" type="STRING" size="256"/>
+          <Column id="SL_12" type="STRING" size="256"/>
+          <Column id="B12_RT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : BUGSINFO
+*  @화면설명 : 예산통제정보
+*  @시스템명 : (CA) 시스템
+*  @작성자   : 박혜림
+*  @작성일   : 2022.04.14
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2022.04.14     	    박혜림 	           최초 생성 
+*************************************************************************************************
+*/
+
+/***********************************************************************************************
+ * 0. 폼로드
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.01. Form Include 선언
+ ***********************************************************************************************/
+ 
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+this.fvFromYy = "";//[부모창파라메타] 편성년도
+this.fvDepmCd = "";//부서코드
+this.fvDepmNm = "";//부서명
+this.fvTitle = ""; //팝업이름
+this.fvGuCd = "";  //구분자코드
+
+/***********************************************************************************************
+ * 00.02. Form 변수 선언
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.03. Form Onload 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	//부모창 파라메타 처리
+	this.fvFromYy = this.getOwnerFrame().FromYy;//[부모창파라메타] 편성년도
+	this.fvDepmCd = this.getOwnerFrame().DepmCd;//[부모창파라메타] 부서코드
+	this.fvDepmNm = this.getOwnerFrame().DepmNm;//[부모창파라메타] 부서명
+	this.fvTitle = this.getOwnerFrame().paramTitle;//[부모창파라메타] 팝업이름
+	this.fvGuCd = this.getOwnerFrame().GuCd;//[부모창파라메타] 구분자코드
+	this.fvComPrgmId = this.getOwnerFrame().PrgmId;//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+
+ 	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+ 	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+	
+}
+
+/***********************************************************************************************
+ * 00.04. Form [공통] 초기설정 함수 - 필수
+ ***********************************************************************************************/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.gfn_SetGrid(this.grd_Master10);//[공통]그리드 이벤트 설정
+	this.gfn_SetGrid(this.grd_Master20);//[공통]그리드 이벤트 설정
+}
+
+/***********************************************************************************************
+ * 00.05. Form [업무] 초기설정 함수
+ ***********************************************************************************************/
+this.fn_FormBizInit = function() 
+{
+	//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+	var objCondList = [
+					  ];
+	//공통코드 설정함수 호출				   
+	this.gfn_GetCommCode(this, objCondList, "");
+	
+	
+	//파라미터 값이 있는경우
+	if (!this.gfn_IsNull(this.fvFromYy)) {
+		this.div_Search.form.spn_FromYy.set_value(this.fvFromYy);
+	}
+	if (!this.gfn_IsNull(this.fvDepmCd)) {
+		this.div_Search.form.edt_DepmCd.set_value(this.fvDepmCd);
+	}
+	if (!this.gfn_IsNull(this.fvDepmNm)) {
+		this.div_Search.form.edt_DepmNm.set_value(this.fvDepmNm);
+	}
+	
+	if (!this.gfn_IsNull(this.fvTitle)) {
+		this.div_PopupTitle.form.sta_PopupTitle.set_text(this.fvTitle);
+	}
+	
+	//분기별
+	if (this.fvGuCd == "Q") {
+		this.grd_Master10.set_visible(true);
+		this.grd_Master20.set_visible(false);
+	//월별
+	} else {
+		this.grd_Master10.set_visible(false);
+		this.grd_Master20.set_visible(true);
+	}
+	
+	this.div_PopupTitle_btn_Search_onclick();//조회
+}
+
+/***********************************************************************************************
+ * 00.06. Form [업무] 일반콤보 조회 함수
+ ***********************************************************************************************/
+this.fn_ComboSearch = function() 
+{
+}
+
+/***********************************************************************************************
+ * 00.07. Form OnClose 이벤트
+ ***********************************************************************************************/
+ 
+/***********************************************************************************************
+ * 00.08. Form OnSize 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{ 
+
+	if (obj.width > 1400) {
+		this.grd_Master10.set_autofittype("col");
+	} else {
+		this.grd_Master10.set_autofittype("none");
+	}
+
+};
+
+/***********************************************************************************************
+ * 1. 조회 영역
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 01.01. [팝업버튼] 조회 버튼 클릭 이벤트
+ ***********************************************************************************************/
+this.div_PopupTitle_btn_Search_onclick = function()
+{ 
+
+	//조회전 유효성 체크
+	if (!this.fn_VaildSearch()) return;	
+	
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+	this.ds_Master10.clearData();
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "FROM_YY", this.div_Search.form.spn_FromYy.value);//편성년도
+	this.ds_Input.setColumn(0, "DEPM_CD", this.div_Search.form.edt_DepmCd.value);//부서코드
+
+	var sSqlID = "";
+	var sOutDatset = "";
+	
+	//분기별
+	if (this.fvGuCd == "Q") {
+		sSqlID = "ca:M_CA_BUGS_M_SL10";
+		sOutDatset = "ds_Master10=ds_Master10";
+	//월별
+	} else if (this.fvGuCd == "M") {
+		sSqlID = "ca:M_CA_BUGS_M_SL20";
+		sOutDatset = "ds_Master20=ds_Master20";
+	}
+	
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = sSqlID;
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "MST_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= this.G_SV_CA;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= sOutDatset;//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);			
+}
+
+/***********************************************************************************************
+ * 01.02. [Vaildation] 조회 필수값 체크
+ ***********************************************************************************************/
+this.fn_VaildSearch = function()
+{
+
+	//[조회] Validation 설정
+	var arrArgs = ["this.div_Search.form.spn_FromYy^" + this.div_Search.form.sta_FromYy.text + "|NULL"
+			      ,"this.div_Search.form.edt_DepmCd^" + this.div_Search.form.sta_DepmCd.text + "|NULL"
+			      ]; 
+				  
+	var sCheckGroupTitle = "조회조건";//체크그룹 타이틀
+
+	//컴포넌트 Vaild 체크
+	if (!this.gfn_CheckFormCompValid(this, arrArgs, sCheckGroupTitle)) {
+		return false;
+	}
+	
+	return true;
+}
+
+/***********************************************************************************************
+ * 01.03. [공통] 조회조건 클릭/변경 이벤트
+ ***********************************************************************************************/
+  
+/***********************************************************************************************
+ * 2. 입력
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 02.01. [공통버튼] 입력 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+ /***********************************************************************************************
+ * 02.MG0.01. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 02.MG0.02. [Master10 그리드] 더블클릭 이벤트
+ ***********************************************************************************************/ 
+this.grd_Master10_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+}; 
+
+/***********************************************************************************************
+ * 02.MG0.03. [Master10 그리드] ENTER KEY 줄선택 이벤트
+ ***********************************************************************************************/  
+this.grd_Master10_onkeyup = function(obj:nexacro.Grid,e:nexacro.KeyEventInfo)
+{
+}; 
+ 
+/***********************************************************************************************
+ * 3. 복사
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 03.01. [팝업버튼] 복사 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 4. 취소
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 04.01. [팝업버튼] 취소 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 5. 저장
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 05.01. [팝업버튼] 저장 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 05.02. [Vaildation] Master 저장 필수값 체크 - 입력항목 
+ ***********************************************************************************************/ 
+this.fn_VaildMasterSave = function()
+{
+}
+
+/***********************************************************************************************
+ * 05.03. [Vaildation] Detail 저장 필수값 체크 - 그리드항목
+ ***********************************************************************************************/ 
+this.fn_VaildDetailSave = function()
+{
+}
+ 
+/***********************************************************************************************
+ * 6. 삭제
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 06.01. [공통버튼] 삭제 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+/***********************************************************************************************
+ * 06.02. [서비스] 삭제처리
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 06.03. [Vaildation] 삭제항목 체크
+ ***********************************************************************************************/  
+this.fn_VaildMasterDelete = function()
+{
+}
+
+/***********************************************************************************************
+ * 7. 엑셀
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 07.01. [팝업버튼] 엑셀저장 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 8. 인쇄
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 08.01. [팝업버튼] 인쇄 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 9. 결재요청
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 09.01. [팝업버튼] 결재요청 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 10. 결재현황
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.01. [팝업버튼] 결재현황 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 11. 재기안
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 11.01. [팝업버튼] 재기안 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 12. 닫기
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 12.01. [팝업버튼] 닫기 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.div_PopupTitle_btn_Close_onclick = function()
+{ 
+	this.gfn_PopClose();
+}
+
+/***********************************************************************************************
+ * 13. 선택
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 13.01. [팝업버튼] 선택 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.div_PopupTitle_btn_Choice_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+}
+
+/***********************************************************************************************
+ * 13.02. [사용자함수] 선택한 정보 부모창 리턴 함수 
+ ***********************************************************************************************/ 
+this.fn_Choice = function(iRow) 
+{
+}
+
+/***********************************************************************************************
+ * 14. [CallBack] 함수
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 14.01. [서비스] CallBack 함수 처리
+ ***********************************************************************************************/ 
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST_SEARCH": //조회	
+			//조회시 focus 이동
+		
+			//분기별
+			if (this.fvGuCd == "Q") {
+				this.grd_Master10.setFocus();
+			//월별
+			} else {
+				this.grd_Master20.setFocus();
+			}
+			
+			break;						
+	}
+};
+
+
+/***********************************************************************************************
+ * 14.02. [팝업] CallBack 함수 처리
+          strId : 팝업호출시 지정한 팝업ID
+	      rtnValue : 팝업창에서 close시 지정한 반환값
+          주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/ 
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+};
+ 
+/***********************************************************************************************
+ * 14.03. [메세지] CallBack 함수 처리
+ ***********************************************************************************************/  
+this.fn_MsgCallback = function (strId, strVal)
+{
+}; 
+]]></Script>
+  </Form>
+</FDL>

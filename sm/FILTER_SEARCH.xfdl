@@ -1,0 +1,436 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="FILTERSEARCH" width="360" height="510" titletext="필터_검색" scrollbartype="none" onload="fn_FormOnload" onsize="fn_FormOnsize">
+    <Layouts>
+      <Layout height="510" width="360">
+        <Div id="div_Search" taborder="0" left="12" top="21" height="38" cssclass="div_WF_Search" formscrollbartype="none none" width="338">
+          <Layouts>
+            <Layout>
+              <Static id="sta_SecmNm" taborder="1" text="검색어" left="16" top="6" width="80" height="24" cssclass="sta_WF_SLabel" DomainID="S00002"/>
+              <Edit id="edt_SecmNm" taborder="0" left="96" top="6" width="227" height="24" maxlength="100" onkeyup="div_Search_edt_SecmNm_onkeyup" inputmode="normal" onkeydown="div_Search_edt_SecmNm_onkeydown"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="grd_Master10" taborder="1" left="12" top="97" autofittype="none" cellsizingtype="col" onkeyup="grd_Master10_onkeyup" selecttype="multiarea" width="338" binddataset="ds_Master10" onheadclick="grd_Master10_onheadclick" height="360">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="30" band="left"/>
+                <Column size="307" band="left"/>
+              </Columns>
+              <Rows>
+                <Row size="26" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell displaytype="none" edittype="none"/>
+                <Cell col="1" displaytype="normal" edittype="none" text="내용"/>
+              </Band>
+              <Band id="body">
+                <Cell displaytype="checkboxcontrol" textAlign="center" edittype="checkbox" text="bind:COL_CHECK"/>
+                <Cell col="1" text="bind:GRID_COL_VALUE" displaytype="normal" textAlign="left"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="Button00" taborder="2" text="필터해제" left="12" top="466" width="68" background="" onclick="Button00_onclick" height="24" cssclass="btn_WF_Search" visible="true"/>
+        <Button id="Button00_01" taborder="3" text="전체필터해제" left="88" top="466" width="99" background="" height="24" onclick="Button00_01_onclick" cssclass="btn_WF_Search" visible="true"/>
+        <Button id="btn_SomCheck" taborder="4" text="부분선택" top="68" width="70" height="20" right="84" visible="true" cssclass="bt_WF_InputArea_Blue" onclick="btn_SomCheck_onclick"/>
+        <Button id="btn_SomeUncheck" taborder="5" text="부분해지" top="68" width="70" height="20" right="11" visible="true" cssclass="bt_WF_InputArea_White" onclick="btn_SomeUncheck_onclick"/>
+        <Button id="btn_AllCheck" taborder="6" text="전체선택" top="68" width="70" height="20" right="230" visible="true" cssclass="bt_WF_InputArea_Blue" onclick="btn_AllCheck_onclick"/>
+        <Button id="btn_AllUncheck" taborder="7" text="전체해지" top="68" width="70" height="20" right="157" visible="true" cssclass="bt_WF_InputArea_White" onclick="btn_AllUncheck_onclick"/>
+        <Button id="btn_Choice" taborder="8" text="적용" top="466" width="70" height="24" right="83" visible="true" cssclass="btn_WF_Search" onclick="btn_Choice_onclick"/>
+        <Button id="btn_Cancel" taborder="9" text="닫기" top="466" width="70" height="24" right="10" onclick="btn_Cancel_onclick" visible="true" cssclass="btn_WF_Search"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="SECM_NM" type="STRING" size="256" description="조회시작일자"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10">
+        <ColumnInfo>
+          <Column id="COL_CHECK" type="STRING" size="256"/>
+          <Column id="COL_VALUE" type="STRING" size="256"/>
+          <Column id="GRID_COL_VALUE" type="STRING" size="256"/>
+          <Column id="COL_NUMBER_VALUE" type="BIGDECIMAL" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : 
+*  @화면설명 : 유가증권정보
+*  @시스템명 : (FA) 재무회계
+*  @작성자   : 박혜림
+*  @작성일   : 2021.08.25
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.08.25     	    박혜림 	           최초 생성 
+*************************************************************************************************
+*/
+
+/***********************************************************************************************
+ * 0. 폼로드
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.01. Form Include 선언
+ ***********************************************************************************************/
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+this.fvSecmNm = "";//[부모창파라메타] 유가증권명
+
+var p_grd = "";
+var p_grd_col = "";
+var p_grd_cell = "";
+var p_ds_col_value = "";
+var p_ds = ""; // 부모의 현재 컨트롤 대상 데이터셋
+var p_ds_save = ""; // 부모의 필터값 저장 데이터셋
+var p_ds_id = this.parent.parent.targetDs;
+
+var p_pgm_id = this.parent.parent.targetPgmId; // 부모 프로그램 id
+var p_dsFilter 		= eval("this.parent.parent.ds_Filter_"+p_ds_id+"_"+p_pgm_id);	
+var p_dsFilterSave 	= eval("this.parent.parent.ds_FilterSave_"+p_ds_id+"_"+p_pgm_id);	
+
+
+var p_ds_col_id = p_dsFilter.getColumn(0, "P_DS_COL_ID");
+var p_ds_col_name = p_dsFilter.getColumn(0, "P_DS_COL_NAME");
+var p_ds_col_displaytype = p_dsFilter.getColumn(0, "P_DS_COL_DISPLAYTYPE"); // displaytype
+var p_ds_col_textalign = p_dsFilter.getColumn(0, "P_DS_COL_TEXTALIGN"); // textalign
+
+ 
+
+
+var yesSelectFilterImage = "chk_WF_Popupmenu_O.png"; // 필터링 된 이미지
+var noSelectFilterImage = "chk_WF_Box_DS.png"; // 필터링 되지 않은 이미지
+
+/***********************************************************************************************
+ * 00.02. Form 변수 선언
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.03. Form Onload 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	//부모창 파라메타 처리
+	this.fvSecmNm = this.getOwnerFrame().SecmNm;//[부모창파라메타] 유가증권명
+	this.fvComPrgmId = this.getOwnerFrame().PrgmId;//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+	
+	// 화면 로드전 전역변수 셋팅
+	
+	p_grd = this.parent.parent.targetGrid;
+	p_grd_col = this.parent.parent.targetGridCol;
+	p_grd_cell = this.parent.parent.targetGridCell;
+	p_ds = p_grd.getBindDataset(); // 부모의 현재 컨트롤 대상 데이터셋
+	p_ds_save = p_dsFilterSave;
+	p_popupDiv = this.parent.parent.objPopupDiv;
+
+ 	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+ 	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수
+	
+	
+	
+	p_ds.set_loadfiltermode( "keep" );
+	
+	this.initMaster10();
+	
+	
+}
+
+/***********************************************************************************************
+ * 00.04. Form [공통] 초기설정 함수 - 필수
+ ***********************************************************************************************/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.gfn_SetGrid(this.grd_Master10);//[공통]그리드 이벤트 설정 - 프로젝트목록
+	
+	this.grd_Master10.setCellProperty("head", 1, "text", p_ds_col_name);
+	
+	if(p_ds_col_textalign == "right") { // 이 경우는 모두 숫자로 본다.
+		this.grd_Master10.setCellProperty("body", 1, "text", "bind:COL_NUMBER_VALUE");
+		this.grd_Master10.setCellProperty("body", 1, "displaytype", "number");
+	} else {
+		this.grd_Master10.setCellProperty("body", 1, "text", "bind:GRID_COL_VALUE");
+		this.grd_Master10.setCellProperty("body", 1, "displaytype", "normal");
+		/*
+		if(p_ds_col_displaytype == "combotext") {
+			this.grd_Master10.setCellProperty("body", 1, "text", "bind:GRID_COL_VALUE");
+			this.grd_Master10.setCellProperty("body", 1, "displaytype", "normal");
+		} else {
+			this.grd_Master10.setCellProperty("body", 1, "text", "bind:GRID_COL_VALUE");
+			this.grd_Master10.setCellProperty("body", 1, "displaytype", "normal");
+		}
+		*/
+	}
+	
+	
+	// 그리드 머지된 컬럼 필터 제거
+// 	for(var i=0;i<p_grd.getCellCount("head");i++) {
+// 		trace(p_grd.getCellProperty("head", i, "colspan"));
+// 		if(p_grd.getCellProperty("head", i, "colspan") > 1) {
+// 			p_grd.setCellProperty("head", i, "background", "");
+// 		}
+// 	}
+}
+
+/***********************************************************************************************
+ * 00.05. Form [업무] 초기설정 함수
+ ***********************************************************************************************/
+this.fn_FormBizInit = function() 
+{
+
+}
+
+this.div_Search_edt_SecmNm_onkeyup = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+
+};
+
+this.ds_Master10_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	
+};
+
+this.thisCheck = function(obj) {
+	var arr_target_code = "";
+	for(var i=0;i<obj.rowcount;i++) {
+		if(obj.getColumn(i, "COL_CHECK") == "1") {
+			arr_target_code = arr_target_code + p_ds_col_id + " == \"" + obj.getColumn(i, "COL_VALUE") + "\"||";
+		}
+	}
+	trace("arr_target_code aaaa --> " + arr_target_code);
+	arr_target_code = this.gfn_Left(arr_target_code, arr_target_code.length-2);
+	
+	p_ds_save.deleteRow(p_ds_save.findRow("P_DS_COL_ID", p_ds_col_id));
+	
+	if(!this.gfn_IsNull(arr_target_code)) {
+		var k = p_ds_save.addRow();
+		
+		p_ds_save.setColumn(k, "P_PGM_ID", p_pgm_id);
+		p_ds_save.setColumn(k, "P_DS_COL_ID", p_ds_col_id);
+		p_ds_save.setColumn(k, "P_DS_COL_VALUE", "("+arr_target_code+")");
+		
+	}
+	
+	arr_target_code = "";
+	var strVal = "";
+	
+	for(var i=0;i<p_ds_save.rowcount;i++) {
+		strVal = p_ds_save.getColumn(i, "P_DS_COL_VALUE");
+		arr_target_code = arr_target_code + strVal + "&&";
+	}
+	
+	arr_target_code = this.gfn_Left(arr_target_code, arr_target_code.length-2);
+	 
+	trace("arr_target_code bbbb --> " + arr_target_code);
+	
+	p_ds.set_filterstr(arr_target_code);
+	
+	p_grd.setCellProperty("head", p_grd_cell, "background", "url('theme://images/"+yesSelectFilterImage+"') no-repeat right #e3eff4");
+	
+}
+
+
+// 필터해제
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+trace("=============필터해제==============");
+
+	if(p_ds_save.rowcount == 1) {
+		p_ds.filter("");
+		p_ds_save.clearData();
+	} else {
+	
+		p_ds_save.deleteRow(p_ds_save.findRow("P_DS_COL_ID", p_ds_col_id));
+		
+		for(var i=0;i<p_ds_save.rowcount;i++) {
+			
+			p_ds.set_filterstr(p_ds_save.getColumn(i, "P_DS_COL_VALUE"));
+		}
+	}
+	
+	p_grd.setCellProperty("head", p_grd_cell, "background", "url('theme://images/"+noSelectFilterImage+"') no-repeat right #e3eff4");
+	
+	this.initMaster10();
+	
+};
+
+// 필터 데이터셋 초기화
+// 현재 선택된 컬럼정보를 전부 읽어들인다.
+this.initMaster10 = function() {
+trace("==============필터 데이터셋 초기화================");
+	this.ds_Master10.clearData();
+	p_dsFilter.clearData();
+	this.ds_Master10.set_enableevent(false);
+	p_ds.set_enableevent(false);
+	
+	var addColValue = "";
+	
+	for(var i=0;i<p_ds.rowcount;i++) {
+	
+		// 컬럼 값이 없을시 강제로 공백 셋팅 ( saveXML에 안나오면 검색 자체가 불가능하므로... )
+		// 202206281752
+		if(this.gfn_IsNull(p_ds.getColumn(i, p_ds_col_id))) { 
+			p_ds.setColumn(i, p_ds_col_id, '');
+		}
+		
+		if(this.ds_Master10.findRow("COL_VALUE", p_ds.getColumn(i, p_ds_col_id)) == -1) {
+			var k = this.ds_Master10.addRow();
+			
+			addColValue = p_ds.getColumn(i, p_ds_col_id);
+			
+			this.ds_Master10.setColumn(k, "COL_VALUE", addColValue);
+			
+			if(p_ds_col_textalign == "right") { // 이 경우는 모두 숫자로 본다.
+				this.ds_Master10.setColumn(k, "COL_NUMBER_VALUE", p_ds.getColumn(i, p_ds_col_id));
+			} else {
+				this.ds_Master10.setColumn(k, "GRID_COL_VALUE", p_grd.getCellText(i, p_grd_col));
+			}
+			
+			if(p_ds_save.findRow("P_DS_COL_ID", p_ds_col_id) > -1) {
+				this.ds_Master10.setColumn(k, "COL_CHECK", "1");
+			}
+		}
+	}
+	
+	this.ds_Master10.set_enableevent(true);	
+	p_ds.set_enableevent(true);
+	
+	
+	
+}
+
+// 전체선택
+this.Button00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+};
+
+// 전체선택해제
+this.Button00_00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+};
+
+// 전체필터해제
+this.Button00_01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.ds_Master10.clearData();
+	p_dsFilter.clearData();
+	p_dsFilterSave.clearData();
+	p_ds.filter("");
+	for(var i=1;i<p_grd.getCellCount("head");i++) {
+		p_grd.setCellProperty("head", i, "background", "url('theme://images/"+noSelectFilterImage+"') no-repeat right #e3eff4");
+	}	
+	this.initMaster10();
+	
+};
+
+// 선택
+this.Button00_01_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+};
+
+this.Button00_01_00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+};
+
+this.div_Search_edt_SecmNm_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+trace("=================== 검색 =====================");
+
+	if(e.keycode == "13") {
+		var f_gubun = "";
+		
+		if(p_ds_col_displaytype == "combotext") {
+			f_gubun = "GRID_COL_VALUE.indexOf('"+obj.value+"') > -1"; // 그리드 값
+		} else {
+			f_gubun = "COL_VALUE.indexOf('"+obj.value+"') > -1"; // 데이터셋 값
+		}
+		
+		if(this.gfn_IsNull(obj.value) || obj.value == "" || obj.getLength() == 0) { 
+			this.ds_Master10.set_filterstr("");
+		} else {
+			this.ds_Master10.set_filterstr(f_gubun);
+		}
+	} 
+};
+
+this.btn_SomCheck_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var Srow = this.grd_Master10.getSelectedRows();
+	//trace(Srow.length);
+	if(Srow.length == 0) { return; }
+	
+	for(var i=0;i<Srow.length;i++) {
+		//trace(i);
+		this.ds_Master10.setColumn(Srow[i], "COL_CHECK", "1");
+	}
+};
+
+this.btn_SomeUncheck_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var Srow = this.grd_Master10.getSelectedRows();
+	//trace(Srow.length);
+	if(Srow.length == 0) { return; }
+	
+	for(var i=0;i<Srow.length;i++) {
+		//trace(i);
+		this.ds_Master10.setColumn(Srow[i], "COL_CHECK", "0");
+	}
+};
+
+this.btn_AllCheck_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.ds_Master10.set_enableevent(false);
+	for(var i=0;i<this.ds_Master10.rowcount;i++) {
+		this.ds_Master10.setColumn(i, "COL_CHECK", "1");
+	}
+	this.ds_Master10.set_enableevent(true);
+};
+
+this.btn_AllUncheck_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.ds_Master10.set_enableevent(false);
+	
+	for(var i=0;i<this.ds_Master10.rowcount;i++) {
+	
+		this.ds_Master10.setColumn(i, "COL_CHECK", "0");
+		
+	}
+
+	this.ds_Master10.set_enableevent(true);
+};
+
+this.btn_Choice_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var v_ch = 0;
+	for(var i=0;i<this.ds_Master10.rowcount;i++) {
+		if(this.ds_Master10.getColumn(i, "COL_CHECK") == "1") {
+			v_ch = v_ch + 1;
+		}
+	}
+	
+	if(v_ch == 0) { 
+	//	alert("선택된 데이터가 없습니다.\n\n컬럼해제를 클릭하세요"); 
+		return; 
+	}
+	
+	this.thisCheck(this.ds_Master10);
+};
+
+this.btn_Cancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.parent.parent.PopupDiv00.destroy();
+};
+]]></Script>
+  </Form>
+</FDL>

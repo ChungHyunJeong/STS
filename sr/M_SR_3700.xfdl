@@ -1,0 +1,2057 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_SR_3700" width="1442" height="695" titletext="불량반품출고" onload="fn_FormOnload" onclose="fn_FormClose">
+    <Layouts>
+      <Layout height="695" width="1442">
+        <Div id="div_Search" taborder="0" left="14" top="12" height="66" cssclass="div_WF_Search" formscrollbartype="none none" right="14">
+          <Layouts>
+            <Layout>
+              <Edit id="edt_CusmCd" taborder="3" left="96" top="34" width="90" height="24" maxlength="10" readonly="false" onchanged="div_Search_edt_CusmCd_onchanged" cssclass="essential"/>
+              <Edit id="edt_CusmNm" taborder="4" left="edt_CusmCd:2" top="34" width="130" height="24" enable="true" maxlength="30" readonly="false" onchanged="div_Search_edt_CusmNm_onchanged"/>
+              <Button id="btn_CusmCd" taborder="6" left="edt_CusmNm:2" top="34" width="24" height="24" cssclass="btn_WF_SmallSearch" tabstop="false" text="" cursor="pointer" onclick="div_Search_btn_CusmCd_onclick"/>
+              <Static id="sta_CusmCd" taborder="5" text="파트너사" left="16" top="34" width="80" height="24" cssclass="sta_WF_SLabel"/>
+              <Calendar id="cal_TemhDtFr" taborder="1" left="96" top="6" width="110" height="24" dateformat="yyyy-MM-dd" cssclass="essential"/>
+              <Static id="Static03" taborder="7" text="~" left="cal_TemhDtFr:5" top="5" width="20" height="26" cssclass="sta_WF_Dash"/>
+              <Calendar id="cal_TemhDtTo" taborder="2" left="Static03:3" top="6" width="110" height="24" dateformat="yyyy-MM-dd" cssclass="essential"/>
+              <Static id="Static00" taborder="0" text="출고일자" left="16" top="6" width="80" height="24" cssclass="sta_WF_SLabel"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="sta_HSplitter" taborder="5" left="425" top="122" width="2" height="265" cssclass="sta_SP_Bg"/>
+        <Static id="sta_VSplitter" taborder="7" left="14" top="sta_HSplitter:0" height="2" right="14" cssclass="sta_SP_Bg"/>
+        <Div id="div_MasterView" taborder="1" left="14" top="90" right="sta_HSplitter:0" bottom="sta_VSplitter:3" onsize="div_MasterView_onsize">
+          <Layouts>
+            <Layout>
+              <Static id="sta_Master10" taborder="0" text="불량반품출고목록" left="0" top="0" width="220" height="32" cssclass="sta_WF_Title"/>
+              <Button id="btn_DivMoveMv" taborder="1" width="12" cssclass="bt_WF_FoldA_R" right="0" height="35" onclick="div_MasterView_btn_DivMoveMv_onclick" text="" top="133" cursor="pointer" visible="false"/>
+              <Grid id="grd_Master10" taborder="2" left="0" top="32" binddataset="ds_Master10" autofittype="none" right="6" cellsizingtype="col" oncellclick="div_MasterView_grd_Master10_oncellclick" selecttype="cell" bottom="0">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="35" band="left"/>
+                      <Column size="85" band="left"/>
+                      <Column size="80"/>
+                      <Column size="140"/>
+                      <Column size="400"/>
+                      <Column size="24"/>
+                      <Column size="80"/>
+                      <Column size="130"/>
+                      <Column size="80"/>
+                      <Column size="130"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="26" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="No."/>
+                      <Cell col="1" text="출고번호"/>
+                      <Cell col="2" text="출고일자"/>
+                      <Cell col="3" text="파트너사"/>
+                      <Cell col="4" text="비고"/>
+                      <Cell col="5"/>
+                      <Cell col="6" text="등록자"/>
+                      <Cell col="7" text="등록일시"/>
+                      <Cell col="8" text="수정자"/>
+                      <Cell col="9" text="수정일시"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell expr="currow+1" textAlign="center"/>
+                      <Cell col="1" text="bind:NGBH_NO" displaytype="mask" textAlign="center" maskedittype="string" maskeditformat="######-####"/>
+                      <Cell col="2" text="bind:NGBH_DD" displaytype="date" textAlign="center" calendardateformat="yyyy-MM-dd" calendardisplaynulltype="none"/>
+                      <Cell col="3" text="bind:CUSM_NM" textAlign="left"/>
+                      <Cell col="4" text="bind:REMK_NM" textAlign="left"/>
+                      <Cell col="5" cursor="pointer" expandshow="show" expandsize="24"/>
+                      <Cell col="6" text="bind:REGI_NM" displaytype="normal" textAlign="center"/>
+                      <Cell col="7" text="bind:REGI_DT" displaytype="normal" textAlign="center"/>
+                      <Cell col="8" text="bind:MODI_NM" textAlign="center"/>
+                      <Cell col="9" text="bind:MODI_DT" textAlign="center"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_DetailInput" taborder="2" left="14" right="14" bottom="5" top="sta_VSplitter:0" text="">
+          <Layouts>
+            <Layout>
+              <Tab id="tab_Detail" taborder="0" tabindex="0" left="0" top="5" right="0" bottom="0" cssclass="tab_WF_DetailList" onchanged="div_DetailInput_tab_Detail_onchanged" enable="false">
+                <Tabpages>
+                  <Tabpage id="tpg_01" text="불량반품출고상세">
+                    <Layouts>
+                      <Layout>
+                        <Grid id="grd_Detail10" taborder="0" left="0" top="2" binddataset="ds_Detail10" autofittype="col" right="0" cellsizingtype="col" selecttype="multiarea" bottom="0" oncellclick="div_DetailInput_tab_Detail_tpg_01_grd_Detail10_oncellclick" autoenter="select">
+                          <Formats>
+                            <Format id="default">
+                              <Columns>
+                                <Column size="30" band="left"/>
+                                <Column size="35" band="left"/>
+                                <Column size="35" band="left"/>
+                                <Column size="85" band="left"/>
+                                <Column size="60" band="left"/>
+                                <Column size="120"/>
+                                <Column size="90"/>
+                                <Column size="250"/>
+                                <Column size="150"/>
+                                <Column size="50"/>
+                                <Column size="80"/>
+                                <Column size="80"/>
+                                <Column size="80"/>
+                                <Column size="60"/>
+                                <Column size="200"/>
+                              </Columns>
+                              <Rows>
+                                <Row size="24" band="head"/>
+                                <Row size="24"/>
+                                <Row size="24" band="summ"/>
+                              </Rows>
+                              <Band id="head">
+                                <Cell/>
+                                <Cell col="1" text="No."/>
+                                <Cell col="2" text="선택"/>
+                                <Cell col="3" text="계약번호"/>
+                                <Cell col="4" text="계약순번"/>
+                                <Cell col="5" text="W/O"/>
+                                <Cell col="6" text="품목코드"/>
+                                <Cell col="7" text="품목명"/>
+                                <Cell col="8" text="규격"/>
+                                <Cell col="9" text="단위"/>
+                                <Cell col="10" text="출고수량" cssclass="essential"/>
+                                <Cell col="11" text="반품번호"/>
+                                <Cell col="12" text="반품일자"/>
+                                <Cell col="13" text="반품순번"/>
+                                <Cell col="14" text="비고" cssclass="grdInput"/>
+                              </Band>
+                              <Band id="body">
+                                <Cell cssclass="expr:comp.parent.gfn_Decode(crudType, &quot;I&quot;,&quot;cell_WF_Insert&quot;, &quot;U&quot;,&quot;cell_WF_Modify&quot;, &quot;D&quot;,&quot;cell_WF_Delete01&quot;, &quot;&quot;)"/>
+                                <Cell col="1" expr="currow+1" textAlign="center"/>
+                                <Cell col="2" displaytype="checkboxcontrol" edittype="checkbox" text="bind:s_chk"/>
+                                <Cell col="3" text="bind:CNTH_NO" displaytype="mask" textAlign="center" maskedittype="string" maskeditformat="expr:(CNTH_NO.length &gt; 8)?'@@@@-@-@@@@':'@@@-@@@@'"/>
+                                <Cell col="4" textAlign="center" text="bind:CNTB_SE"/>
+                                <Cell col="5" textAlign="center" text="bind:WORB_NO" displaytype="mask" maskeditformat="expr:comp.parent.gfn_WorbNoFormat(WORB_NO)" maskedittype="string"/>
+                                <Cell col="6" textAlign="left" text="bind:ITEM_CD"/>
+                                <Cell col="7" text="bind:ITEM_NM" textAlign="left"/>
+                                <Cell col="8" text="bind:SPEC_NM" textAlign="left"/>
+                                <Cell col="9" textAlign="center" text="bind:UNIT_CD" displaytype="combotext" combodataset="ds_Rd020" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                                <Cell col="10" textAlign="right" text="bind:NGBB_QT" displaytype="number" maskeditformat="#,##0" edittype="mask"/>
+                                <Cell col="11" textAlign="center" text="bind:NGCH_NO" displaytype="mask" maskeditformat="@@@@@@-@@@@" maskedittype="string"/>
+                                <Cell col="12" displaytype="date" textAlign="center" text="bind:NGCH_DD" calendardateformat="yyyy-MM-dd" calendardisplaynulltype="none"/>
+                                <Cell col="13" textAlign="center" text="bind:NGCB_SE"/>
+                                <Cell col="14" text="bind:REMK_NM" textAlign="left" edittype="text"/>
+                              </Band>
+                              <Band id="summary">
+                                <Cell colspan="5"/>
+                                <Cell col="5" colspan="5" text="합계" textAlign="center"/>
+                                <Cell col="10" expr="dataset.getSum(&quot;NGBB_QT&quot;)" displaytype="number" textAlign="right"/>
+                                <Cell col="11"/>
+                                <Cell col="12"/>
+                                <Cell col="13"/>
+                                <Cell col="14"/>
+                              </Band>
+                            </Format>
+                          </Formats>
+                        </Grid>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                  <Tabpage id="tpg_02" text="불량반품미출고검색">
+                    <Layouts>
+                      <Layout>
+                        <Grid id="grd_Detail20" taborder="0" left="0" top="42" binddataset="ds_Detail20" autofittype="col" right="0" cellsizingtype="col" selecttype="multiarea" bottom="0" oncellclick="div_DetailInput_tab_Detail_tpg_02_grd_Detail20_oncellclick" autoenter="select">
+                          <Formats>
+                            <Format id="default">
+                              <Columns>
+                                <Column size="35" band="left"/>
+                                <Column size="35" band="left"/>
+                                <Column size="85"/>
+                                <Column size="60"/>
+                                <Column size="120"/>
+                                <Column size="90"/>
+                                <Column size="300"/>
+                                <Column size="200"/>
+                                <Column size="60"/>
+                                <Column size="80"/>
+                                <Column size="80"/>
+                                <Column size="80"/>
+                                <Column size="80"/>
+                                <Column size="80"/>
+                                <Column size="60"/>
+                                <Column size="200"/>
+                              </Columns>
+                              <Rows>
+                                <Row size="24" band="head"/>
+                                <Row size="24"/>
+                                <Row size="24" band="summ"/>
+                              </Rows>
+                              <Band id="head">
+                                <Cell text="No."/>
+                                <Cell col="1" text="선택"/>
+                                <Cell col="2" text="계약번호"/>
+                                <Cell col="3" text="순번"/>
+                                <Cell col="4" text="W/O"/>
+                                <Cell col="5" text="품목코드"/>
+                                <Cell col="6" text="품목명"/>
+                                <Cell col="7" text="규격"/>
+                                <Cell col="8" text="단위"/>
+                                <Cell col="9" text="반품"/>
+                                <Cell col="10" text="기출고"/>
+                                <Cell col="11" text="출고수량" cssclass="essential"/>
+                                <Cell col="12" text="반품번호"/>
+                                <Cell col="13" text="반품일자"/>
+                                <Cell col="14" text="반품순번"/>
+                                <Cell col="15" text="비고" cssclass="grdInput"/>
+                              </Band>
+                              <Band id="body">
+                                <Cell expr="currow+1" textAlign="center"/>
+                                <Cell col="1" displaytype="checkboxcontrol" edittype="expr:(s_conf == '1')?'none':'checkbox'" textAlign="center" text="bind:s_chk"/>
+                                <Cell col="2" text="bind:CNTH_NO" displaytype="mask" textAlign="center" maskedittype="string" maskeditformat="expr:(CNTH_NO.length &gt; 8)?'@@@@-@-@@@@':'@@@-@@@@'"/>
+                                <Cell col="3" textAlign="center" text="bind:CNTB_SE"/>
+                                <Cell col="4" textAlign="center" text="bind:WORB_NO" displaytype="mask" maskeditformat="expr:comp.parent.gfn_WorbNoFormat(WORB_NO)" maskedittype="string"/>
+                                <Cell col="5" textAlign="center" text="bind:ITEM_CD"/>
+                                <Cell col="6" text="bind:ITEM_NM" textAlign="left"/>
+                                <Cell col="7" textAlign="left" text="bind:SPEC_NM"/>
+                                <Cell col="8" textAlign="center" text="bind:UNIT_CD" displaytype="combotext" combodataset="ds_Rd020" combocodecol="CODM_CD" combodatacol="CODM_NM"/>
+                                <Cell col="9" displaytype="number" textAlign="right" text="bind:MOUB_QT"/>
+                                <Cell col="10" displaytype="number" textAlign="right" text="bind:GI_QT"/>
+                                <Cell col="11" textAlign="right" text="bind:NGBB_QT" displaytype="number" edittype="mask" maskeditformat="#,##0"/>
+                                <Cell col="12" textAlign="center" text="bind:MOUH_NO" displaytype="mask" maskedittype="string" maskeditformat="@@@@@@-@@@@"/>
+                                <Cell col="13" displaytype="date" textAlign="center" text="bind:MOUH_DD" calendardateformat="yyyy-MM-dd" calendardisplaynulltype="none"/>
+                                <Cell col="14" textAlign="center" text="bind:MOUB_SE"/>
+                                <Cell col="15" text="bind:REMK_NM" edittype="text" textAlign="left"/>
+                              </Band>
+                              <Band id="summary">
+                                <Cell colspan="2"/>
+                                <Cell col="2" colspan="7"/>
+                                <Cell col="9" expr="dataset.getSum(&quot;MOUB_QT&quot;)" displaytype="number" textAlign="right"/>
+                                <Cell col="10" expr="dataset.getSum(&quot;GI_QT&quot;)" displaytype="number" textAlign="right"/>
+                                <Cell col="11" expr="dataset.getSum(&quot;NGBB_QT&quot;)" displaytype="number" textAlign="right"/>
+                                <Cell col="12"/>
+                                <Cell col="13"/>
+                                <Cell col="14"/>
+                                <Cell col="15"/>
+                              </Band>
+                            </Format>
+                          </Formats>
+                        </Grid>
+                        <Div id="div_Search" taborder="1" left="0" top="2" height="36" cssclass="div_WF_Search" formscrollbartype="none none" right="0">
+                          <Layouts>
+                            <Layout>
+                              <Static id="Static00" taborder="4" text="반품일자" left="16" top="5" width="80" height="24" cssclass="sta_WF_SLabel" DomainID="S00002"/>
+                              <Static id="sta_CnthNo" taborder="5" text="계약번호" left="736" top="5" width="80" height="24" cssclass="sta_WF_SLabel" visible="false"/>
+                              <Calendar id="cal_TemhDtFr" taborder="0" left="Static00:0" top="5" width="110" height="24" dateformat="yyyy-MM-dd" cssclass="essential"/>
+                              <Static id="Static03" taborder="6" text="~" left="cal_TemhDtFr:3" top="4" width="20" height="26" cssclass="sta_WF_Dash"/>
+                              <Calendar id="cal_TemhDtTo" taborder="1" left="Static03:5" top="5" width="110" height="24" dateformat="yyyy-MM-dd" cssclass="essential"/>
+                              <MaskEdit id="mae_CnthNo" taborder="2" left="sta_CnthNo:0" top="5" width="90" height="24" type="string" format="@@@@-@-@@@@" trimtype="both" onchanged="div_DetailInput_tab_Detail_tpg_02_div_Search_mae_CnthNo_onchanged" onkillfocus="div_DetailInput_tab_Detail_tpg_02_div_Search_mae_CnthNo_onkillfocus" onsetfocus="div_DetailInput_tab_Detail_tpg_02_div_Search_mae_CnthNo_onsetfocus" visible="false"/>
+                              <Edit id="edt_CnthNm" taborder="3" left="mae_CnthNo:2" top="5" width="130" height="24" tabstop="true" readonly="true" visible="false"/>
+                              <Button id="btn_CnthNo" taborder="7" left="edt_CnthNm:2" top="5" width="24" height="24" cssclass="btn_WF_SmallSearch" tabstop="false" onclick="div_DetailInput_tab_Detail_tpg_02_div_Search_btn_CnthNo_onclick" cursor="pointer" text="" visible="false"/>
+                              <Button id="btn_Search" taborder="8" text="검색" top="5" width="55" height="24" right="10" cssclass="btn_WF_Search" cursor="pointer" onclick="div_DetailInput_tab_Detail_tpg_02_div_Search_btn_Search_onclick"/>
+                            </Layout>
+                          </Layouts>
+                        </Div>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                  <Tabpage id="tpg_03" text="첨부파일">
+                    <Layouts>
+                      <Layout>
+                        <Div id="div_CommFile" taborder="0" left="0" top="2" right="0" bottom="0" url="cmm::cmmFileList.xfdl" async="false"/>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                </Tabpages>
+              </Tab>
+              <Div id="div_ComGrdBtn" taborder="1" top="9" height="20" right="0" width="435" async="false" enable="false">
+                <Layouts>
+                  <Layout/>
+                </Layouts>
+              </Div>
+              <Button id="btn_DivMoveDi" taborder="2" top="6" height="10" width="40" visible="false" cssclass="bt_TF_FoldA" onclick="div_DetailInput_btn_DivMoveDi_onclick" left="686" cursor="pointer"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_MasterInput" taborder="3" left="sta_HSplitter:6" top="90" text="" enable="false" right="14" bottom="sta_VSplitter:3">
+          <Layouts>
+            <Layout>
+              <Tab id="tab_Master" taborder="0" tabindex="0" left="0" top="0" right="0" bottom="0" cssclass="tab_WF_MasterList">
+                <Tabpages>
+                  <Tabpage id="tpg_01" text="불량반품출고내역" enable="true">
+                    <Layouts>
+                      <Layout>
+                        <Static id="sta_Line02" taborder="8" top="61" height="30" cssclass="sta_WF_DBg" left="0" text="" minwidth="994" maxwidth="" right="0"/>
+                        <Static id="sta_Line03" taborder="9" top="90" cssclass="sta_WF_DBg" left="0" bottom="0" right="0" minwidth="994" maxwidth=""/>
+                        <TextArea id="txt_RemkNm" taborder="7" left="103" top="93" bottom="3" maxlength="1000" minwidth="888" maxwidth="" right="3"/>
+                        <Static id="sta_RemkNm" taborder="10" text="비고" top="90" width="100" cssclass="sta_WF_DLabel" left="0" bottom="0"/>
+                        <Edit id="edt_SystId" taborder="11" left="1053" top="63" width="7" height="24" maxlength="20" cssclass="essential" visible="false"/>
+                        <Button id="btn_RemkPop" taborder="0" top="93" height="24" width="24" cursor="pointer" onclick="div_MasterInput_tab_Master_tpg_01_btn_RemkPop_onclick" cssclass="btn_WF_SmallSearch" left="txt_RemkNm:-24" text=""/>
+                        <Static id="sta_Line01" taborder="12" top="32" height="30" cssclass="sta_WF_DBg" left="0" text="" right="0" minwidth="994" maxwidth=""/>
+                        <Static id="sta_NgbhNo" taborder="13" text="출고번호" top="32" width="100" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00001"/>
+                        <MaskEdit id="mae_NgbhNo" taborder="1" type="string" format="######-####" trimtype="none" maxlength="20" left="103" top="35" width="366" height="24" readonly="true"/>
+                        <Static id="sta_CusmCd" taborder="14" text="파트너사" top="61" width="100" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00001"/>
+                        <Edit id="edt_CusmCd" taborder="3" maxlength="10" left="103" top="64" width="130" height="24" cssclass="essential" onchanged="div_MasterInput_tab_Master_tpg_01_edt_CusmCd_onchanged" readonly="true"/>
+                        <Edit id="edt_CusmNm" taborder="4" left="236" top="64" height="24" maxwidth="" width="233" readonly="true"/>
+                        <Static id="sta_NgbhDd" taborder="15" text="출고일자" top="32" width="100" height="30" cssclass="sta_WF_DLabel" left="472" DomainID="S00002"/>
+                        <Calendar id="cal_NgbhDd" taborder="2" left="575" top="35" width="130" height="24" dateformat="yyyy-MM-dd" readonly="true"/>
+                        <Static id="sta_CspmCd" taborder="16" text="출고자" top="61" width="100" height="30" cssclass="sta_WF_DLabel" left="472"/>
+                        <Edit id="edt_CspmCd" taborder="5" left="575" top="64" width="130" height="24" maxlength="10" enable="true" cssclass="essential" onchanged="div_MasterInput_tab_Master_tpg_01_edt_CspmCd_onchanged" readonly="true"/>
+                        <Edit id="edt_CspmNm" taborder="6" left="707" top="64" height="24" enable="true" maxlength="50" maxwidth="" minwidth="283" readonly="true" right="3"/>
+                        <Static id="sta_Line04" taborder="17" top="4" height="30" cssclass="sta_WF_DBg" left="0" text="" right="0" minwidth="984" maxwidth=""/>
+                        <Static id="sta_SycoDd" taborder="18" text="처리일시" top="4" width="100" height="30" cssclass="sta_WF_DLabel" left="472" DomainID="S00002"/>
+                        <Edit id="edt_ProcNm" taborder="19" left="236" top="7" height="24" readonly="true" maxwidth="" width="233"/>
+                        <Edit id="edt_ProcId" taborder="20" left="103" top="7" width="130" height="24" readonly="true"/>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                </Tabpages>
+              </Tab>
+              <Static id="sta_ProcId" taborder="1" text="처리자" top="32" width="100" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00001" onclick="div_MasterInput_sta_NgbhNo_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btn_DivMoveMi" taborder="4" top="78" height="10" width="40" visible="true" onclick="btn_DivMoveMi_onclick" cssclass="bt_TF_FoldA" left="700" cursor="pointer"/>
+        <MaskEdit id="mae_SycoDd" taborder="5" left="1009" top="125" height="24" readonly="true" format="####-##-## ####" type="string" limitbymask="decimal" clipmode="includespace" color="black" maxwidth="" minwidth="416" right="17"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="FROM_DD" type="STRING" size="256" description="조회시작일자"/>
+          <Column id="CLOS_DD" type="STRING" size="256" description="조회종료일자"/>
+          <Column id="CUSM_CD" type="STRING" size="256"/>
+          <Column id="NGBH_NO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10" onrowposchanged="ds_Master10_onrowposchanged" canrowposchange="ds_Master10_canrowposchange" oncolumnchanged="ds_Master10_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="NGBH_NO" type="STRING" size="256"/>
+          <Column id="NGBH_DD" type="STRING" size="256"/>
+          <Column id="CUSM_CD" type="STRING" size="256"/>
+          <Column id="CUSM_NM" type="STRING" size="256"/>
+          <Column id="CSPM_CD" type="STRING" size="256"/>
+          <Column id="CSPM_NM" type="STRING" size="256"/>
+          <Column id="NGBH_YN" type="STRING" size="256"/>
+          <Column id="DELE_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DELE_NM" type="STRING" size="256"/>
+          <Column id="SYST_NM" type="STRING" size="256"/>
+          <Column id="SYCO_DD" type="STRING" size="256"/>
+          <Column id="SYST_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail10" oncolumnchanged="ds_Detail10_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="NGBH_NO" type="STRING" size="256"/>
+          <Column id="NGBB_SE" type="STRING" size="256"/>
+          <Column id="NGCH_NO" type="STRING" size="256"/>
+          <Column id="NGCB_SE" type="STRING" size="256"/>
+          <Column id="NGCH_DD" type="STRING" size="256"/>
+          <Column id="CNTH_NO" type="STRING" size="256"/>
+          <Column id="CNTB_SE" type="STRING" size="256"/>
+          <Column id="CNTH_NM" type="STRING" size="256"/>
+          <Column id="WORB_NO" type="STRING" size="256"/>
+          <Column id="ITEM_CD" type="STRING" size="256"/>
+          <Column id="ITEM_NM" type="STRING" size="256"/>
+          <Column id="SPEC_NM" type="STRING" size="256"/>
+          <Column id="UNIT_CD" type="STRING" size="256"/>
+          <Column id="NGBB_QT" type="STRING" size="256"/>
+          <Column id="DELE_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DELE_NM" type="STRING" size="256"/>
+          <Column id="s_chk" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+          <Column id="MOPB_QT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Detail20" oncolumnchanged="ds_Detail20_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="MOUH_NO" type="STRING" size="256"/>
+          <Column id="WOFH_SQ" type="STRING" size="256"/>
+          <Column id="MOUB_SE" type="STRING" size="256"/>
+          <Column id="MOUH_DD" type="STRING" size="256"/>
+          <Column id="CNTH_NO" type="STRING" size="256"/>
+          <Column id="CNTB_SE" type="STRING" size="256"/>
+          <Column id="CNTH_NM" type="STRING" size="256"/>
+          <Column id="WORB_NO" type="STRING" size="256"/>
+          <Column id="ITEM_CD" type="STRING" size="256"/>
+          <Column id="ITEM_NM" type="STRING" size="256"/>
+          <Column id="SPEC_NM" type="STRING" size="256"/>
+          <Column id="UNIT_CD" type="STRING" size="256"/>
+          <Column id="MOUB_QT" type="STRING" size="256"/>
+          <Column id="GI_QT" type="STRING" size="256"/>
+          <Column id="NGBB_QT" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="s_conf" type="STRING" size="256"/>
+          <Column id="s_chk" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Rd020">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_InputSch">
+        <ColumnInfo>
+          <Column id="FROM_DD" type="STRING" size="256"/>
+          <Column id="CLOS_DD" type="STRING" size="256"/>
+          <Column id="CNTH_NO" type="STRING" size="256"/>
+          <Column id="CUSM_CD" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master11">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="NGBH_NO" type="STRING" size="256"/>
+          <Column id="NGBH_DD" type="STRING" size="256"/>
+          <Column id="CUSM_CD" type="STRING" size="256"/>
+          <Column id="CUSM_NM" type="STRING" size="256"/>
+          <Column id="CSPM_CD" type="STRING" size="256"/>
+          <Column id="CSPM_NM" type="STRING" size="256"/>
+          <Column id="NGBH_YN" type="STRING" size="256"/>
+          <Column id="DELE_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+          <Column id="REGI_ID" type="STRING" size="256"/>
+          <Column id="REGI_NM" type="STRING" size="256"/>
+          <Column id="REGI_DT" type="STRING" size="256"/>
+          <Column id="MODI_ID" type="STRING" size="256"/>
+          <Column id="MODI_NM" type="STRING" size="256"/>
+          <Column id="MODI_DT" type="STRING" size="256"/>
+          <Column id="DELE_NM" type="STRING" size="256"/>
+          <Column id="crudType" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : M_SR_3700
+*  @화면설명 : 불량반품출고
+*  @시스템명 : (SR) 시스템
+*  @작성자   : 김해든
+*  @작성일   : 2022.02.25
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2022.02.25     	    김해든 	           최초 생성 
+*  2022.04.18     	    박혜림 	           수정
+*************************************************************************************************
+*/
+
+/***********************************************************************************************
+ * 0. 폼로드
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.01. Form Include 선언
+ ***********************************************************************************************/
+//include "comLib::CommonUtil.xjs";//공통함수
+include "comLib::lib_splitter.xjs";            
+
+/***********************************************************************************************
+ * 00.02. Form 변수 선언
+ ***********************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-화면로드시 메뉴정보 기준으로 재설정됨.
+this.fvFormComBtnAuthYn = false;//그리드 공통버튼 권한 유무
+this.fvFileDiv = this.div_DetailInput.form.tab_Detail.tpg_03.form.div_CommFile.form;//[첨부파일]Div
+this.fvPathNm = "SR";//[첨부파일]업무파일경로
+this.fvDsRowPosChange = true;//데이터셋 Row 변경이벤트-실행유무
+this.fvSchKeyYn = false;//저장후 재조회여부
+this.fvSchKey01 = "";//조회Key01
+this.fvSchKey02 = "";//조회Key02
+this.fvSchKey03 = "";//조회Key03
+
+var fvFileInfo = new Object();//[첨부파일]정보
+
+/***********************************************************************************************
+ * 00.03. Form Onload 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+
+}
+
+/***********************************************************************************************
+ * 00.04. Form [공통] 초기설정 함수 - 필수
+ ***********************************************************************************************/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.fvComPrgmId = this.gfn_CommLoadFormPrgmId(this);//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+	this.gfn_SetGrid(this.div_MasterView.form.grd_Master10);//[공통]그리드 이벤트 설정 - 불량반품출고
+	this.gfn_SetGrid(this.div_DetailInput.form.tab_Detail.tpg_01.form.grd_Detail10);//[공통]그리드 이벤트 설정 - 불량반품출고상세
+	this.gfn_SetGrid(this.div_DetailInput.form.tab_Detail.tpg_02.form.grd_Detail20);//[공통]그리드 이벤트 설정 - 불량반품미출고검색
+	//스플리터 초기화 함수 호출
+	this.gfn_InitSpliter(this.sta_HSplitter, "horizontal", -1, -1);
+	
+	//스플리터 초기화 함수 호출
+	this.gfn_InitSpliter(this.sta_VSplitter, "vertical", -1, -1);	
+
+	//권한체크 할 컴포넌트 : 컴포넌트 Full Path
+	var objCompCheckList = ["this.div_DetailInput.form.div_ComGrdBtn"];		
+	if (this.gfn_CommCompAuthCheck(this, objCompCheckList))
+	{
+		this.fvFormComBtnAuthYn = true;//그리드 공통버튼 권한 유무
+	}
+	
+	this.fn_SetGridInputButton();//[공통] 그리드 입력 버튼 설정
+	this.fn_SetTabComAttachFile();//[공통] 첨부파일 Tab 설정
+}
+
+/***********************************************************************************************
+ * 00.05. Form [업무] 초기설정 함수
+ ***********************************************************************************************/
+this.fn_FormBizInit = function() 
+{ 
+
+	//[공통] 날짜정보 설정	
+	this.gfn_SetCommFromToDate(this.fvComPrgmId, "MS", this.div_Search.form.cal_TemhDtFr, this.div_Search.form.cal_TemhDtTo);//조회조건영역
+	this.gfn_SetCommFromToDate(this.fvComPrgmId, "DS", this.div_DetailInput.form.tab_Detail.tpg_02.form.div_Search.form.cal_TemhDtFr, this.div_DetailInput.form.tab_Detail.tpg_02.form.div_Search.form.cal_TemhDtTo);//검색조건영역
+	
+	//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+	var objCondList = ["RD020|ds_Rd020"	//단위코드
+					  ];
+	//공통코드 설정함수 호출				   
+	this.gfn_GetCommCode(this, objCondList, "");
+
+	//파트너사로 로그인시처리 - 비활성화
+	if (this.gfn_GetSessionValue("CMDS_CD") == "P") {
+		this.div_Search.form.edt_CusmCd.set_value(this.gfn_GetSessionValue("CUSM_CD"));
+		this.div_Search.form.edt_CusmNm.set_value(this.gfn_GetSessionValue("CUSM_NM"));	
+		this.div_Search.form.edt_CusmCd.set_readonly(true);
+		this.div_Search.form.edt_CusmNm.set_readonly(true);
+		this.div_Search.form.btn_CusmCd.set_enable(false);
+	}
+	
+	//[업무] 일반콤보조회
+	this.fn_ComboSearch();
+}
+
+/***********************************************************************************************
+ * 00.06. Form [업무] 일반콤보 조회 함수
+ ***********************************************************************************************/
+this.fn_ComboSearch = function() 
+{
+}
+
+/***********************************************************************************************
+ * 00.07. Form OnClose 이벤트
+ ***********************************************************************************************/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+/***********************************************************************************************
+ * 1. 조회 영역
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 01.01. [공통버튼] 조회 버튼 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_ComBtnSearch = function()
+{ 
+	//조회전 유효성 체크
+	if (!this.fn_VaildSearch()) return;	
+	
+	//저장후 재조회시-마스터 데이터셋 이벤트 비활성화
+	if (this.fvSchKeyYn) {
+		this.ds_Master10.set_enableevent(false);
+	}
+	
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Master10.clearData();
+	this.ds_Detail10.clearData();
+	this.ds_Detail20.clearData();
+	this.ds_Input.clearData();
+	this.fvFileDiv.fn_ClearAtchFile();//첨부파일 정보 초기화
+
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "FROM_DD", this.div_Search.form.cal_TemhDtFr.value);
+	this.ds_Input.setColumn(0, "CLOS_DD", this.div_Search.form.cal_TemhDtTo.value);
+	this.ds_Input.setColumn(0, "CUSM_CD", this.div_Search.form.edt_CusmCd.value);
+
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sr:M_SR_3700_M_SL10";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "MST_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_SR;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Master10=ds_Master10";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+	svcCallObj.sComBtnDst = "SEARCH";//공통버튼구분-조회버튼
+	svcCallObj.sPrgmId = this.fvComPrgmId;//프로그램ID
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+}
+
+/***********************************************************************************************
+ * 01.02. [Vaildation] 조회 필수값 체크
+ ***********************************************************************************************/
+this.fn_VaildSearch = function()
+{
+	if (!this.gfn_CheckFromToDate(this.fvComPrgmId, this.div_Search.form.cal_TemhDtFr, this.div_Search.form.cal_TemhDtTo)) return false;//조회기간 범위 체크
+	//조회조건 필수입력값 있으면 체크
+ 	
+ 	//[검색]NULL 체크
+	var arrArgs = ["this.div_Search.form.edt_CusmCd^" + this.div_Search.form.sta_CusmCd.text + "|NULL"
+				  ]; 
+				  
+	var sCheckGroupTitle = "검색조건";//체크그룹 타이틀
+	
+	//컴포넌트 Vaild 체크
+	if (!this.gfn_CheckFormCompValid(this, arrArgs, sCheckGroupTitle)) {
+		return false;
+	}
+	
+	return true;
+}
+
+/***********************************************************************************************
+ * 01.03. [공통] 조회조건 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [파트너사]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 거래처코드 버튼 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_btn_CusmCd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "S_CUSM_CD_01";//팝업ID - 거래처정보
+	var oArg = { CusmNm:this.div_Search.form.edt_CusmNm.value, CusmTp:"H"};//C:고객 H:협력사 E:기타 A:전체
+	this.gfn_CusmPop(sPopupId, oArg);
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 거래처코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_CusmCd_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "S_CUSM_CD_01";//팝업ID - 거래처정보
+	this.gfn_GetCommCusm("C", this.div_Search.form.edt_CusmCd, this.div_Search.form.edt_CusmNm, sPopupId, "", "", "H");//코드로 검색
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 거래처명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_Search_edt_CusmNm_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "S_CUSM_CD_01";//팝업ID - 거래처정보
+	this.gfn_GetCommCusm("N", this.div_Search.form.edt_CusmCd, this.div_Search.form.edt_CusmNm, sPopupId, "", "", "H");//코드명으로 검색
+};
+
+/***********************************************************************************************
+ * 2. 입력
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 02.01. [공통버튼] 입력 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnAdd = function()
+{
+	//데이터 변경여부 체크
+	if (this.gfn_DsIsUpdated(this.ds_Master10)) {
+		this.gfn_Alert("SM002");//변경된 내용이 있습니다.\n저장 후 작업하시기 바랍니다.
+
+		return;
+	}
+	var arrArgs = ["this.div_Search.form.edt_CusmCd^" + this.div_Search.form.sta_CusmCd.text + "|NULL"
+				  ]; 
+				  
+	var sCheckGroupTitle = "검색조건";//체크그룹 타이틀
+	
+	//컴포넌트 Vaild 체크
+	if (!this.gfn_CheckFormCompValid(this, arrArgs, sCheckGroupTitle)) {
+		return;
+	}
+	
+	this.fvDsRowPosChange = false;//데이터셋 Row 변경이벤트-실행유무
+	var sToDay = this.gfn_GetCommDate("toDay");//현재일자
+	
+	var iAddRow = this.ds_Master10.addRow();	
+	this.ds_Master10.setColumn(iAddRow, "NGBH_DD", sToDay);//출고일자-오늘날짜로 설정
+	this.ds_Master10.setColumn(iAddRow, "DELE_YN", "0");//삭제여부	
+	this.ds_Master10.setColumn(iAddRow, "CSPM_CD", this.gfn_GetSessionValue("SYST_ID"));//출고자사번
+	this.ds_Master10.setColumn(iAddRow, "CSPM_NM", this.gfn_GetSessionValue("USEM_NM"));//출고자명
+
+	//파트너사로 로그인시처리 - 비활성화
+	if (this.gfn_GetSessionValue("CMDS_CD") == "P") {
+		//파트너사
+		this.ds_Master10.setColumn(iAddRow, "CUSM_CD", this.gfn_GetSessionValue("CUSM_CD"));
+		this.ds_Master10.setColumn(iAddRow, "CUSM_NM", this.gfn_GetSessionValue("CUSM_NM"));
+		this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CusmCd.set_readonly(true);
+		this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CusmNm.set_readonly(true);
+	} else {
+		this.ds_Master10.setColumn(iAddRow, "CUSM_CD", this.div_Search.form.edt_CusmCd.value);
+		this.ds_Master10.setColumn(iAddRow, "CUSM_NM", this.div_Search.form.edt_CusmNm.value);
+		//this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CusmCd.set_readonly(false);
+	}
+
+	//입력영역 활성화
+ 	this.div_MasterInput.set_enable(true);
+	this.div_DetailInput.form.set_enable(true);
+ 	this.div_DetailInput.form.tab_Detail.set_enable(true);
+ 	this.div_DetailInput.form.div_ComGrdBtn.set_enable(true);
+	
+	//처음 입력 항목에 포커스
+	this.div_DetailInput.form.tab_Detail.set_tabindex(1);
+	
+	this.ds_Detail10.clearData();//상세정보 초기화
+	this.ds_Detail20.clearData();//검색 초기화
+	this.fvFileDiv.fn_ClearAtchFile();//첨부파일 정보 초기화
+	
+	//첨부파일정보 권한설정
+	var oScrnBtnAuth = new Object();//[공통] 첨부파일 권한정보
+	oScrnBtnAuth.BTN_ENABLE = true;//권한 유무	
+	this.fvFileDiv.fn_SetCommFileBtnAuth(oScrnBtnAuth);	
+	
+	this.fvDsRowPosChange = true;//데이터셋 Row 변경이벤트-실행유무
+}
+
+/***********************************************************************************************
+ * 02.MF0.01. [Master Freeform 공통] 입력항목 클릭/변경 이벤트
+ ***********************************************************************************************/  
+/***********************************************************************************************
+ *    01. [파트너사]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master영역-Button] 거래처코드 버튼 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_MasterInput_tab_Master_tpg_01_btn_CusmCd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "M_CUSM_CD_01";//팝업ID - 거래처정보
+	var oArg = { CusmNm:this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CusmNm.value, CusmTp:"H"};//C:고객 H:협력사 E:기타 A:전체
+	this.gfn_CusmPop(sPopupId, oArg);
+};
+ 
+/*---------------------------------------------------------------------------------------------
+ *    [Master영역-Edit] 거래처코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_MasterInput_tab_Master_tpg_01_edt_CusmCd_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	var sPopupId = "M_CUSM_CD_01";//팝업ID - 거래처정보
+	this.gfn_GetCommCusm("C", this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CusmCd, this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CusmNm, sPopupId, "", "", "H");//코드로 검색
+	
+};
+
+/***********************************************************************************************
+ *    02. [출고자]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master영역-Button] 출고자 버튼 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_MasterInput_tab_Master_tpg_01_btn_CspmCd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "M_CSPM_CD_01";//팝업ID - 고객정보
+	var oArg = { CusmCd:this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CusmCd.value, CusmNm:this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CusmNm.value };//Argument처리
+	this.gfn_CustUserPop(sPopupId, oArg);	
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [Master영역-Edit] 출고자 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_MasterInput_tab_Master_tpg_01_edt_CspmCd_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	this.gfn_GetCommCspm(this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CspmCd, this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CspmNm);//코드로 검색		
+};
+
+/***********************************************************************************************
+ *    03. [비고]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [Master 입력영역-Button] 비고 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_MasterInput_tab_Master_tpg_01_btn_RemkPop_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (!this.gfn_IsNull(this.div_MasterInput.form.tab_Master.tpg_01.form.txt_RemkNm.value)) {
+		var sPopupId = "M_REMK_01";//팝업ID - 비고상세
+		var sTitle = this.div_MasterInput.form.tab_Master.tpg_01.form.sta_RemkNm.text;//팝업 타이틀
+		var oArg = {  Remk:this.div_MasterInput.form.tab_Master.tpg_01.form.txt_RemkNm.value};//Argument처리
+		this.gfn_RemkPop(sPopupId, sTitle, oArg);		
+	}
+};
+
+/***********************************************************************************************
+ * 02.MF0.02. [Master Freeform 일반] 입력항목 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 02.MF0.03. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    01. [데이터셋-ds_Master10] 데이터 Row 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.ds_Master10_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	if (e.newrow > -1) {
+		
+		//출고번호가 있으면 - 상세조회
+		if (!this.gfn_IsNull(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "NGBH_NO"))) {
+			this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CusmCd.set_readonly(true);
+			
+			//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+			this.ds_Detail10.clearData();
+			this.ds_Input.clearData();
+			
+			this.ds_Input.addRow();
+			this.ds_Input.setColumn(0, "NGBH_NO", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "NGBH_NO"));
+			this.ds_Input.setColumn(0, "CUSM_CD", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "CUSM_CD"));//파트너사코드
+				
+			//[공통]서비스정보 초기화
+			this.gfn_InitComService(this);
+			
+			//[공통]서비스정보 추가
+			var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+			svcAddObj.sSelectSql = "sr:M_SR_3700_D_SL10";
+			this.gfn_AddComSearchService(this, svcAddObj);
+			
+			//[공통]서비스 호출 변수
+			var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+			svcCallObj.sTrid = "DTL_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+			svcCallObj.sActionName = this.G_SV_SR;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+			svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+			svcCallObj.sOutDatset = "ds_Detail10=ds_Detail10";//출력 데이터셋
+			svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+			svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+
+			//[공통]서비스 호출
+			this.gfn_CallComService(this, svcCallObj);	
+			
+		}
+	} else {
+		this.div_DetailInput.form.tab_Detail.set_enable(false);
+		this.div_DetailInput.form.div_ComGrdBtn.set_enable(false);
+	}
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    02. [데이터셋-ds_Master10] Row 변경전 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.ds_Master10_canrowposchange = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	if (!this.fvDsRowPosChange) return;//Row변경이벤트 수행유무
+	
+	//데이터 변경여부 체크
+	if (this.gfn_DsIsUpdated(this.ds_Master10)) {
+		this.gfn_Confirm("SM003", "", "CONF.MAST_CHANGE", "fn_MsgCallback");//변경된 내역을 저장 하시겠습니까?
+		return false;
+	}	
+
+	return true;
+};  
+
+/*---------------------------------------------------------------------------------------------
+ *    02. [데이터셋-ds_Master10] 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.ds_Master10_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.01. [Master그리드-버튼] 복사 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01Copy = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.02. [Master그리드-버튼] 행추가 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01AddRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.03. [Master그리드-버튼] 행삽입 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01InsertRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.04. [Master그리드-버튼] 행삭제 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01DeleteRow = function()
+{
+};
+
+/***********************************************************************************************
+ * 02.MG0.05. [Master그리드-버튼] 취소 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_MasterGrd01Cancel = function()
+{
+};
+ 
+/***********************************************************************************************
+ * 02.MG0.06. [Master그리드] 셀 클릭 이벤트
+ ***********************************************************************************************/ 
+this.div_MasterView_grd_Master10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//비고
+	if (e.col == 5) {		
+		if (!this.gfn_IsNull(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "REMK_NM"))) {
+			var sPopupId = "B_REMK_01";//팝업ID - 비고상세
+			var sTitle = "비고";//팝업 타이틀
+			var oArg = {  Remk:this.ds_Master10.getColumn(this.ds_Master10.rowposition, "REMK_NM")};//Argument처리
+			this.gfn_RemkPop(sPopupId, sTitle, oArg);		
+		}		
+ 	}
+};
+ 
+/***********************************************************************************************
+ * 02.MG0.07. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 02.DG0.01. [Detail그리드-버튼] 복사 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01Copy = function()
+{ 
+};
+
+/***********************************************************************************************
+ * 02.DG0.02. [Detail그리드-버튼] 행추가 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01AddRow = function()
+{	
+};
+
+/***********************************************************************************************
+ * 02.DG0.03. [Detail그리드-버튼] 행삽입 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01InsertRow = function()
+{
+};
+
+
+/***********************************************************************************************
+ * 02.DG0.04. [Detail그리드-버튼] 행삭제 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01DeleteRow = function()
+{
+	this.gfn_GridDelProcess(this, this.ds_Detail10);//crud_flag 변경-삭제(D)	
+};
+
+/***********************************************************************************************
+ * 02.DG0.05. [Detail그리드-버튼] 취소 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd01Cancel = function()
+{
+	this.gfn_UndoColumn(this.div_DetailInput.form.tab_Detail.tpg_01.form.grd_Detail10);
+};
+ 
+/***********************************************************************************************
+ * 02.DG0.06. [Detail그리드] 셀 클릭 이벤트
+ ***********************************************************************************************/ 
+/*---------------------------------------------------------------------------------------------
+ *    01. [그리드-grd_Detail10] 셀클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_DetailInput_tab_Detail_tpg_01_grd_Detail10_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//그리드 콤보 및 캘린더 클릭시 펼치기
+	obj.dropdownCombo();
+	obj.dropdownCalendar();
+	this.gfn_SetGridSelectRowColor(obj, e.row, true);//선택한 Row BackgroundColor 설정	- 기본그리드 설정된 CSS정보 유지	
+	
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    02. [그리드-grd_Detail20] 셀클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_DetailInput_tab_Detail_tpg_02_grd_Detail20_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//그리드 콤보 및 캘린더 클릭시 펼치기
+	obj.dropdownCombo();
+	obj.dropdownCalendar();
+	
+};
+
+/***********************************************************************************************
+ * 02.DG0.07. [Detail 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    01. [데이터셋-ds_Detail10] 데이터변경 이벤트
+  ---------------------------------------------------------------------------------------------*/ 
+this.ds_Detail10_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	this.gfn_GridUpdateProcess(this, obj, e);//crudType 변경-수정(U)
+	
+	//출고수량
+	if (e.columnid == "NGBB_QT") {	
+ 		var sMoubQt = nexacro.toNumber(this.ds_Detail10.getColumn(e.row, "MOUB_QT"));
+ 		var sNgbbQt = nexacro.toNumber(e.newvalue);		
+		var sNgbbQtOrg = e.oldvalue;
+		
+		if(sNgbbQt <= 0){
+			var arrMsgArg = ["출고수량"];
+			this.ds_Detail10.setColumn(e.row, "NGBB_QT", sNgbbQtOrg)
+			this.gfn_Alert("SM008", arrMsgArg); //출고수량 필수 입력 항목입니다.
+			return;
+		}
+		
+		if(sMoubQt < sNgbbQt)
+		{				
+			this.ds_Detail10.setColumn(e.row, "NGBB_QT", sNgbbQtOrg)
+	
+			var arrMsgArg = ["가능한 출고수량"];			
+			this.gfn_Alert("SR002", arrMsgArg); //&ITM0을(를) 초과했습니다.
+			return;
+		 }
+	}
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    02. [데이터셋-ds_Detail20] 데이터변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+this.ds_Detail20_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	//출고수량
+	if (e.columnid == "NGBB_QT") {	
+ 		var sMoubQt = nexacro.toNumber(this.ds_Detail20.getColumn(e.row, "MOUB_QT"));
+ 		var sGiQt = nexacro.toNumber(this.ds_Detail20.getColumn(e.row, "GI_QT"));
+ 		var sNgbbQt = nexacro.toNumber(e.newvalue);		
+		var sNgbbQtOrg = e.oldvalue;
+		
+		if(sNgbbQt <= 0){
+			var arrMsgArg = ["출고수량"];
+			this.ds_Detail20.setColumn(e.row, "NGBB_QT", sNgbbQtOrg)
+			this.gfn_Alert("SM008", arrMsgArg); //출고수량 필수 입력 항목입니다.
+			return;
+		}
+		
+		if(sMoubQt-sGiQt < sNgbbQt)
+		{				
+			this.ds_Detail20.setColumn(e.row, "NGBB_QT", sNgbbQtOrg)
+	
+			var arrMsgArg = ["가능한 출고수량"];			
+			this.gfn_Alert("SR002", arrMsgArg); //&ITM0을(를) 초과했습니다.
+			return;
+		 }
+	}
+};
+
+/***********************************************************************************************
+ * 02.DG0.08. [Detail Tab] 변경 이벤트
+ ***********************************************************************************************/
+this.div_DetailInput_tab_Detail_onchanged = function(obj:nexacro.Tab,e:nexacro.TabIndexChangeEventInfo)
+{
+	var iTabIndex = e.postindex;
+	
+	this.div_DetailInput.form.div_ComGrdBtn.set_enable(true);
+	this.div_DetailInput.form.div_ComGrdBtn.set_url("");
+	
+	//Tab-불량반품출고상세
+	if (iTabIndex == 0) {
+		this.fn_SetGridInputButton();//[공통] 그리드 입력 버튼 설정
+	//Tab-불량반품미출고검색
+	} else if (iTabIndex == 1) {
+		this.fn_SetGridChoiceButton();//[공통] 검색 Tab 버튼 설정
+	//Tab-첨부파일
+	} else if (iTabIndex == 2) {	
+		this.fn_SetGridFileButton();//[공통] 그리드 파일 버튼 설정
+	}
+};
+
+/***********************************************************************************************
+ * 02.DG1.01. [Detail그리드2-버튼] 전체선택 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd02AllCheck = function()
+{
+	for (var iLoop=0; iLoop < this.ds_Detail20.getRowCount(); iLoop++) {
+		this.ds_Detail20.setColumn(iLoop, "s_chk", "1");
+	}
+};
+
+/***********************************************************************************************
+ * 02.DG1.02. [Detail그리드2-버튼] 전체해지 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd02AllUnCheck = function()
+{
+	for (var iLoop=0; iLoop < this.ds_Detail20.getRowCount(); iLoop++) {
+		this.ds_Detail20.setColumn(iLoop, "s_chk", "0");
+	}
+};
+
+/***********************************************************************************************
+ * 02.DG1.03. [Detail그리드2-버튼] 부분선택 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd02SomeCheck = function()
+{
+	var arrRows = this.div_DetailInput.form.tab_Detail.tpg_02.form.grd_Detail20.getSelectedRows();
+	
+	for (var iLoop=0; iLoop < arrRows.length; iLoop++) {
+		//이미 선택한내용은 부분선택에서 제외 처리
+		if (this.ds_Detail20.getColumn(arrRows[iLoop], "s_conf") != "1") {
+			this.ds_Detail20.setColumn(arrRows[iLoop], "s_chk", "1");
+		}
+	}	
+};
+
+/***********************************************************************************************
+ * 02.DG1.04. [Detail그리드2-버튼] 부분해지 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd02SomeUnCheck = function()
+{
+	var arrRows = this.div_DetailInput.form.tab_Detail.tpg_02.form.grd_Detail20.getSelectedRows();
+	for (var iLoop=0; iLoop < arrRows.length; iLoop++) {
+		this.ds_Detail20.setColumn(arrRows[iLoop], "s_chk", "0");
+	}
+};
+
+/***********************************************************************************************
+ * 02.DG1.05. [Detail그리드2-버튼] 적용 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd02Choice = function()
+{
+	if (this.ds_Master10.rowposition > -1) {
+		if (this.ds_Detail20.getCaseCount("s_chk=='1'") > 0) {
+			
+			var arrCheckRow = [];//체크된 Row
+			
+			for (var iLoop=0; iLoop<this.ds_Detail20.getRowCount(); iLoop++) {
+			
+				if (this.ds_Detail20.getColumn(iLoop, "s_chk") == "1") {
+					var sMouhNo = this.ds_Detail20.getColumn(iLoop, "MOUH_NO");
+					var sMouhSe = this.ds_Detail20.getColumn(iLoop, "MOUB_SE");
+					var iFvFindRow = this.ds_Detail10.findRowExpr("NGCH_NO=='" + sMouhNo + "' && NGCB_SE=='" + sMouhSe + "'");//중복안되도록
+					
+					if (iFvFindRow < 0) {
+						var iAddRow = this.gfn_GridInsertProcess(this, this.ds_Detail10);//crud_flag 변경-입력(I)
+					
+						this.ds_Detail10.copyRow(iAddRow, this.ds_Detail20, iLoop);
+						this.ds_Detail10.setColumn(iAddRow, "NGBH_NO", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "NGBH_NO"));//출고번호
+						this.ds_Detail10.setColumn(iAddRow, "NGBB_SE", "");//출고순번
+						
+						this.ds_Detail10.setColumn(iAddRow, "NGCH_NO", this.ds_Detail20.getColumn(iLoop, "MOUH_NO"));//반품번호
+						this.ds_Detail10.setColumn(iAddRow, "NGCB_SE", this.ds_Detail20.getColumn(iLoop, "MOUB_SE"));//반품순번
+						this.ds_Detail10.setColumn(iAddRow, "NGCH_DD", this.ds_Detail20.getColumn(iLoop, "MOUH_DD"));//반품일자
+						this.ds_Detail10.setColumn(iAddRow, "DELE_YN", "0");//삭제여부
+						
+						arrCheckRow.push(iLoop );
+					} else {
+						var crudType = this.ds_Detail10.getColumn(iFvFindRow, "crudType");
+						this.ds_Detail10.setColumn(iFvFindRow, "NGBB_QT", this.ds_Detail20.getColumn(iLoop, "NGBB_QT"));
+						
+						if (crudType == "I") {
+							this.ds_Detail10.setColumn(iFvFindRow, "NGBB_QT", this.ds_Detail20.getColumn(iLoop, "NGBB_QT"));
+						} else {
+							var sOrgNgbbQt = nexacro.toNumber(this.ds_Detail10.getOrgColumn(iFvFindRow, "NGBB_QT"));
+							var sNgbbQt = this.ds_Detail20.getColumn(iLoop, "NGBB_QT");
+							this.ds_Detail10.setColumn(iFvFindRow, "NGBB_QT", sOrgNgbbQt + sNgbbQt);
+							this.ds_Detail10.setColumn(iFvFindRow, "crudType", "U");
+						}
+					}
+					
+					//선택항목 비활성화처리
+					this.ds_Detail20.setColumn(iLoop, "s_conf", "1");
+					this.ds_Detail20.setColumn(iLoop, "s_chk", "0");//Uncheck로 변경
+				}
+			}
+
+			this.ds_Detail20.set_rowposition(-1);
+			//출고상세로 Tab이동
+			this.div_DetailInput.form.tab_Detail.set_tabindex(0);
+		}
+	}
+};
+
+/***********************************************************************************************
+ * 02.DG1.06. [Detail그리드2-버튼] 취소 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_DetailGrd02Cancel = function()
+{
+	this.ds_Detail10.reset();
+	this.ds_Detail20.reset();
+
+	//기존 체크정보 초기화
+	for (var iLoop=0; iLoop<this.ds_Detail20.getRowCount(); iLoop++) {
+	
+		if (this.ds_Detail20.getColumn(iLoop, "s_chk") == "1") {
+			this.ds_Detail20.setColumn(iLoop, "s_chk", "0");//Uncheck로 변경
+		}
+		
+		if (this.ds_Detail20.getColumn(iLoop, "s_conf") == "1") {
+			this.ds_Detail20.setColumn(iLoop, "s_conf", "0");
+		}		
+	}
+};
+ 
+/***********************************************************************************************
+ * 02.DG1.05. 검색조건 클릭/변경 이벤트
+ ***********************************************************************************************/ 
+/***********************************************************************************************
+ *    01. [계약번호]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [검색영역-Button] 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_DetailInput_tab_Detail_tpg_02_div_Search_btn_CnthNo_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "BS_CNTH_NO_01";//팝업ID - 계약정보
+	var oArg = { CnthNo:this.div_DetailInput.form.tab_Detail.tpg_02.form.div_Search.form.mae_CnthNo.value, PrgmId:this.fvComPrgmId};//Argument처리
+	this.gfn_ContPop(sPopupId, oArg);		
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [검색영역-Edit] 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/    
+this.div_DetailInput_tab_Detail_tpg_02_div_Search_mae_CnthNo_onchanged = function(obj:nexacro.MaskEdit,e:nexacro.ChangeEventInfo)
+{
+	this.gfn_GetCommCnth(this.div_DetailInput.form.tab_Detail.tpg_02.form.div_Search.form.mae_CnthNo, this.div_DetailInput.form.tab_Detail.tpg_02.form.div_Search.form.edt_CnthNm);//코드로 검색	
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 계약번호 Killfocus 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_DetailInput_tab_Detail_tpg_02_div_Search_mae_CnthNo_onkillfocus = function(obj:nexacro.MaskEdit,e:nexacro.KillFocusEventInfo)
+{ 
+	this.gfn_SetCnthNoMaskFormat(obj);//계약번호 동적 마스킹 처리
+};
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 계약번호 SetFocus 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.div_DetailInput_tab_Detail_tpg_02_div_Search_mae_CnthNo_onsetfocus = function(obj:nexacro.MaskEdit,e:nexacro.SetFocusEventInfo)
+{
+	obj.set_format("@@@@@@@@@");
+};
+
+/***********************************************************************************************
+ *    02. [검색]
+ ***********************************************************************************************/
+this.div_DetailInput_tab_Detail_tpg_02_div_Search_btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Detail20.clearData();
+	this.ds_InputSch.clearData();
+	
+	this.ds_InputSch.addRow();
+	this.ds_InputSch.setColumn(0, "FROM_DD", this.div_DetailInput.form.tab_Detail.tpg_02.form.div_Search.form.cal_TemhDtFr.value);
+	this.ds_InputSch.setColumn(0, "CLOS_DD", this.div_DetailInput.form.tab_Detail.tpg_02.form.div_Search.form.cal_TemhDtTo.value);
+	//this.ds_InputSch.setColumn(0, "CNTH_NO", this.div_DetailInput.form.tab_Detail.tpg_02.form.div_Search.form.mae_CnthNo.value);
+	this.ds_InputSch.setColumn(0, "CUSM_CD", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "CUSM_CD"));//파트너사
+		
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "sr:M_SR_3700_D_SL20";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "DTLS_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_MM;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_InputSch=ds_InputSch" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Detail20=ds_Detail20";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);		
+};
+ 
+/***********************************************************************************************
+ * 02.DG1.06. [첨부 파일 그리드-버튼] 파일추가 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_FileGrd01AddRow = function()
+{
+	this.fvFileDiv.fn_ComFileAdd();//파일추가
+};
+
+/***********************************************************************************************
+ * 02.DG1.07. [첨부 파일 그리드-버튼] 파일삭제 클릭 이벤트
+ ***********************************************************************************************/
+this.fn_FileGrd01DeleteRow = function()
+{
+	this.fvFileDiv.fn_ComFileDelete();//파일삭제
+};
+ 
+/***********************************************************************************************
+ * 3. 복사
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 03.01. [공통버튼] 복사 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCopy = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 4. 취소
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 04.01. [공통버튼] 취소 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnCancel = function()
+{	
+	this.ds_Master10.reset();
+	this.ds_Detail10.reset();
+	this.fvFileDiv.fn_ClearAtchFile();//첨부파일 정보 초기화
+}
+
+/***********************************************************************************************
+ * 5. 저장
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 05.01. [공통버튼] 저장 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnSave = function()
+{
+
+	//변경여부 체크
+	if (!this.gfn_DsIsUpdated(this.ds_Master10) && !this.gfn_DsIsUpdated(this.ds_Detail10) && !this.fvFileDiv.fn_CheckFileAddYn()) {
+		this.gfn_Alert("SM036");//변경된 내용이 없습니다.
+		return;
+	}
+
+
+	//첨부파일정보 변경시
+	if (this.fvFileDiv.fn_CheckFileAddYn()) {
+		//첨부파일정보만 변경시
+		if (!this.gfn_DsIsUpdated(this.ds_Master10) && !this.gfn_DsIsUpdated(this.ds_Detail10) && this.ds_Master10.getRowCount() > 0) {
+			//첨부파일정보 저장
+			fvFileInfo = new Object();//[공통] 첨부파일정보
+			fvFileInfo.PRGM_ID = this.fvComPrgmId;//프로그램ID
+			fvFileInfo.FILH_GU = "H";//첨부파일위치구분 : H-Head, B-상세(그리드Row), E-기타
+			fvFileInfo.CALLBACK_FUNC = "";//호출할 콜백함수
+			fvFileInfo.PATH_NM = this.fvPathNm;//업무파일경로
+			fvFileInfo.PK01_NO = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "COMM_CD");//PK번호1-회사코드
+			fvFileInfo.PK02_NO = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "NGBH_NO");//PK번호2-출고번호
+
+			//첨부파일Div 화면에 Key세팅하게 변경
+			this.fvFileDiv.fn_AtchFileSave(this, fvFileInfo);
+			return;	
+		}
+	}
+
+	//저장전 유효성 체크
+  	//Master 데이터 유효성 체크
+  	if (this.gfn_DsIsUpdated(this.ds_Master10)) {
+  		if (!this.fn_VaildMasterSave()) return;		
+  	}
+  	
+  	//Detail 데이터 유효성 체크
+  	if (this.gfn_DsIsUpdated(this.ds_Detail10)) {
+  		if (!this.fn_VaildDetailSave()) return;
+  	}
+	
+	//Master 입력/수정/삭제 상태 체크
+	var sChkRowType = this.gfn_GetRowType(this.ds_Master10, this.ds_Master10.rowposition);
+	
+	//Master 입력 상태이면
+	if (sChkRowType == "I") {
+	
+		//채번-출고번호
+		//var sTbnmNo = 1;
+		var sTbnmNo = this.gfn_GetTbnmNo(this.fvComPrgmId, this.ds_Master10.getColumn(this.ds_Master10.rowposition, "NGBH_DD"));//출고번호
+		
+		if (this.gfn_IsNull(sTbnmNo)) {
+			//출고번호를 가져오는데 실패했습니다.
+			return;
+		}
+
+		var sChkNo = "";//출고번호-체크용
+		var iMasterRowPos = this.ds_Master10.rowposition;//Master 현재 Row Position
+		
+		//Master 데이터셋에 채번정보 입력-출고번호
+		this.ds_Master10.setColumn(iMasterRowPos, "NGBH_NO", sTbnmNo);
+		
+		var sCommCd = this.ds_Master10.getColumn(iMasterRowPos, "COMM_CD");//회사코드
+		var sTbnmNo = this.ds_Master10.getColumn(iMasterRowPos, "NGBH_NO");//출고번호
+		
+		//Detail10 데이터셋에 기본정보 입력-출고번호
+		for (var iLoop=0; iLoop<this.ds_Detail10.getRowCount(); iLoop++) {
+			sChkNo = this.ds_Detail10.getColumn(iLoop, "COMM_CD");
+			
+			if (this.gfn_IsNull(sChkNo)) {
+				this.ds_Detail10.setColumn(iLoop, "NGBH_NO", sTbnmNo);
+			}
+		}
+	}	
+	
+	//첨부파일정보 변경시
+	if (this.fvFileDiv.fn_CheckFileAddYn()) {
+		fvFileInfo = new Object();//[공통] 첨부파일정보
+		fvFileInfo.PRGM_ID = this.fvComPrgmId;//프로그램ID
+		fvFileInfo.FILH_GU = "H";//첨부파일위치구분 : H-Head, D-상세(그리드Row), E-기타
+		fvFileInfo.CALLBACK_FUNC = "fn_ComBtnSearch";//호출할 콜백함수
+		fvFileInfo.PATH_NM = this.fvPathNm;//업무파일경로
+		fvFileInfo.PK01_NO = nApp.gvCompany;//PK번호1-회사코드
+		fvFileInfo.PK02_NO = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "NGBH_NO");//PK번호2-출고번호
+	}
+	
+	//저장시 재조회 Key설정
+	this.fvSchKey01 = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "NGBH_NO");//조회Key01
+
+	//[공통]서비스 정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	
+	//[공통]서비스 호출 변수
+	var sInputDaset = "" //입력 데이터셋
+	var sOutDatset = "";//출력 데이터셋
+	var sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+		
+	//Master 변경건이 있으면 Master 저장
+	if (this.gfn_DsIsUpdated(this.ds_Master10)) {
+		
+		//[공통]서비스 정보 추가
+		svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object				 
+		svcAddObj.sInsertSql = "sr:M_SR_3700_M_IN10";//저장Sql
+		svcAddObj.sUpdateSql = "sr:M_SR_3700_M_UP10";//수정Sql
+		svcAddObj.sDeleteSql = "sr:M_SR_3700_M_DL10";//삭제Sql
+		svcAddObj.sSaveFlagColumn = "";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+								 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+
+		this.gfn_AddComSaveService(this, svcAddObj);
+		
+		sInputDaset = "ds_Master10=ds_Master10:U" //입력 데이터셋
+	}
+  	
+  	//Detail 변경건이 있으면 Detail 저장
+  	if (this.gfn_DsIsUpdated(this.ds_Detail10)) {
+  		
+  		//[공통]서비스 정보 추가
+  		svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object	
+  		svcAddObj.sInsertSql = "sr:M_SR_3700_D_IN10";//저장Sql
+  		svcAddObj.sUpdateSql = "sr:M_SR_3700_D_UP10";//수정Sql
+  		svcAddObj.sDeleteSql = "sr:M_SR_3700_D_DL10";//삭제Sql
+  		svcAddObj.sSaveFlagColumn = "crudType";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+  								 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+  		
+  		this.gfn_AddComSaveService(this, svcAddObj);
+  		
+  		if (this.gfn_IsNull(sInputDaset)) {
+  			sInputDaset = "ds_Detail10=ds_Detail10:U" //입력 데이터셋
+  		} else {
+  			sInputDaset = sInputDaset + " ds_Detail10=ds_Detail10:U" //입력 데이터셋
+  		}
+  	}	
+		
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "SAVE";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_SR;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = sInputDaset //입력 데이터셋
+	svcCallObj.sOutDatset = sOutDatset;//출력 데이터셋
+	svcCallObj.sOtherArg = sOtherArg;//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명		
+	
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+	
+}
+
+/***********************************************************************************************
+ * 05.02. [Vaildation] Master 저장 필수값 체크 - 입력항목 
+ ***********************************************************************************************/ 
+this.fn_VaildMasterSave = function()
+{
+	//[저장] Validation 설정
+	var arrArgs = ["this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CusmCd^" + this.div_MasterInput.form.tab_Master.tpg_01.form.sta_CusmCd.text + "|NULL" //파트너사
+			      ,"this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CspmCd^" + this.div_MasterInput.form.tab_Master.tpg_01.form.sta_CspmCd.text + "|NULL" //출고자
+			      ]; 
+				  
+	var sCheckGroupTitle = this.div_MasterInput.form.tab_Master.tpg_01.text;//체크그룹 타이틀
+
+	//컴포넌트 Vaild 체크
+	if (!this.gfn_CheckFormCompValid(this, arrArgs, sCheckGroupTitle)) {
+		return false;
+	}
+	
+	return true;
+}
+
+/***********************************************************************************************
+ * 05.03. [Vaildation] Detail 저장 필수값 체크 - 그리드항목
+ ***********************************************************************************************/ 
+this.fn_VaildDetailSave = function()
+{
+	//[저장] Validation 설정
+	var arrArgs = ["NGBB_QT^NULL"//출고수량
+				  ];
+				  
+	var sCheckGroupTitle = this.div_DetailInput.form.tab_Detail.tpg_01.text;//체크그룹 타이틀
+				  
+	//Grid Vaild 체크
+	if (!this.gfn_CheckGridValid(this.div_DetailInput.form.tab_Detail.tpg_01.form.grd_Detail10, arrArgs, sCheckGroupTitle) ) {
+		return false;
+	}
+	
+	return true;
+}
+
+/***********************************************************************************************
+ * 6. 삭제
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 06.01. [공통버튼] 삭제 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnDelete = function()
+{ 
+	this.gfn_Confirm("SM004", "", "CONF.DELETE", "fn_MsgCallback");//삭제 하시겠습니까?
+}
+
+/***********************************************************************************************
+ * 06.02. [서비스] 삭제처리
+ ***********************************************************************************************/  
+this.fn_SvcDelete = function() 
+{ 
+	//삭제전 유효성 체크
+	//Master 데이터 유효성 체크
+	if (!this.fn_VaildMasterDelete()) return;
+	
+	//삭제키 정보 설정
+	this.ds_Master11.clearData();
+	this.ds_Master11.addRow();
+	this.ds_Master11.setColumn(0, "NGBH_NO", this.ds_Master10.getColumn(this.ds_Master10.rowposition, "NGBH_NO"));//출고번호
+	this.ds_Master11.setColumn(0, "crudType", "D");//삭제-Flag
+	
+	//[공통]서비스 정보 초기화
+	this.gfn_InitComService(this);
+	
+	//Master 삭제
+	//[공통]서비스 정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sInsertSql = "";//저장Sql
+	svcAddObj.sUpdateSql = "";//수정Sql
+	svcAddObj.sDeleteSql = "sr:M_SR_3700_M_DL10";//삭제Sql
+	svcAddObj.sSaveFlagColumn = "crudType";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+							 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+
+	this.gfn_AddComSaveService(this, svcAddObj);
+
+	//Detail 삭제
+	if (this.ds_Detail10.getRowCount() > 0) {
+		//[공통]서비스 정보 추가
+		svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+		svcAddObj.sInsertSql = "";//저장Sql
+		svcAddObj.sUpdateSql = "";//수정Sql
+		svcAddObj.sDeleteSql = "sr:M_SR_3700_D_DL11";//삭제Sql
+		svcAddObj.sSaveFlagColumn = "crudType";//insertSql, updateSql, deleteSql이 존재하여 신규, 수정, 삭제를 처리할 경우 기본적으로 Dataset의 getRowStates()로 판단하여 처리하며
+								 //이를 Flag 컬럼으로 대체하고 싶은 경우 사용하는 [컬럼명], 해당 Flag 컬럼의 값은 신규 - I , 수정 - U , 삭제 - D의 값을 가져야 한다.
+		
+		this.gfn_AddComSaveService(this, svcAddObj);
+	}
+
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "DELETE";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_SR;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Master10=ds_Master11" //입력 데이터셋
+	svcCallObj.sOutDatset = "";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+	
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+	
+}
+
+/***********************************************************************************************
+ * 06.03. [Vaildation] 삭제항목 체크
+ ***********************************************************************************************/  
+this.fn_VaildMasterDelete = function()
+{
+	if (this.ds_Master10.getRowCount() < 1 || this.gfn_IsNull(this.ds_Master10.getColumn(this.ds_Master10.rowposition, "NGBH_NO"))) {
+		this.gfn_Alert("SM006");//삭제할 대상을 선택하세요.
+		return false;
+	}
+	return true;
+}
+
+/***********************************************************************************************
+ * 7. 엑셀
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 07.01. [공통버튼] 엑셀저장 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnExcel = function()
+{ 
+	//출력 그리드 정보 설정	
+	var objGridList = ["this.div_MasterView.form.grd_Master10|" + this.div_MasterView.form.sta_Master10.text
+	                  ,"this.div_DetailInput.form.tab_Detail.tpg_01.form.grd_Detail10|" + this.div_DetailInput.form.tab_Detail.tpg_01.text];					 
+	 
+	var sFileName = "불량반품출고";//출력파일명
+	this.gfn_ExcelExport(this, objGridList, sFileName);
+}
+
+/***********************************************************************************************
+ * 8. 인쇄
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 08.01. [공통버튼] 인쇄 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnPrint = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 9. 결재요청
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 09.01. [공통버튼] 결재요청 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 10. 결재현황
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.01. [공통버튼] 결재현황 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+this.fn_ComBtnProcess = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 11. 재기안
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 11.01. [공통버튼] 재기안 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnRecide = function()
+{ 
+}
+
+/***********************************************************************************************
+ * 12. 닫기
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 12.01. [공통버튼] 닫기 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.fn_ComBtnClose = function()
+{ 
+	return true;
+}
+
+/***********************************************************************************************
+ * 13. [CallBack] 함수
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 13.01. [서비스] CallBack 함수 처리
+ ***********************************************************************************************/ 
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST_SEARCH": //조회		
+	
+			if (this.ds_Master10.getRowCount() > 0) {
+
+				//저장후 재조회여부-true
+				if (this.fvSchKeyYn) {
+					var iFvFindRow = this.ds_Master10.findRowExpr("NGBH_NO=='" + this.fvSchKey01 + "'");//업무Key Row 찾기
+
+					//마스터 데이터셋 이벤트가 비활성시 - 활성화
+					if (!this.ds_Master10.enableevent) {
+						this.ds_Master10.set_enableevent(true);
+					}
+				
+					if (iFvFindRow > -1) {
+						if (iFvFindRow == 0) {
+							this.ds_Master10.set_rowposition(-1);
+						} 
+						this.ds_Master10.set_rowposition(iFvFindRow);
+					} else {
+						this.ds_Master10.set_rowposition(0);
+					}
+				}				
+				
+				//입력영역 활성화
+				this.div_MasterInput.set_enable(true);
+				this.div_DetailInput.form.div_ComGrdBtn.set_enable(true);
+				this.div_DetailInput.form.tab_Detail.set_enable(true);
+					
+				//첨부파일정보 권한설정
+				var oScrnBtnAuth = new Object();//[공통] 첨부파일 권한정보
+				oScrnBtnAuth.BTN_ENABLE = true;//권한 유무	
+				this.fvFileDiv.fn_SetCommFileBtnAuth(oScrnBtnAuth);					
+				
+				//[공통]그리드NoData Text 초기화 설정
+				this.gfn_InitGridNoDataText(this.div_MasterView.form.grd_Master10);				
+			} else {
+				//[공통]그리드NoData Text설정
+				this.gfn_SetGridNoDataText(this.div_MasterView.form.grd_Master10);
+				
+				//마스터 데이터셋 이벤트가 비활성시 - 활성화
+				if (!this.ds_Master10.enableevent) {
+					this.ds_Master10.set_enableevent(true);
+				}
+			
+				//입력영역 비활성화
+				this.div_MasterInput.set_enable(false);
+				this.div_DetailInput.form.div_ComGrdBtn.set_enable(false);
+				this.div_DetailInput.form.tab_Detail.set_enable(false);
+					
+				//첨부파일정보 권한설정
+				var oScrnBtnAuth = new Object();//[공통] 첨부파일 권한정보
+				oScrnBtnAuth.BTN_ENABLE = false;//권한 유무	
+				this.fvFileDiv.fn_SetCommFileBtnAuth(oScrnBtnAuth);					
+			}
+			
+			//저장후 재조회여부-true
+			if (this.fvSchKeyYn) {
+				this.fvSchKeyYn = false;//저장후 재조회여부
+			}			
+	
+			break;
+		case "SAVE":   //저장		
+			//첨부파일 추가건이 없으면
+			if (!this.fvFileDiv.fn_CheckFileAddYn()) {
+				this.fvSchKeyYn = true;//저장후 재조회여부
+				this.fn_ComBtnSearch();//저장후 재조회
+				
+			} else {
+				this.fvFileDiv.fn_AtchFileSave(this, fvFileInfo);			
+			}
+			break;	
+		case "DTL_SEARCH": //조회		
+			this.ds_Detail10.addColumn("s_chk", "string");
+			this.ds_Detail10.addColumn("crudType", "string");
+			
+			//첨부파일 정보 조회
+			var oFileInfo = new Object();//[공통] 첨부파일정보
+			oFileInfo.PRGM_ID = this.fvComPrgmId;//프로그램ID
+			oFileInfo.FILH_GU = "H";//첨부파일위치구분 : H-Head, D-상세(그리드Row), E-기타
+			oFileInfo.PK01_NO = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "COMM_CD");//PK번호1-회사코드
+			oFileInfo.PK02_NO = this.ds_Master10.getColumn(this.ds_Master10.rowposition, "NGBH_NO");//PK번호2-출고번호
+			
+			this.fvFileDiv.fn_AtchFileSearch(oFileInfo);		
+			
+			if (this.ds_Detail10.getRowCount() > 0) {
+				//[공통]그리드NoData Text 초기화 설정
+				this.gfn_InitGridNoDataText(this.div_DetailInput.form.tab_Detail.tpg_01.form.grd_Detail10);
+			} else {
+				//[공통]그리드NoData Text설정
+				this.gfn_SetGridNoDataText(this.div_DetailInput.form.tab_Detail.tpg_01.form.grd_Detail10);	
+			}
+			
+			break;			
+			
+		case "DTLS_SEARCH": //미출고검색
+			this.ds_Detail20.addColumn("s_chk", "string");
+			this.ds_Detail20.addColumn("s_conf", "string");
+			
+			if (this.ds_Detail20.getRowCount() > 0) {
+				//[공통]그리드NoData Text 초기화 설정
+				this.gfn_InitGridNoDataText(this.div_DetailInput.form.tab_Detail.tpg_02.form.grd_Detail20);
+			} else {
+				//[공통]그리드NoData Text설정
+				this.gfn_SetGridNoDataText(this.div_DetailInput.form.tab_Detail.tpg_02.form.grd_Detail20);			
+			}
+			
+			break;
+			
+		case "DELETE": //삭제		
+			this.fn_ComBtnSearch();//조회
+			break;							
+	}
+};
+
+/***********************************************************************************************
+ * 13.02. [팝업] CallBack 함수 처리
+          strId : 팝업호출시 지정한 팝업ID
+	      rtnValue : 팝업창에서 close시 지정한 반환값
+          주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/ 
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+	//[조회영역]
+	//거래처
+	if (strId == "S_CUSM_CD_01") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);
+			
+			if (!this.gfn_IsNull(arrRtnVal.CUSM_CD)) {
+				this.div_Search.form.edt_CusmCd.set_value(arrRtnVal.CUSM_CD);
+				this.div_Search.form.edt_CusmNm.set_value(arrRtnVal.CUSM_NM);			
+			}
+		} else {			
+             this.div_Search.form.edt_CusmCd.set_value("");
+             this.div_Search.form.edt_CusmNm.set_value("");
+        }
+	//[MASTER영역]
+	//파트너사
+	} else if (strId == "M_CUSM_CD_01") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);
+			
+			if (!this.gfn_IsNull(arrRtnVal.CUSM_CD)) {
+				this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CusmCd.set_value(arrRtnVal.CUSM_CD);
+				this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CusmNm.set_value(arrRtnVal.CUSM_NM);			
+			}		
+		} else {
+			this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CusmCd.set_value("");
+			this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CusmNm.set_value("");			
+		}
+	//출고자
+	} else if (strId == "M_CSPM_CD_01") {
+		if (!this.gfn_IsNull(rtnValue)) {
+			var arrRtnVal = eval(rtnValue);
+			
+			if (!this.gfn_IsNull(arrRtnVal.CSPM_CD)) {
+				this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CspmCd.set_value(arrRtnVal.CSPM_CD);
+				this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CspmNm.set_value(arrRtnVal.CSPM_NM);
+			}
+		} else {
+			this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CspmCd.set_value("");
+			this.div_MasterInput.form.tab_Master.tpg_01.form.edt_CspmNm.set_value("");
+		}
+	}
+};
+ 
+/***********************************************************************************************
+ * 13.03. [메세지] CallBack 함수 처리
+ ***********************************************************************************************/  
+this.fn_MsgCallback = function (strId, strVal)
+{
+	//삭제여부
+	if (strId == "CONF.DELETE") {
+		if(strVal )
+		{
+			this.fn_SvcDelete();//삭제 서비스 호출
+		}
+	//MASTER 변경사항 저장여부
+	} else if (strId == "CONF.MAST_CHANGE") {
+		if(strVal )
+		{
+			this.fn_ComBtnSave();//저장 서비스 호출
+		} else {
+			//데이터 변경여부 체크
+			if (this.gfn_DsIsUpdated(this.ds_Master10)) {
+				this.gfn_UndoColumn(this.div_MasterView.form.grd_Master10);
+			}		
+		}
+	}
+}; 
+ 
+/***********************************************************************************************
+ * 14. [화면 사이즈] 조정 버튼 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 14.01. [조회영역-▲] 화면 사이즈조정 버튼 이벤트
+ ***********************************************************************************************/ 
+this.btn_DivMoveMi_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통] 버튼 변수
+	var btnObj = new Object();//[공통] 버튼 변수 정보 Object
+	btnObj.DivSearch = "this.div_Search";//조회영역 Div
+	btnObj.DivMstLeft = "this.div_MasterView";//Master영역 Left Div : Master영역이 하나인경우에는 Left에 설정
+	btnObj.DivMstRight = "this.div_MasterInput";//Master영역 Right Div
+	btnObj.DivDetail = "this.div_DetailInput";//Detail영역 Div
+	btnObj.MstLeft = this.sta_HSplitter.getOffsetLeft() + 6;//Master영역 Div Left
+	btnObj.MstTop = 90;//Master영역 Div Top
+	btnObj.MstHeight = 294;//Master영역 Div Height : Height가 없는경우 ""로 입력
+	btnObj.MoveBtnDtl = "";//Detail영역 Move 버튼 : 없으면 ""로 입력
+	this.gfn_MoveSeBtnNew(obj, btnObj);//Master영역 접고/펼치기 버튼 이벤트
+
+};
+
+/***********************************************************************************************
+ * 14.02. [Master영역-▶] 화면 사이즈조정 버튼 이벤트
+ ***********************************************************************************************/ 
+this.div_MasterView_btn_DivMoveMv_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통] 버튼 변수
+	var btnObj = new Object();//[공통] 버튼 변수 정보 Object
+	btnObj.DivMstLeft = "this.div_MasterView";//Master영역 Left Div : Master영역이 하나인경우에는 Left에 설정
+	btnObj.DivMstRight = "this.div_MasterInput";//Master영역 Right Div
+	btnObj.MstWidth = 412;//Master Left 영역 Div Width
+	btnObj.MstHeight = 293;//Master Left영역 Div Height : Height가 없는경우 ""로 입력
+	btnObj.MoveBtnSch = "this.btn_DivMoveMi";//조회영역밑 Move 버튼
+	btnObj.MoveBtnDtl = "this.div_DetailInput.form.btn_DivMoveDi";//Detail영역 Move 버튼 : 없으면 ""로 입력
+	this.gfn_MoveMlBtn(obj, btnObj);//Master Left 영역 접고/펼치기 버튼 이벤트	
+};
+
+/***********************************************************************************************
+ * 14.03. [Detail영역-▲] 화면 사이즈조정 버튼 이벤트
+ ***********************************************************************************************/ 
+this.div_DetailInput_btn_DivMoveDi_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//[공통] 버튼 변수
+	var btnObj = new Object();//[공통] 버튼 변수 정보 Object
+	btnObj.DivMstLeft = "this.div_MasterView";//Master영역 Left Div : Master영역이 하나인경우에는 Left에 설정
+	btnObj.DivMstRight = "this.div_MasterInput";//Master영역 Right Div
+	btnObj.DivDetail = "this.div_DetailInput";//Detail영역 Div
+	btnObj.DtlTop = 378;//Detail영역 Div Top
+	btnObj.MoveBtnSch = "this.btn_DivMoveMi";//조회영역밑 Move 버튼
+	this.gfn_MoveDtlBtn(obj, btnObj);//Detail영역 접고/펼치기 버튼 이벤트				
+};
+
+/***********************************************************************************************
+ * 15. [사용자정의 함수]
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 15.01. [Vaildation] 데이터셋 변경여부 체크
+ ***********************************************************************************************/ 
+this.fn_IsUpdateDataset = function()
+{
+	if (this.gfn_DsIsUpdated(this.ds_Master10) || this.gfn_DsIsUpdated(this.ds_Detail10)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+/***********************************************************************************************
+ * 15.02. [공통 그리드 버튼] 입력 버튼 설정
+ ***********************************************************************************************/ 
+this.fn_SetGridInputButton = function()
+{
+	//그리드 공통 버튼 권한이 있으면
+	if (this.fvFormComBtnAuthYn)
+	{
+		this.gfn_SetGridInputBtnUrl(this.div_DetailInput.form.div_ComGrdBtn);//[공통] 그리드 입력 버튼 URL 설정
+		
+		//상세 그리드버튼 설정 : 버튼ID|권한(Y/N)|호출함수명
+		var objBtnInfo01List = ["COPY|N|fn_DetailGrd01Copy"
+							 ,"ADD|N|fn_DetailGrd01AddRow"
+							 ,"INSERT|N|fn_DetailGrd01InsertRow"
+							 ,"DELETE|Y|fn_DetailGrd01DeleteRow"
+							 ,"CANCEL|Y|fn_DetailGrd01Cancel"];
+		this.div_DetailInput.form.div_ComGrdBtn.form.fn_SetGrdButtonFunc(this, objBtnInfo01List);	
+	}
+}
+
+/***********************************************************************************************
+ * 15.03. [공통 그리드 버튼] 검색 Tab 버튼 설정
+ ***********************************************************************************************/ 
+this.fn_SetGridChoiceButton = function()
+{
+
+	this.gfn_SetGridChoiceBtnUrl(this.div_DetailInput.form.div_ComGrdBtn);//[공통]그리드 선택 버튼 URL 설정
+
+	//상세 그리드버튼 설정 : 버튼ID|권한(Y/N)|호출함수명
+	var objBtnInfo01List = ["CHECK|Y|fn_DetailGrd02AllCheck"
+						 ,"UNCHK|Y|fn_DetailGrd02AllUnCheck"
+						 ,"S_CHECK|Y|fn_DetailGrd02SomeCheck"
+						 ,"S_UNCHK|Y|fn_DetailGrd02SomeUnCheck"						 
+						 ,"CHOICE|Y|fn_DetailGrd02Choice"
+						 ,"CANCEL|Y|fn_DetailGrd02Cancel"];
+	this.div_DetailInput.form.div_ComGrdBtn.form.fn_SetGrdButtonFunc(this, objBtnInfo01List);		
+}
+
+/***********************************************************************************************
+ * 15.04. [공통 첨부파일] 화면 설정
+ ***********************************************************************************************/ 
+this.fn_SetTabComAttachFile = function()
+{
+	//그리드 공통 버튼 권한이 있으면
+	if (this.fvFormComBtnAuthYn)
+	{
+		//첨부파일정보 권한설정
+		var oScrnAuth = new Object();//[공통] 첨부파일 권한정보
+		oScrnAuth.POPUP_YN = "N";//팝업화면 유무
+		oScrnAuth.AUTH_YN = "Y";//권한 유무
+		oScrnAuth.FILE_CHECK_YN = "Y";//첨부파일종류 체크유무
+		oScrnAuth.PRGM_ID = this.fvComPrgmId;//프로그램ID
+		oScrnAuth.FILM_GU = "H";//첨부파일구분-Head
+		
+		this.fvFileDiv.fn_SetCommFileScrnAuth(oScrnAuth);	
+	} else {
+		//첨부파일정보 권한설정
+		var oScrnAuth = new Object();//[공통] 첨부파일 권한정보
+		oScrnAuth.POPUP_YN = "N";//팝업화면 유무
+		oScrnAuth.AUTH_YN = "N";//권한 유무
+		oScrnAuth.FILE_CHECK_YN = "Y";//첨부파일종류 체크유무
+		oScrnAuth.PRGM_ID = this.fvComPrgmId;//프로그램ID
+		oScrnAuth.FILM_GU = "H";//첨부파일구분-Head		
+		
+		this.fvFileDiv.fn_SetCommFileScrnAuth(oScrnAuth);	
+	}
+}
+
+/***********************************************************************************************
+ * 15.05. [공통 그리드 버튼] 파일 버튼 설정
+ ***********************************************************************************************/ 
+this.fn_SetGridFileButton = function()
+{
+	this.gfn_SetFileBtnUrl(this.div_DetailInput.form.div_ComGrdBtn);//[공통] 파일 버튼 URL 설정
+	
+	//파일 버튼 설정 : 버튼ID|호출함수명
+	var objBtnInfo01List = ["ADD|fn_FileGrd01AddRow"
+						 ,"DELETE|fn_FileGrd01DeleteRow"];
+	this.div_DetailInput.form.div_ComGrdBtn.form.fn_SetGrdButtonFunc(this, objBtnInfo01List);			
+}
+
+
+
+
+
+
+
+this.div_MasterView_onsize = function(obj:nexacro.Div,e:nexacro.SizeEventInfo)
+{
+	this.sta_HSplitter.set_height(this.div_MasterView.getOffsetHeight() - 29);
+
+};
+]]></Script>
+    <Bind>
+      <BindItem id="item19" compid="div_MasterInput.form.tab_Master.tpg_01.form.txt_RemkNm" propid="value" datasetid="ds_Master10" columnid="REMK_NM"/>
+      <BindItem id="item4" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_SystId" propid="value" datasetid="ds_Master10" columnid="SYST_ID"/>
+      <BindItem id="item0" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_CusmCd" propid="value" datasetid="ds_Master10" columnid="CUSM_CD"/>
+      <BindItem id="item2" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_CusmNm" propid="value" datasetid="ds_Master10" columnid="CUSM_NM"/>
+      <BindItem id="item1" compid="div_MasterInput.form.tab_Master.tpg_01.form.cal_NgbhDd" propid="value" datasetid="ds_Master10" columnid="NGBH_DD"/>
+      <BindItem id="item3" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_CspmCd" propid="value" datasetid="ds_Master10" columnid="CSPM_CD"/>
+      <BindItem id="item5" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_CspmNm" propid="value" datasetid="ds_Master10" columnid="CSPM_NM"/>
+      <BindItem id="item6" compid="div_MasterInput.form.tab_Master.tpg_01.form.mae_NgbhNo" propid="value" datasetid="ds_Master10" columnid="NGBH_NO"/>
+      <BindItem id="item7" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_ProcNm" propid="value" datasetid="ds_Master10" columnid="SYST_NM"/>
+      <BindItem id="item9" compid="div_MasterInput.form.tab_Master.tpg_01.form.edt_ProcId" propid="value" datasetid="ds_Master10" columnid="SYST_ID"/>
+      <BindItem id="item8" compid="mae_SycoDd" propid="format" datasetid="ds_Master10" columnid="SYCO_DD"/>
+    </Bind>
+  </Form>
+</FDL>

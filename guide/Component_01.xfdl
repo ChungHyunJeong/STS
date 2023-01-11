@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ee" width="1400" height="900">
+    <Layouts>
+      <Layout height="900" mobileorientation="landscape" width="1400" stepcount="0">
+        <Div id="div_Scrn" taborder="0" left="0" top="120" right="0" bottom="0" border="1px solid black" formscrolltype="both" enable="true" enableevent="true"/>
+        <Button id="btn_OpenScrn" taborder="1" text="화면열기" top="5" width="70" height="26" left="5" onclick="btn_OpenScrn_onclick"/>
+        <Button id="btn_ReadSource" taborder="2" text="화면정보읽기" top="5" width="90" height="26" left="78" onclick="btn_ReadSource_onclick"/>
+        <Button id="btn_SaveScrnFile" taborder="3" text="화면파일생성" top="5" width="90" height="26" left="171" onclick="btn_SaveScrnFile_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[this._vFiles_idx = 0;
+this._vFiles = [];
+
+
+//화면열기
+this.btn_OpenScrn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fdl_File.open("파일열기", FileDialog.MULTILOAD,"%MYDOCUMENT%");
+};
+
+/**
+* 파일다이얼로그 Close 이벤트
+*/
+this.fdl_File_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEventInfo)
+{
+
+	for (var i = 0, len = e.virtualfiles.length, vFile; i < len; i++) {
+		vFile = e.virtualfiles[i];
+		vFile.addEventHandler("onsuccess", this.fn_FileDialog_VirtualFile_onsuccess, this);
+		vFile.open(null, 1);
+		vFile.getFileSize();	
+
+		this._vFiles.push(vFile);		
+	}
+};
+ 
+/**
+* 파일다이얼로그 VirtualFile 로드 성공 이벤트
+*/
+this.fn_FileDialog_VirtualFile_onsuccess = function(obj, e) {
+
+	if (e.reason == 1) {
+		var sPath = obj.path;//파일전체경로
+		var sFileName = obj.filename;//파일명
+		var arrPath = sPath.split("\\");
+		var sGroup = arrPath[arrPath.length -2];
+		this.div_Scrn.set_url(sGroup + "::" + sFileName);
+		this.div_Scrn.form.resetScroll();
+	}
+	
+	this._vFiles_idx = 0;
+	this._vFiles = [];		
+};
+
+//화면정보 읽기
+this.btn_ReadSource_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_SaveComponetsList(this.div_Scrn.form);	
+	trace(this.ds_Components.saveXML());
+	return;
+	for (var iLoop=0; iLoop<this.ds_Components.getRowCount(); iLoop++) {
+		this.fn_MakeCompoentsData(this.ds_Components.getColumn(iLoop, "PATH"));
+	}
+	trace(this.ds_Properties.saveXML());	
+};
+
+this.fn_SaveComponetsList = function(targetObj, fullpath, groupDst)
+{
+    var sObjType;    
+    var objList = targetObj.components;    
+    for(var i=0;i<objList.length;i++)
+    {
+        sObjType = objList[i]+"";
+
+        // Div
+        if( sObjType == "[object Div]" )
+        {
+			var nRow = this.ds_Components.addRow();
+			this.ds_Components.setColumn(nRow, "NAME", objList[i].name);
+			this.ds_Components.setColumn(nRow, "PATH", objList[i].name);
+			this.ds_Components.setColumn(nRow, "OBJECT_TYPE", "Div");
+			this.ds_Components.setColumn(nRow, "GROUP_DST", "Div");
+				
+            if( this.gfn_IsNull(fullpath) ) {
+                this.fn_SaveComponetsList(objList[i].form, objList[i].name+".form", "Div");
+            } else {
+                this.fn_SaveComponetsList(objList[i].form, fullpath+"."+objList[i].name+".form", "Div");
+			}
+        }
+        // Tab
+        else if( sObjType == "[object Tab]" )
+        {
+            var tabPageList = objList[i].tabpages;
+            for(var j=0;j<tabPageList.length;j++)
+            {
+                if( this.gfn_IsNull(fullpath) )
+                    this.fn_SaveComponetsList(tabPageList[j].form, objList[i].name + "." + tabPageList[j].name+".form", "Tab");
+                else
+                    this.fn_SaveComponetsList(tabPageList[j].form, fullpath+"."+objList[i].name + "." + tabPageList[j].name+".form", "Tab");
+            }
+        }
+        else
+        {			
+		
+			var nRow = this.ds_Components.addRow();
+			var displayname = nexacro.replaceAll(fullpath+"."+objList[i].name, "div_Work.form.", "");
+				
+			// div_Work.form. 으로 나오는 걸 잘라낸다.
+			if (!this.gfn_IsNull(fullpath)) {
+
+				this.ds_Components.setColumn(nRow, "NAME", displayname);
+
+				if( this.gfn_IsNull(fullpath) ) {
+					this.ds_Components.setColumn(nRow, "PATH", objList[i].name);
+				} else {
+					this.ds_Components.setColumn(nRow, "PATH", fullpath+"."+objList[i].name);	
+				}
+				
+				this.ds_Components.setColumn(nRow, "OBJECT_TYPE", sObjType.replace("[object ", "").replace("]", ""));
+				
+				if (!this.gfn_IsNull(groupDst)){
+					this.ds_Components.setColumn(nRow, "GROUP_DST", groupDst);
+				} else {
+					this.ds_Components.setColumn(nRow, "GROUP_DST", "");
+				}
+				
+			} else {
+				this.ds_Components.setColumn(nRow, "NAME", objList[i].name);
+				this.ds_Components.setColumn(nRow, "PATH", objList[i].name);
+				this.ds_Components.setColumn(nRow, "OBJECT_TYPE", sObjType.replace("[object ", "").replace("]", ""));
+				if (!this.gfn_IsNull(groupDst)){
+					this.ds_Components.setColumn(nRow, "GROUP_DST", groupDst);
+				} else {
+					this.ds_Components.setColumn(nRow, "GROUP_DST", "");
+				}				
+			}
+        }
+    }
+};
+
+this.fn_CheckComp = function(obj) {
+	var arrComList = obj.components;
+	for (var iLoop = 0; iLoop < arrComList.length; iLoop++) {
+		if (arrComList[iLoop] instanceof nexacro.Div || arrComList[iLoop] instanceof nexacro.Tab) {
+			this.fn_CheckComp(arrComList[iLoop].form);
+		}
+	}
+}
+
+/**
+ * @description 컴포넌트의 모든속성을 디스플레이한다
+*/ 
+this.fn_MakeCompoentsData = function(SComp)
+{
+    //if( this.cboComponents.index == -1 ) return;
+    
+    var targetobj = eval("this.div_Scrn.form."+SComp);
+    
+    //this.ds_Properties.clearData();
+    this.ds_Properties.set_enableevent(false);
+    for(var name in targetobj)
+    {
+        var value = targetobj[name]+"";
+        
+        if( name[0] == "_" ) continue;
+        if( value == "[object Object]" ) continue;
+        if( value.substring(0, 8) == "function" ) continue;
+        if( value.substring(0, 7) == "control" ) continue;        
+
+        if( this.gfn_IsNull(value) || value == "null") 
+        {
+			/*
+            var nrow = this.ds_Properties.addRow();
+			this.ds_Properties.setColumn(nrow, "COMP_PATH", SComp);
+            this.ds_Properties.setColumn(nrow, "NAME", name);
+            this.ds_Properties.setColumn(nrow, "VALUE", "");
+			*/
+        }
+        else
+        {
+            // 이벤트에 대한 처리 
+            if( value.indexOf("[object") != -1 )
+            {
+                if( value.indexOf("EventListener") != -1 )
+                {
+                    var eventhandler = targetobj.getEventHandler(name, 0);
+                    
+                    if( !this.gfn_IsNull(eventhandler) ) 
+                    {
+                        var nrow = this.ds_Properties.addRow();
+						this.ds_Properties.setColumn(nrow, "COMP_PATH", SComp);
+                        this.ds_Properties.setColumn(nrow, "NAME",    name);
+                        this.ds_Properties.setColumn(nrow, "VALUE",   "function");
+                        this.ds_Properties.setColumn(nrow, "FUNCTION", eventhandler);
+                        this.ds_Properties.setColumn(nrow, "COLOR",    "red");
+						this.ds_Properties.setColumn(nrow, "COMP_TYPE",    "");
+                    }
+                }
+            }
+            else
+            {
+                var nrow = this.ds_Properties.addRow();
+				this.ds_Properties.setColumn(nrow, "COMP_PATH", SComp);
+                this.ds_Properties.setColumn(nrow, "NAME",    name);
+                this.ds_Properties.setColumn(nrow, "VALUE", value);
+				this.ds_Properties.setColumn(nrow, "COMP_TYPE",    "");
+            }
+        }
+    }
+    this.ds_Properties.set_enableevent(true);    
+    //this.ds_Properties.set_rowposition(0);
+};
+
+//화면파일 생성
+this.btn_SaveScrnFile_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (this.ds_Properties.getRowCount() > 0) {
+		var sScrnAllTag = '';
+		var sScrnLayoutHeadTag = '<?xml version="1.0" encoding="utf-8"?>';
+		sScrnLayoutHeadTag += '<FDL version="2.1">';
+		sScrnLayoutHeadTag += '  <Form id="ee" width="1410" height="1185" titletext="static,edit,mask,textarea,combo,spin">';
+		sScrnLayoutHeadTag += '    <Layouts>';
+		sScrnLayoutHeadTag += '      <Layout height="1185" mobileorientation="landscape" width="1410" stepcount="0">';
+		
+		var sScrnLayoutBodyTag = '';
+		var sBefCompPath = "";//이전 컴포넌트 Path
+		var sNowCompPath = "";//현재 컴포넌트 Path
+		var sPropName = "";//프로퍼티명
+		var sPropTag = "";//프로퍼티관련 Tag
+		
+		for (var iLoop=0; iLoop<this.ds_Properties.getRowCount(); iLoop++) {
+			sNowCompPath = this.ds_Properties.getColumn(iLoop, "COMP_PATH");//현재 컴포넌트 Path
+			sPropName = this.ds_Properties.getColumn(iLoop, "NAME");//프로퍼티명
+			
+			if (this.gfn_IsNull(sBefCompPath)) {
+				if (sPropName != "name") {					
+				}
+			} else {
+				if (sNowCompPath != sBefCompPath) {
+					
+					sScrnLayoutBodyTag = sScrnLayoutBodyTag + sPropTag;
+					
+					sPropTag = "";//프로퍼티관련 Tag
+					
+					if (sPropName != "name") {
+						sPropTag = "";//프로퍼티관련 Tag
+					}				
+				} else {
+					if (sPropName != "name") {
+						sPropTag = "";//프로퍼티관련 Tag
+					}				
+				}
+			}
+			
+			sBefCompPath = sNowCompPath;//이전 컴포넌트 Path
+		}
+		
+		var sScrnLayoutTailTag = '      </Layout>';
+		sScrnLayoutTailTag += '    </Layouts>';	
+		sScrnLayoutTailTag += '</Form>';
+		sScrnLayoutTailTag += '</FDL>';	
+	}
+};
+]]></Script>
+    <Objects>
+      <Dataset id="ds_Components" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false">
+        <ColumnInfo>
+          <Column id="PATH" type="STRING" size="256"/>
+          <Column id="NAME" type="STRING" size="256"/>
+          <Column id="OBJECT_TYPE" type="STRING" size="256"/>
+          <Column id="GROUP_DST" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Properties" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false">
+        <ColumnInfo>
+          <Column id="NAME" type="STRING" size="256"/>
+          <Column id="VALUE" type="STRING" size="256"/>
+          <Column id="FUNCTION" type="STRING" size="256"/>
+          <Column id="COLOR" type="STRING" size="256"/>
+          <Column id="COMP_PATH" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <FileDialog id="fdl_File" onclose="fdl_File_onclose"/>
+    </Objects>
+  </Form>
+</FDL>

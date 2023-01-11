@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_HS_8390_05_2020" width="800" height="300" titletext="의료비" onload="fn_FormOnload" onclose="fn_FormClose">
+    <Layouts>
+      <Layout height="300" width="800">
+        <Grid id="grd_Hspt" taborder="0" left="0" top="0" autofittype="col" bottom="0" right="0" binddataset="ds_GrdHspt" autoenter="select" autoupdatetype="comboselect" cellsizingtype="col" selecttype="multiarea" oncellclick="grd_Hspt_oncellclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="30" band="left"/>
+                <Column size="35" band="left"/>
+                <Column size="35" band="left"/>
+                <Column size="80" band="left"/>
+                <Column size="300"/>
+                <Column size="90"/>
+                <Column size="60"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="34"/>
+                <Column size="100"/>
+                <Column size="67"/>
+                <Column size="67"/>
+                <Column size="80"/>
+                <Column size="143"/>
+                <Column size="0"/>
+              </Columns>
+              <Rows>
+                <Row size="22" band="head"/>
+                <Row size="22" band="head"/>
+                <Row size="24"/>
+                <Row size="24" band="summ"/>
+              </Rows>
+              <Band id="head">
+                <Cell rowspan="2"/>
+                <Cell col="1" rowspan="2" text="No."/>
+                <Cell col="2" rowspan="2" text="선택"/>
+                <Cell col="3" rowspan="2" text="성명" cssclass="essential"/>
+                <Cell col="4" rowspan="2" text="의료증빙구분" cssclass="essential"/>
+                <Cell col="5" rowspan="2" text="의료비&#13;&#10;종류"/>
+                <Cell col="6" rowspan="2" text="실손의료&#13;&#10;보험금"/>
+                <Cell col="7" colspan="2" text="지급처"/>
+                <Cell col="9" colspan="2" text="지급명세"/>
+                <Cell col="11" rowspan="2" text="난임시술비&#13;&#10;해당여부"/>
+                <Cell col="12" rowspan="2" text="건강보험&#13;&#10;산정특례자"/>
+                <Cell col="13" rowspan="2" text="미숙아&#13;&#10;선천성이상아"/>
+                <Cell col="14" rowspan="2" colspan="2" text="의료내용"/>
+                <Cell row="1" col="7" text="사업자등록번호"/>
+                <Cell row="1" col="8" text="상호"/>
+                <Cell row="1" col="9" text="건수"/>
+                <Cell row="1" col="10" text="금액"/>
+              </Band>
+              <Band id="body">
+                <Cell cssclass="expr:comp.parent.gfn_Decode(crudType, &quot;I&quot;,&quot;cell_WF_Insert&quot;, &quot;U&quot;,&quot;cell_WF_Modify&quot;, &quot;D&quot;,&quot;cell_WF_Delete01&quot;, &quot;&quot;)" edittype="none"/>
+                <Cell col="1" expr="currow+1" textAlign="center" edittype="none"/>
+                <Cell col="2" displaytype="checkboxcontrol" edittype="checkbox" text="bind:s_chk"/>
+                <Cell col="3" textAlign="center" text="bind:HSPT_JUMI" combocodecol="BUYA_JUMI" combodataset="ds_GrdBuya" combodatacol="BUYA_NAME" displaytype="expr:comp.parent.gfn_Decode(REGI_ID,&quot;PDF&quot;,&quot;combotext&quot;,&quot;combocontrol&quot;)" edittype="expr:comp.parent.gfn_Decode(REGI_ID,&quot;PDF&quot;,&quot;none&quot;,&quot;combo&quot;)"/>
+                <Cell col="4" textAlign="left" text="bind:HSPT_CODE" combocodecol="CODM_CD" combodatacol="CODM_NM" displaytype="expr:comp.parent.gfn_Decode(REGI_ID,&quot;PDF&quot;,&quot;combotext&quot;,&quot;combocontrol&quot;)" edittype="expr:comp.parent.gfn_Decode(REGI_ID,&quot;PDF&quot;,&quot;none&quot;,&quot;combo&quot;)" combodataset="ds_Pr127"/>
+                <Cell col="5" text="bind:HSPT_TYPE" combocodecol="CODM_CD" combodataset="ds_HealthType" combodatacol="CODM_NM" displaytype="expr:comp.parent.gfn_Decode(REGI_ID,&quot;PDF&quot;,&quot;combotext&quot;,&quot;combocontrol&quot;)" edittype="expr:comp.parent.gfn_Decode(REGI_ID,&quot;PDF&quot;,&quot;none&quot;,&quot;combo&quot;)" textAlign="left"/>
+                <Cell col="6" text="bind:HSPT_SAMT" displaytype="expr:comp.parent.gfn_Decode(REGI_ID,&quot;PDF&quot;,&quot;mask&quot;,&quot;maskeditcontrol&quot;)" edittype="expr:comp.parent.gfn_Decode(REGI_ID,&quot;PDF&quot;,&quot;none&quot;,&quot;mask&quot;)" maskeditformat="##,###" textAlign="right"/>
+                <Cell col="7" textAlign="center" text="bind:HSPT_COMP" displaytype="expr:comp.parent.gfn_Decode(REGI_ID,&quot;PDF&quot;,&quot;none&quot;,&quot;maskeditcontrol&quot;)" maskeditformat="###-##-#####" edittype="expr:comp.parent.gfn_Decode(REGI_ID,&quot;PDF&quot;,&quot;none&quot;,&quot;mask&quot;)" maskedittype="string"/>
+                <Cell col="8" textAlign="left" text="bind:HSPT_COMM" displaytype="expr:comp.parent.gfn_Decode(REGI_ID,&quot;PDF&quot;,&quot;normal&quot;,&quot;editcontrol&quot;)" maskeditformat="##,##0" edittype="expr:comp.parent.gfn_Decode(REGI_ID,&quot;PDF&quot;,&quot;none&quot;,&quot;normal&quot;)"/>
+                <Cell col="9" textAlign="right" text="bind:HSPT_GUNS" displaytype="mask" maskeditformat="##,##0" edittype="none"/>
+                <Cell col="10" textAlign="right" text="bind:HSPT_GAMT" displaytype="expr:comp.parent.gfn_Decode(REGI_ID,&quot;PDF&quot;,&quot;mask&quot;,&quot;maskeditcontrol&quot;)" edit="number" maskeditformat="##,###" edittype="expr:comp.parent.gfn_Decode(REGI_ID,&quot;PDF&quot;,&quot;none&quot;,&quot;mask&quot;)"/>
+                <Cell col="11" text="bind:HSPT_NANI" displaytype="checkboxcontrol" checkboxfalsevalue="0" checkboxtruevalue="1" edittype="checkbox"/>
+                <Cell col="12" text="bind:HSPT_SANJ" displaytype="checkboxcontrol" edittype="checkbox" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                <Cell col="13" displaytype="checkboxcontrol" edittype="checkbox" text="bind:HSPT_PREM" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                <Cell col="14" textAlign="left" text="bind:HSPT_CONT" displaytype="normal" edittype="normal"/>
+                <Cell col="15" expandshow="show" expandsize="24" edittype="none"/>
+              </Band>
+              <Band id="summary">
+                <Cell colspan="2" text="합계"/>
+                <Cell col="2"/>
+                <Cell col="3"/>
+                <Cell col="4"/>
+                <Cell col="5"/>
+                <Cell col="6" expr="dataset.getSum(&quot;HSPT_SAMT&quot;)" textAlign="right" displaytype="mask" maskeditformat="##,##0"/>
+                <Cell col="7"/>
+                <Cell col="8"/>
+                <Cell col="9" expr="dataset.getSum(&quot;HSPT_GUNS&quot;)" textAlign="right" displaytype="mask" maskeditformat="##,##0"/>
+                <Cell col="10" expr="dataset.getSum(&quot;HSPT_GAMT&quot;)" textAlign="right" displaytype="mask" maskeditformat="##,##0"/>
+                <Cell col="11"/>
+                <Cell col="12"/>
+                <Cell col="13"/>
+                <Cell col="14"/>
+                <Cell col="15"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : M_HS_8390_05_2022
+*  @화면설명 : 소득공제 - 의료비
+*  @시스템명 : (HR) 인사관리
+*  @작성자   : 조수빈
+*  @작성일   : 2022.11.02
+*  @Desction        
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2022.11.02    	    조수빈 	           최초 생성 	
+*************************************************************************************************
+*/
+
+/************************************************************************************************
+ * 1. Form Include 선언 영역
+ ************************************************************************************************/
+ 
+ /************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+
+
+/***********************************************************************************************
+ * 3. Form 이벤트 영역
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ * 3.1. Form Onload 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.2. Form [공통] 초기설정 함수 - 필수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.3. Form [업무] 초기설정 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormBizInit = function() 
+{
+	//[업무] 일반콤보조회
+	//this.fn_ComboSearch();
+}
+
+/*---------------------------------------------------------------------------------------------
+ * 3.4. Form OnClose 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	//현재 이벤트를 상위컴포넌트로 전파하지 않게 중지시키는 메소드
+	e.stopPropagation(); 
+};
+
+/*---------------------------------------------------------------------------------------------
+ * 3.5. Form [업무] 일반콤보 조회 함수
+  ---------------------------------------------------------------------------------------------*/
+this.fn_ComboSearch = function(sFILM_GU) 
+{
+	
+}
+
+
+this.grd_Hspt_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfn_SetGridSelectRowColor(obj, e.row, true);//선택한 Row BackgroundColor 설정	- 기본그리드 설정된 CSS정보 유지
+};
+]]></Script>
+    <Objects/>
+  </Form>
+</FDL>

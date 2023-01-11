@@ -1,0 +1,1513 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ITEMINFO" width="1200" height="600" titletext="품목정보" scrollbartype="none" onclose="fn_FormClose" onload="fn_FormOnload" onsize="fn_FormOnsize">
+    <Layouts>
+      <Layout height="600" width="1200">
+        <Div id="div_Search" taborder="0" left="12" top="54" height="66" cssclass="div_WF_Search" right="12" formscrollbartype="none none">
+          <Layouts>
+            <Layout>
+              <Static id="sta_ItlmCd" taborder="5" text="대분류" left="16" top="6" width="70" height="24" cssclass="sta_WF_SLabel" DomainID="S00002"/>
+              <Static id="sta_ItmmCd" taborder="6" text="중분류" left="305" top="6" width="70" height="24" cssclass="sta_WF_SLabel"/>
+              <Static id="Static02" taborder="7" text="사용여부" left="593" top="6" width="70" height="24" cssclass="sta_WF_SLabel"/>
+              <Static id="sta_ItemCd" taborder="8" text="품목코드" left="16" top="34" width="70" height="24" cssclass="sta_WF_SLabel" DomainID="S00003"/>
+              <Static id="sta_ItemNm" taborder="9" text="품목명" left="305" top="34" width="70" height="24" cssclass="sta_WF_SLabel"/>
+              <Edit id="edt_ItemNm" taborder="4" left="375" top="34" width="200" height="24" maxlength="300" onchanged="div_Search_edt_EmpmCd_onchanged"/>
+              <Edit id="edt_ItemCd" taborder="3" left="86" top="34" width="200" height="24" maxlength="30" onchanged="div_Search_edt_DepmCd_onchanged"/>
+              <Combo id="cbo_ItlmCd" taborder="0" left="86" top="6" height="24" codecolumn="ITLM_CD" datacolumn="ITLM_NM" width="200" cssclass="essential" innerdataset="ds_ItlmSch" onitemchanged="div_Search_cbo_ItlmCd_onitemchanged" displaynulltext="선택"/>
+              <Combo id="cbo_ItmmCd" taborder="1" left="375" top="6" height="24" codecolumn="ITMM_CD" datacolumn="ITMM_NM" width="200" innerdataset="ds_Itmm" displaynulltext="선택" onitemchanged="div_Search_cbo_ItmmCd_onitemchanged"/>
+              <Combo id="cbo_UsedYn" taborder="2" left="663" top="6" height="24" codecolumn="CODM_CD" datacolumn="CODM_NM" width="200" innerdataset="ds_Sm088"/>
+              <Static id="sta_SpecNm" taborder="10" text="규격" left="593" top="34" width="70" height="24" cssclass="sta_WF_SLabel"/>
+              <Edit id="edt_SpecNm" taborder="11" left="663" top="34" width="200" height="24" onchanged="div_Search_edt_ItemCd_onchanged"/>
+              <Static id="sta_ProdGu" taborder="12" text="구분" left="885" top="34" width="70" height="24" cssclass="sta_WF_SLabel"/>
+              <Combo id="cbo_ProdGu" taborder="13" left="954" top="34" height="24" codecolumn="CODM_CD" datacolumn="CODM_NM" width="200" innerdataset="ds_PP070" enable="false"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_PopupTitle" taborder="1" left="0" top="0" height="44" right="0" cssclass="div_WF_PopupTop">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Close" taborder="0" text="닫기" top="9" width="70" height="26" right="14" cssclass="bt_WF_PopupClose2" onclick="div_PopupTitle_btn_Close_onclick"/>
+              <Static id="sta_PopupTitle" taborder="1" text="품목정보" left="20" top="10" height="24" cssclass="sta_WF_PopupTitle" width="300"/>
+              <Button id="btn_Search" taborder="2" text="조회" top="8" width="65" right="161" visible="true" cssclass="bt_WF_PopupSearch" height="28" onclick="div_PopupTitle_btn_Search_onclick"/>
+              <Button id="btn_Choice" taborder="3" text="선택" top="8" width="65" right="90" visible="true" cssclass="bt_WF_PopupSelect" height="28" onclick="div_PopupTitle_btn_Choice_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_SearchDetail" taborder="2" left="12" top="125" height="66" cssclass="div_WF_Search" right="12" formscrollbartype="none none">
+          <Layouts>
+            <Layout>
+              <Static id="sta_ItsmNm1" taborder="0" text="사양1" left="16" top="6" width="70" height="24" cssclass="sta_WF_SLabel" DomainID="S00002"/>
+              <Static id="sta_ItsmNm2" taborder="1" text="사양2" left="305" top="6" width="70" height="24" cssclass="sta_WF_SLabel"/>
+              <Static id="sta_ItsmNm3" taborder="2" text="사양3" left="593" top="6" width="70" height="24" cssclass="sta_WF_SLabel"/>
+              <Static id="sta_ItsmNm5" taborder="4" text="사양5" left="16" top="34" width="70" height="24" cssclass="sta_WF_SLabel" DomainID="S00003"/>
+              <Static id="sta_ItsmNm6" taborder="6" text="사양6" left="305" top="34" width="70" height="24" cssclass="sta_WF_SLabel"/>
+              <Combo id="cbo_ItsmCd1" taborder="3" left="86" top="6" height="24" codecolumn="SPEM_CD" datacolumn="SPEM_NM" width="200" innerdataset="ds_Itsm01"/>
+              <Combo id="cbo_ItsmCd2" taborder="5" left="375" top="6" height="24" codecolumn="SPEM_CD" datacolumn="SPEM_NM" width="200" innerdataset="ds_Itsm02" visible="false"/>
+              <Combo id="cbo_ItsmCd3" taborder="7" left="663" top="6" height="24" codecolumn="SPEM_CD" datacolumn="SPEM_NM" width="200" innerdataset="ds_Itsm03" visible="false"/>
+              <Combo id="cbo_ItsmCd5" taborder="9" left="86" top="34" height="24" codecolumn="SPEM_CD" datacolumn="SPEM_NM" width="200" innerdataset="ds_Itsm05" visible="false"/>
+              <Static id="sta_ItsmNm4" taborder="13" text="사양4" left="884" top="6" width="70" height="24" cssclass="sta_WF_SLabel"/>
+              <Combo id="cbo_ItsmCd4" taborder="8" left="954" top="6" height="24" codecolumn="SPEM_CD" datacolumn="SPEM_NM" width="200" innerdataset="ds_Itsm04" visible="false"/>
+              <Combo id="cbo_ItsmCd6" taborder="10" left="375" top="34" height="24" codecolumn="SPEM_CD" datacolumn="SPEM_NM" width="200" innerdataset="ds_Itsm06" visible="false"/>
+              <Static id="sta_ItsmNm7" taborder="14" text="사양7" left="593" top="34" width="70" height="24" cssclass="sta_WF_SLabel"/>
+              <Combo id="cbo_ItsmCd7" taborder="11" left="663" top="34" height="24" codecolumn="SPEM_CD" datacolumn="SPEM_NM" width="200" innerdataset="ds_Itsm07" visible="false"/>
+              <Static id="sta_ItsmNm8" taborder="15" text="사양8" left="884" top="34" width="70" height="24" cssclass="sta_WF_SLabel"/>
+              <Combo id="cbo_ItsmCd8" taborder="12" left="954" top="34" height="24" codecolumn="SPEM_CD" datacolumn="SPEM_NM" width="200" innerdataset="ds_Itsm08" visible="false"/>
+              <Edit id="edt_ItsmCd1" taborder="16" left="86" top="6" width="200" height="24" maxlength="50"/>
+              <Edit id="edt_ItsmCd2" taborder="17" left="375" top="6" width="200" height="24" maxlength="50"/>
+              <Edit id="edt_ItsmCd3" taborder="18" left="663" top="6" width="200" height="24" maxlength="50"/>
+              <Edit id="edt_ItsmCd4" taborder="19" left="954" top="6" width="200" height="24" maxlength="50"/>
+              <Edit id="edt_ItsmCd5" taborder="20" left="86" top="34" width="200" height="24" maxlength="50"/>
+              <Edit id="edt_ItsmCd6" taborder="21" left="375" top="34" width="200" height="24" maxlength="50"/>
+              <Edit id="edt_ItsmCd7" taborder="22" left="663" top="34" width="200" height="24" maxlength="50"/>
+              <Edit id="edt_ItsmCd8" taborder="23" left="954" top="34" width="200" height="24" maxlength="50"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_Itsm" taborder="3" top="201" right="12" formscrollbartype="none none" width="320" bottom="14">
+          <Layouts>
+            <Layout>
+              <Static id="sta_Sp01Back" taborder="0" top="0" height="30" cssclass="sta_WF_DBg" left="0" text="" right="0" visible="true"/>
+              <Static id="sta_Sp01Title" taborder="1" text="사양1" top="0" width="80" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00001" visible="true"/>
+              <Edit id="edt_Sp01Cd" taborder="2" left="83" top="3" width="40" height="24" readonly="true" visible="true"/>
+              <Edit id="edt_Sp01Nm" taborder="3" left="126" top="3" height="24" enable="true" right="3" readonly="true" visible="true"/>
+              <Static id="sta_Sp02Back" taborder="4" top="29" height="30" cssclass="sta_WF_DBg" left="0" text="" right="0" visible="true"/>
+              <Static id="sta_Sp02Title" taborder="5" text="사양2" top="29" width="80" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00001" visible="true"/>
+              <Edit id="edt_Sp02Cd" taborder="6" left="83" top="32" width="40" height="24" readonly="true" visible="true"/>
+              <Edit id="edt_Sp02Nm" taborder="7" left="126" top="32" height="24" enable="true" right="3" readonly="true" visible="true"/>
+              <Static id="sta_Sp03Back" taborder="8" top="58" height="30" cssclass="sta_WF_DBg" left="0" text="" right="0" visible="true"/>
+              <Static id="sta_Sp03Title" taborder="9" text="사양3" top="58" width="80" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00001" visible="true"/>
+              <Edit id="edt_Sp03Cd" taborder="10" left="83" top="61" width="40" height="24" readonly="true" visible="true"/>
+              <Edit id="edt_Sp03Nm" taborder="11" left="126" top="61" height="24" enable="true" right="3" readonly="true" visible="true"/>
+              <Static id="sta_Sp04Back" taborder="12" top="87" height="30" cssclass="sta_WF_DBg" left="0" text="" right="0" visible="true"/>
+              <Static id="sta_Sp04Title" taborder="13" text="사양4" top="87" width="80" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00001" visible="true"/>
+              <Edit id="edt_Sp04Cd" taborder="14" left="83" top="90" width="40" height="24" readonly="true" visible="true"/>
+              <Edit id="edt_Sp04Nm" taborder="15" left="126" top="90" height="24" enable="true" right="3" readonly="true" visible="true"/>
+              <Static id="sta_Sp05Back" taborder="16" top="116" height="30" cssclass="sta_WF_DBg" left="0" text="" right="0" visible="true"/>
+              <Static id="sta_Sp05Title" taborder="17" text="사양5" top="116" width="80" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00001" visible="true"/>
+              <Edit id="edt_Sp05Cd" taborder="18" left="83" top="119" width="40" height="24" readonly="true" visible="true"/>
+              <Edit id="edt_Sp05Nm" taborder="19" left="126" top="119" height="24" enable="true" right="3" readonly="true" visible="true"/>
+              <Static id="sta_Sp06Back" taborder="20" top="145" height="30" cssclass="sta_WF_DBg" left="0" text="" right="0" visible="true"/>
+              <Static id="sta_Sp06Title" taborder="21" text="사양6" top="145" width="80" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00001" visible="true"/>
+              <Edit id="edt_Sp06Cd" taborder="22" left="83" top="148" width="40" height="24" readonly="true" visible="true"/>
+              <Edit id="edt_Sp06Nm" taborder="23" left="126" top="148" height="24" enable="true" right="3" readonly="true" visible="true"/>
+              <Static id="sta_Sp07Back" taborder="24" top="174" height="30" cssclass="sta_WF_DBg" left="0" text="" right="0" visible="true"/>
+              <Static id="sta_Sp07Title" taborder="25" text="사양7" top="174" width="80" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00001" visible="true"/>
+              <Edit id="edt_Sp07Cd" taborder="26" left="83" top="177" width="40" height="24" readonly="true" visible="true"/>
+              <Edit id="edt_Sp07Nm" taborder="27" left="126" top="177" height="24" enable="true" right="3" readonly="true" visible="true"/>
+              <Static id="sta_Sp08Back" taborder="28" top="203" height="30" cssclass="sta_WF_DBg" left="0" text="" right="0" visible="true"/>
+              <Static id="sta_Sp08Title" taborder="29" text="사양8" top="203" width="80" height="30" cssclass="sta_WF_DLabel" left="0" DomainID="S00001" visible="true"/>
+              <Edit id="edt_Sp08Cd" taborder="30" left="83" top="206" width="40" height="24" readonly="true" visible="true"/>
+              <Edit id="edt_Sp08Nm" taborder="31" left="126" top="206" height="24" enable="true" right="3" readonly="true" visible="true"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="grd_Master10" taborder="4" left="12" top="201" binddataset="ds_Master10" autofittype="none" bottom="14" right="340" cellsizingtype="col" oncelldblclick="grd_Master10_oncelldblclick" onkeydown="grd_Master10_onkeydown" selecttype="cell">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="50" band="left"/>
+                <Column size="100" band="left"/>
+                <Column size="310"/>
+                <Column size="150"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="60"/>
+                <Column size="200"/>
+              </Columns>
+              <Rows>
+                <Row size="26" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="No."/>
+                <Cell col="1" text="품목코드"/>
+                <Cell col="2" text="품목명"/>
+                <Cell col="3" text="규격"/>
+                <Cell col="4" text="Maker"/>
+                <Cell col="5" text="단위"/>
+                <Cell col="6" text="대분류"/>
+                <Cell col="7" text="중분류"/>
+                <Cell col="8" text="사양1"/>
+                <Cell col="9" text="사양2"/>
+                <Cell col="10" text="사양3"/>
+                <Cell col="11" text="사양4"/>
+                <Cell col="12" text="사양5"/>
+                <Cell col="13" text="사양6"/>
+                <Cell col="14" text="사양7"/>
+                <Cell col="15" text="사양8"/>
+                <Cell col="16" text="사양9"/>
+                <Cell col="17" text="사양10"/>
+                <Cell col="18" text="사용여부"/>
+                <Cell col="19" text="비고"/>
+              </Band>
+              <Band id="body">
+                <Cell expr="currow+1" textAlign="center"/>
+                <Cell col="1" text="bind:ITEM_CD" displaytype="normal" textAlign="center"/>
+                <Cell col="2" text="bind:ITEM_NM" displaytype="normal" textAlign="left"/>
+                <Cell col="3" text="bind:SPEC_NM" displaytype="normal" textAlign="left"/>
+                <Cell col="4" text="bind:MAKE_NM"/>
+                <Cell col="5" text="bind:UNIT_CD" displaytype="normal" textAlign="center"/>
+                <Cell col="6" text="bind:ITLM_CD" displaytype="combotext" textAlign="left" combodataset="ds_Itlm" combocodecol="ITLM_CD" combodatacol="ITLM_NM"/>
+                <Cell col="7" text="bind:ITMM_NM" displaytype="normal" textAlign="left"/>
+                <Cell col="8" text="bind:SP01_NM" displaytype="normal" textAlign="left"/>
+                <Cell col="9" text="bind:SP02_NM" displaytype="normal" textAlign="left"/>
+                <Cell col="10" text="bind:SP03_NM" displaytype="normal" textAlign="left"/>
+                <Cell col="11" text="bind:SP04_NM" displaytype="normal" textAlign="left"/>
+                <Cell col="12" text="bind:SP05_NM" displaytype="normal" textAlign="left"/>
+                <Cell col="13" text="bind:SP06_NM" displaytype="normal" textAlign="left"/>
+                <Cell col="14" text="bind:SP07_NM" displaytype="normal" textAlign="left"/>
+                <Cell col="15" text="bind:SP08_NM" displaytype="normal" textAlign="left"/>
+                <Cell col="16" text="bind:SP09_NM" displaytype="normal" textAlign="left"/>
+                <Cell col="17" text="bind:SP10_NM" displaytype="normal" textAlign="left"/>
+                <Cell col="18" text="bind:USED_YN" displaytype="normal" textAlign="center"/>
+                <Cell col="19" text="bind:REMK_NM" displaytype="normal" textAlign="left"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Input">
+        <ColumnInfo>
+          <Column id="ITLM_CD" type="STRING" size="256" description=""/>
+          <Column id="ITMM_CD" type="STRING" size="256" description=""/>
+          <Column id="ITEM_CD" type="STRING" size="256" description=""/>
+          <Column id="ITEM_NM" type="STRING" size="256" description=""/>
+          <Column id="PROD_GU" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256" description=""/>
+          <Column id="ITSM_CD" type="STRING" size="256"/>
+          <Column id="SP01_CD" type="STRING" size="256"/>
+          <Column id="SP02_CD" type="STRING" size="256"/>
+          <Column id="SP03_CD" type="STRING" size="256"/>
+          <Column id="SP04_CD" type="STRING" size="256"/>
+          <Column id="SP05_CD" type="STRING" size="256"/>
+          <Column id="SP06_CD" type="STRING" size="256"/>
+          <Column id="SP07_CD" type="STRING" size="256"/>
+          <Column id="SP08_CD" type="STRING" size="256"/>
+          <Column id="SP09_CD" type="STRING" size="256"/>
+          <Column id="SP10_CD" type="STRING" size="256"/>
+          <Column id="SPEC_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master10" onrowposchanged="ds_Master10_onrowposchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="ITEM_CD" type="STRING" size="256"/>
+          <Column id="ITEM_NM" type="STRING" size="256"/>
+          <Column id="SPEC_NM" type="STRING" size="256"/>
+          <Column id="MAKE_NM" type="STRING" size="256"/>
+          <Column id="UNIT_CD" type="STRING" size="256"/>
+          <Column id="ITLM_CD" type="STRING" size="256"/>
+          <Column id="ITMM_CD" type="STRING" size="256"/>
+          <Column id="ITMM_NM" type="STRING" size="256"/>
+          <Column id="ACOM_CD" type="STRING" size="256"/>
+          <Column id="SP01_CD" type="STRING" size="256"/>
+          <Column id="SP01_NM" type="STRING" size="256"/>
+          <Column id="SP02_CD" type="STRING" size="256"/>
+          <Column id="SP02_NM" type="STRING" size="256"/>
+          <Column id="SP03_CD" type="STRING" size="256"/>
+          <Column id="SP03_NM" type="STRING" size="256"/>
+          <Column id="SP04_CD" type="STRING" size="256"/>
+          <Column id="SP04_NM" type="STRING" size="256"/>
+          <Column id="SP05_CD" type="STRING" size="256"/>
+          <Column id="SP05_NM" type="STRING" size="256"/>
+          <Column id="SP06_CD" type="STRING" size="256"/>
+          <Column id="SP06_NM" type="STRING" size="256"/>
+          <Column id="SP07_CD" type="STRING" size="256"/>
+          <Column id="SP07_NM" type="STRING" size="256"/>
+          <Column id="SP08_CD" type="STRING" size="256"/>
+          <Column id="SP08_NM" type="STRING" size="256"/>
+          <Column id="SP09_CD" type="STRING" size="256"/>
+          <Column id="SP09_NM" type="STRING" size="256"/>
+          <Column id="SP10_CD" type="STRING" size="256"/>
+          <Column id="SP10_NM" type="STRING" size="256"/>
+          <Column id="BEFO_CD" type="STRING" size="256"/>
+          <Column id="RTDO_CT" type="STRING" size="256"/>
+          <Column id="RTIM_CT" type="STRING" size="256"/>
+          <Column id="STOC_YN" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="ITLM_YN" type="STRING" size="256"/>
+          <Column id="LACS_CD" type="STRING" size="256"/>
+          <Column id="LACS_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Itlm">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="ITLM_CD" type="STRING" size="256"/>
+          <Column id="ITLM_NM" type="STRING" size="256"/>
+          <Column id="BUSM_CD" type="STRING" size="256"/>
+          <Column id="PROD_GU" type="STRING" size="256"/>
+          <Column id="CDAT_YN" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Itmm">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="ITLM_CD" type="STRING" size="256"/>
+          <Column id="ITMM_CD" type="STRING" size="256"/>
+          <Column id="ITMM_NM" type="STRING" size="256"/>
+          <Column id="ACCM_CD" type="STRING" size="256"/>
+          <Column id="CDAT_YN" type="STRING" size="256"/>
+          <Column id="NMAT_YN" type="STRING" size="256"/>
+          <Column id="NMAT_NM" type="STRING" size="256"/>
+          <Column id="ITEM_DN" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Sm088">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_Itsm01">
+        <ColumnInfo>
+          <Column id="ITLM_CD" type="STRING" size="256"/>
+          <Column id="ITMM_CD" type="STRING" size="256"/>
+          <Column id="ITSM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="NMAT_NM" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Itsm02">
+        <ColumnInfo>
+          <Column id="ITLM_CD" type="STRING" size="256"/>
+          <Column id="ITMM_CD" type="STRING" size="256"/>
+          <Column id="ITSM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="NMAT_NM" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Itsm03">
+        <ColumnInfo>
+          <Column id="ITLM_CD" type="STRING" size="256"/>
+          <Column id="ITMM_CD" type="STRING" size="256"/>
+          <Column id="ITSM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="NMAT_NM" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Itsm04">
+        <ColumnInfo>
+          <Column id="ITLM_CD" type="STRING" size="256"/>
+          <Column id="ITMM_CD" type="STRING" size="256"/>
+          <Column id="ITSM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="NMAT_NM" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Itsm05">
+        <ColumnInfo>
+          <Column id="ITLM_CD" type="STRING" size="256"/>
+          <Column id="ITMM_CD" type="STRING" size="256"/>
+          <Column id="ITSM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="NMAT_NM" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Itsm06">
+        <ColumnInfo>
+          <Column id="ITLM_CD" type="STRING" size="256"/>
+          <Column id="ITMM_CD" type="STRING" size="256"/>
+          <Column id="ITSM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="NMAT_NM" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Itsm07">
+        <ColumnInfo>
+          <Column id="ITLM_CD" type="STRING" size="256"/>
+          <Column id="ITMM_CD" type="STRING" size="256"/>
+          <Column id="ITSM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="NMAT_NM" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Itsm08">
+        <ColumnInfo>
+          <Column id="ITLM_CD" type="STRING" size="256"/>
+          <Column id="ITMM_CD" type="STRING" size="256"/>
+          <Column id="ITSM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="NMAT_NM" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Itsm09">
+        <ColumnInfo>
+          <Column id="ITLM_CD" type="STRING" size="256"/>
+          <Column id="ITMM_CD" type="STRING" size="256"/>
+          <Column id="ITSM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="NMAT_NM" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Itsm10">
+        <ColumnInfo>
+          <Column id="ITLM_CD" type="STRING" size="256"/>
+          <Column id="ITMM_CD" type="STRING" size="256"/>
+          <Column id="ITSM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="NMAT_NM" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Dataset id="ds_Sm088Sch">
+          <ColumnInfo>
+            <Column id="COMM_CD" type="STRING" size="256"/>
+            <Column id="GRCM_CD" type="STRING" size="256"/>
+            <Column id="CODM_CD" type="STRING" size="256"/>
+            <Column id="CODM_NM" type="STRING" size="256"/>
+            <Column id="OP01_NM" type="STRING" size="256"/>
+            <Column id="OP02_NM" type="STRING" size="256"/>
+            <Column id="OP03_NM" type="STRING" size="256"/>
+            <Column id="OP04_NM" type="STRING" size="256"/>
+            <Column id="OP05_NM" type="STRING" size="256"/>
+            <Column id="OP06_NM" type="STRING" size="256"/>
+            <Column id="OP07_NM" type="STRING" size="256"/>
+            <Column id="OP08_NM" type="STRING" size="256"/>
+            <Column id="OP09_NM" type="STRING" size="256"/>
+            <Column id="OP10_NM" type="STRING" size="256"/>
+            <Column id="SORT_NO" type="STRING" size="256"/>
+            <Column id="USED_YN" type="STRING" size="256"/>
+            <Column id="REMK_NM" type="STRING" size="256"/>
+            <Column id="EXPT_YN" type="STRING" size="256"/>
+            <Column id="EXPT_RE" type="STRING" size="256"/>
+          </ColumnInfo>
+        </Dataset>
+      </Dataset>
+      <Dataset id="ds_ItlmSch">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="ITLM_CD" type="STRING" size="256"/>
+          <Column id="ITLM_NM" type="STRING" size="256"/>
+          <Column id="BUSM_CD" type="STRING" size="256"/>
+          <Column id="PROD_GU" type="STRING" size="256"/>
+          <Column id="CDAT_YN" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Itsm">
+        <ColumnInfo>
+          <Column id="ITLM_CD" type="STRING" size="256"/>
+          <Column id="ITMM_CD" type="STRING" size="256"/>
+          <Column id="ITSM_CD" type="STRING" size="256"/>
+          <Column id="ITSM_NM" type="STRING" size="256"/>
+          <Column id="ESSE_YN" type="STRING" size="256"/>
+          <Column id="KEYI_YN" type="STRING" size="256"/>
+          <Column id="NMAT_YN" type="STRING" size="256"/>
+          <Column id="NMAT_CD" type="STRING" size="256"/>
+          <Column id="CDAT_YN" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="MMAT_YN" type="STRING" size="256"/>
+          <Column id="CLSS_TP" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Spem">
+        <ColumnInfo>
+          <Column id="ITLM_CD" type="STRING" size="256"/>
+          <Column id="ITMM_CD" type="STRING" size="256"/>
+          <Column id="ITSM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_CD" type="STRING" size="256"/>
+          <Column id="SPEM_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="NMAT_NM" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Master11" onrowposchanged="ds_Master10_onrowposchanged">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="ITEM_CD" type="STRING" size="256"/>
+          <Column id="ITEM_NM" type="STRING" size="256"/>
+          <Column id="SPEC_NM" type="STRING" size="256"/>
+          <Column id="UNIT_CD" type="STRING" size="256"/>
+          <Column id="ITLM_CD" type="STRING" size="256"/>
+          <Column id="ITMM_CD" type="STRING" size="256"/>
+          <Column id="ITMM_NM" type="STRING" size="256"/>
+          <Column id="ACOM_CD" type="STRING" size="256"/>
+          <Column id="SP01_CD" type="STRING" size="256"/>
+          <Column id="SP01_NM" type="STRING" size="256"/>
+          <Column id="SP02_CD" type="STRING" size="256"/>
+          <Column id="SP02_NM" type="STRING" size="256"/>
+          <Column id="SP03_CD" type="STRING" size="256"/>
+          <Column id="SP03_NM" type="STRING" size="256"/>
+          <Column id="SP04_CD" type="STRING" size="256"/>
+          <Column id="SP04_NM" type="STRING" size="256"/>
+          <Column id="SP05_CD" type="STRING" size="256"/>
+          <Column id="SP05_NM" type="STRING" size="256"/>
+          <Column id="SP06_CD" type="STRING" size="256"/>
+          <Column id="SP06_NM" type="STRING" size="256"/>
+          <Column id="SP07_CD" type="STRING" size="256"/>
+          <Column id="SP07_NM" type="STRING" size="256"/>
+          <Column id="SP08_CD" type="STRING" size="256"/>
+          <Column id="SP08_NM" type="STRING" size="256"/>
+          <Column id="SP09_CD" type="STRING" size="256"/>
+          <Column id="SP09_NM" type="STRING" size="256"/>
+          <Column id="SP10_CD" type="STRING" size="256"/>
+          <Column id="SP10_NM" type="STRING" size="256"/>
+          <Column id="BEFO_CD" type="STRING" size="256"/>
+          <Column id="RTDO_CT" type="STRING" size="256"/>
+          <Column id="RTIM_CT" type="STRING" size="256"/>
+          <Column id="STOC_YN" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_PP070">
+        <ColumnInfo>
+          <Column id="COMM_CD" type="STRING" size="256"/>
+          <Column id="GRCM_CD" type="STRING" size="256"/>
+          <Column id="CODM_CD" type="STRING" size="256"/>
+          <Column id="CODM_NM" type="STRING" size="256"/>
+          <Column id="OP01_NM" type="STRING" size="256"/>
+          <Column id="OP02_NM" type="STRING" size="256"/>
+          <Column id="OP03_NM" type="STRING" size="256"/>
+          <Column id="OP04_NM" type="STRING" size="256"/>
+          <Column id="OP05_NM" type="STRING" size="256"/>
+          <Column id="OP06_NM" type="STRING" size="256"/>
+          <Column id="OP07_NM" type="STRING" size="256"/>
+          <Column id="OP08_NM" type="STRING" size="256"/>
+          <Column id="OP09_NM" type="STRING" size="256"/>
+          <Column id="OP10_NM" type="STRING" size="256"/>
+          <Column id="SORT_NO" type="STRING" size="256"/>
+          <Column id="USED_YN" type="STRING" size="256"/>
+          <Column id="REMK_NM" type="STRING" size="256"/>
+          <Column id="EXPT_YN" type="STRING" size="256"/>
+          <Column id="EXPT_RE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : 
+*  @화면설명 : 품목정보
+*  @시스템명 : (SD) 영업관리
+*  @작성자   : 최석목
+*  @작성일   : 2021.04.28
+*  @Desction    
+******************* 소스 수정 이력 ************************************************************
+*  일자          		수정자                비고
+*************************************************************************************************
+*  2021.04.28     	    최석목 	           최초 생성 
+*  2021.09.02     	    이충근 	           부모창에 파라메터 있을시 조건에 값을 넣어준다.
+*************************************************************************************************
+*/
+
+/***********************************************************************************************
+ * 0. 폼로드
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.01. Form Include 선언
+ ***********************************************************************************************/
+
+/************************************************************************************************
+ * 2. Form 변수 선언 영역
+ ************************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+this.fvItemCd = "";//[부모창파라메타] 품목코드
+this.fvItemNm = "";//[부모창파라메타] 품목명
+this.essentialYn = "1";//부모창에 파라메타가 있을경우 필수 체크 없이 조회 
+this.fvProdGu = "";//[부모창파라메타] 제품/자재구분
+
+/***********************************************************************************************
+ * 00.02. Form 변수 선언
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.03. Form Onload 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{	
+	//부모창 파라메타 처리
+	this.fvItemCd = this.getOwnerFrame().ItemCd;//[부모창파라메타] 품목코드
+	this.fvItemNm = this.getOwnerFrame().ItemNm;//[부모창파라메타] 품목명
+	this.fvMm115  = this.getOwnerFrame().Mm115;//[부모창파라메타] 품목대분류
+	this.fvPp070  = this.getOwnerFrame().Pp070;//[부모창파라메타] 품목대분류 제품인 항목만 조회되게	
+	
+	this.fvComPrgmId = this.getOwnerFrame().PrgmId;//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+	this.fvProdGu = this.getOwnerFrame().ProdGu;//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+}
+
+/***********************************************************************************************
+ * 00.04. Form [공통] 초기설정 함수 - 필수
+ ***********************************************************************************************/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.gfn_SetGrid(this.grd_Master10);//[공통]그리드 이벤트 설정 - 프로젝트목록
+
+}
+
+/***********************************************************************************************
+ * 00.05. Form [업무] 초기설정 함수
+ ***********************************************************************************************/
+this.fn_FormBizInit = function() 
+{ 
+
+	//[공통] 공통코드 설정 : 공통코드|데이터셋명|초기항목추가여부(Y/N)|추가항목
+	var objCondList = ["SM088|ds_Sm088","PP070|ds_PP070|Y|ALL"];
+	
+	//공통코드 설정함수 호출				   
+	this.gfn_GetCommCode(this, objCondList, "");
+	
+	//콤보 인덱스 설정
+	this.div_Search.form.cbo_UsedYn.set_index(1);	
+	
+	//[업무]콤보 데이터 조회
+	this.fn_ComboSearch();
+	
+	
+	//파라미터 값이 있는경우
+	if (!this.gfn_IsNull(this.fvItemCd)) {
+		//this.div_Search.form.edt_ItemCd.set_value(this.fvItemCd);
+		//this.div_PopupTitle_btn_Search_onclick();//조회
+	}
+	if (!this.gfn_IsNull(this.fvItemNm)) {
+		//this.div_Search.form.edt_ItemNm.set_value(this.fvItemNm);
+		//this.div_PopupTitle_btn_Search_onclick();//조회
+	}
+	if(!this.gfn_IsNull(this.fvItemCd) || !this.gfn_IsNull(this.fvItemNm)){
+
+		this.essentialYn = "0";
+		//this.div_PopupTitle_btn_Search_onclick();//조회
+	}
+
+	if(!this.gfn_IsNull(this.fvProdGu)){
+		this.div_Search.form.cbo_ProdGu.set_value(this.fvProdGu);
+	}else{
+		this.div_Search.form.cbo_ProdGu.set_index(0);
+	}	
+	
+	//-- 턴기외주면 대분류 설정값을 턴키외주로 설정(2022.08.16 김형수부장 요청)
+	if(this.fvMm115=="0200"){
+		this.div_Search.form.cbo_ItlmCd.set_value("T");
+
+		this.ds_Itmm.filter("");
+		this.ds_Itmm.filter("ITLM_CD=='T'");
+		this.div_Search.form.cbo_ItmmCd.set_value("T");
+		
+		this.div_Search.form.cbo_ItlmCd.set_enable(false);		
+	}
+	
+	//-- 제품사양번호관리에서 대분류가 제품인것만 조회(2022.10.14 김형수부장 요청)
+	if(this.fvPp070=="0020"){		
+		this.ds_Itlm.filter("");
+		this.ds_ItlmSch.filter("");
+		this.ds_Itlm.filter("PROD_GU=='0020'");
+		
+		this.ds_ItlmSch.filter("PROD_GU=='0020'");
+		
+		//this.div_Search.form.cbo_ItmmCd.set_value("T");
+		
+		//this.div_Search.form.cbo_ItlmCd.set_enable(false);		
+	}
+}
+
+/***********************************************************************************************
+ * 00.06. Form [업무] 일반콤보 조회 함수
+ ***********************************************************************************************/
+this.fn_ComboSearch = function() 
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "rd:M_RD_ITLM_C_SL10";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스정보 추가
+	svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "rd:M_RD_ITMM_C_SL10";
+	this.gfn_AddComSearchService(this, svcAddObj);	
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "COMBO_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_RD;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Itlm=ds_Itlm ds_Itmm=ds_Itmm";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);
+}
+
+/***********************************************************************************************
+ * 00.07. Form OnClose 이벤트
+ ***********************************************************************************************/
+ 
+/***********************************************************************************************
+ * 00.08. Form OnSize 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{ 
+
+	if (obj.width > 1600) {
+		this.grd_Master10.set_autofittype("col");
+	} else {
+		this.grd_Master10.set_autofittype("none");
+	}
+
+};
+
+/***********************************************************************************************
+ * 1. 조회 영역
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 01.01. [팝업버튼] 조회 버튼 클릭 이벤트
+ ***********************************************************************************************/
+this.div_PopupTitle_btn_Search_onclick = function()
+{ 
+
+	if (!this.fn_VaildSearch()) return;	
+	//다시 유효성 체크 세팅
+	//this.essentialYn="1";
+	
+	
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+	this.ds_Master10.clearData();
+	
+	//[업무] 조회조건 입력
+	this.ds_Input.addRow();
+
+	this.ds_Input.setColumn(0, "ITLM_CD", this.div_Search.form.cbo_ItlmCd.value);//대분류	
+	this.ds_Input.setColumn(0, "ITMM_CD", this.div_Search.form.cbo_ItmmCd.value);//중분류
+	this.ds_Input.setColumn(0, "ITEM_CD", this.div_Search.form.edt_ItemCd.value);//품목코드
+	this.ds_Input.setColumn(0, "ITEM_NM", this.div_Search.form.edt_ItemNm.value);//품목명
+	this.ds_Input.setColumn(0, "SPEC_NM", this.div_Search.form.edt_SpecNm.value);//규격
+	this.ds_Input.setColumn(0, "PROD_GU", this.div_Search.form.cbo_ProdGu.value);//제품/자재구분
+	
+	var objSchEdt;
+	var objSchCbo;
+	for (var iLoop=1; iLoop<9; iLoop++) {
+		objSchEdt = eval("this.div_SearchDetail.form.edt_ItsmCd" + iLoop);
+		objSchCbo = eval("this.div_SearchDetail.form.cbo_ItsmCd" + iLoop);
+		
+		if (objSchCbo.visible == false) {		
+			this.ds_Input.setColumn(0, "SP0" + iLoop + "_CD", objSchEdt.value);
+		} else {
+			this.ds_Input.setColumn(0, "SP0" + iLoop + "_CD", objSchCbo.value);
+		}
+	}
+	 
+	//사용여부-사용
+	if (this.div_Search.form.cbo_UsedYn.value == "1") {
+		this.ds_Input.setColumn(0, "USED_YN", "1");//사용여부
+	} else if (this.div_Search.form.cbo_UsedYn.value == "0") {
+		this.ds_Input.setColumn(0, "USED_YN", "0");//사용여부
+	} else {
+		this.ds_Input.setColumn(0, "USED_YN", "");//사용여부
+	}	
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "rd:M_RD_ITEM_M_SL10";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid 		= "MST_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName 	= this.G_SV_RD;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+	svcCallObj.sOutDatset 	= "ds_Master10=ds_Master10";//출력 데이터셋
+	svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);			
+}
+
+/***********************************************************************************************
+ * 01.02. [Vaildation] 조회 필수값 체크
+ ***********************************************************************************************/
+this.fn_VaildSearch = function()
+{
+
+	if(this.essentialYn=="0"){
+		//부모창에서 파라메타가 있을시 유효성체크 없이 바로 조회한다.
+		return true;
+	}
+
+
+	//[조회] Validation 설정
+	var arrArgs = ["this.div_Search.form.cbo_ItlmCd^" + this.div_Search.form.sta_ItlmCd.text + "|NULL"
+			      ]; 
+				  
+	var sCheckGroupTitle = "조회조건";//체크그룹 타이틀
+
+	//컴포넌트 Vaild 체크
+	if (!this.gfn_CheckFormCompValid(this, arrArgs, sCheckGroupTitle)) {
+		return false;
+	}
+	
+	if (this.gfn_IsNull(this.div_Search.form.cbo_ItmmCd.value) && this.gfn_IsNull(this.div_Search.form.edt_ItemCd.value) && this.gfn_IsNull(this.div_Search.form.edt_ItemNm.value)) {
+		//[ &ITM0 ]  또는 [ &ITM1 ] , [ &ITM2]  중 하나는 필수 입력항목입니다. 
+		var arrMsgArg = [this.div_Search.form.sta_ItmmCd.text, this.div_Search.form.sta_ItemCd.text, this.div_Search.form.sta_ItemNm.text];
+		this.gfn_Alert("SM054", arrMsgArg);
+		return false;
+	}
+	
+	//조회조건 필수입력값 있으면 체크
+	return true;
+}
+
+/***********************************************************************************************
+ * 01.03. [공통] 조회조건 클릭/변경 이벤트
+ ***********************************************************************************************/
+/***********************************************************************************************
+ *    01. [부서]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 부서 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 부서코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 부서명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/***********************************************************************************************
+ *    02. [사용자]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 사용자 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사원코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사원명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ *    03. [계약번호]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 계약번호 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 계약번호 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ *    04. [프로젝트]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 프로젝트 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 프로젝트 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/***********************************************************************************************
+ *    05. [거래처]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 거래처 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 거래처코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 거래처명 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+
+/***********************************************************************************************
+ *    06. [사업장]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 사업장 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 사업장 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+  
+/***********************************************************************************************
+ *    07. [W/O]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] W/O 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] W/O 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ *    08. [품목코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-팝업버튼] 품목코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 품목코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+
+/***********************************************************************************************
+ *    09. [계정코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Button] 계정코드 버튼 클릭 이벤트
+  ---------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Edit] 계정코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+  
+/***********************************************************************************************
+ *    10. [중분류코드]
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    [조회영역-Combo] 중분류코드 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/  
+this.div_Search_cbo_ItmmCd_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	this.ds_Input.clearData();
+	this.ds_Itsm.clearData();
+	
+	this.ds_Input.addRow();
+	this.ds_Input.setColumn(0, "ITLM_CD", this.div_Search.form.cbo_ItlmCd.value);//대분류	
+	this.ds_Input.setColumn(0, "ITMM_CD", this.div_Search.form.cbo_ItmmCd.value);//중분류	
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "rd:M_RD_ITEM_M_SL12";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "ITSM_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_RD;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = "ds_Itsm=ds_Itsm";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+};  
+
+/***********************************************************************************************
+ * 2. 입력
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 02.01. [공통버튼] 입력 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+ /***********************************************************************************************
+ * 02.MG0.01. [Master 데이터셋] 변경 이벤트
+ ***********************************************************************************************/
+/*---------------------------------------------------------------------------------------------
+ *    01. [데이터셋-ds_Master10] 데이터 Row 변경 이벤트
+  ---------------------------------------------------------------------------------------------*/
+this.ds_Master10_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	if (e.newrow > -1) {
+		var objStatic;
+		var objCombo;
+		var objSpecEdtSpCd;//사양정보-코드
+		var objSpecEdtSpNm;//사양정보-코드명		
+		
+		for (var iLoop=1; iLoop < 9; iLoop++) {
+			objStatic = eval("this.div_SearchDetail.form.sta_ItsmNm" + iLoop);
+			objCombo = eval("this.div_SearchDetail.form.cbo_ItsmCd" + iLoop);
+			objSpecEdtSpCd = eval("this.div_Itsm.form.edt_Sp0" + iLoop + "Cd");//사양정보-코드
+			objSpecEdtSpNm = eval("this.div_Itsm.form.edt_Sp0" + iLoop + "Nm");//사양정보-코드명		
+
+			if (!this.gfn_IsNull(objStatic.text)) {		
+				if (objCombo.visible) {
+					objSpecEdtSpCd.set_value(this.ds_Master10.getColumn(e.newrow, "SP0" + iLoop + "_CD"));
+					objSpecEdtSpNm.set_value(this.ds_Master10.getColumn(e.newrow, "SP0" + iLoop + "_NM"));
+				} else {
+					objSpecEdtSpNm.set_value(this.ds_Master10.getColumn(e.newrow, "SP0" + iLoop + "_CD"));
+				}
+	
+			} else {
+				objSpecEdtSpCd.set_value("");
+				objSpecEdtSpNm.set_value("");	
+			}
+		}
+	}
+};
+
+/***********************************************************************************************
+ * 02.MG0.02. [Master10 그리드] 더블클릭 이벤트
+ ***********************************************************************************************/ 
+this.grd_Master10_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if (e.row > -1) {
+		var mRow = this.ds_Master10.rowposition;
+		this.fn_Choice(mRow);
+	}	
+}; 
+
+ /***********************************************************************************************
+ * 02.MG0.03.  [enter key] 줄선택 이벤트
+ ***********************************************************************************************/  
+this.grd_Master10_onkeydown = function(obj:nexacro.Grid,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == "13"){
+		var mRow = this.ds_Master10.rowposition;
+		this.fn_Choice(mRow);
+	}
+};
+
+/***********************************************************************************************
+ * 3. 복사
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 03.01. [팝업버튼] 복사 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 4. 취소
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 04.01. [팝업버튼] 취소 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 5. 저장
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 05.01. [팝업버튼] 저장 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 05.02. [Vaildation] Master 저장 필수값 체크 - 입력항목 
+ ***********************************************************************************************/ 
+this.fn_VaildMasterSave = function()
+{
+}
+
+/***********************************************************************************************
+ * 05.03. [Vaildation] Detail 저장 필수값 체크 - 그리드항목
+ ***********************************************************************************************/ 
+this.fn_VaildDetailSave = function()
+{
+}
+ 
+/***********************************************************************************************
+ * 6. 삭제
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 06.01. [공통버튼] 삭제 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+/***********************************************************************************************
+ * 06.02. [서비스] 삭제처리
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 06.03. [Vaildation] 삭제항목 체크
+ ***********************************************************************************************/  
+this.fn_VaildMasterDelete = function()
+{
+}
+
+/***********************************************************************************************
+ * 7. 엑셀
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 07.01. [팝업버튼] 엑셀저장 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 8. 인쇄
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 08.01. [팝업버튼] 인쇄 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 9. 결재요청
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 09.01. [팝업버튼] 결재요청 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 10. 결재현황
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 10.01. [팝업버튼] 결재현황 버튼 클릭 이벤트
+ ***********************************************************************************************/  
+
+/***********************************************************************************************
+ * 11. 재기안
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 11.01. [팝업버튼] 재기안 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+
+/***********************************************************************************************
+ * 12. 닫기
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 12.01. [팝업버튼] 닫기 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.div_PopupTitle_btn_Close_onclick = function()
+{ 
+	this.gfn_PopClose();
+}
+
+/***********************************************************************************************
+ * 13. 선택
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 13.01. [팝업버튼] 선택 버튼 클릭 이벤트
+ ***********************************************************************************************/ 
+this.div_PopupTitle_btn_Choice_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var mRow = this.ds_Master10.rowposition;
+	this.fn_Choice(mRow);
+}
+
+/***********************************************************************************************
+ * 13.02. [사용자함수] 선택한 정보 부모창 리턴 함수 
+ ***********************************************************************************************/ 
+this.fn_Choice = function(iRow) {
+	if (iRow > -1) {	
+	
+        rtnValue = "({" +
+                        ' COMM_CD:"' + this.ds_Master10.getColumn(iRow, "COMM_CD") + '"'+  //0.회사코드
+                        ',ITEM_CD:"' + this.ds_Master10.getColumn(iRow, "ITEM_CD") + '"'+  //1.품목코드
+                        ',ITEM_NM:"' + this.ds_Master10.getColumn(iRow, "ITEM_NM") + '"'+  //2.품명
+                        ',SPEC_NM:"' + this.ds_Master10.getColumn(iRow, "SPEC_NM") + '"'+  //3.규격
+                        ',MAKE_NM:"' + this.gfn_Nvl(this.ds_Master10.getColumn(iRow, "MAKE_NM"), "") + '"'+  //Maker(추가)
+                        ',UNIT_CD:"' + this.ds_Master10.getColumn(iRow, "UNIT_CD") + '"'+  //4.단위
+                        ',ITLM_CD:"' + this.ds_Master10.getColumn(iRow, "ITLM_CD") + '"'+  //5.대분류
+                        ',ITLM_NM:"' + this.ds_Master10.getColumn(iRow, "ITLM_NM") + '"'+  //5-1.대분류명
+                        ',ITMM_CD:"' + this.ds_Master10.getColumn(iRow, "ITMM_CD") + '"'+  //6.중분류
+                        ',ACOM_CD:"' + this.ds_Master10.getColumn(iRow, "ACOM_CD") + '"'+  //7.계정코드
+                        ',SP01_CD:"' + this.ds_Master10.getColumn(iRow, "SP01_CD") + '"'+  //8.사양01코드
+                        ',SP02_CD:"' + this.ds_Master10.getColumn(iRow, "SP02_CD") + '"'+  //9.사양02코드
+                        ',SP03_CD:"' + this.ds_Master10.getColumn(iRow, "SP03_CD") + '"'+  //10.사양03코드
+                        ',SP04_CD:"' + this.ds_Master10.getColumn(iRow, "SP04_CD") + '"'+  //11.사양04코드
+                        ',SP05_CD:"' + this.ds_Master10.getColumn(iRow, "SP05_CD") + '"'+  //12.사양05코드
+                        ',SP06_CD:"' + this.ds_Master10.getColumn(iRow, "SP06_CD") + '"'+  //13.사양06코드
+                        ',SP07_CD:"' + this.ds_Master10.getColumn(iRow, "SP07_CD") + '"'+  //14.사양07코드
+                        ',SP08_CD:"' + this.ds_Master10.getColumn(iRow, "SP08_CD") + '"'+  //15.사양08코드
+                        ',SP09_CD:"' + this.ds_Master10.getColumn(iRow, "SP09_CD") + '"'+  //16.사양09코드
+                        ',SP10_CD:"' + this.ds_Master10.getColumn(iRow, "SP10_CD") + '"'+  //17.사양10코드
+                        ',BEFO_CD:"' + this.ds_Master10.getColumn(iRow, "BEFO_CD") + '"'+  //18.구품목코드
+                        ',RTDO_CT:"' + this.ds_Master10.getColumn(iRow, "RTDO_CT") + '"'+  //19.구매리드타임(국내)일수
+                        ',RTIM_CT:"' + this.ds_Master10.getColumn(iRow, "RTIM_CT") + '"'+  //20.구매리드타임(해외)일수
+                        ',STOC_YN:"' + this.ds_Master10.getColumn(iRow, "STOC_YN") + '"'+  //21.재고관리여부
+						//0607- 계행오류발생으로 삭제
+                        //',REMK_NM:"' + this.ds_Master10.getColumn(iRow, "REMK_NM") + '"'+  //22.비고
+						',ITLM_YN:"' + this.ds_Master10.getColumn(iRow, "ITLM_YN") + '"'+  //23.품목대분류검색여부
+						',LACS_CD:"' + this.gfn_Nvl(this.ds_Master10.getColumn(iRow, "LACS_CD"), "") + '"'+  //24.최근발주업체코드
+						',LACS_NM:"' + this.gfn_Nvl(this.ds_Master10.getColumn(iRow, "LACS_NM"), "") + '"'+  //25.최근발주업체명
+                "})";
+					
+		this.gfn_PopClose(rtnValue);
+	} else {
+		this.gfn_Alert("SM046");//선택된 내용이 없습니다.
+		return;		
+	}
+}
+
+/***********************************************************************************************
+ * 14. [CallBack] 함수
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 14.01. [서비스] CallBack 함수 처리
+ ***********************************************************************************************/ 
+this.fn_Callback = function(sSvcId, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode != 0)
+	{
+		return;
+	}	
+	switch(sSvcId)
+	{
+		case "MST_SEARCH": //조회	
+			//조회시 focus 이동
+			this.grd_Master10.setFocus(0);	
+			break;			
+		case "COMBO_SEARCH"://대분류조회
+			if (this.ds_Itlm.getRowCount() > 0) {
+				this.ds_ItlmSch.copyData(this.ds_Itlm);
+				//전달받은 품목코드가 있는경우.
+				if(!this.gfn_IsNull(this.fvItemCd)){
+
+					//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+					this.ds_Input.clearData();
+					this.ds_Master11.clearData();
+					
+					//[업무] 조회조건 입력
+					this.ds_Input.addRow();
+
+					this.ds_Input.setColumn(0, "ITEM_CD", this.fvItemCd);//품목코드
+					
+					//[공통]서비스정보 초기화
+					this.gfn_InitComService(this);
+					
+					//[공통]서비스정보 추가
+					var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+					svcAddObj.sSelectSql = "rd:M_RD_ITEM_M_SL10";
+					this.gfn_AddComSearchService(this, svcAddObj);
+					
+					//[공통]서비스 호출 변수
+					var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+					svcCallObj.sTrid 		= "MST11_SEARCH";			//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+					svcCallObj.sActionName 	= this.G_SV_RD;			//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+					svcCallObj.sInputDaset 	= "ds_Input=ds_Input" 	//입력 데이터셋
+					svcCallObj.sOutDatset 	= "ds_Master11=ds_Master10";//출력 데이터셋
+					svcCallObj.sOtherArg 	= "";					//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+					svcCallObj.sCallBackFnc = "fn_Callback";		//서버에서 처리가 완료된 후 Callback 받을 Function 명
+					svcCallObj.isSync = true;
+
+					//[공통]서비스 호출
+					this.gfn_CallComService(this, svcCallObj);			
+
+					//[공통]서비스 호출
+					this.gfn_CallComService(this, svcCallObj);	
+					
+					if (this.ds_Master11.getRowCount() < 1) 
+					{
+						return false;
+					} else {
+						this.div_Search.form.cbo_ItlmCd.set_value(this.ds_Master11.getColumn(0, "ITLM_CD"));
+						
+						var eobj = new nexacro.ItemChangeEventInfo();
+						var bRtn = this.div_Search.form.cbo_ItlmCd.onitemchanged.fireEvent( this.div_Search.form.cbo_ItlmCd, eobj, true );
+						if(bRtn){
+							this.div_Search.form.cbo_ItmmCd.set_value(this.ds_Master11.getColumn(0, "ITMM_CD"));
+							var eobj = new nexacro.ItemChangeEventInfo();
+							var bRtn = this.div_Search.form.cbo_ItmmCd.onitemchanged.fireEvent( this.div_Search.form.cbo_ItmmCd, eobj, true );							
+						}
+					}
+	
+				}
+			}
+
+		    break;
+		case "ITSM_SEARCH"://사양코드조회
+			if (this.ds_Itsm.getRowCount() > 0) {
+				this.fn_SetItemStruct();//중분류 사양에 따른 SPEC 조회 조건을 설정
+			}
+
+		    break;			
+			
+	}
+};
+
+
+/***********************************************************************************************
+ * 14.02. [팝업] CallBack 함수 처리
+          strId : 팝업호출시 지정한 팝업ID
+	      rtnValue : 팝업창에서 close시 지정한 반환값
+          주의 : Open(popuptype=modeless)창은 팝업콜백을 지원하지 않음
+ ***********************************************************************************************/ 
+this.fn_PopupCallback = function(strId, rtnValue)
+{
+
+	
+};
+ 
+/***********************************************************************************************
+ * 14.03. [메세지] CallBack 함수 처리
+ ***********************************************************************************************/  
+this.fn_MsgCallback = function (strId, strVal)
+{
+}; 
+
+
+this.div_Search_cbo_ItlmCd_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	if (!this.gfn_IsNull(obj.value)) {
+		this.ds_Itmm.filter("");
+		this.ds_Itmm.filter("ITLM_CD=='" + obj.value + "'");
+	}
+	
+	//사양정보 초기화
+	this.fn_SetItemStructName();
+};
+
+/***********************************************************************************************
+ * 15. [사용자정의 함수]
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ * 15.01. 중분류 사양에 따른 SPEC 조회 조건을 설정
+ ***********************************************************************************************/ 
+this.fn_SetItemStruct = function()
+{
+
+	var objStatic;
+	var objCombo;
+	var objEdit;
+	
+	var objSpecStaTitle;//사양정보-타이틀
+	var objSpecStaBack;//사양정보-백그라운드
+	var objSpecEdtSpCd;//사양정보-코드
+	var objSpecEdtSpNm;//사양정보-코드명
+	
+	for (var iLoop=0; iLoop < 8; iLoop++) {
+		objStatic = eval("this.div_SearchDetail.form.sta_ItsmNm" + (iLoop+1));
+		objCombo = eval("this.div_SearchDetail.form.cbo_ItsmCd" + (iLoop+1));
+		objEdit = eval("this.div_SearchDetail.form.edt_ItsmCd" + (iLoop+1));
+		
+		objSpecStaTitle = eval("this.div_Itsm.form.sta_Sp0" + (iLoop+1) + "Title");//사양정보-타이틀
+		objSpecStaBack = eval("this.div_Itsm.form.sta_Sp0" + (iLoop+1) + "Back");//사양정보-백그라운드
+		objSpecEdtSpCd = eval("this.div_Itsm.form.edt_Sp0" + (iLoop+1) + "Cd");//사양정보-코드
+		objSpecEdtSpNm = eval("this.div_Itsm.form.edt_Sp0" + (iLoop+1) + "Nm");//사양정보-코드명		
+		
+		objStatic.set_text(this.gfn_Nvl(this.ds_Itsm.getColumn(iLoop, "ITSM_NM")));//사양명
+		
+		if (this.gfn_IsNull(objStatic.text)) {
+			objStatic.set_visible(false);
+			objCombo.set_visible(false);
+			objEdit.set_visible(false);
+			
+			objSpecStaTitle.set_visible(false);
+			objSpecStaBack.set_visible(false);
+			objSpecEdtSpCd.set_visible(false);
+			objSpecEdtSpNm.set_visible(false);
+		} else {
+			objStatic.set_visible(true);
+			
+			//KeyIn여부
+			if (this.ds_Itsm.getColumn(iLoop, "KEYI_YN") == "0") {
+				objEdit.set_visible(false);
+				objCombo.set_visible(true);
+			} else {
+				objEdit.set_visible(true);
+				objCombo.set_visible(false);
+			}
+			
+			objSpecEdtSpCd.set_value("");
+			objSpecEdtSpNm.set_value("");	
+			objSpecStaTitle.set_text(this.gfn_Nvl(this.ds_Itsm.getColumn(iLoop, "ITSM_NM")));
+			objSpecStaTitle.set_visible(true);
+			objSpecStaBack.set_visible(true);
+			objSpecEdtSpCd.set_visible(true);
+			objSpecEdtSpNm.set_visible(true);			
+		}
+		
+		//전송된 품목코드가 있는경우 default 값
+		if(iLoop == 0 && !this.gfn_IsNull(this.ds_Master11.getColumn(0,"SP01_NM"))){
+			objEdit.set_value(this.ds_Master11.getColumn(0,"SP01_NM"));
+		}
+	}
+	
+	for (var iLoop=0; iLoop < 8; iLoop++) {
+	
+		if (this.gfn_IsNull(this.ds_Itsm.getColumn(iLoop, "ITSM_NM"))) { break;}
+		
+		//KeyIn여부
+		if (this.ds_Itsm.getColumn(iLoop, "KEYI_YN") == "0") {
+		
+			//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+			this.ds_Input.clearData();
+
+			this.ds_Input.addRow();
+			this.ds_Input.setColumn(0, "ITLM_CD", this.ds_Itsm.getColumn(iLoop, "ITLM_CD"));//대분류	
+			this.ds_Input.setColumn(0, "ITMM_CD", this.ds_Itsm.getColumn(iLoop, "ITMM_CD"));//중분류		
+			this.ds_Input.setColumn(0, "ITSM_CD", this.ds_Itsm.getColumn(iLoop, "ITSM_CD"));//사양코드
+			
+			this.fn_SetItemSpec("ds_Itsm0" + (iLoop+1), (iLoop + 1));
+		}
+	}
+}
+
+/***********************************************************************************************
+ * 15.02. SPEC 정보 조회
+ ***********************************************************************************************/ 
+this.fn_SetItemSpec = function(sDs, cboIndex)
+{
+	//[업무] 데이터셋 설정 - 데이터셋 초기화, 조회조건 설정
+	var objDs = eval("this." + sDs);
+	var objCbo = eval("this.div_SearchDetail.form.cbo_ItsmCd" + cboIndex);
+	objDs.clearData();
+
+	//[공통]서비스정보 초기화
+	this.gfn_InitComService(this);
+	
+	//[공통]서비스정보 추가
+	var svcAddObj = new Object();//[공통] 서비스 추가 파라메타 정보 Object
+	svcAddObj.sSelectSql = "rd:M_RD_ITEM_M_SL13";
+	this.gfn_AddComSearchService(this, svcAddObj);
+	
+	//[공통]서비스 호출 변수
+	var svcCallObj = new Object();//[공통] 서비스 파라메타 정보 Object
+	svcCallObj.sTrid = "SPEM_SEARCH";//Transaction ID 등 callback에서 넘겨 받을 String을 지정
+	svcCallObj.sActionName = this.G_SV_RD;//서버에서 호출할 Action - 모듈별로 호출되는 기본 Actio이 다름 : 공통 서비스 Action 업무구분  변수 참조
+	svcCallObj.sInputDaset = "ds_Input=ds_Input" //입력 데이터셋
+	svcCallObj.sOutDatset = sDs + "=ds_Spem";//출력 데이터셋
+	svcCallObj.sOtherArg = "";//서버로 전송할 기타 Argument 정보 문자열, 예) key=value key2=value2
+	svcCallObj.sCallBackFnc = "fn_Callback";//서버에서 처리가 완료된 후 Callback 받을 Function 명
+	svcCallObj.isSync = true;//동기식으로 설정할지 여부
+
+	//[공통]서비스 호출
+	this.gfn_CallComService(this, svcCallObj);	
+	
+	if (objDs.getRowCount() > 0) {
+		objDs.insertRow(0);
+		objDs.setColumn(0, "ITLM_CD", ""); //대분류
+		objDs.setColumn(0, "ITMM_CD", ""); //중분류
+		objDs.setColumn(0, "SPEM_CD", ""); //SPEC코드
+		objDs.setColumn(0, "SPEM_NM", "전체"); //SPEC명
+		objCbo.set_index(0);
+		
+		//전송된 품목코드가 있는경우 default 값
+		if(cboIndex == 1 && !this.gfn_IsNull(this.ds_Master11.getColumn(0,"SP01_CD"))){
+			objCbo.set_value(this.ds_Master11.getColumn(0,"SP01_CD"));
+		}
+		
+	}
+	
+}
+
+/***********************************************************************************************
+ * 15.03. 사양정보초기화
+ ***********************************************************************************************/ 
+this.fn_SetItemStructName = function() {
+	var objSta;
+	var objCbo;
+	var objEdt;
+	
+	this.ds_Itsm01.clearData();
+	this.ds_Itsm02.clearData();
+	this.ds_Itsm03.clearData();
+	this.ds_Itsm04.clearData();
+	this.ds_Itsm05.clearData();
+	this.ds_Itsm06.clearData();
+	this.ds_Itsm07.clearData();
+	this.ds_Itsm08.clearData();
+	this.ds_Itsm09.clearData();
+	this.ds_Itsm10.clearData();
+	
+	for (var iLoop=1; iLoop<9; iLoop++) {
+		objSta = eval("this.div_SearchDetail.form.sta_ItsmNm" + iLoop);
+		objCbo = eval("this.div_SearchDetail.form.cbo_ItsmCd" + iLoop);
+		objEdt = eval("this.div_SearchDetail.form.edt_ItsmCd" + iLoop);
+		objSta.set_text("사양" + iLoop);
+		objSta.set_visible(true);
+		objEdt.set_value("");		
+		objEdt.set_visible(true);
+		objCbo.set_visible(false);
+	}
+}
+
+this.div_Search_Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.alert(this.div_Search.form.cbo_ItmmCd.value);
+};
+]]></Script>
+    <Bind>
+      <BindItem id="item2" compid="div_Itsm.form.edt_Sp01Cd" propid="value"/>
+      <BindItem id="item3" compid="div_Itsm.form.edt_Sp01Nm" propid="value"/>
+      <BindItem id="item4" compid="div_Itsm.form.edt_Sp02Cd" propid="value"/>
+      <BindItem id="item5" compid="div_Itsm.form.edt_Sp02Nm" propid="value"/>
+      <BindItem id="item6" compid="div_Itsm.form.edt_Sp03Cd" propid="value"/>
+      <BindItem id="item7" compid="div_Itsm.form.edt_Sp03Nm" propid="value"/>
+      <BindItem id="item8" compid="div_Itsm.form.edt_Sp04Cd" propid="value"/>
+      <BindItem id="item9" compid="div_Itsm.form.edt_Sp04Nm" propid="value"/>
+      <BindItem id="item10" compid="div_Itsm.form.edt_Sp05Cd" propid="value"/>
+      <BindItem id="item11" compid="div_Itsm.form.edt_Sp05Nm" propid="value"/>
+      <BindItem id="item12" compid="div_Itsm.form.edt_Sp06Cd" propid="value"/>
+      <BindItem id="item13" compid="div_Itsm.form.edt_Sp06Nm" propid="value"/>
+      <BindItem id="item14" compid="div_Itsm.form.edt_Sp07Cd" propid="value"/>
+      <BindItem id="item15" compid="div_Itsm.form.edt_Sp07Nm" propid="value"/>
+      <BindItem id="item16" compid="div_Itsm.form.edt_Sp08Cd" propid="value"/>
+      <BindItem id="item17" compid="div_Itsm.form.edt_Sp08Nm" propid="value"/>
+    </Bind>
+  </Form>
+</FDL>

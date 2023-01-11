@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="M_PP_0000" width="1542" height="695" titletext="자재관리프로세스" onload="fn_FormOnload" onclose="fn_FormClose">
+    <Layouts>
+      <Layout height="695" width="1542">
+        <ImageViewer id="ImgView" taborder="5" left="0" top="0" imagealign="left top" onclick="ImageViewer00_onclick" stretch="fit" image="url('theme::default/images/BG_PP_PROCESS.PNG')" width="1020" height="697" text=""/>
+        <Static id="M_RM_0300" taborder="0" left="65" top="156" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_PP_1300" taborder="1" left="65" top="246" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_MT_5100" taborder="2" left="65" top="430" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_PP_0500" taborder="3" left="270" top="156" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_MT_5200" taborder="4" left="270" top="520" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_MT_8130" taborder="6" left="270" top="610" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_PP_0600" taborder="7" left="453" top="156" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_MT_4300" taborder="8" left="453" top="430" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_MT_4600" taborder="9" left="453" top="520" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_MT_8180" taborder="10" left="453" top="611" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_MT_4200" taborder="11" left="635" top="301" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_MT_9100" taborder="12" left="635" top="611" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_MM_1100" taborder="13" left="837" top="185" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_MM_3100" taborder="14" left="837" top="240" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_MM_4100" taborder="15" left="837" top="300" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_MM_5100" taborder="16" left="837" top="356" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_SR_3600" taborder="17" left="837" top="411" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_SR_4200" taborder="18" left="837" top="466" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_SR_4100" taborder="19" left="835" top="521" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+        <Static id="M_FA_1000" taborder="20" left="837" top="611" width="115" height="29" onclick="Prgm_onclick" cursor="pointer" onmouseenter="Prgm_onmouseenter"/>
+      </Layout>
+    </Layouts>
+    <Objects/>
+    <Script type="xscript5.1"><![CDATA[/**
+*  @화면ID   : M_SD_0000
+*  @화면설명 : 영업관리프로세스
+*  @시스템명 : (SD) 영업관리
+*  @작성자   : 정충현
+*  @작성일   : 2022.12.29
+*  @Desction    
+*/
+
+/***********************************************************************************************
+ * 0. 폼로드
+ ***********************************************************************************************/
+/***********************************************************************************************
+ * 00.01. Form Include 선언
+ ***********************************************************************************************/
+//include "comLib::CommonUtil.xjs";//공통함수
+
+/***********************************************************************************************
+ * 00.02. Form 변수 선언
+ ***********************************************************************************************/
+this.fvComPrgmId = "";//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+
+/***********************************************************************************************
+ * 00.03. Form Onload 이벤트
+ ***********************************************************************************************/
+this.fn_FormOnload = function (obj:Form, e:LoadEventInfo)
+{
+	this.fn_FormComInit();//[공통] 화면로드시 초기 설정 함수
+	this.fn_FormBizInit();//[업무] 화면로드시 초기 설정 함수 
+}
+
+/***********************************************************************************************
+ * 00.04. Form [공통] 초기설정 함수 - 필수
+ ***********************************************************************************************/
+this.fn_FormComInit = function() 
+{
+	this.gfn_CommFormOnLoad(this);//[공통] 화면로드시 처리 함수(다국어등)
+	this.fvComPrgmId = this.gfn_CommLoadFormPrgmId(this);//[필수]프로그램ID-메인화면기준, 팝업일경우 해당 메인화면의 프로그램ID
+	
+}
+
+/***********************************************************************************************
+ * 00.05. Form [업무] 초기설정 함수
+ ***********************************************************************************************/
+this.fn_FormBizInit = function() 
+{ 
+	
+}
+
+/***********************************************************************************************
+ * 00.06. Form [업무] 일반콤보 조회 함수
+ ***********************************************************************************************/
+this.fn_ComboSearch = function() 
+{
+}
+
+/***********************************************************************************************
+ * 00.07. Form OnClose 이벤트
+ ***********************************************************************************************/
+this.fn_FormClose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	return true;
+};
+
+this.Prgm_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	var idx = nApp.gds_Menu.findRow("PRGM_ID", obj.id);
+	if(nApp.gds_Menu.getColumn(idx, "USED_YN") == "1") {
+		this.gfn_CallScrn(obj.id);
+	} else {
+		this.gfn_Alert("SM049");//해당 화면의 권한이 없습니다.
+	}
+};
+
+this.Prgm_onmouseenter = function(obj:nexacro.Static,e:nexacro.MouseEventInfo)
+{
+	var idx = nApp.gds_Menu.findRow("PRGM_ID", obj.id);
+	if(idx > 0) {
+		if(this.gfn_IsNull(obj.tooltiptext)) {
+			obj.set_tooltiptext(nApp.gds_Menu.getColumn(idx, "REMK_NM"));
+		}
+	}
+	
+};
+]]></Script>
+  </Form>
+</FDL>
